@@ -1,0 +1,26 @@
+{
+  "development": {
+    "version": "0.0.1",
+    "firebaseApp": {
+      "apiKey": "AIzaSyDEAXxyhLWzWdiqpssVpUVNn9t3_zu7_vE",
+      "authDomain": "iciproperu-d5827.firebaseapp.com",
+      "projectId": "iciproperu-d5827",
+      "storageBucket": "iciproperu-d5827.firebasestorage.app",
+      "messagingSenderId": "542372969489",
+      "appId": "1:542372969489:web:a6610eedc355db128845b0"
+    },
+    "apiUrl": "https://api-servitecperu.web.app"
+  },
+  "production": {
+    "version": "0.0.1",
+    "firebaseApp": {
+      "apiKey": "AIzaSyDEAXxyhLWzWdiqpssVpUVNn9t3_zu7_vE",
+      "authDomain": "iciproperu-d5827.firebaseapp.com",
+      "projectId": "iciproperu-d5827",
+      "storageBucket": "iciproperu-d5827.firebasestorage.app",
+      "messagingSenderId": "542372969489",
+      "appId": "1:542372969489:web:a6610eedc355db128845b0"
+    },
+    "apiUrl": "https://api-servitecperu.web.app"
+  }
+}

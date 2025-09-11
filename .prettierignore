@@ -1,0 +1,35 @@
+# dependencias
+node_modules
+.pnp
+.pnp.js
+
+# builds de cada app
+apps/hosting/.next
+apps/hosting/out
+apps/hosting/.turbo
+
+apps/hosting-edu-platform/dist
+apps/hosting-edu-platform/.turbo
+
+apps/functions/lib
+apps/functions/dist
+apps/functions/.turbo
+
+# firebase
+.firebase
+firebase-debug.log
+.firebaserc
+
+# archivos de lock
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# logs y cache
+*.log
+*.cache
+coverage
+
+# env
+.env
+.env.*
