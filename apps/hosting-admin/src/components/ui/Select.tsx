@@ -3,6 +3,8 @@ import { ComponentContainer } from './component-container';
 import { lighten } from 'polished';
 import styled, { css } from 'styled-components';
 
+type Option = { code?: string; label?: string; value?: string };
+
 interface SelectProps {
   value?: string;
   required?: boolean;
@@ -14,7 +16,7 @@ interface SelectProps {
   variant?: 'outlined' | 'filled';
   allowClear?: boolean;
   filterOption?: (inputValue: string, optionLabel: string) => boolean;
-  options?: [{ code?: string; label?: string; value?: string }];
+  options?: Option[] | undefined;
   placeholder?: string;
   helperText?: string;
   onChange?: (value?: string) => void;
@@ -36,7 +38,7 @@ export const Select = ({
   variant = 'filled',
   allowClear,
   filterOption = (inputValue, optionLabel) => defaultFilterOption(inputValue, optionLabel),
-  options,
+  options = [],
   placeholder = '',
   helperText,
   onChange = (value) => value,
@@ -80,7 +82,7 @@ export const Select = ({
           value={value}
           defaultValue={value}
           onChange={onChange}
-          filterOption={(inputValue, option) => filterOption(inputValue, option?.label)}
+          filterOption={(inputValue, option) => filterOption(inputValue, option?.label ?? '')}
           showSearch
           size="large"
           placeholder=""
