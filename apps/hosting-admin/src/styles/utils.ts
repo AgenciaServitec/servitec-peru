@@ -1,6 +1,6 @@
-// type Args = Record<string, unknown>[];
+type Args = Record<string, unknown>[];
 
-export const classNames = (...args: [string, boolean]) =>
+export const classNames = (...args: Args) =>
   args
     .map((arg) =>
       typeof arg === 'object'
@@ -8,6 +8,6 @@ export const classNames = (...args: [string, boolean]) =>
             .filter(([, condition]) => condition)
             .map(([className]) => className)
             .join(' ')
-        : arg,
+        : arg
     )
     .join(' ');
