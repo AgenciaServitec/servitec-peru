@@ -1,13 +1,18 @@
 import { Response, Request, NextFunction } from 'express';
 
-export const postAssistance = async (
-  req: Request,
+type Params = { quotationId: string };
+
+export const putQuotation = async (
+  req: Request<Params, unknown, Quotation, unknown>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const { body: assistance } = req;
+  const {
+    body: quotation,
+    params: { quotationId },
+  } = req;
 
-  console.log('「Add assistance」Initialize', assistance, {
+  console.log(quotationId, '「Update quotation」Initialize', {
     params: req.params,
     body: req.body,
   });

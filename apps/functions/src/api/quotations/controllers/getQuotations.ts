@@ -1,6 +1,10 @@
 import { Response, Request, NextFunction } from 'express';
 
-export const getUsers = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const getQuotations = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     res.json({ message: 'En desarrollo!!!' });
   } catch (e) {
