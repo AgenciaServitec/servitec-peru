@@ -9,6 +9,12 @@ export type FirestoreDocumentReference =
 
 export type FirestoreTimestamp = admin.firestore.Timestamp;
 
+export const toISO = (t?: FirestoreTimestamp): string | undefined =>
+  t ? t.toDate().toISOString() : undefined;
+
+export const fromISO = (iso?: string): FirestoreTimestamp | undefined =>
+  iso ? admin.firestore.Timestamp.fromDate(new Date(iso)) : undefined;
+
 export const now = () => Timestamp.now();
 
 interface ToTimestamp {
