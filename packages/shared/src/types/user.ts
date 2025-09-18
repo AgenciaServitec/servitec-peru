@@ -1,6 +1,6 @@
-import { AppTimestamp, BaseModel, Phone } from './common';
+import { Phone } from './common';
 
-export interface User extends BaseModel {
+export interface User {
   id: string;
   firstName: string;
   paternalSurname: string;
@@ -12,6 +12,6 @@ export interface User extends BaseModel {
   };
   phone: Phone;
   profilePhoto?: string;
-  birthDate?: AppTimestamp;
+  birthDate?: string;
   gender?: 'male' | 'female' | 'other';
 }
