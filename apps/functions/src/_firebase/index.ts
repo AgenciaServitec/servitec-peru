@@ -1,4 +1,4 @@
-export * from '../_firebase/firestore/types/firestore';
+export * from './firestore';
 
 import * as admin from 'firebase-admin';
 

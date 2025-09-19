@@ -266,7 +266,11 @@ importers:
         specifier: '*'
         version: 3.6.2
 
-  packages/shared: {}
+  packages/shared:
+    devDependencies:
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.2
 
   packages/typescript-config: {}
 
@@ -5315,6 +5319,11 @@ packages:
 
   typescript@5.8.3:
     resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
+  typescript@5.9.2:
+    resolution: {integrity: sha512-CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -12005,6 +12014,8 @@ snapshots:
       - supports-color
 
   typescript@5.8.3: {}
+
+  typescript@5.9.2: {}
 
   uglify-js@3.19.3:
     optional: true

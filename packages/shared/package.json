@@ -2,9 +2,16 @@
   "name": "@servitecperu/shared",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.10.0"
+  "packageManager": "pnpm@10.10.0",
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
 }
