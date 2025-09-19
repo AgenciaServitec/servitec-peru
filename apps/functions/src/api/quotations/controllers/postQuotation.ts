@@ -1,4 +1,8 @@
-import { Response, Request, NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
+import { addQuotation } from '../../../_firebase/collections';
+import { defaultFirestoreProps } from '../../../utils';
+
+const { assignCreateProps } = defaultFirestoreProps();
 
 export const postQuotation = async (
   req: Request,
@@ -13,7 +17,8 @@ export const postQuotation = async (
   });
 
   try {
-    res.json({ message: 'En desarrollo!!!' });
+    await addQuotation(assignCreateProps(quotation));
+    res.sendStatus(200).end();
   } catch (e) {
     console.error(e);
   }

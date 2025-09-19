@@ -1,5 +1,5 @@
 {
-  "name": "functions",
+  "name": "@servitec-peru/functions",
   "scripts": {
     "lint": "eslint --ext .js,.ts ",
     "build": "tsc",
@@ -28,7 +28,8 @@
     "ts-jest": "^29.4.1"
   },
   "devDependencies": {
-    "@servitecperu/shared": "workspace:*",
+    "@servitec-peru/shared": "workspace:*",
+    "@servitec-peru/typescript-config": "workspace:*",
     "@types/cors": "^2.8.19",
     "@types/crypto-js": "^4.2.2",
     "@types/express": "^5.0.3",

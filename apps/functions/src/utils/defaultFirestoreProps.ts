@@ -1,6 +1,6 @@
-import { assign } from "lodash";
-import * as admin from "firebase-admin";
-import { firestoreTimestamp } from "../_firebase";
+import { assign } from 'lodash';
+import * as admin from 'firebase-admin';
+import { firestoreTimestamp } from '../_firebase';
 // import { Timestamp } from "@google-cloud/firestore";
 
 interface DocumentCreate {

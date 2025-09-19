@@ -1,5 +1,5 @@
 {
-  "name": "@servitecperu/hosting-admin",
+  "name": "@servitec-peru/hosting-admin",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
-    "@servitecperu/typescript-config": "workspace:*",
+    "@servitec-peru/typescript-config": "workspace:*",
     "@tailwindcss/vite": "^4.1.13",
     "@types/lodash": "^4.17.20",
     "@types/react": "^19.1.10",

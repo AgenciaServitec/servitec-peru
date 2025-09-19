@@ -1,14 +1,14 @@
 {
-  "name": "servitecperu",
+  "name": "servitec-peru",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "deploy:functions": "pnpm --filter @servitecperu/functions run deploy",
-    "deploy:hosting": "pnpm --filter @servitecperu/hosting run deploy",
-    "deploy:edu": "pnpm --filter @servitecperu/hosting-admin run deploy",
+    "deploy:functions": "pnpm --filter @servitec-peru/functions run deploy",
+    "deploy:hosting": "pnpm --filter @servitec-peru/hosting run deploy",
+    "deploy:edu": "pnpm --filter @servitec-peru/hosting-admin run deploy",
     "lint:check": "turbo run lint:check",
     "lint:fix": "turbo run lint:fix",
     "prettier:check": "turbo run prettier:check",

@@ -1,33 +1,22 @@
-import * as admin from 'firebase-admin';
-import { Timestamp } from '@google-cloud/firestore';
+import * as firebase from 'firebase-admin';
 
-export type FirestoreQuery = admin.firestore.Query<admin.firestore.DocumentData>;
-export type FirestoreQuerySnapshot = admin.firestore.QuerySnapshot<admin.firestore.DocumentData>;
+type Document<T extends ObjectType> = { id: string } & T;
 
-export type FirestoreDocumentReference =
-  admin.firestore.DocumentReference<admin.firestore.DocumentData>;
+type DocumentData = firebase.firestore.DocumentData;
+export type QuerySnapshot = FirebaseFirestore.QuerySnapshot;
+export type Query = FirebaseFirestore.Query;
+export type DocumentReference = FirebaseFirestore.DocumentReference;
+type WriteResult = FirebaseFirestore.WriteResult;
 
-export type FirestoreTimestamp = admin.firestore.Timestamp;
+export type WhereClauses<T extends ObjectType> = [
+  NestedKeyOf<T>,
+  FirebaseFirestore.WhereFilterOp,
+  unknown,
+];
 
-export const toISO = (t?: FirestoreTimestamp): string | undefined =>
-  t ? t.toDate().toISOString() : undefined;
-
-export const fromISO = (iso?: string): FirestoreTimestamp | undefined =>
-  iso ? admin.firestore.Timestamp.fromDate(new Date(iso)) : undefined;
-
-export const now = () => Timestamp.now();
-
-interface ToTimestamp {
-  seconds: number;
-  nanoseconds: number;
-}
-
-export const toTimestamp = ({ seconds, nanoseconds }: ToTimestamp): admin.firestore.Timestamp =>
-  new admin.firestore.Timestamp(seconds, nanoseconds);
-
-type Document<T> = { id: string } & T;
-
-export const querySnapshotToArray = <T>(querySnapshot: FirestoreQuerySnapshot): Document<T>[] => {
+export const querySnapshotToArray = <T extends ObjectType>(
+  querySnapshot: QuerySnapshot
+): Document<T>[] => {
   const documents: Document<T>[] = [];
 
   querySnapshot.forEach((documentSnapshot) => {
@@ -38,36 +27,59 @@ export const querySnapshotToArray = <T>(querySnapshot: FirestoreQuerySnapshot): 
   return documents;
 };
 
-export const fetchCollection = async <T>(query: FirestoreQuery): Promise<Document<T>[]> => {
+export const documentSnapshotToDocument = <T extends ObjectType>(
+  docSnapshot: FirebaseFirestore.DocumentSnapshot
+): T | undefined => {
+  const document = docSnapshot as FirebaseFirestore.DocumentSnapshot<T>;
+
+  return document.data();
+};
+
+export const fetchCollection = async <T extends ObjectType>(
+  query: Query,
+  whereClauses?: WhereClauses<T>[]
+): Promise<Document<T>[]> => {
+  let newQuery = query;
+
+  whereClauses?.forEach(
+    ([field, operation, value]) => (newQuery = newQuery.where(field, operation, value))
+  );
+
+  const querySnapshot = await newQuery.get();
+
+  return querySnapshotToArray<T>(querySnapshot);
+};
+
+export const fetchCollectionOnce = async <T extends DocumentData>(
+  query: Query
+): Promise<Document<T>[]> => {
   const querySnapshot = await query.get();
 
   return querySnapshotToArray<T>(querySnapshot);
 };
 
-export const fetchDocument = async <T>(
-  query: FirestoreDocumentReference
+export const fetchDocument = async <T extends ObjectType>(
+  query: DocumentReference
 ): Promise<T | undefined> => {
-  const documentSnapshot = (await query.get()) as admin.firestore.DocumentSnapshot<T>;
+  const documentSnapshot = await query.get();
 
-  return documentSnapshot.data();
+  return documentSnapshotToDocument<T>(documentSnapshot);
 };
 
-export const executeIfNotAlreadyTriggered = (
-  eventId: string,
-  callback: () => void
-): Promise<void> => {
-  const eventIdRef = admin.firestore().collection('functionsEventIds').doc(eventId);
+export const setDocument = async <T extends ObjectType>(
+  docRef: DocumentReference,
+  document: T
+): Promise<WriteResult> => docRef.set(document);
 
-  return admin.firestore().runTransaction(async (transaction) => {
-    const documentSnapshot = await transaction.get(eventIdRef);
+export const updateDocument = async <T extends ObjectType>(
+  docRef: DocumentReference,
+  document: T
+): Promise<WriteResult> => docRef.update(document);
 
-    if (documentSnapshot.exists) {
-      throw Error(
-        'Trying to send double event! Error from Google Firestore (still in Beta release)'
-      );
-    } else {
-      transaction.set(eventIdRef, {});
-      callback();
-    }
-  });
-};
+export const mergeDocument = async <T extends ObjectType>(
+  docRef: DocumentReference,
+  document: T
+): Promise<WriteResult> => docRef.set(document, { merge: true });
+
+export const deleteDocument = async (docRef: DocumentReference): Promise<WriteResult> =>
+  docRef.delete();

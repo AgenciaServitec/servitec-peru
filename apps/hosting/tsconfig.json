@@ -1,5 +1,5 @@
 {
-  "extends": "@servitecperu/typescript-config/react.json",
+  "extends": "@servitec-peru/typescript-config/react.json",
   "compilerOptions": {
     "target": "ES2017",
     "lib": [

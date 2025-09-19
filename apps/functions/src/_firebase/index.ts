@@ -10,7 +10,7 @@ export const auth = admin.auth();
 
 const projectId = process.env.GCLOUD_PROJECT;
 
-const currentEnvironment = projectId === 'servitecperu' ? 'production' : 'development';
+const currentEnvironment = projectId === 'servitec-peru' ? 'production' : 'development';
 
 export const isProduction = currentEnvironment === 'production';
 

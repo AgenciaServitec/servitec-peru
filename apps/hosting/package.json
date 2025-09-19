@@ -1,5 +1,5 @@
 {
-  "name": "@servitecperu/hosting",
+  "name": "@servitec-peru/hosting",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -14,7 +14,7 @@
     "next": "15.5.2"
   },
   "devDependencies": {
-    "@servitecperu/typescript-config": "workspace:*",
+    "@servitec-peru/typescript-config": "workspace:*",
     "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^19",

@@ -1,6 +1,11 @@
 import { Response, Request, NextFunction } from 'express';
+import { Quotation } from '@servitec-peru/shared';
+import { updateQuotation } from '../../../_firebase/collections';
+import { defaultFirestoreProps } from '../../../utils';
 
 type Params = { quotationId: string };
+
+const { assignUpdateProps } = defaultFirestoreProps();
 
 export const putQuotation = async (
   req: Request<Params, unknown, Quotation, unknown>,
@@ -18,7 +23,8 @@ export const putQuotation = async (
   });
 
   try {
-    res.json({ message: 'En desarrollo!!!' });
+    await updateQuotation(quotationId, assignUpdateProps(quotation));
+    res.sendStatus(200).end();
   } catch (e) {
     console.error(e);
   }

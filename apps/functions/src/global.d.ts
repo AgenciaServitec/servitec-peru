@@ -1,4 +1,4 @@
-import type { User } from '@servitecperu/shared';
+import { User } from '@servitec-peru/shared';
 
 interface DefaultFirestoreProps {
   createAt: FirebaseFirestore.Timestamp;

@@ -1,5 +1,5 @@
 {
-  "name": "@servitecperu/hosting-api",
+  "name": "@servitec-peru/hosting-api",
   "version": "1.0.0",
   "private": true,
   "sideEffects": false,
@@ -7,7 +7,6 @@
     "node": "20"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "firebase deploy --only hosting:api"
   }
 }

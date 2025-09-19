@@ -1,6 +1,7 @@
 import { Phone } from './common';
 
 export interface Quotation {
+  id: string;
   client: {
     firstName?: string;
     paternalSurname?: string;

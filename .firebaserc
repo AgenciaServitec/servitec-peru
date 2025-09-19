@@ -1,5 +1,28 @@
 {
   "projects": {
-    "default": "servitecperu"
+    "default": "servitec-peru"
+    "default": "servitec-peru-dev"
+  },
+  "target": {
+    "servitec-peru": {
+      "hosting": {
+        "admin": [
+          "admin"
+        ],
+        "api": [
+          "api-servitec-peru"
+        ]
+      }
+    },
+    "servitec-peru-dev": {
+      "hosting": {
+        "admin": [
+          "admin-dev"
+        ],
+        "api": [
+          "api-servitec-peru"
+        ]
+      }
+    }
   }
 }

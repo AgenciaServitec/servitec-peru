@@ -1,7 +1,14 @@
 export type CurrencyCode = 'PEN' | 'USD';
 
+interface DefaultFirestoreProps {
+  createAt: string;
+  updateAt: string;
+  deleteAt: string;
+  isDeleted?: boolean;
+}
+
 export interface Phone {
-  code: string;
+  prefix: string;
   number: string;
 }
 

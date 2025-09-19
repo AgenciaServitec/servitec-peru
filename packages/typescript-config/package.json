@@ -1,5 +1,5 @@
 {
-  "name": "@servitecperu/typescript-config",
+  "name": "@servitec-peru/typescript-config",
   "version": "1.0.0",
   "main": "base.json",
   "files": ["base.json", "react.json", "node.json"]
