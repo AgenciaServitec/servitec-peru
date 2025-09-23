@@ -2,26 +2,24 @@
   "development": {
     "version": "0.0.1",
     "firebaseApp": {
-      "apiKey": "AIzaSyADE5-Azs4WiV_vffBEb3uBWaB4Ox6mLG0",
-      "authDomain": "servitecperu-3b091.firebaseapp.com",
-      "projectId": "servitecperu-3b091",
-      "storageBucket": "servitecperu-3b091.firebasestorage.app",
-      "messagingSenderId": "149369513714",
-      "appId": "1:149369513714:web:e0cc400b2b32a7456a926b",
-      "measurementId": "G-F4F60DDL5Z"
+      "apiKey": "AIzaSyBdb4Z5JOc3GHXTsOiCgOJgdVYkJb4WEIA",
+      "authDomain": "servitec-peru.firebaseapp.com",
+      "projectId": "servitec-peru",
+      "storageBucket": "servitec-peru.firebasestorage.app",
+      "messagingSenderId": "253941959732",
+      "appId": "1:253941959732:web:4af2a236ed20ade1c8ce61"
     },
-    "apiUrl": "https://api-servitecperu.web.app"
+    "apiUrl": "https://api-servitec-peru-dev.web.app"
   },
   "production": {
     "version": "0.0.1",
     "firebaseApp": {
-      "apiKey": "AIzaSyADE5-Azs4WiV_vffBEb3uBWaB4Ox6mLG0",
-      "authDomain": "servitecperu-3b091.firebaseapp.com",
-      "projectId": "servitecperu-3b091",
-      "storageBucket": "servitecperu-3b091.firebasestorage.app",
-      "messagingSenderId": "149369513714",
-      "appId": "1:149369513714:web:e0cc400b2b32a7456a926b",
-      "measurementId": "G-F4F60DDL5Z"
+      "apiKey": "AIzaSyBdb4Z5JOc3GHXTsOiCgOJgdVYkJb4WEIA",
+      "authDomain": "servitec-peru.firebaseapp.com",
+      "projectId": "servitec-peru",
+      "storageBucket": "servitec-peru.firebasestorage.app",
+      "messagingSenderId": "253941959732",
+      "appId": "1:253941959732:web:4af2a236ed20ade1c8ce61"
     },
     "apiUrl": "https://api-servitec-peru.web.app"
   }

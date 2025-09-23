@@ -1,4 +1,3 @@
-import 'moment-timezone';
 import { app } from './api';
 import { HttpsOptions, onRequest } from 'firebase-functions/v2/https';
 

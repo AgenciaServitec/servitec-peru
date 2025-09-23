@@ -2,7 +2,7 @@
   "name": "@servitec-peru/functions",
   "scripts": {
     "lint": "eslint --ext .js,.ts ",
-    "build": "tsc",
+    "build": "pnpm tsc",
     "build:watch": "tsc --watch",
     "serve": "pnpm run build && firebase emulators:start --only functions",
     "shell": "pnpm run build && firebase functions:shell",

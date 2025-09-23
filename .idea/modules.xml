@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/servitec-peru-system.iml" filepath="$PROJECT_DIR$/.idea/servitec-peru-system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/servitec-peru.iml" filepath="$PROJECT_DIR$/.idea/servitec-peru.iml" />
     </modules>
   </component>
 </project>

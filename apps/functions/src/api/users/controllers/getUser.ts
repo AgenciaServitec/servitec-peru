@@ -1,7 +1,15 @@
 import { Response, Request, NextFunction } from 'express';
 import { fetchUser } from '../../../_firebase/collections';
 
-export const getUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+interface Params {
+  userId: string;
+}
+
+export const getUser = async (
+  req: Request<Params, unknown, unknown, unknown>,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   const {
     params: { userId },
   } = req;

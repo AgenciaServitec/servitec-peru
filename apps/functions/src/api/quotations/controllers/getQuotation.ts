@@ -1,8 +1,12 @@
 import { Response, Request, NextFunction } from 'express';
 import { fetchQuotation } from '../../../_firebase/collections';
 
+interface Params {
+  quotationId: string;
+}
+
 export const getQuotation = async (
-  req: Request,
+  req: Request<Params, unknown, unknown, unknown>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {

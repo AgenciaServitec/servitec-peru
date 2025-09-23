@@ -1,9 +1,9 @@
 {
   "projects": {
-    "default": "servitec-peru"
-    "default": "servitec-peru-dev"
+    "default": "servitec-peru",
+    "dev": "servitec-peru-dev"
   },
-  "target": {
+  "targets": {
     "servitec-peru": {
       "hosting": {
         "admin": [
