@@ -1,13 +1,20 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+import 'firebase/compat/auth';
+import 'firebase/compat/storage';
+
 import { currentConfig, currentEnvironment } from '../config';
 
-const app = initializeApp(currentConfig.firebaseApp);
+firebase.initializeApp(currentConfig.firebaseApp);
 
-const auth = getAuth(app);
+const auth = firebase.auth();
+const firestore = firebase.firestore();
+const storage = firebase.storage();
+
+firestore.settings({ ignoreUndefinedProperties: true, merge: true });
 
 const { version, apiUrl } = currentConfig;
 
 console.log(currentEnvironment, ':', version);
 
-export { currentConfig, version, auth, apiUrl };
+export { currentConfig, firebase, version, auth, storage, apiUrl };

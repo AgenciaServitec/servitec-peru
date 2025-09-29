@@ -24,10 +24,10 @@ export function Router() {
         }
       />
       <Route
-        path="/quotes"
+        path="/quotations"
         element={
           <AdminLayout>
-            <A.Quotes />
+            <A.Quotations />
           </AdminLayout>
         }
       />
