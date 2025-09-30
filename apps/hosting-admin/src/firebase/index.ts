@@ -8,7 +8,7 @@ import { currentConfig, currentEnvironment } from '../config';
 firebase.initializeApp(currentConfig.firebaseApp);
 
 const auth = firebase.auth();
-const firestore = firebase.firestore();
+export const firestore = firebase.firestore();
 const storage = firebase.storage();
 
 firestore.settings({ ignoreUndefinedProperties: true, merge: true });
