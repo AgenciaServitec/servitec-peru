@@ -12,6 +12,9 @@ import {
   Table,
   Popconfirm,
   Empty,
+  Descriptions,
+  Typography,
+  Divider,
 } from 'antd';
 
 export * from './Legend.tsx';
@@ -34,4 +37,7 @@ export {
   Table,
   Popconfirm,
   Empty,
+  Descriptions,
+  Typography,
+  Divider,
 };

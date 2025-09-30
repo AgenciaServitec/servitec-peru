@@ -2,7 +2,8 @@ import React, { useMemo, useState, useCallback } from 'react';
 import type { Quotation } from '../../globalTypes';
 import { Table, Button, Space, Popconfirm, Input, Empty } from '../../components/ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faSearch, faFilePdf } from '@fortawesome/free-solid-svg-icons';
+import { QuotationSheet } from './_quotationId/sheets';
 
 type Props = {
   quotations: Quotation[];
@@ -17,6 +18,9 @@ export const QuotationsTable: React.FC<Props> = ({
 }) => {
   const [search, setSearch] = useState('');
   const [deletingId, setDeletingId] = useState<string | null>(null);
+
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [selectedQuotation, setSelectedQuotation] = useState<Quotation | null>(null);
 
   const handleSearch = (value: string) => setSearch(value);
 
@@ -45,6 +49,11 @@ export const QuotationsTable: React.FC<Props> = ({
     },
     [onConfirmDeleteQuotation]
   );
+
+  const openSheet = (quotation: Quotation) => {
+    setSelectedQuotation(quotation);
+    setIsSheetOpen(true);
+  };
 
   const columns = [
     {
@@ -120,10 +129,18 @@ export const QuotationsTable: React.FC<Props> = ({
     {
       title: 'Acciones',
       key: 'actions',
-      width: 140,
+      width: 180,
       fixed: 'right' as const,
       render: (_: any, record: Quotation) => (
         <Space>
+          <Button
+            type="default"
+            size="small"
+            onClick={() => openSheet(record)}
+            aria-label={`Ver ${record.id}`}
+            icon={<FontAwesomeIcon icon={faFilePdf} />}
+          />
+
           <Button
             type="default"
             size="small"
@@ -179,6 +196,12 @@ export const QuotationsTable: React.FC<Props> = ({
           scroll={{ x: 1100 }}
         />
       )}
+
+      <QuotationSheet
+        open={isSheetOpen}
+        onClose={() => setIsSheetOpen(false)}
+        quotation={selectedQuotation}
+      />
     </div>
   );
 };
