@@ -5,3 +5,4 @@ export * from './home';
 export * from './users';
 export * from './assistances';
 export * from './quotations';
+export * from './quotations/_quotationId';

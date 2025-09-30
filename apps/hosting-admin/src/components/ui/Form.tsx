@@ -1,20 +1,14 @@
 import type { FormHTMLAttributes, ReactNode } from 'react';
-import SpaceAntd from 'antd/lib/space';
-import styled from 'styled-components';
+import { Space } from 'antd';
 
 type FormProps = {
   children: ReactNode;
-  props: FormHTMLAttributes<HTMLFormElement>;
-};
+} & FormHTMLAttributes<HTMLFormElement>;
 
 export const Form = ({ children, ...props }: FormProps) => (
   <form noValidate autoComplete="off" {...props}>
-    <SpaceStyled size="middle" direction="vertical">
+    <Space size="middle" direction="vertical" className="w-[100%] flex flex-col">
       {children}
-    </SpaceStyled>
+    </Space>
   </form>
 );
-
-const SpaceStyled = styled(SpaceAntd)`
-  width: 100%;
-`;

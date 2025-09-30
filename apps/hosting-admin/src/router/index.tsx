@@ -32,6 +32,14 @@ export function Router() {
         }
       />
       <Route
+        path="/quotations/:quotationId"
+        element={
+          <AdminLayout>
+            <A.QuotationIntegration />
+          </AdminLayout>
+        }
+      />
+      <Route
         path="/users"
         element={
           <AdminLayout>
