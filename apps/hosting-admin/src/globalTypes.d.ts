@@ -34,6 +34,7 @@ interface Quotation {
     phone: Phone;
   };
   device: {
+    problemDescription: string;
     type: string;
     brand: string;
     model: string;
@@ -43,4 +44,7 @@ interface Quotation {
   solutions: string;
   recommendations: string;
   serialNumber: string;
+  description: string;
+  units: number;
+  unitPrices: number;
 }

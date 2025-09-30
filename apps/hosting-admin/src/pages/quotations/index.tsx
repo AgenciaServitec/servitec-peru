@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { useDefaultFirestoreProps } from '../../hooks';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { quotationsRef, updateQuotation } from '../../firebase/collections/quotations.ts';
+import { quotationsRef, updateQuotation } from '../../firebase/collections';
 import type { Quotation } from '../../globalTypes';
 import { useEffect } from 'react';
-import { notification } from '../../components/ui/notification.tsx';
+import { notification } from '../../components/ui';
 import { QuotationsTable } from './Quotations.Table.tsx';
 import { AddButton } from '../../components/ui/AddButton.tsx';
 

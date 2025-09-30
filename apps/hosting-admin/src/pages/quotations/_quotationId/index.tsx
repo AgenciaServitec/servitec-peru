@@ -29,6 +29,7 @@ const quotationSchema = yup.object({
     phone: yup.string().required(),
   }),
   device: yup.object({
+    problemDescription: yup.string().required(),
     type: yup.string().required(),
     brand: yup.string().required(),
     model: yup.string().required(),
@@ -38,6 +39,9 @@ const quotationSchema = yup.object({
   solutions: yup.string().required(),
   recommendations: yup.string().required(),
   serialNumber: yup.string().required(),
+  description: yup.string().required(),
+  units: yup.number().required(),
+  unitPrices: yup.number().required(),
 });
 
 const saveQuotation = async (data: Quotation, isNew: boolean) => {
@@ -69,16 +73,14 @@ export function QuotationIntegration() {
             document: { type: '', number: '' },
             phone: '',
           },
-          device: {
-            type: '',
-            brand: '',
-            model: '',
-            color: '',
-          },
+          device: { problemDescription: '', type: '', brand: '', model: '', color: '' },
           analysis: '',
           solutions: '',
           recommendations: '',
           serialNumber: '',
+          description: '',
+          units: 0,
+          unitPrices: 0,
         });
       } else if (quotationId) {
         const fetched = await fetchQuotation(quotationId);
@@ -256,6 +258,20 @@ const QuotationForm: React.FC<QuotationFormProps> = ({ isNew, defaultValues, onC
           <Col span={24}>
             <h3 className="font-semibold mb-2">Datos del Dispositivo</h3>
           </Col>
+          <Col span={24}>
+            <Controller
+              name="device.problemDescription"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  label="Problema Presentado"
+                  error={error(field.name)}
+                  required={required(field.name)}
+                />
+              )}
+            />
+          </Col>
           <Col span={6}>
             <Controller
               name="device.type"
@@ -349,7 +365,46 @@ const QuotationForm: React.FC<QuotationFormProps> = ({ isNew, defaultValues, onC
               )}
             />
           </Col>
-
+          <Col span={24}>
+            <h3 className="font-semibold mb-2">Cotizacion</h3>
+          </Col>
+          <Col span={24}>
+            <Controller
+              name="description"
+              control={control}
+              render={({ field }) => <TextArea {...field} placeholder="Descripcion" rows={3} />}
+            />
+          </Col>
+          <Col span={12}>
+            <Controller
+              name="units"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  type="number"
+                  label="Unidades"
+                  error={error(field.name)}
+                  required={required(field.name)}
+                />
+              )}
+            />
+          </Col>
+          <Col span={12}>
+            <Controller
+              name="unitPrices"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  type="number"
+                  label="Precio Unitarios"
+                  error={error(field.name)}
+                  required={required(field.name)}
+                />
+              )}
+            />
+          </Col>
           <Col span={24}>
             <Row
               justify="end"

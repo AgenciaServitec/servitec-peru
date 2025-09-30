@@ -30,7 +30,6 @@ export const QuotationSheet: React.FC<Props> = ({ open, onClose, quotation }) =>
 
   return (
     <Drawer
-      title={`Cotización #${quotation.id}`}
       placement="right"
       width={850}
       onClose={onClose}
@@ -47,7 +46,6 @@ export const QuotationSheet: React.FC<Props> = ({ open, onClose, quotation }) =>
         </Space>
       }
     >
-      {/* Aquí se renderiza el PDF con la plantilla estilo Servitec */}
       <div ref={contentRef}>
         <QuotationContent quotation={quotation} />
       </div>
