@@ -4,6 +4,7 @@ import { type ReactNode, useState } from 'react';
 import { DrawerLayout } from './DrawerLayout.tsx';
 import { HeaderLayout } from './HeaderLayout.tsx';
 import { BreadcrumbLayout } from './Breadcrumb.tsx';
+import { useNavigate } from 'react-router-dom';
 
 const { Content } = Layout;
 
@@ -12,7 +13,10 @@ type AdminLayoutProps = {
 };
 
 export const AdminLayout = ({ children }: AdminLayoutProps) => {
+  const navigate = useNavigate();
   const [isVisibleDrawer, setIsVisibleDrawer] = useState(false);
+
+  const onNavigateTo = (url: string) => navigate(url);
 
   return (
     <Spin tip="Cargando..." spinning={false} className="spin-item">
@@ -21,6 +25,7 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
           <DrawerLayout
             isVisibleDrawer={isVisibleDrawer}
             onSetIsVisibleDrawer={setIsVisibleDrawer}
+            onNavigateTo={onNavigateTo}
           />
           <HeaderLayout
             isVisibleDrawer={isVisibleDrawer}

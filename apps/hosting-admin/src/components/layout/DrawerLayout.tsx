@@ -4,12 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faClipboardUser,
   faFileAlt,
+  faFileLines,
   faGears,
   faHome,
-  faListCheck,
+  faList,
   faPoll,
   faShapes,
-  faSquareCheck,
+  faSquarePlus,
   faTicket,
   faUsers,
   faUsersCog,
@@ -18,15 +19,31 @@ import {
 type DrawerLayoutProps = {
   isVisibleDrawer: boolean;
   onSetIsVisibleDrawer: (isVisibleDrawer: boolean) => void;
+  onNavigateTo: (url: string) => void;
 };
 
-export const DrawerLayout = ({ isVisibleDrawer, onSetIsVisibleDrawer }: DrawerLayoutProps) => {
+export const DrawerLayout = ({
+  isVisibleDrawer,
+  onSetIsVisibleDrawer,
+  onNavigateTo,
+}: DrawerLayoutProps) => {
+  const onClickMenu = (pathname: string) => {
+    onSetIsVisibleDrawer(false);
+    onNavigateTo(pathname);
+  };
+
+  const onClickHome = () => {
+    onSetIsVisibleDrawer(false);
+    onNavigateTo('/home');
+  };
+
   const items = [
     {
       label: 'Home',
       key: 'home',
       icon: <FontAwesomeIcon icon={faHome} size="lg" />,
       isVisible: true,
+      onClick: () => onClickHome(),
     },
     {
       label: 'Control de Accesos (acls)',
@@ -61,6 +78,28 @@ export const DrawerLayout = ({ isVisibleDrawer, onSetIsVisibleDrawer }: DrawerLa
       ],
     },
     {
+      label: 'Cotizaciones',
+      key: 'quotation',
+      icon: <FontAwesomeIcon icon={faFileLines} size="lg" />,
+      isVisible: true,
+      children: [
+        {
+          label: 'Crear Cotización',
+          key: 'quotation',
+          icon: <FontAwesomeIcon icon={faSquarePlus} size="lg" />,
+          isVisible: true,
+          onClick: () => onClickMenu('/quotations/new'),
+        },
+        {
+          label: 'Lista de cotizaciones',
+          key: 'quotations',
+          icon: <FontAwesomeIcon icon={faList} size="lg" />,
+          isVisible: true,
+          onClick: () => onClickMenu('/quotations'),
+        },
+      ],
+    },
+    {
       label: 'Assistencias',
       key: 'assistance',
       icon: <FontAwesomeIcon icon={faClipboardUser} size="lg" />,
@@ -69,14 +108,16 @@ export const DrawerLayout = ({ isVisibleDrawer, onSetIsVisibleDrawer }: DrawerLa
         {
           label: 'Marcar asistencia',
           key: 'assistance',
-          icon: <FontAwesomeIcon icon={faSquareCheck} size="lg" />,
+          icon: <FontAwesomeIcon icon={faSquarePlus} size="lg" />,
           isVisible: true,
+          onClick: () => onClickMenu('/assistances/new'),
         },
         {
           label: 'Lista de asistencias',
           key: 'assistances',
-          icon: <FontAwesomeIcon icon={faListCheck} size="lg" />,
+          icon: <FontAwesomeIcon icon={faList} size="lg" />,
           isVisible: true,
+          onClick: () => onClickMenu('/assistances'),
         },
       ],
     },
@@ -89,14 +130,16 @@ export const DrawerLayout = ({ isVisibleDrawer, onSetIsVisibleDrawer }: DrawerLa
         {
           label: 'Crear Sorteo',
           key: 'raffle',
-          icon: <FontAwesomeIcon icon={faTicket} size="lg" />,
+          icon: <FontAwesomeIcon icon={faSquarePlus} size="lg" />,
           isVisible: true,
+          onClick: () => onClickMenu('/raffles/new'),
         },
         {
           label: 'Lista de Sorteos',
           key: 'raffles-list',
-          icon: <FontAwesomeIcon icon={faListCheck} size="lg" />,
+          icon: <FontAwesomeIcon icon={faList} size="lg" />,
           isVisible: true,
+          onClick: () => onClickMenu('/raffles/new'),
         },
       ],
     },
@@ -109,14 +152,16 @@ export const DrawerLayout = ({ isVisibleDrawer, onSetIsVisibleDrawer }: DrawerLa
         {
           label: 'Crear Tutorial',
           key: 'tutorial',
-          icon: <FontAwesomeIcon icon={faShapes} size="lg" />,
+          icon: <FontAwesomeIcon icon={faSquarePlus} size="lg" />,
           isVisible: true,
+          onClick: () => onClickMenu('/tutorials/new'),
         },
         {
           label: 'Lista de Tutoriales',
           key: 'tutorial-list',
-          icon: <FontAwesomeIcon icon={faListCheck} size="lg" />,
+          icon: <FontAwesomeIcon icon={faList} size="lg" />,
           isVisible: true,
+          onClick: () => onClickMenu('/tutorials'),
         },
       ],
     },

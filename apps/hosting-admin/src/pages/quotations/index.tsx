@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { notification } from '../../components/ui';
 import { QuotationsTable } from './Quotations.Table.tsx';
 import { AddButton } from '../../components/ui/AddButton.tsx';
+import { Spinner } from '../../components/ui/Spinner.tsx';
 
 export function Quotations() {
   const navigate = useNavigate();
@@ -39,9 +40,7 @@ export function Quotations() {
     }
   };
 
-  if (quotationsLoading) {
-    return <div>Cargando Cotizaciones...</div>;
-  }
+  if (quotationsLoading) return <Spinner height="80vh" />;
 
   return (
     <>
