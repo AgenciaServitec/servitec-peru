@@ -22,6 +22,9 @@ export * from './Form.tsx';
 export * from './Input.tsx';
 export * from './TextArea.tsx';
 export * from './notification.tsx';
+export * from './Spinner.tsx';
+export * from './AssistanceView.tsx';
+export * from './UserLocationMap.tsx';
 
 export {
   Layout,

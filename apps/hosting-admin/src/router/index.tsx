@@ -24,6 +24,30 @@ export function Router() {
         }
       />
       <Route
+        path="/assistances"
+        element={
+          <AdminLayout>
+            <A.AssistancesIntegration />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/assistances/assistance"
+        element={
+          <AdminLayout>
+            <A.AssistanceIntegration />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/assistances/register"
+        element={
+          <AdminLayout>
+            <A.FaceRegistration />
+          </AdminLayout>
+        }
+      />
+      <Route
         path="/quotations"
         element={
           <AdminLayout>

@@ -20,7 +20,7 @@ export interface _Image {
 
 export type Image = Omit<_Image, 'createAt'> & { createAt: Date };
 
-interface Quotation {
+interface Quotation extends DefaultFirestoreProps {
   id: string;
   client: {
     firstName?: string;
@@ -47,4 +47,13 @@ interface Quotation {
   description: string;
   units: number;
   unitPrices: number;
+}
+
+interface Assistance extends DefaultFirestoreProps {
+  id: string;
+  createAtString: string;
+  entry: { date: string; dateTimestamp: FirebaseFirestore.Timestamp } | null;
+  outlet: { date: string } | null;
+  // userId: string;
+  // user: User;
 }
