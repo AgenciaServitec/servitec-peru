@@ -20,7 +20,7 @@ export interface _Image {
 
 export type Image = Omit<_Image, 'createAt'> & { createAt: Date };
 
-interface Quotation {
+interface Quotation extends DefaultFirestoreProps {
   id: string;
   client: {
     firstName?: string;
@@ -41,10 +41,11 @@ interface Quotation {
     color: string;
   };
   analysis: string;
-  solutions: string;
-  recommendations: string;
+  solutionsRecommendations: string;
   serialNumber: string;
-  description: string;
-  units: number;
-  unitPrices: number;
+  items: {
+    description: string;
+    units: number;
+    unitPrice: number;
+  }[];
 }

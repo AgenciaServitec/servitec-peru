@@ -57,6 +57,21 @@ export const QuotationsTable: React.FC<Props> = ({
 
   const columns = [
     {
+      title: 'Fecha de Creacion',
+      dataIndex: 'createAt',
+      key: 'createAt',
+      width: 160,
+      render: (val: any) => {
+        if (!val) return '—';
+        try {
+          const date = val?.toDate ? val.toDate() : new Date(val);
+          return date.toLocaleString();
+        } catch {
+          return String(val);
+        }
+      },
+    },
+    {
       title: 'Cliente / Empresa',
       key: 'client',
       render: (_: any, record: Quotation) => {
@@ -102,28 +117,6 @@ export const QuotationsTable: React.FC<Props> = ({
         const d = record?.device;
         if (!d) return '—';
         return `${d.type ?? ''} ${d.brand ?? ''} ${d.model ?? ''}`.trim() || '—';
-      },
-    },
-    {
-      title: 'N° Serie',
-      dataIndex: 'serialNumber',
-      key: 'serialNumber',
-      width: 140,
-      render: (val: string) => val ?? '—',
-    },
-    {
-      title: 'Fecha',
-      dataIndex: 'createAt',
-      key: 'createAt',
-      width: 160,
-      render: (val: any) => {
-        if (!val) return '—';
-        try {
-          const date = val?.toDate ? val.toDate() : new Date(val);
-          return date.toLocaleString();
-        } catch {
-          return String(val);
-        }
       },
     },
     {

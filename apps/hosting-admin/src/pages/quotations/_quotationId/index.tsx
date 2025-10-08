@@ -10,55 +10,37 @@ import {
   updateQuotation,
 } from '../../../firebase/collections';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Controller, useForm } from 'react-hook-form';
-import { Row, Col, Form, Input, TextArea, Button, notification } from '../../../components/ui';
-import { Select } from '../../../components/ui/Select.tsx';
-
-const { assignCreateProps, assignUpdateProps } = useDefaultFirestoreProps();
-
-const quotationSchema = yup.object({
-  client: yup.object({
-    firstName: yup.string().notRequired(),
-    paternalSurname: yup.string().notRequired(),
-    maternalSurname: yup.string().notRequired(),
-    companyName: yup.string().notRequired(),
-    document: yup.object({
-      type: yup.string().required(),
-      number: yup.string().required(),
-    }),
-    phone: yup.string().required(),
-  }),
-  device: yup.object({
-    problemDescription: yup.string().required(),
-    type: yup.string().required(),
-    brand: yup.string().required(),
-    model: yup.string().required(),
-    color: yup.string().required(),
-  }),
-  analysis: yup.string().required(),
-  solutions: yup.string().required(),
-  recommendations: yup.string().required(),
-  serialNumber: yup.string().required(),
-  description: yup.string().required(),
-  units: yup.number().required(),
-  unitPrices: yup.number().required(),
-});
-
-const saveQuotation = async (data: Quotation, isNew: boolean) => {
-  if (isNew) {
-    await addQuotation(assignCreateProps(data));
-    notification({ type: 'success', description: 'Cotización creada con éxito' });
-  } else {
-    await updateQuotation(data.id, assignUpdateProps(data));
-    notification({ type: 'success', description: 'Cotización actualizada con éxito' });
-  }
-};
+import { Controller, FormProvider, useForm } from 'react-hook-form';
+import {
+  Row,
+  Col,
+  Form,
+  Input,
+  TextArea,
+  Button,
+  notification,
+  InputArrayItems,
+} from '../../../components/ui';
+import { Select } from '../../../components/ui/Select'; // sin extensión .tsx
 
 export function QuotationIntegration() {
   const navigate = useNavigate();
   const { quotationId } = useParams<{ quotationId: string }>();
   const isNew = quotationId === 'new';
   const [initialData, setInitialData] = useState<Quotation | null>(null);
+
+  const { assignCreateProps, assignUpdateProps } = useDefaultFirestoreProps();
+
+  const saveQuotation = async (data: Quotation, _isNew: boolean) => {
+    if (_isNew) {
+      await addQuotation(assignCreateProps(data));
+      notification({ type: 'success', description: 'Cotización creada con éxito' });
+    } else {
+      if (!data.id) throw new Error('ID de cotización faltante para actualizar');
+      await updateQuotation(data.id, assignUpdateProps(data));
+      notification({ type: 'success', description: 'Cotización actualizada con éxito' });
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -75,13 +57,16 @@ export function QuotationIntegration() {
           },
           device: { problemDescription: '', type: '', brand: '', model: '', color: '' },
           analysis: '',
-          solutions: '',
-          recommendations: '',
+          solutionsRecommendations: '',
           serialNumber: '',
-          description: '',
-          units: 0,
-          unitPrices: 0,
-        });
+          items: [
+            {
+              description: '',
+              units: 1,
+              unitPrice: 0,
+            },
+          ],
+        } as Quotation);
       } else if (quotationId) {
         const fetched = await fetchQuotation(quotationId);
         if (!fetched) return navigate(-1);
@@ -96,7 +81,12 @@ export function QuotationIntegration() {
 
   return (
     <div className="w-full py-10 px-4 md:px-10 lg:px-20">
-      <QuotationForm isNew={isNew} defaultValues={initialData} onCancel={() => navigate(-1)} />
+      <QuotationForm
+        isNew={isNew}
+        saveQuotation={saveQuotation}
+        defaultValues={initialData}
+        onCancel={() => navigate(-1)}
+      />
     </div>
   );
 }
@@ -105,19 +95,63 @@ interface QuotationFormProps {
   isNew: boolean;
   defaultValues: Quotation;
   onCancel: () => void;
+  saveQuotation: (data: Quotation, isNew: boolean) => Promise<void>;
 }
 
-const QuotationForm: React.FC<QuotationFormProps> = ({ isNew, defaultValues, onCancel }) => {
-  const navigate = useNavigate();
+const QuotationForm: React.FC<QuotationFormProps> = ({
+  isNew,
+  defaultValues,
+  onCancel,
+  saveQuotation,
+}) => {
+  const quotationSchema = yup.object({
+    client: yup.object({
+      firstName: yup.string().notRequired(),
+      paternalSurname: yup.string().notRequired(),
+      maternalSurname: yup.string().notRequired(),
+      companyName: yup.string().notRequired(),
+      document: yup.object({
+        type: yup.string().required(),
+        number: yup.string().required(),
+      }),
+      phone: yup.string().required(),
+    }),
+    device: yup.object({
+      problemDescription: yup.string().required(),
+      type: yup.string().required(),
+      brand: yup.string().required(),
+      model: yup.string().required(),
+      color: yup.string().required(),
+    }),
+    analysis: yup.string().required(),
+    solutionsRecommendations: yup.string().required(),
+    serialNumber: yup.string().required(),
+    items: yup
+      .array()
+      .of(
+        yup.object({
+          description: yup.string().required('La descripción es obligatoria'),
+          units: yup.number().required().min(1),
+          unitPrice: yup.number().required().min(0),
+        })
+      )
+      .required()
+      .min(1, 'Debe agregar al menos un ítem'),
+  });
+
+  const methods = useForm<Quotation>({
+    resolver: yupResolver(quotationSchema),
+    defaultValues,
+  });
+
   const {
     formState: { errors },
     handleSubmit,
     control,
     reset,
-  } = useForm<Quotation>({
-    resolver: yupResolver(quotationSchema),
-    defaultValues,
-  });
+  } = methods;
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     reset(defaultValues);
@@ -142,302 +176,272 @@ const QuotationForm: React.FC<QuotationFormProps> = ({ isNew, defaultValues, onC
 
   return (
     <>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <Row gutter={[16, 16]}>
-          <Col span={24}>
-            <h2>{isNew ? 'Nueva Cotización' : 'Editar Cotización'}</h2>
-          </Col>
-          <Col span={24}>
-            <h3 className="font-semibold mb-2">Datos del Cliente</h3>
-          </Col>
-          <Col span={8}>
-            <Controller
-              name="client.firstName"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  label="Nombre"
-                  error={error(field.name)}
-                  required={required(field.name)}
-                />
-              )}
-            />
-          </Col>
-          <Col span={8}>
-            <Controller
-              name="client.paternalSurname"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  label="Apellido Paterno"
-                  error={error(field.name)}
-                  required={required(field.name)}
-                />
-              )}
-            />
-          </Col>
-          <Col span={8}>
-            <Controller
-              name="client.maternalSurname"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  label="Apellido Materno"
-                  error={error(field.name)}
-                  required={required(field.name)}
-                />
-              )}
-            />
-          </Col>
-          <Col span={12}>
-            <Controller
-              name="client.companyName"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  label="Razón Social"
-                  error={error(field.name)}
-                  required={required(field.name)}
-                />
-              )}
-            />
-          </Col>
-          <Col span={6}>
-            <Controller
-              name="client.document.type"
-              control={control}
-              render={({ field }) => (
-                <Select
-                  {...field}
-                  label="Tipo de Documento"
-                  options={[
-                    { label: 'DNI', value: 'dni' },
-                    { label: 'Carnet de Extranjería', value: 'foreigner_card' },
-                    { label: 'RUC', value: 'ruc' },
-                  ]}
-                  error={error(field.name)}
-                  required={required(field.name)}
-                />
-              )}
-            />
-          </Col>
+      <FormProvider {...methods}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <Row gutter={[16, 16]}>
+            <Col span={24}>
+              <h2>{isNew ? 'Nueva Cotización' : 'Editar Cotización'}</h2>
+            </Col>
+            <Col span={24}>
+              <h3 className="font-semibold mb-2">Datos del Cliente</h3>
+            </Col>
+            <Col span={8}>
+              <Controller
+                name="client.firstName"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    label="Nombre"
+                    error={error(field.name)}
+                    required={required(field.name)}
+                  />
+                )}
+              />
+            </Col>
+            <Col span={8}>
+              <Controller
+                name="client.paternalSurname"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    label="Apellido Paterno"
+                    error={error(field.name)}
+                    required={required(field.name)}
+                  />
+                )}
+              />
+            </Col>
+            <Col span={8}>
+              <Controller
+                name="client.maternalSurname"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    label="Apellido Materno"
+                    error={error(field.name)}
+                    required={required(field.name)}
+                  />
+                )}
+              />
+            </Col>
+            <Col span={12}>
+              <Controller
+                name="client.companyName"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    label="Razón Social"
+                    error={error(field.name)}
+                    required={required(field.name)}
+                  />
+                )}
+              />
+            </Col>
+            <Col span={6}>
+              <Controller
+                name="client.document.type"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    label="Tipo de Documento"
+                    options={[
+                      { label: 'DNI', value: 'dni' },
+                      { label: 'Carnet de Extranjería', value: 'foreigner_card' },
+                      { label: 'RUC', value: 'ruc' },
+                    ]}
+                    error={error(field.name)}
+                    required={required(field.name)}
+                  />
+                )}
+              />
+            </Col>
 
-          <Col span={6}>
-            <Controller
-              name="client.document.number"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  label="Número Documento"
-                  error={error(field.name)}
-                  required={required(field.name)}
-                />
-              )}
-            />
-          </Col>
-          <Col span={12}>
-            <Controller
-              name="client.phone"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  label="Teléfono"
-                  error={error(field.name)}
-                  required={required(field.name)}
-                />
-              )}
-            />
-          </Col>
+            <Col span={6}>
+              <Controller
+                name="client.document.number"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    label="Número Documento"
+                    error={error(field.name)}
+                    required={required(field.name)}
+                  />
+                )}
+              />
+            </Col>
+            <Col span={12}>
+              <Controller
+                name="client.phone"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    label="Teléfono"
+                    error={error(field.name)}
+                    required={required(field.name)}
+                  />
+                )}
+              />
+            </Col>
 
-          <Col span={24}>
-            <h3 className="font-semibold mb-2">Datos del Dispositivo</h3>
-          </Col>
-          <Col span={24}>
-            <Controller
-              name="device.problemDescription"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  label="Problema Presentado"
-                  error={error(field.name)}
-                  required={required(field.name)}
-                />
-              )}
-            />
-          </Col>
-          <Col span={6}>
-            <Controller
-              name="device.type"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  label="Tipo"
-                  error={error(field.name)}
-                  required={required(field.name)}
-                />
-              )}
-            />
-          </Col>
-          <Col span={6}>
-            <Controller
-              name="device.brand"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  label="Marca"
-                  error={error(field.name)}
-                  required={required(field.name)}
-                />
-              )}
-            />
-          </Col>
-          <Col span={6}>
-            <Controller
-              name="device.model"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  label="Modelo"
-                  error={error(field.name)}
-                  required={required(field.name)}
-                />
-              )}
-            />
-          </Col>
-          <Col span={6}>
-            <Controller
-              name="device.color"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  label="Color"
-                  error={error(field.name)}
-                  required={required(field.name)}
-                />
-              )}
-            />
-          </Col>
+            <Col span={24}>
+              <h3 className="font-semibold mb-2">Datos del Dispositivo</h3>
+            </Col>
+            <Col span={12}>
+              <Controller
+                name="device.problemDescription"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    label="Problema que Presenta"
+                    error={error(field.name)}
+                    required={required(field.name)}
+                  />
+                )}
+              />
+            </Col>
+            <Col span={12}>
+              <Controller
+                name="device.type"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    label="Equipo o Dispositivo a Reparar"
+                    error={error(field.name)}
+                    required={required(field.name)}
+                  />
+                )}
+              />
+            </Col>
+            <Col span={6}>
+              <Controller
+                name="serialNumber"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    label="Número de Serie"
+                    error={error(field.name)}
+                    required={required(field.name)}
+                  />
+                )}
+              />
+            </Col>
+            <Col span={6}>
+              <Controller
+                name="device.brand"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    label="Marca"
+                    error={error(field.name)}
+                    required={required(field.name)}
+                  />
+                )}
+              />
+            </Col>
+            <Col span={6}>
+              <Controller
+                name="device.model"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    label="Modelo"
+                    error={error(field.name)}
+                    required={required(field.name)}
+                  />
+                )}
+              />
+            </Col>
+            <Col span={6}>
+              <Controller
+                name="device.color"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    label="Color"
+                    error={error(field.name)}
+                    required={required(field.name)}
+                  />
+                )}
+              />
+            </Col>
 
-          <Col span={24}>
-            <Controller
-              name="analysis"
-              control={control}
-              render={({ field }) => <TextArea {...field} placeholder="Análisis" rows={3} />}
-            />
-          </Col>
-          <Col span={24}>
-            <Controller
-              name="solutions"
-              control={control}
-              render={({ field }) => <TextArea {...field} placeholder="Soluciones" rows={3} />}
-            />
-          </Col>
-          <Col span={24}>
-            <Controller
-              name="recommendations"
-              control={control}
-              render={({ field }) => <TextArea {...field} placeholder="Recomendaciones" rows={3} />}
-            />
-          </Col>
+            <Col span={24}>
+              <Controller
+                name="analysis"
+                control={control}
+                render={({ field }) => <TextArea {...field} label="Análisis" rows={3} />}
+              />
+            </Col>
+            <Col span={24}>
+              <Controller
+                name="solutionsRecommendations"
+                control={control}
+                render={({ field }) => (
+                  <TextArea {...field} label="Soluciones y Recomendaciones" rows={3} />
+                )}
+              />
+            </Col>
+            <Col span={24}>
+              <InputArrayItems
+                name="items"
+                title="Cotización"
+                showTotal
+                columnsLabels={{
+                  description: 'Descripción',
+                  units: 'Unidades',
+                  unitPrice: 'Precio Unitario (S/)',
+                  total: 'Total',
+                }}
+              />
+            </Col>
 
-          <Col span={12}>
-            <Controller
-              name="serialNumber"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  label="Número de Serie"
-                  error={error(field.name)}
-                  required={required(field.name)}
-                />
-              )}
-            />
-          </Col>
-          <Col span={24}>
-            <h3 className="font-semibold mb-2">Cotizacion</h3>
-          </Col>
-          <Col span={24}>
-            <Controller
-              name="description"
-              control={control}
-              render={({ field }) => <TextArea {...field} placeholder="Descripcion" rows={3} />}
-            />
-          </Col>
-          <Col span={12}>
-            <Controller
-              name="units"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  type="number"
-                  label="Unidades"
-                  error={error(field.name)}
-                  required={required(field.name)}
-                />
-              )}
-            />
-          </Col>
-          <Col span={12}>
-            <Controller
-              name="unitPrices"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  type="number"
-                  label="Precio Unitarios"
-                  error={error(field.name)}
-                  required={required(field.name)}
-                />
-              )}
-            />
-          </Col>
-          <Col span={24}>
-            <Row
-              justify="end"
-              gutter={[16, 16]}
-              style={{ marginTop: 24, borderTop: '1px solid #f0f0f0', paddingTop: 24 }}
-            >
-              <Col xs={24} sm={6} md={4}>
-                <Button
-                  type="default"
-                  size="large"
-                  block
-                  onClick={() => !isSaving && onCancel()}
-                  disabled={isSaving}
-                >
-                  Cancelar
-                </Button>
-              </Col>
-              <Col xs={24} sm={6} md={4}>
-                <Button
-                  type="primary"
-                  size="large"
-                  block
-                  htmlType="submit"
-                  loading={isSaving}
-                  disabled={isSaving}
-                >
-                  {isNew ? 'Crear Cotización' : 'Guardar Cambios'}
-                </Button>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Form>
+            <Col span={24}>
+              <Row
+                justify="end"
+                gutter={[16, 16]}
+                style={{ marginTop: 24, borderTop: '1px solid #f0f0f0', paddingTop: 24 }}
+              >
+                <Col xs={24} sm={6} md={4}>
+                  <Button
+                    type="default"
+                    size="large"
+                    block
+                    onClick={() => !isSaving && onCancel()}
+                    disabled={isSaving}
+                  >
+                    Cancelar
+                  </Button>
+                </Col>
+                <Col xs={24} sm={6} md={4}>
+                  <Button
+                    type="primary"
+                    size="large"
+                    block
+                    htmlType="submit"
+                    loading={isSaving}
+                    disabled={isSaving}
+                  >
+                    {isNew ? 'Crear Cotización' : 'Guardar Cambios'}
+                  </Button>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Form>
+      </FormProvider>
     </>
   );
 };
