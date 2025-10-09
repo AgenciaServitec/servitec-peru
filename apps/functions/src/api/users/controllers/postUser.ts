@@ -1,9 +1,9 @@
-import { Response, Request, NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { getUserId } from '../../../_firebase/collections';
-import { User } from '@servitec-peru/shared';
 import { defaultFirestoreProps } from '../../../utils/defaultFirestoreProps';
 import { auth, fetchCollection, firestore } from '../../../_firebase';
 import { isEmpty } from 'lodash';
+import { User } from '../../../globalTypes';
 
 export const postUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const { body: user } = req;

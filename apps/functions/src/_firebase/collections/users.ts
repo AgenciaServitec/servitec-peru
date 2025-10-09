@@ -1,6 +1,6 @@
 import { firestore, setDocument } from '../index';
 import { fetchCollection, fetchDocument } from '../firestore';
-import { User } from '@servitec-peru/shared';
+import { User } from '../../globalTypes';
 
 export const usersRef = firestore.collection('users');
 

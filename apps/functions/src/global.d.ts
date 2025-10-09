@@ -1,10 +1,7 @@
-import { User } from '@servitec-peru/shared';
+type Translate = (key: string, params?: string[], defaultTranslation?: string) => string;
 
-interface DefaultFirestoreProps {
-  createAt: FirebaseFirestore.Timestamp;
-  updateAt: FirebaseFirestore.Timestamp;
-  deleteAt: FirebaseFirestore.Timestamp;
-  isDeleted: boolean;
-}
+type Translation = Record<string, string>;
 
-type _User = User & DefaultFirestoreProps;
+type Environment = 'production' | 'development';
+
+type ProjectId = 'tu-plan-hoy';

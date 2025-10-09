@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from 'express';
-import { Quotation } from '@servitec-peru/shared';
 import { updateQuotation } from '../../../_firebase/collections';
 import { defaultFirestoreProps } from '../../../utils';
+import { Quotation } from '../../../globalTypes';
 
 type Params = { quotationId: string };
 
