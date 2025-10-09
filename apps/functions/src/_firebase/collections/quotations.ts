@@ -1,6 +1,6 @@
 import { firestore, setDocument, updateDocument } from '../index';
 import { fetchCollection, fetchDocument } from '../firestore';
-import { Quotation } from '@servitec-peru/shared';
+import { Quotation } from '../../globalTypes';
 
 export const quotationsRef = firestore.collection('quotations');
 

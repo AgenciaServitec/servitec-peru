@@ -1,9 +1,9 @@
 import { Response, Request, NextFunction } from 'express';
-import { User } from '@servitec-peru/shared';
 import assert from 'assert';
 import { isEmpty } from 'lodash';
 import { auth, fetchCollection, fetchDocument, firestore } from '../../../_firebase';
 import { defaultFirestoreProps } from '../../../utils';
+import { User } from '../../../globalTypes';
 
 type Params = { userId: string };
 
