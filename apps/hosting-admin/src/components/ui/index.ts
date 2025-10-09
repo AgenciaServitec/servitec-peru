@@ -15,6 +15,7 @@ import {
   Descriptions,
   Typography,
   Divider,
+  QRCode,
 } from 'antd';
 
 export * from './Legend.tsx';
@@ -41,4 +42,5 @@ export {
   Descriptions,
   Typography,
   Divider,
+  QRCode,
 };

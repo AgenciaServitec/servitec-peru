@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import type { Quotation } from '../../../../globalTypes';
+import { QRCode } from '../../../../components/ui';
 
 type Props = {
   quotation: Quotation;
@@ -9,7 +10,7 @@ export const QuotationContent = forwardRef<HTMLDivElement, Props>(({ quotation }
   if (!quotation) return null;
 
   const ACCENT = '#0ea5a4';
-  const GRID_BORDER = '1px solid #bfc9cc'; // ligero y consistente
+  const GRID_BORDER = '1px solid #bfc9cc';
 
   const baseFont = {
     fontFamily: 'Segoe UI, Inter, Roboto, Arial, sans-serif',
@@ -110,7 +111,7 @@ export const QuotationContent = forwardRef<HTMLDivElement, Props>(({ quotation }
     title: {
       fontSize: 14,
       fontWeight: 700,
-      color: '#0b806e',
+      color: '#1e3a5f', // azul grisáceo oscuro
       textTransform: 'uppercase',
       letterSpacing: '0.6px',
     } as React.CSSProperties,
@@ -124,10 +125,10 @@ export const QuotationContent = forwardRef<HTMLDivElement, Props>(({ quotation }
     } as React.CSSProperties,
 
     metaHead: {
-      background: '#cfece9',
+      background: '#d1d5db',
       padding: '8px 6px',
       fontWeight: 700,
-      color: '#073b36',
+      color: '#111827',
       border: GRID_BORDER,
       whiteSpace: 'nowrap' as const,
       width: '18%',
@@ -135,9 +136,9 @@ export const QuotationContent = forwardRef<HTMLDivElement, Props>(({ quotation }
 
     metaCell: {
       padding: '8px 6px',
-      color: '#21303a',
+      color: '#1f2937',
       border: GRID_BORDER,
-      background: '#fbfffe',
+      background: '#f8fafc',
       verticalAlign: 'top' as const,
       overflow: 'hidden' as const,
       textOverflow: 'ellipsis' as const,
@@ -147,8 +148,8 @@ export const QuotationContent = forwardRef<HTMLDivElement, Props>(({ quotation }
       margin: '12px 0 4px',
       fontSize: 12.5,
       fontWeight: 700,
-      color: '#082f2b',
-      background: '#e8f7f5',
+      color: '#1e293b',
+      background: '#e5e7eb',
       padding: '6px 8px',
       border: GRID_BORDER,
     } as React.CSSProperties,
@@ -161,10 +162,10 @@ export const QuotationContent = forwardRef<HTMLDivElement, Props>(({ quotation }
     } as React.CSSProperties,
 
     th: {
-      background: '#c7efe8',
+      background: '#d1d5db',
       padding: '8px 6px',
       fontWeight: 700,
-      color: '#08322f',
+      color: '#111827',
       border: GRID_BORDER,
       textAlign: 'left' as const,
       verticalAlign: 'middle' as const,
@@ -173,19 +174,19 @@ export const QuotationContent = forwardRef<HTMLDivElement, Props>(({ quotation }
     td: {
       padding: '8px 6px',
       border: GRID_BORDER,
-      color: '#21303a',
+      color: '#1f2937',
       verticalAlign: 'top' as const,
       background: '#ffffff',
     } as React.CSSProperties,
 
-    altRow: { background: '#fbfdfc' } as React.CSSProperties,
+    altRow: { background: '#f3f4f6' } as React.CSSProperties,
 
     totalsBox: {
       width: 300,
       border: GRID_BORDER,
       borderRadius: 3,
       padding: 8,
-      background: '#eef7f5',
+      background: '#f1f5f9',
       fontSize: 12,
       marginTop: 8,
       boxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.02)',
@@ -195,7 +196,7 @@ export const QuotationContent = forwardRef<HTMLDivElement, Props>(({ quotation }
       marginTop: 10,
       paddingTop: 8,
       fontSize: 10.7,
-      color: '#26343a',
+      color: '#374151',
       borderTop: `1px dashed rgba(33,48,58,0.08)`,
     } as React.CSSProperties,
   };
@@ -341,24 +342,55 @@ export const QuotationContent = forwardRef<HTMLDivElement, Props>(({ quotation }
           </div>
         </div>
 
-        <footer style={styles.footer}>
-          Los plazos de trabajo son los siguientes: se cancela el 50% del monto total al iniciar y
-          el 50% restante al momento de la entrega del trabajo o reparación.
-          <br />
-          <br />
-          <strong>Dirección:</strong> Ca. Nestor Bermudez 113, Chorrillos - Lima
-          <br />
-          <strong>Dirección:</strong> Justo Pastor Davil 117, Chorrillos - Lima, Ubicado en Centro
-          Comercial Kiwi
-          <br />
-          <strong>Correo:</strong> contacto@servitecperu.com / gerencia@servitecperu.com
-          <br />
-          <strong>RUC:</strong> 20604141240 · <strong>RNP:</strong> S1444296
-          <br />
-          <strong>Cuenta BCP:</strong> 194-94698600-0-49 · <strong>CCI:</strong>{' '}
-          002-194-194698600049-98
-          <br />
-          <strong>Cuenta de Retracción:</strong>: 00-014-106421
+        <footer
+          style={{
+            ...styles.footer,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+            gap: 16,
+          }}
+        >
+          <div style={{ flex: 1 }}>
+            Los plazos de trabajo son los siguientes: se cancela el 50% del monto total al iniciar y
+            el 50% restante al momento de la entrega del trabajo o reparación.
+            <br />
+            <br />
+            <strong>Dirección:</strong> Ca. Nestor Bermudez 113, Chorrillos - Lima
+            <br />
+            <strong>Dirección:</strong> Justo Pastor Davil 117, Chorrillos - Lima, Ubicado en Centro
+            Comercial Kiwi
+            <br />
+            <strong>Correo:</strong> contacto@servitecperu.com / gerencia@servitecperu.com
+            <br />
+            <strong>RUC:</strong> 20604141240 · <strong>RNP:</strong> S1444296
+            <br />
+            <strong>Cuenta BCP:</strong> 194-94698600-0-49 · <strong>CCI:</strong>{' '}
+            002-194-194698600049-98
+            <br />
+            <strong>Cuenta de Retracción:</strong>: 00-014-106421
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 10,
+              minWidth: 120,
+            }}
+          >
+            {/*<div style={{ textAlign: 'center' }}>*/}
+            {/*  <QRCode*/}
+            {/*    value={`https://servitecperu.com/pdf/${contractNumber}`}*/}
+            {/*    size={80}*/}
+            {/*    bordered={false}*/}
+            {/*  />*/}
+            {/*  <div style={{ fontSize: 9, marginTop: 4, color: '#4b5563' }}>Ver PDF</div>*/}
+            {/*</div>*/}
+            <div style={{ textAlign: 'center' }}>
+              <QRCode value="https://servitecperu.com" size={80} bordered={false} />
+            </div>
+          </div>
         </footer>
       </div>
     </div>
