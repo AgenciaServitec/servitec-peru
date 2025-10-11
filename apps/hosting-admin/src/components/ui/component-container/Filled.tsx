@@ -3,23 +3,11 @@ import { capitalize, isEmpty, startCase, toString } from 'lodash';
 import { classNames, keyframes } from '../../../styles';
 import Typography from 'antd/lib/typography';
 import { lighten } from 'polished';
-import type { Dayjs } from 'dayjs';
-import type { ReactNode } from 'react';
+import type { BaseContainerProps } from '../../../globalTypes';
 
 const { Text } = Typography;
 
-interface FilledProps {
-  value?: string | number | boolean | Record<string, unknown> | Dayjs;
-  required?: boolean;
-  error?: boolean;
-  hidden?: boolean;
-  label?: string;
-  disabled?: boolean;
-  componentId?: string;
-  children?: ReactNode;
-  animation?: boolean;
-  helperText?: string;
-}
+interface FilledProps extends BaseContainerProps {}
 
 export const Filled = ({
   value,

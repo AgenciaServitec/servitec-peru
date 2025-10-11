@@ -1,14 +1,13 @@
+import type { TextAreaProps as AntTextAreaProps } from 'antd/lib/input';
 import InputAntd from 'antd/lib/input';
 import { ComponentContainer } from './component-container';
 
-interface TextAreaProps {
+interface TextAreaProps extends AntTextAreaProps {
   value?: string | number;
   required?: boolean;
   error?: boolean;
   label?: string;
   variant?: 'outlined' | 'filled';
-  disabled?: boolean;
-  placeholder?: string;
   helperText?: string;
 }
 

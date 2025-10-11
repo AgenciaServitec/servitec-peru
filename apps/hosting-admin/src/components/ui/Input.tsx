@@ -1,9 +1,8 @@
 import InputAntd from 'antd/lib/input';
+import type { InputProps as AntInputProps } from 'antd';
 import { ComponentContainer } from './component-container';
-import type { InputHTMLAttributes } from 'react';
 
-interface InputProps {
-  value?: string;
+interface InputPropsa extends Omit<AntInputProps, 'variant' | 'size'> {
   required?: boolean;
   hidden?: boolean;
   error?: boolean;
@@ -12,7 +11,6 @@ interface InputProps {
   disabled?: boolean;
   animation?: boolean;
   helperText?: string;
-  props: InputHTMLAttributes<HTMLInputElement>;
 }
 
 export const Input = ({
@@ -26,12 +24,12 @@ export const Input = ({
   animation,
   helperText,
   ...props
-}: InputProps) => {
+}: InputPropsa) => {
   const Container = ComponentContainer[variant];
 
   return (
     <Container
-      value={value}
+      value={Boolean(value)}
       required={required}
       hidden={hidden}
       error={error}
