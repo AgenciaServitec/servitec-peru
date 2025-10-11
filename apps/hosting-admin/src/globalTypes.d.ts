@@ -1,3 +1,6 @@
+import type { Dayjs } from 'dayjs';
+import type { InputHTMLAttributes } from 'react';
+
 export type Timestamp = FirebaseFirestore.Timestamp;
 
 interface DefaultFirestoreProps {
@@ -23,15 +26,18 @@ export type Image = Omit<_Image, 'createAt'> & { createAt: Date };
 interface Quotation {
   id: string;
   client: {
-    firstName?: string;
-    paternalSurname?: string;
-    maternalSurname?: string;
-    companyName?: string;
+    firstName: string;
+    paternalSurname: string;
+    maternalSurname: string;
+    companyName: string;
     document: {
       type: string;
       number: string;
     };
-    phone: Phone;
+    phone: {
+      prefix: '+51';
+      number: string;
+    };
   };
   device: {
     problemDescription: string;
@@ -47,4 +53,17 @@ interface Quotation {
   description: string;
   units: number;
   unitPrices: number;
+}
+
+export interface BaseContainerProps {
+  value?: boolean;
+  required?: boolean;
+  error?: boolean;
+  hidden?: boolean;
+  label?: string;
+  disabled?: boolean;
+  componentId?: string;
+  children?: ReactNode;
+  animation?: boolean;
+  helperText?: string;
 }

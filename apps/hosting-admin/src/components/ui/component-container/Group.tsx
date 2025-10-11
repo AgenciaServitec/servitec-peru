@@ -1,26 +1,14 @@
-import { type ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 import { capitalize, startCase } from 'lodash';
 import { keyframes } from '../../../styles';
 import Typography from 'antd/lib/typography';
 import SpaceAntd from 'antd/lib/space';
 import { lighten } from 'polished';
-import type { Dayjs } from 'dayjs';
+import type { BaseContainerProps } from '../../../globalTypes';
 
 const { Text } = Typography;
 
-interface GroupProps {
-  value?: string | number | boolean | Record<string, unknown> | Dayjs;
-  required?: boolean;
-  error?: boolean;
-  hidden?: boolean;
-  label?: string;
-  disabled?: boolean;
-  componentId?: string;
-  children?: ReactNode;
-  animation?: boolean;
-  helperText?: string;
-}
+interface GroupProps extends BaseContainerProps {}
 
 export const Group = ({ label, required, error, helperText, children }: GroupProps) => (
   <>

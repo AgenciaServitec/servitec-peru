@@ -1,25 +1,13 @@
-import { type ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 import { capitalize, isEmpty, startCase, toString } from 'lodash';
 import { classNames, keyframes } from '../../../styles';
 import Typography from 'antd/lib/typography';
 import { lighten } from 'polished';
-import type { Dayjs } from 'dayjs';
+import type { BaseContainerProps } from '../../../globalTypes';
 
 const { Text } = Typography;
 
-interface OutlinedProps {
-  value?: string | number | boolean | Record<string, unknown> | Dayjs;
-  required?: boolean;
-  error?: boolean;
-  hidden?: boolean;
-  label?: string;
-  disabled?: boolean;
-  componentId?: string;
-  children?: ReactNode;
-  animation?: boolean;
-  helperText?: string;
-}
+interface OutlinedProps extends BaseContainerProps {}
 
 export const Outlined = ({
   value,
@@ -114,14 +102,10 @@ const Wrapper = styled.div<Pick<OutlinedProps, 'error' | 'disabled' | 'value'>>`
 
     .item-wrapper {
       input:-webkit-autofill {
-        -webkit-text-fill-color: #fff;
-        ${value &&
-        css`
-          -webkit-text-fill-color: ${({ theme }) => theme.colors.font1};
-        `};
+        -webkit-text-fill-color: ${value ? theme.colors.font1 : 'fff'};
 
         &:focus {
-          -webkit-text-fill-color: ${({ theme }) => theme.colors.font1};
+          -webkit-text-fill-color: ${theme.colors.font1};
         }
       }
 

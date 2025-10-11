@@ -1,20 +1,17 @@
 import { useDefaultFirestoreProps, useFormUtils } from '../../../hooks';
+import type { InferType } from 'yup';
 import * as yup from 'yup';
 import { useNavigate, useParams } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Quotation } from '../../../globalTypes';
-import {
-  addQuotation,
-  fetchQuotation,
-  getQuotationId,
-  updateQuotation,
-} from '../../../firebase/collections';
+import { addQuotation, fetchQuotation, updateQuotation } from '../../../firebase/collections';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Controller, useForm } from 'react-hook-form';
-import { Row, Col, Form, Input, TextArea, Button, notification } from '../../../components/ui';
+import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
+import { Button, Col, Form, Input, notification, Row, TextArea } from '../../../components/ui';
 import { Select } from '../../../components/ui/Select.tsx';
-
-const { assignCreateProps, assignUpdateProps } = useDefaultFirestoreProps();
+import { isEmpty } from 'lodash';
+import { Spinner } from '../../../components/ui/Spinner.tsx';
+import { createEmptyQuotation } from '../../../factories';
 
 const quotationSchema = yup.object({
   client: yup.object({
@@ -26,7 +23,7 @@ const quotationSchema = yup.object({
       type: yup.string().required(),
       number: yup.string().required(),
     }),
-    phone: yup.string().required(),
+    phoneNumber: yup.string().required(),
   }),
   device: yup.object({
     problemDescription: yup.string().required(),
@@ -44,105 +41,197 @@ const quotationSchema = yup.object({
   unitPrices: yup.number().required(),
 });
 
-const saveQuotation = async (data: Quotation, isNew: boolean) => {
-  if (isNew) {
-    await addQuotation(assignCreateProps(data));
-    notification({ type: 'success', description: 'Cotización creada con éxito' });
-  } else {
-    await updateQuotation(data.id, assignUpdateProps(data));
-    notification({ type: 'success', description: 'Cotización actualizada con éxito' });
-  }
-};
+type QuotationFormData = InferType<typeof quotationSchema>;
+
+interface QuotationFormProps {
+  quotation: Quotation | null;
+  isNew: boolean;
+  onSubmitQuotation: (formData: QuotationFormData) => Promise<void>;
+  onCancel: () => void;
+  loading: boolean;
+}
 
 export function QuotationIntegration() {
   const navigate = useNavigate();
   const { quotationId } = useParams<{ quotationId: string }>();
+
+  const [quotation, setQuotation] = useState<Quotation | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const { assignCreateProps, assignUpdateProps } = useDefaultFirestoreProps();
+
   const isNew = quotationId === 'new';
-  const [initialData, setInitialData] = useState<Quotation | null>(null);
+
+  const onGoBack = () => navigate(-1);
 
   useEffect(() => {
     (async () => {
-      if (isNew) {
-        setInitialData({
-          id: getQuotationId(),
-          client: {
-            firstName: '',
-            paternalSurname: '',
-            maternalSurname: '',
-            companyName: '',
-            document: { type: '', number: '' },
-            phone: '',
-          },
-          device: { problemDescription: '', type: '', brand: '', model: '', color: '' },
-          analysis: '',
-          solutions: '',
-          recommendations: '',
-          serialNumber: '',
-          description: '',
-          units: 0,
-          unitPrices: 0,
+      try {
+        if (isNew) {
+          setQuotation(createEmptyQuotation());
+        } else if (quotationId) {
+          const _quotation = await fetchQuotation(quotationId);
+          if (!_quotation) {
+            notification({
+              type: 'error',
+              description: 'Cotización no encontrada',
+            });
+            navigate(-1);
+            return;
+          }
+          setQuotation(_quotation as Quotation);
+        }
+      } catch (error) {
+        console.error('Error al cargar cotización:', error);
+        notification({
+          type: 'error',
+          description: 'Error al cargar la cotización',
         });
-      } else if (quotationId) {
-        const fetched = await fetchQuotation(quotationId);
-        if (!fetched) return navigate(-1);
-        setInitialData(fetched as Quotation);
+        navigate(-1);
+      } finally {
+        setLoading(false);
       }
     })();
   }, [quotationId, isNew, navigate]);
 
-  if (!initialData) {
-    return <div className="text-center text-muted-foreground py-20">Cargando...</div>;
-  }
+  const mapQuotation = (formData: QuotationFormData, quotation: Quotation): Quotation => ({
+    id: quotation.id,
+    client: {
+      firstName: formData.client.firstName,
+      paternalSurname: formData.client.paternalSurname,
+      maternalSurname: formData.client.maternalSurname,
+      companyName: formData.client.companyName,
+      document: {
+        type: formData.client.document.type,
+        number: formData.client.document.number,
+      },
+      phone: {
+        prefix: '+51',
+        number: formData.client.phoneNumber,
+      },
+    },
+    device: {
+      problemDescription: formData.device.problemDescription,
+      type: formData.device.type,
+      brand: formData.device.brand,
+      model: formData.device.model,
+      color: formData.device.color,
+    },
+    analysis: formData.analysis,
+    solutions: formData.solutions,
+    recommendations: formData.solutions,
+    serialNumber: formData.serialNumber,
+    description: formData.description,
+    units: formData.units,
+    unitPrices: formData.unitPrices,
+  });
+
+  const onSubmitQuotation = async (formData: QuotationFormData) => {
+    if (isEmpty(quotation)) return;
+
+    try {
+      setLoading(true);
+
+      if (isNew) {
+        await addQuotation(assignCreateProps<Quotation>(mapQuotation(formData, quotation)));
+        notification({
+          type: 'success',
+          description: 'Cotización creada con éxito',
+        });
+      } else {
+        await updateQuotation(quotation.id, assignUpdateProps(mapQuotation(formData, quotation)));
+        notification({
+          type: 'success',
+          description: 'Cotización actualizada con éxito',
+        });
+      }
+
+      onGoBack();
+    } catch (e) {
+      console.error(e);
+      notification({
+        type: 'error',
+        description: `Ocurrió un error al ${isNew ? 'guardar' : 'actualizar'}`,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (isEmpty(quotation)) <Spinner height="80vh" />;
 
   return (
     <div className="w-full py-10 px-4 md:px-10 lg:px-20">
-      <QuotationForm isNew={isNew} defaultValues={initialData} onCancel={() => navigate(-1)} />
+      <QuotationForm
+        quotation={quotation}
+        isNew={isNew}
+        onSubmitQuotation={onSubmitQuotation}
+        onCancel={() => navigate(-1)}
+        loading={loading}
+      />
     </div>
   );
 }
 
-interface QuotationFormProps {
-  isNew: boolean;
-  defaultValues: Quotation;
-  onCancel: () => void;
-}
-
-const QuotationForm: React.FC<QuotationFormProps> = ({ isNew, defaultValues, onCancel }) => {
-  const navigate = useNavigate();
+const QuotationForm = ({
+  quotation,
+  isNew,
+  onSubmitQuotation,
+  onCancel,
+  loading,
+}: QuotationFormProps) => {
   const {
     formState: { errors },
     handleSubmit,
     control,
     reset,
-  } = useForm<Quotation>({
+  } = useForm<QuotationFormData>({
     resolver: yupResolver(quotationSchema),
-    defaultValues,
   });
 
+  const resetForm = () => {
+    reset({
+      client: {
+        firstName: quotation?.client?.firstName || '',
+        paternalSurname: quotation?.client?.paternalSurname || '',
+        maternalSurname: quotation?.client?.maternalSurname || '',
+        companyName: quotation?.client?.companyName || '',
+        document: {
+          type: quotation?.client?.document?.type || '',
+          number: quotation?.client?.document?.number || '',
+        },
+        phoneNumber: quotation?.client?.phone.number || '',
+      },
+      device: {
+        problemDescription: quotation?.device?.problemDescription || '',
+        type: quotation?.device?.type || '',
+        brand: quotation?.device?.brand || '',
+        model: quotation?.device?.model || '',
+        color: quotation?.device?.color || '',
+      },
+      analysis: quotation?.analysis || '',
+      solutions: quotation?.solutions || '',
+      recommendations: quotation?.recommendations || '',
+      serialNumber: quotation?.serialNumber || '',
+      description: quotation?.description || '',
+      units: quotation?.units || 0,
+      unitPrices: quotation?.unitPrices || 0,
+    });
+  };
+
   useEffect(() => {
-    reset(defaultValues);
-  }, [defaultValues, reset]);
+    resetForm();
+  }, [quotation]);
 
   const { required, error } = useFormUtils({ errors, schema: quotationSchema });
 
-  const [isSaving, setIsSaving] = useState<boolean>(false);
-
-  const onSubmit = async (data: Quotation) => {
-    setIsSaving(true);
-    try {
-      await saveQuotation(data, isNew);
-      navigate(-1);
-    } catch (err) {
-      console.error('Error al guardar cotización:', err);
-      notification({ type: 'error', description: 'Ocurrió un error al guardar la cotización.' });
-    } finally {
-      setIsSaving(false);
-    }
+  const handleFormSubmit: SubmitHandler<QuotationFormData> = (formData) => {
+    onSubmitQuotation(formData);
   };
 
   return (
     <>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(handleFormSubmit)}>
         <Row gutter={[16, 16]}>
           <Col span={24}>
             <h2>{isNew ? 'Nueva Cotización' : 'Editar Cotización'}</h2>
@@ -154,12 +243,14 @@ const QuotationForm: React.FC<QuotationFormProps> = ({ isNew, defaultValues, onC
             <Controller
               name="client.firstName"
               control={control}
-              render={({ field }) => (
+              render={({ field: { onChange, value, name } }) => (
                 <Input
-                  {...field}
                   label="Nombre"
-                  error={error(field.name)}
-                  required={required(field.name)}
+                  name={name}
+                  value={value}
+                  onChange={onChange}
+                  error={error(name)}
+                  required={required(name)}
                 />
               )}
             />
@@ -168,12 +259,14 @@ const QuotationForm: React.FC<QuotationFormProps> = ({ isNew, defaultValues, onC
             <Controller
               name="client.paternalSurname"
               control={control}
-              render={({ field }) => (
+              render={({ field: { onChange, value, name } }) => (
                 <Input
-                  {...field}
                   label="Apellido Paterno"
-                  error={error(field.name)}
-                  required={required(field.name)}
+                  name={name}
+                  value={value}
+                  onChange={onChange}
+                  error={error(name)}
+                  required={required(name)}
                 />
               )}
             />
@@ -196,12 +289,14 @@ const QuotationForm: React.FC<QuotationFormProps> = ({ isNew, defaultValues, onC
             <Controller
               name="client.companyName"
               control={control}
-              render={({ field }) => (
+              render={({ field: { onChange, value, name } }) => (
                 <Input
-                  {...field}
                   label="Razón Social"
-                  error={error(field.name)}
-                  required={required(field.name)}
+                  name={name}
+                  value={value}
+                  onChange={onChange}
+                  error={error(name)}
+                  required={required(name)}
                 />
               )}
             />
@@ -242,7 +337,7 @@ const QuotationForm: React.FC<QuotationFormProps> = ({ isNew, defaultValues, onC
           </Col>
           <Col span={12}>
             <Controller
-              name="client.phone"
+              name="client.phoneNumber"
               control={control}
               render={({ field }) => (
                 <Input
@@ -379,13 +474,15 @@ const QuotationForm: React.FC<QuotationFormProps> = ({ isNew, defaultValues, onC
             <Controller
               name="units"
               control={control}
-              render={({ field }) => (
+              render={({ field: { onChange, value, name } }) => (
                 <Input
-                  {...field}
-                  type="number"
                   label="Unidades"
-                  error={error(field.name)}
-                  required={required(field.name)}
+                  name={name}
+                  value={value}
+                  type="number"
+                  onChange={onChange}
+                  error={error(name)}
+                  required={required(name)}
                 />
               )}
             />
@@ -394,13 +491,15 @@ const QuotationForm: React.FC<QuotationFormProps> = ({ isNew, defaultValues, onC
             <Controller
               name="unitPrices"
               control={control}
-              render={({ field }) => (
+              render={({ field: { onChange, value, name } }) => (
                 <Input
-                  {...field}
-                  type="number"
                   label="Precio Unitarios"
-                  error={error(field.name)}
-                  required={required(field.name)}
+                  name={name}
+                  value={value}
+                  type="number"
+                  onChange={onChange}
+                  error={error(name)}
+                  required={required(name)}
                 />
               )}
             />
@@ -416,8 +515,8 @@ const QuotationForm: React.FC<QuotationFormProps> = ({ isNew, defaultValues, onC
                   type="default"
                   size="large"
                   block
-                  onClick={() => !isSaving && onCancel()}
-                  disabled={isSaving}
+                  onClick={() => !loading && onCancel()}
+                  disabled={loading}
                 >
                   Cancelar
                 </Button>
@@ -428,8 +527,8 @@ const QuotationForm: React.FC<QuotationFormProps> = ({ isNew, defaultValues, onC
                   size="large"
                   block
                   htmlType="submit"
-                  loading={isSaving}
-                  disabled={isSaving}
+                  loading={loading}
+                  disabled={loading}
                 >
                   {isNew ? 'Crear Cotización' : 'Guardar Cambios'}
                 </Button>
