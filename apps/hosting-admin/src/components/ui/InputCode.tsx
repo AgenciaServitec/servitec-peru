@@ -1,6 +1,30 @@
-import OTPInput from 'react-otp-input';
+import OTPInput, { type OTPInputProps } from 'react-otp-input';
 import styled, { css } from 'styled-components';
 import { keyframes, mediaQuery, theme } from '../../styles';
+
+interface InputCodeProps
+  extends Omit<
+    OTPInputProps,
+    | 'value'
+    | 'onChange'
+    | 'numInputs'
+    | 'renderSeparator'
+    | 'renderInput'
+    | 'inputStyle'
+    | 'inputType'
+  > {
+  value: string;
+  onChange: (value: string) => void;
+  required?: boolean;
+  hidden?: boolean;
+  error?: boolean;
+  label?: string;
+  type?: 'number' | 'text';
+  numInputs?: number;
+  disabled?: boolean;
+  animation?: string;
+  helperText?: string;
+}
 
 export const InputCode = ({
   value,
@@ -15,7 +39,7 @@ export const InputCode = ({
   helperText,
   onChange,
   ...props
-}) => {
+}: InputCodeProps) => {
   return (
     <Container error={error}>
       {label && (
@@ -31,8 +55,6 @@ export const InputCode = ({
         renderInput={(props) => <input {...props} />}
         inputStyle="input-style"
         inputType={type}
-        disabled={disabled}
-        allowClear={!disabled}
         {...props}
       />
       {error && <div className="warning-message">{helperText}</div>}
@@ -40,7 +62,7 @@ export const InputCode = ({
   );
 };
 
-const Container = styled.div`
+const Container = styled.div<{ error?: boolean }>`
   ${({ error }) => css`
     .label {
       margin-bottom: 1rem;

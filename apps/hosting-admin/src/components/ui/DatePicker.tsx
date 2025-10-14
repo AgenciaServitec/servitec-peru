@@ -3,7 +3,7 @@ import { ComponentContainer } from './component-container';
 import { type Dayjs } from 'dayjs';
 
 interface DatePickerProps {
-  value?: Dayjs | string | undefined;
+  value?: string | undefined;
   name?: string;
   required?: boolean;
   disabled?: boolean;
@@ -33,7 +33,7 @@ export const DatePicker = ({
   allowClear = true,
   onChange,
   prefix = null,
-  disabledDate = (current: Dayjs) => false,
+  disabledDate = () => false,
   format = 'DD/MM/YYYY HH:mm',
 }: DatePickerProps) => {
   const Container = ComponentContainer[variant];
