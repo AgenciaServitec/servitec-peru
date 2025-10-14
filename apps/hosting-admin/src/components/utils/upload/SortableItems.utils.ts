@@ -1,25 +1,26 @@
-import { MouseSensor as LibMouseSensor } from "@dnd-kit/core";
+import { MouseSensor as LibMouseSensor } from '@dnd-kit/core';
 
 export class MouseSensor extends LibMouseSensor {
-  constructor(...args) {
+  constructor(...args: any[]) {
+    // @ts-expect-error - Pasando argumentos al constructor padre
     super(...args);
 
-    this.constructor.activators = [
+    (this.constructor as any).activators = [
       {
-        eventName: "onMouseDown",
-        handler: ({ nativeEvent: event }) => {
-          return shouldHandleEvent(event.target);
+        eventName: 'onMouseDown',
+        handler: ({ nativeEvent: event }: { nativeEvent: Event }) => {
+          return shouldHandleEvent(event.target as HTMLElement);
         },
       },
     ];
   }
 }
 
-const shouldHandleEvent = (element) => {
+const shouldHandleEvent = (element: HTMLElement | null): boolean => {
   let cur = element;
 
   while (cur) {
-    if (cur.dataset && cur.dataset.disabledDnd) {
+    if (cur.dataset?.disabledDnd) {
       return false;
     }
     cur = cur.parentElement;
@@ -28,9 +29,12 @@ const shouldHandleEvent = (element) => {
   return true;
 };
 
-// export type DisableDragProps = Record<string, string>;
-
-export const disableDragProps = {
-  id: "disabled-dnd",
-  "data-disabled-dnd": "true",
+export type DisableDragProps = {
+  readonly id: string;
+  readonly 'data-disabled-dnd': string;
 };
+
+export const disableDragProps: DisableDragProps = {
+  id: 'disabled-dnd',
+  'data-disabled-dnd': 'true',
+} as const;

@@ -6,8 +6,8 @@
   "targets": {
     "servitec-peru": {
       "hosting": {
-        "admin": [
-          "admin"
+        "app": [
+          "servitec-peru"
         ],
         "api": [
           "api-servitec-peru"
@@ -16,8 +16,8 @@
     },
     "servitec-peru-dev": {
       "hosting": {
-        "admin": [
-          "admin-dev"
+        "app": [
+          "servitec-peru-dev"
         ],
         "api": [
           "api-servitec-peru"

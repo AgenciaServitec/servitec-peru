@@ -1,22 +1,21 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBox, faDownload, faUpload } from "@fortawesome/free-solid-svg-icons";
-import styled from "styled-components";
-import { Button } from "../../ui";
-import React from "react";
-import AntdModal from "antd/lib/modal";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBox, faDownload, faUpload } from '@fortawesome/free-solid-svg-icons';
+import styled from 'styled-components';
+import { Button } from '../../ui';
+import AntdModal from 'antd/lib/modal';
 
-// interface PreviewFileProps {
-//     url: string;
-//     thumbUrl?: string;
-//     isImage: boolean;
-//     onCancel: () => void;
-//     visible: boolean;
-// }
+interface PreviewFileProps {
+  url: string;
+  thumbUrl?: string;
+  isImage: boolean;
+  onCancel: () => void;
+  visible: boolean;
+}
 
-export const PreviewFile = ({ url, isImage, onCancel, thumbUrl, visible }) => (
+export const PreviewFile = ({ url, isImage, onCancel, thumbUrl, visible }: PreviewFileProps) => (
   <ModalStyled
     onCancel={onCancel}
-    style={{ textAlign: "center" }}
+    style={{ textAlign: 'center' }}
     open={visible}
     title="Visualización"
     closable={true}
@@ -25,7 +24,7 @@ export const PreviewFile = ({ url, isImage, onCancel, thumbUrl, visible }) => (
       <ButtonStyled
         key="download"
         size="large"
-        onClick={() => window.open(isImage ? thumbUrl : url, "_blank")}
+        onClick={() => window.open(isImage ? thumbUrl : url, '_blank')}
         icon={<FontAwesomeIcon icon={faDownload} />}
       >
         &ensp; Descargar
@@ -58,25 +57,25 @@ const ButtonStyled = styled(Button)`
     margin: 0 5px 4px 0;
   }
 `;
-//
-// interface UploadBodyProps {
-//   buttonText: string;
-//   visible?: boolean;
-// }
 
-export const UploadBody = ({ buttonText, visible = true }) =>
+interface UploadBodyProps {
+  buttonText: string;
+  visible?: boolean;
+}
+
+export const UploadBody = ({ buttonText, visible = true }: UploadBodyProps) =>
   visible ? (
     <Button size="large" block icon={<FontAwesomeIcon icon={faUpload} />}>
       &nbsp; {buttonText}
     </Button>
   ) : null;
 
-// interface UploadDraggerBodyProps {
-//   text: string;
-//   hint: string;
-// }
+interface UploadDraggerBodyProps {
+  text: string;
+  hint: string;
+}
 
-export const UploadDraggerBody = ({ text, hint }) => (
+export const UploadDraggerBody = ({ text, hint }: UploadDraggerBodyProps) => (
   <Wrapper>
     <p className="ant-upload-drag-icon">
       <FontAwesomeIcon icon={faBox} size="2x" />
