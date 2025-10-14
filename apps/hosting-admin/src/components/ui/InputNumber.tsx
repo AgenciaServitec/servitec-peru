@@ -11,6 +11,7 @@ interface Props extends InputNumberProps {
   variant?: 'filled' | 'outlined';
   helperText?: string;
   animation?: boolean;
+  onChange: (value: string | number | null) => void;
 }
 
 export const InputNumber = ({
@@ -27,7 +28,7 @@ export const InputNumber = ({
 }: Props) => {
   const Container = ComponentContainer[variant];
 
-  const onInputChange = (value) => onChange(value ? toNumber(value) : null);
+  const onInputChange = (value: string | number | null) => onChange(value ? toNumber(value) : null);
 
   return (
     <Container

@@ -14,7 +14,7 @@ export const Audio = ({ audio, autoPlay }: AudioProps) => {
   return (
     <ContainerAudio
       ref={audioRef}
-      key={autoPlay}
+      key={`${autoPlay}`}
       src={audio}
       autoPlay={autoPlay}
       preload="none"
