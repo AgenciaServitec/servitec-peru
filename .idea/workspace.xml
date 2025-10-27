@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b17dd4b9-88df-45e5-a4a2-d9d50729aa5a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.prettierrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.prettierrcignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/eslint.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/global.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/pnpm-lock.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/public/icon-servitec.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/api/apiErrors.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/api/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/api/useApi.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/api/useApiUserPatch.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/api/useApiUserPost.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/api/useApiUserPut.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/SortableImages.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/SortableItems.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/Upload.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/UploadImages.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/UploadMultiples.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/PublicLayout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/types/sortable.types.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/types/upload.types.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/IconAction.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/RadioGroup.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Title.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/list/List.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/list/VirtualizedList.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/list/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/table/TableVirtualized.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/table/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/table/utils/FilterDropdown.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/table/utils/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/table/utils/mapColumns.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/config/apiErros.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/auth.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/users.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/hooks/useQueryString.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/images/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/images/webp/photo-no-found.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/AccessDataLogin.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/VerificationCode.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/VerificationMethod.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/profile/ProfileDataForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/profile/ProfileInformation.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/register/AccessData.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/register/PersonalInformation.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/UsersTable.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/providers/AuthenticationProvider.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/providers/GlobalDataProvider.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/providers/VersionProvider.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/router/PrivateRoute.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/router/PublicRoute.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/utils/abstract.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/utils/localStorage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/tsconfig.build.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/pnpm-lock.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/eslint-config/base.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/eslint-config/next.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/eslint-config/node.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/eslint-config/react.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/types/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/types/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/types/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/typescript-config/nextjs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/prettier.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/servitec-peru.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.prettierignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.prettierrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.turbo/daemon/a13e28bb0f528608-turbo.log.2025-09-15" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.turbo/daemon/f78d005b454fefd3-turbo.log.2025-09-25" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.turbo/daemon/f78d005b454fefd3-turbo.log.2025-09-29" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.turbo/daemon/f78d005b454fefd3-turbo.log.2025-10-07" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/quotations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/quotations.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/users.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/_firebase/firestore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/_firebase/firestore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/_firebase/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/_firebase/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/assistances/controllers/getAssistance.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/assistances/controllers/getAssistance.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/assistances/controllers/getAssistances.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/assistances/controllers/getAssistances.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/assistances/controllers/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/assistances/controllers/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/assistances/controllers/postAssistance.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/assistances/controllers/postAssistance.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/assistances/controllers/putAssistance.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/assistances/controllers/putAssistance.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/assistances/routes/assistances.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/assistances/routes/assistances.routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/quotations/controllers/getQuotation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/quotations/controllers/getQuotation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/quotations/controllers/getQuotations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/quotations/controllers/getQuotations.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/quotations/controllers/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/quotations/controllers/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/quotations/controllers/postQuotation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/quotations/controllers/postQuotation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/quotations/controllers/putQuotation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/quotations/controllers/putQuotation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/quotations/routes/quotations.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/quotations/routes/quotations.routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/users/controllers/getUser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/users/controllers/getUser.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/users/controllers/getUsers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/users/controllers/getUsers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/users/controllers/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/users/controllers/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/users/controllers/postUser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/users/controllers/postUser.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/users/controllers/putUser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/users/controllers/putUser.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/users/routes/users.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/users/routes/users.routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/global.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/globalTypes.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/globalTypes.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/globalUtils.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/globalUtils.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/utils/dateConverter.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/utils/defaultFirestoreProps.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/utils/defaultFirestoreProps.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/utils/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/utils/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/tsconfig.dev.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/tsconfig.dev.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/eslint.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/eslint.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/public/logo-servitec.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/public/logo-servitecperu.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/Upload.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/Upload.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/AdminLayout.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/AdminLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/AdminLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/Breadcrumb.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/Breadcrumb.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/Breadcrumb.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/DrawerLayout.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/DrawerLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/DrawerLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/FooterLayout.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/HeaderLayout.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/HeaderLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/HeaderLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/AddButton.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/AddButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/AddButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Audio.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Audio.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Audio.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Checkbox.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Checkbox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Checkbox.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/CheckboxGroup.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/CheckboxGroup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/CheckboxGroup.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/DatePicker.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/DatePicker.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/DatePicker.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Form.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Form.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Icon.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Icon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Icon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Input.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Input.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/InputCode.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/InputCode.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/InputCode.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/InputNumber.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/InputNumber.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/InputNumber.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Legend.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Legend.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Legend.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Modal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Modal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Modal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Select.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Select.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Select.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Spinner.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Spinner.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Spinner.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/TextArea.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/TextArea.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/TextArea.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/TimePicker.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/TimePicker.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/TimePicker.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Filled.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Filled.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Filled.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Group.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Group.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Group.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Outlined.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Outlined.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Outlined.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/modalConfirm.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/modalConfirm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/modalConfirm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/notification.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/notification.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/notification.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/SortableItems.utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/SortableItems.utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/SortableItems.utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/components.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/components.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/components.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/functions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/functions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/functions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/config/configs.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/config/configs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/config/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/config/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/config/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/factories/assistance.factory.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/factories/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/factories/quotation.factory.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/factories/user.factory.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/quotations.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/quotations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/quotations.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/firestore.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/firestore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/firestore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/storage.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/storage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/storage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/globalTypes.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/globalUtils.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/hooks/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/hooks/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/hooks/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/hooks/useDefaultFirestoreProps.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/hooks/useDefaultFirestoreProps.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/hooks/useFormUtils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/hooks/useFormUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/hooks/useFormUtils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/home/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/home/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/home/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/profile/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/profile/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/profile/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/Quotations.Table.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/Quotations.Table.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/sheets/QuotationContent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/sheets/QuotationContent.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/sheets/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/sheets/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/register/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/register/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/register/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/providers/ConfigsInitializer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/providers/ConfigsInitializer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/providers/ConfigsInitializer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/providers/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/providers/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/providers/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/router/PrivateRoute.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/router/PrivateRoute.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/router/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/router/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/router/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/breakPoints.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/keyframes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/mediaQuery.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/mediaQuery.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/mediaQuery.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/styles/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/styles/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/styles/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/GlobalStyle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/GlobalStyle.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/GlobalStyle.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/theme.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/theme.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/styles/utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/styles/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/styles/utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/utils/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/utils/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/utils/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/utils/promised.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/utils/promised.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/utils/promised.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/vite-env.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/styled.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/tsconfig.app.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/tsconfig.app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/tsconfig.node.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/tsconfig.node.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/vite.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-api/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/eslint.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/eslint.config.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firestore.indexes.json" beforeDir="false" afterPath="$PROJECT_DIR$/firestore.indexes.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firestore.rules" beforeDir="false" afterPath="$PROJECT_DIR$/firestore.rules" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/eslint-config/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/eslint-config/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/eslint-config/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/shared/dist/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/shared/dist/types/common.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/shared/dist/types/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/shared/dist/types/quotation.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/shared/dist/types/user.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/shared/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/shared/src/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/shared/src/types/common.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/shared/src/types/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/shared/src/types/quotation.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/shared/src/types/user.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/shared/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/shared/tsconfig.tsbuildinfo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/typescript-config/base.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/typescript-config/base.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/typescript-config/node.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/typescript-config/node.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/typescript-config/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/typescript-config/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/typescript-config/react.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/typescript-config/react.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-workspace.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-workspace.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/turbo.json" beforeDir="false" afterPath="$PROJECT_DIR$/turbo.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dockerfile" />
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="main" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;AngelDev2001&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AgenciaServitec/servitec-peru.git&quot;,
+    &quot;accountId&quot;: &quot;e345968d-7d21-452d-8db2-36d5945ef979&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="33rTmrDCFWq0SivK3TBMdiHnT1E" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "refactor__project",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "C:/Users/Angel/WebstormProjects/servitec-peru",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "pnpm",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "to.speed.mode.migration.done": "true",
+    "ts.external.directory.path": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\packages\\shared\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting-admin\src\utils" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-e03c56caf84a-JavaScript-WS-252.23892.411" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b17dd4b9-88df-45e5-a4a2-d9d50729aa5a" name="Changes" comment="" />
+      <created>1760074352772</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1760074352772</updated>
+      <workItem from="1760074354009" duration="2104000" />
+      <workItem from="1760191945634" duration="16456000" />
+      <workItem from="1760301769569" duration="1298000" />
+      <workItem from="1760335041580" duration="1619000" />
+      <workItem from="1760458307427" duration="19559000" />
+      <workItem from="1760898036985" duration="1200000" />
+      <workItem from="1761589810113" duration="1563000" />
+    </task>
+    <task id="LOCAL-00001" summary="refactored types">
+      <option name="closed" value="true" />
+      <created>1760467136320</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1760467136320</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/main.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/Upload.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/App.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/utils/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/utils/promised.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/Breadcrumb.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/AdminLayout.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/FooterLayout.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Form.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/HeaderLayout.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/DrawerLayout.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/InputCode.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Icon.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Spinner.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/InputNumber.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Audio.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/AddButton.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/modalConfirm.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/notification.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/TimePicker.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Modal.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Select.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/DatePicker.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Input.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/CheckboxGroup.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/TextArea.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Filled.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/SortableItems.utils.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Legend.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Checkbox.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Outlined.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Group.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/quotations.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/storage.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/utils.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/functions.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/config/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/home/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/firestore.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/hooks/useDefaultFirestoreProps.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/hooks/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/hooks/useFormUtils.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/sheets/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/sheets/QuotationContent.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/register/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/profile/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/Quotations.Table.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/mediaQuery.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/breakPoints.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/keyframes.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/providers/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/providers/ConfigsInitializer.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/router/PrivateRoute.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/router/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/GlobalStyle.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/utils.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/theme.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/main.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/Upload.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/App.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/hooks/useDefaultFirestoreProps.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/hooks/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/hooks/useFormUtils.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/home/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/register/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/quotations.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/utils.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Form.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Audio.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/AddButton.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/modalConfirm.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/InputCode.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Icon.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Spinner.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/InputNumber.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/DatePicker.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Input.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/CheckboxGroup.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/TextArea.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/notification.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/TimePicker.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Modal.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Select.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Legend.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Checkbox.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Outlined.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Group.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Filled.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/storage.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/utils.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/firestore.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/HeaderLayout.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/DrawerLayout.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/Breadcrumb.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/AdminLayout.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/FooterLayout.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/router/PrivateRoute.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/router/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/theme.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/GlobalStyle.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/sheets/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/sheets/QuotationContent.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/config/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/SortableItems.utils.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/functions.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/providers/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/providers/ConfigsInitializer.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/profile/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/Quotations.Table.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/mediaQuery.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/breakPoints.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/keyframes.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/main.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/Upload.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/App.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/HeaderLayout.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/DrawerLayout.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/Breadcrumb.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/AdminLayout.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/FooterLayout.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Form.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Audio.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/AddButton.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/modalConfirm.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/InputCode.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Icon.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Spinner.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/InputNumber.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/DatePicker.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Input.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/CheckboxGroup.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/TextArea.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/notification.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/TimePicker.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Modal.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Select.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Legend.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Checkbox.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Outlined.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Group.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Filled.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/SortableItems.utils.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/functions.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/config/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/quotations.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/storage.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/utils.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/firestore.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/hooks/useDefaultFirestoreProps.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/hooks/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/hooks/useFormUtils.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/home/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/profile/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/Quotations.Table.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/sheets/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/sheets/QuotationContent.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/register/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/providers/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/providers/ConfigsInitializer.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/router/PrivateRoute.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/router/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/mediaQuery.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/breakPoints.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/keyframes.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/utils.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/index.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/theme.js" />
+        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/GlobalStyle.js" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/improve-quotations-module" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="refactored types" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored types" />
+  </component>
+</project>
