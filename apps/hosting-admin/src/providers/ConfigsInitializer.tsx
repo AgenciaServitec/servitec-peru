@@ -1,22 +1,22 @@
-import dayjs from 'dayjs';
-import { type ReactNode, useEffect, useState } from 'react';
-import { setLocale } from 'yup';
-import { yup } from '../config';
-import { ConfigProvider } from 'antd';
-import esES from 'antd/es/locale/es_ES';
-import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
-import es from 'dayjs/locale/es';
+import dayjs from "dayjs";
+import { type ReactNode, useEffect, useState } from "react";
+import { setLocale } from "yup";
+import { yup } from "../config";
+import { ConfigProvider } from "antd";
+import esES from "antd/es/locale/es_ES";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+import es from "dayjs/locale/es";
 
-import localizedFormat from 'dayjs/plugin/localizedFormat';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
-import advancedFormat from 'dayjs/plugin/advancedFormat';
-import weekday from 'dayjs/plugin/weekday';
-import localeData from 'dayjs/plugin/localeData';
-import weekOfYear from 'dayjs/plugin/weekOfYear';
-import weekYear from 'dayjs/plugin/weekYear';
-import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
-import isToday from 'dayjs/plugin/isToday';
+import localizedFormat from "dayjs/plugin/localizedFormat";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import advancedFormat from "dayjs/plugin/advancedFormat";
+import weekday from "dayjs/plugin/weekday";
+import localeData from "dayjs/plugin/localeData";
+import weekOfYear from "dayjs/plugin/weekOfYear";
+import weekYear from "dayjs/plugin/weekYear";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
+import isToday from "dayjs/plugin/isToday";
 
 type ConfigsInitializerProps = {
   children: ReactNode;
@@ -38,7 +38,7 @@ export const ConfigsInitializer = ({ children }: ConfigsInitializerProps) => {
   dayjs.extend(isToday);
 
   useEffect(() => {
-    setLocale(yup['es']);
+    setLocale(yup["es"]);
 
     dayjs.locale(es);
   }, []);

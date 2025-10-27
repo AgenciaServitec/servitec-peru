@@ -9,7 +9,7 @@
       "messagingSenderId": "253941959732",
       "appId": "1:253941959732:web:4af2a236ed20ade1c8ce61"
     },
-    "apiUrl": "https://api-servitec-peru-dev.web.app"
+    "apiUrl": "https://us-central1-servitec-peru.cloudfunctions.net/api"
   },
   "production": {
     "version": "0.0.1",
@@ -21,6 +21,6 @@
       "messagingSenderId": "253941959732",
       "appId": "1:253941959732:web:4af2a236ed20ade1c8ce61"
     },
-    "apiUrl": "https://api-servitec-peru.web.app"
+    "apiUrl": "https://us-central1-servitec-peru.cloudfunctions.net/api"
   }
 }

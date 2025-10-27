@@ -1,2 +1,1 @@
-export * from './defaultFirestoreProps';
-export * from './dateConverter';
+export * from "./defaultFirestoreProps.js";

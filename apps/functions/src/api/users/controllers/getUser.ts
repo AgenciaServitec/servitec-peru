@@ -1,5 +1,6 @@
-import { Response, Request, NextFunction } from 'express';
-import { fetchUser } from '../../../_firebase/collections';
+import { Response, Request, NextFunction } from "express";
+
+import { fetchUser } from "../../../_firebase/collections";
 
 interface Params {
   userId: string;
@@ -14,7 +15,7 @@ export const getUser = async (
     params: { userId },
   } = req;
 
-  console.log(userId, '「Get user data」Initialize', {
+  console.log(userId, "「Get user data」Initialize", {
     params: req.params,
   });
 

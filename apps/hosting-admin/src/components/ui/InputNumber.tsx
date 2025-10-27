@@ -1,6 +1,6 @@
-import { InputNumber as InputNumberAntd, type InputNumberProps } from 'antd';
-import { ComponentContainer } from './component-container';
-import { toNumber } from 'lodash';
+import { InputNumber as InputNumberAntd, type InputNumberProps } from "antd";
+import { ComponentContainer } from "./component-container";
+import { toNumber } from "lodash";
 
 interface Props extends InputNumberProps {
   value?: string;
@@ -8,10 +8,9 @@ interface Props extends InputNumberProps {
   disabled?: boolean;
   error?: boolean;
   label?: string;
-  variant?: 'filled' | 'outlined';
+  variant?: "filled" | "outlined";
   helperText?: string;
   animation?: boolean;
-  onChange: (value: string | number | null) => void;
 }
 
 export const InputNumber = ({
@@ -20,7 +19,7 @@ export const InputNumber = ({
   disabled,
   error,
   label,
-  variant = 'filled',
+  variant = "filled",
   helperText,
   animation,
   onChange,
@@ -28,7 +27,7 @@ export const InputNumber = ({
 }: Props) => {
   const Container = ComponentContainer[variant];
 
-  const onInputChange = (value: string | number | null) => onChange(value ? toNumber(value) : null);
+  const onInputChange = (value) => onChange(value ? toNumber(value) : null);
 
   return (
     <Container

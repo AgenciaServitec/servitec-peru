@@ -1,8 +1,14 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "./base.json",
   "compilerOptions": {
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "types": ["node"]
+    "types": ["node"],
+    "lib": ["ES2022"],
+    "module": "NodeNext",
+    "noEmit": false,
+    "outDir": "lib",
+    "sourceMap": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true
   }
 }

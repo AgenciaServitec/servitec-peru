@@ -5,27 +5,31 @@
     "target": "ES2022",
     "useDefineForClassFields": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "skipLibCheck": false,
-    "types": ["styled-components"],
+    "module": "ESNext",
+    "types": ["vite/client"],
+    "skipLibCheck": true,
 
     /* Bundler mode */
+    "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
-    "noEmit": false,
+    "noEmit": true,
     "jsx": "react-jsx",
+
+    /* ✅ SOBRESCRIBE las opciones problemáticas del base */
+    "declaration": false,
+    "declarationMap": false,
+    "allowJs": false,
+
 
     /* Linting */
     "strict": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
-
-    "module": "esnext",
-    "moduleResolution": "bundler",
+    "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "styled.d.ts"]
+  "include": ["src"]
 }

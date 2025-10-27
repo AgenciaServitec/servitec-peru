@@ -1,4 +1,4 @@
-import { Response, Request, NextFunction } from 'express';
+import { Response, Request, NextFunction } from "express";
 
 export const putAssistance = async (
   req: Request,
@@ -6,7 +6,7 @@ export const putAssistance = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    res.json({ message: 'En desarrollo!!!' });
+    res.json({ message: "En desarrollo!!!" });
   } catch (e) {
     console.error(e);
   }

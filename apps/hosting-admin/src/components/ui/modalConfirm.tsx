@@ -1,7 +1,7 @@
-import { Modal } from '../ui';
+import { Modal } from "../ui";
 
 type BaseButtonProps = {
-  type?: 'primary' | 'link' | 'text' | 'default' | 'dashed' | undefined;
+  type?: "primary" | "link" | "text" | "default" | "dashed" | undefined;
   danger: boolean;
 };
 
@@ -19,12 +19,12 @@ const { confirm } = Modal;
 
 export const modalConfirm = ({
   centered = true,
-  title = '¿Estás seguro de que quieres eliminar?',
-  content = '',
-  okText = 'SI',
-  cancelText = 'NO',
+  title = "¿Estás seguro de que quieres eliminar?",
+  content = "",
+  okText = "SI",
+  cancelText = "NO",
   okButtonProps = {
-    type: 'primary',
+    type: "primary",
     danger: true,
   },
   ...props

@@ -1,8 +1,11 @@
 export type Timestamp = FirebaseFirestore.Timestamp;
 
-// type OmitDefaultFirestoreProps<T> = Omit<T, keyof PickDefaultFirestoreProps>;
+type OmitDefaultFirestoreProps<T> = Omit<T, keyof PickDefaultFirestoreProps>;
 
-// type PickDefaultFirestoreProps = Pick<DefaultFirestoreProps, 'createAt' | 'isDeleted' | 'updateAt'>;
+type PickDefaultFirestoreProps = Pick<
+  DefaultFirestoreProps,
+  "createAt" | "isDeleted" | "updateAt"
+>;
 
 interface DefaultFirestoreProps {
   createAt: Timestamp;
@@ -11,8 +14,8 @@ interface DefaultFirestoreProps {
   isDeleted: boolean;
 }
 
-export type RoleCode = 'super_admin' | 'user';
-export type CurrencyCode = 'PEN' | 'USD';
+export type RoleCode = "super_admin" | "user";
+export type CurrencyCode = "PEN" | "USD";
 
 export interface _Image {
   createAt: Timestamp;
@@ -23,7 +26,7 @@ export interface _Image {
   url: string;
 }
 
-export type Image = Omit<_Image, 'createAt'> & { createAt: Date };
+export type Image = Omit<_Image, "createAt"> & { createAt: Date };
 
 export interface Archive {
   name: string;
@@ -37,20 +40,20 @@ interface Phone {
   number: string;
 }
 
-interface User {
+interface User extends DefaultFirestoreProps {
   id: string;
   firstName: string;
   paternalSurname: string;
   maternalSurname: string;
   email: string;
   document: {
-    type: 'DNI' | 'RUC' | 'CE';
+    type: "DNI" | "RUC" | "CE";
     number: string;
   };
   phone: Phone;
   profilePhoto?: string;
   birthDate?: string;
-  gender?: 'male' | 'female' | 'other';
+  gender?: "male" | "female" | "other";
 }
 
 interface Quotation {

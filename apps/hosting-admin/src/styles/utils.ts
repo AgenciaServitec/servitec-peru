@@ -3,11 +3,11 @@ type Args = Record<string, unknown>[];
 export const classNames = (...args: Args) =>
   args
     .map((arg) =>
-      typeof arg === 'object'
+      typeof arg === "object"
         ? Object.entries(arg)
             .filter(([, condition]) => condition)
             .map(([className]) => className)
-            .join(' ')
+            .join(" ")
         : arg
     )
-    .join(' ');
+    .join(" ");

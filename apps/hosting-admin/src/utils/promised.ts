@@ -1,13 +1,14 @@
-import type { Component } from 'react';
+import { Component } from "react";
+
+type StateUpdate<S> = Partial<S> | ((prevState: S) => Partial<S>);
 
 export const promisedSetState = <S extends Record<string, any>>(
-  newState: Partial<S> | ((prevState: S) => Partial<S>),
-  _this: Component<any, S>
+  newState: StateUpdate<S>,
+  context: Component<any, S>
 ): Promise<void> =>
-  new Promise((resolve) =>
-    // @ts-expect-error - setState acepta Partial<S> en runtime
-    _this.setState(newState, () => resolve())
-  );
+  new Promise((resolve) => {
+    context.setState(newState as any, () => resolve());
+  });
 
 export const timeoutPromise = (ms: number): Promise<void> =>
   new Promise((resolve) => setTimeout(resolve, ms));

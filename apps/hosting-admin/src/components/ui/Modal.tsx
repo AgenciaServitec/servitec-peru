@@ -1,5 +1,5 @@
-import { Modal as AntdModal } from '../ui';
-import type { ReactNode } from 'react';
+import { Modal as AntdModal } from "../ui";
+import type { ReactNode } from "react";
 
 interface ModalProps {
   closable: boolean;
@@ -17,7 +17,13 @@ export const Modal = ({
   children,
   ...props
 }: ModalProps) => (
-  <AntdModal closable={closable} onCancel={onCancel} centered={centered} footer={footer} {...props}>
+  <AntdModal
+    closable={closable}
+    onCancel={onCancel}
+    centered={centered}
+    footer={footer}
+    {...props}
+  >
     {children}
   </AntdModal>
 );

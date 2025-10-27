@@ -1,4 +1,4 @@
-import * as firebase from 'firebase-admin';
+import * as firebase from "firebase-admin";
 
 type Document<T extends ObjectType> = { id: string } & T;
 
@@ -42,7 +42,8 @@ export const fetchCollection = async <T extends ObjectType>(
   let newQuery = query;
 
   whereClauses?.forEach(
-    ([field, operation, value]) => (newQuery = newQuery.where(field, operation, value))
+    ([field, operation, value]) =>
+      (newQuery = newQuery.where(field, operation, value))
   );
 
   const querySnapshot = await newQuery.get();
@@ -81,5 +82,6 @@ export const mergeDocument = async <T extends ObjectType>(
   document: T
 ): Promise<WriteResult> => docRef.set(document, { merge: true });
 
-export const deleteDocument = async (docRef: DocumentReference): Promise<WriteResult> =>
-  docRef.delete();
+export const deleteDocument = async (
+  docRef: DocumentReference
+): Promise<WriteResult> => docRef.delete();

@@ -1,52 +1,76 @@
-import { useEffect } from 'react';
-import { get, isEmpty, isString, toNumber } from 'lodash';
+import { useEffect } from "react";
+import { get, isEmpty, isString, toNumber } from "lodash";
+
+// interface Props<FormData extends ObjectType> {
+//   errors?: FieldErrors<FormData>;
+//   schema: yup.AnyObjectSchema;
+// }
+//
+// type Tests = { name: string; params: Record<string, unknown> }[];
+//
+// interface Return<FormData extends ObjectType> {
+//   required: (name: string) => boolean;
+//   error: (name: string) => boolean;
+//   errorMessage: (name: string) => string | undefined;
+//   errorDetail: (name: string) => FieldErrors<FormData>[string];
+//   eventInputNumber: (e: React.ChangeEvent<HTMLInputElement>) => number | null;
+//   eventCheckbox: (e: CheckboxChangeEvent) => boolean;
+// }
 
 export const useFormUtils = ({ errors, schema }) => {
   useEffect(() => {
-    if (!isEmpty(errors)) scrollIntoError();
+    !isEmpty(errors) && scrollIntoError();
   }, [errors]);
 
   const scrollIntoError = () => {
-    const formItemErrors = document.getElementsByClassName('scroll-error-anchor');
-    if (formItemErrors.length) {
-      formItemErrors[0]?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
+    const formItemErrors = document.getElementsByClassName(
+      "scroll-error-anchor"
+    );
+
+    formItemErrors.length &&
+      formItemErrors[0].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
       });
-    }
   };
 
   const eventInputNumber = (e) => {
     const { value } = e.target;
+
     if (toNumber(value) < 0) {
-      return toNumber(value.slice(1));
+      const removeSymbol = value.slice(1);
+
+      return toNumber(removeSymbol);
     }
+
     return value ? toNumber(value) : null;
   };
 
-  const errorDetail = (name) => errors && get(errors, name);
+  const errorDetail = (name) => errors && errors[name];
 
   const errorMessage = (name) => {
-    const message = get(errors, `${name}.message`);
+    const message = errors && errors[name]?.message;
+
     return isString(message) ? message : undefined;
   };
 
-  const error = (name) => !!get(errors, name);
+  const error = (name) => !!(errors && get(errors, name, false));
 
   const required = (name) => {
-    if (!schema) return false;
     const describe = schema.describe();
 
-    const path = name.split('.');
-    let current = describe;
+    const describePath = [];
 
-    for (const key of path) {
-      if (!current?.fields?.[key]) return false;
-      current = current.fields[key];
-    }
+    name.split(".").forEach((fieldName) => {
+      describePath.push("fields");
+      describePath.push(fieldName);
+    });
 
-    const tests = current?.tests ?? [];
-    return tests.some((test) => test.name === 'required');
+    describePath.push("tests");
+
+    const tests = get(describe, describePath, []);
+
+    return tests.some((test) => test.name === "required");
   };
 
   const eventCheckbox = (e) => e.target.checked;

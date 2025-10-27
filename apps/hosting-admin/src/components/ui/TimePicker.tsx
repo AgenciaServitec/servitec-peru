@@ -1,6 +1,6 @@
-import TimePickerAntd from 'antd/lib/time-picker';
-import { ComponentContainer } from './component-container';
-import type { Dayjs } from 'dayjs';
+import TimePickerAntd from "antd/lib/time-picker";
+import { ComponentContainer } from "./component-container";
+import type { Dayjs } from "dayjs";
 
 interface TimePickerProps {
   value?: Dayjs | undefined;
@@ -8,7 +8,7 @@ interface TimePickerProps {
   required?: boolean;
   error?: boolean;
   label?: string;
-  variant?: 'outlined' | 'filled';
+  variant?: "outlined" | "filled";
   helperText?: string;
   animation?: boolean;
 }
@@ -19,7 +19,7 @@ export const TimePicker = ({
   required,
   error,
   label,
-  variant = 'filled',
+  variant = "filled",
   helperText,
   animation,
   ...props
