@@ -1,25 +1,30 @@
-import styled from 'styled-components';
-import CheckboxAntd from 'antd/lib/checkbox';
-import { ComponentContainer } from './component-container';
+import styled from "styled-components";
+import CheckboxAntd from "antd/lib/checkbox";
+import { ComponentContainer } from "./component-container";
 
 interface CheckboxGroup {
   required?: boolean;
   error?: boolean;
   label?: string;
-  variant?: 'outlined' | 'filled';
+  variant?: "outlined" | "filled";
 }
 
 export const CheckboxGroup = ({
   required,
   error,
   label,
-  variant = 'filled',
+  variant = "filled",
   ...props
 }: CheckboxGroup) => {
   const Container = ComponentContainer[variant];
 
   return (
-    <Container required={required} error={error} label={label} animation={false}>
+    <Container
+      required={required}
+      error={error}
+      label={label}
+      animation={false}
+    >
       <CheckboxGroupStyled {...props} />
     </Container>
   );

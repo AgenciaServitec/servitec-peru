@@ -1,9 +1,9 @@
-import { DatePicker as AntdDatePicker } from 'antd';
-import { ComponentContainer } from './component-container';
-import { type Dayjs } from 'dayjs';
+import { DatePicker as AntdDatePicker } from "antd";
+import { ComponentContainer } from "./component-container";
+import { type Dayjs } from "dayjs";
 
 interface DatePickerProps {
-  value?: string | undefined;
+  value?: Dayjs | string | undefined;
   name?: string;
   required?: boolean;
   disabled?: boolean;
@@ -12,12 +12,12 @@ interface DatePickerProps {
   helperText?: string;
   // dataTestId?: string;
   label?: string;
-  variant?: 'outlined' | 'filled';
+  variant?: "outlined" | "filled";
   allowClear?: boolean;
   onChange?: (value?: Dayjs | string) => void;
   prefix?: string | null;
   disabledDate?: (current: Dayjs) => boolean;
-  format?: 'DD/MM/YYYY HH:mm';
+  format?: "DD/MM/YYYY HH:mm";
 }
 
 export const DatePicker = ({
@@ -27,14 +27,14 @@ export const DatePicker = ({
   disabled = false,
   hidden = false,
   error = false,
-  helperText = '',
+  helperText = "",
   label,
-  variant = 'filled',
+  variant = "filled",
   allowClear = true,
   onChange,
   prefix = null,
-  disabledDate = () => false,
-  format = 'DD/MM/YYYY HH:mm',
+  disabledDate = (current: Dayjs) => false,
+  format = "DD/MM/YYYY HH:mm",
 }: DatePickerProps) => {
   const Container = ComponentContainer[variant];
 

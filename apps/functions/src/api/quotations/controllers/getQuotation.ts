@@ -1,5 +1,6 @@
-import { Response, Request, NextFunction } from 'express';
-import { fetchQuotation } from '../../../_firebase/collections';
+import { Response, Request, NextFunction } from "express";
+
+import { fetchQuotation } from "../../../_firebase/collections";
 
 interface Params {
   quotationId: string;
@@ -14,7 +15,7 @@ export const getQuotation = async (
     params: { quotationId },
   } = req;
 
-  console.log('「Get quotation data」Initialize', {
+  console.log("「Get quotation data」Initialize", {
     params: req.params,
   });
 

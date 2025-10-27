@@ -1,7 +1,8 @@
-import { Response, Request, NextFunction } from 'express';
-import { updateQuotation } from '../../../_firebase/collections';
-import { defaultFirestoreProps } from '../../../utils';
-import { Quotation } from '../../../globalTypes';
+import { Response, Request, NextFunction } from "express";
+
+import { updateQuotation } from "../../../_firebase/collections";
+import { Quotation } from "../../../globalTypes.js";
+import { defaultFirestoreProps } from "../../../utils";
 
 type Params = { quotationId: string };
 
@@ -17,7 +18,7 @@ export const putQuotation = async (
     params: { quotationId },
   } = req;
 
-  console.log(quotationId, '「Update quotation」Initialize', {
+  console.log(quotationId, "「Update quotation」Initialize", {
     params: req.params,
     body: req.body,
   });

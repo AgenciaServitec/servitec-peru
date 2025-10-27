@@ -1,23 +1,16 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
-import { globalIgnores } from 'eslint/config'
+import { config } from "@servitec-peru/eslint-config/react";
 
-export default tseslint.config([
-  globalIgnores(['dist']),
+/**
+ * Configuración de ESLint para la aplicación hosting-admin (React + Vite)
+ *
+ * @type {import("eslint").Linter.Config[]}
+ */
+export default [
+  ...config,
   {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      reactHooks.configs['recommended-latest'],
-      reactRefresh.configs.vite,
-    ],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+    // Reglas personalizadas específicas de esta app si las necesitas
+    rules: {
+      // Ejemplo: "react/prop-types": "off"
     },
   },
-])
+];

@@ -1,29 +1,20 @@
-import OTPInput, { type OTPInputProps } from 'react-otp-input';
-import styled, { css } from 'styled-components';
-import { keyframes, mediaQuery, theme } from '../../styles';
+import OTPInput from "react-otp-input";
+import styled, { css } from "styled-components";
+import { keyframes, mediaQuery, theme } from "../../styles";
+import { lighten } from "polished";
 
-interface InputCodeProps
-  extends Omit<
-    OTPInputProps,
-    | 'value'
-    | 'onChange'
-    | 'numInputs'
-    | 'renderSeparator'
-    | 'renderInput'
-    | 'inputStyle'
-    | 'inputType'
-  > {
+interface InputCodeProps {
   value: string;
-  onChange: (value: string) => void;
   required?: boolean;
   hidden?: boolean;
   error?: boolean;
   label?: string;
-  type?: 'number' | 'text';
+  type?: "number" | "text" | "password" | "tel";
   numInputs?: number;
   disabled?: boolean;
-  animation?: string;
+  animation?: boolean;
   helperText?: string;
+  onChange: (value: string) => void;
 }
 
 export const InputCode = ({
@@ -32,7 +23,7 @@ export const InputCode = ({
   hidden = false,
   error,
   label,
-  type = 'number',
+  type = "number",
   numInputs = 6,
   disabled,
   animation,
@@ -55,17 +46,23 @@ export const InputCode = ({
         renderInput={(props) => <input {...props} />}
         inputStyle="input-style"
         inputType={type}
+        disabled={disabled}
         {...props}
       />
-      {error && <div className="warning-message">{helperText}</div>}
+      {error && helperText && (
+        <div className="warning-message">{helperText}</div>
+      )}
     </Container>
   );
 };
 
-const Container = styled.div<{ error?: boolean }>`
+const Container = styled.div<Pick<InputCodeProps, "error">>`
   ${({ error }) => css`
     .label {
       margin-bottom: 1rem;
+      color: ${theme.colors.font1};
+      font-weight: ${theme.font_weight.medium};
+      font-size: ${theme.font_sizes.small};
     }
 
     div {
@@ -82,13 +79,27 @@ const Container = styled.div<{ error?: boolean }>`
       margin: 0 0.3rem;
       font-size: 1.5rem;
       border-radius: 4px;
-      border: ${`1px solid ${error ? theme.colors.error : 'rgba(0, 0, 0, 0.3)'}`};
+      background: ${theme.colors.secondary};
+      color: ${theme.colors.font1};
+      border: 1px solid
+        ${error ? theme.colors.error : lighten(0.1, theme.colors.secondary)};
+      text-align: center;
+      font-weight: ${theme.font_weight.large};
+      transition: all 0.2s ease;
 
-      &[type='number']::-webkit-inner-spin-button,
-      &[type='number']::-webkit-outer-spin-button {
+      &:focus {
+        outline: none;
+        border-color: ${error ? theme.colors.error : theme.colors.primary};
+        box-shadow: 0 0 0 2px
+          ${error ? theme.colors.error : theme.colors.primary}20;
+      }
+
+      &[type="number"]::-webkit-inner-spin-button,
+      &[type="number"]::-webkit-outer-spin-button {
         -webkit-appearance: none;
         margin: 0;
       }
+
       ${mediaQuery.minMobile} {
         width: 3rem !important;
         height: 3rem;
@@ -96,11 +107,12 @@ const Container = styled.div<{ error?: boolean }>`
         font-size: 2rem;
       }
     }
+
     .warning-message {
-      text-align: left;
-      font-size: 0.8em;
+      text-align: center;
+      font-size: 0.85em;
       margin-top: 1em;
-      color: ${({ theme }) => theme.colors.error};
+      color: ${theme.colors.error};
     }
   `}
 `;

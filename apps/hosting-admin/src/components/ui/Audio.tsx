@@ -1,7 +1,9 @@
-import { useEffect, useRef } from 'react';
-import styled from 'styled-components';
+import { type Ref, useEffect, useRef } from "react";
+import styled from "styled-components";
 
 interface AudioProps {
+  ref: Ref<HTMLInputElement>;
+  key: string;
   audio: string;
   autoPlay?: boolean;
 }
@@ -23,6 +25,6 @@ export const Audio = ({ audio, autoPlay }: AudioProps) => {
   );
 };
 
-const ContainerAudio = styled.audio`
+const ContainerAudio = styled.audio<AudioProps>`
   visibility: hidden;
 `;

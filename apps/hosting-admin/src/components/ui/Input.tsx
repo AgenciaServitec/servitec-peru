@@ -1,13 +1,13 @@
-import InputAntd from 'antd/lib/input';
-import type { InputProps as AntInputProps } from 'antd';
-import { ComponentContainer } from './component-container';
+import InputAntd from "antd/lib/input";
+import type { InputProps as AntInputProps } from "antd";
+import { ComponentContainer } from "./component-container";
 
-interface InputPropsa extends Omit<AntInputProps, 'variant' | 'size'> {
+interface InputtProps extends Omit<AntInputProps, "variant"> {
   required?: boolean;
   hidden?: boolean;
   error?: boolean;
   label?: string;
-  variant?: 'outlined' | 'filled';
+  variant?: "outlined" | "filled";
   disabled?: boolean;
   animation?: boolean;
   helperText?: string;
@@ -19,12 +19,12 @@ export const Input = ({
   hidden = false,
   error,
   label,
-  variant = 'filled',
+  variant = "filled",
   disabled,
   animation,
   helperText,
   ...props
-}: InputPropsa) => {
+}: InputtProps) => {
   const Container = ComponentContainer[variant];
 
   return (
@@ -45,7 +45,7 @@ export const Input = ({
         value={value}
         disabled={disabled}
         allowClear={!disabled}
-        style={{ width: '100%' }}
+        style={{ width: "100%" }}
         {...props}
       />
     </Container>

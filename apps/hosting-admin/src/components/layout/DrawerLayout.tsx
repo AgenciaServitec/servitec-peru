@@ -1,20 +1,16 @@
-import styled from 'styled-components';
-import { Drawer, Menu } from '../ui';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import styled from "styled-components";
+import { Drawer, Menu } from "../ui";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faClipboardUser,
-  faFileAlt,
   faFileLines,
   faGears,
   faHome,
   faList,
-  faPoll,
-  faShapes,
   faSquarePlus,
-  faTicket,
   faUsers,
-  faUsersCog,
-} from '@fortawesome/free-solid-svg-icons';
+} from "@fortawesome/free-solid-svg-icons";
+import { theme } from "../../styles";
 
 type DrawerLayoutProps = {
   isVisibleDrawer: boolean;
@@ -34,177 +30,217 @@ export const DrawerLayout = ({
 
   const onClickHome = () => {
     onSetIsVisibleDrawer(false);
-    onNavigateTo('/home');
+    onNavigateTo("/home");
   };
 
   const items = [
     {
-      label: 'Home',
-      key: 'home',
+      label: "Home",
+      key: "home",
       icon: <FontAwesomeIcon icon={faHome} size="lg" />,
-      isVisible: true,
       onClick: () => onClickHome(),
     },
+    // {
+    //   label: "Control de Accesos (acls)",
+    //   key: "group-acls",
+    //   icon: <FontAwesomeIcon icon={faUsersCog} size="lg" />,
+    //   children: [
+    //     {
+    //       label: "Roles con Acls",
+    //       key: "default-roles-acls",
+    //     },
+    //     {
+    //       label: "Administrador Acls",
+    //       key: "manage-acls",
+    //     },
+    //   ],
+    // },
     {
-      label: 'Control de Accesos (acls)',
-      key: 'group-acls',
-      icon: <FontAwesomeIcon icon={faUsersCog} size="lg" />,
-      isVisible: true,
-      children: [
-        {
-          label: 'Roles con Acls',
-          key: 'default-roles-acls',
-          isVisible: true,
-        },
-        {
-          label: 'Administrador Acls',
-          key: 'manage-acls',
-          isVisible: true,
-        },
-      ],
-    },
-    {
-      label: 'Administración',
-      key: 'manager',
+      label: "Administración",
+      key: "manager",
       icon: <FontAwesomeIcon icon={faGears} size="lg" />,
-      isVisible: true,
       children: [
         {
-          label: 'Usuarios',
-          key: 'users',
+          label: "Usuarios",
+          key: "users",
           icon: <FontAwesomeIcon icon={faUsers} size="lg" />,
-          isVisible: true,
+          onClick: () => onClickMenu("/users"),
         },
       ],
     },
     {
-      label: 'Cotizaciones',
-      key: 'quotation',
+      label: "Cotizaciones",
+      key: "quotations-group",
       icon: <FontAwesomeIcon icon={faFileLines} size="lg" />,
-      isVisible: true,
       children: [
         {
-          label: 'Crear Cotización',
-          key: 'quotation',
+          label: "Crear Cotización",
+          key: "quotation-new",
           icon: <FontAwesomeIcon icon={faSquarePlus} size="lg" />,
-          isVisible: true,
-          onClick: () => onClickMenu('/quotations/new'),
+          onClick: () => onClickMenu("/quotations/new"),
         },
         {
-          label: 'Lista de cotizaciones',
-          key: 'quotations',
+          label: "Lista de cotizaciones",
+          key: "quotations-list",
           icon: <FontAwesomeIcon icon={faList} size="lg" />,
-          isVisible: true,
-          onClick: () => onClickMenu('/quotations'),
+          onClick: () => onClickMenu("/quotations"),
         },
       ],
     },
     {
-      label: 'Assistencias',
-      key: 'assistance',
+      label: "Asistencias",
+      key: "assistances-group",
       icon: <FontAwesomeIcon icon={faClipboardUser} size="lg" />,
-      isVisible: true,
       children: [
         {
-          label: 'Marcar asistencia',
-          key: 'assistance',
+          label: "Marcar asistencia",
+          key: "assistance-new",
           icon: <FontAwesomeIcon icon={faSquarePlus} size="lg" />,
-          isVisible: true,
-          onClick: () => onClickMenu('/assistances/new'),
+          onClick: () => onClickMenu("/assistances/new"),
         },
         {
-          label: 'Lista de asistencias',
-          key: 'assistances',
+          label: "Lista de asistencias",
+          key: "assistances-list",
           icon: <FontAwesomeIcon icon={faList} size="lg" />,
-          isVisible: true,
-          onClick: () => onClickMenu('/assistances'),
+          onClick: () => onClickMenu("/assistances"),
         },
       ],
     },
-    {
-      label: 'Sorteos',
-      key: 'raffles',
-      icon: <FontAwesomeIcon icon={faTicket} size="lg" />,
-      isVisible: true,
-      children: [
-        {
-          label: 'Crear Sorteo',
-          key: 'raffle',
-          icon: <FontAwesomeIcon icon={faSquarePlus} size="lg" />,
-          isVisible: true,
-          onClick: () => onClickMenu('/raffles/new'),
-        },
-        {
-          label: 'Lista de Sorteos',
-          key: 'raffles-list',
-          icon: <FontAwesomeIcon icon={faList} size="lg" />,
-          isVisible: true,
-          onClick: () => onClickMenu('/raffles/new'),
-        },
-      ],
-    },
-    {
-      label: 'Tutoriales',
-      key: 'tutorials',
-      icon: <FontAwesomeIcon icon={faShapes} size="lg" />,
-      isVisible: true,
-      children: [
-        {
-          label: 'Crear Tutorial',
-          key: 'tutorial',
-          icon: <FontAwesomeIcon icon={faSquarePlus} size="lg" />,
-          isVisible: true,
-          onClick: () => onClickMenu('/tutorials/new'),
-        },
-        {
-          label: 'Lista de Tutoriales',
-          key: 'tutorial-list',
-          icon: <FontAwesomeIcon icon={faList} size="lg" />,
-          isVisible: true,
-          onClick: () => onClickMenu('/tutorials'),
-        },
-      ],
-    },
-    {
-      label: 'Encuestas',
-      key: 'surveys',
-      icon: <FontAwesomeIcon icon={faPoll} size="lg" />,
-      isVisible: true,
-      children: [
-        {
-          label: 'Estudio del Clima Organizacional',
-          key: 'organizational-climate-studies',
-          icon: <FontAwesomeIcon icon={faFileAlt} size="lg" />,
-          isVisible: true,
-        },
-      ],
-    },
+    // {
+    //   label: "Sorteos",
+    //   key: "raffles-group",
+    //   icon: <FontAwesomeIcon icon={faTicket} size="lg" />,
+    //   children: [
+    //     {
+    //       label: "Crear Sorteo",
+    //       key: "raffle-new",
+    //       icon: <FontAwesomeIcon icon={faSquarePlus} size="lg" />,
+    //       onClick: () => onClickMenu("/raffles/new"),
+    //     },
+    //     {
+    //       label: "Lista de Sorteos",
+    //       key: "raffles-list",
+    //       icon: <FontAwesomeIcon icon={faList} size="lg" />,
+    //       onClick: () => onClickMenu("/raffles"),
+    //     },
+    //   ],
+    // },
+    // {
+    //   label: "Tutoriales",
+    //   key: "tutorials-group",
+    //   icon: <FontAwesomeIcon icon={faShapes} size="lg" />,
+    //   children: [
+    //     {
+    //       label: "Crear Tutorial",
+    //       key: "tutorial-new",
+    //       icon: <FontAwesomeIcon icon={faSquarePlus} size="lg" />,
+    //       onClick: () => onClickMenu("/tutorials/new"),
+    //     },
+    //     {
+    //       label: "Lista de Tutoriales",
+    //       key: "tutorials-list",
+    //       icon: <FontAwesomeIcon icon={faList} size="lg" />,
+    //       onClick: () => onClickMenu("/tutorials"),
+    //     },
+    //   ],
+    // },
+    // {
+    //   label: "Encuestas",
+    //   key: "surveys-group",
+    //   icon: <FontAwesomeIcon icon={faPoll} size="lg" />,
+    //   children: [
+    //     {
+    //       label: "Estudio del Clima Organizacional",
+    //       key: "organizational-climate-studies",
+    //       icon: <FontAwesomeIcon icon={faFileAlt} size="lg" />,
+    //     },
+    //   ],
+    // },
   ];
 
   return (
     <DrawerContainer
       key="right"
       title={
-        <div style={{ width: '100%', textAlign: 'right' }}>
-          <h5 style={{ color: '#fff' }}>version: "v1"</h5>
-        </div>
+        <HeaderTitle>
+          <h3>Servitec Work</h3>
+          <VersionBadge>v1.0.0</VersionBadge>
+        </HeaderTitle>
       }
       placement="left"
       width={330}
       closable={true}
       onClose={() => onSetIsVisibleDrawer(!isVisibleDrawer)}
       open={isVisibleDrawer}
-      className="drawer-content"
-      bodyStyle={{ padding: '0' }}
+      styles={{
+        body: { padding: 0 },
+      }}
     >
-      <div className="logo" />
-      <Menu defaultSelectedKeys={['1']} mode="inline" items={items} />
+      <MenuContainer>
+        <Menu
+          defaultSelectedKeys={["home"]}
+          mode="inline"
+          items={items}
+          inlineIndent={20}
+        />
+      </MenuContainer>
     </DrawerContainer>
   );
 };
 
 const DrawerContainer = styled(Drawer)`
-  .drawer-content {
-    color: #fff;
+  .ant-drawer-header {
+    background: ${theme.colors.black};
+    border-bottom: 1px solid rgba(255, 193, 7, 0.2);
+    padding: 1.2em 1.5em;
+  }
+
+  .ant-drawer-body {
+    background: ${theme.colors.secondary};
+    padding: 0;
+  }
+
+  .ant-drawer-close {
+    color: ${theme.colors.font1};
+
+    &:hover {
+      color: ${theme.colors.primary};
+    }
+  }
+`;
+
+const HeaderTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  h3 {
+    margin: 0;
+    color: ${theme.colors.font1};
+    font-size: 1.2em;
+    font-weight: ${theme.font_weight.large};
+  }
+`;
+
+const VersionBadge = styled.span`
+  background: ${theme.colors.primary};
+  color: ${theme.colors.black};
+  padding: 0.3em 0.7em;
+  border-radius: ${theme.border_radius.x_small};
+  font-size: 0.75em;
+  font-weight: ${theme.font_weight.medium};
+`;
+
+const MenuContainer = styled.div`
+  padding: 0.5em 0;
+
+  .ant-menu {
+    border-inline-end: none !important;
+  }
+
+  .ant-menu-item-icon,
+  .ant-menu-submenu-title .anticon {
+    font-size: 1.1em;
   }
 `;

@@ -1,4 +1,4 @@
-import { breakPoints } from './breakPoints.js';
+import { breakPoints } from "./breakPoints.js";
 
 export const mediaQuery = {
   minMobileS: `@media (min-width: ${breakPoints.mobile_s}px)`,

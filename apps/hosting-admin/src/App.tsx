@@ -1,11 +1,22 @@
-import { Router } from './router';
-import { ConfigsInitializer } from './providers';
+import {
+  AuthenticationProvider,
+  ConfigsInitializer,
+  GlobalDataProvider,
+  VersionProvider,
+} from "./providers";
+import { Router } from "./router";
 
 function App() {
   return (
-    <ConfigsInitializer>
-      <Router />
-    </ConfigsInitializer>
+    <VersionProvider>
+      <ConfigsInitializer>
+        <AuthenticationProvider>
+          <GlobalDataProvider>
+            <Router />
+          </GlobalDataProvider>
+        </AuthenticationProvider>
+      </ConfigsInitializer>
+    </VersionProvider>
   );
 }
 

@@ -1,8 +1,8 @@
-import { notification as notificationAntd } from 'antd';
-import type { NotificationPlacement } from 'antd/lib/notification/interface';
-import type { ReactNode } from 'react';
+import { notification as notificationAntd } from "antd";
+import type { NotificationPlacement } from "antd/lib/notification/interface";
+import type { ReactNode } from "react";
 
-type Type = 'error' | 'success' | 'info' | 'warning' | 'open' | 'close';
+type Type = "error" | "success" | "info" | "warning" | "open" | "close";
 
 interface NotificationProps {
   type: Type;
@@ -18,13 +18,13 @@ export const notification = ({
   type,
   title,
   description,
-  placement = 'bottomLeft',
+  placement = "bottomLeft",
   duration = 5,
   key,
   icon,
   ...props
 }: NotificationProps) => {
-  if (type === 'close') return key ? notificationAntd.destroy(key) : undefined;
+  if (type === "close") return key ? notificationAntd.destroy(key) : undefined;
 
   const currentType = types[type];
 
@@ -41,27 +41,27 @@ export const notification = ({
 
 const types = {
   error: {
-    title: 'Ocurrió un error!',
-    description: 'Por favor, inténtelo más tarde...',
+    title: "Ocurrió un error!",
+    description: "Por favor, inténtelo más tarde...",
   },
   success: {
-    title: 'Operación exitosa!',
-    description: '',
+    title: "Operación exitosa!",
+    description: "",
   },
   info: {
-    title: '',
-    description: '',
+    title: "",
+    description: "",
   },
   warning: {
-    title: '',
-    description: '',
+    title: "",
+    description: "",
   },
   warn: {
-    title: '',
-    description: '',
+    title: "",
+    description: "",
   },
   open: {
-    title: '',
-    description: '',
+    title: "",
+    description: "",
   },
 };

@@ -1,7 +1,7 @@
-import CheckboxAntd from 'antd/lib/checkbox';
-import styled, { css } from 'styled-components';
-import { classNames, keyframes } from '../../styles';
-import type { ReactNode } from 'react';
+import CheckboxAntd from "antd/lib/checkbox";
+import styled, { css } from "styled-components";
+import { classNames, keyframes, theme } from "../../styles";
+import type { ReactNode } from "react";
 
 interface CheckboxProps {
   name?: string;
@@ -26,7 +26,7 @@ export const Checkbox = ({
 }: CheckboxProps) => (
   <CheckBoxAntdStyled
     name={name}
-    className={classNames({ 'scroll-error-anchor': error })}
+    className={classNames({ "scroll-error-anchor": error })}
     checked={checked}
     onChange={(e) => onChange && onChange(e.target.checked)}
     error={error}
@@ -38,15 +38,46 @@ export const Checkbox = ({
   </CheckBoxAntdStyled>
 );
 
-const CheckBoxAntdStyled = styled(CheckboxAntd)<Pick<CheckboxProps, 'error' | 'hidden'>>`
-  ${({ error, theme, hidden, required }) => css`
-    font-size: ${theme.font_sizes.x_small};
-    display: ${hidden && 'none'};
-    color: ${error ? theme.colors.error : theme.colors.primary};
-    animation: ${error && keyframes.shake} 340ms cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+const CheckBoxAntdStyled = styled(CheckboxAntd)<
+  Pick<CheckboxProps, "error" | "hidden">
+>`
+  ${({ error, hidden, required }) => css`
+    font-size: ${theme.font_sizes.small};
+    display: ${hidden && "none"};
+    color: ${error ? theme.colors.error : theme.colors.font2};
+    animation: ${error && keyframes.shake} 340ms
+      cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+
+    .ant-checkbox {
+      .ant-checkbox-inner {
+        background: ${theme.colors.secondary};
+        border-color: ${theme.colors.gray};
+      }
+    }
+
+    .ant-checkbox-checked {
+      .ant-checkbox-inner {
+        background-color: ${theme.colors.primary};
+        border-color: ${theme.colors.primary};
+
+        &::after {
+          border-color: ${theme.colors.black};
+        }
+      }
+
+      &::after {
+        border-color: ${theme.colors.primary};
+      }
+    }
+
+    .ant-checkbox:hover .ant-checkbox-inner {
+      border-color: ${theme.colors.primary};
+    }
 
     ${error &&
     css`
+      color: ${theme.colors.error};
+
       .ant-checkbox {
         .ant-checkbox-inner {
           border-color: ${theme.colors.error};
@@ -71,10 +102,10 @@ const CheckBoxAntdStyled = styled(CheckboxAntd)<Pick<CheckboxProps, 'error' | 'h
         ::before {
           display: inline-block;
           margin-right: 0.2rem;
-          color: ${error ? theme.colors.error : 'inherit'};
+          color: ${error ? theme.colors.error : theme.colors.primary};
           font-size: ${theme.font_sizes.small};
           line-height: 1;
-          content: '*';
+          content: "*";
         }
       }
     `}

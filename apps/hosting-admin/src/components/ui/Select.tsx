@@ -1,7 +1,8 @@
-import AntSelect from 'antd/lib/select';
-import { ComponentContainer } from './component-container';
-import { lighten } from 'polished';
-import styled, { css } from 'styled-components';
+import AntSelect from "antd/lib/select";
+import { ComponentContainer } from "./component-container";
+import { lighten } from "polished";
+import styled, { css } from "styled-components";
+import { theme } from "../../styles";
 
 type Option = { code?: string; label?: string; value?: string };
 
@@ -13,7 +14,7 @@ interface SelectProps {
   animation?: boolean;
   isMobile?: boolean;
   label?: string;
-  variant?: 'outlined' | 'filled';
+  variant?: "outlined" | "filled";
   allowClear?: boolean;
   filterOption?: (inputValue: string, optionLabel: string) => boolean;
   options?: Option[] | undefined;
@@ -23,7 +24,7 @@ interface SelectProps {
 }
 
 const defaultFilterOption = (inputValue: string, optionLabel: string) => {
-  const labelParts = optionLabel.toLowerCase().split(' - ');
+  const labelParts = optionLabel.toLowerCase().split(" - ");
   return labelParts.some((part) => part.includes(inputValue.toLowerCase()));
 };
 
@@ -35,11 +36,12 @@ export const Select = ({
   animation = true,
   isMobile = false,
   label,
-  variant = 'filled',
+  variant = "filled",
   allowClear,
-  filterOption = (inputValue, optionLabel) => defaultFilterOption(inputValue, optionLabel),
+  filterOption = (inputValue, optionLabel) =>
+    defaultFilterOption(inputValue, optionLabel),
   options = [],
-  placeholder = '',
+  placeholder = "",
   helperText,
   onChange = (value) => value,
   ...props
@@ -82,7 +84,9 @@ export const Select = ({
           value={value}
           defaultValue={value}
           onChange={onChange}
-          filterOption={(inputValue, option) => filterOption(inputValue, option?.label ?? '')}
+          filterOption={(inputValue, option) =>
+            filterOption(inputValue, option?.label ?? "")
+          }
           showSearch
           size="large"
           placeholder=""
@@ -94,30 +98,44 @@ export const Select = ({
   );
 };
 
-const StyledSelectMobile = styled.select<Pick<SelectProps, 'error' | 'placeholder'>>`
-  ${({ theme, error, value, placeholder }) => css`
+const StyledSelectMobile = styled.select<
+  Pick<SelectProps, "error" | "placeholder" | "value">
+>`
+  ${({ error, value, placeholder }) => css`
     width: 100%;
     height: 32px;
     border: none;
     margin: 0 11px 4px 11px;
     font-size: 1rem;
-    background-color: ${error ? lighten(0.4, theme.colors.error) : 'transparent'};
-    cursor: text;
+    background-color: ${error
+      ? lighten(0.4, theme.colors.error)
+      : theme.colors.secondary};
+    cursor: pointer;
     border-radius: ${theme.border_radius.xx_small};
-    color: ${placeholder ? (!value ? theme.colors.white : theme.colors.black) : '#444'};
+    color: ${placeholder
+      ? !value
+        ? theme.colors.font2
+        : theme.colors.font1
+      : theme.colors.font1};
     font-weight: ${theme.font_weight.medium};
 
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#6D8BA1'><polygon points='0,0 100,0 50,50'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23FFC107'><polygon points='0,0 100,0 50,50'/></svg>");
     background-repeat: no-repeat;
     background-size: 10px;
     background-position: right center;
 
+    option {
+      background: ${theme.colors.secondary};
+      color: ${theme.colors.font1};
+    }
+
     &:focus-within {
-      background: ${theme.colors.white};
+      background: ${lighten(0.05, theme.colors.secondary)};
       outline: none;
+      border: 1px solid ${theme.colors.primary};
     }
   `}
 `;

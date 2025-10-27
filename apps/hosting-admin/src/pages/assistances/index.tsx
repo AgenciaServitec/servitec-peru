@@ -1,3 +1,7 @@
 export function Assistances() {
-  return <h1>Assistances</h1>;
+  return (
+    <div>
+      <h1>Assistances</h1>
+    </div>
+  );
 }

@@ -1,27 +1,41 @@
 import {
   Button,
+  Col,
+  Descriptions,
+  Divider,
   Drawer,
+  Dropdown,
+  Empty,
+  Image,
   Layout,
   Menu,
   Modal,
+  Popconfirm,
+  Result,
+  Row,
   Space,
   Spin,
-  theme,
-  Row,
-  Col,
   Table,
-  Popconfirm,
-  Empty,
-  Descriptions,
+  Tag,
+  theme,
   Typography,
-  Divider,
-} from 'antd';
+  Tabs,
+} from "antd";
 
-export * from './Legend.tsx';
-export * from './Form.tsx';
-export * from './Input.tsx';
-export * from './TextArea.tsx';
-export * from './notification.tsx';
+export * from "./Legend";
+export * from "./Form";
+export * from "./Input";
+export * from "./InputCode";
+export * from "./notification";
+export * from "./Spinner";
+export * from "./TextArea";
+export * from "./Select";
+export * from "./RadioGroup";
+export * from "./modalConfirm";
+export * from "./Title";
+export * from "./component-container";
+export * from "./IconAction";
+export * from "./AddButton";
 
 export {
   Layout,
@@ -40,4 +54,9 @@ export {
   Descriptions,
   Typography,
   Divider,
+  Result,
+  Dropdown,
+  Image,
+  Tag,
+  Tabs,
 };
