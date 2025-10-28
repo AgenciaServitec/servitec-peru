@@ -20,6 +20,7 @@ import {
   theme,
   Typography,
   Tabs,
+  InputNumber,
 } from "antd";
 
 export * from "./Legend";
@@ -36,6 +37,8 @@ export * from "./Title";
 export * from "./component-container";
 export * from "./IconAction";
 export * from "./AddButton";
+export * from "./AssistanceView.tsx";
+export * from "./UserLocationMap.tsx";
 
 export {
   Layout,
@@ -59,4 +62,5 @@ export {
   Image,
   Tag,
   Tabs,
+  InputNumber,
 };
