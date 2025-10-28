@@ -96,7 +96,7 @@ export const DrawerLayout = ({
           label: "Marcar asistencia",
           key: "assistance-new",
           icon: <FontAwesomeIcon icon={faSquarePlus} size="lg" />,
-          onClick: () => onClickMenu("/assistances/new"),
+          onClick: () => onClickMenu("/assistances/assistance"),
         },
         {
           label: "Lista de asistencias",

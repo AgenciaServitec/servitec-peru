@@ -49,15 +49,23 @@ export function Router() {
           path="/assistances"
           element={
             <AdminLayout>
-              <A.Assistances />
+              <A.AssistancesIntegration />
             </AdminLayout>
           }
         />
         <Route
-          path="/assistances/:assistanceId"
+          path="/assistances/assistance"
           element={
             <AdminLayout>
-              <A.Assistances />
+              <A.AssistanceIntegration />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="/assistances/register"
+          element={
+            <AdminLayout>
+              <A.FaceRegistration />
             </AdminLayout>
           }
         />
