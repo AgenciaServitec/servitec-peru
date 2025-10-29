@@ -191,6 +191,7 @@ const Container = styled.div<
       .ant-input-affix-wrapper,
       .ant-input {
         box-shadow: none;
+        background: transparent !important;
       }
 
       .ant-input-group-addon {
@@ -198,6 +199,12 @@ const Container = styled.div<
         border-left: 1px solid ${lighten(0.1, theme.colors.secondary)};
         background: ${lighten(0.05, theme.colors.secondary)};
         color: ${theme.colors.font2};
+      }
+      
+      .ant-input-suffix{
+          svg{
+              fill: ${theme.colors.font2};
+          }
       }
     }
   `}

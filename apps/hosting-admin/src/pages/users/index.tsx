@@ -129,10 +129,6 @@ export const Users: React.FC = () => {
     <Container>
       <Row gutter={[16, 16]}>
         <Col span={24}>
-          <AddButton onClick={onAddUser} title="Usuario" margin="0" />
-        </Col>
-        <Divider />
-        <Col span={24}>
           <PageHeader>
             <Title level={2}>Usuarios ({usersView.length})</Title>
           </PageHeader>

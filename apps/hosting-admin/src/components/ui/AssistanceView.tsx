@@ -2,11 +2,21 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faMapMarkerAlt,
   faSignInAlt,
   faSignOutAlt,
-  faMapMarkerAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { Button, Col, Form, Input, Row, Spinner, UserLocationMap } from "../ui";
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  Row,
+  Space,
+  Spinner,
+  Title,
+  UserLocationMap,
+} from "../ui";
 import { useFaceApiModels, useVideoStream } from "../../hooks";
 import * as faceapi from "face-api.js";
 
@@ -152,147 +162,168 @@ export const AssistanceView: React.FC<AssistanceViewProps> = ({
 
   return (
     <Container>
-      <Col span={24}>
-        <Button
-          type="primary"
-          size="large"
-          onClick={() => goTo("/assistances")}
-        >
-          <FontAwesomeIcon icon={faSignInAlt} /> Ver mis Asistencias
-        </Button>
-      </Col>
-
-      <div className="title-wrapper">
-        <FontAwesomeIcon icon={faMapMarkerAlt} /> Registro de Asistencia
-      </div>
-
-      {!exists ? (
-        <div className="form-wrapper">
-          <Form
-            onSubmit={(e) => {
-              e.preventDefault();
-              searchUser();
-            }}
-            style={{ width: "100%" }}
+      <Row gutter={[16, 16]}>
+        <Col span={24}>
+          <Button
+            type="primary"
+            size="large"
+            onClick={() => goTo("/assistances")}
           >
+            <FontAwesomeIcon icon={faSignInAlt} /> Ver mis Asistencias
+          </Button>
+        </Col>
+        <Col span={24}>
+          <Title level={2} align="center">
+            <FontAwesomeIcon icon={faMapMarkerAlt} /> Registro de Asistencia
+          </Title>
+
+          {!exists ? (
+            <div className="form-wrapper">
+              <Form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  searchUser();
+                }}
+              >
+                <Row gutter={[16, 16]}>
+                  <Col span={24}>
+                    <Input
+                      label="Ingrese DNI"
+                      value={dni}
+                      onChange={(e) => setDni(e.target.value)}
+                      maxLength={8}
+                      size="large"
+                    />
+                  </Col>
+                  <Col span={12}>
+                    <Button
+                      type="primary"
+                      onClick={searchUser}
+                      block
+                      size="large"
+                    >
+                      Buscar
+                    </Button>
+                  </Col>
+                  <Col span={12}>
+                    <Button onClick={resetUser} block size="large">
+                      Limpiar
+                    </Button>
+                  </Col>
+                </Row>
+              </Form>
+            </div>
+          ) : (
             <Row gutter={[16, 16]}>
               <Col span={24}>
-                <h3 className="form-text">DNI</h3>
-                <Input
-                  placeholder="Ingrese DNI"
-                  value={dni}
-                  onChange={(e) => setDni(e.target.value)}
-                  style={{ width: "100%" }}
-                />
-              </Col>
-              <Col span={12}>
-                <Button type="primary" onClick={searchUser} block size="large">
-                  Buscar
+                <div className="user-name">
+                  <h2 className="form-text">
+                    👋 Bienvenido/a, <span>{user.firstName}</span>!
+                  </h2>
+                  <p>¡Esperamos que tengas un buen día! 😊</p>
+                </div>
+                <Button onClick={resetUser} size="large" block>
+                  Cancelar
                 </Button>
               </Col>
-              <Col span={12}>
-                <Button type="default" onClick={resetUser} block size="large">
-                  Limpiar
-                </Button>
+              <Col span={24}>
+                <div className="video-controls">
+                  <video
+                    ref={videoRef}
+                    autoPlay
+                    muted
+                    width="480"
+                    height="360"
+                    className="video"
+                  />
+                  <Space>
+                    <Button
+                      size="large"
+                      onClick={startVideo}
+                      disabled={!!stream}
+                    >
+                      Encender cámara
+                    </Button>
+                    <Button
+                      type="primary"
+                      size="large"
+                      onClick={stopVideo}
+                      disabled={!stream}
+                    >
+                      Apagar cámara
+                    </Button>
+                  </Space>
+                </div>
+              </Col>
+              <Col span={24}>
+                <div className="content">
+                  <div className="left-panel">
+                    <div className="btn-group">
+                      <button
+                        className="entry-btn"
+                        onClick={() => handleSaveAssistance("entry")}
+                        // disabled={!buttons.entry}
+                      >
+                        <FontAwesomeIcon icon={faSignInAlt} /> Marcar Entrada
+                      </button>
+                      <button
+                        className="outlet-btn"
+                        onClick={() => handleSaveAssistance("outlet")}
+                        // disabled={!buttons.outlet}
+                      >
+                        <FontAwesomeIcon icon={faSignOutAlt} /> Marcar Salida
+                      </button>
+                    </div>
+
+                    {feedback.show && (
+                      <FeedbackOverlay type={feedback.type}>
+                        <div className="feedback-content">
+                          <FontAwesomeIcon
+                            icon={
+                              feedback.type === "entry"
+                                ? faSignInAlt
+                                : faSignOutAlt
+                            }
+                          />
+                          <p>
+                            {feedback.type === "entry"
+                              ? "Entrada registrada correctamente"
+                              : "Salida registrada correctamente"}
+                          </p>
+                        </div>
+                      </FeedbackOverlay>
+                    )}
+                  </div>
+
+                  <div className="right-panel">
+                    <UserLocationMap
+                      location={location}
+                      onValidateGeofence={setIsGeofenceValid}
+                    />
+                  </div>
+                </div>
               </Col>
             </Row>
-          </Form>
-        </div>
-      ) : (
-        <>
-          <Col span={24}>
-            <div className="user-name">
-              <h2 className="form-text">
-                👋 Bienvenido/a, <span>{user.firstName}</span>!
-              </h2>
-              <p>¡Esperamos que tengas un buen día! 😊</p>
+          )}
+
+          {loadingLocation && <Spinner height="40svh" size="4x" />}
+          {locationError && (
+            <div style={{ textAlign: "center", padding: 20, color: "red" }}>
+              <p>{locationError}</p>
+              <button onClick={refreshLocation}>🔄 Reintentar ubicación</button>
             </div>
-            <Button danger onClick={resetUser} block>
-              Cancelar
-            </Button>
-          </Col>
+          )}
 
-          <video
-            ref={videoRef}
-            autoPlay
-            muted
-            width="480"
-            height="360"
-            className="video"
-          />
-
-          <div className="controls">
-            <button onClick={startVideo} disabled={!!stream}>
-              Encender cámara
-            </button>
-            <button onClick={stopVideo} disabled={!stream}>
-              Apagar cámara
-            </button>
-          </div>
-
-          <div className="content">
-            <div className="left-panel">
-              <div className="btn-group">
-                <button
-                  className="entry-btn"
-                  onClick={() => handleSaveAssistance("entry")}
-                  // disabled={!buttons.entry}
-                >
-                  <FontAwesomeIcon icon={faSignInAlt} /> Marcar Entrada
-                </button>
-                <button
-                  className="outlet-btn"
-                  onClick={() => handleSaveAssistance("outlet")}
-                  // disabled={!buttons.outlet}
-                >
-                  <FontAwesomeIcon icon={faSignOutAlt} /> Marcar Salida
-                </button>
-              </div>
-
-              {feedback.show && (
-                <FeedbackOverlay type={feedback.type}>
-                  <div className="feedback-content">
-                    <FontAwesomeIcon
-                      icon={
-                        feedback.type === "entry" ? faSignInAlt : faSignOutAlt
-                      }
-                    />
-                    <p>
-                      {feedback.type === "entry"
-                        ? "Entrada registrada correctamente"
-                        : "Salida registrada correctamente"}
-                    </p>
-                  </div>
-                </FeedbackOverlay>
-              )}
-            </div>
-
-            <div className="right-panel">
-              <UserLocationMap
-                location={location}
-                onValidateGeofence={setIsGeofenceValid}
-              />
-            </div>
-          </div>
-        </>
-      )}
-
-      {loadingLocation && <Spinner height="40svh" size="4x" />}
-      {locationError && (
-        <div style={{ textAlign: "center", padding: 20, color: "red" }}>
-          <p>{locationError}</p>
-          <button onClick={refreshLocation}>🔄 Reintentar ubicación</button>
-        </div>
-      )}
-
-      {toast.show && <Toast type={toast.type}>{toast.message}</Toast>}
-      {successAnimation && <SuccessOverlay>✅</SuccessOverlay>}
-      {videoLoading && (
-        <LoadingOverlay>
-          <Spinner size="3x" />
-          <p>Encendiendo cámara...</p>
-        </LoadingOverlay>
-      )}
+          {toast.show && <Toast type={toast.type}>{toast.message}</Toast>}
+          {successAnimation && <SuccessOverlay>✅</SuccessOverlay>}
+          {videoLoading && (
+            <LoadingOverlay>
+              <Spinner size="3x" />
+              <p>Encendiendo cámara...</p>
+            </LoadingOverlay>
+          )}
+        </Col>
+      </Row>
     </Container>
   );
 };
@@ -310,15 +341,6 @@ const Container = styled.div`
   min-height: 100vh;
   color: #f9fafb;
   font-family: "Segoe UI", Roboto, sans-serif;
-
-  .title-wrapper {
-    text-align: center;
-    font-size: 32px;
-    font-weight: bold;
-    color: var(--color-primary);
-    margin-bottom: 12px;
-    letter-spacing: 1px;
-  }
 
   .form-wrapper {
     max-width: 30em;
@@ -338,44 +360,21 @@ const Container = styled.div`
     flex-wrap: wrap;
     justify-content: center;
   }
-
-  .video {
-    border-radius: 0.75rem;
-    border: 2px solid var(--color-primary);
-    box-shadow: 0 0 18px rgba(250, 204, 21, 0.15);
-    max-width: 100%;
-    margin: auto;
-  }
-
-  .controls {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 1rem;
-
-    button {
-      background-color: var(--color-primary);
-      color: #111827;
-      padding: 0.6rem 1.2rem;
-      border-radius: 0.5rem;
-      font-size: 1rem;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      transition: all 0.25s ease;
-
-      &:hover {
-        background-color: var(--color-primary-dark);
-        transform: translateY(-2px);
-      }
-
-      &:disabled {
-        background-color: #374151;
-        color: #9ca3af;
-        cursor: not-allowed;
-      }
+    
+    .video-controls{
+        .video {
+            border-radius: 0.75rem;
+            border: 2px solid var(--color-primary);
+            box-shadow: 0 0 18px rgba(250, 204, 21, 0.15);
+            max-width: 100%;
+            margin: auto;
+        }
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        flex-wrap: wrap;
     }
-  }
 
   .user-name {
     text-align: center;
@@ -415,6 +414,7 @@ const Container = styled.div`
     flex-direction: column;
     gap: 16px;
     width: 100%;
+    height: 100%;
   }
 
   .btn-group button {
@@ -434,6 +434,12 @@ const Container = styled.div`
       transform: scale(1.03);
       filter: brightness(1.05);
     }
+    &:first-child{
+      flex: 1;
+    }
+    &:last-child{
+      flex: 1;
+      }
   }
 
   .entry-btn {

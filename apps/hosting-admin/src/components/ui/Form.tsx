@@ -10,7 +10,7 @@ export const Form = ({ children, ...props }: FormProps) => (
     <Space
       size="middle"
       direction="vertical"
-      className="w-[100%] flex flex-col"
+      style={{ width: "100%" }}
     >
       {children}
     </Space>

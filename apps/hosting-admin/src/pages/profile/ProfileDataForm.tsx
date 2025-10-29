@@ -10,7 +10,7 @@ import {
   Input,
   notification,
   Row,
-  Upload,
+  Select,
 } from "../../components";
 import { useAuthentication } from "../../providers";
 import {
@@ -19,10 +19,8 @@ import {
   useApiUserPut,
 } from "../../api";
 import { assign } from "lodash";
-import { v4 as uuidv4 } from "uuid";
 import { getSearchDataToUser } from "../../utils";
-import styled, { css } from "styled-components";
-import { theme } from "../../styles";
+import { WorkPlaces } from "../../data-list";
 
 interface ProfileFormData {
   profilePhoto?: any;
@@ -51,6 +49,7 @@ export const ProfileDataForm: React.FC = () => {
       .max(8)
       .required()
       .transform((value) => (value === null ? "" : value)),
+    workPlace: yup.string().required(),
   });
 
   const {
@@ -98,6 +97,7 @@ export const ProfileDataForm: React.FC = () => {
       email: authUser?.email || "",
       phoneNumber: authUser?.phone?.number || "",
       dni: authUser?.document.number || "",
+      workPlace: authUser?.workPlace || "",
     });
   };
 
@@ -110,173 +110,166 @@ export const ProfileDataForm: React.FC = () => {
   };
 
   return (
-    <FormContainer>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <Row gutter={[16, 16]}>
-          <Col span={24}>
-            <Controller
-              control={control}
-              name="profilePhoto"
-              render={({ field: { onChange, value, name } }) => (
-                <Upload
-                  isImage
-                  label="Foto personal"
-                  accept="image/*"
-                  resize="313x370"
-                  buttonText="Subir foto"
-                  value={value}
-                  name={name}
-                  fileName={`perfil-foto-${uuidv4()}`}
-                  filePath={`users/${authUser.id}/profile`}
-                  onChange={(file) => onChange(file)}
-                  required={required(name)}
-                  error={error(name)}
-                />
-              )}
-            />
-          </Col>
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <Row gutter={[16, 16]}>
+        {/*<Col span={24}>*/}
+        {/*  <Controller*/}
+        {/*    control={control}*/}
+        {/*    name="profilePhoto"*/}
+        {/*    render={({ field: { onChange, value, name } }) => (*/}
+        {/*      <Upload*/}
+        {/*        isImage*/}
+        {/*        label="Foto personal"*/}
+        {/*        accept="image/*"*/}
+        {/*        resize="313x370"*/}
+        {/*        buttonText="Subir foto"*/}
+        {/*        value={value}*/}
+        {/*        name={name}*/}
+        {/*        fileName={`perfil-foto-${uuidv4()}`}*/}
+        {/*        filePath={`users/${authUser.id}/profile`}*/}
+        {/*        onChange={(file) => onChange(file)}*/}
+        {/*        required={required(name)}*/}
+        {/*        error={error(name)}*/}
+        {/*      />*/}
+        {/*    )}*/}
+        {/*  />*/}
+        {/*</Col>*/}
+        <Col span={24} md={12}>
+          <Controller
+            name="firstName"
+            control={control}
+            render={({ field: { onChange, name, value } }) => (
+              <Input
+                label="Nombres"
+                name={name}
+                onChange={onChange}
+                value={value}
+                error={error(name)}
+                helperText={errorMessage(name)}
+                required={required(name)}
+              />
+            )}
+          />
+        </Col>
+        <Col span={24} md={12}>
+          <Controller
+            name="dni"
+            control={control}
+            render={({ field: { onChange, name, value } }) => (
+              <Input
+                label="DNI"
+                name={name}
+                onChange={onChange}
+                value={value}
+                error={error(name)}
+                helperText={errorMessage(name)}
+                required={required(name)}
+              />
+            )}
+          />
+        </Col>
+        <Col span={24} md={12}>
+          <Controller
+            name="paternalSurname"
+            control={control}
+            render={({ field: { onChange, name, value } }) => (
+              <Input
+                label="Apellido paterno"
+                name={name}
+                onChange={onChange}
+                value={value}
+                error={error(name)}
+                helperText={errorMessage(name)}
+                required={required(name)}
+              />
+            )}
+          />
+        </Col>
+        <Col span={24} md={12}>
+          <Controller
+            name="maternalSurname"
+            control={control}
+            render={({ field: { onChange, name, value } }) => (
+              <Input
+                label="Apellido materno"
+                name={name}
+                onChange={onChange}
+                value={value}
+                error={error(name)}
+                helperText={errorMessage(name)}
+                required={required(name)}
+              />
+            )}
+          />
+        </Col>
+        <Col span={24} md={12}>
+          <Controller
+            name="email"
+            control={control}
+            render={({ field: { onChange, name, value } }) => (
+              <Input
+                label="Email"
+                type="email"
+                name={name}
+                onChange={onChange}
+                value={value}
+                error={error(name)}
+                helperText={errorMessage(name)}
+                required={required(name)}
+              />
+            )}
+          />
+        </Col>
+        <Col span={24} md={12}>
+          <Controller
+            name="phoneNumber"
+            control={control}
+            render={({ field: { onChange, name, value } }) => (
+              <Input
+                label="N° Celular"
+                type="number"
+                name={name}
+                onChange={onChange}
+                value={value}
+                error={error(name)}
+                helperText={errorMessage(name)}
+                required={required(name)}
+              />
+            )}
+          />
+        </Col>
+        <Col span={24}>
+          <Controller
+            name="workPlace"
+            control={control}
+            render={({ field: { onChange, name, value } }) => (
+              <Select
+                label="Lugar de trabajo"
+                onChange={onChange}
+                value={value}
+                name={name}
+                error={error(name)}
+                helperText={errorMessage(name)}
+                options={WorkPlaces}
+              />
+            )}
+          />
+        </Col>
+      </Row>
 
-          <Col span={24} md={12}>
-            <Controller
-              name="firstName"
-              control={control}
-              render={({ field: { onChange, name, value } }) => (
-                <Input
-                  label="Nombres"
-                  name={name}
-                  onChange={onChange}
-                  value={value}
-                  error={error(name)}
-                  helperText={errorMessage(name)}
-                  required={required(name)}
-                />
-              )}
-            />
-          </Col>
-
-          <Col span={24} md={12}>
-            <Controller
-              name="dni"
-              control={control}
-              render={({ field: { onChange, name, value } }) => (
-                <Input
-                  label="DNI"
-                  name={name}
-                  onChange={onChange}
-                  value={value}
-                  error={error(name)}
-                  helperText={errorMessage(name)}
-                  required={required(name)}
-                />
-              )}
-            />
-          </Col>
-
-          <Col span={24} md={12}>
-            <Controller
-              name="paternalSurname"
-              control={control}
-              render={({ field: { onChange, name, value } }) => (
-                <Input
-                  label="Apellido paterno"
-                  name={name}
-                  onChange={onChange}
-                  value={value}
-                  error={error(name)}
-                  helperText={errorMessage(name)}
-                  required={required(name)}
-                />
-              )}
-            />
-          </Col>
-
-          <Col span={24} md={12}>
-            <Controller
-              name="maternalSurname"
-              control={control}
-              render={({ field: { onChange, name, value } }) => (
-                <Input
-                  label="Apellido materno"
-                  name={name}
-                  onChange={onChange}
-                  value={value}
-                  error={error(name)}
-                  helperText={errorMessage(name)}
-                  required={required(name)}
-                />
-              )}
-            />
-          </Col>
-
-          <Col span={24} md={12}>
-            <Controller
-              name="email"
-              control={control}
-              render={({ field: { onChange, name, value } }) => (
-                <Input
-                  label="Email"
-                  type="email"
-                  name={name}
-                  onChange={onChange}
-                  value={value}
-                  error={error(name)}
-                  helperText={errorMessage(name)}
-                  required={required(name)}
-                />
-              )}
-            />
-          </Col>
-
-          <Col span={24} md={12}>
-            <Controller
-              name="phoneNumber"
-              control={control}
-              render={({ field: { onChange, name, value } }) => (
-                <Input
-                  label="N° Celular"
-                  type="number"
-                  name={name}
-                  onChange={onChange}
-                  value={value}
-                  error={error(name)}
-                  helperText={errorMessage(name)}
-                  required={required(name)}
-                />
-              )}
-            />
-          </Col>
-        </Row>
-
-        <ActionRow justify="end" gutter={[16, 16]}>
-          <Col xs={24} sm={12} md={8}>
-            <Button
-              type="primary"
-              size="large"
-              block
-              htmlType="submit"
-              loading={putUserLoading}
-            >
-              Guardar Cambios
-            </Button>
-          </Col>
-        </ActionRow>
-      </Form>
-    </FormContainer>
+      <Row justify="end" gutter={[16, 16]}>
+        <Col xs={24} sm={12} md={8}>
+          <Button
+            type="primary"
+            size="large"
+            block
+            htmlType="submit"
+            loading={putUserLoading}
+          >
+            Guardar
+          </Button>
+        </Col>
+      </Row>
+    </Form>
   );
 };
-
-const FormContainer = styled.div`
-  ${() => css`
-    .ant-form-item {
-      margin-bottom: ${theme.paddings.large};
-    }
-  `}
-`;
-
-const ActionRow = styled(Row)`
-  ${() => css`
-    margin-top: ${theme.paddings.x_large};
-    padding-top: ${theme.paddings.large};
-    border-top: 1px solid ${theme.colors.primary}20;
-  `}
-`;

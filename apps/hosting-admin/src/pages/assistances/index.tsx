@@ -36,15 +36,14 @@ export function AssistancesIntegration() {
               <Button
                 onClick={() => onNavigateGoTo("/assistances/assistance")}
                 type="primary"
-                size="middle"
+                size="large"
               >
                 <FontAwesomeIcon icon={faSignInAlt} />
                 Marcar mi asistencia
               </Button>
               <Button
                 onClick={() => onNavigateGoTo("/assistances/register")}
-                type="default"
-                size="middle"
+                size="large"
               >
                 <FontAwesomeIcon icon={faSignInAlt} />
                 Registrar mi rostro
@@ -97,21 +96,11 @@ const Actions = styled.div`
       transform: translateY(-2px);
     }
   }
-
-  button[type="primary"] {
-    background: #2563eb;
-    color: #fff;
-  }
-  button[type="default"] {
-    background: #e5e7eb;
-    color: #374151;
-  }
 `;
 
 const Header = styled.div`
   margin-bottom: 1rem;
   > h2 {
     font-size: 1.75rem !important;
-    color: #ffcc00;
   }
 `;

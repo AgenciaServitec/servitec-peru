@@ -1,6 +1,6 @@
 import React from "react";
 import { IconAction, Space, Table, Tag } from "../../components";
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faCircleCheck, faEdit, faTrash, faUpload } from "@fortawesome/free-solid-svg-icons";
 import { capitalize, orderBy } from "lodash";
 import dayjs from "dayjs";
 import type { ColumnsType } from "antd/es/table";
@@ -8,6 +8,7 @@ import styled, { css } from "styled-components";
 import { theme } from "../../styles";
 
 import { Timestamp } from "firebase/firestore";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export interface Phone {
   prefix: string;
@@ -109,18 +110,6 @@ export const UsersTable: React.FC<UsersTableProps> = ({
       render: (_, user) => <EmailText>{user.email || "-"}</EmailText>,
     },
     {
-      title: "Estado",
-      dataIndex: "status",
-      key: "status",
-      width: 120,
-      align: "center",
-      render: () => (
-        <Tag color="green" style={{ margin: 0 }}>
-          Activo
-        </Tag>
-      ),
-    },
-    {
       title: "Acciones",
       key: "actions",
       width: 120,
@@ -129,15 +118,14 @@ export const UsersTable: React.FC<UsersTableProps> = ({
       render: (_, user) => (
         <Space size="small">
           <IconAction
-            tooltipTitle="Editar usuario"
+            tooltipTitle="Editar"
             icon={faEdit}
-            variant="primary"
             onClick={() => onEditUser(user)}
           />
           <IconAction
-            tooltipTitle="Eliminar usuario"
+            tooltipTitle="Eliminar"
+            iconStyles={{color: () => theme.colors.error}}
             icon={faTrash}
-            variant="error"
             onClick={() => onRemoveUser(user)}
           />
         </Space>

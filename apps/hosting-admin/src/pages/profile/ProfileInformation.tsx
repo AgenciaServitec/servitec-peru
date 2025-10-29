@@ -1,11 +1,13 @@
 import React from "react";
-import { Col, Image, Row } from "../../components";
+import { Col, Image, Row, Title } from "../../components";
 import { PhotoNoFound } from "../../images";
 import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
   faIdCard,
+  faM, faN,
+  faP,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 import { theme } from "../../styles";
@@ -20,84 +22,109 @@ export const ProfileInformation: React.FC<ProfileInformationProps> = ({
 }) => {
   return (
     <Container>
-      <ProfileCard>
-        <AvatarSection>
-          <AvatarWrapper>
-            <Image
-              width={160}
-              height={160}
-              src={user?.profilePhoto?.thumbUrl || PhotoNoFound}
-              className="profile-photo"
-              preview
-            />
-          </AvatarWrapper>
-          <UserName>
-            {user?.firstName} {user?.paternalSurname}
-          </UserName>
-        </AvatarSection>
+      <AvatarSection>
+        <AvatarWrapper>
+          <Image
+            width={160}
+            height={160}
+            src={user?.profilePhoto?.thumbUrl || PhotoNoFound}
+            className="profile-photo"
+            preview
+          />
+        </AvatarWrapper>
+        <UserName>
+          {user?.firstName} {user?.paternalSurname}
+        </UserName>
+      </AvatarSection>
 
-        <InfoSection>
-          <SectionTitle>Información Personal</SectionTitle>
+      <InfoSection>
+        <Title level={4}>Información Personal</Title>
+        <Row gutter={[16, 16]}>
+          <Col span={12}>
+            <InfoItem>
+              <InfoIcon>
+                <FontAwesomeIcon icon={faN} />
+              </InfoIcon>
+              <InfoContent>
+                <InfoLabel>Nombres</InfoLabel>
+                <InfoValue>{user?.firstName || "No registrado"}</InfoValue>
+              </InfoContent>
+            </InfoItem>
+          </Col>
 
-          <InfoGrid gutter={[16, 16]}>
-            <Col span={24}>
-              <InfoItem>
-                <InfoIcon>
-                  <FontAwesomeIcon icon={faIdCard} />
-                </InfoIcon>
-                <InfoContent>
-                  <InfoLabel>DNI</InfoLabel>
-                  <InfoValue>
-                    {user?.document.number || "No registrado"}
-                  </InfoValue>
-                </InfoContent>
-              </InfoItem>
-            </Col>
+          <Col span={12}>
+            <InfoItem>
+              <InfoIcon>
+                <FontAwesomeIcon icon={faP} />
+              </InfoIcon>
+              <InfoContent>
+                <InfoLabel>Apellido Paterno</InfoLabel>
+                <InfoValue>
+                  {user?.paternalSurname || "No registrado"}
+                </InfoValue>
+              </InfoContent>
+            </InfoItem>
+          </Col>
 
-            <Col span={24}>
-              <InfoItem>
-                <InfoIcon>
-                  <FontAwesomeIcon icon={faEnvelope} />
-                </InfoIcon>
-                <InfoContent>
-                  <InfoLabel>Email</InfoLabel>
-                  <InfoValue>{user?.email || "No registrado"}</InfoValue>
-                </InfoContent>
-              </InfoItem>
-            </Col>
+          <Col span={12}>
+            <InfoItem>
+              <InfoIcon>
+                <FontAwesomeIcon icon={faM} />
+              </InfoIcon>
+              <InfoContent>
+                <InfoLabel>Apellido Materno</InfoLabel>
+                <InfoValue>
+                  {user?.maternalSurname || "No registrado"}
+                </InfoValue>
+              </InfoContent>
+            </InfoItem>
+          </Col>
 
-            <Col span={24}>
-              <InfoItem>
-                <InfoIcon>
-                  <FontAwesomeIcon icon={faPhone} />
-                </InfoIcon>
-                <InfoContent>
-                  <InfoLabel>Celular</InfoLabel>
-                  <InfoValue>
-                    {user?.phone?.number || "No registrado"}
-                  </InfoValue>
-                </InfoContent>
-              </InfoItem>
-            </Col>
-          </InfoGrid>
-        </InfoSection>
-      </ProfileCard>
+          <Col span={12}>
+            <InfoItem>
+              <InfoIcon>
+                <FontAwesomeIcon icon={faIdCard} />
+              </InfoIcon>
+              <InfoContent>
+                <InfoLabel>DNI</InfoLabel>
+                <InfoValue>
+                  {user?.document.number || "No registrado"}
+                </InfoValue>
+              </InfoContent>
+            </InfoItem>
+          </Col>
+
+          <Col span={12}>
+            <InfoItem>
+              <InfoIcon>
+                <FontAwesomeIcon icon={faEnvelope} />
+              </InfoIcon>
+              <InfoContent>
+                <InfoLabel>Email</InfoLabel>
+                <InfoValue>{user?.email || "No registrado"}</InfoValue>
+              </InfoContent>
+            </InfoItem>
+          </Col>
+
+          <Col span={12}>
+            <InfoItem>
+              <InfoIcon>
+                <FontAwesomeIcon icon={faPhone} />
+              </InfoIcon>
+              <InfoContent>
+                <InfoLabel>Celular</InfoLabel>
+                <InfoValue>{user?.phone?.number || "No registrado"}</InfoValue>
+              </InfoContent>
+            </InfoItem>
+          </Col>
+        </Row>
+      </InfoSection>
     </Container>
   );
 };
 
 const Container = styled.div`
   width: 100%;
-`;
-
-const ProfileCard = styled.div`
-  ${() => css`
-    background: ${theme.colors.secondary};
-    border-radius: ${theme.border_radius.large};
-    border: 1px solid ${theme.colors.primary}20;
-    overflow: hidden;
-    box-shadow: 0 4px 12px ${theme.colors.dark}40;
-  `}
 `;
 
 const AvatarSection = styled.div`
@@ -109,7 +136,6 @@ const AvatarSection = styled.div`
       ${theme.colors.secondary} 0%,
       ${theme.colors.dark} 100%
     );
-    border-bottom: 2px solid ${theme.colors.primary};
   `}
 `;
 
@@ -121,7 +147,6 @@ const AvatarWrapper = styled.div`
     border-radius: 50%;
     overflow: hidden;
     border: 4px solid ${theme.colors.primary};
-    box-shadow: 0 8px 24px ${theme.colors.primary}40;
     transition: all 0.3s ease;
 
     .profile-photo {
@@ -151,19 +176,6 @@ const InfoSection = styled.div`
     padding: ${theme.paddings.x_large} ${theme.paddings.large};
   `}
 `;
-
-const SectionTitle = styled.h3`
-  ${() => css`
-    color: ${theme.colors.font1};
-    font-size: ${theme.font_sizes.large};
-    font-weight: ${theme.font_weight.large};
-    margin-bottom: ${theme.paddings.large};
-    padding-bottom: ${theme.paddings.medium};
-    border-bottom: 2px solid ${theme.colors.primary}40;
-  `}
-`;
-
-const InfoGrid = styled(Row)``;
 
 const InfoItem = styled.div`
   ${() => css`

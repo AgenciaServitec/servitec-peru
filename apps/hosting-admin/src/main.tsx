@@ -57,20 +57,22 @@ import { darken, lighten } from "polished";
 const config = {
   components: {
     Button: {
-      colorPrimary: theme.colors.primary, // #FFC107
+      colorPrimary: theme.colors.primary,
       colorPrimaryHover: lighten(0.1, theme.colors.primary),
       colorPrimaryActive: darken(0.1, theme.colors.primary),
       colorText: theme.colors.font1,
+      primaryShadow: theme.colors.primary,
+      secondaryShadow: theme.colors.secondary,
     },
     Drawer: {
       colorBgElevated: "#0F1419",
       colorIcon: theme.colors.font1,
-      colorIconHover: theme.colors.primary, // Hover amarillo
+      colorIconHover: theme.colors.primary,
       colorText: theme.colors.font1,
       algorithm: true,
     },
     Menu: {
-      colorPrimary: theme.colors.primary, // #FFC107
+      colorPrimary: theme.colors.primary,
       colorPrimaryHover: lighten(0.05, theme.colors.primary),
       itemHoverBg: lighten(0.05, theme.colors.secondary),
       colorBgElevated: theme.colors.secondary,
@@ -79,7 +81,7 @@ const config = {
       colorText: theme.colors.font1,
       itemColor: theme.colors.font2,
       itemSelectedBg: lighten(0.08, theme.colors.secondary),
-      itemSelectedColor: theme.colors.primary, // Amarillo seleccionado
+      itemSelectedColor: theme.colors.primary,
       colorTextDescription: theme.colors.font2,
       itemActiveBg: lighten(0.05, theme.colors.secondary),
       horizontalItemSelectedColor: theme.colors.primary,
@@ -88,7 +90,7 @@ const config = {
       algorithm: true,
     },
     Tabs: {
-      colorPrimary: theme.colors.primary, // #FFC107
+      colorPrimary: theme.colors.primary,
       colorPrimaryHover: lighten(0.1, theme.colors.primary),
       colorPrimaryActive: darken(0.1, theme.colors.primary),
       colorText: theme.colors.font2,
@@ -101,10 +103,10 @@ const config = {
       colorText: theme.colors.font2,
     },
     Steps: {
-      colorPrimary: theme.colors.primary, // #FFC107
+      colorPrimary: theme.colors.primary,
       colorText: theme.colors.font2,
       colorTextDescription: theme.colors.font2,
-    },
+    }
   },
   token: {
     colorBgBase: theme.colors.dark,

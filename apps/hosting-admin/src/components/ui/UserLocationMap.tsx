@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup, Circle } from "react-leaflet";
+import { Circle, MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -17,8 +17,8 @@ L.Icon.Default.mergeOptions({
 export const UserLocationMap = ({ location, onValidateGeofence }) => {
   if (!location) return <p>Ubicación no disponible</p>;
 
-  const geofenceCenter = { lat: -12.169414, lng: -77.020981 };
-  const geofenceRadius = 10000;
+  const geofenceCenter = { lat: -12.1711671, lng: -77.0189769 };
+  const geofenceRadius = 8;
 
   const isInsideGeofence =
     L.latLng(location.lat, location.lng).distanceTo(

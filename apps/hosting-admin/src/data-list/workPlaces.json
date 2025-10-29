@@ -1,0 +1,20 @@
+[
+  {
+    "label": "Estudio Servitec",
+    "value": "servitec-study",
+    "workPlaceRadius": 10000,
+    "coordinates": {
+      "lat": -12.169414,
+      "lng": -77.020981
+    }
+  },
+  {
+    "label": "Taller - Kiwi",
+    "value": "kiwi-workshop",
+    "workPlaceRadius": 500,
+    "coordinates": {
+      "lat": -12.1739489,
+      "lng": -77.018297
+    }
+  }
+]

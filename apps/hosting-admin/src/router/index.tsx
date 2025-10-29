@@ -81,7 +81,7 @@ export function Router() {
           path="/users/:userId"
           element={
             <AdminLayout>
-              <A.Users />
+              <A.UserIntegration />
             </AdminLayout>
           }
         />

@@ -1,0 +1,1 @@
+export { default as WorkPlaces } from './workPlaces.json'
