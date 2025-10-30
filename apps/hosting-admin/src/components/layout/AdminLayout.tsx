@@ -45,7 +45,7 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
 };
 
 const LayoutContainer = styled(Layout)`
-  min-width: 100vw;
+  width: 100vw;
   min-height: 100vh;
   background: linear-gradient(
     135deg,

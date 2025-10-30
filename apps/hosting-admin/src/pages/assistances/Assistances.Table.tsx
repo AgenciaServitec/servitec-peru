@@ -1,6 +1,5 @@
 import dayjs from "dayjs";
-import styled from "styled-components";
-import { Tag, Table } from "../../components";
+import { Table, Tag } from "../../components";
 
 export const AssistancesTable = ({ loading, assistances }) => {
   const columns = [
@@ -56,31 +55,11 @@ export const AssistancesTable = ({ loading, assistances }) => {
   ];
 
   return (
-    <Container>
-      <Table
-        loading={loading}
-        dataSource={assistances}
-        columns={columns}
-        rowHeaderHeight={50}
-        rowBodyHeight={50}
-      />
-    </Container>
+    <Table
+      loading={loading}
+      dataSource={assistances}
+      columns={columns}
+      scroll={{ x: "max-content" }}
+    />
   );
 };
-
-const Container = styled.div`
-  .date-filter {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1em;
-
-    label {
-      font-weight: bold;
-      margin-right: 0.5em;
-    }
-
-    .ant-picker {
-      width: 200px;
-    }
-  }
-`;
