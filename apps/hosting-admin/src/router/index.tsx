@@ -2,15 +2,16 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import * as A from "../pages";
 import { AdminLayout } from "../components";
 import { PrivateRoute } from "./PrivateRoute";
-import { PublicRoute } from "./PublicRoute";
 
 export function Router() {
   return (
     <Routes>
-      <Route element={<PublicRoute />}>
-        <Route path="/" element={<A.Login />} />
-        <Route path="/register" element={<A.Register />} />
-      </Route>
+      <Route path="/" element={<A.Login />} />
+      <Route path="/register" element={<A.Register />} />
+      <Route
+        path="/quotations/:quotationId/sheets"
+        element={<A.QuotationSheets />}
+      />
 
       <Route element={<PrivateRoute />}>
         <Route
@@ -33,7 +34,7 @@ export function Router() {
           path="/quotations"
           element={
             <AdminLayout>
-              <A.Quotations />
+              <A.QuotationsIntegrations />
             </AdminLayout>
           }
         />
@@ -41,7 +42,7 @@ export function Router() {
           path="/quotations/:quotationId"
           element={
             <AdminLayout>
-              <A.Quotations />
+              <A.QuotationIntegration />
             </AdminLayout>
           }
         />
