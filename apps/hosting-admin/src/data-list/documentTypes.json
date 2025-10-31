@@ -1,0 +1,5 @@
+[
+  { "value": "dni", "label": "DNI - Documento Nacional de Identidad" },
+  { "value": "ruc", "label": "RUC - Registro Único de Contribuyentes" },
+  { "value": "ce", "label": "CE - Carnet de Extranjería" }
+  ]

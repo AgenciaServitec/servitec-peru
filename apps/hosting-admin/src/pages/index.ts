@@ -8,3 +8,5 @@ export * from "./assistances";
 export * from "./assistances/_assistancesId";
 export * from "./assistances/add-facial-biometrics";
 export * from "./quotations";
+export * from "./quotations/_quotationId";
+export * from "./quotations/sheets";
