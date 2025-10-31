@@ -139,7 +139,9 @@ export const QuotationDocumentSheet = ({
                 {quotation?.quotationDetails?.map(
                   (item: any, index: number) => (
                     <tr key={index}>
-                      <td>{item.description}</td>
+                      <td style={{ whiteSpace: "pre-wrap", maxWidth: "10px" }}>
+                        {item.description}
+                      </td>
                       <td className="center">{item.quantity}</td>
                       <td className="right">S/ {item.unitPrice.toFixed(2)}</td>
                       <td className="right">S/ {item.subTotal.toFixed(2)}</td>
@@ -367,6 +369,7 @@ const TechnicalInfo = styled.div`
       color: #2c3e50;
       text-align: justify;
       line-height: 1.5;
+      white-space: pre-wrap;
     }
   }
 `;

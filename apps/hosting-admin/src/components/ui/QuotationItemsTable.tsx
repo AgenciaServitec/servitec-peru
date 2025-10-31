@@ -1,5 +1,5 @@
 import { Controller, useFieldArray, useWatch } from "react-hook-form";
-import { Button, Col, IconAction, Input, Row, Space } from "../ui";
+import { Button, Col, IconAction, Input, Row, Space, TextArea } from "../ui";
 import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { theme } from "../../styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -92,10 +92,11 @@ const QuotationItemRow = ({ name, index, control, errors, onRemove }) => {
           name={`${name}.${index}.description`}
           control={control}
           render={({ field: { onChange, value, name: fieldName } }) => (
-            <Input
+            <TextArea
               label="Descripción"
               name={fieldName}
               value={value}
+              rows={4}
               onChange={onChange}
               error={errors?.[name]?.[index]?.description?.message}
               required={true}
