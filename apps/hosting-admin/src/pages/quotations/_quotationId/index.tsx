@@ -97,7 +97,7 @@ export function QuotationIntegration() {
             assignUpdateProps(mapQuotation(formData))
           );
 
-      console.log(formData);
+      navigate(-1);
     } catch (e) {
       console.error(e);
     } finally {
