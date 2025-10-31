@@ -101,9 +101,9 @@ export function QuotationIntegration() {
       isNew
         ? await addQuotation(assignCreateProps(mapQuotation(formData)))
         : updateQuotation(
-            quotationId,
-            assignUpdateProps(mapQuotation(formData))
-          );
+          quotationId,
+          assignUpdateProps(mapQuotation(formData))
+        );
 
       navigate(-1);
     } catch (e) {
@@ -126,14 +126,14 @@ export function QuotationIntegration() {
 }
 
 const Quotation = ({
-  quotation,
-  quotationId,
-  user,
-  loading,
-  isNew,
-  onSubmit,
-  onGoBack,
-}) => {
+                     quotation,
+                     quotationId,
+                     user,
+                     loading,
+                     isNew,
+                     onSubmit,
+                     onGoBack,
+                   }) => {
   const schema = yup.object({
     client: yup.object({
       documentType: yup.string(),
