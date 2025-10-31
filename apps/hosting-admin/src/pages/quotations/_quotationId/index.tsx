@@ -210,7 +210,7 @@ const Quotation = ({
 
   useEffect(() => {
     resetForm();
-  }, [quotationId]);
+  }, [quotation]);
 
   return (
     <Row gutter={[16, 16]}>
