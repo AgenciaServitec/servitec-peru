@@ -12,11 +12,10 @@ export const QuotationDocumentSheet = ({
 }: QuotationDocumentSheetProps) => {
   console.log(quotation);
 
-  const subtotal =
-    quotation?.quotationDetails?.items?.reduce(
-      (sum: number, item: any) => sum + item.subTotal,
-      0
-    ) || 1530;
+  const subtotal = quotation?.quotationDetails?.reduce(
+    (sum: number, item: any) => sum + item.subTotal,
+    0
+  );
   const igv = subtotal * 0.18;
   const total = subtotal + igv;
 
