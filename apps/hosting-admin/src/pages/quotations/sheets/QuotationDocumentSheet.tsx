@@ -36,7 +36,8 @@ export const QuotationDocumentSheet = ({
             <h1>COTIZACIÓN</h1>
             <ContractInfo>
               <p>
-                <strong>N° de Contrato:</strong> 123456
+                <strong>N° de Contrato:</strong>{" "}
+                {dayjs(quotation.createAt.toDate()).format("DDMMYYYYHHmm")}
               </p>
               <p>
                 <strong>Fecha:</strong>{" "}
