@@ -1,3 +1,5 @@
+import type { User } from "./providers";
+
 export type Timestamp = FirebaseFirestore.Timestamp;
 
 interface DefaultFirestoreProps {
@@ -54,6 +56,7 @@ export interface Assistance extends DefaultFirestoreProps {
   createAtString: string;
   entry: { date: string; dateTimestamp: FirebaseFirestore.Timestamp } | null;
   outlet: { date: string } | null;
-  // userId: string;
-  // user: User;
+  minutesWorked: number;
+  userId: string;
+  user: User;
 }
