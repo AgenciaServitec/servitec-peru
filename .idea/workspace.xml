@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b17dd4b9-88df-45e5-a4a2-d9d50729aa5a" name="Changes" comment="fixed pre format text">
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/data-list/deviceBrands.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Input.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/data-list/deviceTypes.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/data-list/deviceTypes.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/data-list/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/data-list/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/sheets/QuotationDocumentSheet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/sheets/QuotationDocumentSheet.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/utils/abstract.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/utils/abstract.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +25,7 @@
         <option value="Dockerfile" />
         <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="tsconfig.json" />
       </list>
     </option>
   </component>
@@ -125,6 +132,7 @@
       <workItem from="1761877147604" duration="123000" />
       <workItem from="1761877571223" duration="643000" />
       <workItem from="1761932326503" duration="5131000" />
+      <workItem from="1762199000101" duration="3314000" />
     </task>
     <task id="LOCAL-00001" summary="refactored types">
       <option name="closed" value="true" />

@@ -23,7 +23,7 @@ import {
   updateQuotation,
 } from "../../../firebase/collections";
 import { Button } from "antd";
-import { deviceTypes, DocumentTypes } from "../../../data-list";
+import { DeviceBrands, deviceTypes, DocumentTypes } from "../../../data-list";
 
 export function QuotationIntegration() {
   const { authUser } = useAuthentication();
@@ -358,7 +358,7 @@ const Quotation = ({
             <Col span={24}>
               <ComponentContainer.group label="Datos del dispositivo">
                 <Row gutter={[16, 16]}>
-                  <Col span={24}>
+                  <Col span={24} md={16}>
                     <Controller
                       name="device.type"
                       control={control}
@@ -391,15 +391,17 @@ const Quotation = ({
                       )}
                     />
                   </Col>
-                  <Col span={24} md={8}>
+                  <Col span={24} md={12}>
                     <Controller
                       name="device.brand"
                       control={control}
                       render={({ field: { onChange, value, name } }) => (
-                        <Input
+                        <Select
                           label="Marca"
+                          mode="multiple"
                           name={name}
                           value={value}
+                          options={DeviceBrands}
                           onChange={onChange}
                           error={error(name)}
                           required={required(name)}
@@ -407,7 +409,7 @@ const Quotation = ({
                       )}
                     />
                   </Col>
-                  <Col span={24} md={8}>
+                  <Col span={24} md={12}>
                     <Controller
                       name="device.model"
                       control={control}
