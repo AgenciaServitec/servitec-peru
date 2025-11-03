@@ -1,0 +1,241 @@
+{
+  "smartphone": [
+    { "value": "samsung", "label": "Samsung" },
+    { "value": "apple", "label": "Apple / iPhone" },
+    { "value": "xiaomi", "label": "Xiaomi" },
+    { "value": "huawei", "label": "Huawei" },
+    { "value": "motorola", "label": "Motorola" },
+    { "value": "oppo", "label": "Oppo" },
+    { "value": "realme", "label": "Realme" },
+    { "value": "lg", "label": "LG" },
+    { "value": "nokia", "label": "Nokia" },
+    { "value": "other", "label": "Otra Marca" }
+  ],
+
+  "tablet": [
+    { "value": "apple", "label": "Apple / iPad" },
+    { "value": "samsung", "label": "Samsung" },
+    { "value": "huawei", "label": "Huawei" },
+    { "value": "lenovo", "label": "Lenovo" },
+    { "value": "xiaomi", "label": "Xiaomi" },
+    { "value": "amazon", "label": "Amazon / Kindle" },
+    { "value": "microsoft", "label": "Microsoft / Surface" },
+    { "value": "other", "label": "Otra Marca" }
+  ],
+
+  "laptop": [
+    { "value": "hp", "label": "HP" },
+    { "value": "dell", "label": "Dell" },
+    { "value": "lenovo", "label": "Lenovo" },
+    { "value": "asus", "label": "Asus" },
+    { "value": "acer", "label": "Acer" },
+    { "value": "apple", "label": "Apple / MacBook" },
+    { "value": "msi", "label": "MSI" },
+    { "value": "toshiba", "label": "Toshiba" },
+    { "value": "samsung", "label": "Samsung" },
+    { "value": "huawei", "label": "Huawei" },
+    { "value": "other", "label": "Otra Marca" }
+  ],
+
+  "desktop": [
+    { "value": "hp", "label": "HP" },
+    { "value": "dell", "label": "Dell" },
+    { "value": "lenovo", "label": "Lenovo" },
+    { "value": "asus", "label": "Asus" },
+    { "value": "acer", "label": "Acer" },
+    { "value": "apple", "label": "Apple / iMac" },
+    { "value": "msi", "label": "MSI" },
+    { "value": "custom", "label": "Ensamblada" },
+    { "value": "other", "label": "Otra Marca" }
+  ],
+
+  "all_in_one": [
+    { "value": "hp", "label": "HP" },
+    { "value": "dell", "label": "Dell" },
+    { "value": "lenovo", "label": "Lenovo" },
+    { "value": "asus", "label": "Asus" },
+    { "value": "apple", "label": "Apple / iMac" },
+    { "value": "acer", "label": "Acer" },
+    { "value": "msi", "label": "MSI" },
+    { "value": "other", "label": "Otra Marca" }
+  ],
+
+  "cpu": [
+    { "value": "intel", "label": "Intel" },
+    { "value": "amd", "label": "AMD" },
+    { "value": "apple", "label": "Apple Silicon" },
+    { "value": "other", "label": "Otra Marca" }
+  ],
+
+  "monitor": [
+    { "value": "samsung", "label": "Samsung" },
+    { "value": "lg", "label": "LG" },
+    { "value": "dell", "label": "Dell" },
+    { "value": "hp", "label": "HP" },
+    { "value": "asus", "label": "Asus" },
+    { "value": "acer", "label": "Acer" },
+    { "value": "benq", "label": "BenQ" },
+    { "value": "viewsonic", "label": "ViewSonic" },
+    { "value": "aoc", "label": "AOC" },
+    { "value": "other", "label": "Otra Marca" }
+  ],
+
+  "printer": [
+    { "value": "hp", "label": "HP" },
+    { "value": "epson", "label": "Epson" },
+    { "value": "canon", "label": "Canon" },
+    { "value": "brother", "label": "Brother" },
+    { "value": "samsung", "label": "Samsung" },
+    { "value": "xerox", "label": "Xerox" },
+    { "value": "ricoh", "label": "Ricoh" },
+    { "value": "lexmark", "label": "Lexmark" },
+    { "value": "other", "label": "Otra Marca" }
+  ],
+
+  "projector": [
+    { "value": "epson", "label": "Epson" },
+    { "value": "benq", "label": "BenQ" },
+    { "value": "viewsonic", "label": "ViewSonic" },
+    { "value": "optoma", "label": "Optoma" },
+    { "value": "sony", "label": "Sony" },
+    { "value": "lg", "label": "LG" },
+    { "value": "acer", "label": "Acer" },
+    { "value": "hitachi", "label": "Hitachi" },
+    { "value": "canon", "label": "Canon" },
+    { "value": "panasonic", "label": "Panasonic" },
+    { "value": "other", "label": "Otra Marca" }
+  ],
+
+  "camera": [
+    { "value": "canon", "label": "Canon" },
+    { "value": "nikon", "label": "Nikon" },
+    { "value": "sony", "label": "Sony" },
+    { "value": "panasonic", "label": "Panasonic" },
+    { "value": "fujifilm", "label": "Fujifilm" },
+    { "value": "gopro", "label": "GoPro" },
+    { "value": "logitech", "label": "Logitech" },
+    { "value": "other", "label": "Otra Marca" }
+  ],
+
+  "tv": [
+    { "value": "samsung", "label": "Samsung" },
+    { "value": "lg", "label": "LG" },
+    { "value": "sony", "label": "Sony" },
+    { "value": "tcl", "label": "TCL" },
+    { "value": "hisense", "label": "Hisense" },
+    { "value": "panasonic", "label": "Panasonic" },
+    { "value": "philips", "label": "Philips" },
+    { "value": "other", "label": "Otra Marca" }
+  ],
+
+  "server": [
+    { "value": "dell", "label": "Dell" },
+    { "value": "hp", "label": "HP / HPE" },
+    { "value": "ibm", "label": "IBM" },
+    { "value": "lenovo", "label": "Lenovo" },
+    { "value": "cisco", "label": "Cisco" },
+    { "value": "supermicro", "label": "Supermicro" },
+    { "value": "other", "label": "Otra Marca" }
+  ],
+
+  "network_device": [
+    { "value": "tp_link", "label": "TP-Link" },
+    { "value": "cisco", "label": "Cisco" },
+    { "value": "ubiquiti", "label": "Ubiquiti" },
+    { "value": "netgear", "label": "Netgear" },
+    { "value": "d_link", "label": "D-Link" },
+    { "value": "asus", "label": "Asus" },
+    { "value": "huawei", "label": "Huawei" },
+    { "value": "mikrotik", "label": "MikroTik" },
+    { "value": "other", "label": "Otra Marca" }
+  ],
+
+  "hard_drive": [
+    { "value": "western_digital", "label": "Western Digital / WD" },
+    { "value": "seagate", "label": "Seagate" },
+    { "value": "toshiba", "label": "Toshiba" },
+    { "value": "hitachi", "label": "Hitachi" },
+    { "value": "other", "label": "Otra Marca" }
+  ],
+
+  "ssd": [
+    { "value": "samsung", "label": "Samsung" },
+    { "value": "kingston", "label": "Kingston" },
+    { "value": "crucial", "label": "Crucial" },
+    { "value": "western_digital", "label": "Western Digital / WD" },
+    { "value": "sandisk", "label": "SanDisk" },
+    { "value": "adata", "label": "ADATA" },
+    { "value": "other", "label": "Otra Marca" }
+  ],
+
+  "ups": [
+    { "value": "apc", "label": "APC" },
+    { "value": "tripp_lite", "label": "Tripp Lite" },
+    { "value": "cyberpower", "label": "CyberPower" },
+    { "value": "eaton", "label": "Eaton" },
+    { "value": "vertiv", "label": "Vertiv" },
+    { "value": "other", "label": "Otra Marca" }
+  ],
+
+  "scanner": [
+    { "value": "epson", "label": "Epson" },
+    { "value": "canon", "label": "Canon" },
+    { "value": "hp", "label": "HP" },
+    { "value": "brother", "label": "Brother" },
+    { "value": "fujitsu", "label": "Fujitsu" },
+    { "value": "other", "label": "Otra Marca" }
+  ],
+
+  "audio_device": [
+    { "value": "logitech", "label": "Logitech" },
+    { "value": "jbl", "label": "JBL" },
+    { "value": "bose", "label": "Bose" },
+    { "value": "sony", "label": "Sony" },
+    { "value": "razer", "label": "Razer" },
+    { "value": "hyperx", "label": "HyperX" },
+    { "value": "sennheiser", "label": "Sennheiser" },
+    { "value": "apple", "label": "Apple / AirPods" },
+    { "value": "samsung", "label": "Samsung" },
+    { "value": "other", "label": "Otra Marca" }
+  ],
+
+  "gaming_console": [
+    { "value": "sony", "label": "Sony / PlayStation" },
+    { "value": "microsoft", "label": "Microsoft / Xbox" },
+    { "value": "nintendo", "label": "Nintendo" },
+    { "value": "other", "label": "Otra Marca" }
+  ],
+
+  "wearable": [
+    { "value": "apple", "label": "Apple Watch" },
+    { "value": "samsung", "label": "Samsung" },
+    { "value": "xiaomi", "label": "Xiaomi" },
+    { "value": "huawei", "label": "Huawei" },
+    { "value": "fitbit", "label": "Fitbit" },
+    { "value": "garmin", "label": "Garmin" },
+    { "value": "amazfit", "label": "Amazfit" },
+    { "value": "other", "label": "Otra Marca" }
+  ],
+
+  "accessory": [
+    { "value": "logitech", "label": "Logitech" },
+    { "value": "hp", "label": "HP" },
+    { "value": "anker", "label": "Anker" },
+    { "value": "belkin", "label": "Belkin" },
+    { "value": "razer", "label": "Razer" },
+    { "value": "apple", "label": "Apple" },
+    { "value": "samsung", "label": "Samsung" },
+    { "value": "generic", "label": "Genérico" },
+    { "value": "other", "label": "Otra Marca" }
+  ],
+
+  "software": [
+    { "value": "microsoft", "label": "Microsoft" },
+    { "value": "adobe", "label": "Adobe" },
+    { "value": "autodesk", "label": "Autodesk" },
+    { "value": "kaspersky", "label": "Kaspersky" },
+    { "value": "norton", "label": "Norton" },
+    { "value": "mcafee", "label": "McAfee" },
+    { "value": "other", "label": "Otra Marca" }
+  ]
+}

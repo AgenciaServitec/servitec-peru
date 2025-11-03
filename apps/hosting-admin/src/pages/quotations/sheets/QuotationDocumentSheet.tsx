@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { QRCode } from "../../../components";
 import { theme } from "../../../styles";
 import dayjs from "dayjs";
+import { getDevice } from "../../../utils";
 
 interface QuotationDocumentSheetProps {
   quotation: any;
@@ -83,7 +84,7 @@ export const QuotationDocumentSheet = ({
             <InfoGrid>
               <InfoItem>
                 <label>Tipo:</label>
-                <span>{quotation?.device?.type}</span>
+                <span>{getDevice(quotation?.device?.type)}</span>
               </InfoItem>
               <InfoItem>
                 <label>Marca:</label>
@@ -352,8 +353,8 @@ const InfoItem = styled.div`
 `;
 
 const TechnicalInfo = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 0.8em;
   padding: 0 0.5em;
 
