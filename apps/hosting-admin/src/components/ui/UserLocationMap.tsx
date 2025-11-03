@@ -18,7 +18,7 @@ export const UserLocationMap = ({ location, onValidateGeofence }) => {
   if (!location) return <p>Ubicación no disponible</p>;
 
   const geofenceCenter = { lat: -12.1711671, lng: -77.0189769 };
-  const geofenceRadius = 8;
+  const geofenceRadius = 10.5;
 
   const isInsideGeofence =
     L.latLng(location.lat, location.lng).distanceTo(

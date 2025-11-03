@@ -21,6 +21,7 @@ import {
   Typography,
   Tabs,
   InputNumber,
+  DatePicker,
 } from "antd";
 
 export * from "./Legend";
@@ -63,4 +64,5 @@ export {
   Tag,
   Tabs,
   InputNumber,
+  DatePicker,
 };
