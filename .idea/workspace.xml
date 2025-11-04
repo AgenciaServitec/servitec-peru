@@ -5,17 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b17dd4b9-88df-45e5-a4a2-d9d50729aa5a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/AssistancesFilter.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/AssistancesNameFilter.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/_utils/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/_utils/useUpdateMinutesWorked.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/types.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/_utils/exportAssistancesExcel.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/UserLocationMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/UserLocationMap.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/globalTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/globalTypes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/Assistances.Table.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/Assistances.Table.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/_utils/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/_utils/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,12 +53,12 @@
     &quot;assignee&quot;: &quot;AngelDev2001&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/AgenciaServitec/servitec-peru.git",
-    "accountId": "df5a1a8b-54be-4713-9800-9dc3f50845ee"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AgenciaServitec/servitec-peru.git&quot;,
+    &quot;accountId&quot;: &quot;df5a1a8b-54be-4713-9800-9dc3f50845ee&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -79,7 +74,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "add-filter-by-date-and-minutesWorked",
+    "git-widget-placeholder": "add-export-to-excel",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "C:/Users/Angel/WebstormProjects/servitec-peru",

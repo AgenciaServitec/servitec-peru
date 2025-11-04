@@ -20,6 +20,7 @@ import { AssistancesNameFilter } from "./AssistancesNameFilter.tsx";
 
 import type { Assistance } from "../../globalTypes.ts";
 import type { DateFilter } from "./types.ts";
+import { exportAssistancesExcel } from "./_utils";
 
 export function AssistancesIntegration() {
   const navigate = useNavigate();
@@ -143,7 +144,14 @@ export function AssistancesIntegration() {
           <Col span={24}>
             <Title level={2}>Lista de Asistencias</Title>
           </Col>
-
+          <Col span={24}>
+            <Button
+              type="primary"
+              onClick={() => exportAssistancesExcel(filteredAssistances)}
+            >
+              Exportar a Excel
+            </Button>
+          </Col>
           <Col span={24}>
             <AssistancesTable
               assistances={filteredAssistances || []}
