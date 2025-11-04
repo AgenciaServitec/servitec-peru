@@ -113,13 +113,12 @@ export const useAssistance = (assignCreateProps) => {
           description: "No estás dentro de tu lugar de trabajo",
         });
 
-      if (await hasMarked(type))
+      if (type === "entry" && (await hasMarked("entry"))) {
         return notification({
           type: "warning",
-          description: `Ya ha marcado su ${
-            type === "entry" ? "ingreso" : "salida"
-          } hoy`,
+          description: "Ya ha marcado su ingreso hoy",
         });
+      }
 
       try {
         const date = dayjs().format("DD-MM-YYYY HH:mm");
