@@ -230,6 +230,7 @@ const Container = styled.div`
     display: block;
     margin-left: auto;
     margin-right: auto;
+    transform: scaleX(-1);
   }
 
   .controls {

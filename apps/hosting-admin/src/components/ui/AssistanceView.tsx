@@ -360,21 +360,22 @@ const Container = styled.div`
     flex-wrap: wrap;
     justify-content: center;
   }
-    
-    .video-controls{
-        .video {
-            border-radius: 0.75rem;
-            border: 2px solid var(--color-primary);
-            box-shadow: 0 0 18px rgba(250, 204, 21, 0.15);
-            max-width: 100%;
-            margin: auto;
-        }
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem;
-        flex-wrap: wrap;
+
+  .video-controls {
+    .video {
+      border-radius: 0.75rem;
+      border: 2px solid var(--color-primary);
+      box-shadow: 0 0 18px rgba(250, 204, 21, 0.15);
+      max-width: 100%;
+      margin: auto;
+      transform: scaleX(-1);
     }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
 
   .user-name {
     text-align: center;
@@ -434,12 +435,12 @@ const Container = styled.div`
       transform: scale(1.03);
       filter: brightness(1.05);
     }
-    &:first-child{
+    &:first-child {
       flex: 1;
     }
-    &:last-child{
+    &:last-child {
       flex: 1;
-      }
+    }
   }
 
   .entry-btn {
