@@ -34,9 +34,9 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
   loadingAssistances,
   userAssistances,
 }) => {
-  const [dateRange, setDateRange] = useState<
-    [dayjs.Dayjs | null, dayjs.Dayjs | null]
-  >([null, null]);
+  const [startDate, setStartDate] = useState<dayjs.Dayjs | null>(null);
+  const [endDate, setEndDate] = useState<dayjs.Dayjs | null>(null);
+
   const [totalMinutes, setTotalMinutes] = useState<number | null>(null);
   const [multiplier, setMultiplier] = useState<number | string>("");
   const [result, setResult] = useState<number | null>(null);
@@ -48,18 +48,17 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
   }, [selectedUser]);
 
   const filteredAssistances = useMemo(() => {
-    const [start, end] = dateRange;
-    if (!start && !end) return userAssistances;
+    if (!startDate && !endDate) return userAssistances;
 
-    const startMs = start ? start.startOf("day").valueOf() : 0;
-    const endMs = end ? end.endOf("day").valueOf() : Infinity;
+    const startMs = startDate ? startDate.startOf("day").valueOf() : 0;
+    const endMs = endDate ? endDate.endOf("day").valueOf() : Infinity;
 
     return userAssistances.filter((a) => {
       const date =
         a.createAt?.toMillis?.() ?? new Date(a.createAtString ?? "").getTime();
       return date >= startMs && date <= endMs;
     });
-  }, [userAssistances, dateRange]);
+  }, [userAssistances, startDate, endDate]);
 
   const handleCalculateTotal = () => {
     const total = filteredAssistances.reduce(
@@ -81,7 +80,8 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
   };
 
   const clearFilters = () => {
-    setDateRange([null, null]);
+    setStartDate(null);
+    setEndDate(null);
     setTotalMinutes(null);
     setMultiplier("");
     setResult(null);
@@ -96,11 +96,18 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
 
       <FilterContainer>
         <Space wrap>
-          <FontAwesomeIcon icon={faCalendarDays} color="#00c3ff" />
-          <RangePicker
+          <DatePicker
+            placeholder="Fecha inicial"
             format="DD/MM/YYYY"
-            value={dateRange}
-            onChange={(values) => setDateRange(values ?? [null, null])}
+            value={startDate}
+            onChange={(date) => setStartDate(date)}
+            allowClear
+          />
+          <DatePicker
+            placeholder="Fecha final"
+            format="DD/MM/YYYY"
+            value={endDate}
+            onChange={(date) => setEndDate(date)}
             allowClear
           />
           <Button
@@ -112,12 +119,11 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
         </Space>
       </FilterContainer>
 
-      {dateRange[0] &&
-        dateRange[1] &&
+      {startDate &&
+        endDate &&
         (() => {
-          const start = dateRange[0].locale("es");
-          const end = dateRange[1].locale("es");
-
+          const start = startDate.locale("es");
+          const end = endDate.locale("es");
           const sameMonth = start.month() === end.month();
           const sameYear = start.year() === end.year();
 

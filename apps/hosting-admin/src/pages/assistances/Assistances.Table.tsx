@@ -3,6 +3,7 @@ import { Table, Tag } from "../../components";
 import type { Assistance } from "../../globalTypes.ts";
 import { useUpdateMinutesWorked } from "./_utils";
 import { useEffect } from "react";
+import { orderBy } from "lodash";
 
 interface AssistancesTableProps {
   loading: boolean;
@@ -116,7 +117,7 @@ export const AssistancesTable = ({
   return (
     <Table
       loading={loading}
-      dataSource={assistances}
+      dataSource={orderBy(assistances, "createAt", "desc")}
       columns={columns}
       scroll={{ x: "max-content" }}
     />
