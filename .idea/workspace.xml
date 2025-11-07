@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b17dd4b9-88df-45e5-a4a2-d9d50729aa5a" name="Changes" comment="first advance">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/Assistances.Table.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/Assistances.Table.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/AssistancesFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/AssistancesFilter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/UserAssistancesTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/UserAssistancesTable.tsx" afterDir="false" />
+    <list default="true" id="b17dd4b9-88df-45e5-a4a2-d9d50729aa5a" name="Changes" comment="refactor code">
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/assistances.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/assistances.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +72,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "add-assistances-report",
+    "git-widget-placeholder": "add-assistances-api",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "C:/Users/Angel/WebstormProjects/servitec-peru",
@@ -170,223 +167,27 @@
       <option name="project" value="LOCAL" />
       <updated>1762370381426</updated>
     </task>
-    <task id="LOCAL-00006" summary="first advance">
+    <task id="LOCAL-00006" summary="add assistances api">
       <option name="closed" value="true" />
-      <created>1762383720837</created>
+      <created>1762553961258</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1762383720838</updated>
+      <updated>1762553961258</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="refactor code">
+      <option name="closed" value="true" />
+      <created>1762554401741</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1762554401742</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-    <option name="exactExcludedFiles">
-      <list>
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/main.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/App.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/utils/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/utils/promised.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/Breadcrumb.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/AdminLayout.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/FooterLayout.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Form.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/HeaderLayout.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/DrawerLayout.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/InputCode.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Icon.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Spinner.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/InputNumber.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Audio.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/AddButton.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/modalConfirm.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/notification.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/TimePicker.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Modal.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Select.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/DatePicker.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Input.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/CheckboxGroup.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/TextArea.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Filled.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/SortableItems.utils.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Legend.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Checkbox.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Outlined.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Group.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/quotations.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/storage.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/utils.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/functions.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/config/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/home/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/firestore.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/hooks/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/hooks/useFormUtils.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/sheets/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/sheets/QuotationContent.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/register/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/profile/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/mediaQuery.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/breakPoints.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/keyframes.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/providers/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/providers/ConfigsInitializer.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/router/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/GlobalStyle.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/utils.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/theme.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/main.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/App.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/hooks/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/hooks/useFormUtils.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/home/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/register/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/quotations.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/utils.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Form.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Audio.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/AddButton.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/modalConfirm.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/InputCode.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Icon.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Spinner.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/InputNumber.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/DatePicker.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Input.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/CheckboxGroup.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/TextArea.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/notification.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/TimePicker.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Modal.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Select.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Legend.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Checkbox.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Outlined.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Group.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Filled.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/storage.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/utils.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/firestore.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/HeaderLayout.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/DrawerLayout.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/Breadcrumb.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/AdminLayout.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/FooterLayout.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/router/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/theme.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/GlobalStyle.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/sheets/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/sheets/QuotationContent.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/config/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/SortableItems.utils.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/functions.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/providers/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/providers/ConfigsInitializer.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/profile/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/mediaQuery.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/breakPoints.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/keyframes.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/main.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/App.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/HeaderLayout.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/DrawerLayout.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/Breadcrumb.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/AdminLayout.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/FooterLayout.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Form.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Audio.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/AddButton.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/modalConfirm.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/InputCode.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Icon.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Spinner.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/InputNumber.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/DatePicker.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Input.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/CheckboxGroup.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/TextArea.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/notification.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/TimePicker.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Modal.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Select.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Legend.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Checkbox.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Outlined.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Group.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Filled.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/SortableItems.utils.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/functions.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/config/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/quotations.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/storage.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/utils.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/firebase/firestore.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/hooks/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/hooks/useFormUtils.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/home/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/profile/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/sheets/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/sheets/QuotationContent.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/register/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/providers/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/providers/ConfigsInitializer.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/router/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/mediaQuery.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/breakPoints.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/constants/keyframes.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/utils.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/index.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/theme.js" />
-        <option value="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/GlobalStyle.js" />
-      </list>
-    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -419,7 +220,8 @@
     <MESSAGE value="add export to excel" />
     <MESSAGE value="fix outlet" />
     <MESSAGE value="fix camera orientation" />
-    <MESSAGE value="first advance" />
-    <option name="LAST_COMMIT_MESSAGE" value="first advance" />
+    <MESSAGE value="add assistances api" />
+    <MESSAGE value="refactor code" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor code" />
   </component>
 </project>
