@@ -5,7 +5,7 @@ export type Timestamp = FirebaseFirestore.Timestamp;
 interface DefaultFirestoreProps {
   createAt: Timestamp;
   updateAt: Timestamp;
-  // updateBy: string;
+  updateBy: string;
   isDeleted: boolean;
 }
 

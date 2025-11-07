@@ -54,6 +54,7 @@ interface User extends DefaultFirestoreProps {
   profilePhoto?: string;
   birthDate?: string;
   gender?: "male" | "female" | "other";
+  fingerprintTemplate: string | "";
 }
 
 interface Quotation {
@@ -79,4 +80,16 @@ interface Quotation {
   solutions: string;
   recommendations: string;
   serieNumber: string;
+}
+
+interface Assistance extends DefaultFirestoreProps {
+  id: string;
+  createAtString: string;
+  entry: { date: string; dateTimestamp: FirebaseFirestore.Timestamp } | null;
+  outlet: { date: string } | null;
+  userId: string;
+  user: User;
+  workPlace: string | null;
+  status: "delay" | "attended" | null;
+  minutesWorked: number | 0;
 }
