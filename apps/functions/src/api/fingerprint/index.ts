@@ -1,3 +1,3 @@
-export * from "./getUsersWithFingerprintTemplate";
-export * from "./putBiometricAssistanceByDni";
-export * from "./putUserFingerprintTemplate";
+export * from "./getUsersWithFingerprintTemplate.js";
+export * from "./putBiometricAssistanceByDni.js";
+export * from "./putUserFingerprintTemplate.js";

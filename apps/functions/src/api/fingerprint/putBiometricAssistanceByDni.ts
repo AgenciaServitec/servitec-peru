@@ -1,16 +1,17 @@
 import { Request, Response } from "express";
-import { defaultFirestoreProps } from "../../utils/index.js";
+import moment from "moment-timezone";
+
 import {
   assistancesRef,
   fetchUserByDocument,
   updateAssistance,
 } from "../../_firebase/collections";
-import { firestoreTimestamp } from "../../_firebase/index.js";
-import moment from "moment-timezone";
 import {
   fetchTodayAssistancesByUserId,
   getAssistanceId,
-} from "../../_firebase/collections/assistances.js";
+} from "../../_firebase/collections/index.js";
+import { firestoreTimestamp } from "../../_firebase/index.js";
+import { defaultFirestoreProps } from "../../utils/index.js";
 
 interface Params {
   dni: string;

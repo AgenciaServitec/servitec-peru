@@ -1,13 +1,16 @@
 import cors from "cors";
 import express from "express";
 
+// @ts-ignore
 import assistancesRoutes from "./assistances/routes/assistances.routes";
 import {
   putBiometricAssistanceByDni,
   getUsersWithFingerprintTemplate,
   putUserFingerprintTemplate,
 } from "./fingerprint/index.js";
+// @ts-ignore
 import quotationsRoutes from "./quotations/routes/quotations.routes";
+// @ts-ignore
 import usersRoutes from "./users/routes/users.routes";
 
 const app: express.Application = express();

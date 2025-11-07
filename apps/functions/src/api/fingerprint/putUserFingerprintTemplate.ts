@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
-import { defaultFirestoreProps } from "../../utils/defaultFirestoreProps.js";
-import { User } from "../../globalTypes.js";
 import { logger } from "firebase-functions";
-import { fetchCollection } from "../../_firebase/firestore.js";
+
+import { fetchCollection } from "../../_firebase/index.js";
 import { firestore } from "../../_firebase/index.js";
+import { User } from "../../globalTypes.js";
+import { defaultFirestoreProps } from "../../utils/index.js";
 
 interface Params {
   dni: string;

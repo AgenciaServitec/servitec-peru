@@ -4,20 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b17dd4b9-88df-45e5-a4a2-d9d50729aa5a" name="Changes" comment="fix camera orientation">
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/assistances.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/fingerprint/getUsersWithFingerprintTemplate.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/fingerprint/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/fingerprint/putBiometricAssistanceByDni.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/fingerprint/putUserFingerprintTemplate.ts" afterDir="false" />
+    <list default="true" id="b17dd4b9-88df-45e5-a4a2-d9d50729aa5a" name="Changes" comment="add assistances api">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/fingerprint/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/fingerprint/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/fingerprint/putBiometricAssistanceByDni.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/fingerprint/putBiometricAssistanceByDni.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/fingerprint/putUserFingerprintTemplate.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/fingerprint/putUserFingerprintTemplate.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/functions/src/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/globalTypes.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/globalTypes.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/UserLocationMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/UserLocationMap.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/globalTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/globalTypes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,7 +172,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762370381426</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="add assistances api">
+      <option name="closed" value="true" />
+      <created>1762553961258</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1762553961258</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -216,6 +217,7 @@
     <MESSAGE value="add export to excel" />
     <MESSAGE value="fix outlet" />
     <MESSAGE value="fix camera orientation" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix camera orientation" />
+    <MESSAGE value="add assistances api" />
+    <option name="LAST_COMMIT_MESSAGE" value="add assistances api" />
   </component>
 </project>
