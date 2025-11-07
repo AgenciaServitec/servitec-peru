@@ -1,6 +1,6 @@
 import React from "react";
 import { IconAction, Space, Table, Tag } from "../../components";
-import { faCircleCheck, faEdit, faTrash, faUpload } from "@fortawesome/free-solid-svg-icons";
+import { faCalendar, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { capitalize, orderBy } from "lodash";
 import dayjs from "dayjs";
 import type { ColumnsType } from "antd/es/table";
@@ -8,7 +8,6 @@ import styled, { css } from "styled-components";
 import { theme } from "../../styles";
 
 import { Timestamp } from "firebase/firestore";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export interface Phone {
   prefix: string;
@@ -48,6 +47,7 @@ interface UsersTableProps {
   users: User[];
   onEditUser: (user: User) => void;
   onRemoveUser: (user: User) => void;
+  onViewAssistances: (user: User) => void;
 }
 
 interface TableUser extends User {
@@ -58,6 +58,7 @@ export const UsersTable: React.FC<UsersTableProps> = ({
   users,
   onEditUser,
   onRemoveUser,
+  onViewAssistances,
 }) => {
   const columns: ColumnsType<TableUser> = [
     {
@@ -118,13 +119,18 @@ export const UsersTable: React.FC<UsersTableProps> = ({
       render: (_, user) => (
         <Space size="small">
           <IconAction
+            tooltipTitle="Ver asistencias"
+            icon={faCalendar}
+            onClick={() => onViewAssistances(user)}
+          />
+          <IconAction
             tooltipTitle="Editar"
             icon={faEdit}
             onClick={() => onEditUser(user)}
           />
           <IconAction
             tooltipTitle="Eliminar"
-            iconStyles={{color: () => theme.colors.error}}
+            iconStyles={{ color: () => theme.colors.error }}
             icon={faTrash}
             onClick={() => onRemoveUser(user)}
           />

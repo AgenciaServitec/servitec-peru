@@ -22,8 +22,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import styled, { css } from "styled-components";
 import { theme } from "../../styles";
-
+import type { Assistance } from "../../globalTypes";
 import { Timestamp } from "firebase/firestore";
+import { fetchAssistances } from "../../firebase/collections";
+import { UserAssistancesTable } from "./UserAssistancesTable.tsx";
 
 export interface Phone {
   prefix: string;
@@ -67,6 +69,10 @@ export const Users: React.FC = () => {
 
   const [userSearch, setUserSearch] = useState<string>("");
   const [usersView, setUsersView] = useState<User[]>([]);
+
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [userAssistances, setUserAssistances] = useState<Assistance[]>([]);
+  const [loadingAssistances, setLoadingAssistances] = useState(false);
 
   const navigateTo = (userId: string): void => navigate(userId);
 
@@ -125,6 +131,33 @@ export const Users: React.FC = () => {
     setUsersView(isEmpty(userSearch) ? users : usersMatch);
   }, [userSearch, users]);
 
+  const onViewAssistances = async (user: User): Promise<void> => {
+    try {
+      setSelectedUser(user);
+      setLoadingAssistances(true);
+
+      const assistances = await fetchAssistances();
+
+      const userAssistances = assistances
+        ?.filter((a) => a.userId === user.id && !a.isDeleted)
+        .sort((a, b) => {
+          const timeA = a.createAt?.toMillis?.() ?? 0;
+          const timeB = b.createAt?.toMillis?.() ?? 0;
+          return timeB - timeA;
+        });
+
+      setUserAssistances(userAssistances || []);
+    } catch (error) {
+      notification({
+        type: "error",
+        title: "Error al obtener asistencias",
+        description: String(error),
+      });
+    } finally {
+      setLoadingAssistances(false);
+    }
+  };
+
   return (
     <Container>
       <Row gutter={[16, 16]}>
@@ -150,7 +183,17 @@ export const Users: React.FC = () => {
             users={usersView}
             onEditUser={onEditUser}
             onRemoveUser={onConfirmRemoveUser}
+            onViewAssistances={onViewAssistances}
           />
+        </Col>
+        <Col span={24}>
+          {selectedUser && (
+            <UserAssistancesTable
+              selectedUser={selectedUser}
+              userAssistances={userAssistances}
+              loadingAssistances={loadingAssistances}
+            />
+          )}
         </Col>
       </Row>
     </Container>

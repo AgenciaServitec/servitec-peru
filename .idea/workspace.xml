@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b17dd4b9-88df-45e5-a4a2-d9d50729aa5a" name="Changes" comment="fix camera orientation">
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/UserLocationMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/UserLocationMap.tsx" afterDir="false" />
+    <list default="true" id="b17dd4b9-88df-45e5-a4a2-d9d50729aa5a" name="Changes" comment="first advance">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/Assistances.Table.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/Assistances.Table.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/AssistancesFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/AssistancesFilter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/UserAssistancesTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/UserAssistancesTable.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +75,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "fix-camera-orientation",
+    "git-widget-placeholder": "add-assistances-report",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "C:/Users/Angel/WebstormProjects/servitec-peru",
@@ -167,7 +170,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762370381426</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="first advance">
+      <option name="closed" value="true" />
+      <created>1762383720837</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1762383720838</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -408,6 +419,7 @@
     <MESSAGE value="add export to excel" />
     <MESSAGE value="fix outlet" />
     <MESSAGE value="fix camera orientation" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix camera orientation" />
+    <MESSAGE value="first advance" />
+    <option name="LAST_COMMIT_MESSAGE" value="first advance" />
   </component>
 </project>

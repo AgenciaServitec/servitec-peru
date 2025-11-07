@@ -12,14 +12,12 @@ export function AssistancesFilter({
 }) {
   const today = dayjs();
 
-  const [range, setRange] = useState<[Dayjs | null, Dayjs | null]>([
-    today,
-    today,
-  ]);
+  const [startDate, setStartDate] = useState<Dayjs | null>(today);
+  const [endDate, setEndDate] = useState<Dayjs | null>(today);
 
   useEffect(() => {
-    const newRange: [Dayjs, Dayjs] = [today, today];
-    setRange(newRange);
+    setStartDate(today);
+    setEndDate(today);
 
     onFilter({
       startDate: today.startOf("day").toDate(),
@@ -28,23 +26,30 @@ export function AssistancesFilter({
   }, [resetSignal]);
 
   useEffect(() => {
-    const [start, end] = range;
-
     onFilter({
-      startDate: start ? start.startOf("day").toDate() : null,
-      endDate: end ? end.endOf("day").toDate() : null,
+      startDate: startDate ? startDate.startOf("day").toDate() : null,
+      endDate: endDate ? endDate.endOf("day").toDate() : null,
     });
-  }, [range]);
+  }, [startDate, endDate]);
 
   return (
     <Row gutter={[16, 16]} align="middle">
       <Col>
-        <DatePicker.RangePicker
-          value={range}
-          onChange={(values) =>
-            setRange(values as [Dayjs | null, Dayjs | null])
-          }
+        <DatePicker
+          value={startDate}
+          onChange={(date) => setStartDate(date)}
           format="DD/MM/YYYY"
+          placeholder="Fecha inicial"
+          allowClear
+        />
+      </Col>
+      <Col>
+        <DatePicker
+          value={endDate}
+          onChange={(date) => setEndDate(date)}
+          format="DD/MM/YYYY"
+          placeholder="Fecha final"
+          allowClear
         />
       </Col>
     </Row>
