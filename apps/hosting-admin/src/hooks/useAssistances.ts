@@ -11,6 +11,7 @@ import {
 import { Timestamp } from "firebase/firestore";
 import { notification } from "../components";
 import { useNavigate } from "react-router-dom";
+import { useAuthentication } from "../providers";
 
 export const useAssistance = (assignCreateProps) => {
   const navigate = useNavigate();
@@ -21,6 +22,9 @@ export const useAssistance = (assignCreateProps) => {
   const [feedback, setFeedback] = useState({ show: false, type: "" });
   const [assistanceSaved, setAssistanceSaved] = useState(false);
   const [isGeofenceValid, setIsGeofenceValidState] = useState(false);
+  const [autoLoginDisabled, setAutoLoginDisabled] = useState(false);
+
+  const { authUser } = useAuthentication();
 
   const {
     location,
@@ -95,9 +99,23 @@ export const useAssistance = (assignCreateProps) => {
   }, [dni]);
 
   const resetUser = useCallback(() => {
+    setAutoLoginDisabled(true);
     setDni("");
     setUser(null);
   }, []);
+
+  useEffect(() => {
+    if (!authUser) return;
+    if (autoLoginDisabled) return;
+
+    const autoDni = authUser.document?.number;
+    if (!autoDni) return;
+
+    if (!user) {
+      setDni(autoDni);
+      searchUser();
+    }
+  }, [authUser, user, autoLoginDisabled, setDni, searchUser]);
 
   const saveAssistance = useCallback(
     async (type) => {
