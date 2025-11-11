@@ -61,7 +61,6 @@ export const AssistanceView: React.FC<AssistanceViewProps> = ({
   });
   const [videoLoading, setVideoLoading] = useState(false);
   const [successAnimation, setSuccessAnimation] = useState(false);
-  const [isGeofenceValid, setGeofenceValid] = useState(false);
 
   const [toast, setToast] = useState<{
     show: boolean;
@@ -93,7 +92,7 @@ export const AssistanceView: React.FC<AssistanceViewProps> = ({
   const showToast = (
     message: string,
     type: string = "info",
-    duration = 3000
+    duration = 1500
   ) => {
     setToast({ show: true, message, type });
     setTimeout(
@@ -139,10 +138,6 @@ export const AssistanceView: React.FC<AssistanceViewProps> = ({
   };
 
   const handleSaveAssistance = async (type: "entry" | "outlet") => {
-    if (!isGeofenceValid) {
-      showToast("Te encuentras fuera del área permitida.", "error");
-      return;
-    }
     showToast("Capturando rostro...");
     const currentDescriptor = await captureFace();
     if (!currentDescriptor)
@@ -154,12 +149,12 @@ export const AssistanceView: React.FC<AssistanceViewProps> = ({
       currentDescriptor,
       new Float32Array(user.faceDescriptor)
     );
-    console.log("Distancia Euclidiana:", distance);
 
     if (distance < 0.6) {
       showToast("Rostro verificado correctamente.", "success");
-      setSuccessAnimation(true);
       saveAssistance(type);
+
+      setSuccessAnimation(true);
 
       setTimeout(() => setSuccessAnimation(false), 1500);
     } else {
@@ -304,7 +299,7 @@ export const AssistanceView: React.FC<AssistanceViewProps> = ({
                   <div className="right-panel">
                     <UserLocationMap
                       location={location}
-                      onValidateGeofence={setGeofenceValid}
+                      onValidateGeofence={setIsGeofenceValid}
                     />
                   </div>
                 </div>
