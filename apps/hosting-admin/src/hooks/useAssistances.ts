@@ -131,11 +131,16 @@ export const useAssistance = (assignCreateProps) => {
           userId: user.id,
           createAtString: existing.createAtString || date,
           entry:
-            existing.entry ||
-            (type === "entry" && {
-              date,
-              dateTimestamp: Timestamp.now(),
-            }),
+            type === "entry"
+              ? { date, dateTimestamp: Timestamp.now() }
+              : existing.entry
+                ? {
+                    ...existing.entry,
+                    dateTimestamp:
+                      existing.entry.dateTimestamp || Timestamp.now(),
+                  }
+                : null,
+
           outlet:
             type === "outlet" && existing.entry ? { date } : existing.outlet,
           workPlace: "Servitec",
@@ -145,6 +150,14 @@ export const useAssistance = (assignCreateProps) => {
         if (type === "entry") {
           await addAssistance(assignCreateProps(data));
         } else {
+          if (!existing.id) {
+            return notification({
+              type: "error",
+              description:
+                "No existe una asistencia previa para registrar salida",
+            });
+          }
+
           await updateAssistance(existing.id, assignCreateProps(data));
         }
 

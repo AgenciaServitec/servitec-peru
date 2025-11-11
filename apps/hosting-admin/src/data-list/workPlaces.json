@@ -16,5 +16,21 @@
       "lat": -12.1739489,
       "lng": -77.018297
     }
+  },{
+    "label": "Gala - House",
+    "value": "gala-house",
+    "workPlaceRadius": 500,
+    "coordinates": {
+      "lat": -12.1739489,
+      "lng": -77.018297
+    }
+  },{
+    "label": "Joaquin - House",
+    "value": "joaquin-house",
+    "workPlaceRadius": 500,
+    "coordinates": {
+      "lat": -12.1739489,
+      "lng": -77.018297
+    }
   }
 ]
