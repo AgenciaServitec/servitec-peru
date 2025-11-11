@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b17dd4b9-88df-45e5-a4a2-d9d50729aa5a" name="Changes" comment="refactor code">
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/assistances.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/assistances.ts" afterDir="false" />
+    <list default="true" id="b17dd4b9-88df-45e5-a4a2-d9d50729aa5a" name="Changes" comment="first advance">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/AssistanceView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/AssistanceView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/UserLocationMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/UserLocationMap.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/data-list/workPlaces.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/data-list/workPlaces.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +75,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "add-assistances-api",
+    "git-widget-placeholder": "improve-ux",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "C:/Users/Angel/WebstormProjects/servitec-peru",
@@ -126,6 +129,9 @@
       <workItem from="1762205361250" duration="5435000" />
       <workItem from="1762288297497" duration="1278000" />
       <workItem from="1762367408314" duration="2701000" />
+      <workItem from="1762559804028" duration="601000" />
+      <workItem from="1762803499687" duration="42000" />
+      <workItem from="1762816861470" duration="6148000" />
     </task>
     <task id="LOCAL-00001" summary="refactored types">
       <option name="closed" value="true" />

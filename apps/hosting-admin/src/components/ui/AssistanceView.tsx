@@ -61,6 +61,8 @@ export const AssistanceView: React.FC<AssistanceViewProps> = ({
   });
   const [videoLoading, setVideoLoading] = useState(false);
   const [successAnimation, setSuccessAnimation] = useState(false);
+  const [isGeofenceValid, setGeofenceValid] = useState(false);
+
   const [toast, setToast] = useState<{
     show: boolean;
     message: string;
@@ -137,6 +139,10 @@ export const AssistanceView: React.FC<AssistanceViewProps> = ({
   };
 
   const handleSaveAssistance = async (type: "entry" | "outlet") => {
+    if (!isGeofenceValid) {
+      showToast("Te encuentras fuera del área permitida.", "error");
+      return;
+    }
     showToast("Capturando rostro...");
     const currentDescriptor = await captureFace();
     if (!currentDescriptor)
@@ -153,8 +159,9 @@ export const AssistanceView: React.FC<AssistanceViewProps> = ({
     if (distance < 0.6) {
       showToast("Rostro verificado correctamente.", "success");
       setSuccessAnimation(true);
-      setTimeout(() => setSuccessAnimation(false), 1500);
       saveAssistance(type);
+
+      setTimeout(() => setSuccessAnimation(false), 1500);
     } else {
       showToast("Rostro no coincide. Intenta nuevamente.", "error");
     }
@@ -236,6 +243,24 @@ export const AssistanceView: React.FC<AssistanceViewProps> = ({
                     height="360"
                     className="video"
                   />
+                  {feedback.show && (
+                    <FeedbackOverlay type={feedback.type}>
+                      <div className="feedback-content">
+                        <FontAwesomeIcon
+                          icon={
+                            feedback.type === "entry"
+                              ? faSignInAlt
+                              : faSignOutAlt
+                          }
+                        />
+                        <p>
+                          {feedback.type === "entry"
+                            ? "Entrada registrada correctamente"
+                            : "Salida registrada correctamente"}
+                        </p>
+                      </div>
+                    </FeedbackOverlay>
+                  )}
                   <Space>
                     <Button
                       size="large"
@@ -274,31 +299,12 @@ export const AssistanceView: React.FC<AssistanceViewProps> = ({
                         <FontAwesomeIcon icon={faSignOutAlt} /> Marcar Salida
                       </button>
                     </div>
-
-                    {feedback.show && (
-                      <FeedbackOverlay type={feedback.type}>
-                        <div className="feedback-content">
-                          <FontAwesomeIcon
-                            icon={
-                              feedback.type === "entry"
-                                ? faSignInAlt
-                                : faSignOutAlt
-                            }
-                          />
-                          <p>
-                            {feedback.type === "entry"
-                              ? "Entrada registrada correctamente"
-                              : "Salida registrada correctamente"}
-                          </p>
-                        </div>
-                      </FeedbackOverlay>
-                    )}
                   </div>
 
                   <div className="right-panel">
                     <UserLocationMap
                       location={location}
-                      onValidateGeofence={setIsGeofenceValid}
+                      onValidateGeofence={setGeofenceValid}
                     />
                   </div>
                 </div>
@@ -315,7 +321,6 @@ export const AssistanceView: React.FC<AssistanceViewProps> = ({
           )}
 
           {toast.show && <Toast type={toast.type}>{toast.message}</Toast>}
-          {successAnimation && <SuccessOverlay>✅</SuccessOverlay>}
           {videoLoading && (
             <LoadingOverlay>
               <Spinner size="3x" />
@@ -362,6 +367,7 @@ const Container = styled.div`
   }
 
   .video-controls {
+    position: relative;
     .video {
       border-radius: 0.75rem;
       border: 2px solid var(--color-primary);
@@ -478,41 +484,44 @@ const Container = styled.div`
 `;
 
 const Toast = styled.div`
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: ${({ type }) =>
-    type === "success" ? "#16a34a" : type === "error" ? "#dc2626" : "#334155"};
-  color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: bold;
-  z-index: 1000;
-  animation:
-    fadeIn 0.3s ease-in-out,
-    fadeOut 0.3s ease-in-out 2.7s;
-`;
-
-const SuccessOverlay = styled.div`
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 6rem;
-  color: #16a34a;
-  animation: zoomIn 0.4s ease-out;
-  z-index: 1000;
+  background: ${({ type }) =>
+    type === "success" ? "#16a34a" : type === "error" ? "#dc2626" : "#334155"};
+  color: white;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: bold;
+  text-align: center;
+  z-index: 1200;
+  opacity: 0.95;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  animation:
+    fadeIn 0.3s ease-in-out,
+    fadeOut 0.3s ease-in-out 2.7s;
 
-  @keyframes zoomIn {
-    0% {
-      transform: scale(0.5) translate(-50%, -50%);
+  @keyframes fadeIn {
+    from {
       opacity: 0;
+      transform: translate(-50%, -60%);
     }
-    100% {
-      transform: scale(1) translate(-50%, -50%);
-      opacity: 1;
+    to {
+      opacity: 0.95;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 0.95;
+      transform: translate(-50%, -50%);
+    }
+    to {
+      opacity: 0;
+      transform: translate(-50%, -40%);
     }
   }
 `;
@@ -554,20 +563,8 @@ const FeedbackOverlay = styled.div<{ type: "entry" | "outlet" }>`
     text-align: center;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     animation: popIn 0.4s ease-out;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-
-    svg {
-      font-size: 3rem;
-      animation: pulse 1.5s infinite;
-    }
-
-    p {
-      font-size: 1.25rem;
-      font-weight: 600;
-    }
+    font-size: 1.25rem;
+    font-weight: 600;
   }
 
   @keyframes popIn {
