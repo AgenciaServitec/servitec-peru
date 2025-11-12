@@ -19,6 +19,7 @@ import {
 } from "../ui";
 import { useFaceApiModels, useVideoStream } from "../../hooks";
 import * as faceapi from "face-api.js";
+import { useAuthentication } from "../../providers";
 
 interface AssistanceViewProps {
   dni: string;
@@ -346,7 +347,7 @@ const Container = styled.div`
     max-width: 30em;
     margin: 2em auto auto auto;
     background: rgba(255, 255, 255, 0.05);
-    padding: 2rem;
+    padding: 2rem 1rem;
     border-radius: 12px;
   }
 
