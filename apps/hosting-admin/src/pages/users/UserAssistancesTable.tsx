@@ -1,27 +1,24 @@
 import React, { useEffect, useMemo, useState } from "react";
 import {
-  Divider,
-  Title,
-  DatePicker,
   Button,
-  Space,
+  DatePicker,
+  Divider,
   Input,
+  Space,
+  Title,
 } from "../../components";
 import styled from "styled-components";
 import dayjs from "dayjs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCalendarDays,
-  faEraser,
   faCalculator,
   faClock,
   faCoins,
+  faEraser,
 } from "@fortawesome/free-solid-svg-icons";
 import type { Assistance } from "../../globalTypes";
 import type { User } from "./index";
 import { round } from "lodash";
-
-const { RangePicker } = DatePicker;
 
 interface UserAssistancesTableProps {
   selectedUser: User | null;
