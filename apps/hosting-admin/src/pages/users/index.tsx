@@ -59,6 +59,7 @@ export interface User {
   updateAt?: Timestamp;
   isDeleted: boolean;
   updateBy?: string;
+  payPerMinute?: number;
 }
 
 export const Users: React.FC = () => {
