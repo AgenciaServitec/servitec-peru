@@ -1,0 +1,104 @@
+[
+  {
+    "type":"laptop-repair",
+    "name":"Reparación de laptop",
+    "subtype": [
+      {
+        "subtype": "liquid-squill",
+        "name": "Derrame de Liquido",
+        "image": "/services-images/laptop-repair-images/derrame-de-liquido.webp",
+        "description": "Es un Servicio Avanzado a equipos con problemas y fallas complejas, como equipos que accidentalmente se ha derramado líquido, o no encienden, fallas de video, etc. Somos expertos y tenemos la experiencia suficiente para dejar tu equipo en nuestras manos, es por eso que nuestra filosofía es la reparación de tu equipo, no la de hacer cambio de tus componentes. Somos especialistas en equipos marca APPLE, SONY VAIO, HP, DELL, TOSHIBA, COMPAQ, LENOVO, ACER, ASUS, MSI, GATEWAY, IBM, SAMSUNG."
+      },
+      {
+        "subtype": "virus-problem",
+        "name": "Problema de virus",
+        "image": "/services-images/laptop-repair-images/problemas-virus.webp",
+        "description": "Laptop lenta, aparecen archivos extraños, programas instalados nuevos no conocidos, errores de pantalla azul, página de inicio cambiada, quiere decir que tu laptop tiene virus, recuerda que al no limpiar el sistema de un virus, troyano o spyware puede causar corrupción de datos, errores de sistema o agujeros de seguridad Algunos virus o spyware necesitan herramientas especiales y el conocimiento profesional para eliminarlos adecuadamente, es por eso que si tu laptop tiene alguno de estos sintomas, Visitanos en SERVITEC para que limpiar todo rastro de virus que tenga tu equipo."
+      },
+      {
+        "subtype": "only-leds-lightUp",
+        "name": "Solo encienden los leds",
+        "image": "/services-images/laptop-repair-images/solo-enciende-led.webp",
+        "description": "Solo encienden y parpadean los LED de bloqueo o encendido pero no da imagen. Esto es resultado de que tu laptop necesita una atención apropiada y rápida. Es recomendado que lleves tu laptop a reparación para que te den solución a la falla que presenta. En SERVITEC volvemos a la vida tu equipo muerto, realizamos un diagnóstico completo para verificar el problema y darle a nuestros clientes la solución más efectiva para que la laptop ya no presente más problemas."
+      },
+      {
+        "subtype": "laptop-overheating",
+        "name": "Sobrecalentamiento de laptop",
+        "image": "/services-images/laptop-repair-images/sobrecalentamiento.webp",
+        "description": "La laptop calienta de una manera exagerada, esta es una señal de alarma la cual requiere una atención especial de parte del usuario y es el momento de acudir a nuestro Centro de servicios técnico especialista para poder prevenir a tiempo un problema más grave. Con nuestro diagnóstico adecuado y correcto podremos prevenir daños graves a tu equipo y ahorrarte gastos innecesarios en su reparación. Somos especialistas en equipos marca APPLE, SONY VAIO, HP, DELL, TOSHIBA, COMPAQ, LENOVO, ACER, ASUS, MSI, GATEWAY, IBM, SAMSUNG."
+      },
+      {
+        "subtype": "operating-system-failures",
+        "name": "Fallas en sistema operativo",
+        "image": "/services-images/laptop-repair-images/sistema-operativo.webp",
+        "description": "La laptop está lenta, no pasa de inicio de sistema, se traba, de repente surge pantalla azul o morada, se repiten las letras cuando escribes, no abre un programa. Estos son algunos de los problemas más comunes que puede ocasionar un sistema operativo. somos especialistas en revisar, diagnosticar y reparar las fallas que los sistemas operativos puedan presentar. Nuestra experiencia nos permite ofrecer a nuestros clientes las mejores soluciones acorde a los diferentes modelos de laptops. Somos especialistas en equipos marca APPLE, SONY VAIO, HP, DELL, TOSHIBA, COMPAQ, LENOVO, ACER, ASUS, MSI, GATEWAY, IBM, SAMSUNG."
+      },
+      {
+        "subtype": "broken-hinges",
+        "name": "Bisagras quebradas",
+        "image": "/services-images/laptop-repair-images/bisagras-quebradas.webp",
+        "description": "El uso constante de tu equipo muchas veces conlleva un desgaste en alguna de sus piezas. Este es el caso de las bisagras, las cuales permiten abrir y cerrar la pantalla de tu laptop Si las bisagras ya se encuentran flojas o están quebradas, en SERVITEC te las sustituimos Sustituimos las bisagras dañadas por las originales, directamente del chasis del mismo modelo de laptop. Si no poseemos bisagras para su modelo o el cliente lo desea, se las elaboramos. Las bisagras son elaboradas con el diseño idéntico de las originales y con el mismo material. También vendemos bisagras a técnicos que reparan Laptops. Garantizamos confiabilidad y profesionalismo al momento de la reparación. Somos especialistas en equipos marca APPLE, SONY VAIO, HP, DELL, TOSHIBA, COMPAQ, LENOVO, ACER, ASUS, MSI, GATEWAY, IBM, SAMSUNG."
+      },
+      {
+        "subtype": "broken-screen",
+        "name": "Pantalla quebrada",
+        "image": "/services-images/laptop-repair-images/pantalla-quebrada.webp",
+        "description": "Botaste tu laptop y se quebró la pantalla? Muchos usuarios piensan que una pantalla quebrada o dañada es el fin del equipo. En SERVITEC somos importadores directos de pantallas de todos los tamaños, marcas, modelos y tecnologías para equipos electrónicos que la requieran con la especialización en laptops, iPad y iPhone.\n \nDisponemos de pantallas de 7\", 8\", 9\", 10.1\", 11.1\", 11.6\", 14\", 15.5\", 15.6\", 16.4\", 17\" 18.5\" y 20\", de tecnologías LCD, ULTRA LED, FULL HD, ULTRA HD para laptops marca APPLE, HP, Compaq, Dell, Toshiba, Sony Vaio, Apple, MacBook Pro, Mac Book Air, Samsung, Asus, Gateway, Acer, Lenovo, MCI, IBM. Ofrecemos la venta e instalación o solamente la venta de la pantalla. Atendemos a técnicos."
+      },
+      {
+        "subtype": "keyboard-not-working",
+        "name": "No funciona el teclado",
+        "image": "/services-images/laptop-repair-images/no-funciona-teclado.webp",
+        "description": "Si a tu teclado le faltan algunas teclas, si has derramado líquido sobre el teclado o le fallan teclas, tráelo a nuestras sucursales de SERVITEC.\nReparamos teclados de laptops marcas HP, Compaq, Dell, Toshiba, Sony Vaio, Apple, MacBook Pro, Mac Book Air, Samsung, Asus, Gateway, Acer, Lenovo, MCI, IBM."
+      },
+      {
+        "subtype": "ports-not-working",
+        "name": "Puertos no funcionan",
+        "image": "/services-images/laptop-repair-images/puertos-no-funcionan.webp",
+        "description": "El touchpad de tu laptop siempre está sujeto a un uso intensivo. La mayoría de los touchpads se han diseñado para su durabilidad para soportar el desgaste diario de la vida útil, sin embargo pueden ocasionarse diferentes problemas por el uso diario:\n\nEl puntero del mouse se mueve solo, el clic derecho no me despliega las opciones del menú, el clic izquierdo no funciona, tengo que presionar fuerte el táctil para que responda. Somos especialistas en equipos marca APPLE, SONY VAIO, HP, DELL, TOSHIBA, COMPAQ, LENOVO, ACER, ASUS, MSI, GATEWAY, IBM, SAMSUNG."
+      }
+    ]
+  },{
+    "type":"phone-repair",
+    "name":"Reparación de celulares"
+  },{
+    "type":"ipad-and-tablet-repair",
+    "name":"Reparación de ipad - tablet"
+  },{
+    "type":"projector-repair",
+    "name":"Reparación de proyectores"
+  },{
+    "type":"allInOne-repair",
+    "name":"Reparación de All in one"
+  },{
+    "type":"data-recovery",
+    "name":"Recuperación de datos"
+  },{
+    "type":"server-and-network-maintenance",
+    "name":"Mantenimiento de server y redes"
+  },{
+    "type":"reballing-service",
+    "name":"Servicio de reballing"
+  },{
+    "type":"camera-installation",
+    "name":"Instalación de cámaras"
+  },{
+    "type":"intercoms-instalation",
+    "name":"Instalación de intercomunicadores"
+  },{
+    "type":"photocopier-and-printer-repair",
+    "name":"Reparación de fotocopiadora e impresoras"
+  },{
+    "type":"systems-development",
+    "name":"Desarrollo de sistemas"
+  },{
+    "type":"apps-development",
+    "name":"Desarrollo de aplicaciones"
+  },{
+    "type":"web-development",
+    "name":"Desarrollo Web"
+  },{
+    "type":"report",
+    "name":"Reportanos tu problema"
+  }
+]
