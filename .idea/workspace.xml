@@ -243,6 +243,7 @@
     <MESSAGE value="add assistances api" />
     <MESSAGE value="refactor code" />
     <MESSAGE value="improve ux" />
-    <option name="LAST_COMMIT_MESSAGE" value="improve ux" />
+    <MESSAGE value="added header and footer structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="added header and footer structure" />
   </component>
 </project>
