@@ -44,13 +44,13 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
     setResult(null);
   }, [selectedUser]);
 
-  useEffect(() => {
-    if (selectedUser?.payPerMinute && totalMinutes !== null) {
-      const autoResult = round(totalMinutes * selectedUser.payPerMinute, 2);
-      setMultiplier(selectedUser.payPerMinute);
-      setResult(autoResult);
-    }
-  }, [selectedUser?.payPerMinute, totalMinutes]);
+  // useEffect(() => {
+  //   if (selectedUser?.payPerMinute && totalMinutes !== null) {
+  //     const autoResult = round(totalMinutes * selectedUser.payPerMinute, 2);
+  //     setMultiplier(selectedUser.payPerMinute);
+  //     setResult(autoResult);
+  //   }
+  // }, [selectedUser?.payPerMinute, totalMinutes]);
 
   const filteredAssistances = useMemo(() => {
     if (!startDate && !endDate) return userAssistances;
@@ -71,13 +71,13 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
       0
     );
     setTotalMinutes(total);
-    if (selectedUser?.payPerMinute) {
-      const pay = selectedUser.payPerMinute;
-      setMultiplier(pay);
-      setResult(round(total * pay, 2));
-    } else {
-      setResult(null);
-    }
+    // if (selectedUser?.payPerMinute) {
+    //   const pay = selectedUser.payPerMinute;
+    //   setMultiplier(pay);
+    //   setResult(round(total * pay, 2));
+    // } else {
+    //   setResult(null);
+    // }
   };
 
   const handleMultiplierChange = (value: string) => {
@@ -206,24 +206,24 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
 
                 <MultiplierContainer>
                   <FontAwesomeIcon icon={faCoins} color="#00ff88" />
-                  {selectedUser?.payPerMinute ? (
-                    <>
-                      <label>
-                        Tarifa: S/
-                        {selectedUser.payPerMinute} por minuto
-                      </label>
-                    </>
-                  ) : (
-                    <>
-                      <label>Multiplicar por:</label>
-                      <StyledInput
-                        type="number"
-                        step="any"
-                        value={multiplier}
-                        onChange={(e) => handleMultiplierChange(e.target.value)}
-                      />
-                    </>
-                  )}
+                  {/*{selectedUser?.payPerMinute ? (*/}
+                  {/*  <>*/}
+                  {/*    <label>*/}
+                  {/*      Tarifa: S/*/}
+                  {/*      {selectedUser.payPerMinute} por minuto*/}
+                  {/*    </label>*/}
+                  {/*  </>*/}
+                  {/*) : (*/}
+                  <>
+                    <label>Multiplicar por:</label>
+                    <StyledInput
+                      type="number"
+                      step="any"
+                      value={multiplier}
+                      onChange={(e) => handleMultiplierChange(e.target.value)}
+                    />
+                  </>
+                  {/*)}*/}
                 </MultiplierContainer>
 
                 {result !== null && (
