@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b17dd4b9-88df-45e5-a4a2-d9d50729aa5a" name="Changes" comment="improve ux">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/components/HeaderLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/HeaderLayout.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="b17dd4b9-88df-45e5-a4a2-d9d50729aa5a" name="Changes" comment="improve ux" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -73,7 +70,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "#21 on add__header__component",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "C:/Users/Angel/WebstormProjects/servitec-peru/apps/hosting/public",
@@ -241,6 +238,7 @@
     <MESSAGE value="add assistances api" />
     <MESSAGE value="refactor code" />
     <MESSAGE value="improve ux" />
-    <option name="LAST_COMMIT_MESSAGE" value="improve ux" />
+    <MESSAGE value="added header and footer structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="added header and footer structure" />
   </component>
 </project>
