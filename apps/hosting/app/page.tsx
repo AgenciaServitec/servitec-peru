@@ -13,9 +13,6 @@ export default function Home() {
         {/*  priority*/}
         {/*/>*/}
         <BusinessBoostBanner />
-        <button className="border-2 border-white p-2 px-2 hover:bg-green-500 hover:border-green-500">
-          ¡Contáctanos!
-        </button>
       </main>
     </div>
   );
