@@ -5,28 +5,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0bc5d155-0991-4dc3-8c0c-4adfbc48ebbc" name="Changes" comment="added workspace">
-      <change afterPath="$PROJECT_DIR$/apps/hosting/sections/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/banner1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/sections/BusinessBoostBanner.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/components/HeaderLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/HeaderLayout.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript JSX File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="add_header_component" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "git-widget-placeholder": "main",
-    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier",
-    "ts.external.directory.path": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib"
+    "git-widget-placeholder": "add__Business__Boost__Banner__section",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\servitec-5\\WebstormProjects\\servitec-peru\\node_modules\\prettier",
+    "ts.external.directory.path": "C:\\Users\\servitec-5\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\servitec-5\WebstormProjects\servitec-peru\apps\hosting\public" />
+    </key>
+  </component>
   <component name="TaskManager">
     <task id="LOCAL-00001" summary="added workspace">
       <option name="closed" value="true" />
