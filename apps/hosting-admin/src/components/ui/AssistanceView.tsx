@@ -19,7 +19,6 @@ import {
 } from "../ui";
 import { useFaceApiModels, useVideoStream } from "../../hooks";
 import * as faceapi from "face-api.js";
-import { useAuthentication } from "../../providers";
 
 interface AssistanceViewProps {
   dni: string;
@@ -300,7 +299,7 @@ export const AssistanceView: React.FC<AssistanceViewProps> = ({
                   <div className="right-panel">
                     <UserLocationMap
                       location={location}
-                      onValidateGeofence={setIsGeofenceValid}
+                      //onValidateGeofence={setIsGeofenceValid}
                     />
                   </div>
                 </div>

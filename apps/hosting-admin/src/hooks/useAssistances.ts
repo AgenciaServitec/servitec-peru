@@ -125,11 +125,11 @@ export const useAssistance = (assignCreateProps) => {
           description: "Debe buscar un usuario antes de marcar asistencia",
         });
 
-      if (!isGeofenceValid)
-        return notification({
-          type: "warning",
-          description: "No estás dentro de tu lugar de trabajo",
-        });
+      // if (!isGeofenceValid)
+      //   return notification({
+      //     type: "warning",
+      //     description: "No estás dentro de tu lugar de trabajo",
+      //   });
 
       if (type === "entry" && (await hasMarked("entry"))) {
         return notification({
