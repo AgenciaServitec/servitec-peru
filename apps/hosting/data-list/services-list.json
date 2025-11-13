@@ -60,7 +60,70 @@
     ]
   },{
     "type":"phone-repair",
-    "name":"Reparación de celulares"
+    "name":"Reparación de celulares",
+  "subtype": [
+    {
+      "subtype": "microphone-failure",
+      "name": "Falla en micrófono de iPhone o Galaxy",
+      "image": "/services-images/phone-repair-images/microfono.webp",
+      "description": "Cuando desea usar el iPhone en modo Ipod y no se escucha o el sonido es deficiente, al conectar los auriculares se observa que el sonido se distorsiona o solamente se oye en uno de los dos auriculares, te escuchan mal o no te escuchan.\n\nCuando está teniendo problemas con el audio, llévalo a nuestro Centro de Servicio Técnico Especializado, nosotros nos encargaremos de la reparación de tu iphone o Galaxy."
+    },{
+      "subtype": "phone-overheating",
+      "name": "Sobrecalentamiento de iPhone o Galaxy",
+      "image": "/services-images/phone-repair-images/sobrecalentamiento.webp",
+      "description": "El iPhone o Galaxy ha comenzado a calentar de manera anormal cuando se está haciendo una llamada o utilizando una aplicación. Estas señales no son normales cuando se trata de un iPhone.\n\nLlévalo a revisión a SERVITEC donde rápidamente nuestro Centro de Servicio Técnico Especializado se encargará de solucionar el problema que provoca el sobrecalentamiento."
+    },{
+      "subtype": "damaged-home-button",
+      "name": "Botón Home o inicio dañado",
+      "image": "/services-images/phone-repair-images/boton-home.webp",
+      "description": "El botón Home del iPhone no funciona, está muy duro, atascado o funciona de forma intermitente, o es el caso de que tu iPhone o Galaxy no encienda o apague correctamente.\n\nEn LAPTOP´S VALDEZ nuestro Centro de Servicio Técnico especializado puede reparar este tipo de problemas lo más pronto posible para que sigas disfrutando de tu Smartphone."
+    },{
+      "subtype": "broken-touch",
+      "name": "Touch quebrado de iPhone o Galaxy",
+      "image": "/services-images/phone-repair-images/touch-quebrado.webp",
+      "description": "El iPhone o Galaxy tiene dos pantallas: la pantalla exterior de cristal protectora y la pantalla táctil (también llamada digitalizadora). Cuando la pantalla de iPhone o Galaxy presenta quebraduras tenemos que distinguir entre dos posibilidades de daño: a) rotura del screen (LCD) o sea la pantalla de cristal liquido, y b) rotura del elemento táctil de el iPhone o Galaxy. Sin embargo se necesita un diagnóstico para determinar la falla.\n\nEn SERVITEC nos encargamos de reparar y reemplazar si fuera necesario la pantalla quebrada o dañada."
+    },{
+      "subtype": "jack-headphone-problem",
+      "name": "Problemas con el Jack de tu iPhone",
+      "image": "/services-images/phone-repair-images/problemas-jack.webp",
+      "description": "Si su puerto de carga se afloja, ha dejado de funcionar o no se conecta adecuadamente al itunes, está en la necesidad de una reparación en nuestro Centro de Servicio Técnico especializado donde contamos con repuestos originales de la marca Apple para sustitución de las partes dañadas."
+    },{
+      "subtype": "contact-with-liquids",
+      "name": "Problemas por contacto con líquidos",
+      "image": "/services-images/phone-repair-images/contacto-liquido.webp",
+      "description": "Contácto con agua u otro líquido, una de las causas de avería más comunes en el iPhone se produce por mojado en agua u otros líquidos similares. A causa de esto pueden dañarse los componentes internos de tu Galaxy o iPhone por lo cuál necesita una revisión para diagnosticar posibles fallas."
+    },{
+      "subtype": "phone-battery-problems",
+      "name": "Problemas en batería de SmartPhone",
+      "image": "/services-images/phone-repair-images/problemas-batera.webp",
+      "description": "Se carga la batería completamente pero esta dura menos de lo normal, esto signifca que la batería tiene problemas.\n\nEn nuestro Centro de Servicio Técnico Especializado, contamos con herramientas y procesos de fábrica para solucionar los diversos problemas que tienen que ver con la carga de la batería de tu iPhone o Galaxy."
+    },{
+      "subtype": "phone-camera-problems",
+      "name": "Problemas de cámara de iPhone o Galaxy",
+      "image": "/services-images/phone-repair-images/problemas-camara.webp",
+      "description": "Las fotografías se toman pixeleadas o simplemente la cámara no responde.\n\nSi detecta esta falla, tráelo a reparar a LAPTOP´S VALDEZ, nuestro Centro de Servicio Técnico Especializado está completamente equipado con piezas originales de Apple y Samsung, por lo que su cámara funcionará tan bien como cuando lo compró."
+    },{
+      "subtype": "not-recognize-wifi",
+      "name": "No reconoce WiFi",
+      "image": "/services-images/phone-repair-images/wifi.webp",
+      "description": "Cuando se producen pérdida de datos o problemas de cobertura de la señal.\n\nEn LAPTOP´S VALDEZ, reparamos los problemas de cobertura del iPhone o Galaxy cuando falla la señal o hay poca cobertura por fallo en el terminal."
+    },{
+      "subtype": "broken-lcd",
+      "name": "LCD quebrado de iPhone o Galaxy",
+      "image": "/services-images/phone-repair-images/lcd.webp",
+      "description": "Muchas veces los usuarios dicen: “se me rompió la pantalla”, ignorando el hecho de que la pantalla LCD realmente está cubierta por un cristal transparente que es el que se rompe en la mayoría de los casos. Cuando se rompe el cristal es muy probable que tu iPhone siga en funcionamiento, sin embargo, cuando se daña la pantalla LCD simplemente estará apagada (gris), eso sin mencionar que para que se dañe la pantalla LCD, antes debe romperse el cristal transparente que la recubre, aunque no siempre sea así. En LAPTOPS VALDEZ contamos con un centro técnico especialista para solucionar tu problema."
+    },{
+      "subtype": "it-restarts",
+      "name": "Se reinicia tu iPhone o Galaxy",
+      "image": "/services-images/phone-repair-images/reinicia.webp",
+      "description": "El iPhone o Galaxy no enciende, simplemente se queda con la pantalla negra y no responde, o enciende pero se reinicia.\n\nEsta es una señal de alarma que le indica al usuario que es urgente una revisión del Smartphone, diagnosticando así el problema que se presenta y evitando a futuro mayores fallas y gastos."
+    },{
+      "subtype": "touch-screen-replacement",
+      "name": "Cambio de touch o pantalla táctil quebrada",
+      "image": "/services-images/phone-repair-images/cambio-touch.webp",
+      "description": "Cuando la pantalla está quebrada, del iPhone o Galaxy no significa necesariamente que la pantalla dejó de funcionar. La pantalla táctil contiene varias capas, y si la quebradura alcanza una capa específica, entonces las señales eléctricas pueden ser interrumpidas. En LAPTOPS VALDEZ contamos con un centro técnico especialista para solucionar tu problema."
+    }
+    ]
   },{
     "type":"ipad-and-tablet-repair",
     "name":"Reparación de ipad - tablet"

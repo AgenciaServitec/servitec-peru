@@ -32,8 +32,13 @@ export const ServicesSection = () => {
             medida de tus necesidades.
           </p>
         </div>
-
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        <div
+          className="
+            flex flex-nowrap gap-3 mb-12 overflow-x-auto scrollbar-hide
+            sm:flex-wrap sm:justify-center sm:overflow-x-visible
+            px-1 sm:px-0
+          "
+        >
           {ServicesList.map((service) => (
             <button
               key={service.type}
@@ -42,18 +47,18 @@ export const ServicesSection = () => {
                   selectedType === service.type ? null : service.type
                 )
               }
-              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 border 
-              ${
-                selectedType === service.type
-                  ? "bg-yellow-600 text-white border-yellow-500 shadow-lg shadow-yellow-500/30 scale-105"
-                  : "bg-gray-800/70 text-gray-200 border-gray-600 hover:bg-yellow-700 hover:text-white hover:border-yellow-500"
-              }`}
+              className={`flex-shrink-0 px-6 py-3 rounded-full font-medium transition-all duration-300 border
+                ${
+                  selectedType === service.type
+                    ? "bg-yellow-600 text-white border-yellow-500 shadow-lg shadow-yellow-500/30 scale-105"
+                    : "bg-gray-800/70 text-gray-200 border-gray-600 hover:bg-yellow-700 hover:text-white hover:border-yellow-500"
+                }
+              `}
             >
               {service.name}
             </button>
           ))}
         </div>
-
         {selectedService ? (
           selectedService.subtype && selectedService.subtype.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-10 w-full">
@@ -63,14 +68,12 @@ export const ServicesSection = () => {
                   className="group flex flex-col overflow-hidden backdrop-blur-md bg-white/10 border border-white/10 rounded-2xl shadow-lg hover:shadow-yellow-500/20 transition-all duration-500"
                 >
                   <div className="relative h-64 w-full overflow-hidden rounded-t-2xl bg-black/10">
-                    <div className="relative h-64 w-full overflow-hidden rounded-t-2xl">
-                      <img
-                        src={sub.image}
-                        alt={sub.name}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    </div>
+                    <img
+                      src={sub.image}
+                      alt={sub.name}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
 
                   <div className="text-center mt-6 px-6 flex-1">
@@ -80,7 +83,7 @@ export const ServicesSection = () => {
                     <div className="w-50 h-[1px] bg-yellow-300 mx-auto mt-3 mb-5 rounded-full"></div>
                   </div>
 
-                  <div className="flex items-center justify-between px-18 pb-8">
+                  <div className="flex items-center justify-between px-8 pb-8">
                     <div className="flex items-center space-x-1">
                       {[...Array(5)].map((_, i) => (
                         <svg
