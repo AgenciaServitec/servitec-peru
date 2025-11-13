@@ -4,15 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bc5d155-0991-4dc3-8c0c-4adfbc48ebbc" name="Changes" comment="">
+    <list default="true" id="0bc5d155-0991-4dc3-8c0c-4adfbc48ebbc" name="Changes" comment="added workspace">
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/banner-business.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/AssistanceView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/AssistanceView.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/hooks/useAssistances.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/hooks/useAssistances.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/BusinessBoostBanner.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/BusinessBoostBanner.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript JSX File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -24,12 +33,17 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "git-widget-placeholder": "remove-required-geolocalization",
+    "git-widget-placeholder": "#29 on add__Business__Boost__Banner__section",
     "node.js.selected.package.tslint": "(autodetect)",
     "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier",
-    "ts.external.directory.path": "C:\\Users\\Owner\\Desktop\\servitec-projects\\servitec-peru\\node_modules\\typescript\\lib"
+    "ts.external.directory.path": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\servitec-5\WebstormProjects\servitec-peru\apps\hosting\public" />
+    </key>
+  </component>
   <component name="TaskManager">
     <task id="LOCAL-00001" summary="added workspace">
       <option name="closed" value="true" />
