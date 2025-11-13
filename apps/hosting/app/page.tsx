@@ -1,3 +1,5 @@
+import { BusinessBoostBanner } from "@/sections/BusinessBoostBanner";
+
 export default function Home() {
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
@@ -10,7 +12,10 @@ export default function Home() {
         {/*  height={38}*/}
         {/*  priority*/}
         {/*/>*/}
-        <h2>COTENIDO PRINCIPAL</h2>
+        <BusinessBoostBanner />
+        <button className="border-2 border-white p-2 px-2 hover:bg-green-500 hover:border-green-500">
+          ¡Contáctanos!
+        </button>
       </main>
     </div>
   );
