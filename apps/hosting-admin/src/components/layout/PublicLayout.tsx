@@ -18,7 +18,7 @@ export const PublicLayout = ({ children }: PublicLayoutProps) => {
 };
 
 const LayoutContainer = styled(Layout)`
-  min-width: 100vw;
+  width: 100vw;
   min-height: 100vh;
 
   .site-layout-background {
@@ -46,25 +46,6 @@ const LayoutContainer = styled(Layout)`
       );
       background-size: 50px 50px;
       opacity: 0.3;
-    }
-  }
-
-  .content-wrapper {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 450px;
-    background: ${theme.colors.secondary};
-    padding: ${theme.paddings.xx_large};
-    border-radius: ${theme.border_radius.medium};
-    box-shadow:
-      0 10px 40px rgba(0, 0, 0, 0.4),
-      0 0 0 1px rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-
-    @media (max-width: 768px) {
-      padding: ${theme.paddings.x_large};
-      max-width: 100%;
     }
   }
 `;

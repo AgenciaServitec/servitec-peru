@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import * as A from "../pages";
-import { AdminLayout } from "../components";
+import { AdminLayout, PublicLayout } from "../components";
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
 
@@ -10,6 +10,14 @@ export function Router() {
       <Route element={<PublicRoute />}>
         <Route path="/" element={<A.Login />} />
         <Route path="/register" element={<A.Register />} />
+        <Route
+          path="/assistances/assistance"
+          element={
+            <PublicLayout>
+              <A.AssistanceIntegration />
+            </PublicLayout>
+          }
+        />
       </Route>
 
       <Route element={<PrivateRoute />}>
@@ -53,14 +61,14 @@ export function Router() {
             </AdminLayout>
           }
         />
-        <Route
-          path="/assistances/assistance"
-          element={
-            <AdminLayout>
-              <A.AssistanceIntegration />
-            </AdminLayout>
-          }
-        />
+        {/*<Route*/}
+        {/*  path="/assistances/assistance"*/}
+        {/*  element={*/}
+        {/*    <AdminLayout>*/}
+        {/*      <A.AssistanceIntegration />*/}
+        {/*    </AdminLayout>*/}
+        {/*  }*/}
+        {/*/>*/}
         <Route
           path="/assistances/register"
           element={
