@@ -126,10 +126,156 @@
     ]
   },{
     "type":"ipad-and-tablet-repair",
-    "name":"Reparación de ipad - tablet"
+    "name":"Reparación de ipad - tablet",
+  "subtype": [
+    {
+      "subtype": "tablet-broken-lcd",
+      "name": "Pantalla de touch quebrada",
+      "image": "/services-images/ipad-and-tablet-repair-images/lcd-quebrado.png",
+      "description": "Muchos usuarios piensan que cuando la pantalla se quiebra, se debe cambiar toda la pieza del iPad o Galaxy Tab. No es así, la pantalla está cubierta por un cristal transparente sensibilizado que es en la mayoría de los casos el único que se quiebra; cuando el cristal o touch se quiebra es muy probable que tu iPad o Galaxy Tab continúe en funcionamiento, eso no significa que no la debas cambiar. En LAPTOP´S VALDEZ, realizamos el cambio de touch de iPad iPad 1, iPad 2, iPad 3, iPad 4, iPad mini, iPad Air y Galaxy Tab de todos los modelos."
+    },
+    {
+      "subtype": "tablet-touch-lcd-broken",
+      "name": "Touch+ LCD quebrado de tu iPad o Galaxy Tab",
+      "image": "/services-images/ipad-and-tablet-repair-images/touch-lcd-quebrado.png",
+      "description": "El iPad o Galaxy Tab tienen dos pantallas o cristales: la pantalla exterior es el cristal protector y la pantalla táctil (también llamada digitalizadora). Cuando la pantalla del iPad o la Galaxy Tab presenta rotura, tenemos que distinguir entre dos posibilidades de daño: La rotura del screen (LCD) o sea la pantalla de cristal líquido, y la rotura del elemento táctil del iPad o Galaxy Tab.\n\nSin embargo, se necesita un diagnóstico para determinar la magnitud de la quebradura. En LAPTOPS VALDEZ nos encargamos de reemplazar con piezas nuevas, originales y en óptimo funcionamiento si fuera necesario el cristal Touch y el cristal LCD quebrado o dañado para que tu equipo continúe funcionando perfectamente."
+    },
+    {
+      "subtype": "tablet-touchscreen-notWorking",
+      "name": "No funciona el Touch de tu iPad o Galaxy Tab",
+      "image": "/services-images/ipad-and-tablet-repair-images/touch-no-funciona.png",
+      "description": "Cuando utilizas tu iPad o Galaxy Tab y la imagen se congela, el touch no funciona completamente o funciona por partes y por momentos, esto es resultado de fallas de fábrica, lo más recomendable es revisar si es necesario realizar el cambio de la pieza para que tu iPad o Galaxy Tab funcione perfectamente.\n\nEn LAPTOP´S VALDEZ somos especialistas en la reparación o reemplazo de Touch Pad dañados de iPad y Tablet, realizamos el cambio del táctil en casos de accidentes por caídas o roturas del cristal. Los repuestos que utilizamos para las reparaciones son originales y nuevos acorde al modelo de la Galaxy Tab – iPad para garantizar el máximo rendimiento."
+    },
+    {
+      "subtype": "",
+      "name": "",
+      "image": "/services-images/ipad-and-tablet-repair-images/",
+      "description": ""
+    },
+    {
+      "subtype": "",
+      "name": "",
+      "image": "/services-images/ipad-and-tablet-repair-images/",
+      "description": ""
+    },
+    {
+      "subtype": "",
+      "name": "",
+      "image": "/services-images/ipad-and-tablet-repair-images/",
+      "description": ""
+    },
+    {
+      "subtype": "",
+      "name": "",
+      "image": "/services-images/ipad-and-tablet-repair-images/",
+      "description": ""
+    },
+    {
+      "subtype": "",
+      "name": "",
+      "image": "/services-images/ipad-and-tablet-repair-images/",
+      "description": ""
+    },
+    {
+      "subtype": "",
+      "name": "",
+      "image": "/services-images/ipad-and-tablet-repair-images/",
+      "description": ""
+    },
+    {
+      "subtype": "",
+      "name": "",
+      "image": "/services-images/ipad-and-tablet-repair-images/",
+      "description": ""
+    }, {
+      "subtype": "",
+      "name": "",
+      "image": "/services-images/ipad-and-tablet-repair-images/",
+      "description": ""
+    },
+    {
+      "subtype": "",
+      "name": "",
+      "image": "/services-images/ipad-and-tablet-repair-images/",
+      "description": ""
+    }
+  ]
   },{
     "type":"projector-repair",
-    "name":"Reparación de proyectores"
+    "name":"Reparación de proyectores",
+  "subtype": [
+    {
+      "subtype": "",
+      "name": "",
+      "image": "/services-images/ipad-and-tablet-repair-images/",
+      "description": ""
+    },
+    {
+      "subtype": "",
+      "name": "",
+      "image": "/services-images/ipad-and-tablet-repair-images/",
+      "description": ""
+    },
+    {
+      "subtype": "",
+      "name": "",
+      "image": "/services-images/ipad-and-tablet-repair-images/",
+      "description": ""
+    },
+    {
+      "subtype": "",
+      "name": "",
+      "image": "/services-images/ipad-and-tablet-repair-images/",
+      "description": ""
+    },
+    {
+      "subtype": "",
+      "name": "",
+      "image": "/services-images/ipad-and-tablet-repair-images/",
+      "description": ""
+    },
+    {
+      "subtype": "",
+      "name": "",
+      "image": "/services-images/ipad-and-tablet-repair-images/",
+      "description": ""
+    },
+    {
+      "subtype": "",
+      "name": "",
+      "image": "/services-images/ipad-and-tablet-repair-images/",
+      "description": ""
+    },
+    {
+      "subtype": "",
+      "name": "",
+      "image": "/services-images/ipad-and-tablet-repair-images/",
+      "description": ""
+    },
+    {
+      "subtype": "",
+      "name": "",
+      "image": "/services-images/ipad-and-tablet-repair-images/",
+      "description": ""
+    },
+    {
+      "subtype": "",
+      "name": "",
+      "image": "/services-images/ipad-and-tablet-repair-images/",
+      "description": ""
+    }, {
+      "subtype": "",
+      "name": "",
+      "image": "/services-images/ipad-and-tablet-repair-images/",
+      "description": ""
+    },
+    {
+      "subtype": "",
+      "name": "",
+      "image": "/services-images/ipad-and-tablet-repair-images/",
+      "description": ""
+    }
+  ]
   },{
     "type":"allInOne-repair",
     "name":"Reparación de All in one"
@@ -146,7 +292,7 @@
     "type":"camera-installation",
     "name":"Instalación de cámaras"
   },{
-    "type":"intercoms-instalation",
+    "type":"intercoms-installation",
     "name":"Instalación de intercomunicadores"
   },{
     "type":"photocopier-and-printer-repair",
