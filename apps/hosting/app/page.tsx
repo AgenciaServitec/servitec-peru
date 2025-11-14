@@ -1,4 +1,5 @@
 import { BusinessBoostBanner } from "@/sections/BusinessBoostBanner";
+import { BrandsAndContact } from "@/sections/BrandsAndContact";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
         {/*  priority*/}
         {/*/>*/}
         <BusinessBoostBanner />
+        <BrandsAndContact />
       </main>
     </div>
   );
