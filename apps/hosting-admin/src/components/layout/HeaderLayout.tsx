@@ -101,7 +101,7 @@ const HeaderContainer = styled(Header)`
     display: flex;
     justify-content: space-between;
     box-shadow: 0 2px 8px ${theme.colors.dark}80;
-    border-bottom: 1px solid ${theme.colors.primary}20;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     overflow: hidden;
     padding: 0 ${theme.paddings.large};
 
