@@ -1,0 +1,412 @@
+[
+  {
+    "type":"laptop-repair",
+    "name":"Reparación de laptop",
+    "subtype": [
+      {
+        "subtype": "liquid-squill",
+        "name": "Derrame de Liquido",
+        "image": "/services-images/laptop-repair-images/derrame-de-liquido.jpg",
+        "description": "Es un Servicio Avanzado a equipos con problemas y fallas complejas, como equipos que accidentalmente se ha derramado líquido, o no encienden, fallas de video, etc. Somos expertos y tenemos la experiencia suficiente para dejar tu equipo en nuestras manos, es por eso que nuestra filosofía es la reparación de tu equipo, no la de hacer cambio de tus componentes. Somos especialistas en equipos marca APPLE, SONY VAIO, HP, DELL, TOSHIBA, COMPAQ, LENOVO, ACER, ASUS, MSI, GATEWAY, IBM, SAMSUNG."
+      },
+      {
+        "subtype": "virus-problem",
+        "name": "Problema de virus",
+        "image": "/services-images/laptop-repair-images/problemas-virus.png",
+        "description": "Laptop lenta, aparecen archivos extraños, programas instalados nuevos no conocidos, errores de pantalla azul, página de inicio cambiada, quiere decir que tu laptop tiene virus, recuerda que al no limpiar el sistema de un virus, troyano o spyware puede causar corrupción de datos, errores de sistema o agujeros de seguridad Algunos virus o spyware necesitan herramientas especiales y el conocimiento profesional para eliminarlos adecuadamente, es por eso que si tu laptop tiene alguno de estos sintomas, Visitanos en SERVITEC para que limpiar todo rastro de virus que tenga tu equipo."
+      },
+      {
+        "subtype": "only-leds-lightUp",
+        "name": "Solo encienden los leds",
+        "image": "/services-images/laptop-repair-images/solo-enciende-led.png",
+        "description": "Solo encienden y parpadean los LED de bloqueo o encendido pero no da imagen. Esto es resultado de que tu laptop necesita una atención apropiada y rápida. Es recomendado que lleves tu laptop a reparación para que te den solución a la falla que presenta. En SERVITEC volvemos a la vida tu equipo muerto, realizamos un diagnóstico completo para verificar el problema y darle a nuestros clientes la solución más efectiva para que la laptop ya no presente más problemas."
+      },
+      {
+        "subtype": "laptop-overheating",
+        "name": "Sobrecalentamiento de laptop",
+        "image": "/services-images/laptop-repair-images/sobrecalentamiento.png",
+        "description": "La laptop calienta de una manera exagerada, esta es una señal de alarma la cual requiere una atención especial de parte del usuario y es el momento de acudir a nuestro Centro de servicios técnico especialista para poder prevenir a tiempo un problema más grave. Con nuestro diagnóstico adecuado y correcto podremos prevenir daños graves a tu equipo y ahorrarte gastos innecesarios en su reparación. Somos especialistas en equipos marca APPLE, SONY VAIO, HP, DELL, TOSHIBA, COMPAQ, LENOVO, ACER, ASUS, MSI, GATEWAY, IBM, SAMSUNG."
+      },
+      {
+        "subtype": "operating-system-failures",
+        "name": "Fallas en sistema operativo",
+        "image": "/services-images/laptop-repair-images/sistema-operativo.png",
+        "description": "La laptop está lenta, no pasa de inicio de sistema, se traba, de repente surge pantalla azul o morada, se repiten las letras cuando escribes, no abre un programa. Estos son algunos de los problemas más comunes que puede ocasionar un sistema operativo. somos especialistas en revisar, diagnosticar y reparar las fallas que los sistemas operativos puedan presentar. Nuestra experiencia nos permite ofrecer a nuestros clientes las mejores soluciones acorde a los diferentes modelos de laptops. Somos especialistas en equipos marca APPLE, SONY VAIO, HP, DELL, TOSHIBA, COMPAQ, LENOVO, ACER, ASUS, MSI, GATEWAY, IBM, SAMSUNG."
+      },
+      {
+        "subtype": "broken-hinges",
+        "name": "Bisagras quebradas",
+        "image": "/services-images/laptop-repair-images/bisagras-quebradas.png",
+        "description": "El uso constante de tu equipo muchas veces conlleva un desgaste en alguna de sus piezas. Este es el caso de las bisagras, las cuales permiten abrir y cerrar la pantalla de tu laptop Si las bisagras ya se encuentran flojas o están quebradas, en SERVITEC te las sustituimos Sustituimos las bisagras dañadas por las originales, directamente del chasis del mismo modelo de laptop. Si no poseemos bisagras para su modelo o el cliente lo desea, se las elaboramos. Las bisagras son elaboradas con el diseño idéntico de las originales y con el mismo material. También vendemos bisagras a técnicos que reparan Laptops. Garantizamos confiabilidad y profesionalismo al momento de la reparación. Somos especialistas en equipos marca APPLE, SONY VAIO, HP, DELL, TOSHIBA, COMPAQ, LENOVO, ACER, ASUS, MSI, GATEWAY, IBM, SAMSUNG."
+      },
+      {
+        "subtype": "broken-screen",
+        "name": "Pantalla quebrada",
+        "image": "/services-images/laptop-repair-images/pantalla-quebrada.png",
+        "description": "Botaste tu laptop y se quebró la pantalla? Muchos usuarios piensan que una pantalla quebrada o dañada es el fin del equipo. En SERVITEC somos importadores directos de pantallas de todos los tamaños, marcas, modelos y tecnologías para equipos electrónicos que la requieran con la especialización en laptops, iPad y iPhone.\n \nDisponemos de pantallas de 7\", 8\", 9\", 10.1\", 11.1\", 11.6\", 14\", 15.5\", 15.6\", 16.4\", 17\" 18.5\" y 20\", de tecnologías LCD, ULTRA LED, FULL HD, ULTRA HD para laptops marca APPLE, HP, Compaq, Dell, Toshiba, Sony Vaio, Apple, MacBook Pro, Mac Book Air, Samsung, Asus, Gateway, Acer, Lenovo, MCI, IBM. Ofrecemos la venta e instalación o solamente la venta de la pantalla. Atendemos a técnicos."
+      },
+      {
+        "subtype": "keyboard-not-working",
+        "name": "No funciona el teclado",
+        "image": "/services-images/laptop-repair-images/no-funciona-teclado.png",
+        "description": "Si a tu teclado le faltan algunas teclas, si has derramado líquido sobre el teclado o le fallan teclas, tráelo a nuestras sucursales de SERVITEC.\nReparamos teclados de laptops marcas HP, Compaq, Dell, Toshiba, Sony Vaio, Apple, MacBook Pro, Mac Book Air, Samsung, Asus, Gateway, Acer, Lenovo, MCI, IBM."
+      },
+      {
+        "subtype": "ports-not-working",
+        "name": "Puertos no funcionan",
+        "image": "/services-images/laptop-repair-images/puertos-no-funcionan.jpg",
+        "description": "El touchpad de tu laptop siempre está sujeto a un uso intensivo. La mayoría de los touchpads se han diseñado para su durabilidad para soportar el desgaste diario de la vida útil, sin embargo pueden ocasionarse diferentes problemas por el uso diario:\n\nEl puntero del mouse se mueve solo, el clic derecho no me despliega las opciones del menú, el clic izquierdo no funciona, tengo que presionar fuerte el táctil para que responda. Somos especialistas en equipos marca APPLE, SONY VAIO, HP, DELL, TOSHIBA, COMPAQ, LENOVO, ACER, ASUS, MSI, GATEWAY, IBM, SAMSUNG."
+      }
+    ]
+  },{
+  "type":"phone-repair",
+  "name":"Reparación de celulares",
+  "subtype": [
+    {
+      "subtype": "microphone-failure",
+      "name": "Falla en micrófono de iPhone o Galaxy",
+      "image": "/services-images/phone-repair-images/microfono.jpg",
+      "description": "Cuando desea usar el iPhone en modo Ipod y no se escucha o el sonido es deficiente, al conectar los auriculares se observa que el sonido se distorsiona o solamente se oye en uno de los dos auriculares, te escuchan mal o no te escuchan.\n\nCuando está teniendo problemas con el audio, llévalo a nuestro Centro de Servicio Técnico Especializado, nosotros nos encargaremos de la reparación de tu iphone o Galaxy."
+    },{
+      "subtype": "phone-overheating",
+      "name": "Sobrecalentamiento de iPhone o Galaxy",
+      "image": "/services-images/phone-repair-images/sobrecalentamiento.jpg",
+      "description": "El iPhone o Galaxy ha comenzado a calentar de manera anormal cuando se está haciendo una llamada o utilizando una aplicación. Estas señales no son normales cuando se trata de un iPhone.\n\nLlévalo a revisión a SERVITEC donde rápidamente nuestro Centro de Servicio Técnico Especializado se encargará de solucionar el problema que provoca el sobrecalentamiento."
+    },{
+      "subtype": "damaged-home-button",
+      "name": "Botón Home o inicio dañado",
+      "image": "/services-images/phone-repair-images/boton-home.jpg",
+      "description": "El botón Home del iPhone no funciona, está muy duro, atascado o funciona de forma intermitente, o es el caso de que tu iPhone o Galaxy no encienda o apague correctamente.\n\nEn LAPTOP´S VALDEZ nuestro Centro de Servicio Técnico especializado puede reparar este tipo de problemas lo más pronto posible para que sigas disfrutando de tu Smartphone."
+    },{
+      "subtype": "broken-touch",
+      "name": "Touch quebrado de iPhone o Galaxy",
+      "image": "/services-images/phone-repair-images/touch-quebrado.jpg",
+      "description": "El iPhone o Galaxy tiene dos pantallas: la pantalla exterior de cristal protectora y la pantalla táctil (también llamada digitalizadora). Cuando la pantalla de iPhone o Galaxy presenta quebraduras tenemos que distinguir entre dos posibilidades de daño: a) rotura del screen (LCD) o sea la pantalla de cristal liquido, y b) rotura del elemento táctil de el iPhone o Galaxy. Sin embargo se necesita un diagnóstico para determinar la falla.\n\nEn SERVITEC nos encargamos de reparar y reemplazar si fuera necesario la pantalla quebrada o dañada."
+    },{
+      "subtype": "jack-headphone-problem",
+      "name": "Problemas con el Jack de tu iPhone",
+      "image": "/services-images/phone-repair-images/problemas-jack.jpg",
+      "description": "Si su puerto de carga se afloja, ha dejado de funcionar o no se conecta adecuadamente al itunes, está en la necesidad de una reparación en nuestro Centro de Servicio Técnico especializado donde contamos con repuestos originales de la marca Apple para sustitución de las partes dañadas."
+    },{
+      "subtype": "contact-with-liquids",
+      "name": "Problemas por contacto con líquidos",
+      "image": "/services-images/phone-repair-images/contacto-liquido.jpg",
+      "description": "Contácto con agua u otro líquido, una de las causas de avería más comunes en el iPhone se produce por mojado en agua u otros líquidos similares. A causa de esto pueden dañarse los componentes internos de tu Galaxy o iPhone por lo cuál necesita una revisión para diagnosticar posibles fallas."
+    },{
+      "subtype": "phone-battery-problems",
+      "name": "Problemas en batería de SmartPhone",
+      "image": "/services-images/phone-repair-images/problemas-batera.jpg",
+      "description": "Se carga la batería completamente pero esta dura menos de lo normal, esto signifca que la batería tiene problemas.\n\nEn nuestro Centro de Servicio Técnico Especializado, contamos con herramientas y procesos de fábrica para solucionar los diversos problemas que tienen que ver con la carga de la batería de tu iPhone o Galaxy."
+    },{
+      "subtype": "phone-camera-problems",
+      "name": "Problemas de cámara de iPhone o Galaxy",
+      "image": "/services-images/phone-repair-images/problemas-camara.jpg",
+      "description": "Las fotografías se toman pixeleadas o simplemente la cámara no responde.\n\nSi detecta esta falla, tráelo a reparar a LAPTOP´S VALDEZ, nuestro Centro de Servicio Técnico Especializado está completamente equipado con piezas originales de Apple y Samsung, por lo que su cámara funcionará tan bien como cuando lo compró."
+    },{
+      "subtype": "not-recognize-wifi",
+      "name": "No reconoce WiFi",
+      "image": "/services-images/phone-repair-images/wifi.jpg",
+      "description": "Cuando se producen pérdida de datos o problemas de cobertura de la señal.\n\nEn LAPTOP´S VALDEZ, reparamos los problemas de cobertura del iPhone o Galaxy cuando falla la señal o hay poca cobertura por fallo en el terminal."
+    },{
+      "subtype": "broken-lcd",
+      "name": "LCD quebrado de iPhone o Galaxy",
+      "image": "/services-images/phone-repair-images/lcd.jpg",
+      "description": "Muchas veces los usuarios dicen: “se me rompió la pantalla”, ignorando el hecho de que la pantalla LCD realmente está cubierta por un cristal transparente que es el que se rompe en la mayoría de los casos. Cuando se rompe el cristal es muy probable que tu iPhone siga en funcionamiento, sin embargo, cuando se daña la pantalla LCD simplemente estará apagada (gris), eso sin mencionar que para que se dañe la pantalla LCD, antes debe romperse el cristal transparente que la recubre, aunque no siempre sea así. En LAPTOPS VALDEZ contamos con un centro técnico especialista para solucionar tu problema."
+    },{
+      "subtype": "it-restarts",
+      "name": "Se reinicia tu iPhone o Galaxy",
+      "image": "/services-images/phone-repair-images/reinicia.jpg",
+      "description": "El iPhone o Galaxy no enciende, simplemente se queda con la pantalla negra y no responde, o enciende pero se reinicia.\n\nEsta es una señal de alarma que le indica al usuario que es urgente una revisión del Smartphone, diagnosticando así el problema que se presenta y evitando a futuro mayores fallas y gastos."
+    },{
+      "subtype": "touch-screen-replacement",
+      "name": "Cambio de touch o pantalla táctil quebrada",
+      "image": "/services-images/phone-repair-images/cambio-touch.jpg",
+      "description": "Cuando la pantalla está quebrada, del iPhone o Galaxy no significa necesariamente que la pantalla dejó de funcionar. La pantalla táctil contiene varias capas, y si la quebradura alcanza una capa específica, entonces las señales eléctricas pueden ser interrumpidas. En LAPTOPS VALDEZ contamos con un centro técnico especialista para solucionar tu problema."
+    }
+  ]
+},{
+  "type":"ipad-and-tablet-repair",
+  "name":"Reparación de ipad - tablet",
+  "subtype": [
+    {
+      "subtype": "tablet-broken-lcd",
+      "name": "Pantalla de touch quebrada",
+      "image": "/services-images/ipad-and-tablet-repair-images/lcd-quebrado.png",
+      "description": "Muchos usuarios piensan que cuando la pantalla se quiebra, se debe cambiar toda la pieza del iPad o Galaxy Tab. No es así, la pantalla está cubierta por un cristal transparente sensibilizado que es en la mayoría de los casos el único que se quiebra; cuando el cristal o touch se quiebra es muy probable que tu iPad o Galaxy Tab continúe en funcionamiento, eso no significa que no la debas cambiar. En LAPTOP´S VALDEZ, realizamos el cambio de touch de iPad iPad 1, iPad 2, iPad 3, iPad 4, iPad mini, iPad Air y Galaxy Tab de todos los modelos."
+    },
+    {
+      "subtype": "tablet-touch-lcd-broken",
+      "name": "Touch+ LCD quebrado de tu iPad o Galaxy Tab",
+      "image": "/services-images/ipad-and-tablet-repair-images/touch-lcd-quebrado.png",
+      "description": "El iPad o Galaxy Tab tienen dos pantallas o cristales: la pantalla exterior es el cristal protector y la pantalla táctil (también llamada digitalizadora). Cuando la pantalla del iPad o la Galaxy Tab presenta rotura, tenemos que distinguir entre dos posibilidades de daño: La rotura del screen (LCD) o sea la pantalla de cristal líquido, y la rotura del elemento táctil del iPad o Galaxy Tab.\n\nSin embargo, se necesita un diagnóstico para determinar la magnitud de la quebradura. En LAPTOPS VALDEZ nos encargamos de reemplazar con piezas nuevas, originales y en óptimo funcionamiento si fuera necesario el cristal Touch y el cristal LCD quebrado o dañado para que tu equipo continúe funcionando perfectamente."
+    },
+    {
+      "subtype": "tablet-touchscreen-notWorking",
+      "name": "No funciona el Touch de tu iPad o Galaxy Tab",
+      "image": "/services-images/ipad-and-tablet-repair-images/touch-no-funciona.png",
+      "description": "Cuando utilizas tu iPad o Galaxy Tab y la imagen se congela, el touch no funciona completamente o funciona por partes y por momentos, esto es resultado de fallas de fábrica, lo más recomendable es revisar si es necesario realizar el cambio de la pieza para que tu iPad o Galaxy Tab funcione perfectamente.\n\nEn LAPTOP´S VALDEZ somos especialistas en la reparación o reemplazo de Touch Pad dañados de iPad y Tablet, realizamos el cambio del táctil en casos de accidentes por caídas o roturas del cristal. Los repuestos que utilizamos para las reparaciones son originales y nuevos acorde al modelo de la Galaxy Tab – iPad para garantizar el máximo rendimiento."
+    },
+    {
+      "subtype": "tablet-liquid-accident",
+      "name": "Accidente de líquidos con tu iPhone o Galaxy Tab",
+      "image": "/services-images/ipad-and-tablet-repair-images/accidente-liquido.png",
+      "description": "Tu iPad o Galaxy Tab se te cayó al agua, o hizo contacto con otro líquido, una de las causas de avería más comunes en las iPad o en las Galaxy Tab se produce por mojado en agua u otros líquidos similares. A causa de esto pueden dañarse los componentes internos por lo cual se necesita una revisión para diagnosticar posibles fallas.\n\nEn LAPTOP´S VALDEZ, somos especialistas en la reparación de fallas a nivel microelectrónico como las que se pueden producir cuando un líquido llega a la parte interna."
+    },
+    {
+      "subtype": "tablet-button-home-repair",
+      "name": "Reparación de Boton Home",
+      "image": "/services-images/ipad-and-tablet-repair-images/reparacion-boton-home.png",
+      "description": ""
+    },
+    {
+      "subtype": "tablet-battery-replacement",
+      "name": "Cambio de bateria",
+      "image": "/services-images/ipad-and-tablet-repair-images/cambio-bateria.png",
+      "description": "En las iPad o Galaxy Tab es muy común de que nuestra batería no está cargando. Es el momento en que nuestros especialistas técnicos realicen el diagnóstico correcto para verificar la configuración del sistema de rendimiento de la batería y verificar las entradas de alimentación de voltaje que permite que la batería esté en óptimas condiciones, como el cargador, puerto de acoplamiento de espiga del cargador. Realizamos reparaciones de iPad 1, iPad 2, iPad 3, iPad 4, iPad mini, iPad Air, Galaxy Tab 2, Galaxy Tab 3, Galaxy Tab 4, de todos los modelos."
+    },
+    {
+      "subtype": "tablet-it-restarts",
+      "name": "Se reinicia sola tu iPad o Galaxy",
+      "image": "/services-images/ipad-and-tablet-repair-images/reinicia-sola.png",
+      "description": ""
+    },
+    {
+      "subtype": "tablet-deformation",
+      "name": "Deformación en tu iPad o Galaxy Pad",
+      "image": "/services-images/ipad-and-tablet-repair-images/deformacion-ipad.png",
+      "description": "La batería de tu iPad o Galaxy Tab está hinchada y se mantiene caliente cuando está encendida. Este problema tiene solución, en LAPTOP´S VALDEZ somos importadores directos de partes y repuestos nuevos y originales de iPad 1, iPad 2, iPad 3, iPad 4, iPad mini, iPad Air , Galaxy Tab 2, Galaxy Tab 3, Galaxy Tab 4"
+    },
+    {
+      "subtype": "tablet-unlock",
+      "name": "Desbloqueo de iPad o Galaxy Pad",
+      "image": "/services-images/ipad-and-tablet-repair-images/desbloqueo-tablet.png",
+      "description": "Olvidaste tu contraseña? Te das cuenta que no puedes hacer nada que te haga ingresar o quitar la contraseña de tu iPad o tu Galaxy Tab. Tráela a nuestro Centro de Servicio Técnico donde con procesos de fábrica y bajo tu autorización desbloqueamos la Bios de tu equipo. Somos profesionales en solucionar este tipo de fallas o bloqueos en iPad 1, iPad 2, iPad 3, iPad 4, iPad mini, iPad Air y Galaxy Tab 2, Galaxy tab 3, Galaxy tab 4."
+    },
+    {
+      "subtype": "tablet-camera-problems",
+      "name": "Problemas en cámara",
+      "image": "/services-images/ipad-and-tablet-repair-images/tablet-camera-problema.png",
+      "description": "Las fotografías se toman pixeleadas o simplemente la cámara no responde. Si detectas esta falla, tráelo a reparar a SERVITEC, nuestro Centro de Servicio Técnico Especializado está completamente equipado con piezas originales de Apple y Samsung, por lo que su cámara de tu iPad o Galaxy Tab funcionará tan bien como cuando fue comprada."
+    }, {
+      "subtype": "tablet-port-problems",
+      "name": "Problemas en los puertos",
+      "image": "/services-images/ipad-and-tablet-repair-images/tablet-ports.png",
+      "description": "Si el puerto de carga se afloja, o no reconoce los dispositivos conectados, entonces estás en la necesidad de una reparación o sustitución de puertos o Jack en nuestro Centro de Servicio Técnico especializado donde contamos con repuestos originales, nuevos para iPad 1, iPad 2, iPad 3, iPad 4, iPad mini, iPad Air, Galaxy tab2, Galaxy Tab 3, Galaxy Tab 4."
+    },
+    {
+      "subtype": "tablet-touch-broken",
+      "name": "Panalla de touch quebrada",
+      "image": "/services-images/ipad-and-tablet-repair-images/tablet-touchscreen-quebrada.png",
+      "description": "Muchos usuarios piensan que cuando la pantalla se quiebra, se debe cambiar toda la pieza del iPad o Galaxy Tab. No es así, la pantalla está cubierta por un cristal transparente sensibilizado que es en la mayoría de los casos el único que se quiebra; cuando el cristal o touch se quiebra es muy probable que tu iPad o Galaxy Tab continúe en funcionamiento, eso no significa que no la debas cambiar. En SERVITEC, realizamos el cambio de touch de iPad iPad 1, iPad 2, iPad 3, iPad 4, iPad mini, iPad Air y Galaxy Tab de todos los modelos."
+    }
+  ]
+},{
+  "type":"projector-repair",
+  "name":"Reparación de proyectores",
+  "subtype": [
+    {
+      "subtype": "projector-video-distortion",
+      "name": "Distorsion en el Video",
+      "image": "/services-images/projector-repair-images/projector-distorsion.png",
+      "description": "¿Distorsión en video?, ya hiciste los ajustes necesarios, pero no es suficiente? no lo dañes más, tráelo a los especialistas, nuestro Centro de Servicio Técnico resolverá tu problema."
+    },
+    {
+      "subtype": "projector-blurry-image",
+      "name": "Imagen Borrosa",
+      "image": "/services-images/projector-repair-images/projector-imagen-borrosa.png",
+      "description": "Proyección desenfocada? no bastan los ajustes que trae por defecto? esto sucede muy a menudo, sin embargo tenemos la solución."
+    },
+    {
+      "subtype": "projector-image-with-dots",
+      "name": "Imagen con puntos",
+      "image": "/services-images/projector-repair-images/projector-puntos.png",
+      "description": "¿Aparecen puntos en la proyección? esta es una falla que no puedes pasar por desapercibido, en SERVITEC, contamos con un Centro de Servicio Técnico Especialista."
+    },
+    {
+      "subtype": "projector-no-signal",
+      "name": "Mensaje de 'sin señal'",
+      "image": "/services-images/projector-repair-images/projector-señal.png",
+      "description": "¿Qué hacer cuando de repente aparece en pantalla el mensaje de “Sin Señal”, a los minutos se conecta y luego vuelve a aparecer el mismo mensaje? Traélo a LAPTOP´S VALDEZ, donde nuestro Centro de Servicio Técnico es especialista en diagnosticar y reparar fallas a nivel de fabricante.\n\nSomos especialistas en reparar proyectores marca BENQ, PHILIPS, SONY, EPSON, 3M, BOXLIGHT, HITACHI, INFOCUS, VIVITEK. Contamos con repuestos como: Motor de imagen, Óptica, placa base, entrada de audio y de video, lentes, lámparas, filtro de aire, etc."
+    },
+    {
+      "subtype": "projector-turns-off",
+      "name": "Se apaga o se reinicia solo",
+      "image": "/services-images/projector-repair-images/projector-apaga.png",
+      "description": "El proyector se apaga al poco tiempo de encendido y ya no enciende, o se apaga y se reinicia solo y esto sucede cada cierto intervalo de tiempo, esa es una clara señal que tu proyector necesita una revisión.\n\nEn nuestro Centro de Servicio Técnico Especializado brindamos soluciones técnicas para las fallas más complejas que se pueden presentar. Realizamos reparaciones de circuitos impresos, problemas de alimentación, convergencias, sustitución de lámparas, lentes, sistemas de refrigeración y ventilación y somos especialistas en proyectores marca BENQ, PHILIPS, SONY, EPSON, 3M, BOXLIGHT, HITACHI, INFOCUS, VIVITEK y contamos con repuestos como: Motor de imagen, Óptica, placa base, entrada de audio y de video, lentes, lámparas, filtro de aire, etc."
+    },
+    {
+      "subtype": "projector-lamp-failure",
+      "name": "Falla la lampara",
+      "image": "/services-images/projector-repair-images/projector-lampara.jpg",
+      "description": "¿En el momento menos indicado te ha pasado que tu proyector únicamente enciende los LED? Nuestro Centro de Servicio Técnico es especialista en diagnosticar y reparar proyectores de toda marca y modelo que presentan problemas con la lámpara.\n\nSomos especialistas en reparar proyectores marca BENQ, PHILIPS, SONY, EPSON, 3M, BOXLIGHT, HITACHI, INFOCUS, VIVITEK. Contamos con repuestos como: Motor de imagen, Óptica, placa base, entrada de audio y de video, lentes, lámparas, filtro de aire, etc."
+    },
+    {
+      "subtype": "projector-overheats",
+      "name": "Tu proyector se recalienta",
+      "image": "/services-images/projector-repair-images/projector-recalienta.jpg",
+      "description": "El proyector calienta de una manera exagerada, esta es una señal de alarma la cual requiere una atención especial de parte del usuario y es el momento de acudir a nuestro Centro de Servicio Técnico Especialista para poder prevenir a tiempo un problema más grave. Con nuestro diagnóstico adecuado y correcto podremos prevenir daños graves a tu equipo y ahorrarte gastos innecesarios en su reparación.\n\nSomos especialistas en proyectores marca BENQ, PHILIPS, SONY, EPSON, 3M, BOXLIGHT, HITACHI, INFOCUS, VIVITEK. Contamos con repuestos como: Motor de imagen, Óptica, placa base, entrada de audio y de video, lentes, lámparas, filtro de aire, etc."
+    }
+  ]
+},{
+  "type":"allInOne-repair",
+  "name":"Reparación de All in one",
+  "subtype": [
+    {
+      "subtype": "allinOne-password",
+      "name": "¿Olvidaste la contraseña de tu PC?",
+      "image": "/services-images/allInOne-repair-images/allinOne-password.png",
+      "description": "Olvidaste la contraseña de tu PC? Te das cuenta que no puedes hacer nada que te haga ingresar o quitar la contraseña. \n\nTráela a nuestro Centro de Servicio Técnico Especialista donde con procesos de fábrica y bajo tu autorización desbloqueamos la Bios de TU EQUIPO. Somos especialistas en equipos marca APPLE, SONY VAIO, HP, DELL, TOSHIBA, COMPAQ, LENOVO, ACER, ASUS, MSI, GATEWAY, IBM, SAMSUNG."
+    },
+    {
+      "subtype": "allInOne-blue-screen",
+      "name": "¿Pantalla Azul?",
+      "image": "/services-images/allInOne-repair-images/allInOne-blue-screen.png",
+      "description": "La Pc está lenta, no pasa de inicio de sistema, se traba, de repente surge pantalla azul o morada, se repiten las letras cuando escribes, no abre un programa, estos son algunos de los problemas más comunes que puede ocasionar un sistema operativo. \nEn ServiTec-Peru somos especialistas en revisar, diagnosticar y reparar las fallas que los sistemas operativos puedan presentar. Nuestra experiencia nos permite ofrecer a nuestros clientes las mejores soluciones acorde a los diferentes modelos de All In One. Somos especialistas en equipos marca APPLE, SONY VAIO, HP, DELL, TOSHIBA, COMPAQ, LENOVO, ACER, ASUS, MSI, GATEWAY, IBM, SAMSUNG."
+    },
+    {
+      "subtype": "allInOne-motherboard",
+      "name": "Reparación de placas",
+      "image": "/services-images/allInOne-repair-images/allInOne-plate.png",
+      "description": "Realizamos instalación y reparación de motherboards, que es un Servicio Avanzado de equipos con problemas complejos. Somos expertos y tenemos la experiencia suficiente para dar solución a tu equipo.\nReparación de laptop a nivel componente cuando:\n- El equipo no enciende.\n- El equipo se enciende, luego se apaga.\n- Enciende pero no muestra video.\n- Equipo no presenta energía, no enciende ningún LED.\n- Equipo Dañado por derrame de líquidos (café, cerveza, Agua, etc.)\n- Presenta Corto Circuito o algún componente quemado.\n- El equipo no carga la batería.\nEn caso que la falla sea grave y no tenga reparación, le ofrecemos el remplazo de la motherboard a un precio especial. Somos especialistas en equipos marca APPLE, SONY VAIO, HP, DELL, TOSHIBA, COMPAQ, LENOVO, ACER, ASUS, MSI, GATEWAY, IBM, SAMSUNG."
+    },
+    {
+      "subtype": "allInOne-not-image",
+      "name": "¿No da Imagen?",
+      "image": "/services-images/allInOne-repair-images/allInOne-not-image.png",
+      "description": "Cuando se enciende la PC no da imagen en pantalla, al presionar el power enciende el led pero no da video, enciende y carga la Bios, se escucha cuando enciende, tiene unos destellos en la pantalla pero no da imagen, o no da imagen pero se escucha un sonido de alerta de la Bios. \nEn ServiTec-Peru somos especialistas en la reparación de los problemas más complejos que las Pc All In One pueden presentar. Somos especialistas en la reparación de equipos marca APPLE, SONY VAIO, HP, DELL, TOSHIBA, COMPAQ, LENOVO, ACER, ASUS, MSI, GATEWAY, IBM, SAMSUNG."
+    },
+    {
+      "subtype": "allInOne-damaged-screen",
+      "name": "Pantalla Dañada",
+      "image": "/services-images/allInOne-repair-images/allInOne-damaged-screen.png",
+      "description": "Muchos usuarios piensan que una pantalla dañada o quebrada es el fin del equipo. En ServiTec-Peru somos importadores directos de pantallas de todos los tamaños, marcas, modelos y tecnologías para equipos electrónicos que la requieran con la especialización en laptops, Pc all in one, iPad y iPhone. \nDisponemos de pantallas de 7\", 8\", 9\", 10.1\", 11.1\", 11.6\", 14\", 15.5\", 15.6\", 16.4\", 17\" 18.5\" y 20\", de tecnologías LCD, ULTRA LED, FULL HD, ULTRA HD para Pc All In One marca HP, Compaq, Dell, Toshiba, Sony Vaio, Apple, MacBook Pro, Mac Book Air, Samsung, Asus, Gateway, Acer, Lenovo, MCI, IBM. \nOfrecemos la venta e instalación o solamente la venta de la pantalla."
+    },
+    {
+      "subtype": "allInOne-turns-off",
+      "name": "¿Tu All in One se apaga sola?",
+      "image": "/services-images/allInOne-repair-images/allInOne-turns-off.png",
+      "description": "¿Utilizas la Pc y de repente se apaga sola y tarda en encender nuevamente? ¿o se reinicia y resetea el Bios? \nSomos ServiTec-Peru, un Centro de Servicio Técnico Especialista que posee la experiencia suficiente para dejar tu equipo en excelentes condiciones\nSomos especialistas en equipos marca APPLE, SONY VAIO, HP, DELL, TOSHIBA, COMPAQ, LENOVO, ACER, ASUS, MSI, GATEWAY, IBM, SAMSUNG.\nNuestra filosofía es la reparación de tu equipo, no la de hacer cambio de tus componentes."
+    },
+    {
+      "subtype": "allInOne-virus",
+      "name": "¿Virus?",
+      "image": "/services-images/allInOne-repair-images/allInOne-virus.png",
+      "description": "Si tu equipo experimenta lentitud al ejecutar programas o al iniciar el sistema operativo, se cierran las ventanas de programas o de internet, el sistema se congela o muestra ServiTec-Peru detenemos la infección de sus archivos. Le creamos una copia de seguridad de sus archivos en DVD y eliminamos virus sin formatear o con formato. Somos especialistas en equipos marca APPLE, SONY VAIO, HP, DELL, TOSHIBA, COMPAQ, LENOVO, ACER, ASUS, MSI, GATEWAY, IBM, SAMSUNG. Vendemos, instalamos y configuramos software de seguridad para su equipo (firewall, Antivirus)"
+    },
+    {
+      "subtype": "allInOne-overheating",
+      "name": "Sobrecalentamiento",
+      "image": "/services-images/allInOne-repair-images/allInOne-overheating.jpg",
+      "description": "La Pc calienta de una manera exagerada, esta es una señal de alarma la cual requiere una atención especial de parte del usuario y es el momento de acudir a nuestro Centro de servicios técnico especialista de ServiTec-Peru para prevenir a tiempo un problema más grave. Con nuestro diagnóstico adecuado y correcto podremos prevenir daños graves a tu equipo y ahorrarte gastos innecesarios en su reparación. Somos especialistas en equipos marca APPLE, SONY VAIO, HP, DELL, TOSHIBA, COMPAQ, LENOVO, ACER, ASUS, MSI, GATEWAY, IBM, SAMSUNG."
+    },
+    {
+      "subtype": "allInOne-no-turn-on",
+      "name": "No enciende",
+      "image": "/services-images/allInOne-repair-images/allInOne-no-turn-on.jpg",
+      "description": "La Pc no da imagen, no tiene signos de inicialización de sistema, únicamente parpadean los LED, se escucha que el sistema inicia pero no da imagen, se apaga a minutos de estar encendido el equipo, se siente un olor a circuito quemado. Nuestro Centro de servicio técnico es especialista en diagnosticar y reparar laptops que presentan esta falla, ya sea debido a un problema de software como de hardware. Somos especialistas en equipos marca APPLE, SONY VAIO, HP, DELL, TOSHIBA, COMPAQ, LENOVO, ACER, ASUS, MSI, GATEWAY, IBM, SAMSUNG."
+    }
+  ]
+},{
+  "type":"data-recovery",
+  "name":"Recuperación de datos",
+  "subtype": [
+    {
+      "subtype": "data-recovery",
+      "name": "Recuperación de datos",
+      "image": "/services-images/data-recovery-images/data-recovery.png",
+      "description": "Los discos duros pueden sufrir muchos tipos de fallas, ocasionadas por múltiples razones, como: Golpes, apagados forzosos del equipo, daño de sectores, calentamiento, borrado accidental de información, formateo por error, pérdidas por instalación de sistemas operativos o programas, daño por virus, corrupción lógica, errores entrada o salida, Input u Output).\n\nPor ello, en ServiTec-Peru contamos con diversas soluciones para dar respuesta a estas amenazas y vulnerabilidades de los sistemas y dispositivos informáticos. Contamos con un Centro Técnico Especializado altamente calificado e íntegro para realizar trabajos de recuperación de datos a nivel de software.\n\nProfundizamos a un nivel de microelectrónica según sea el daño de los dispositivos de almacenamiento, asegurándoles a nuestros clientes que la información recuperada de su equipo es estrictamente confidencial para nosotros. Brindamos el servicio de Recuperación de datos de Discos Duros interfase EIDE, IDE, SERIAL ATA (SATA), SCSI-SAS, USB, memorias flash, MMC, SD, Memory Stick, etc, cualquier combinación de discos únicos o arreglos RAID, JBOD O DINÁMICOS, marcas Seagate, Western Digital, Toshiba, Hitachi, Samsung, de sistemas operativos Windows, MacOs, Linux y siste"
+    }
+  ]
+},{
+  "type":"server-and-network-maintenance",
+  "name":"Mantenimiento de server y redes",
+  "subtype": [
+    {
+      "subtype": "server-network-maintenance",
+      "name": "Mantenimiento de server y redes",
+      "image": "/services-images/server-network-images/server-network-maintenance.png",
+      "description": "SERVIDORES\nContamos con años de experiencia en servidores de todo tipo de arquitecturas, plataformas tecnológicas y generaciones.\n\nOfrecemos soporte técnico los 365 días del año en recuperación de raid, información y configuraciones de servidore. Realizamos la configuración de acuerdo a tus requerimientos empresariales en cuanto a espacio en disco, tipo de discos que necesites y capacidad de almacenamiento.\n\nREDES\nEn ServiTec-Peru te brindamos soluciones de conectividad para empresas, que garanticen las comunicaciones de forma óptima y segura. Conectamos toda la red de computadoras en una red LAN o en múltiples locaciones. Diseñamos e implementamos redes por medio físico o inalámbrico y mixtas de acuerdo a las necesidades.\n\nOfrecemos soluciones de conectividad inalámbrica para sus dispositivos, redes inalámbricas de alto rendimiento amplia cobertura y seguras, acorde con las nuevas tecnologías.\n\nCABLEADO ESTRUCTURADO\nServiTec-Peru siempre en la búsqueda de ofrecer lo mejor para sus clientes, está preparado para brindar soluciones con los últimos estándares vigentes. Diseñamos e instalamos redes de cableado estructurado, según estándar internacionales en sus últimas versiones TIA/EIA-568-C.2 para la categoría 6 e ISO/IEC 11801:2002 para la categoría 7/clase para la categoría 7."
+    }
+  ]
+},{
+  "type":"reballing-service",
+  "name":"Servicio de reballing",
+  "subtype": [
+    {
+      "subtype": "reballing-service",
+      "name": "¿Necesitas Reballing?",
+      "image": "/services-images/reballing-images/reballing-service.jpg",
+      "description": "¿Has tenido algún problema de estos? Tu equipo enciende pero no da imagen en la pantalla, enciende y se apaga instantáneamente, muestra mala calidad en la imagen, se sobrecalienta, se apaga sin previo aviso, se reinicia constantemente, cuando la apagas, se enciende sola, tiene fallas de conexión con el WI-FI.\n\nEn ServiTec-Peru, contamos con el único Centro de Servicio Técnico altamente calificado y capaz de realizar trabajos de Reballing BGA, o microelectrónica, reparando así defectos de fabricante que pueda traer tu equipo como cualquier problema de software (errores de sistema operativo, virus, drivers, sistema de archivos, etc.). Todas tus reparaciones tienen garantía. Con precios especiales a técnicos y mayoristas."
+    }
+  ]
+},{
+  "type":"camera-installation",
+  "name":"Instalación de cámaras",
+  "subtype": [
+    {
+      "subtype": "video-surveillance-cameras",
+      "name": "Camaras de Video Vigilancia",
+      "image": "/services-images/camera-installation-images/video-surveillance-cameras.jpg",
+      "description": "ServiTec-Peru brinda la mejor asesoría, la misma que permitirá elegir el Sistema de seguridad adecuado según sus necesidades. Además, contamos con personal técnico especializado debidamente identificado\nRealizamos instalaciones y mantenimiento de cámaras de seguridad, alarmas, video portero, intercomunicadores y racks, en todo lima y provincias. contamos con técnicos calificados.\nSuministros  de cámaras análogas, cámaras IP, cámaras HD, cámaras espías, accesorios de instalación, cable UTP, video balun, cable HDMI.\nRealizamos cotizaciones sin costo alguno para hogares y empresas.\nNuestro departamento técnico y comercial le pueden asesorar sobre el sistema más idóneo, resolver las dudas que tenga y ayudarle con la configuración y puesta en marcha de su sistema de vídeo vigilancia.\nCon la instalación de cámaras de seguridad CCTV (Circuito Cerrado de Televisión y Video DIGITAL) con servidores DVR, usted será capaz de visualizar y grabar en tiempo real todo lo que acontece, sin necesidad de estar en el lugar\nSoluciones de cableado estructurado para CCTV, alámbrico e INALAMBRICO.\nSoluciones que le darán tranquilidad, y le ayudarán a tener mayor control y productividad en su Negocio, casa, oficina."
+    }
+  ]
+},{
+  "type":"intercoms-installation",
+  "name":"Instalación de intercomunicadores",
+  "subtype": [
+    {
+      "subtype": "intercoms-installation",
+      "name": "Instalación de Intercomunicadores",
+      "image": "/services-images/intercoms-installation-images/intercoms-installation.jpg",
+      "description": "En ServiTec-Peru somos conocedores de las diferentes necesidades de nuestros clientes, hemos adaptado nuestros servicios de acuerdo a sus requerimientos de seguridad y comunicación electrónica, siempre ofreciéndole la mejor solución poniendo a su disposición nuestros servicios de reparación, instalación y mantenimiento preventivo y/o correctivo de sus equipos de seguridad e intercomunicación. Contamos con el personal técnico calificado y un amplio stock de repuestos de todas las marcas para ofrecerles la mejor solución a sus necesidades.\n\n“ El mantenimiento adecuado tiende a prolongar la vida útil de sus equipos y así obtener una duración aceptable de los mismos durante más tiempo”"
+    }
+  ]
+},{
+  "type":"photocopier-and-printer-repair",
+  "name":"Reparación de fotocopiadora e impresoras",
+  "subtype": [
+    {
+      "subtype": "photocopier-printer-repair",
+      "name": "Reparación de Fotocpiadora e Impresoras",
+      "image": "/services-images/photocopier-printer-images/photocopier-printer.jpg",
+      "description": "En ServiTec-Peru, nos esforzamos cada vez más para poderles brindar productos y servicios de calidad. Contamos con un Departamento de Servicio Técnico conformado por profesionales con una vasta experiencia en reparación, nuestro Centro de servicio cuenta con equipos de prueba y medición e instrumental  adecuados para una correcta evaluación, reparación y mantenimiento de sus equipos, ademas nuestro stock permanente de repuestos asegura una rapida reparación y entrega de sus equipos. Solicite nuestros servicios y será atendido de manera inmediata por un técnico especialista.\n\nDiagnostico:\n\nAl presentar un equipo una falla en su normal funcionamiento, usted puede trasladar su equipo a nuestro centro de servicio o solicitar de manera inmediata un tecnico especialista para brindarle una evaluación tecnica del estado del  mismo. Este servicio en la mayoria de los casos no tiene costo para el area metropolitana de Lima.\n\nMantenimiento Preventivo:\n\nEl desgaste interno de piezas producto del normal funcionamiento de su equipo segun el nivel de trabajo al cual es sometido y el nivel de polvo del ambiente donde se encuentra su equipo, determina la frecuencia del mantenimiento requerido por su maquina. La peridiocidad de este mantenimiento es determinado previa evaluación tecnica. La finalidad de este servicio es prevenir y minimizar la probabilidad de fallas, mediante el reemplazo o ajuste oportuno de aquellos elementos que sufran desgaste en su equipo. La solicitud y atención de este servicio puede ser de manera puntual o mediante programas de mantenimiento previa suscripción de contrato.\n\nMantenimiento Correctivo: \n\nBrindamos el servicio de atención de emergencia ante un desperfecto presentado en cualquier equipo de nuestros clientes, este servicio, que puede incluir la provisión de repuestos o no, está disponible en diversos horarios de cobertura y tiempos de respuesta y solución, llegando incluso a proveer equipos de respaldo, dependiendo de la cobertura contratada por nuestro cliente.\n\nReparaciones:\n\nLas reparaciones son brindadas previo diagnostico del estado de su equipo, en la mayoria de los casos son efectuadas ON SITE;  Sin embargo, en el caso de presentarse fallas en equipos que por su naturaleza necesiten ser atendidas en nuestros laboratorios, dichos equipos son trasladados por personal de nuestra empresa para su reparación respectiva de acuerdo a los procedimientos establecidos por el cliente. De presentarse estos casos, nuestro departamento de servicio contemplara la posibilidad de que se coloque un equipo de respaldo o backup con características similares, mientras dure la reparación, lo que permitirá el normal desarrollo de las actividades de sus usuarios?"
+    }
+  ]
+},{
+  "type":"systems-development",
+  "name":"Desarrollo de sistemas",
+  "subtype": [
+    {
+      "subtype": "system-development",
+      "name": "Desarrollo de Sistemas",
+      "image": "/services-images/system-development-images/system-development.jpg",
+      "description": "En Servitec-Peru contamos cun una amplia experiencia en proyectos de desarrollo de software en las empresas. Nuestros desarrolladores tienen la capacidad para proponer la arquitectura y tipo de software más conveniente para los objetivos de su empresa:\n\nAplicaciones móbiles (Android / iOs)\n\nPortales Web: intranet, extranets, comercio electrónico\n\nCliente / servidor\n\nSistemas de información gerencial\n\n Servicios de Desarrollo de Software\n\nAuditoría y documentación de sistemas existentes (ingeniería reversa)\n\nAnálisis y explotación de base de datos\n\nDiseño de interfaces de usuario y bases de datos\n\nProgramación de aplicaciones\n\nDesarrollo de dashboards para toma de decisiones y reportes de indicadores de gestión\n\nControl de calidad de software\n\nOptimización de aplicaciones\n\nImplementación, instalación e integración de aplicaciones empresariales\n\nEntrenamiento de usuarios\n\nHerramientas y metodologías\n\nNuestro equipo de consultoría tiene amplio dominio de las herramientas y metodologías de desarrollo más usadas en la construcción de software:\n\nLenguajes de programación: Visual Studio .NET, Java, ASP.NET, C#, VB.NET, ASP, PHP, HTML, Power Builder, Visual Basic 6, Sharepoint, ABAP\n\nBases de datos: Microsoft SQL Server, Oracle, MySQL\n\nMetodologías: PMBOK, SCRUM\n\nFrameworks: MVC, SPRING, ZendFramework, Laravel\n\nGestores de contenido: Drupal, WordPress"
+    }
+  ]
+},{
+  "type":"apps-development",
+  "name":"Desarrollo de aplicaciones",
+  "subtype": [
+    {
+      "subtype": "system-development",
+      "name": "Desarrollo de Aplicaciones",
+      "image": "/services-images/apps-development-images/apps-development.jpg",
+      "description": "Vivimos en un mundo digital y móvil \nCada día más personas se conectan a través de dispositivos móviles. Nuestro equipo está especializado en desarrollo de aplicaciones móviles para iOS, Android y Windows Phone\n\nServiTec-Peru cuenta con un equipo muy talentoso y con mucha experiencia en el desarrollo de aplicaciones web y móviles, realizadas de acuerdo a las necesidades del cliente. Asesoramos y Estudiamos cada caso para brindar la solución móvil más adecuada, basados en su necesidad y su audiencia.\n\n- APP EMPRESARIALES\n\nDesarrollamos aplicaciones que ayuden a resolver una necesidad puntual de su negocio con sus clientes o sus colaboradores\n\n- ANÁLISIS DE DATOS\n\nLe ayudamos a entender el comportamiento de sus usuarios en sus aplicaciones móviles, y daremos datos que le permitirán tomar decisiones importantes para su negocio\n\n- MARKETING MÓVIL\n\nContamos con el equipo y las herramientas para lograr la mayor cantidad de descargas posibles de su aplicación a través de estrategía de Marketing móvil"
+    }
+  ]
+},{
+  "type":"web-development",
+  "name":"Desarrollo Web",
+  "subtype": [
+    {
+      "subtype": "web-development",
+      "name": "Desarrollo de Aplicaciones",
+      "image": "/services-images/web-development-images/web-development.webp",
+      "description": "Nuestro servicio de Desarrollo Web ofrece soluciones digitales modernas, eficientes y adaptadas a las necesidades de tu negocio. Diseñamos y construimos sitios web profesionales que combinan funcionalidad, rendimiento y una experiencia de usuario excepcional. Trabajamos con las tecnologías más actuales para garantizar páginas rápidas, seguras, escalables y completamente optimizadas para buscadores (SEO).\n\nCreamos desde sitios corporativos y páginas informativas hasta aplicaciones web complejas y paneles administrativos. Cada proyecto incluye un proceso completo que abarca análisis, diseño UI/UX, desarrollo frontend y backend, integración con bases de datos, pruebas y despliegue en servidores de producción. Además, brindamos mantenimiento continuo y mejoras evolutivas para asegurar que tu plataforma se mantenga actualizada y alineada con los objetivos de tu negocio.\n\nNuestro enfoque es personalizado: entendemos tus requerimientos, proponemos soluciones estratégicas y entregamos resultados de alta calidad que impulsan tu presencia digital, mejoran tu comunicación con clientes y optimizan tus procesos internos."
+    }
+  ]
+},{
+  "type":"report",
+  "name":"Reportanos tu problema"
+}
+]

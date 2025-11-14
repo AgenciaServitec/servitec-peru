@@ -53,7 +53,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762979048081</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add dynamic services page">
+      <option name="closed" value="true" />
+      <created>1762991062964</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1762991062965</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -69,6 +77,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added workspace" />
-    <option name="LAST_COMMIT_MESSAGE" value="added workspace" />
+    <MESSAGE value="add dynamic services page" />
+    <option name="LAST_COMMIT_MESSAGE" value="add dynamic services page" />
   </component>
 </project>
