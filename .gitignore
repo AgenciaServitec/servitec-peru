@@ -1,5 +1,7 @@
 # IDEs and Editors
 .idea/
+.idea/workspace.xml
+*.iml
 .vscode/
 *.swp
 *.swo
