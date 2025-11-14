@@ -1,6 +1,7 @@
 import { ServicesList } from "@/data-list";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 
 function findSubtype(subtype: string) {
   for (const service of ServicesList) {
@@ -52,12 +53,12 @@ export default async function ServiceDetailPage(props: {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mt-10">
-              <a
+              <Link
                 href="/services"
                 className="inline-block px-6 py-3 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-400 transition-all text-center"
               >
                 ← Volver a servicios
-              </a>
+              </Link>
             </div>
           </div>
         </div>

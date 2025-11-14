@@ -2,6 +2,8 @@
 
 import { ServicesList } from "@/data-list";
 import React, { useState } from "react";
+import Image from "next/image";
+
 import Link from "next/link";
 
 export const ServicesSection = () => {
@@ -71,10 +73,12 @@ export const ServicesSection = () => {
                   className="group flex flex-col overflow-hidden backdrop-blur-md bg-white/10 border border-white/10 rounded-2xl shadow-lg hover:shadow-yellow-500/20 transition-all duration-500"
                 >
                   <div className="relative h-64 w-full overflow-hidden rounded-t-2xl bg-black/10">
-                    <img
+                    <Image
                       src={sub.image}
                       alt={sub.name}
+                      fill
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      priority
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
