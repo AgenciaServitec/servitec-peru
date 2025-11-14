@@ -35,8 +35,8 @@ export const ServicesSection = () => {
         <div
           className="
             flex flex-nowrap gap-3 mb-12 overflow-x-auto scrollbar-hide
-            sm:flex-wrap sm:justify-center sm:overflow-x-visible
-            px-1 sm:px-0
+            lg:flex-wrap lg:justify-center lg:overflow-x-visible
+            px-1 lg:px-0 snap-x snap-mandatory
           "
         >
           {ServicesList.map((service) => (
@@ -47,7 +47,7 @@ export const ServicesSection = () => {
                   selectedType === service.type ? null : service.type
                 )
               }
-              className={`flex-shrink-0 px-6 py-3 rounded-full font-medium transition-all duration-300 border
+              className={`snap-start flex-shrink-0 px-6 py-3 rounded-full font-medium transition-all duration-300 border
                 ${
                   selectedType === service.type
                     ? "bg-yellow-600 text-white border-yellow-500 shadow-lg shadow-yellow-500/30 scale-105"
@@ -59,6 +59,9 @@ export const ServicesSection = () => {
             </button>
           ))}
         </div>
+        <p className="text-gray-400 text-md text-center mt-1 lg:hidden">
+          Desliza para ver más →
+        </p>
         {selectedService ? (
           selectedService.subtype && selectedService.subtype.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-10 w-full">
