@@ -5,13 +5,11 @@ import React, {
   useEffect,
 } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { FirestoreError } from "firebase/firestore";
+import { FirestoreError, Timestamp } from "firebase/firestore";
 import { useAuthentication } from "./AuthenticationProvider";
 import { notification, Spinner } from "../components";
 import { orderBy } from "lodash";
 import { quotationsRef, usersRef } from "../firebase/collections";
-
-import { Timestamp } from "firebase/firestore";
 
 interface BaseEntity {
   id: string;
@@ -40,7 +38,6 @@ export interface Correspondence extends BaseEntity {
   [key: string]: any;
 }
 
-// Global Data Context Value
 export interface GlobalDataContextValue {
   users: User[];
   correspondences: Correspondence[];
@@ -64,8 +61,6 @@ export const GlobalDataProvider: React.FC<GlobalDataProviderProps> = ({
     authUser ? usersRef.where("isDeleted", "==", false) : null,
     { idField: "id" }
   );
-
-  console.log(users);
 
   const [quotations = [], quotationsLoading, quotationsError] =
     useCollectionData<Correspondence>(
