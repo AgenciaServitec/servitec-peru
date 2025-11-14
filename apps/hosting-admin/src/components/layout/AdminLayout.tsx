@@ -20,9 +20,9 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
   const onNavigateTo = (url: string) => navigate(url);
 
   return (
-    <Spin tip="Cargando..." spinning={false} className="spin-item">
+    <Spin tip="Cargando..." spinning={false}>
       <LayoutContainer>
-        <Layout className="site-layout">
+        <Layout>
           <DrawerLayout
             isVisibleDrawer={isVisibleDrawer}
             onSetIsVisibleDrawer={setIsVisibleDrawer}
@@ -45,7 +45,7 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
 };
 
 const LayoutContainer = styled(Layout)`
-  width: 100vw;
+  min-width: 100vw;
   min-height: 100vh;
   background: linear-gradient(
     135deg,
@@ -53,30 +53,14 @@ const LayoutContainer = styled(Layout)`
     #0f1419 100%
   ) !important;
 
-  .site-layout {
-    background: ${theme.colors.dark};
-  }
-
   .site-layout-background {
     background: ${theme.colors.secondary};
-    padding: 1.5em;
     border-radius: ${theme.border_radius.small};
     border: 1px solid rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
   }
 
   .logo {
     height: 32px;
     margin: 16px;
-    background: rgba(255, 184, 77, 0.15);
-  }
-
-  .spin-item {
-    .ant-spin-dot-item {
-      background-color: ${theme.colors.primary};
-    }
-    .ant-spin-text {
-      color: ${theme.colors.font1};
-    }
   }
 `;

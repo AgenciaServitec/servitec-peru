@@ -104,6 +104,7 @@ export function Login() {
 const LoginContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
+  min-width: 100vw;
   min-height: 100vh;
   background: ${theme.colors.black};
 
@@ -301,6 +302,7 @@ const RightSide = styled.div`
   background: ${theme.colors.dark};
 
   @media (max-width: 968px) {
+    min-width: 100vw;
     min-height: 100vh;
   }
 `;
