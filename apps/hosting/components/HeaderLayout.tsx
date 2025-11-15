@@ -69,7 +69,7 @@ export const HeaderLayout = () => {
           </li>
           <li>
             <a
-              href=""
+              href="/about"
               className="flex gap-1 items-center  p-1 px-2 rounded-full hover:border hover:border-white"
             >
               <svg
