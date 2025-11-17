@@ -1,8 +1,9 @@
 import Image from "next/image";
+import { ContentWidth } from "@/components/ContentWidth";
 
 export default function About() {
   return (
-    <div className="w-full">
+    <ContentWidth>
       <div className="relative w-full flex justify-center items-center">
         <Image
           src="/content_about/nosotros4.jpg"
@@ -56,6 +57,6 @@ export default function About() {
           </p>
         </div>
       </div>
-    </div>
+    </ContentWidth>
   );
 }
