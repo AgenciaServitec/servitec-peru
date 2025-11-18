@@ -1,9 +1,10 @@
 import Image from "next/image";
+import { ContentWidth } from "@/components/ContentWidth";
 
 export const FooterLayout = () => {
   return (
-    <footer className="bg-black py-6 px-6">
-      <div className="max-w-6xl mx-auto">
+    <footer className="bg-black py-5">
+      <ContentWidth>
         <div className="flex flex-col md:flex-row justify-between items-center mb-10">
           <div className="flex items-center">
             <Image
@@ -161,7 +162,7 @@ export const FooterLayout = () => {
             </a>
           </div>
         </div>
-      </div>
+      </ContentWidth>
     </footer>
   );
 };
