@@ -83,7 +83,7 @@ export const BusinessBoostBanner = () => {
                     },
                   ].map((benefit, index) => (
                     <div key={index} className="flex items-start gap-3 group">
-                      <div className="w-6 h-6 bg-[#FFC107] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform">
+                      <div className="w-6 h-6 bg-[#FFC107] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                         <svg
                           className="w-3.5 h-3.5 text-black"
                           fill="none"
@@ -109,27 +109,12 @@ export const BusinessBoostBanner = () => {
                 <div className="pt-6 border-t border-gray-800">
                   <Link
                     href="/contact"
-                    className="group relative inline-flex items-center gap-2 bg-[#FFC107] text-black font-bold px-8 py-4 rounded-lg overflow-hidden transition-all hover:scale-105 hover:shadow-2xl hover:shadow-[#FFC107]/50"
+                    className="group relative inline-flex items-center gap-2 bg-[#FFC107] text-black font-bold px-8 py-4 rounded-lg overflow-hidden transition-all hover:scale-105 hover:shadow-2xl"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-
-                    <span className="relative text-lg">🎄</span>
                     <span className="relative">
                       Solicita tu Cotización Gratis
                     </span>
-                    <svg
-                      className="relative w-5 h-5 group-hover:translate-x-1 transition-transform"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 7l5 5m0 0l-5 5m5-5H6"
-                      />
-                    </svg>
                   </Link>
 
                   <p className="text-sm text-gray-400 mt-3 flex items-center gap-2">
@@ -164,7 +149,7 @@ export const BusinessBoostBanner = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                 </div>
 
-                <div className="relative bg-black">
+                <div className="relative bg-gray-900/80 backdrop-blur">
                   <iframe
                     className="w-full h-[600px]"
                     src="https://ac2f6010da714e538a28349f48a5bd6d.elf.site/"
