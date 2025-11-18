@@ -145,12 +145,13 @@ export const BusinessBoostBanner = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                 </div>
 
-                <div className="relative bg-black">
+                <div className="relative bg-gray-900/80 backdrop-blur">
                   <iframe
                     className="w-full h-[600px]"
                     src="https://ac2f6010da714e538a28349f48a5bd6d.elf.site/"
                     scrolling="no"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                 </div>
 
                 <div className="bg-gray-900/80 backdrop-blur border-t border-gray-800 p-3 text-center">
