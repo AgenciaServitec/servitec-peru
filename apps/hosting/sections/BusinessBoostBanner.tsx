@@ -49,8 +49,8 @@ export const BusinessBoostBanner = () => {
 
               <div className="relative">
                 <div className="flex items-center gap-3 mb-6">
-                  <h3 className="text-2xl font-bold">
-                    ¿Qué incluye tu{" "}
+                  <h3 className="text-2xl font-bold flex items-center gap-2">
+                    <span>¿Qué incluye tu</span>
                     <span className="text-[#FFC107]">sitio web?</span>
                   </h3>
                 </div>
@@ -83,7 +83,7 @@ export const BusinessBoostBanner = () => {
                     },
                   ].map((benefit, index) => (
                     <div key={index} className="flex items-start gap-3 group">
-                      <div className="w-6 h-6 bg-[#FFC107] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <div className="w-6 h-6 bg-[#FFC107] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform">
                         <svg
                           className="w-3.5 h-3.5 text-black"
                           fill="none"
@@ -109,13 +109,32 @@ export const BusinessBoostBanner = () => {
                 <div className="pt-6 border-t border-gray-800">
                   <Link
                     href="/contact"
-                    className="group relative inline-flex items-center gap-2 bg-[#FFC107] text-black font-bold px-8 py-4 rounded-lg overflow-hidden transition-all hover:scale-105 hover:shadow-2xl"
+                    className="group relative inline-flex items-center gap-2 bg-[#FFC107] text-black font-bold px-8 py-4 rounded-lg overflow-hidden transition-all hover:scale-105 hover:shadow-2xl hover:shadow-[#FFC107]/50"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+
+                    <span className="relative text-lg">🎄</span>
                     <span className="relative">
                       Solicita tu Cotización Gratis
                     </span>
+                    <svg
+                      className="relative w-5 h-5 group-hover:translate-x-1 transition-transform"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 7l5 5m0 0l-5 5m5-5H6"
+                      />
+                    </svg>
                   </Link>
+
+                  <p className="text-sm text-gray-400 mt-3 flex items-center gap-2">
+                    <span>Promoción especial de temporada</span>
+                  </p>
                 </div>
               </div>
             </div>
