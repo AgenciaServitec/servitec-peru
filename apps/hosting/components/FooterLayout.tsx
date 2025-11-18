@@ -1,81 +1,167 @@
-import { ContentWidth } from "@/components/ContentWidth";
+import Image from "next/image";
 
 export const FooterLayout = () => {
   return (
-    <footer>
-      <ContentWidth>
-        <div className="flex flex-col items-center bg-blue-700 py-20 gap-10">
-          <p className="text-3xl">Conectate Socialmente con Servitec</p>
-          <div className="flex justify-center gap-6">
-            <div className="flex flex-col items-center">
-              <svg
-                className="w-10 h-auto"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 320 512"
-              >
-                <path
-                  fill="#ffffff"
-                  d="M80 299.3l0 212.7 116 0 0-212.7 86.5 0 18-97.8-104.5 0 0-34.6c0-51.7 20.3-71.5 72.7-71.5 16.3 0 29.4 .4 37 1.2l0-88.7C291.4 4 256.4 0 236.2 0 129.3 0 80 50.5 80 159.4l0 42.1-66 0 0 97.8 66 0z"
-                />
-              </svg>
-              <p>Visitanos en Facebook</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <svg
-                className="w-auto h-16"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 640 640"
-              >
-                <path
-                  fill="#ffffff"
-                  d="M581.7 188.1C575.5 164.4 556.9 145.8 533.4 139.5C490.9 128 320.1 128 320.1 128C320.1 128 149.3 128 106.7 139.5C83.2 145.8 64.7 164.4 58.4 188.1C47 231 47 320.4 47 320.4C47 320.4 47 409.8 58.4 452.7C64.7 476.3 83.2 494.2 106.7 500.5C149.3 512 320.1 512 320.1 512C320.1 512 490.9 512 533.5 500.5C557 494.2 575.5 476.3 581.8 452.7C593.2 409.8 593.2 320.4 593.2 320.4C593.2 320.4 593.2 231 581.8 188.1zM264.2 401.6L264.2 239.2L406.9 320.4L264.2 401.6z"
-                />
-              </svg>
-              <p>Visitanos en YouTube</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <svg
-                className="w-auto h-16"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 640 640"
-              >
-                <path
-                  fill="#ffffff"
-                  d="M476.9 161.1C435 119.1 379.2 96 319.9 96C197.5 96 97.9 195.6 97.9 318C97.9 357.1 108.1 395.3 127.5 429L96 544L213.7 513.1C246.1 530.8 282.6 540.1 319.8 540.1L319.9 540.1C442.2 540.1 544 440.5 544 318.1C544 258.8 518.8 203.1 476.9 161.1zM319.9 502.7C286.7 502.7 254.2 493.8 225.9 477L219.2 473L149.4 491.3L168 423.2L163.6 416.2C145.1 386.8 135.4 352.9 135.4 318C135.4 216.3 218.2 133.5 320 133.5C369.3 133.5 415.6 152.7 450.4 187.6C485.2 222.5 506.6 268.8 506.5 318.1C506.5 419.9 421.6 502.7 319.9 502.7zM421.1 364.5C415.6 361.7 388.3 348.3 383.2 346.5C378.1 344.6 374.4 343.7 370.7 349.3C367 354.9 356.4 367.3 353.1 371.1C349.9 374.8 346.6 375.3 341.1 372.5C308.5 356.2 287.1 343.4 265.6 306.5C259.9 296.7 271.3 297.4 281.9 276.2C283.7 272.5 282.8 269.3 281.4 266.5C280 263.7 268.9 236.4 264.3 225.3C259.8 214.5 255.2 216 251.8 215.8C248.6 215.6 244.9 215.6 241.2 215.6C237.5 215.6 231.5 217 226.4 222.5C221.3 228.1 207 241.5 207 268.8C207 296.1 226.9 322.5 229.6 326.2C232.4 329.9 268.7 385.9 324.4 410C359.6 425.2 373.4 426.5 391 423.9C401.7 422.3 423.8 410.5 428.4 397.5C433 384.5 433 373.4 431.6 371.1C430.3 368.6 426.6 367.2 421.1 364.5z"
-                />
-              </svg>
-              Escribenos por Whatsapp
-            </div>
-            <div className="flex flex-col items-center">
-              <svg
-                className="w-auto h-16"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 640 640"
-              >
-                <path
-                  fill="#ffffff"
-                  d="M224.2 89C216.3 70.1 195.7 60.1 176.1 65.4L170.6 66.9C106 84.5 50.8 147.1 66.9 223.3C104 398.3 241.7 536 416.7 573.1C493 589.3 555.5 534 573.1 469.4L574.6 463.9C580 444.2 569.9 423.6 551.1 415.8L453.8 375.3C437.3 368.4 418.2 373.2 406.8 387.1L368.2 434.3C297.9 399.4 241.3 341 208.8 269.3L253 233.3C266.9 222 271.6 202.9 264.8 186.3L224.2 89z"
-                />
-              </svg>
-              Llamanos Ahora
-            </div>
+    <footer className="bg-black py-6 px-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-10">
+          <div className="flex items-center">
+            <Image
+              src="/logo-servitec.png"
+              alt="Logo de Servitec Perú"
+              width={180}
+              height={38}
+              priority
+            />
           </div>
-        </div>
-
-        <div className="flex flex-col items-center gap-5 py-8 bg-gray-500">
-          <div className="flex justify-center w-full gap-5">
-            <p>
-              <strong>ServiTec-Perú</strong> © 2018.
+          <div className="p-4 rounded-xl w-full md:w-auto text-center">
+            <p className="font-bold text-xl">
+              Conéctate Socialmente con Servitec
             </p>
-            <p>📞 941 801 827 / 972 252 744</p>
-            <p>✉️ contactos@servitec-peru.com</p>
+            <div className="flex justify-center gap-10 mt-4">
+              <a
+                href="https://www.facebook.com/Servitec.chorrillos/?locale=es_LA"
+                target="_blank"
+                className="flex flex-col items-center text-center gap-1 hover:text-blue-600"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="40"
+                  height="40"
+                  viewBox="0 0 256 256"
+                >
+                  <path
+                    fill="#1877f2"
+                    d="M256 128C256 57.308 198.692 0 128 0S0 57.308 0 128c0 63.888 46.808 116.843 108 126.445V165H75.5v-37H108V99.8c0-32.08 19.11-49.8 48.348-49.8C170.352 50 185 52.5 185 52.5V84h-16.14C152.959 84 148 93.867 148 103.99V128h35.5l-5.675 37H148v89.445c61.192-9.602 108-62.556 108-126.445"
+                  />
+                  <path
+                    fill="#fff"
+                    d="m177.825 165l5.675-37H148v-24.01C148 93.866 152.959 84 168.86 84H185V52.5S170.352 50 156.347 50C127.11 50 108 67.72 108 99.8V128H75.5v37H108v89.445A129 129 0 0 0 128 256a129 129 0 0 0 20-1.555V165z"
+                  />
+                </svg>
+                <span>Visitanos en Facebook</span>
+              </a>
+              <a
+                href="https://www.youtube.com/channel/UC0fs7G_IrQ9nBPOpKsaDTJg"
+                target="_blank"
+                className="flex flex-col items-center text-center gap-1 hover:text-red-600"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="40"
+                  height="40"
+                  viewBox="0 0 256 180"
+                >
+                  <path
+                    fill="#f00"
+                    d="M250.346 28.075A32.18 32.18 0 0 0 227.69 5.418C207.824 0 127.87 0 127.87 0S47.912.164 28.046 5.582A32.18 32.18 0 0 0 5.39 28.24c-6.009 35.298-8.34 89.084.165 122.97a32.18 32.18 0 0 0 22.656 22.657c19.866 5.418 99.822 5.418 99.822 5.418s79.955 0 99.82-5.418a32.18 32.18 0 0 0 22.657-22.657c6.338-35.348 8.291-89.1-.164-123.134"
+                  />
+                  <path
+                    fill="#fff"
+                    d="m102.421 128.06l66.328-38.418l-66.328-38.418z"
+                  />
+                </svg>
+                <span>Visitanos en Youtube</span>
+              </a>
+              <a
+                href="https://wa.me/51941801827"
+                target="_blank"
+                className="flex flex-col items-center text-center gap-1 hover:text-green-600"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="40"
+                  height="40"
+                  viewBox="0 0 256 258"
+                >
+                  <defs>
+                    <linearGradient
+                      id="SVGBRLHCcSy"
+                      x1="50%"
+                      x2="50%"
+                      y1="100%"
+                      y2="0%"
+                    >
+                      <stop offset="0%" stop-color="#1faf38" />
+                      <stop offset="100%" stop-color="#60d669" />
+                    </linearGradient>
+                    <linearGradient
+                      id="SVGHW6lecxh"
+                      x1="50%"
+                      x2="50%"
+                      y1="100%"
+                      y2="0%"
+                    >
+                      <stop offset="0%" stop-color="#f9f9f9" />
+                      <stop offset="100%" stop-color="#fff" />
+                    </linearGradient>
+                  </defs>
+                  <path
+                    fill="url(#SVGBRLHCcSy)"
+                    d="M5.463 127.456c-.006 21.677 5.658 42.843 16.428 61.499L4.433 252.697l65.232-17.104a123 123 0 0 0 58.8 14.97h.054c67.815 0 123.018-55.183 123.047-123.01c.013-32.867-12.775-63.773-36.009-87.025c-23.23-23.25-54.125-36.061-87.043-36.076c-67.823 0-123.022 55.18-123.05 123.004"
+                  />
+                  <path
+                    fill="url(#SVGHW6lecxh)"
+                    d="M1.07 127.416c-.007 22.457 5.86 44.38 17.014 63.704L0 257.147l67.571-17.717c18.618 10.151 39.58 15.503 60.91 15.511h.055c70.248 0 127.434-57.168 127.464-127.423c.012-34.048-13.236-66.065-37.3-90.15C194.633 13.286 162.633.014 128.536 0C58.276 0 1.099 57.16 1.071 127.416m40.24 60.376l-2.523-4.005c-10.606-16.864-16.204-36.352-16.196-56.363C22.614 69.029 70.138 21.52 128.576 21.52c28.3.012 54.896 11.044 74.9 31.06c20.003 20.018 31.01 46.628 31.003 74.93c-.026 58.395-47.551 105.91-105.943 105.91h-.042c-19.013-.01-37.66-5.116-53.922-14.765l-3.87-2.295l-40.098 10.513z"
+                  />
+                  <path
+                    fill="#fff"
+                    d="M96.678 74.148c-2.386-5.303-4.897-5.41-7.166-5.503c-1.858-.08-3.982-.074-6.104-.074c-2.124 0-5.575.799-8.492 3.984c-2.92 3.188-11.148 10.892-11.148 26.561s11.413 30.813 13.004 32.94c1.593 2.123 22.033 35.307 54.405 48.073c26.904 10.609 32.379 8.499 38.218 7.967c5.84-.53 18.844-7.702 21.497-15.139c2.655-7.436 2.655-13.81 1.859-15.142c-.796-1.327-2.92-2.124-6.105-3.716s-18.844-9.298-21.763-10.361c-2.92-1.062-5.043-1.592-7.167 1.597c-2.124 3.184-8.223 10.356-10.082 12.48c-1.857 2.129-3.716 2.394-6.9.801c-3.187-1.598-13.444-4.957-25.613-15.806c-9.468-8.442-15.86-18.867-17.718-22.056c-1.858-3.184-.199-4.91 1.398-6.497c1.431-1.427 3.186-3.719 4.78-5.578c1.588-1.86 2.118-3.187 3.18-5.311c1.063-2.126.531-3.986-.264-5.579c-.798-1.593-6.987-17.343-9.819-23.64"
+                  />
+                </svg>
+                <span>Escribenos en Whatsapp</span>
+              </a>
+            </div>
           </div>
-          <a href="https://maps.app.goo.gl/XfhjatVMEwisYWzz9" target="_blank">
-            Néstor Bermúdez 113, Chorrillos, Lima, Perú
-          </a>
-          <p>Términos y condiciones</p>
         </div>
-      </ContentWidth>
+        <hr className="border-gray-800 border-1 my-8" />
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+          <div>
+            <h3 className="text-white font-semibold text-lg mb-3">
+              Sobre nosotros
+            </h3>
+            <p className="text-gray-400">
+              Somos una empresa que brinda servicios informáticos de forma
+              integral en la asesoría y consultoría en hardware y software,
+              tanto para usuarios domésticos, negocios y empresas corporativas.
+            </p>
+          </div>
+          <div>
+            <h3 className="text-white font-semibold text-lg mb-3">
+              Horario de atención
+            </h3>
+            <p className="text-gray-400">9:00 am a 6:00 pm</p>
+          </div>
+          <div>
+            <h3 className="text-white font-semibold text-lg mb-3">Dirección</h3>
+            <ul className="text-gray-400">
+              Néstor Bermúdez 113, Chorrillos, Lima, Perú
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-white font-semibold text-lg mb-3">Contacto</h3>
+            <ul className="text-gray-400">
+              <li className="flex-gap items-center">941 801 827</li>
+              <li className="flex-gap items-center">972 252 744</li>
+              <li className="flex-gap items-center">
+                contactos@servitec-peru.com
+              </li>
+            </ul>
+          </div>
+        </div>
+        <hr className="border-gray-800 border-1 my-8" />
+        <div className="flex flex-col md:flex-row justify-between text-sm text-gray-400">
+          <p>Copyrights © 2025 - Desarrollado por Agencia Servitec </p>
+          <div className="flex mt-4 md:mt-0">
+            <a
+              href="https://drive.google.com/file/d/1zEqBvWZsx0zsnixUNf1Ag_xrlqOfGIK4/view?pli=1"
+              className="border-b-1 border-transparent hover:border-gray-400"
+            >
+              Terminos y condiciones
+            </a>
+          </div>
+        </div>
+      </div>
     </footer>
   );
 };
