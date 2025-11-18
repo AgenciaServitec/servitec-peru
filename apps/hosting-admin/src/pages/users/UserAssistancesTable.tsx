@@ -19,7 +19,6 @@ import {
 import type { Assistance } from "../../globalTypes";
 import type { User } from "./index";
 import { round } from "lodash";
-import locale from "antd/es/date-picker/locale/es_ES";
 
 interface UserAssistancesTableProps {
   selectedUser: User | null;
