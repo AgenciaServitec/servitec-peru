@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { ContentWidth } from "@/components/ContentWidth";
-import Link from "next/link";
 
 export const BusinessBoostBanner = () => {
   return (
@@ -17,10 +16,9 @@ export const BusinessBoostBanner = () => {
               width={500}
               height={400}
               priority
-              className="w-full"
             />
           </div>
-          <div className="h-40 md:col-start-1 md:col-span-2 flex flex-col gap-4 items-start">
+          <div className="md:col-start-1 md:col-span-2 flex flex-col gap-4 items-start">
             <p>
               Identificamos tus necesidades, entendemos tus objetivos de
               comunicación y aprendemos acerca de tu negocio. Transportamos la
@@ -36,16 +34,16 @@ export const BusinessBoostBanner = () => {
               Desarrollamos su sitio web con esta tecnología para que sea
               amigable al entorno de dispositivos móviles del usuario.{" "}
             </p>
-            <Link
-              href="/contact"
+            <a
+              href="#"
               className="border-2 border-white p-2 px-2 hover:bg-green-500 hover:border-green-500"
             >
               ¡Contáctanos!
-            </Link>
+            </a>
           </div>
           <div className="group md:col-start-3 md:row-start-1 md:row-span-2">
             <iframe
-              className="w-full h-full iframe-facebook"
+              className="w-full h-full"
               src="https://ac2f6010da714e538a28349f48a5bd6d.elf.site/"
             ></iframe>
           </div>
