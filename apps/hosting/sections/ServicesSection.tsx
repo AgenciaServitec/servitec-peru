@@ -16,7 +16,7 @@ export const ServicesSection = () => {
     (service) => service.type === selectedType
   );
   return (
-    <section className="relative bg-[url(/back.jpg)]">
+    <section className="relative bg-[url(/back.jpg)] pt-10">
       <div className="absolute inset-0 bg-black/70"></div>
 
       <ContentWidth>
