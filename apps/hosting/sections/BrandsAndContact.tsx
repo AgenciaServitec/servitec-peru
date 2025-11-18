@@ -4,7 +4,7 @@ import { ContentWidth } from "@/components/ContentWidth";
 
 export const BrandsAndContact = () => {
   return (
-    <div>
+    <div className="py-20">
       <ContentWidth>
         <div className="w-full bg-yellow-300 py-2 px-11 flex flex-col sm:flex-row items-center justify-between gap-4">
           <svg
