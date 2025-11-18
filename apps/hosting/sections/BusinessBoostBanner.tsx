@@ -49,8 +49,8 @@ export const BusinessBoostBanner = () => {
 
               <div className="relative">
                 <div className="flex items-center gap-3 mb-6">
-                  <h3 className="text-2xl font-bold flex items-center gap-2">
-                    <span>¿Qué incluye tu</span>
+                  <h3 className="text-2xl font-bold">
+                    ¿Qué incluye tu{" "}
                     <span className="text-[#FFC107]">sitio web?</span>
                   </h3>
                 </div>
@@ -131,10 +131,6 @@ export const BusinessBoostBanner = () => {
                       />
                     </svg>
                   </Link>
-
-                  <p className="text-sm text-gray-400 mt-3 flex items-center gap-2">
-                    <span>Promoción especial de temporada</span>
-                  </p>
                 </div>
               </div>
             </div>
