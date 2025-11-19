@@ -8,7 +8,10 @@ import { motion } from "framer-motion";
 
 export const CarouselSection = () => {
   const slides = CarouselItems.map((item) => (
-    <div key={item.name} className="relative w-full h-full">
+    <div
+      key={item.name}
+      className="relative w-full h-full bg-[#121212] isolate"
+    >
       <div className="relative w-full h-full">
         <Image
           src={item.url}
@@ -19,7 +22,9 @@ export const CarouselSection = () => {
           priority
         />
       </div>
+
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
+
       <div className="absolute inset-0 flex flex-col items-center justify-end pb-20 sm:pb-24 md:pb-28 lg:pb-32 px-4 sm:px-6 text-center">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}

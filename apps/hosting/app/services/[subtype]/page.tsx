@@ -22,12 +22,7 @@ export default async function ServiceDetailPage(props: {
   if (!selectedSub) notFound();
 
   return (
-    <section
-      className="relative w-full min-h-screen px-6 py-20 bg-cover bg-center bg-no-repeat overflow-hidden"
-      style={{ backgroundImage: "url('/back.jpg')" }}
-    >
-      <div className="absolute inset-0 bg-black/70"></div>
-
+    <section className="relative w-full min-h-screen px-6 py-20 bg-cover bg-center bg-no-repeat overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto text-white">
         <h1 className="text-4xl font-bold mb-12 text-center drop-shadow-lg tracking-wide">
           {selectedSub.name}
