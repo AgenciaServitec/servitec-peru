@@ -64,13 +64,17 @@ export const HeroCarousel = ({
                   {current === i && (
                     <motion.div
                       key={i}
-                      initial={{ opacity: 0, x: 50 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -50 }}
-                      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                      className="absolute inset-0 w-full h-full"
+                      initial={{ opacity: 0, scale: 1.08 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 1.03 }}
+                      transition={{
+                        duration: 1.2,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      className="absolute inset-0 w-full h-full will-change-transform"
                     >
                       {slide}
+                      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/70 pointer-events-none" />
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -94,8 +98,6 @@ export const HeroCarousel = ({
         "
           />
         </Carousel>
-
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/70 pointer-events-none" />
 
         <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-3">
           {Array.from({ length: total }).map((_, i) => (
