@@ -96,7 +96,7 @@ export const AssistancesTable = ({
         return (
           <Tag color="blue">
             {hours > 0 ? `${hours}h ` : ""}
-            {minutes}m
+            {minutes} minutos
           </Tag>
         );
       },
@@ -107,7 +107,7 @@ export const AssistancesTable = ({
       width: ["6rem", "100%"] as const,
       render: (assistance: Assistance) =>
         assistance.minutesWorked != null ? (
-          <Tag color="purple">{assistance.minutesWorked}m</Tag>
+          <Tag color="purple">{assistance.minutesWorked} min</Tag>
         ) : (
           "-"
         ),
@@ -117,7 +117,11 @@ export const AssistancesTable = ({
   return (
     <Table
       loading={loading}
-      dataSource={orderBy(assistances, "createAt", "desc")}
+      dataSource={orderBy(
+        assistances,
+        (a) => dayjs(a.createAtString, "DD-MM-YYYY HH:mm").toDate().getTime(),
+        "asc"
+      )}
       columns={columns}
       scroll={{ x: "max-content" }}
     />
