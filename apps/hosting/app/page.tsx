@@ -6,7 +6,6 @@ import { CarouselSection } from "@/sections/CarouselSection";
 export default function Home() {
   return (
     <main>
-      <h2>COTENIDO PRINCIPAL</h2>
       <CarouselSection />
       <ServicesSection />
       <BusinessBoostBanner />

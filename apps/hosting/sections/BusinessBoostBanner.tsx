@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export const BusinessBoostBanner = () => {
   return (
-    <div className="py-20 relative overflow-hidden">
+    <div className="py-10 relative overflow-hidden">
       <ContentWidth>
         <div className="text-center mb-12 relative">
           <h2 className="text-4xl lg:text-5xl font-bold mb-3">
@@ -151,7 +151,6 @@ export const BusinessBoostBanner = () => {
                     src="https://ac2f6010da714e538a28349f48a5bd6d.elf.site/"
                     scrolling="no"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                 </div>
 
                 <div className="bg-gray-900/80 backdrop-blur border-t border-gray-800 p-3 text-center">

@@ -1,18 +1,18 @@
 [
   {
     "name": "asus",
-    "imageSrc": "/brands/asus.jpg"
+    "imageSrc": "/brands/logo-asus.png"
   },
   {
     "name": "sony",
-    "imageSrc": "/brands/sony2.jpg"
+    "imageSrc": "/brands/logo-sony.png"
   },
   {
     "name": "lenovo",
-    "imageSrc": "/brands/lenovo.jpg"
+    "imageSrc": "/brands/logo-lenovo.png"
   },
   {
     "name": "samsung",
-    "imageSrc": "/brands/samsung.jpg"
+    "imageSrc": "/brands/logo-samsung.png"
   }
 ]

@@ -17,6 +17,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Servitec Peru",
   description: "Reparación de proyectores",
+  icons: {
+    icon: "/icon-servitec.png",
+  },
 };
 
 export default function RootLayout({

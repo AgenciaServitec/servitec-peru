@@ -6,7 +6,7 @@ export const HeaderLayout = () => {
   return (
     <header>
       <ContentWidth>
-        <div className="flex justify-between items-center p-4">
+        <div className="flex justify-between items-center py-4">
           <Link href="/">
             <Image
               src="/logo-servitec.png"
