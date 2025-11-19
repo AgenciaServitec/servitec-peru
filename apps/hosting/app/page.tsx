@@ -1,7 +1,8 @@
 import { BusinessBoostBanner } from "@/sections/BusinessBoostBanner";
-import { BrandsAndContact } from "@/sections/BrandsAndContact";
+import { NewsLetterSection } from "@/sections/NewsLetterSection";
 import { ServicesSection } from "@/sections";
 import { CarouselSection } from "@/sections/CarouselSection";
+import { BrandsSection } from "@/sections/BrandsSection";
 
 export default function Home() {
   return (
@@ -9,7 +10,8 @@ export default function Home() {
       <CarouselSection />
       <ServicesSection />
       <BusinessBoostBanner />
-      <BrandsAndContact />
+      <NewsLetterSection />
+      <BrandsSection />
     </main>
   );
 }
