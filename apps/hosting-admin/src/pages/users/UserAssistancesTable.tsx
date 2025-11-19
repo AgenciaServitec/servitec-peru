@@ -39,10 +39,28 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
   const [result, setResult] = useState<number | null>(null);
 
   useEffect(() => {
+    const { lastSunday, lastFriday } = getLastSundayAndFriday();
+
+    setStartDate(lastSunday.startOf("day"));
+    setEndDate(lastFriday.endOf("day"));
+  }, []);
+
+  useEffect(() => {
     setTotalMinutes(null);
     setMultiplier("");
     setResult(null);
   }, [selectedUser]);
+
+  const getLastSundayAndFriday = () => {
+    const today = dayjs();
+
+    const lastFriday =
+      today.day() >= 5 ? today.day(5) : today.day(5).subtract(7, "day");
+
+    const lastSunday = lastFriday.subtract(5, "day");
+
+    return { lastSunday, lastFriday };
+  };
 
   // useEffect(() => {
   //   if (selectedUser?.payPerMinute && totalMinutes !== null) {
@@ -178,7 +196,7 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
                     <td>{a.entry?.date || "-"}</td>
                     <td>{a.outlet?.date || "-"}</td>
                     <td>{a.minutesWorked || 0}</td>
-                    <td>{a.workPlace || "-"}</td>
+                    <td>{a?.workPlace || "-"}</td>
                   </tr>
                 ))}
               </tbody>
@@ -336,7 +354,7 @@ const TableAssistances = styled.table`
 const RangeText = styled.p`
   color: #ccc;
   margin-top: 0.75rem;
-  font-size: 0.95rem;
+  font-size: 1.5rem;
   font-style: italic;
 
   @media (max-width: 480px) {

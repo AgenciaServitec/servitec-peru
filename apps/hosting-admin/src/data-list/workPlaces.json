@@ -2,35 +2,19 @@
   {
     "label": "Estudio Servitec",
     "value": "servitec-study",
-    "workPlaceRadius": 10000,
     "coordinates": {
-      "lat": -12.169414,
-      "lng": -77.020981
-    }
+      "lat":  -12.1711671,
+      "lng":  -77.0189769
+    },
+    "radius": 18
   },
   {
     "label": "Taller - Kiwi",
     "value": "kiwi-workshop",
-    "workPlaceRadius": 500,
     "coordinates": {
-      "lat": -12.1739489,
-      "lng": -77.018297
-    }
-  },{
-    "label": "Gala - House",
-    "value": "gala-house",
-    "workPlaceRadius": 500,
-    "coordinates": {
-      "lat": -12.1739489,
-      "lng": -77.018297
-    }
-  },{
-    "label": "Joaquin - House",
-    "value": "joaquin-house",
-    "workPlaceRadius": 500,
-    "coordinates": {
-      "lat": -12.1739489,
-      "lng": -77.018297
-    }
+      "lat":  -12.175111580977408,
+      "lng":  -77.01853852883488
+    },
+    "radius": 18
   }
 ]

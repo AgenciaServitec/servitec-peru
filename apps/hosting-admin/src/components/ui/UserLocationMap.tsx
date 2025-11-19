@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Circle, MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { WorkPlaces } from "../../data-list";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -14,11 +15,21 @@ L.Icon.Default.mergeOptions({
     .href,
 });
 
-export const UserLocationMap = ({ location, onValidateGeofence }) => {
+export const UserLocationMap = ({ location, onValidateGeofence, user }) => {
   if (!location) return <p>Ubicación no disponible</p>;
 
-  const geofenceCenter = { lat: -12.1711671, lng: -77.0189769 };
-  const geofenceRadius = 17;
+  const userGeofence = WorkPlaces.find(
+    (place) => place.value === user?.workPlace
+  );
+
+  if (!userGeofence) return <p>No se encontró el lugar de trabajo</p>;
+
+  const geofenceCenter = {
+    lat: userGeofence.coordinates.lat,
+    lng: userGeofence.coordinates.lng,
+  };
+
+  const geofenceRadius = userGeofence.radius;
 
   const isInsideGeofence =
     L.latLng(location.lat, location.lng).distanceTo(
