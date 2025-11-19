@@ -1,16 +1,17 @@
 import { BusinessBoostBanner } from "@/sections/BusinessBoostBanner";
-import { BrandsAndContact } from "@/sections/BrandsAndContact";
+import { NewsLetterSection } from "@/sections/NewsLetterSection";
 import { ServicesSection } from "@/sections";
 import { CarouselSection } from "@/sections/CarouselSection";
+import { BrandsSection } from "@/sections/BrandsSection";
 
 export default function Home() {
   return (
     <main>
-      <h2>COTENIDO PRINCIPAL</h2>
       <CarouselSection />
       <ServicesSection />
       <BusinessBoostBanner />
-      <BrandsAndContact />
+      <NewsLetterSection />
+      <BrandsSection />
     </main>
   );
 }
