@@ -3,9 +3,8 @@
 import { ServicesList } from "@/data-list";
 import React, { useState } from "react";
 import Image from "next/image";
-
-import Link from "next/link";
 import { ContentWidth } from "@/components/ContentWidth";
+import Link from "next/link";
 
 export const ServicesSection = () => {
   const [selectedType, setSelectedType] = useState<string | null>(
@@ -50,7 +49,7 @@ export const ServicesSection = () => {
                 className={`cursor-pointer snap-start flex-shrink-0 px-6 py-3 rounded-full font-medium transition-all duration-300 border
                 ${
                   selectedType === service.type
-                    ? "bg-yellow-600 text-white border-yellow-500 shadow-lg shadow-yellow-500/30 scale-105"
+                    ? "bg-yellow-300 text-black shadow-lg scale-105"
                     : "bg-gray-800/70 text-gray-200 border-gray-600 hover:bg-yellow-700 hover:text-white hover:border-yellow-500"
                 }
               `}
@@ -68,52 +67,64 @@ export const ServicesSection = () => {
                 {selectedService.subtype.map((sub) => (
                   <div
                     key={sub.subtype}
-                    className="group flex flex-col overflow-hidden backdrop-blur-md bg-white/10 border border-white/10 rounded-2xl shadow-lg hover:shadow-yellow-500/20 transition-all duration-500"
+                    className="flex flex-col overflow-hidden rounded-t-2xl group"
                   >
-                    <div className="relative h-64 w-full overflow-hidden rounded-t-2xl bg-black/10">
+                    <Link
+                      href={`/services/${sub.subtype}`}
+                      className="relative h-80 overflow-hidden rounded-xl bg-black block"
+                    >
                       <Image
                         src={sub.image}
                         alt={sub.name}
                         fill
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="w-full h-full"
+                        quality={100}
                         priority
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    </div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-                    <div className="text-center mt-6 px-6 flex-1">
-                      <h3 className="text-xl font-semibold text-white tracking-wide drop-shadow-sm">
+                      <div className="absolute left-2 bottom-2 z-10 opacity-0 group-hover:opacity-100 flex items-center gap-4 rounded-full bg-yellow-300 text-black px-6 py-3 transition-all duration-300">
+                        <span>Ver más</span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 640 640"
+                          className="w-5 h-5"
+                        >
+                          <path d="M566.6 342.6C579.1 330.1 579.1 309.8 566.6 297.3L406.6 137.3C394.1 124.8 373.8 124.8 361.3 137.3C348.8 149.8 348.8 170.1 361.3 182.6L466.7 288L96 288C78.3 288 64 302.3 64 320C64 337.7 78.3 352 96 352L466.7 352L361.3 457.4C348.8 469.9 348.8 490.2 361.3 502.7C373.8 515.2 394.1 515.2 406.6 502.7L566.6 342.7z" />
+                        </svg>
+                      </div>
+                    </Link>
+
+                    <div className="mt-6">
+                      <h3 className="text-3xl text-white tracking-wide drop-shadow-sm">
                         {sub.name}
                       </h3>
-                      <div className="w-50 h-[1px] bg-yellow-300 mx-auto mt-3 mb-5 rounded-full"></div>
-                    </div>
 
-                    <div className="flex items-center justify-between px-8 pb-8">
-                      <div className="flex items-center space-x-1">
-                        {[...Array(5)].map((_, i) => (
-                          <svg
-                            key={i}
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="#FFD700"
-                            viewBox="0 0 24 24"
-                            strokeWidth="1.5"
-                            stroke="#FFD700"
-                            className="w-5 h-5"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M11.48 3.499a.562.562 0 011.04 0l2.134 4.325 4.773.694a.562.562 0 01.312.959l-3.453 3.368.815 4.756a.562.562 0 01-.815.592L12 15.933l-4.286 2.26a.562.562 0 01-.815-.592l.815-4.756L4.26 9.477a.562.562 0 01.312-.959l4.773-.694 2.134-4.325z"
-                            />
-                          </svg>
-                        ))}
+                      <div className="flex mt-6">
+                        <p className="flex-1 text-gray-400">
+                          {sub.description.slice(0, 45)}...
+                        </p>
+                        <div className="flex-1 flex justify-end items-center space-x-1">
+                          {[...Array(5)].map((_, i) => (
+                            <svg
+                              key={i}
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="#FFD700"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="#FFD700"
+                              className="w-8 h-8"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M11.48 3.499a.562.562 0 011.04 0l2.134 4.325 4.773.694a.562.562 0 01.312.959l-3.453 3.368.815 4.756a.562.562 0 01-.815.592L12 15.933l-4.286 2.26a.562.562 0 01-.815-.592l.815-4.756L4.26 9.477a.562.562 0 01.312-.959l4.773-.694 2.134-4.325z"
+                              />
+                            </svg>
+                          ))}
+                        </div>
                       </div>
-                      <Link
-                        href={`/services/${sub.subtype}`}
-                        className="border border-white/80 text-white font-semibold px-5 py-2 rounded-lg text-sm transition-all hover:bg-yellow-400 hover:text-black hover:border-yellow-400"
-                      >
-                        Ver más
-                      </Link>
                     </div>
                   </div>
                 ))}
