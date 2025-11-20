@@ -11,7 +11,7 @@ export const BusinessBoostBanner = () => {
         <div className="text-center mb-12 relative">
           <h2 className="text-4xl lg:text-5xl font-bold mb-3">
             Sitios web que convierten{" "}
-            <span className="text-[#FFC107]">visitantes en clientes</span>
+            <span className="text-yellow-300">visitantes en clientes</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-3xl mx-auto flex items-center justify-center gap-2">
             <span>
@@ -32,7 +32,7 @@ export const BusinessBoostBanner = () => {
                 className="w-full"
               />
 
-              <div className="absolute top-4 right-4 bg-[#FFC107] text-black px-4 py-2 font-bold text-sm uppercase tracking-wide shadow-lg transform -rotate-2 flex items-center gap-2">
+              <div className="absolute top-4 right-4 bg-yellow-300 text-black px-4 py-2 font-bold text-sm uppercase tracking-wide shadow-lg transform -rotate-2 flex items-center gap-2">
                 <span>Diseño Premium</span>
               </div>
             </div>
@@ -51,7 +51,7 @@ export const BusinessBoostBanner = () => {
                 <div className="flex items-center gap-3 mb-6">
                   <h3 className="text-2xl font-bold">
                     ¿Qué incluye tu{" "}
-                    <span className="text-[#FFC107]">sitio web?</span>
+                    <span className="text-yellow-300">sitio web?</span>
                   </h3>
                 </div>
 
@@ -83,7 +83,7 @@ export const BusinessBoostBanner = () => {
                     },
                   ].map((benefit, index) => (
                     <div key={index} className="flex items-start gap-3 group">
-                      <div className="w-6 h-6 bg-[#FFC107] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <div className="w-6 h-6 bg-yellow-300 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                         <svg
                           className="w-3.5 h-3.5 text-black"
                           fill="none"
@@ -109,7 +109,7 @@ export const BusinessBoostBanner = () => {
                 <div className="pt-6 border-t border-gray-800">
                   <Link
                     href="/contact"
-                    className="group relative inline-flex items-center gap-2 bg-[#FFC107] text-black font-bold px-8 py-4 rounded-lg overflow-hidden transition-all hover:scale-105 hover:shadow-2xl"
+                    className="group relative inline-flex items-center gap-2 bg-yellow-300 text-black font-bold px-8 py-4 rounded-lg overflow-hidden transition-all hover:scale-105 hover:shadow-2xl"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
                     <span className="relative">
