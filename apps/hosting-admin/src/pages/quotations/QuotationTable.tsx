@@ -1,11 +1,9 @@
 import dayjs from "dayjs";
-import { userFullName } from "../../utils";
 import { Space } from "antd";
-import { IconAction } from "../../components";
+import { IconAction, Table } from "../../components";
 import { useNavigate } from "react-router-dom";
 import { faEdit, faFilePdf, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { theme } from "../../styles";
-import { TableVirtualized } from "../../components/ui/table/TableVirtualized.tsx";
 import styled from "styled-components";
 import { orderBy } from "lodash";
 
@@ -17,16 +15,20 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
   const columns = [
     {
       title: "F. Creación",
+      dataIndex: "createAt",
+      key: "createAt",
+      width: 180,
       align: "center",
-      width: ["7rem", "100%"],
-      render: (quotation) =>
+      render: (_, quotation) =>
         dayjs(quotation.createAt.toDate()).format("DD/MM/YYYY HH:mm"),
     },
     {
       title: "Cliente",
+      dataIndex: "client",
+      key: "client",
+      width: 180,
       align: "center",
-      width: ["15rem", "100%"],
-      render: (quotation) => (
+      render: (_, quotation) => (
         <Space align="center" direction="vertical">
           <strong>{quotation.client.document.number}</strong>
         </Space>
@@ -34,9 +36,11 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
     },
     {
       title: "Opciones",
+      dataIndex: "options",
+      key: "options",
       align: "center",
-      width: ["14rem", "100%"],
-      render: (quotation) => (
+      width: 120,
+      render: (_, quotation) => (
         <Space>
           <IconAction
             tooltipTitle="Editar"
@@ -62,11 +66,15 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
 
   return (
     <Container>
-      <TableVirtualized
-        dataSource={orderBy(quotations, "createAt", "desc")}
+      <Table
         columns={columns}
-        rowHeaderHeight={50}
-        rowBodyHeight={150}
+        dataSource={orderBy(quotations, "createAt", "desc")}
+        pagination={{
+          pageSize: 10,
+          showSizeChanger: true,
+          showTotal: (total) => `Total: ${total} usuarios`,
+        }}
+        scroll={{ x: 1200 }}
         loading={quotationsLoading}
       />
     </Container>
