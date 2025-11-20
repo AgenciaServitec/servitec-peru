@@ -16,9 +16,7 @@ export const ServicesSection = () => {
     (service) => service.type === selectedType
   );
   return (
-    <section className="relative bg-[url(/back.jpg)] pt-10">
-      <div className="absolute inset-0 bg-black/70"></div>
-
+    <section className="py-20">
       <ContentWidth>
         <div className="relative z-10 w-full">
           <div className="text-center mb-12">

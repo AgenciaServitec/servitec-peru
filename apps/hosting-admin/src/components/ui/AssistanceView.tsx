@@ -23,7 +23,12 @@ import * as faceapi from "face-api.js";
 interface AssistanceViewProps {
   dni: string;
   setDni: (dni: string) => void;
-  user: { id: string; firstName: string; faceDescriptor: Float32Array } | null;
+  user: {
+    id: string;
+    firstName: string;
+    faceDescriptor: Float32Array;
+    workPlace: string;
+  } | null;
   buttons: { entry: boolean; outlet: boolean };
   feedback: { show: boolean; type: "entry" | "outlet" | "" };
   location: { lat: number; lng: number } | null;
@@ -35,6 +40,7 @@ interface AssistanceViewProps {
   saveAssistance: (type: "entry" | "outlet") => void;
   goTo: (path: string) => void;
   setIsGeofenceValid: (valid: boolean) => void;
+  isGeofenceValid;
 }
 
 export const AssistanceView: React.FC<AssistanceViewProps> = ({
@@ -52,6 +58,7 @@ export const AssistanceView: React.FC<AssistanceViewProps> = ({
   saveAssistance,
   goTo,
   setIsGeofenceValid,
+  isGeofenceValid,
 }) => {
   const exists = !!user;
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -138,6 +145,9 @@ export const AssistanceView: React.FC<AssistanceViewProps> = ({
   };
 
   const handleSaveAssistance = async (type: "entry" | "outlet") => {
+    if (!isGeofenceValid)
+      return showToast("Estas fuera de tu lugar de trabajo.", "error");
+
     showToast("Capturando rostro...");
     const currentDescriptor = await captureFace();
     if (!currentDescriptor)
@@ -299,7 +309,8 @@ export const AssistanceView: React.FC<AssistanceViewProps> = ({
                   <div className="right-panel">
                     <UserLocationMap
                       location={location}
-                      //onValidateGeofence={setIsGeofenceValid}
+                      user={user}
+                      onValidateGeofence={setIsGeofenceValid}
                     />
                   </div>
                 </div>

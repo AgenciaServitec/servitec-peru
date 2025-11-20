@@ -8,7 +8,10 @@ import { motion } from "framer-motion";
 
 export const CarouselSection = () => {
   const slides = CarouselItems.map((item) => (
-    <div key={item.name} className="relative w-full h-full">
+    <div
+      key={item.name}
+      className="relative w-full h-full bg-[#121212] isolate"
+    >
       <div className="relative w-full h-full">
         <Image
           src={item.url}
