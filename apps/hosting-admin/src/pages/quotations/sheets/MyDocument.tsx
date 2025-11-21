@@ -2,25 +2,26 @@ import {
   Document,
   Image,
   Page,
-  StyleSheet,
-  Text,
-  View,
-  Svg,
   Path,
   Rect,
+  StyleSheet,
+  Svg,
+  Text,
+  View,
 } from "@react-pdf/renderer";
 import dayjs from "dayjs";
+import Html from "react-pdf-html";
 
 // Estilos para el PDF
 const styles = StyleSheet.create({
   page: {
     position: "relative",
-    paddingTop: 180, // Espacio para decoración superior y header
+    paddingTop: 60, // Espacio para decoración superior y header
     paddingBottom: 100, // Espacio para decoración inferior
     paddingHorizontal: 50,
     fontSize: 10,
     fontFamily: "Helvetica",
-    color: "#2c2e35",
+    color: "#000000",
     backgroundColor: "#ffffff",
   },
 
@@ -34,25 +35,17 @@ const styles = StyleSheet.create({
   },
   bottomDecoration: {
     position: "absolute",
-    bottom: 0,
-    right: 0,
+    bottom: -30,
+    right: -49,
     width: "100%",
-    height: -100,
+    height: 100,
   },
 
   // Header (solo primera página)
-  headerSection: {
-    position: "absolute",
-    top: 40,
-    left: 50,
-    right: 50,
-    zIndex: 10,
-  },
+  headerSection: {},
   headerTop: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    marginBottom: 30,
+    justifyContent: "flex-end",
   },
   logo: {
     width: 140,
@@ -60,17 +53,11 @@ const styles = StyleSheet.create({
     objectFit: "contain",
   },
   companyInfo: {
-    alignItems: "flex-end",
-  },
-  companyName: {
-    fontSize: 13,
-    fontWeight: "bold",
-    color: "#2c2e35",
-    marginBottom: 3,
+    alignItems: "center",
   },
   companyDetail: {
     fontSize: 8,
-    color: "#6c757d",
+    color: "#000000",
     marginBottom: 2,
   },
 
@@ -86,14 +73,14 @@ const styles = StyleSheet.create({
   invoiceLabel: {
     fontSize: 36,
     fontWeight: "bold",
-    color: "#2c2e35",
+    color: "#000000",
     marginRight: 15,
   },
   invoiceNumber: {
     fontSize: 28,
     fontWeight: "bold",
-    color: "#2c2e35",
-    backgroundColor: "#fdb913",
+    color: "#000000",
+    backgroundColor: "#fdef00",
     paddingVertical: 8,
     paddingHorizontal: 20,
     borderRadius: 8,
@@ -109,12 +96,12 @@ const styles = StyleSheet.create({
   metaLabel: {
     fontSize: 10,
     fontWeight: "bold",
-    color: "#2c2e35",
+    color: "#000000",
     marginRight: 8,
   },
   metaValue: {
     fontSize: 10,
-    color: "#6c757d",
+    color: "#000000",
   },
 
   // Secciones de contenido
@@ -124,7 +111,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 11,
     fontWeight: "bold",
-    color: "#2c2e35",
+    color: "#000000",
     marginBottom: 12,
     textTransform: "uppercase",
     letterSpacing: 0.5,
@@ -132,29 +119,37 @@ const styles = StyleSheet.create({
 
   // Info grid
   infoGrid: {
-    flexDirection: "row",
+    flexDirection: "row", // 👈 IMPORTANTE: row para crear columnas
     flexWrap: "wrap",
-    gap: 8,
+    gap: 6,
+  },
+  infoColumn: {
+    width: "48%", // 👈 Cada columna ocupa 48% (2 columnas)
+    flexDirection: "column", // 👈 Dentro de cada columna, stack vertical
+    gap: 6,
+  },
+  infoColumn2: {
+    width: "32%", // 👈 Cada columna ocupa 48% (2 columnas)
+    flexDirection: "column", // 👈 Dentro de cada columna, stack vertical
+    gap: 6,
   },
   infoItem: {
     flexDirection: "row",
-    width: "48%",
     fontSize: 9,
-    marginBottom: 6,
+    marginBottom: 4,
   },
   infoItemFull: {
     flexDirection: "row",
-    width: "100%",
+    width: "100%", // 👈 Ocupa las 2 columnas
     fontSize: 9,
-    marginBottom: 6,
   },
   label: {
     fontWeight: "bold",
-    color: "#2c2e35",
+    color: "#000000",
     width: 100,
   },
   value: {
-    color: "#6c757d",
+    color: "#494e51",
     flex: 1,
   },
 
@@ -169,15 +164,14 @@ const styles = StyleSheet.create({
   techTitle: {
     fontSize: 10,
     fontWeight: "bold",
-    color: "#2c2e35",
+    color: "#000000",
     marginBottom: 5,
   },
   techText: {
-    fontSize: 9,
-    color: "#6c757d",
+    fontSize: 10,
+    color: "#494e51",
     lineHeight: 1.6,
     whiteSpace: "pre-wrap",
-    textAlign: "justify",
   },
 
   // Tabla
@@ -194,7 +188,7 @@ const styles = StyleSheet.create({
   tableHeaderText: {
     fontSize: 9,
     fontWeight: "bold",
-    color: "#2c2e35",
+    color: "#000000",
     textTransform: "uppercase",
   },
   tableRow: {
@@ -206,24 +200,24 @@ const styles = StyleSheet.create({
   tableCol1: {
     width: "50%",
     fontSize: 9,
-    color: "#2c2e35",
+    color: "#000000",
   },
   tableCol2: {
     width: "15%",
     fontSize: 9,
-    color: "#2c2e35",
+    color: "#000000",
     textAlign: "center",
   },
   tableCol3: {
     width: "17.5%",
     fontSize: 9,
-    color: "#2c2e35",
+    color: "#000000",
     textAlign: "right",
   },
   tableCol4: {
     width: "17.5%",
     fontSize: 9,
-    color: "#2c2e35",
+    color: "#000000",
     textAlign: "right",
     fontWeight: "bold",
   },
@@ -248,7 +242,7 @@ const styles = StyleSheet.create({
   totalValue: {
     fontSize: 10,
     fontWeight: "bold",
-    color: "#2c2e35",
+    color: "#000000",
   },
   totalFinalRow: {
     flexDirection: "row",
@@ -256,7 +250,7 @@ const styles = StyleSheet.create({
     width: 220,
     paddingVertical: 10,
     paddingHorizontal: 12,
-    backgroundColor: "#2c2e35",
+    backgroundColor: "#000000",
     borderRadius: 4,
   },
   totalFinalLabel: {
@@ -281,7 +275,7 @@ const styles = StyleSheet.create({
   termsTitle: {
     fontSize: 10,
     fontWeight: "bold",
-    color: "#2c2e35",
+    color: "#000000",
     marginBottom: 8,
   },
   termsText: {
@@ -300,7 +294,7 @@ const styles = StyleSheet.create({
   footerTitle: {
     fontSize: 11,
     fontWeight: "bold",
-    color: "#2c2e35",
+    color: "#000000",
     marginBottom: 8,
   },
   footerText: {
@@ -396,31 +390,20 @@ export const MyDocument = ({ quotation }: MyDocumentProps) => {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        {/* Decoración superior - formas geométricas */}
         <View style={styles.topDecoration} fixed>
           <Svg viewBox="0 0 595 200" style={{ width: "100%", height: "100%" }}>
-            {/* Triángulo grande amarillo claro */}
             <Path d="M 0 0 L 280 0 L 0 200 Z" fill="#feca57" opacity="0.9" />
-
-            {/* Triángulo mediano amarillo medio */}
             <Path d="M 0 0 L 200 0 L 0 140 Z" fill="#fdb913" opacity="0.95" />
-
-            {/* Triángulo pequeño amarillo oscuro */}
             <Path d="M 0 0 L 120 0 L 0 85 Z" fill="#f39c12" />
           </Svg>
         </View>
 
-        {/* Header - Solo en primera página */}
         <View style={styles.headerSection}>
           <View style={styles.headerTop}>
-            <Image
-              style={styles.logo}
-              src="https://www.servitecperu.com/web/assets/images/logo-servitec2.png"
-            />
             <View style={styles.companyInfo}>
-              <Text style={styles.companyName}>SERVITEC HARDWARE</Text>
+              <Image style={styles.logo} src="/logo-servitec.png" />
               <Text style={styles.companyDetail}>
-                Defensores del Morro Cdra 13, Lima
+                Néstor Bermúdez 113, Chorrillos, Lima, Perú
               </Text>
               <Text style={styles.companyDetail}>Tel: 972252744</Text>
             </View>
@@ -433,21 +416,6 @@ export const MyDocument = ({ quotation }: MyDocumentProps) => {
                 #{dayjs(data.createAt.toDate()).format("DDMMYYYYHHmm")}
               </Text>
             </View>
-
-            <View style={styles.metaInfo}>
-              <View style={styles.metaItem}>
-                <Text style={styles.metaLabel}>Fecha:</Text>
-                <Text style={styles.metaValue}>
-                  {dayjs(data.createAt.toDate()).format("DD/MM/YYYY HH:mm")}
-                </Text>
-              </View>
-              <View style={styles.metaItem}>
-                <Text style={styles.metaLabel}>N° de Contrato:</Text>
-                <Text style={styles.metaValue}>
-                  {dayjs(data.createAt.toDate()).format("DDMMYYYYHHmm")}
-                </Text>
-              </View>
-            </View>
           </View>
         </View>
 
@@ -457,30 +425,50 @@ export const MyDocument = ({ quotation }: MyDocumentProps) => {
         <View style={styles.contentSection}>
           <Text style={styles.sectionTitle}>Datos del Cliente</Text>
           <View style={styles.infoGrid}>
-            <View style={styles.infoItem}>
-              <Text style={styles.label}>Nombre:</Text>
-              <Text style={styles.value}>
-                {data?.client?.firstName} {data?.client?.paternalSurname}{" "}
-                {data?.client?.maternalSurname}
-              </Text>
+            {/* Columna 1 */}
+            <View style={styles.infoColumn}>
+              <View style={styles.infoItem}>
+                <Text style={styles.label}>Fecha:</Text>
+                <Text style={styles.value}>
+                  {dayjs(data.createAt.toDate()).format("DD/MM/YYYY HH:mm")}
+                </Text>
+              </View>
+              <View style={styles.infoItem}>
+                <Text style={styles.label}>N° de Contrato:</Text>
+                <Text style={styles.value}>
+                  {dayjs(data.createAt.toDate()).format("DDMMYYYYHHmm")}
+                </Text>
+              </View>
+              <View style={styles.infoItem}>
+                <Text style={styles.label}>Teléfono:</Text>
+                <Text style={styles.value}>
+                  {data?.client?.phone?.prefix} {data?.client?.phone?.number}
+                </Text>
+              </View>
             </View>
-            <View style={styles.infoItem}>
-              <Text style={styles.label}>Documento:</Text>
-              <Text style={styles.value}>
-                {data?.client?.document?.type} -{" "}
-                {data?.client?.document?.number}
-              </Text>
+
+            <View style={styles.infoColumn}>
+              <View style={styles.infoItem}>
+                <Text style={styles.label}>Apellidos y Nombres:</Text>
+                <Text style={styles.value}>
+                  {data?.client?.firstName} {data?.client?.paternalSurname}{" "}
+                  {data?.client?.maternalSurname}
+                </Text>
+              </View>
+              <View style={styles.infoItem}>
+                <Text style={styles.label}>Documento:</Text>
+                <Text style={styles.value}>
+                  {data?.client?.document?.type} -{" "}
+                  {data?.client?.document?.number}
+                </Text>
+              </View>
+              <View style={styles.infoItem}>
+                <Text style={styles.label}>Correo:</Text>
+                <Text style={styles.value}>{data?.client?.email}</Text>
+              </View>
             </View>
-            <View style={styles.infoItem}>
-              <Text style={styles.label}>Teléfono:</Text>
-              <Text style={styles.value}>
-                {data?.client?.phone?.prefix} {data?.client?.phone?.number}
-              </Text>
-            </View>
-            <View style={styles.infoItem}>
-              <Text style={styles.label}>Correo:</Text>
-              <Text style={styles.value}>{data?.client?.email}</Text>
-            </View>
+
+            {/* Dirección - Ancho completo */}
             <View style={styles.infoItemFull}>
               <Text style={styles.label}>Dirección:</Text>
               <Text style={styles.value}>{data?.client?.address}</Text>
@@ -492,58 +480,66 @@ export const MyDocument = ({ quotation }: MyDocumentProps) => {
         <View style={styles.contentSection}>
           <Text style={styles.sectionTitle}>Datos del Dispositivo</Text>
           <View style={styles.infoGrid}>
-            <View style={styles.infoItem}>
-              <Text style={styles.label}>Tipo:</Text>
-              <Text style={styles.value}>
-                {getDeviceType(data?.device?.type)}
-              </Text>
-            </View>
-            <View style={styles.infoItem}>
-              <Text style={styles.label}>Marca:</Text>
-              <Text style={styles.value}>{data?.device?.brand}</Text>
-            </View>
-            <View style={styles.infoItem}>
-              <Text style={styles.label}>Modelo:</Text>
-              <Text style={styles.value}>{data?.device?.model}</Text>
-            </View>
-            <View style={styles.infoItem}>
-              <Text style={styles.label}>Serie:</Text>
-              <Text style={styles.value}>{data?.device?.serialNumber}</Text>
-            </View>
-            <View style={styles.infoItem}>
-              <Text style={styles.label}>Color:</Text>
-              <Text style={styles.value}>{data?.device?.color}</Text>
-            </View>
-            <View style={styles.infoItem}>
-              <Text style={styles.label}>Condición:</Text>
-              <Text style={styles.value}>{data?.device?.condition}</Text>
-            </View>
-            {data?.device?.ram && (
+            <View style={styles.infoColumn2}>
               <View style={styles.infoItem}>
-                <Text style={styles.label}>RAM:</Text>
-                <Text style={styles.value}>{data?.device?.ram}</Text>
-              </View>
-            )}
-            {data?.device?.processor && (
-              <View style={styles.infoItem}>
-                <Text style={styles.label}>Procesador:</Text>
-                <Text style={styles.value}>{data?.device?.processor}</Text>
-              </View>
-            )}
-            {data?.device?.operationSystem && (
-              <View style={styles.infoItem}>
-                <Text style={styles.label}>Sistema Op.:</Text>
+                <Text style={styles.label}>Tipo:</Text>
                 <Text style={styles.value}>
-                  {data?.device?.operationSystem}
+                  {getDeviceType(data?.device?.type)}
                 </Text>
               </View>
-            )}
-            {data?.device?.accessories && (
-              <View style={styles.infoItemFull}>
-                <Text style={styles.label}>Accesorios:</Text>
-                <Text style={styles.value}>{data?.device?.accessories}</Text>
+              <View style={styles.infoItem}>
+                <Text style={styles.label}>Color:</Text>
+                <Text style={styles.value}>{data?.device?.color}</Text>
               </View>
-            )}
+              {data?.device?.ram && (
+                <View style={styles.infoItem}>
+                  <Text style={styles.label}>RAM:</Text>
+                  <Text style={styles.value}>{data?.device?.ram}</Text>
+                </View>
+              )}
+              <View style={styles.infoItem}>
+                <Text style={styles.label}>Marca:</Text>
+                <Text style={styles.value}>{data?.device?.brand}</Text>
+              </View>
+            </View>
+
+            <View style={styles.infoColumn2}>
+              <View style={styles.infoItem}>
+                <Text style={styles.label}>Condición:</Text>
+                <Text style={styles.value}>{data?.device?.condition}</Text>
+              </View>
+              {data?.device?.processor && (
+                <View style={styles.infoItem}>
+                  <Text style={styles.label}>Procesador:</Text>
+                  <Text style={styles.value}>{data?.device?.processor}</Text>
+                </View>
+              )}
+              <View style={styles.infoItem}>
+                <Text style={styles.label}>Modelo:</Text>
+                <Text style={styles.value}>{data?.device?.model}</Text>
+              </View>
+            </View>
+
+            <View style={styles.infoColumn2}>
+              <View style={styles.infoItem}>
+                <Text style={styles.label}>Serie:</Text>
+                <Text style={styles.value}>{data?.device?.serialNumber}</Text>
+              </View>
+              {data?.device?.operationSystem && (
+                <View style={styles.infoItem}>
+                  <Text style={styles.label}>S.O:</Text>
+                  <Text style={styles.value}>
+                    {data?.device?.operationSystem}
+                  </Text>
+                </View>
+              )}
+              {data?.device?.accessories && (
+                <View style={styles.infoItemFull}>
+                  <Text style={styles.label}>Accesorios:</Text>
+                  <Text style={styles.value}>{data?.device?.accessories}</Text>
+                </View>
+              )}
+            </View>
           </View>
         </View>
 
@@ -553,17 +549,105 @@ export const MyDocument = ({ quotation }: MyDocumentProps) => {
           <View style={styles.technicalInfo}>
             <View style={styles.techItem}>
               <Text style={styles.techTitle}>Problema que presenta:</Text>
-              <Text style={styles.techText}>{data?.reportedIssue}</Text>
+              <Html
+                resetStyles
+                stylesheet={{
+                  ul: {
+                    marginLeft: 14, // sangría general de la lista
+                    paddingLeft: 0,
+                  },
+                  ol: {
+                    marginLeft: 14,
+                    paddingLeft: 0,
+                  },
+                  li: {
+                    fontSize: 10,
+                    color: "#494e51",
+                    lineHeight: 1.5,
+                    marginBottom: 3,
+                    paddingLeft: 10, // un pelín más de espacio interno
+                  },
+                  p: {
+                    fontSize: 10,
+                    color: "#494e51",
+                    lineHeight: 1.5,
+                  },
+                  span: {
+                    fontSize: 10,
+                    color: "#494e51",
+                  },
+                }}
+              >
+                {data?.reportedIssue}
+              </Html>
             </View>
             <View style={styles.techItem}>
               <Text style={styles.techTitle}>Análisis:</Text>
-              <Text style={styles.techText}>{data?.analysis}</Text>
+              <Html
+                resetStyles
+                stylesheet={{
+                  ul: {
+                    marginLeft: 14, // sangría general de la lista
+                    paddingLeft: 0,
+                  },
+                  ol: {
+                    marginLeft: 14,
+                    paddingLeft: 0,
+                  },
+                  li: {
+                    fontSize: 10,
+                    color: "#494e51",
+                    lineHeight: 1.5,
+                    marginBottom: 3,
+                    paddingLeft: 10, // un pelín más de espacio interno
+                  },
+                  p: {
+                    fontSize: 10,
+                    color: "#494e51",
+                    lineHeight: 1.5,
+                  },
+                  span: {
+                    fontSize: 10,
+                    color: "#494e51",
+                  },
+                }}
+              >
+                {data?.analysis}
+              </Html>
             </View>
             <View style={styles.techItem}>
               <Text style={styles.techTitle}>Solución y Recomendaciones:</Text>
-              <Text style={styles.techText}>
+              <Html
+                resetStyles
+                stylesheet={{
+                  ul: {
+                    marginLeft: 14, // sangría general de la lista
+                    paddingLeft: 0,
+                  },
+                  ol: {
+                    marginLeft: 14,
+                    paddingLeft: 0,
+                  },
+                  li: {
+                    fontSize: 10,
+                    color: "#494e51",
+                    lineHeight: 1.5,
+                    marginBottom: 3,
+                    paddingLeft: 10, // un pelín más de espacio interno
+                  },
+                  p: {
+                    fontSize: 10,
+                    color: "#494e51",
+                    lineHeight: 1.5,
+                  },
+                  span: {
+                    fontSize: 10,
+                    color: "#494e51",
+                  },
+                }}
+              >
                 {data?.solutionAndRecommendations}
-              </Text>
+              </Html>
             </View>
           </View>
         </View>
@@ -666,12 +750,12 @@ export const MyDocument = ({ quotation }: MyDocumentProps) => {
 
         <View style={styles.bottomDecoration} fixed>
           <Svg viewBox="0 0 595 120" style={{ width: "100%", height: "100%" }}>
-            <Rect x="465" y="20" width="130" height="100" fill="#fdb913" />
+            <Rect x="465" y="20" width="130" height="80" fill="#fdb913" />
             <Rect
               x="485"
               y="0"
               width="110"
-              height="120"
+              height="110"
               fill="none"
               stroke="#feca57"
               strokeWidth="6"
