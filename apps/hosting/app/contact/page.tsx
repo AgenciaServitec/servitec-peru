@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { FormContact } from "@/components/FormContact";
 import { ContactDetails } from "@/sections/ContactDetails";
+import { MapsSection } from "@/components/MapsSection";
 
 export default function Contact() {
   return (
@@ -25,6 +26,7 @@ export default function Contact() {
           </div>
         </div>
       </div>
+      <MapsSection />
     </div>
   );
 }
