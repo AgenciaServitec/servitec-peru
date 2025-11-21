@@ -97,12 +97,14 @@ export const ServicesSection = () => {
                     </Link>
 
                     <div className="mt-6">
-                      <h3 className="text-3xl text-white tracking-wide drop-shadow-sm">
-                        {sub.name}
-                      </h3>
+                      <Link href={`/services/${sub.subtype}`}>
+                        <h3 className="text-3xl text-white tracking-wide drop-shadow-sm hover:underline">
+                          {sub.name}
+                        </h3>
+                      </Link>
 
                       <div className="flex mt-6">
-                        <p className="flex-1 text-gray-400">
+                        <p className="text-sm flex-1 text-gray-400">
                           {sub.description.slice(0, 45)}...
                         </p>
                         <div className="flex-1 flex justify-end items-center space-x-1">
@@ -114,7 +116,7 @@ export const ServicesSection = () => {
                               viewBox="0 0 24 24"
                               strokeWidth="1.5"
                               stroke="#FFD700"
-                              className="w-8 h-8"
+                              className="w-6 h-6 lg:w-8 lg:h-8"
                             >
                               <path
                                 strokeLinecap="round"
