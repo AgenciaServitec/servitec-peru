@@ -11,9 +11,9 @@ import {
   Form,
   Input,
   QuotationItemsTable,
+  RichTextEditor,
   Row,
   Select,
-  TextArea,
   Title,
 } from "../../../components";
 import {
@@ -49,7 +49,13 @@ export function QuotationIntegration() {
     })();
   }, []);
 
-  console.log(quotation);
+  const forceBullets = (html: unknown) => {
+    if (typeof html !== "string") return html ?? "";
+    return html
+      .replace(/<ol[^>]*>/g, "<ul>")
+      .replace(/<\/ol>/g, "</ul>")
+      .replace(/<li[^>]*>/g, "<li>");
+  };
 
   const mapQuotation = (formData) => ({
     ...quotation,
@@ -80,10 +86,12 @@ export function QuotationIntegration() {
       processor: formData.device.processor,
       operationSystem: formData.device.operationSystem,
     },
-    reportedIssue: formData.reportedIssue,
-    analysis: formData.analysis,
-    solutionAndRecommendations: formData.solutionAndRecommendations,
-    quotationDetails: formData.quotationDetails,
+    reportedIssue: forceBullets(formData.reportedIssue),
+    analysis: forceBullets(formData.analysis),
+    solutionAndRecommendations: forceBullets(
+      formData.solutionAndRecommendations
+    ),
+    quotationDetails: forceBullets(formData.quotationDetails),
   });
 
   const onSubmit = async (formData) => {
@@ -529,12 +537,12 @@ const Quotation = ({
                 name="reportedIssue"
                 control={control}
                 render={({ field: { onChange, value, name } }) => (
-                  <TextArea
+                  <RichTextEditor
                     label="Problema que presenta"
                     name={name}
                     value={value}
                     onChange={onChange}
-                    rows={8}
+                    height="200px"
                     error={error(name)}
                     required={required(name)}
                   />
@@ -546,12 +554,12 @@ const Quotation = ({
                 name="analysis"
                 control={control}
                 render={({ field: { onChange, value, name } }) => (
-                  <TextArea
+                  <RichTextEditor
                     label="Análisis"
                     name={name}
                     value={value}
                     onChange={onChange}
-                    rows={8}
+                    height="200px"
                     error={error(name)}
                     required={required(name)}
                   />
@@ -563,12 +571,12 @@ const Quotation = ({
                 name="solutionAndRecommendations"
                 control={control}
                 render={({ field: { onChange, value, name } }) => (
-                  <TextArea
+                  <RichTextEditor
                     label="Soluciones y recomendaciones"
                     name={name}
                     value={value}
                     onChange={onChange}
-                    rows={8}
+                    height="200px"
                     error={error(name)}
                     required={required(name)}
                   />

@@ -40,6 +40,8 @@
     "react-hook-form": "^7.65.0",
     "react-leaflet": "^5.0.0",
     "react-otp-input": "^3.1.1",
+    "react-pdf-html": "^2.1.4",
+    "react-quill-new": "^3.6.0",
     "react-router-dom": "^7.9.4",
     "react-virtualized": "^9.22.6",
     "styled-components": "^6.1.19",
