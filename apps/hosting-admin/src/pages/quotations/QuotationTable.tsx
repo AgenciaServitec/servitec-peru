@@ -82,11 +82,11 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
 };
 
 const Container = styled.div`
-  width: 100%;
-  .contact {
-    &__item {
-      display: flex;
-      align-items: center;
+    width: 100%;
+    .contact {
+        &__item {
+            display: flex;
+            align-items: center;
+        }
     }
-  }
 `;
