@@ -11,6 +11,7 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { theme } from "../../styles";
+import { useAuthentication } from "../../providers";
 
 type DrawerLayoutProps = {
   isVisibleDrawer: boolean;
@@ -23,6 +24,8 @@ export const DrawerLayout = ({
   onSetIsVisibleDrawer,
   onNavigateTo,
 }: DrawerLayoutProps) => {
+  const { authUser } = useAuthentication();
+
   const onClickMenu = (pathname: string) => {
     onSetIsVisibleDrawer(false);
     onNavigateTo(pathname);
@@ -55,7 +58,12 @@ export const DrawerLayout = ({
     //     },
     //   ],
     // },
-    {
+    [
+      "XfQXaMRZD7Gro2kPaIvU",
+      "fRiTn5k6TP5TJvpXZeLS",
+      "woc2g3M8EO4RYtXFap6n",
+      "UXrpXFxJhVi5Tl1MTMu2",
+    ].includes(authUser?.id) && {
       label: "Administración",
       key: "manager",
       icon: <FontAwesomeIcon icon={faGears} size="lg" />,
