@@ -40,10 +40,24 @@ export function AssistancesIntegration() {
     assistancesRef.where("isDeleted", "==", false)
   );
 
-  const applyFilters = () => {
-    if (!assistances) return;
+  const assistancesView = (assistances || []).filter((assistance) => {
+    if (
+      [
+        "XfQXaMRZD7Gro2kPaIvU",
+        "fRiTn5k6TP5TJvpXZeLS",
+        "woc2g3M8EO4RYtXFap6n",
+        "UXrpXFxJhVi5Tl1MTMu2",
+      ].includes(authUser?.id)
+    )
+      return true;
+    if (assistance.userId === authUser?.id) return assistance;
+    return false;
+  });
 
-    const result = assistances.filter((a) => {
+  const applyFilters = () => {
+    if (!assistancesView) return;
+
+    const result = assistancesView.filter((a) => {
       const date = a.createAt.toDate();
       const fullName = a.user.firstName.toLowerCase();
 

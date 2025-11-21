@@ -62,13 +62,13 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
     return { lastSunday, lastFriday };
   };
 
-  // useEffect(() => {
-  //   if (selectedUser?.payPerMinute && totalMinutes !== null) {
-  //     const autoResult = round(totalMinutes * selectedUser.payPerMinute, 2);
-  //     setMultiplier(selectedUser.payPerMinute);
-  //     setResult(autoResult);
-  //   }
-  // }, [selectedUser?.payPerMinute, totalMinutes]);
+  useEffect(() => {
+    if (selectedUser?.payPerMinute && totalMinutes !== null) {
+      const autoResult = round(totalMinutes * selectedUser.payPerMinute, 2);
+      setMultiplier(selectedUser.payPerMinute);
+      setResult(autoResult);
+    }
+  }, [selectedUser?.payPerMinute, totalMinutes]);
 
   const filteredAssistances = useMemo(() => {
     if (!startDate && !endDate) return userAssistances;
@@ -224,24 +224,24 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
 
                 <MultiplierContainer>
                   <FontAwesomeIcon icon={faCoins} color="#00ff88" />
-                  {/*{selectedUser?.payPerMinute ? (*/}
-                  {/*  <>*/}
-                  {/*    <label>*/}
-                  {/*      Tarifa: S/*/}
-                  {/*      {selectedUser.payPerMinute} por minuto*/}
-                  {/*    </label>*/}
-                  {/*  </>*/}
-                  {/*) : (*/}
-                  <>
-                    <label>Multiplicar por:</label>
-                    <StyledInput
-                      type="number"
-                      step="any"
-                      value={multiplier}
-                      onChange={(e) => handleMultiplierChange(e.target.value)}
-                    />
-                  </>
-                  {/*)}*/}
+                  {selectedUser?.payPerMinute ? (
+                    <>
+                      <label>
+                        Tarifa: S/
+                        {selectedUser.payPerMinute} por minuto
+                      </label>
+                    </>
+                  ) : (
+                    <>
+                      <label>Multiplicar por:</label>
+                      <StyledInput
+                        type="number"
+                        step="any"
+                        value={multiplier}
+                        onChange={(e) => handleMultiplierChange(e.target.value)}
+                      />
+                    </>
+                  )}
                 </MultiplierContainer>
 
                 {result !== null && (
