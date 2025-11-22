@@ -75,7 +75,7 @@ const Container = styled.div<
   ${({ error, required, disabled, value, animation, hidden }) => css`
     position: relative;
     width: inherit;
-    border-radius: ${theme.border_radius.xx_small};
+    border-radius: 9px;
     background: ${disabled
       ? lighten(0.02, theme.colors.secondary)
       : theme.colors.secondary};
@@ -200,11 +200,11 @@ const Container = styled.div<
         background: ${lighten(0.05, theme.colors.secondary)};
         color: ${theme.colors.font2};
       }
-      
-      .ant-input-suffix{
-          svg{
-              fill: ${theme.colors.font2};
-          }
+
+      .ant-input-suffix {
+        svg {
+          fill: ${theme.colors.font2};
+        }
       }
     }
   `}

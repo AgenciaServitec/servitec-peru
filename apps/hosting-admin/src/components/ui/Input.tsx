@@ -29,7 +29,7 @@ export const Input = ({
 
   return (
     <Container
-      value={Boolean(value)}
+      value={value}
       required={required}
       hidden={hidden}
       error={error}
