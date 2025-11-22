@@ -11,8 +11,6 @@ export const QuotationSheets = () => {
   const [quotation = {} || null, quotationLoading, quotationError] =
     useDocumentData(firestore.collection("quotations").doc(quotationId));
 
-  console.log(quotation);
-
   if (quotationLoading) return <Spinner height="80vh" />;
 
   return (
