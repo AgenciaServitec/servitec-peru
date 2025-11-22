@@ -1,5 +1,5 @@
 [
-  { "value": "smartphone", "label": "Smartphone / Celular" },
+  { "value": "cellPhone", "label": "Celular" },
   { "value": "tablet", "label": "Tablet" },
   { "value": "laptop", "label": "Laptop" },
   { "value": "desktop", "label": "PC de Escritorio" },
