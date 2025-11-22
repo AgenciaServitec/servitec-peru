@@ -23,7 +23,7 @@ import {
   updateQuotation,
 } from "../../../firebase/collections";
 import { Button } from "antd";
-import { DeviceBrands, deviceTypes, DocumentTypes } from "../../../data-list";
+import { deviceTypes, DocumentTypes } from "../../../data-list";
 
 export function QuotationIntegration() {
   const { authUser } = useAuthentication();
@@ -57,6 +57,26 @@ export function QuotationIntegration() {
       .replace(/<li[^>]*>/g, "<li>");
   };
 
+  const cleanEmptyHtml = (html: unknown) => {
+    if (typeof html !== "string") return "";
+
+    const cleaned = html
+      .replace(/<p><br><\/p>/g, "")
+      .replace(/<p>\s*<\/p>/g, "")
+      .replace(/^\s+|\s+$/g, "");
+
+    if (cleaned === "" || cleaned === "<p></p>") {
+      return "";
+    }
+
+    return html;
+  };
+
+  const processRichText = (html: unknown) => {
+    const cleaned = cleanEmptyHtml(html);
+    return cleaned ? forceBullets(cleaned) : "";
+  };
+
   const mapQuotation = (formData) => ({
     ...quotation,
     client: {
@@ -86,12 +106,15 @@ export function QuotationIntegration() {
       processor: formData.device.processor,
       operationSystem: formData.device.operationSystem,
     },
-    reportedIssue: forceBullets(formData.reportedIssue),
-    analysis: forceBullets(formData.analysis),
-    solutionAndRecommendations: forceBullets(
+    reportedIssue: processRichText(formData.reportedIssue),
+    analysis: processRichText(formData.analysis),
+    solutionAndRecommendations: processRichText(
       formData.solutionAndRecommendations
     ),
-    quotationDetails: forceBullets(formData.quotationDetails),
+    quotationDetails: formData.quotationDetails.map((item) => ({
+      ...item,
+      description: processRichText(item.description),
+    })),
   });
 
   const onSubmit = async (formData) => {
@@ -101,9 +124,9 @@ export function QuotationIntegration() {
       isNew
         ? await addQuotation(assignCreateProps(mapQuotation(formData)))
         : updateQuotation(
-          quotationId,
-          assignUpdateProps(mapQuotation(formData))
-        );
+            quotationId,
+            assignUpdateProps(mapQuotation(formData))
+          );
 
       navigate(-1);
     } catch (e) {
@@ -126,14 +149,14 @@ export function QuotationIntegration() {
 }
 
 const Quotation = ({
-                     quotation,
-                     quotationId,
-                     user,
-                     loading,
-                     isNew,
-                     onSubmit,
-                     onGoBack,
-                   }) => {
+  quotation,
+  quotationId,
+  user,
+  loading,
+  isNew,
+  onSubmit,
+  onGoBack,
+}) => {
   const schema = yup.object({
     client: yup.object({
       documentType: yup.string(),
@@ -157,21 +180,20 @@ const Quotation = ({
       processor: yup.string(),
       operationSystem: yup.string(),
     }),
-    reportedIssue: yup.string(),
-    analysis: yup.string(),
-    solutionAndRecommendations: yup.string(),
+    reportedIssue: yup.string().nullable(),
+    analysis: yup.string().nullable(),
+    solutionAndRecommendations: yup.string().nullable(),
     quotationDetails: yup
       .array()
       .of(
         yup.object({
-          description: yup.string(),
+          description: yup.string().nullable(),
           quantity: yup.number().min(1),
           unitPrice: yup.number().min(0),
           subTotal: yup.number().min(0),
         })
       )
-      .min(1)
-      .required(),
+      .min(1),
   });
 
   const {
@@ -404,12 +426,10 @@ const Quotation = ({
                       name="device.brand"
                       control={control}
                       render={({ field: { onChange, value, name } }) => (
-                        <Select
+                        <Input
                           label="Marca"
-                          mode="multiple"
                           name={name}
                           value={value}
-                          options={DeviceBrands}
                           onChange={onChange}
                           error={error(name)}
                           required={required(name)}

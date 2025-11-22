@@ -46,12 +46,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
 
   return (
     <Container>
-      {label && (
-        <Label>
-          {label}
-          {required && <Required> *</Required>}
-        </Label>
-      )}
+      {label && <Label>{label}</Label>}
       <EditorWrapper height={height} hasError={!!error}>
         <ReactQuill
           theme="snow"
@@ -76,12 +71,12 @@ const Label = styled.label`
   display: block;
   margin-bottom: 8px;
   font-weight: 500;
-  color: #333;
-  font-size: 14px;
-`;
-
-const Required = styled.span`
-  color: #ff4d4f;
+  color: #b6b7b8;
+  font-size: 12px;
+  background-color: #1a1d23;
+  width: max-content;
+  padding: 1px 5px;
+  border-radius: 5px;
 `;
 
 const EditorWrapper = styled.div<{ height: string; hasError: boolean }>`
