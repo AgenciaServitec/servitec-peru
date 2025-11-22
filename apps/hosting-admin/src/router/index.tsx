@@ -1,8 +1,8 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import * as A from "../pages";
-import { AdminLayout, PublicLayout } from "../components";
-import { PrivateRoute } from "./PrivateRoute";
+import { AdminLayout,PublicLayout } from "../components";
 import { PublicRoute } from "./PublicRoute";
+import { PrivateRoute } from "./PrivateRoute";
 
 export function Router() {
   return (
@@ -19,6 +19,10 @@ export function Router() {
           }
         />
       </Route>
+      <Route
+        path="/quotations/:quotationId/sheets"
+        element={<A.QuotationSheets />}
+      />
 
       <Route element={<PrivateRoute />}>
         <Route
@@ -41,7 +45,7 @@ export function Router() {
           path="/quotations"
           element={
             <AdminLayout>
-              <A.Quotations />
+              <A.QuotationsIntegrations />
             </AdminLayout>
           }
         />
@@ -49,7 +53,7 @@ export function Router() {
           path="/quotations/:quotationId"
           element={
             <AdminLayout>
-              <A.Quotations />
+              <A.QuotationIntegration />
             </AdminLayout>
           }
         />

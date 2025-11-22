@@ -5,3 +5,4 @@ export * from "./useAssistances.ts";
 export * from "./useDefaultFirestoreProps.ts";
 export * from "./useUserLocation.ts";
 export * from "./useVideoStream.ts";
+export * from "./useDevice.ts";

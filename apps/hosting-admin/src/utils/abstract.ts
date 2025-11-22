@@ -1,4 +1,5 @@
 import { capitalize, concat } from "lodash";
+import { deviceTypes } from "../data-list";
 
 export const userFullName = (user: any) => {
   if (!user) return null;
@@ -22,3 +23,6 @@ export const getSearchDataToUser = (user, firstName) =>
       .split(" ")
       .filter((name: string) => name.trim())
   );
+
+export const getDevice = (deviceValue: string) =>
+  deviceTypes.find((device) => device.value === deviceValue)?.label;
