@@ -60,6 +60,7 @@ export interface User {
   isDeleted: boolean;
   updateBy?: string;
   payPerMinute?: number;
+  foodVoucher?: number;
 }
 
 export const Users: React.FC = () => {
