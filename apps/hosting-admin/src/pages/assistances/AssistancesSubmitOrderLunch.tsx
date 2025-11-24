@@ -4,7 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect } from "react";
 import { updateAssistance } from "../../firebase/collections";
-import { Col, notification, Row, Button, Form } from "../../components";
+import { Col, notification, Row, Form } from "../../components";
 import styled from "styled-components";
 import type { Assistance } from "../../globalTypes.ts";
 
