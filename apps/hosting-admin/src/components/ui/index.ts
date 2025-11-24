@@ -23,6 +23,7 @@ import {
   Tag,
   theme,
   Typography,
+  Radio,
 } from "antd";
 
 export * from "./sheet";
@@ -71,4 +72,5 @@ export {
   InputNumber,
   QRCode,
   DatePicker,
+  Radio,
 };

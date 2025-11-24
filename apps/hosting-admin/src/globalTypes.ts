@@ -54,9 +54,11 @@ interface Quotation extends DefaultFirestoreProps {
 export interface Assistance extends DefaultFirestoreProps {
   id: string;
   createAtString: string;
+  orderLunch?: boolean;
   entry: { date: string; dateTimestamp: FirebaseFirestore.Timestamp } | null;
   outlet: { date: string } | null;
   minutesWorked: number;
   userId: string;
   user: User;
+  workPlace?: string;
 }

@@ -62,6 +62,7 @@ export const DrawerLayout = ({
       "XfQXaMRZD7Gro2kPaIvU",
       "fRiTn5k6TP5TJvpXZeLS",
       "woc2g3M8EO4RYtXFap6n",
+      "U0kKdzTPY0rVgWcCY8dV",
       "UXrpXFxJhVi5Tl1MTMu2",
     ].includes(authUser?.id) && {
       label: "Administración",

@@ -14,13 +14,15 @@ import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
 import { AssistancesTable } from "./Assistances.Table";
 import { useNavigate } from "react-router-dom";
 import { assistancesRef } from "../../firebase/collections";
-import { useAuthentication } from "../../providers";
+import { ModalProvider, useAuthentication, useModal } from "../../providers";
 import { AssistancesFilter } from "./AssistancesFilter.tsx";
 import { AssistancesNameFilter } from "./AssistancesNameFilter.tsx";
 
 import type { Assistance } from "../../globalTypes.ts";
 import type { DateFilter } from "./types.ts";
 import { exportAssistancesExcel } from "./_utils";
+import { AssistancesSubmitOrderLunch } from "./AssistancesSubmitOrderLunch.tsx";
+import { useDevice } from "../../hooks";
 
 export function AssistancesIntegration() {
   const navigate = useNavigate();
@@ -47,6 +49,7 @@ export function AssistancesIntegration() {
         "fRiTn5k6TP5TJvpXZeLS",
         "woc2g3M8EO4RYtXFap6n",
         "UXrpXFxJhVi5Tl1MTMu2",
+        "U0kKdzTPY0rVgWcCY8dV",
       ].includes(authUser?.id)
     )
       return true;
@@ -77,11 +80,7 @@ export function AssistancesIntegration() {
 
   const clearAllFilters = () => {
     setNameFilter("");
-    setDateFilter({
-      startDate: null,
-      endDate: null,
-    });
-
+    setDateFilter({ startDate: null, endDate: null });
     setResetSignal((prev) => prev + 1);
   };
 
@@ -89,92 +88,123 @@ export function AssistancesIntegration() {
     applyFilters();
   }, [assistances, dateFilter, nameFilter]);
 
-  const handleFilter = (filter: DateFilter) => {
-    setDateFilter(filter);
-  };
-
-  const handleNameSearch = (text: string) => {
-    setNameFilter(text);
-  };
+  const handleFilter = (filter: DateFilter) => setDateFilter(filter);
+  const handleNameSearch = (text: string) => setNameFilter(text);
 
   useEffect(() => {
-    if (assistancesError) {
-      notification({ type: "error" });
-    }
+    if (assistancesError) notification({ type: "error" });
   }, [assistancesError]);
 
   const onNavigateGoTo = (pathname = "/") => navigate(pathname);
 
   return (
-    <>
-      {assistancesLoading ? (
-        <Spinner height="40svh" size="4x" />
-      ) : (
-        <Row gutter={[16, 16]}>
-          <Col span={24}>
-            <Legend title="Filtros">
-              <Row gutter={[16, 16]} align="middle">
-                <Col xs={24} md={8}>
-                  <AssistancesNameFilter onSearch={handleNameSearch} />
-                </Col>
-                <Col xs={24} md={8}>
-                  <AssistancesFilter
-                    onFilter={handleFilter}
-                    resetSignal={resetSignal}
-                  />
-                </Col>
-                <Col xs={24} md={8} style={{ textAlign: "right" }}>
-                  <Button onClick={clearAllFilters} danger>
-                    Limpiar filtros
-                  </Button>
-                </Col>
-              </Row>
-            </Legend>
-          </Col>
+    <ModalProvider>
+      <AssistancesList
+        assistancesLoading={assistancesLoading}
+        filteredAssistances={filteredAssistances}
+        resetSignal={resetSignal}
+        onFilter={handleFilter}
+        onSearchName={handleNameSearch}
+        onClearFilters={clearAllFilters}
+        onNavigateGoTo={onNavigateGoTo}
+      />
+    </ModalProvider>
+  );
+}
 
-          <Col span={24} md={12}>
-            <Button
-              onClick={() => onNavigateGoTo("/assistances/assistance")}
-              type="primary"
-              size="large"
-              block
-            >
-              <FontAwesomeIcon icon={faSignInAlt} />
-              Marcar mi asistencia
-            </Button>
-          </Col>
+function AssistancesList({
+  assistancesLoading,
+  filteredAssistances,
+  resetSignal,
+  onFilter,
+  onSearchName,
+  onClearFilters,
+  onNavigateGoTo,
+}) {
+  const { onShowModal, onCloseModal } = useModal();
+  const { isTablet } = useDevice();
+  const onShowSubmitOrderLunch = (assistance: Assistance) => {
+    onShowModal({
+      title: "Pidio Almuerzo?",
+      width: `${isTablet ? "90%" : "50%"}`,
+      onRenderBody: () => (
+        <AssistancesSubmitOrderLunch
+          key={assistance.id}
+          assistance={assistance}
+          onCloseModal={onCloseModal}
+        />
+      ),
+    });
+  };
+  return (
+    <Row gutter={[16, 16]}>
+      <Col span={24}>
+        <Legend title="Filtros">
+          <Row gutter={[16, 16]} align="middle">
+            <Col xs={24} md={8}>
+              <AssistancesNameFilter onSearch={onSearchName} />
+            </Col>
+            <Col xs={24} md={8}>
+              <AssistancesFilter
+                onFilter={onFilter}
+                resetSignal={resetSignal}
+              />
+            </Col>
+            <Col xs={24} md={8} style={{ textAlign: "right" }}>
+              <Button onClick={onClearFilters} danger>
+                Limpiar filtros
+              </Button>
+            </Col>
+          </Row>
+        </Legend>
+      </Col>
 
-          <Col span={24} md={12}>
-            <Button
-              onClick={() => onNavigateGoTo("/assistances/register")}
-              size="large"
-              block
-            >
-              <FontAwesomeIcon icon={faSignInAlt} />
-              Registrar mi rostro
-            </Button>
-          </Col>
+      <Col span={24} md={12}>
+        <Button
+          onClick={() => onNavigateGoTo("/assistances/assistance")}
+          type="primary"
+          size="large"
+          block
+        >
+          <FontAwesomeIcon icon={faSignInAlt} />
+          Marcar mi asistencia
+        </Button>
+      </Col>
 
-          <Col span={24}>
-            <Title level={2}>Lista de Asistencias</Title>
-          </Col>
-          <Col span={24}>
-            <Button
-              type="primary"
-              onClick={() => exportAssistancesExcel(filteredAssistances)}
-            >
-              Exportar a Excel
-            </Button>
-          </Col>
-          <Col span={24}>
-            <AssistancesTable
-              assistances={filteredAssistances || []}
-              user={authUser}
-              loading={assistancesLoading}
-            />
-          </Col>
-        </Row>
-      )}
-    </>
+      <Col span={24} md={12}>
+        <Button
+          onClick={() => onNavigateGoTo("/assistances/register")}
+          size="large"
+          block
+        >
+          <FontAwesomeIcon icon={faSignInAlt} />
+          Registrar mi rostro
+        </Button>
+      </Col>
+
+      <Col span={24}>
+        <Title level={2}>Lista de Asistencias</Title>
+      </Col>
+
+      <Col span={24}>
+        <Button
+          type="primary"
+          onClick={() => exportAssistancesExcel(filteredAssistances)}
+        >
+          Exportar a Excel
+        </Button>
+      </Col>
+
+      <Col span={24}>
+        {assistancesLoading ? (
+          <Spinner height="40svh" size="4x" />
+        ) : (
+          <AssistancesTable
+            assistances={filteredAssistances || []}
+            onShowSubmitOrderLunch={onShowSubmitOrderLunch}
+          />
+        )}
+      </Col>
+    </Row>
   );
 }

@@ -1,21 +1,27 @@
 import dayjs from "dayjs";
-import { Table, Tag } from "../../components";
+import { IconAction, Table, Tag } from "../../components";
 import type { Assistance } from "../../globalTypes.ts";
 import { useUpdateMinutesWorked } from "./_utils";
 import { useEffect } from "react";
 import { orderBy } from "lodash";
+import {
+  faBowlRice,
+  faCheck,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 
 interface AssistancesTableProps {
   loading: boolean;
   assistances: Assistance[];
+  onShowSubmitOrderLunch: (assistance: Assistance) => void;
 }
 
 export const AssistancesTable = ({
   loading,
   assistances,
+  onShowSubmitOrderLunch,
 }: AssistancesTableProps) => {
   const { updateMinutesWorked } = useUpdateMinutesWorked();
-
   useEffect(() => {
     assistances?.forEach((assistance: Assistance) => {
       const hasEntry = assistance?.entry?.date;
@@ -53,6 +59,53 @@ export const AssistancesTable = ({
       width: ["15rem", "100%"],
       render: (assistance: Assistance) => assistance.workPlace,
     },
+    {
+      title: "Pidió Almuerzo?",
+      align: "center",
+      width: ["10rem", "100%"],
+      render: (assistance: Assistance) => {
+        const hasValue =
+          assistance.orderLunch === true || assistance.orderLunch === false;
+
+        return (
+          <span
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "0.4rem",
+              width: "100%",
+            }}
+          >
+            <IconAction
+              tooltipTitle="Almuerzo"
+              icon={faBowlRice}
+              styled={{
+                color: (theme) => theme.colors.info,
+                fontSize: "1.2rem",
+              }}
+              onClick={() => onShowSubmitOrderLunch(assistance)}
+            />
+
+            {hasValue && (
+              <IconAction
+                tooltipTitle={assistance.orderLunch ? "Sí pidió" : "No pidió"}
+                icon={assistance.orderLunch ? faCheck : faXmark}
+                styled={{
+                  color: (theme) =>
+                    assistance.orderLunch
+                      ? theme.colors.success
+                      : theme.colors.error,
+                  fontSize: "1.2rem",
+                }}
+                onClick={() => {}}
+              />
+            )}
+          </span>
+        );
+      },
+    },
+
     {
       title: "Hora entrada",
       align: "center",

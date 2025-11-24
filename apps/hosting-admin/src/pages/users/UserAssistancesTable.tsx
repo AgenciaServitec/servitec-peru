@@ -37,6 +37,10 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
   const [totalMinutes, setTotalMinutes] = useState<number | null>(null);
   const [multiplier, setMultiplier] = useState<number | string>("");
   const [result, setResult] = useState<number | null>(null);
+  const [lunchTrueCount, setLunchTrueCount] = useState(0);
+  const [lunchFalseCount, setLunchFalseCount] = useState(0);
+  const [lunchBonus, setLunchBonus] = useState<number | null>(null);
+  const [grandTotal, setGrandTotal] = useState<number | null>(null);
 
   useEffect(() => {
     const { lastSunday, lastFriday } = getLastSundayAndFriday();
@@ -70,6 +74,14 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
     }
   }, [selectedUser?.payPerMinute, totalMinutes]);
 
+  useEffect(() => {
+    if (result !== null && lunchBonus !== null) {
+      setGrandTotal(result + lunchBonus);
+    } else {
+      setGrandTotal(null);
+    }
+  }, [result, lunchBonus]);
+
   const filteredAssistances = useMemo(() => {
     if (!startDate && !endDate) return userAssistances;
 
@@ -89,13 +101,30 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
       0
     );
     setTotalMinutes(total);
-    // if (selectedUser?.payPerMinute) {
-    //   const pay = selectedUser.payPerMinute;
-    //   setMultiplier(pay);
-    //   setResult(round(total * pay, 2));
-    // } else {
-    //   setResult(null);
-    // }
+
+    const tCount = filteredAssistances.filter(
+      (a) => a.orderLunch === true
+    ).length;
+    const fCount = filteredAssistances.filter(
+      (a) => a.orderLunch === false
+    ).length;
+
+    setLunchTrueCount(tCount);
+    setLunchFalseCount(fCount);
+
+    let bono = null;
+    if (selectedUser?.foodVoucher) {
+      bono = fCount * selectedUser.foodVoucher;
+      setLunchBonus(bono);
+    } else {
+      setLunchBonus(null);
+    }
+
+    if (result !== null && bono !== null) {
+      setGrandTotal(result + bono);
+    } else {
+      setGrandTotal(null);
+    }
   };
 
   const handleMultiplierChange = (value: string) => {
@@ -187,6 +216,7 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
                   <th>Salida</th>
                   <th>Minutos</th>
                   <th>Lugar</th>
+                  <th>¿Pidió almuerzo?</th>
                 </tr>
               </thead>
               <tbody>
@@ -196,7 +226,14 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
                     <td>{a.entry?.date || "-"}</td>
                     <td>{a.outlet?.date || "-"}</td>
                     <td>{a.minutesWorked || 0}</td>
-                    <td>{a?.workPlace || "-"}</td>
+                    <td>{a?.workPlace || "-"}</td>{" "}
+                    <td>
+                      {a.orderLunch === true
+                        ? "Sí"
+                        : a.orderLunch === false
+                          ? "No"
+                          : "-"}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -248,6 +285,20 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
                   <ResultText>
                     Resultado: <strong>S/{result.toFixed(2)}</strong>
                   </ResultText>
+                )}
+                {lunchBonus !== null && (
+                  <ResultText>
+                    Bono de almuerzo:{" "}
+                    <strong>
+                      {lunchFalseCount} × S/{selectedUser?.foodVoucher} = S/
+                      {lunchBonus.toFixed(2)}
+                    </strong>
+                  </ResultText>
+                )}
+                {grandTotal !== null && (
+                  <TotalTitle>
+                    Total: <strong>S/{grandTotal.toFixed(2)}</strong>
+                  </TotalTitle>
                 )}
               </TotalCard>
             )}
