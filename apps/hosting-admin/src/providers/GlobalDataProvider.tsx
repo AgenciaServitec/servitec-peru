@@ -82,9 +82,7 @@ export const GlobalDataProvider: React.FC<GlobalDataProviderProps> = ({
     }
   }, [error]);
 
-  if (loading) {
-    return <Spinner height="100vh" />;
-  }
+  if (loading) return <Spinner height="100vh" />;
 
   return (
     <GlobalDataContext.Provider

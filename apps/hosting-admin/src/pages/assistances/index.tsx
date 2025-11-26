@@ -5,7 +5,6 @@ import {
   Legend,
   notification,
   Row,
-  Spinner,
   Title,
 } from "../../components/ui";
 import { useCollectionData } from "react-firebase-hooks/firestore";
@@ -151,7 +150,12 @@ function AssistancesList({
               />
             </Col>
             <Col xs={24} md={8} style={{ textAlign: "right" }}>
-              <Button onClick={onClearFilters} danger>
+              <Button
+                type="primary"
+                danger
+                size="large"
+                onClick={onClearFilters}
+              >
                 Limpiar filtros
               </Button>
             </Col>
@@ -196,14 +200,11 @@ function AssistancesList({
       </Col>
 
       <Col span={24}>
-        {assistancesLoading ? (
-          <Spinner height="40svh" size="4x" />
-        ) : (
-          <AssistancesTable
-            assistances={filteredAssistances || []}
-            onShowSubmitOrderLunch={onShowSubmitOrderLunch}
-          />
-        )}
+        <AssistancesTable
+          assistances={filteredAssistances || []}
+          onShowSubmitOrderLunch={onShowSubmitOrderLunch}
+          assistancesLoading={assistancesLoading}
+        />
       </Col>
     </Row>
   );

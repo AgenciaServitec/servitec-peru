@@ -9,17 +9,19 @@ import {
   faCheck,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import type { ColumnsType } from "antd/es/table";
+import { theme } from "../../styles";
 
 interface AssistancesTableProps {
-  loading: boolean;
+  assistancesLoading: boolean;
   assistances: Assistance[];
   onShowSubmitOrderLunch: (assistance: Assistance) => void;
 }
 
 export const AssistancesTable = ({
-  loading,
   assistances,
   onShowSubmitOrderLunch,
+  assistancesLoading,
 }: AssistancesTableProps) => {
   const { updateMinutesWorked } = useUpdateMinutesWorked();
   useEffect(() => {
@@ -28,8 +30,8 @@ export const AssistancesTable = ({
       const hasOutlet = assistance?.outlet?.date;
 
       if (hasEntry && hasOutlet) {
-        const start = dayjs(assistance.entry.date, "DD-MM-YYYY HH:mm");
-        const end = dayjs(assistance.outlet.date, "DD-MM-YYYY HH:mm");
+        const start = dayjs(assistance?.entry?.date, "DD-MM-YYYY HH:mm");
+        const end = dayjs(assistance?.outlet?.date, "DD-MM-YYYY HH:mm");
         const newMinutes = end.diff(start, "minute");
 
         if (assistance.minutesWorked !== newMinutes) {
@@ -39,31 +41,39 @@ export const AssistancesTable = ({
     });
   }, [assistances, updateMinutesWorked]);
 
-  const columns = [
+  const columns: ColumnsType<Assistance> = [
     {
+      key: "createAt",
+      dataIndex: "createAt",
       title: "Fecha",
       align: "center",
-      width: ["3rem", "100%"],
-      render: (assistance: Assistance) =>
+      width: 100,
+      render: (_, assistance) =>
         dayjs(assistance.createAt.toDate()).format("DD/MM/YYYY"),
     },
     {
+      key: "fullName",
+      dataIndex: "fullName",
       title: "Apellidos y Nombres",
       align: "center",
-      width: ["15rem", "100%"],
-      render: (assistance: Assistance) => assistance.user.firstName,
+      width: 100,
+      render: (_, assistance) => assistance.user.firstName,
     },
     {
+      key: "workPlace",
+      dataIndex: "workPlace",
       title: "Lugar de Trabajo",
       align: "center",
-      width: ["15rem", "100%"],
-      render: (assistance: Assistance) => assistance.workPlace,
+      width: 100,
+      render: (_, assistance) => assistance.workPlace,
     },
     {
+      key: "orderLunch",
+      dataIndex: "orderLunch",
       title: "Pidió Almuerzo?",
       align: "center",
-      width: ["10rem", "100%"],
-      render: (assistance: Assistance) => {
+      width: 100,
+      render: (_, assistance) => {
         const hasValue =
           assistance.orderLunch === true || assistance.orderLunch === false;
 
@@ -74,15 +84,13 @@ export const AssistancesTable = ({
               justifyContent: "center",
               alignItems: "center",
               gap: "0.4rem",
-              width: "100%",
             }}
           >
             <IconAction
               tooltipTitle="Almuerzo"
               icon={faBowlRice}
-              styled={{
-                color: (theme) => theme.colors.info,
-                fontSize: "1.2rem",
+              iconStyles={{
+                color: () => theme.colors.info,
               }}
               onClick={() => onShowSubmitOrderLunch(assistance)}
             />
@@ -91,12 +99,11 @@ export const AssistancesTable = ({
               <IconAction
                 tooltipTitle={assistance.orderLunch ? "Sí pidió" : "No pidió"}
                 icon={assistance.orderLunch ? faCheck : faXmark}
-                styled={{
-                  color: (theme) =>
+                iconStyles={{
+                  color: () =>
                     assistance.orderLunch
                       ? theme.colors.success
                       : theme.colors.error,
-                  fontSize: "1.2rem",
                 }}
                 onClick={() => {}}
               />
@@ -107,10 +114,12 @@ export const AssistancesTable = ({
     },
 
     {
+      key: "entry",
+      dataIndex: "entry",
       title: "Hora entrada",
       align: "center",
-      width: ["7rem", "100%"],
-      render: (assistance: Assistance) =>
+      width: 100,
+      render: (_, assistance) =>
         assistance?.entry ? (
           <Tag color="green">
             {dayjs(assistance?.entry.date, "DD-MM-YYYY HH:mm").format(
@@ -122,10 +131,12 @@ export const AssistancesTable = ({
         ),
     },
     {
+      key: "outlet",
+      dataIndex: "outlet",
       title: "Hora salida",
       align: "center",
-      width: ["7rem", "100%"],
-      render: (assistance: Assistance) =>
+      width: 100,
+      render: (_, assistance) =>
         assistance?.outlet ? (
           <Tag color="red">
             {dayjs(assistance?.outlet.date, "DD-MM-YYYY HH:mm").format(
@@ -137,10 +148,12 @@ export const AssistancesTable = ({
         ),
     },
     {
+      key: "hoursWorked",
+      dataIndex: "hoursWorked",
       title: "Horas trabajadas",
-      align: "center" as const,
-      width: ["6rem", "100%"] as const,
-      render: (assistance: Assistance) => {
+      align: "center",
+      width: 100,
+      render: (_, assistance) => {
         if (assistance.minutesWorked == null) return "-";
 
         const hours = Math.floor(assistance.minutesWorked / 60);
@@ -155,10 +168,12 @@ export const AssistancesTable = ({
       },
     },
     {
+      key: "minutesWorked",
+      dataIndex: "minutesWorked",
       title: "Minutos trabajados",
-      align: "center" as const,
-      width: ["6rem", "100%"] as const,
-      render: (assistance: Assistance) =>
+      align: "center",
+      width: 100,
+      render: (_, assistance) =>
         assistance.minutesWorked != null ? (
           <Tag color="purple">{assistance.minutesWorked} min</Tag>
         ) : (
@@ -167,16 +182,22 @@ export const AssistancesTable = ({
     },
   ];
 
+  const dataSource: Assistance[] = orderBy(
+    assistances,
+    (a) => dayjs(a.createAtString, "DD-MM-YYYY HH:mm").toDate().getTime(),
+    "desc"
+  );
+
   return (
     <Table
-      loading={loading}
-      dataSource={orderBy(
-        assistances,
-        (a) => dayjs(a.createAtString, "DD-MM-YYYY HH:mm").toDate().getTime(),
-        "asc"
-      )}
+      bordered
+      virtual
+      loading={assistancesLoading}
+      dataSource={dataSource}
       columns={columns}
-      scroll={{ x: "max-content" }}
+      size="small"
+      scroll={{ x: 1200 }}
+      pagination={false}
     />
   );
 };

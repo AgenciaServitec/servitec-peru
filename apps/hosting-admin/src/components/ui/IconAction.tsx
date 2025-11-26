@@ -96,12 +96,13 @@ const IconWrapper = styled.div<IconWrapperProps>`
       &:hover {
         border-radius: ${theme.border_radius.percentage_full};
         background: ${backgroundColor
-          ? transparentize(0.8, backgroundColor(theme))
-          : tint(0.9, hoverColor ? hoverColor(theme) : color(theme))};
+          ? transparentize(0.9, backgroundColor(theme))
+          : transparentize(
+              0.85,
+              hoverColor ? hoverColor(theme) : color(theme)
+            )};
         color: ${hoverColor ? hoverColor(theme) : color(theme)};
         transform: scale(1.1);
-        box-shadow: 0 2px 8px
-          ${transparentize(0.8, hoverColor ? hoverColor(theme) : color(theme))};
       }
 
       &:active {

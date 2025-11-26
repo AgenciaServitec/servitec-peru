@@ -35,7 +35,7 @@ export const VersionProvider: React.FC<VersionProviderProps> = ({
   };
 
   if (settingDefaultLoading) {
-    return <Spinner height="80vh" />;
+    return <Spinner height="100vh" />;
   }
 
   if (settingDefaultError) {

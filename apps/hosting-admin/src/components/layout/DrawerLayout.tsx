@@ -38,7 +38,7 @@ export const DrawerLayout = ({
 
   const items = [
     {
-      label: "Home",
+      label: "Inicio",
       key: "home",
       icon: <FontAwesomeIcon icon={faHome} size="lg" />,
       onClick: () => onClickHome(),
