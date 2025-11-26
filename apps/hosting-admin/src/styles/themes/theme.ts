@@ -58,27 +58,44 @@ export const theme = {
   //   gray: "#79838C",
   // },
   colors: {
-    // Colores principales - IDENTIDAD SERVITEC
-    primary: "#FFC107", // Amarillo corporativo del logo ⭐
-    secondary: "#1A1D23", // Gris oscuro para fondos
-    tertiary: "#F5F5F5", // Blanco suave
+    // 🎨 IDENTIDAD SERVITEC
+    primary: "#FFC107", // ⭐ Amarillo corporativo (mantener)
+    primaryDark: "#FFB300", // Amarillo más oscuro para hover
+    primaryLight: "#FFD54F", // Amarillo claro para backgrounds
 
-    // Fuentes optimizadas para dark mode
-    font1: "#E8E8E8", // Texto principal claro
-    font2: "#9CA3AF", // Texto secundario (gris medio)
-    font3: "#FFC107", // Links/acciones en amarillo corporativo 🔗
+    // 🌑 BACKGROUNDS - NEGRO PURO (SIN azul)
+    secondary: "#0F0F0F", // ✨ NUEVO: Negro carbón puro
+    tertiary: "#F5F5F5", // Blanco suave (mantener)
 
-    // Estados - Mantienen buena visibilidad
-    success: "#10B981", // Verde
-    info: "#3B82F6", // Azul (este es el "azulino" que mencionas)
-    warning: "#F59E0B", // Naranja advertencia
-    error: "#EF4444", // Rojo
+    // 📝 FUENTES - Optimizadas para contraste
+    font1: "#FAFAFA", // Texto principal (blanco casi puro)
+    font2: "#A1A1A1", // Texto secundario (gris medio)
+    font3: "#FFC107", // Links en amarillo corporativo
+    fontDisabled: "#525252", // Texto deshabilitado
 
-    // Bases
-    black: "#0F1419", // Negro suave
-    white: "#FFFFFF",
-    dark: "#1A1D23", // Fondo principal dark
+    // ✅ ESTADOS - Colores vibrantes y claros
+    success: "#22C55E", // Verde más vibrante
+    info: "#06B6D4", // 🔄 CAMBIO: Cyan en vez de azul
+    warning: "#F59E0B", // Naranja (mantener)
+    error: "#EF4444", // Rojo (mantener)
+
+    // 🎯 BACKGROUNDS ESPECÍFICOS
+    bgPrimary: "#0F0F0F", // Fondo principal (negro)
+    bgSecondary: "#1A1A1A", // Fondo de cards/containers
+    bgTertiary: "#262626", // Fondo elevado (modals, dropdowns)
+    bgHover: "#1F1F1F", // Hover states
+    bgActive: "#2A2A2A", // Active states
+
+    // 🔲 BORDES Y DIVISORES
+    border: "#2A2A2A", // Bordes principales
+    borderLight: "#1F1F1F", // Bordes sutiles
+    borderHover: "#3F3F3F", // Bordes en hover
+
+    // 📦 BASES - Simplificadas
+    black: "#000000", // Negro puro
+    white: "#FFFFFF", // Blanco puro
+    dark: "#0F0F0F", // Alias de bgPrimary
     light: "#F9FAFB", // Fondos claros
-    gray: "#6B7280", // Gris neutro
+    gray: "#737373", // Gris neutro
   },
 } as const;

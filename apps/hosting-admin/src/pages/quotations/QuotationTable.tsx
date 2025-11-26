@@ -1,11 +1,10 @@
-import dayjs from "dayjs";
 import { Space } from "antd";
 import { IconAction, Table } from "../../components";
 import { useNavigate } from "react-router-dom";
 import { faEdit, faFilePdf, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { theme } from "../../styles";
-import styled from "styled-components";
 import { orderBy } from "lodash";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
 export const QuotationTable = ({ quotations, quotationsLoading }) => {
   const navigate = useNavigate();
@@ -14,13 +13,12 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
 
   const columns = [
     {
-      title: "F. Creación",
-      dataIndex: "createAt",
-      key: "createAt",
-      width: 180,
+      title: "N° de Contrato",
+      dataIndex: "contractNumber",
+      key: "contractNumber",
+      width: 60,
       align: "center",
-      render: (_, quotation) =>
-        dayjs(quotation.createAt.toDate()).format("DD/MM/YYYY HH:mm"),
+      render: (_, quotation) => "25112025190625",
     },
     {
       title: "Cliente",
@@ -30,16 +28,82 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
       align: "center",
       render: (_, quotation) => (
         <Space align="center" direction="vertical">
-          <strong>{quotation.client.document.number}</strong>
+          <strong>Marujita S.A.C.</strong>
+          <span>
+            DNI: <strong>{quotation.client.document.number}</strong>
+          </span>
+          <span>
+            RUC: <strong>207311505406</strong>
+          </span>
         </Space>
       ),
     },
     {
-      title: "Opciones",
-      dataIndex: "options",
-      key: "options",
+      title: "Contacto",
+      dataIndex: "contact",
+      key: "contact",
+      width: 180,
       align: "center",
-      width: 120,
+      render: (_, quotation) => (
+        <Space direction="vertical">
+          <a href={`mailto:${quotation.client.email}`}>
+            {quotation.client.email}
+          </a>
+          <Space>
+            <IconAction
+              tooltipTitle="Whatsapp"
+              icon={faWhatsapp}
+              size={27}
+              iconStyles={{ color: () => theme.colors.success }}
+              onClick={() =>
+                window.open(
+                  `https://api.whatsapp.com/send?phone=${quotation.client.phone.prefix.replace(
+                    "+",
+                    ""
+                  )}${quotation.client.phone.number}`
+                )
+              }
+            />
+            <span>
+              {quotation.client.phone.prefix} &nbsp;
+              {quotation.client.phone.number}
+            </span>
+          </Space>
+        </Space>
+      ),
+    },
+    {
+      title: "Problema",
+      dataIndex: "reportedIssue",
+      key: "reportedIssue",
+      width: 150,
+      align: "center",
+      render: (_, quotation) => <span>{quotation.reportedIssue}</span>,
+    },
+    {
+      title: "Análisis",
+      dataIndex: "analysis",
+      key: "analysis",
+      width: 150,
+      align: "center",
+      render: (_, quotation) => <span>{quotation.analysis}</span>,
+    },
+    {
+      title: "Solución",
+      dataIndex: "solutionAndRecommendations",
+      key: "solutionAndRecommendations",
+      width: 150,
+      align: "center",
+      render: (_, quotation) => (
+        <span>{quotation.solutionAndRecommendations}</span>
+      ),
+    },
+    {
+      title: "Acciones",
+      dataIndex: "actions",
+      key: "actions",
+      align: "center",
+      width: 80,
       render: (_, quotation) => (
         <Space>
           <IconAction
@@ -65,28 +129,15 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
   ];
 
   return (
-    <Container>
-      <Table
-        columns={columns}
-        dataSource={orderBy(quotations, "createAt", "desc")}
-        pagination={{
-          pageSize: 10,
-          showSizeChanger: true,
-          showTotal: (total) => `Total: ${total} usuarios`,
-        }}
-        scroll={{ x: 1200 }}
-        loading={quotationsLoading}
-      />
-    </Container>
+    <Table
+      bordered
+      virtual
+      columns={columns}
+      dataSource={orderBy(quotations, "createAt", "desc")}
+      scroll={{ x: "max-content" }}
+      size="small"
+      loading={quotationsLoading}
+      pagination={false}
+    />
   );
 };
-
-const Container = styled.div`
-  width: 100%;
-  .contact {
-    &__item {
-      display: flex;
-      align-items: center;
-    }
-  }
-`;

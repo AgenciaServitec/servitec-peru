@@ -5,7 +5,7 @@ import App from "./App.tsx";
 import { BrowserRouter } from "react-router-dom";
 import { GlobalStyle, theme } from "./styles";
 import { ThemeProvider } from "styled-components";
-import { ConfigProvider } from "antd";
+import { ConfigProvider, theme as antTheme } from "antd";
 import { darken, lighten } from "polished";
 
 // const config = {
@@ -55,6 +55,7 @@ import { darken, lighten } from "polished";
 // };
 
 const config = {
+  algorithm: antTheme.darkAlgorithm,
   components: {
     Button: {
       colorPrimary: theme.colors.primary,
@@ -106,7 +107,7 @@ const config = {
       colorPrimary: theme.colors.primary,
       colorText: theme.colors.font2,
       colorTextDescription: theme.colors.font2,
-    }
+    },
   },
   token: {
     colorBgBase: theme.colors.dark,

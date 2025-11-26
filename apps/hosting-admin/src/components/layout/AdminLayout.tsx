@@ -45,7 +45,7 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
 };
 
 const LayoutContainer = styled(Layout)`
-  min-width: 100vw;
+  width: 100vw;
   min-height: 100vh;
   background: linear-gradient(
     135deg,
@@ -57,10 +57,5 @@ const LayoutContainer = styled(Layout)`
     background: ${theme.colors.secondary};
     border-radius: ${theme.border_radius.small};
     border: 1px solid rgba(255, 255, 255, 0.05);
-  }
-
-  .logo {
-    height: 32px;
-    margin: 16px;
   }
 `;
