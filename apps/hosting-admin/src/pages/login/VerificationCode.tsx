@@ -8,8 +8,8 @@ import {
   Col,
   Form,
   InputCode,
-  notification,
   Row,
+  useNotification,
 } from "../../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -32,6 +32,8 @@ export const VerificationCode = ({
   const [resendDisabled, setResendDisabled] = useState(false);
   const [countdown, setCountdown] = useState(0);
   const [loading, setLoading] = useState(false);
+
+  const { notification } = useNotification();
 
   const schema = yup.object({
     code: yup.string().required(),

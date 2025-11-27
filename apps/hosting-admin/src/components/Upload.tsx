@@ -21,7 +21,7 @@ import type {
   ImageResize,
   UploadedFile,
 } from "./types/upload.types";
-import { ComponentContainer, modalConfirm, notification } from "./ui";
+import { ComponentContainer, modalConfirm, useNotification } from "./ui";
 
 interface UploadProps {
   accept?: string;
@@ -81,6 +81,8 @@ export const Upload: React.FC<UploadProps> = ({
   onChangeCopy,
   copyFilesTo = null,
 }) => {
+  const { notification } = useNotification();
+
   const storage = buckets[bucket];
 
   const [files, setFiles] = useState<UploadFileWithStatus[]>([]);

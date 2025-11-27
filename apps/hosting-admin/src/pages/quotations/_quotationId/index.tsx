@@ -49,34 +49,6 @@ export function QuotationIntegration() {
     })();
   }, []);
 
-  const forceBullets = (html: unknown) => {
-    if (typeof html !== "string") return html ?? "";
-    return html
-      .replace(/<ol[^>]*>/g, "<ul>")
-      .replace(/<\/ol>/g, "</ul>")
-      .replace(/<li[^>]*>/g, "<li>");
-  };
-
-  const cleanEmptyHtml = (html: unknown) => {
-    if (typeof html !== "string") return "";
-
-    const cleaned = html
-      .replace(/<p><br><\/p>/g, "")
-      .replace(/<p>\s*<\/p>/g, "")
-      .replace(/^\s+|\s+$/g, "");
-
-    if (cleaned === "" || cleaned === "<p></p>") {
-      return "";
-    }
-
-    return html;
-  };
-
-  const processRichText = (html: unknown) => {
-    const cleaned = cleanEmptyHtml(html);
-    return cleaned ? forceBullets(cleaned) : "";
-  };
-
   const mapQuotation = (formData) => ({
     ...quotation,
     client: {
@@ -106,14 +78,12 @@ export function QuotationIntegration() {
       processor: formData.device.processor,
       operationSystem: formData.device.operationSystem,
     },
-    reportedIssue: processRichText(formData.reportedIssue),
-    analysis: processRichText(formData.analysis),
-    solutionAndRecommendations: processRichText(
-      formData.solutionAndRecommendations
-    ),
+    reportedIssue: formData.reportedIssue,
+    analysis: formData.analysis,
+    solutionAndRecommendations: formData.solutionAndRecommendations,
     quotationDetails: formData.quotationDetails.map((item) => ({
       ...item,
-      description: processRichText(item.description),
+      description: item.description,
     })),
   });
 

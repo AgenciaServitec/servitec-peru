@@ -3,9 +3,9 @@ import {
   Col,
   Input,
   modalConfirm,
-  notification,
   Row,
   Title,
+  useNotification,
 } from "../../components";
 import { useAuthentication, useGlobalData } from "../../providers";
 import { useNavigate } from "react-router-dom";
@@ -66,6 +66,8 @@ export const Users: React.FC = () => {
   const { authUser } = useAuthentication();
   const { users } = useGlobalData();
   const { patchUser, patchUserResponse } = useApiUserPatch();
+
+  const { notification } = useNotification();
 
   const [userSearch, setUserSearch] = useState<string>("");
   const [usersView, setUsersView] = useState<User[]>([]);

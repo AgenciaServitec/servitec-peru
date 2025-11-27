@@ -8,9 +8,9 @@ import {
   Col,
   Form,
   Input,
-  notification,
   Row,
   Select,
+  useNotification,
 } from "../../components";
 import { useAuthentication } from "../../providers";
 import {
@@ -35,6 +35,8 @@ interface ProfileFormData {
 export const ProfileDataForm: React.FC = () => {
   const { authUser } = useAuthentication();
   const { putUser, putUserLoading, putUserResponse } = useApiUserPut();
+
+  const { notification } = useNotification();
 
   const schema = yup.object({
     profilePhoto: yup.mixed().notRequired(),

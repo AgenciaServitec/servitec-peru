@@ -4,7 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect } from "react";
 import { updateAssistance } from "../../firebase/collections";
-import { Col, notification, Row, Form } from "../../components";
+import { Col, Form, Row, useNotification } from "../../components";
 import styled from "styled-components";
 import type { Assistance } from "../../globalTypes.ts";
 
@@ -22,6 +22,8 @@ export const AssistancesSubmitOrderLunch = ({
   onCloseModal,
 }: Props) => {
   const { assignUpdateProps } = useDefaultFirestoreProps();
+
+  const { notification } = useNotification();
 
   const schema = yup.object({
     orderLunch: yup.boolean().nullable().required("Selecciona una opción"),

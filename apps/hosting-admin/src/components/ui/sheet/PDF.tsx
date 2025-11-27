@@ -122,15 +122,15 @@ const Container = styled.section`
   display: block;
   height: auto;
   min-height: 100vh;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
   overflow: auto;
 
   @media print {
-    background: none;
-    overflow: initial;
+    width: 100%; /* 👈 clave: no uses 100vw al imprimir */
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #fff; /* o transparent; pero que no sea gris */
+    overflow: visible;
   }
 `;
 

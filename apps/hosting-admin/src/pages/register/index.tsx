@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { notification } from "../../components";
+import { useNotification } from "../../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { theme } from "../../styles";
@@ -13,6 +13,7 @@ export function Register() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [step1Data, setStep1Data] = useState<Step1Form | null>(null);
+  const { notification } = useNotification();
 
   const { postUser, postUserLoading } = useApiUserPost();
 

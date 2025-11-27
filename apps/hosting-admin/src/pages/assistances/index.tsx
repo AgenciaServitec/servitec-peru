@@ -3,9 +3,9 @@ import {
   Button,
   Col,
   Legend,
-  notification,
   Row,
   Title,
+  useNotification,
 } from "../../components/ui";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -40,6 +40,8 @@ export function AssistancesIntegration() {
   const [assistances, assistancesLoading, assistancesError] = useCollectionData(
     assistancesRef.where("isDeleted", "==", false)
   );
+
+  const { notification } = useNotification();
 
   const assistancesView = (assistances || []).filter((assistance) => {
     if (

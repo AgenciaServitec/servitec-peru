@@ -1,54 +1,73 @@
 import { Space } from "antd";
 import { IconAction, Table } from "../../components";
 import { useNavigate } from "react-router-dom";
-import { faEdit, faFilePdf, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faFilePdf,
+  faPaperPlane,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { theme } from "../../styles";
-import { orderBy } from "lodash";
+import { isEmpty, orderBy, truncate } from "lodash";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import type { ColumnsType } from "antd/es/table";
+import type { Assistance } from "../../globalTypes.ts";
 
 export const QuotationTable = ({ quotations, quotationsLoading }) => {
   const navigate = useNavigate();
 
   const navigateTo = (pathname) => navigate(pathname);
 
-  const columns = [
+  const columns: ColumnsType<Partial<Assistance>> = [
     {
       title: "N° de Contrato",
-      dataIndex: "contractNumber",
       key: "contractNumber",
-      width: 60,
+      dataIndex: "contractNumber",
+      width: 70,
       align: "center",
-      render: (_, quotation) => "25112025190625",
+      render: (_, quotation) => quotation?.contractNumber || "-",
     },
     {
       title: "Cliente",
-      dataIndex: "client",
       key: "client",
-      width: 180,
+      dataIndex: "client",
+      width: 120,
       align: "center",
-      render: (_, quotation) => (
-        <Space align="center" direction="vertical">
-          <strong>Marujita S.A.C.</strong>
-          <span>
-            DNI: <strong>{quotation.client.document.number}</strong>
-          </span>
-          <span>
-            RUC: <strong>207311505406</strong>
-          </span>
-        </Space>
-      ),
+      render: (_, quotation) =>
+        quotation.client.document.type === "dni" ? (
+          <Space align="center" direction="vertical">
+            <strong>
+              {`${quotation.client?.paternalSurname} ${quotation.client?.maternalSurname} ${quotation.client?.firstName}` ||
+                "-"}
+            </strong>
+            <span>
+              DNI: <strong>{quotation.client.document.number || "-"}</strong>
+            </span>
+          </Space>
+        ) : (
+          <Space align="center" direction="vertical">
+            <strong>{quotation.client?.companyName || "-"}</strong>
+            <span>
+              RUC: <strong>{quotation.client.document.number || "-"}</strong>
+            </span>
+          </Space>
+        ),
     },
     {
       title: "Contacto",
-      dataIndex: "contact",
       key: "contact",
-      width: 180,
+      dataIndex: "contact",
+      width: 120,
       align: "center",
       render: (_, quotation) => (
         <Space direction="vertical">
-          <a href={`mailto:${quotation.client.email}`}>
-            {quotation.client.email}
-          </a>
+          {!isEmpty(quotation.client.email) ? (
+            <a href={`mailto:${quotation.client.email}`}>
+              {quotation.client.email}
+            </a>
+          ) : (
+            "-"
+          )}
           <Space>
             <IconAction
               tooltipTitle="Whatsapp"
@@ -66,7 +85,7 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
             />
             <span>
               {quotation.client.phone.prefix} &nbsp;
-              {quotation.client.phone.number}
+              {quotation.client.phone.number || "-"}
             </span>
           </Space>
         </Space>
@@ -74,41 +93,64 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
     },
     {
       title: "Problema",
-      dataIndex: "reportedIssue",
       key: "reportedIssue",
-      width: 150,
+      dataIndex: "reportedIssue",
+      width: 100,
       align: "center",
-      render: (_, quotation) => <span>{quotation.reportedIssue}</span>,
+      render: (_, quotation) => (
+        <span>
+          {truncate(quotation.reportedIssue, {
+            length: 50,
+          }) || "-"}
+        </span>
+      ),
     },
     {
       title: "Análisis",
-      dataIndex: "analysis",
       key: "analysis",
-      width: 150,
+      dataIndex: "analysis",
+      width: 100,
       align: "center",
-      render: (_, quotation) => <span>{quotation.analysis}</span>,
+      render: (_, quotation) => (
+        <span>
+          {truncate(quotation.analysis, {
+            length: 50,
+          }) || "-"}
+        </span>
+      ),
     },
     {
       title: "Solución",
-      dataIndex: "solutionAndRecommendations",
       key: "solutionAndRecommendations",
-      width: 150,
+      dataIndex: "solutionAndRecommendations",
+      width: 100,
       align: "center",
       render: (_, quotation) => (
-        <span>{quotation.solutionAndRecommendations}</span>
+        <span>
+          {truncate(quotation.solutionAndRecommendations, {
+            length: 50,
+          }) || "-"}
+        </span>
       ),
     },
     {
       title: "Acciones",
-      dataIndex: "actions",
       key: "actions",
+      dataIndex: "actions",
+      width: 100,
       align: "center",
-      width: 80,
+      fixed: "right",
       render: (_, quotation) => (
-        <Space>
+        <Space size="small">
           <IconAction
             tooltipTitle="Editar"
             icon={faEdit}
+            onClick={() => navigateTo(`/quotations/${quotation.id}`)}
+          />
+          <IconAction
+            tooltipTitle="Enviar"
+            icon={faPaperPlane}
+            iconStyles={{ color: () => theme.colors.info }}
             onClick={() => navigateTo(`/quotations/${quotation.id}`)}
           />
           <IconAction
@@ -128,14 +170,16 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
     },
   ];
 
+  const dataSource: Assistance[] = orderBy(quotations, "createAt", "desc");
+
   return (
     <Table
       bordered
       virtual
       columns={columns}
-      dataSource={orderBy(quotations, "createAt", "desc")}
-      scroll={{ x: "max-content" }}
+      dataSource={dataSource}
       size="small"
+      scroll={{ x: 1200, y: 600 }}
       loading={quotationsLoading}
       pagination={false}
     />
