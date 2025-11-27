@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { useUserLocation } from "./useUserLocation";
 import {
@@ -9,12 +9,13 @@ import {
   updateAssistance,
 } from "../firebase/collections";
 import { Timestamp } from "firebase/firestore";
-import { notification } from "../components";
+import { useNotification } from "../components";
 import { useNavigate } from "react-router-dom";
 import { useAuthentication } from "../providers";
 
 export const useAssistance = (assignCreateProps) => {
   const navigate = useNavigate();
+  const { notification } = useNotification();
 
   const [dni, setDni] = useState("");
   const [user, setUser] = useState(null);
@@ -28,11 +29,9 @@ export const useAssistance = (assignCreateProps) => {
 
   const {
     location,
-    method,
     loading: loadingLocation,
     error: locationError,
     refreshLocation,
-    setIsGeofenceValid,
   } = useUserLocation((valid) => setIsGeofenceValidState(valid));
 
   const isToday = (dateStr) =>

@@ -2,7 +2,14 @@ import * as yup from "yup";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useFormUtils } from "../../hooks";
-import { Button, Col, Form, Input, notification, Row } from "../../components";
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  useNotification,
+  Row,
+} from "../../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShieldHalved } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
@@ -23,6 +30,8 @@ interface DniForm {
 export const AccessDataLogin = ({ onNext }: StepDniProps) => {
   const [loading, setLoading] = useState(false);
   const { findUserByDNI } = useAuthentication();
+
+  const { notification } = useNotification();
 
   const schema = yup.object({
     dni: yup.string().min(8).max(8).required(),

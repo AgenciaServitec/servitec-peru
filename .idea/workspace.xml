@@ -5,37 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7161bade-0448-4224-a226-93e7678b8b6e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/data-list/oldQuotations.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/AdminLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/AdminLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/DrawerLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/DrawerLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/IconAction.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/IconAction.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Input.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Spinner.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/Spinner.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/api/apiErrors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/api/apiErrors.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/Upload.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/Upload.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/notification.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/notification.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/sheet/PDF.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/sheet/PDF.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/sheet/Sheet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/sheet/Sheet.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/table/TableVirtualized.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/table/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/table/utils/FilterDropdown.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/table/utils/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/table/utils/mapColumns.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/data-list/workPlaces.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/data-list/workPlaces.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/main.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/Assistances.Table.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/Assistances.Table.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/hooks/useAssistances.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/hooks/useAssistances.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/AssistancesSubmitOrderLunch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/AssistancesSubmitOrderLunch.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/home/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/home/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/AccessDataLogin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/AccessDataLogin.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/VerificationCode.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/VerificationCode.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/profile/ProfileDataForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/profile/ProfileDataForm.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/QuotationTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/QuotationTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/sheets/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/sheets/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/sheets/QuotationDocumentSheet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/sheets/QuotationDocumentSheet.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/register/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/register/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/UsersTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/UsersTable.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/userId/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/userId/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/providers/AuthenticationProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/providers/AuthenticationProvider.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/providers/GlobalDataProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/providers/GlobalDataProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/providers/VersionProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/providers/VersionProvider.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/GlobalStyle.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/GlobalStyle.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/theme.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,21 +71,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "refactor__design__hosting__admin",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "pnpm",
-    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "ts.external.directory.path": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;refactor__design__hosting__admin&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -109,14 +102,25 @@
       <option name="presentableId" value="Default" />
       <updated>1764002837635</updated>
       <workItem from="1764002839215" duration="4160000" />
-      <workItem from="1764100196464" duration="20373000" />
+      <workItem from="1764100196464" duration="20435000" />
+      <workItem from="1764174425923" duration="27211000" />
     </task>
+    <task id="LOCAL-00001" summary="refactored design hosting admin">
+      <option name="closed" value="true" />
+      <created>1764121877978</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1764121877978</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="refactored design hosting admin" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored design hosting admin" />
   </component>
 </project>

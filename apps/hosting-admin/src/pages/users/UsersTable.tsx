@@ -93,6 +93,7 @@ export const UsersTable: React.FC<UsersTableProps> = ({
     {
       title: "Acciones",
       key: "actions",
+      dataIndex: "actions",
       width: 50,
       align: "center",
       fixed: "right",

@@ -3,9 +3,9 @@ import {
   Col,
   Form,
   Input,
-  notification,
   Row,
   Title,
+  useNotification,
 } from "../../../components";
 import { Controller, useForm } from "react-hook-form";
 import { InputNumber } from "../../../components/ui/InputNumber.tsx";
@@ -29,7 +29,7 @@ export const UserIntegration = () => {
   const { authUser } = useAuthentication();
   const { postUser, postUserResponse, postUserLoading } = useApiUserPost();
   const { putUser, putUserResponse, putUserLoading } = useApiUserPut();
-
+  const { notification } = useNotification();
   const [user, setUser] = useState({});
 
   const isNew = userId === "new";

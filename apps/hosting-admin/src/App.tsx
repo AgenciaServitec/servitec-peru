@@ -5,6 +5,7 @@ import {
   VersionProvider,
 } from "./providers";
 import { Router } from "./router";
+import { App as AppAntd } from "antd";
 
 function App() {
   return (
@@ -12,7 +13,9 @@ function App() {
       <ConfigsInitializer>
         <AuthenticationProvider>
           <GlobalDataProvider>
-            <Router />
+            <AppAntd>
+              <Router />
+            </AppAntd>
           </GlobalDataProvider>
         </AuthenticationProvider>
       </ConfigsInitializer>

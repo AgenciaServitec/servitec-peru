@@ -250,6 +250,7 @@ const global = css`
   .ant-notification-notice {
     background: ${() => theme.colors.secondary} !important;
     border: 1px solid ${() => lighten(0.1, theme.colors.secondary)} !important;
+    border-radius: 10px !important;
 
     .ant-notification-notice-message {
       color: ${() => theme.colors.font1} !important;
@@ -482,5 +483,19 @@ export const GlobalStyle = createGlobalStyle`
     ${Object.values(antd).map((antdComponent) => antdComponent)}
     ${mediaQuery.minTablet}{
         ${scroll}
+    }
+
+    @media print {
+        * {
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background: #fff;
+        }
     }
 `;

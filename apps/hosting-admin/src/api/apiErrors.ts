@@ -1,4 +1,4 @@
-import { notification } from "../components";
+import { useNotification } from "../components";
 import { isObject } from "lodash";
 import apiErrors from "../config/apiErros.json";
 
@@ -40,6 +40,8 @@ export const getApiErrorResponse = (response: unknown): string | unknown => {
 };
 
 export const apiErrorNotification = (response?: string | unknown): void => {
+  const { notification } = useNotification();
+
   if (response) {
     notificationApiError(response);
   } else {
@@ -51,6 +53,8 @@ const notificationApiError = (key: string | unknown): void => {
   const errors = apiErrors as ApiErrorsConfig;
   const errorKey = typeof key === "string" ? key : "default";
   const errorData = errors[errorKey] || errors.default;
+
+  const { notification } = useNotification();
 
   notification({
     type: "warning",
