@@ -41,6 +41,8 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
   const [lunchFalseCount, setLunchFalseCount] = useState(0);
   const [lunchBonus, setLunchBonus] = useState<number | null>(null);
   const [grandTotal, setGrandTotal] = useState<number | null>(null);
+  const [sundayMinutes, setSundayMinutes] = useState(0);
+  const [sundayPayment, setSundayPayment] = useState<number | null>(null);
 
   useEffect(() => {
     const { lastSunday, lastFriday } = getLastSundayAndFriday();
@@ -54,6 +56,15 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
     setMultiplier("");
     setResult(null);
   }, [selectedUser]);
+
+  useEffect(() => {
+    setTotalMinutes(null);
+    setResult(null);
+    setLunchBonus(null);
+    setGrandTotal(null);
+    setSundayMinutes(0);
+    setSundayPayment(null);
+  }, [startDate, endDate]);
 
   const getLastSundayAndFriday = () => {
     const today = dayjs();
@@ -96,11 +107,28 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
   }, [userAssistances, startDate, endDate]);
 
   const handleCalculateTotal = () => {
-    const total = filteredAssistances.reduce(
-      (sum, a) => sum + (a.minutesWorked || 0),
-      0
-    );
+    let total = 0;
+    let sundayMins = 0;
+
+    filteredAssistances.forEach((a) => {
+      const mins = a.minutesWorked || 0;
+      total += mins;
+
+      const date =
+        a.createAt?.toMillis?.() ?? new Date(a.createAtString ?? "").getTime();
+
+      const day = dayjs(date).day();
+
+      if (day === 0) {
+        sundayMins += mins;
+      }
+    });
+
     setTotalMinutes(total);
+    setSundayMinutes(sundayMins);
+
+    const sundayPay = round(sundayMins * 0.08333, 2);
+    setSundayPayment(sundayPay);
 
     const tCount = filteredAssistances.filter(
       (a) => a.orderLunch === true
@@ -120,11 +148,15 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
       setLunchBonus(null);
     }
 
-    if (result !== null && bono !== null) {
-      setGrandTotal(result + bono);
-    } else {
-      setGrandTotal(null);
-    }
+    const normalMinutes = total - sundayMins;
+    const normalPay = round(
+      normalMinutes * (selectedUser?.payPerMinute ?? 0),
+      2
+    );
+
+    setResult(normalPay);
+
+    setGrandTotal(normalPay + sundayPay + (bono ?? 0));
   };
 
   const handleMultiplierChange = (value: string) => {
@@ -286,6 +318,16 @@ export const UserAssistancesTable: React.FC<UserAssistancesTableProps> = ({
                     Resultado: <strong>S/{result.toFixed(2)}</strong>
                   </ResultText>
                 )}
+                {sundayMinutes > 0 && (
+                  <ResultText>
+                    Pago del día domingo:{" "}
+                    <strong>
+                      {sundayMinutes} minutos × S/0.08333 = S/
+                      {sundayPayment?.toFixed(2)}
+                    </strong>
+                  </ResultText>
+                )}
+
                 {lunchBonus !== null && (
                   <ResultText>
                     Bono de almuerzo:{" "}
