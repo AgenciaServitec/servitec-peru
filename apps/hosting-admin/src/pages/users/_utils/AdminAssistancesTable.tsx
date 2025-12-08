@@ -1,5 +1,5 @@
 import type { Assistance } from "../../../globalTypes.ts";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { ColumnsType } from "antd/es/table";
 import dayjs from "dayjs";
 import { Table, Tag, Modal, DatePicker, Button } from "../../../components";
@@ -7,6 +7,7 @@ import { orderBy } from "lodash";
 import styled, { css } from "styled-components";
 import { theme } from "../../../styles";
 import { updateAssistance } from "../../../firebase/collections";
+import { useUpdateMinutesWorked } from "../../assistances/_utils";
 import moment from "moment-timezone";
 
 interface AssistancesTableProps {
@@ -17,12 +18,30 @@ interface TableAssistance extends Assistance {
   key: string;
 }
 
-export const AssistancesTable: React.FC<AssistancesTableProps> = ({
+export const AdminAssistancesTable: React.FC<AssistancesTableProps> = ({
   assistances,
 }) => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<any>(null);
   const [newDate, setNewDate] = useState<any>(null);
+  const { updateMinutesWorked } = useUpdateMinutesWorked();
+
+  useEffect(() => {
+    assistances?.forEach((assistance: Assistance) => {
+      const hasEntry = assistance?.entry?.date;
+      const hasOutlet = assistance?.outlet?.date;
+
+      if (hasEntry && hasOutlet) {
+        const start = dayjs(assistance?.entry?.date, "DD-MM-YYYY HH:mm");
+        const end = dayjs(assistance?.outlet?.date, "DD-MM-YYYY HH:mm");
+        const newMinutes = end.diff(start, "minute");
+
+        if (assistance.minutesWorked !== newMinutes) {
+          updateMinutesWorked(assistance);
+        }
+      }
+    });
+  }, [assistances, updateMinutesWorked]);
 
   const openEditor = (type: "entry" | "outlet", assistance: Assistance) => {
     setSelected({ assistance, type });
@@ -33,14 +52,11 @@ export const AssistancesTable: React.FC<AssistancesTableProps> = ({
 
   const handleSave = async () => {
     if (!selected || !newDate) return;
-
     const { assistance, type } = selected;
-
     const formatted = newDate.format("DD-MM-YYYY HH:mm");
     const timestamp = moment(formatted, "DD-MM-YYYY HH:mm")
       .tz("America/Lima")
       .toDate();
-
     const updateObj = {
       [type]: {
         ...assistance[type],
@@ -49,9 +65,7 @@ export const AssistancesTable: React.FC<AssistancesTableProps> = ({
       },
       createAtString: assistance.createAtString,
     };
-
     await updateAssistance(assistance.id, updateObj);
-
     setOpen(false);
     setSelected(null);
   };
@@ -163,12 +177,41 @@ export const AssistancesTable: React.FC<AssistancesTableProps> = ({
           </Button>,
         ]}
       >
-        <DatePicker
-          showTime
-          format="DD/MM/YYYY HH:mm"
+        {selected && (
+          <p
+            style={{
+              marginBottom: "1rem",
+              fontSize: "1rem",
+              fontWeight: "bold",
+              color: "#ccc",
+            }}
+          >
+            Fecha:{" "}
+            {dayjs(
+              selected.assistance[selected.type].date,
+              "DD-MM-YYYY HH:mm"
+            ).format("DD/MM/YYYY")}
+          </p>
+        )}
+
+        <DatePicker.TimePicker
+          format="HH:mm"
           value={newDate}
-          disabledDate={() => true}
-          onChange={setNewDate}
+          style={{ width: "130px" }}
+          onChange={(time) => {
+            if (!time || !selected) return;
+
+            const originalDate = dayjs(
+              selected.assistance[selected.type].date,
+              "DD-MM-YYYY HH:mm"
+            );
+
+            const updated = originalDate
+              .hour(time.hour())
+              .minute(time.minute());
+
+            setNewDate(updated);
+          }}
         />
       </Modal>
     </>

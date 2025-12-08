@@ -2,7 +2,7 @@ import { useMemo, useState, useEffect } from "react";
 import dayjs from "dayjs";
 import { Title, Button } from "../../components";
 import {
-  AssistancesTable,
+  AdminAssistancesTable,
   calcularTotales,
   Filters,
   RangeLabel,
@@ -77,7 +77,7 @@ export const UserAssistancesTable = ({
         <p>Cargando...</p>
       ) : (
         <>
-          <AssistancesTable assistances={filtered} />
+          <AdminAssistancesTable assistances={filtered} />
 
           <Button type="primary" onClick={handleCalc}>
             Calcular

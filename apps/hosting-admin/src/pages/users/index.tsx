@@ -20,10 +20,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import styled, { css } from "styled-components";
 import { theme } from "../../styles";
-import type { Assistance } from "../../globalTypes";
 import { Timestamp } from "firebase/firestore";
-import { fetchAssistances } from "../../firebase/collections";
+import { assistancesRef } from "../../firebase/collections";
 import { UserAssistancesTable } from "./UserAssistancesTable.tsx";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 
 export interface Phone {
   prefix: string;
@@ -71,8 +71,14 @@ export const Users: React.FC = () => {
   const [usersView, setUsersView] = useState<User[]>([]);
 
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
-  const [userAssistances, setUserAssistances] = useState<Assistance[]>([]);
-  const [loadingAssistances, setLoadingAssistances] = useState(false);
+  const userAssistancesQuery =
+    selectedUser &&
+    assistancesRef
+      .where("userId", "==", selectedUser.id)
+      .where("isDeleted", "==", false);
+
+  const [userAssistances, loadingAssistances] =
+    useCollectionData(userAssistancesQuery);
 
   const navigateTo = (userId: string): void => navigate(userId);
 
@@ -131,31 +137,8 @@ export const Users: React.FC = () => {
     setUsersView(isEmpty(userSearch) ? users : usersMatch);
   }, [userSearch, users]);
 
-  const onViewAssistances = async (user: User): Promise<void> => {
-    try {
-      setSelectedUser(user);
-      setLoadingAssistances(true);
-
-      const assistances = await fetchAssistances();
-
-      const userAssistances = assistances
-        ?.filter((a) => a.userId === user.id && !a.isDeleted)
-        .sort((a, b) => {
-          const timeA = a.createAt?.toMillis?.() ?? 0;
-          const timeB = b.createAt?.toMillis?.() ?? 0;
-          return timeB - timeA;
-        });
-
-      setUserAssistances(userAssistances || []);
-    } catch (error) {
-      notification({
-        type: "error",
-        title: "Error al obtener asistencias",
-        description: String(error),
-      });
-    } finally {
-      setLoadingAssistances(false);
-    }
+  const onViewAssistances = (user: User): void => {
+    setSelectedUser(user);
   };
 
   return (
@@ -190,8 +173,8 @@ export const Users: React.FC = () => {
           {selectedUser && (
             <UserAssistancesTable
               selectedUser={selectedUser}
-              userAssistances={userAssistances}
               loadingAssistances={loadingAssistances}
+              userAssistances={userAssistances ?? []}
             />
           )}
         </Col>
