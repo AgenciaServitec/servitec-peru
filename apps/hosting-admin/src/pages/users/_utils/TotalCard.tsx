@@ -9,10 +9,12 @@ export const TotalCard = ({
   lunchFalseCount,
   foodVoucher,
   grandTotal,
+  payPerMinute,
 }) => (
   <Card>
     <Header>Total trabajado: {total} min</Header>
 
+    <Label>Tarifa: {payPerMinute}</Label>
     <Label>Pago normal: S/{normalPay.toFixed(2)}</Label>
 
     {sundayMinutes > 0 && (
@@ -69,11 +71,6 @@ const Label = styled.p`
   font-size: 0.95rem;
   color: #c9cad3;
   letter-spacing: 0.2px;
-`;
-
-const Highlight = styled.span`
-  color: #7dd3fc; /* celeste suave */
-  font-weight: 600;
 `;
 
 const TotalText = styled.h3`

@@ -14,29 +14,49 @@ export function calcularTotales(
     const mins = a.minutesWorked || 0;
     total += mins;
 
-    const date =
-      a.createAt?.toMillis?.() ?? new Date(a.createAtString ?? "").getTime();
+    const dateMillis =
+      a.createAt?.toMillis?.() ??
+      dayjs(a.createAtString ?? "", "DD-MM-YYYY HH:mm").valueOf();
 
-    if (dayjs(date).day() === 0) sundayMinutes += mins;
+    if (!dateMillis || Number.isNaN(dateMillis)) return;
+
+    if (dayjs(dateMillis).day() === 0) sundayMinutes += mins;
   });
 
   const sundayPayment = round(sundayMinutes * 0.08333, 2);
 
-  const lunchTrueCount = asistencias.filter(
-    (a) => a.orderLunch === true
-  ).length;
-  const lunchFalseCount = asistencias.filter(
-    (a) => a.orderLunch === false
-  ).length;
+  const lunchTrueCount = asistencias.filter((a) => {
+    if (a.orderLunch !== true) return false;
 
-  const lunchBonus = usuario?.foodVoucher
-    ? lunchFalseCount * usuario.foodVoucher
-    : 0;
+    const dateMillis =
+      a.createAt?.toMillis?.() ??
+      dayjs(a.createAtString ?? "", "DD-MM-YYYY HH:mm").valueOf();
 
-  const normalMinutes = total - sundayMinutes;
+    if (!dateMillis || Number.isNaN(dateMillis)) return false;
+
+    return dayjs(dateMillis).day() !== 0;
+  }).length;
+
+  const lunchFalseCount = asistencias.filter((a) => {
+    if (a.orderLunch !== false) return false;
+
+    const dateMillis =
+      a.createAt?.toMillis?.() ??
+      dayjs(a.createAtString ?? "", "DD-MM-YYYY HH:mm").valueOf();
+
+    if (!dateMillis || Number.isNaN(dateMillis)) return false;
+
+    return dayjs(dateMillis).day() !== 0;
+  }).length;
+
+  const voucher =
+    typeof usuario?.foodVoucher === "number" ? usuario!.foodVoucher : 0;
+  const lunchBonus = round(lunchFalseCount * voucher, 2);
+
+  const normalMinutes = Math.max(0, total - sundayMinutes);
   const normalPay = round(normalMinutes * (usuario?.payPerMinute ?? 0), 2);
 
-  const grandTotal = normalPay + sundayPayment + lunchBonus;
+  const grandTotal = round(normalPay + sundayPayment + lunchBonus, 2);
 
   return {
     total,
