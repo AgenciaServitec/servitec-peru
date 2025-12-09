@@ -84,7 +84,11 @@ export const UserAssistancesTable = ({
           </Button>
 
           {totales && (
-            <TotalCard {...totales} foodVoucher={selectedUser?.foodVoucher} />
+            <TotalCard
+              {...totales}
+              foodVoucher={selectedUser?.foodVoucher}
+              payPerMinute={selectedUser?.payPerMinute}
+            />
           )}
         </>
       )}

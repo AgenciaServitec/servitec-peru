@@ -46,7 +46,16 @@ export const AdminAssistancesTable: React.FC<AssistancesTableProps> = ({
   const openEditor = (type: "entry" | "outlet", assistance: Assistance) => {
     setSelected({ assistance, type });
     const dateString = assistance[type]?.date;
+    if (!dateString) {
+      const baseDate = dayjs(assistance?.entry.date, "DD-MM-YYYY HH:mm");
+      setNewDate(baseDate);
+      setOpen(true);
+      return;
+    }
+
     setNewDate(dayjs(dateString, "DD-MM-YYYY HH:mm"));
+    setOpen(true);
+
     setOpen(true);
   };
 
@@ -59,7 +68,6 @@ export const AdminAssistancesTable: React.FC<AssistancesTableProps> = ({
       .toDate();
     const updateObj = {
       [type]: {
-        ...assistance[type],
         date: formatted,
         dateTimestamp: timestamp,
       },
@@ -115,7 +123,9 @@ export const AdminAssistancesTable: React.FC<AssistancesTableProps> = ({
             )}
           </Tag>
         ) : (
-          "-"
+          <Button size="small" onClick={() => openEditor("outlet", assistance)}>
+            Agregar salida
+          </Button>
         ),
     },
     {
@@ -136,7 +146,13 @@ export const AdminAssistancesTable: React.FC<AssistancesTableProps> = ({
       title: "Pidió Almuerzo?",
       width: 180,
       align: "center",
-      render: (_, assistance) => (assistance?.orderLunch ? "Sí" : "No"),
+      render: (_, assistance) => {
+        const val = assistance?.orderLunch;
+
+        if (val !== true && val !== false) return "-";
+
+        return val ? "Si" : "No";
+      },
     },
   ];
 
@@ -186,9 +202,10 @@ export const AdminAssistancesTable: React.FC<AssistancesTableProps> = ({
               color: "#ccc",
             }}
           >
-            Fecha:{" "}
+            Fecha:
             {dayjs(
-              selected.assistance[selected.type].date,
+              selected.assistance[selected.type]?.date ??
+                selected.assistance.entry.date,
               "DD-MM-YYYY HH:mm"
             ).format("DD/MM/YYYY")}
           </p>
@@ -202,7 +219,8 @@ export const AdminAssistancesTable: React.FC<AssistancesTableProps> = ({
             if (!time || !selected) return;
 
             const originalDate = dayjs(
-              selected.assistance[selected.type].date,
+              selected.assistance[selected.type]?.date ??
+                selected.assistance.entry.date,
               "DD-MM-YYYY HH:mm"
             );
 
