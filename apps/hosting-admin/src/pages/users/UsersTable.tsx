@@ -1,5 +1,5 @@
 import React from "react";
-import { IconAction, Space, Table, Tag } from "../../components";
+import { IconAction, Space, Table } from "../../components";
 import { faCalendar, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { capitalize, orderBy } from "lodash";
 import dayjs from "dayjs";

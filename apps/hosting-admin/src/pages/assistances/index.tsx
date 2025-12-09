@@ -11,7 +11,6 @@ import {
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
-import { AssistancesTable } from "./Assistances.Table";
 import { useNavigate } from "react-router-dom";
 import { assistancesRef } from "../../firebase/collections";
 import { ModalProvider, useAuthentication, useModal } from "../../providers";
@@ -23,6 +22,7 @@ import type { DateFilter } from "./types.ts";
 import { exportAssistancesExcel } from "./_utils";
 import { AssistancesSubmitOrderLunch } from "./AssistancesSubmitOrderLunch.tsx";
 import { useDevice } from "../../hooks";
+import { AssistancesTable } from "./Assistances.Table.tsx";
 
 export function AssistancesIntegration() {
   const navigate = useNavigate();
