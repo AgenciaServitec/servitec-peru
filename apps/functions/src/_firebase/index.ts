@@ -1,4 +1,4 @@
-export * from "./firestore";
+export * from "./firestore.js";
 
 import * as admin from "firebase-admin";
 

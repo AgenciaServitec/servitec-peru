@@ -4,7 +4,6 @@ import {
   type FontAwesomeIconProps,
 } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { theme } from "../../styles";
 
 interface SpinnerProps {
   height?: string;
@@ -39,12 +38,12 @@ export const Spinner: React.FC<SpinnerProps> = ({
 );
 
 const Container = styled.section<ContainerProps>`
-  ${({ fullscreen, height }) => css`
+  ${({ theme, fullscreen, height }) => css`
     width: 100vw;
     height: ${height || (fullscreen ? "100%" : "calc(100% - 90px)")};
     display: grid;
     place-items: center;
-    background: ${fullscreen ? theme.colors.dark : "transparent"};
+    background: ${fullscreen ? theme.colors.bgPrimary : "transparent"};
 
     .item {
       width: auto;
@@ -61,7 +60,7 @@ const Container = styled.section<ContainerProps>`
 `;
 
 const IconStyled = styled(FontAwesomeIcon)`
-  ${() => css`
+  ${({ theme }) => css`
     color: ${theme.colors.primary};
   `}
 `;

@@ -2,7 +2,6 @@ import React, { type ReactNode } from "react";
 import styled, { css } from "styled-components";
 import { Typography } from "antd";
 import type { TitleProps as AntdTitleProps } from "antd/es/typography/Title";
-import { theme } from "../../styles";
 
 export interface TitleProps extends Omit<AntdTitleProps, "level"> {
   children: ReactNode;
@@ -31,9 +30,9 @@ export const Title: React.FC<TitleProps> = ({
 );
 
 const TitleStyled = styled(Typography.Title)<TitleStyledProps>`
-  ${({ $align, $color, $margin }) => css`
+  ${({ theme, $align, $color, $margin }) => css`
     text-align: ${$align};
-    color: ${$color || theme.colors.font1} !important;
+    color: ${$color || theme.colors.fontPrimary} !important;
     margin: ${$margin || 0} !important;
     font-weight: ${theme.font_weight.large};
 

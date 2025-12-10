@@ -166,7 +166,7 @@ export const UploadImages: React.FC<UploadImagesProps> = ({
               size={25}
               icon={faTrash}
               styled={{
-                color: () => "rgb(241, 13, 13)",
+                color: ({ theme }) => theme.colors.error,
               }}
             />
           </>

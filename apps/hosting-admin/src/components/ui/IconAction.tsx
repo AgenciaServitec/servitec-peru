@@ -1,10 +1,10 @@
 import React, { type MouseEvent } from "react";
-import styled, { css, type DefaultTheme } from "styled-components";
+import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import { tint, transparentize } from "polished";
+import { transparentize } from "polished";
 import Tooltip from "antd/lib/tooltip";
-import { theme } from "../../styles";
+import type { Theme } from "../../styles";
 
 export interface IconActionProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "onClick"> {
@@ -17,9 +17,9 @@ export interface IconActionProps
 }
 
 export interface IconStyles {
-  color?: (theme: DefaultTheme) => string;
-  hoverColor?: (theme: DefaultTheme) => string;
-  backgroundColor?: (theme: DefaultTheme) => string;
+  color?: string | ((theme: Theme) => string);
+  hoverColor?: string | ((theme: Theme) => string);
+  backgroundColor?: string | ((theme: Theme) => string);
 }
 
 interface IconWrapperProps {
@@ -66,54 +66,76 @@ export const IconAction: React.FC<IconActionProps> = ({
   );
 };
 
+const resolveColor = (
+  theme: Theme,
+  value: IconStyles["color"],
+  fallback: string
+): string => {
+  if (typeof value === "function") return value(theme);
+  if (typeof value === "string") return value;
+  return fallback;
+};
+
 const IconWrapper = styled.div<IconWrapperProps>`
-  ${({
-    $size,
-    $hasOnClick,
-    $disabled,
-    $iconStyles: {
-      color = () => theme.colors.font1,
-      hoverColor,
-      backgroundColor,
-    },
-  }) => css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: ${theme.border_radius.percentage_medium};
-    height: ${$size}px;
-    width: ${$size}px;
-    color: ${$disabled ? theme.colors.font2 : color(theme)};
-    background: ${backgroundColor ? backgroundColor(theme) : "transparent"};
-    transition: all 0.2s ease;
-    position: relative;
-    opacity: ${$disabled ? 0.5 : 1};
-    cursor: ${$disabled ? "not-allowed" : $hasOnClick ? "pointer" : "default"};
+  ${({ theme, $size, $hasOnClick, $disabled, $iconStyles }) => {
+    const typedTheme = theme as Theme;
 
-    ${$hasOnClick &&
-    !$disabled &&
-    css`
-      &:hover {
-        border-radius: ${theme.border_radius.percentage_full};
-        background: ${backgroundColor
-          ? transparentize(0.9, backgroundColor(theme))
-          : transparentize(
-              0.85,
-              hoverColor ? hoverColor(theme) : color(theme)
-            )};
-        color: ${hoverColor ? hoverColor(theme) : color(theme)};
-        transform: scale(1.1);
-      }
+    const baseColor = resolveColor(
+      typedTheme,
+      $iconStyles.color,
+      typedTheme.colors.fontPrimary
+    );
+    const hoverColor = resolveColor(
+      typedTheme,
+      $iconStyles.hoverColor,
+      baseColor
+    );
+    const bgColor = resolveColor(
+      typedTheme,
+      $iconStyles.backgroundColor,
+      "transparent"
+    );
 
-      &:active {
-        transform: scale(0.95);
-      }
-    `}
-
-    .svg-inline--fa {
-      height: ${$hasOnClick ? $size * 0.55 : $size}px;
-      width: ${$hasOnClick ? $size * 0.55 : $size}px;
+    return css`
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: ${typedTheme.border_radius.percentage_medium};
+      height: ${$size}px;
+      width: ${$size}px;
+      color: ${$disabled ? typedTheme.colors.fontSecondary : baseColor};
+      background: ${bgColor};
       transition: all 0.2s ease;
-    }
-  `}
+      position: relative;
+      opacity: ${$disabled ? 0.5 : 1};
+      cursor: ${$disabled
+        ? "not-allowed"
+        : $hasOnClick
+          ? "pointer"
+          : "default"};
+
+      ${$hasOnClick &&
+      !$disabled &&
+      css`
+        &:hover {
+          border-radius: ${typedTheme.border_radius.percentage_full};
+          background: ${bgColor !== "transparent"
+            ? transparentize(0.9, bgColor)
+            : transparentize(0.85, hoverColor)};
+          color: ${hoverColor};
+          transform: scale(1.1);
+        }
+
+        &:active {
+          transform: scale(0.95);
+        }
+      `}
+
+      .svg-inline--fa {
+        height: ${$hasOnClick ? $size * 0.55 : $size}px;
+        width: ${$hasOnClick ? $size * 0.55 : $size}px;
+        transition: all 0.2s ease;
+      }
+    `;
+  }}
 `;

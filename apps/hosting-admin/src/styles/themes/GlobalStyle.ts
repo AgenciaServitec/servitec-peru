@@ -1,16 +1,27 @@
 import { createGlobalStyle, css } from "styled-components";
 import { mediaQuery } from "../constants";
-import { lighten } from "polished";
-import { theme } from "./theme.ts";
+import type { Theme } from "./theme";
 
-const global = css`
+interface ThemeProps {
+  theme: Theme;
+}
+
+const global = css<ThemeProps>`
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family:
-      -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
-      sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      "Inter",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Helvetica,
+      Arial,
+      sans-serif,
+      "Apple Color Emoji",
+      "Segoe UI Emoji",
+      "Segoe UI Symbol";
   }
 
   html {
@@ -18,61 +29,72 @@ const global = css`
   }
 
   body {
-    background: ${() => theme.colors.dark};
+    background: ${({ theme }) => theme.colors.bgPrimary};
     font-size: 15px;
     overflow-x: hidden;
     font-family:
-      -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
-      sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    color: ${() => theme.colors.font2};
+      "Inter",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Helvetica,
+      Arial,
+      sans-serif,
+      "Apple Color Emoji",
+      "Segoe UI Emoji",
+      "Segoe UI Symbol";
+    color: ${({ theme }) => theme.colors.fontSecondary};
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
   }
 
   h1,
   h2,
   h3 {
-    color: ${() => theme.colors.font1};
+    color: ${({ theme }) => theme.colors.fontPrimary};
   }
 
   h4,
   h5,
   h6 {
-    color: ${() => theme.colors.font2};
+    color: ${({ theme }) => theme.colors.fontSecondary};
   }
 
   h1 {
-    font-size: 2rem;
-    font-weight: bold;
-    line-height: 3.4rem;
+    font-size: ${({ theme }) => theme.font_sizes.xxx_large};
+    font-weight: ${({ theme }) => theme.font_weight.large};
+    line-height: 1.2;
   }
 
   h2 {
-    font-size: 1.7rem;
-    font-weight: bold;
-    line-height: 2.2rem;
+    font-size: ${({ theme }) => theme.font_sizes.xx_large};
+    font-weight: ${({ theme }) => theme.font_weight.large};
+    line-height: 1.3;
   }
 
   h3 {
-    font-size: 1.3rem;
-    font-weight: bold;
+    font-size: ${({ theme }) => theme.font_sizes.x_large};
+    font-weight: ${({ theme }) => theme.font_weight.large};
   }
 
   h4 {
-    font-size: 1.1rem;
-    font-weight: bold;
+    font-size: ${({ theme }) => theme.font_sizes.large};
+    font-weight: ${({ theme }) => theme.font_weight.medium};
   }
 
   h5 {
-    font-size: 1rem;
-    font-weight: bold;
+    font-size: ${({ theme }) => theme.font_sizes.medium};
+    font-weight: ${({ theme }) => theme.font_weight.medium};
   }
 
   .link-color {
-    color: ${() => theme.colors.font3};
+    color: ${({ theme }) => theme.colors.fontLink};
     cursor: pointer;
-    transition: color 0.2s ease;
+    transition: color ${({ theme }) => theme.transitions.fast};
 
     &:hover {
-      color: ${() => theme.colors.primary};
+      color: ${({ theme }) => theme.colors.fontLinkHover};
     }
   }
 
@@ -92,123 +114,172 @@ const global = css`
     pointer-events: none;
   }
 
-  /* Ant Design Global Overrides */
+  /* ========================================== */
+  /* 🎨 ANT DESIGN GLOBAL OVERRIDES */
+  /* ========================================== */
+
+  /* 📝 INPUTS & FORMS */
   .ant-input,
   .ant-input-number,
+  .ant-input-number-input,
   .ant-select-selector,
   .ant-picker {
-    background: ${() => lighten(0.02, theme.colors.secondary)} !important;
-    border-color: ${() => lighten(0.1, theme.colors.secondary)} !important;
-    color: ${() => theme.colors.font1} !important;
+    background: ${({ theme }) => theme.colors.bgInput} !important;
+    border-color: ${({ theme }) => theme.colors.border} !important;
+    color: ${({ theme }) => theme.colors.fontPrimary} !important;
+    transition: all ${({ theme }) => theme.transitions.fast};
 
     &:hover {
-      border-color: ${() => theme.colors.primary} !important;
+      border-color: ${({ theme }) => theme.colors.borderHover} !important;
     }
 
     &:focus,
     &.ant-input-focused,
     &.ant-select-focused .ant-select-selector {
-      border-color: ${() => theme.colors.primary} !important;
-      box-shadow: 0 0 0 2px ${() => theme.colors.primary}20 !important;
+      border-color: ${({ theme }) => theme.colors.primary} !important;
+      box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primaryAlpha} !important;
     }
 
     &::placeholder {
-      color: ${() => theme.colors.gray} !important;
+      color: ${({ theme }) => theme.colors.fontTertiary} !important;
+    }
+
+    &:disabled {
+      background: ${({ theme }) => theme.colors.bgSecondary} !important;
+      color: ${({ theme }) => theme.colors.fontDisabled} !important;
+      cursor: not-allowed;
     }
   }
 
+  .ant-input-textarea {
+    background: ${({ theme }) => theme.colors.bgInput} !important;
+  }
+
+  .ant-input-number-handler-wrap {
+    background: ${({ theme }) => theme.colors.bgSecondary} !important;
+    border-left-color: ${({ theme }) => theme.colors.border} !important;
+  }
+
+  .ant-input-number-handler {
+    color: ${({ theme }) => theme.colors.fontSecondary} !important;
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.primary} !important;
+    }
+  }
+
+  /* 🔽 SELECT & DROPDOWNS */
   .ant-select-arrow,
   .ant-picker-suffix {
-    color: ${() => theme.colors.font2} !important;
+    color: ${({ theme }) => theme.colors.fontSecondary} !important;
   }
 
   .ant-select-dropdown,
   .ant-picker-dropdown {
-    background: ${() => theme.colors.secondary} !important;
-    border: 1px solid ${() => lighten(0.1, theme.colors.secondary)} !important;
+    background: ${({ theme }) => theme.colors.bgTertiary} !important;
+    border: 1px solid ${({ theme }) => theme.colors.border} !important;
+    box-shadow: ${({ theme }) => theme.shadows.lg} !important;
   }
 
   .ant-select-item {
-    color: ${() => theme.colors.font2} !important;
+    color: ${({ theme }) => theme.colors.fontSecondary} !important;
 
     &:hover {
-      background: ${() => lighten(0.05, theme.colors.secondary)} !important;
+      background: ${({ theme }) => theme.colors.bgHover} !important;
     }
 
     &.ant-select-item-option-selected {
-      background: ${() => lighten(0.08, theme.colors.secondary)} !important;
-      color: ${() => theme.colors.primary} !important;
+      background: ${({ theme }) => theme.colors.bgActive} !important;
+      color: ${({ theme }) => theme.colors.primary} !important;
+    }
+
+    &.ant-select-item-option-disabled {
+      color: ${({ theme }) => theme.colors.fontDisabled} !important;
     }
   }
 
+  /* 🪟 MODALS */
   .ant-modal-content {
-    background: ${() => theme.colors.secondary} !important;
-    color: ${() => theme.colors.font1} !important;
+    background: ${({ theme }) => theme.colors.bgSecondary} !important;
+    color: ${({ theme }) => theme.colors.fontPrimary} !important;
   }
 
   .ant-modal-header {
-    background: ${() => theme.colors.secondary} !important;
-    border-bottom: 1px solid ${() => lighten(0.1, theme.colors.secondary)} !important;
+    background: ${({ theme }) => theme.colors.bgSecondary} !important;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.divider} !important;
 
     .ant-modal-title {
-      color: ${() => theme.colors.font1} !important;
+      color: ${({ theme }) => theme.colors.fontPrimary} !important;
     }
   }
 
   .ant-modal-close {
-    color: ${() => theme.colors.font2} !important;
+    color: ${({ theme }) => theme.colors.fontSecondary} !important;
 
     &:hover {
-      color: ${() => theme.colors.primary} !important;
+      color: ${({ theme }) => theme.colors.primary} !important;
     }
   }
 
   .ant-modal-footer {
-    border-top: 1px solid ${() => lighten(0.1, theme.colors.secondary)} !important;
+    border-top: 1px solid ${({ theme }) => theme.colors.divider} !important;
+    background: ${({ theme }) => theme.colors.bgSecondary} !important;
   }
 
+  .ant-modal-mask {
+    background-color: ${({ theme }) => theme.colors.overlay} !important;
+  }
+
+  /* 📊 TABLES */
   .ant-table {
     background: transparent !important;
-    color: ${() => theme.colors.font2} !important;
+    color: ${({ theme }) => theme.colors.fontSecondary} !important;
 
     .ant-table-thead > tr > th {
-      background: ${() => lighten(0.05, theme.colors.secondary)} !important;
-      color: ${() => theme.colors.font1} !important;
-      border-bottom: 1px solid ${() => lighten(0.1, theme.colors.secondary)} !important;
+      background: ${({ theme }) => theme.colors.bgSecondary} !important;
+      color: ${({ theme }) => theme.colors.fontPrimary} !important;
+      border-bottom: 1px solid ${({ theme }) => theme.colors.border} !important;
+      font-weight: ${({ theme }) => theme.font_weight.medium};
     }
 
     .ant-table-tbody > tr > td {
-      border-bottom: 1px solid ${() => lighten(0.05, theme.colors.secondary)} !important;
+      border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight} !important;
     }
 
     .ant-table-tbody > tr:hover > td {
-      background: ${() => lighten(0.03, theme.colors.secondary)} !important;
+      background: ${({ theme }) => theme.colors.bgHover} !important;
+    }
+
+    .ant-table-row-selected > td {
+      background: ${({ theme }) => theme.colors.bgActive} !important;
     }
   }
 
+  /* 📄 PAGINATION */
   .ant-pagination {
     .ant-pagination-item {
-      background: ${() => theme.colors.secondary} !important;
-      border-color: ${() => lighten(0.1, theme.colors.secondary)} !important;
+      background: ${({ theme }) => theme.colors.bgSecondary} !important;
+      border-color: ${({ theme }) => theme.colors.border} !important;
 
       a {
-        color: ${() => theme.colors.font2} !important;
+        color: ${({ theme }) => theme.colors.fontSecondary} !important;
       }
 
       &:hover {
-        border-color: ${() => theme.colors.primary} !important;
+        border-color: ${({ theme }) => theme.colors.primary} !important;
 
         a {
-          color: ${() => theme.colors.primary} !important;
+          color: ${({ theme }) => theme.colors.primary} !important;
         }
       }
 
       &.ant-pagination-item-active {
-        background: ${() => theme.colors.primary} !important;
-        border-color: ${() => theme.colors.primary} !important;
+        background: ${({ theme }) => theme.colors.primary} !important;
+        border-color: ${({ theme }) => theme.colors.primary} !important;
 
         a {
-          color: ${() => theme.colors.black} !important;
+          color: ${({ theme }) => theme.colors.black} !important;
+          font-weight: ${({ theme }) => theme.font_weight.medium};
         }
       }
     }
@@ -216,242 +287,319 @@ const global = css`
     .ant-pagination-prev,
     .ant-pagination-next {
       button {
-        background: ${() => theme.colors.secondary} !important;
-        border-color: ${() => lighten(0.1, theme.colors.secondary)} !important;
-        color: ${() => theme.colors.font2} !important;
+        background: ${({ theme }) => theme.colors.bgSecondary} !important;
+        border-color: ${({ theme }) => theme.colors.border} !important;
+        color: ${({ theme }) => theme.colors.fontSecondary} !important;
 
-        &:hover {
-          border-color: ${() => theme.colors.primary} !important;
-          color: ${() => theme.colors.primary} !important;
+        &:hover:not(:disabled) {
+          border-color: ${({ theme }) => theme.colors.primary} !important;
+          color: ${({ theme }) => theme.colors.primary} !important;
+        }
+
+        &:disabled {
+          color: ${({ theme }) => theme.colors.fontDisabled} !important;
         }
       }
     }
   }
 
+  /* 📋 FORMS */
   .ant-form-item-label > label {
-    color: ${() => theme.colors.font1} !important;
+    color: ${({ theme }) => theme.colors.fontPrimary} !important;
   }
 
   .ant-form-item-explain-error {
-    color: ${() => theme.colors.error} !important;
+    color: ${({ theme }) => theme.colors.error} !important;
   }
 
-  .ant-btn-default {
-    background: ${() => theme.colors.secondary} !important;
-    border-color: ${() => lighten(0.1, theme.colors.secondary)} !important;
-    color: ${() => theme.colors.font1} !important;
-
-    &:hover {
-      border-color: ${() => theme.colors.primary} !important;
-      color: ${() => theme.colors.primary} !important;
+  .ant-form-item-has-error {
+    .ant-input,
+    .ant-input-number,
+    .ant-select-selector,
+    .ant-picker {
+      border-color: ${({ theme }) => theme.colors.error} !important;
     }
   }
 
+  /* 🔘 BUTTONS */
+  .ant-btn-default {
+    background: ${({ theme }) => theme.colors.bgSecondary} !important;
+    border-color: ${({ theme }) => theme.colors.border} !important;
+    color: ${({ theme }) => theme.colors.fontPrimary} !important;
+
+    &:hover:not(:disabled) {
+      border-color: ${({ theme }) => theme.colors.primary} !important;
+      color: ${({ theme }) => theme.colors.primary} !important;
+    }
+
+    &:disabled {
+      background: ${({ theme }) => theme.colors.bgSecondary} !important;
+      color: ${({ theme }) => theme.colors.fontDisabled} !important;
+    }
+  }
+
+  .ant-btn-primary {
+    background: ${({ theme }) => theme.colors.primary} !important;
+    border-color: ${({ theme }) => theme.colors.primary} !important;
+    color: ${({ theme }) => theme.colors.black} !important;
+
+    &:hover:not(:disabled) {
+      background: ${({ theme }) => theme.colors.primaryDark} !important;
+      border-color: ${({ theme }) => theme.colors.primaryDark} !important;
+    }
+  }
+
+  /* 🔔 NOTIFICATIONS */
   .ant-notification-notice {
-    background: ${() => theme.colors.secondary} !important;
-    border: 1px solid ${() => lighten(0.1, theme.colors.secondary)} !important;
-    border-radius: 10px !important;
+    background: ${({ theme }) => theme.colors.bgSecondary} !important;
+    border: 1px solid ${({ theme }) => theme.colors.border} !important;
+    border-radius: ${({ theme }) => theme.border_radius.medium} !important;
 
     .ant-notification-notice-message {
-      color: ${() => theme.colors.font1} !important;
+      color: ${({ theme }) => theme.colors.fontPrimary} !important;
     }
 
     .ant-notification-notice-description {
-      color: ${() => theme.colors.font2} !important;
+      color: ${({ theme }) => theme.colors.fontSecondary} !important;
+    }
+
+    .ant-notification-notice-close {
+      color: ${({ theme }) => theme.colors.fontSecondary} !important;
+
+      &:hover {
+        color: ${({ theme }) => theme.colors.primary} !important;
+      }
     }
   }
 
+  /* 💬 MESSAGES */
   .ant-message-notice-content {
-    background: ${() => theme.colors.secondary} !important;
-    color: ${() => theme.colors.font1} !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+    background: ${({ theme }) => theme.colors.bgSecondary} !important;
+    color: ${({ theme }) => theme.colors.fontPrimary} !important;
+    box-shadow: ${({ theme }) => theme.shadows.lg} !important;
+    border: 1px solid ${({ theme }) => theme.colors.border} !important;
+  }
+
+  /* 🎯 TOOLTIPS */
+  .ant-tooltip-inner {
+    background: ${({ theme }) => theme.colors.bgTertiary} !important;
+    color: ${({ theme }) => theme.colors.fontPrimary} !important;
+  }
+
+  .ant-tooltip-arrow-content {
+    background: ${({ theme }) => theme.colors.bgTertiary} !important;
   }
 `;
 
 const antd = {
-  datePicker: css`
+  datePicker: css<ThemeProps>`
     .ant-picker-panel-container {
-      background: ${() => theme.colors.secondary} !important;
-      border: 1px solid ${() => lighten(0.1, theme.colors.secondary)} !important;
+      background: ${({ theme }) => theme.colors.bgTertiary} !important;
+      border: 1px solid ${({ theme }) => theme.colors.border} !important;
     }
 
     .ant-picker-header {
-      border-bottom: 1px solid ${() => lighten(0.05, theme.colors.secondary)} !important;
-      color: ${() => theme.colors.font1} !important;
+      border-bottom: 1px solid ${({ theme }) => theme.colors.divider} !important;
+      color: ${({ theme }) => theme.colors.fontPrimary} !important;
 
       button {
-        color: ${() => theme.colors.font2} !important;
+        color: ${({ theme }) => theme.colors.fontSecondary} !important;
 
         &:hover {
-          color: ${() => theme.colors.primary} !important;
+          color: ${({ theme }) => theme.colors.primary} !important;
         }
       }
     }
 
     .ant-picker-content {
       th {
-        color: ${() => theme.colors.font2} !important;
+        color: ${({ theme }) => theme.colors.fontSecondary} !important;
       }
     }
 
     .ant-picker-cell {
-      color: ${() => theme.colors.font2} !important;
+      color: ${({ theme }) => theme.colors.fontSecondary} !important;
 
       &:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-disabled)
         .ant-picker-cell-inner {
-        background: ${() => lighten(0.05, theme.colors.secondary)} !important;
+        background: ${({ theme }) => theme.colors.bgHover} !important;
       }
     }
 
     .ant-picker-cell-in-view {
-      color: ${() => theme.colors.font1} !important;
+      color: ${({ theme }) => theme.colors.fontPrimary} !important;
     }
 
     .ant-picker-cell-selected .ant-picker-cell-inner {
-      background: ${() => theme.colors.primary} !important;
-      color: ${() => theme.colors.black} !important;
+      background: ${({ theme }) => theme.colors.primary} !important;
+      color: ${({ theme }) => theme.colors.black} !important;
     }
 
     .ant-picker-cell-today .ant-picker-cell-inner::before {
-      border: 1px solid ${() => theme.colors.primary} !important;
+      border: 1px solid ${({ theme }) => theme.colors.primary} !important;
     }
 
     .ant-picker-today-btn {
-      color: ${() => theme.colors.primary} !important;
+      color: ${({ theme }) => theme.colors.primary} !important;
     }
 
     .ant-picker-footer {
-      border-top: 1px solid ${() => lighten(0.05, theme.colors.secondary)} !important;
+      border-top: 1px solid ${({ theme }) => theme.colors.divider} !important;
+    }
+
+    .ant-picker-cell-disabled .ant-picker-cell-inner {
+      color: ${({ theme }) => theme.colors.fontDisabled} !important;
     }
   `,
-  radio: css`
+
+  radio: css<ThemeProps>`
     .ant-radio-wrapper {
-      color: ${() => theme.colors.font2} !important;
+      color: ${({ theme }) => theme.colors.fontSecondary} !important;
     }
 
     .ant-radio-inner {
-      background: ${() => theme.colors.secondary} !important;
-      border-color: ${() => theme.colors.gray} !important;
+      background: ${({ theme }) => theme.colors.bgInput} !important;
+      border-color: ${({ theme }) => theme.colors.border} !important;
     }
 
     .ant-radio-checked .ant-radio-inner {
-      border-color: ${() => theme.colors.primary} !important;
-      background-color: ${() => theme.colors.primary} !important;
+      border-color: ${({ theme }) => theme.colors.primary} !important;
+      background-color: ${({ theme }) => theme.colors.primary} !important;
 
       &::after {
-        background-color: ${() => theme.colors.black} !important;
-      }
-
-      &:hover {
-        border-color: ${() => theme.colors.primary} !important;
+        background-color: ${({ theme }) => theme.colors.black} !important;
       }
     }
 
     .ant-radio:hover .ant-radio-inner {
-      border-color: ${() => theme.colors.primary} !important;
+      border-color: ${({ theme }) => theme.colors.primary} !important;
+    }
+
+    .ant-radio-disabled .ant-radio-inner {
+      background: ${({ theme }) => theme.colors.bgSecondary} !important;
+      border-color: ${({ theme }) => theme.colors.borderLight} !important;
     }
   `,
-  checkbox: css`
+
+  checkbox: css<ThemeProps>`
     .ant-checkbox-wrapper {
-      color: ${() => theme.colors.font2} !important;
+      color: ${({ theme }) => theme.colors.fontSecondary} !important;
     }
 
     .ant-checkbox-inner {
-      background: ${() => theme.colors.secondary} !important;
-      border-color: ${() => theme.colors.gray} !important;
+      background: ${({ theme }) => theme.colors.bgInput} !important;
+      border-color: ${({ theme }) => theme.colors.border} !important;
     }
 
     .ant-checkbox-checked .ant-checkbox-inner {
-      background-color: ${() => theme.colors.primary} !important;
-      border-color: ${() => theme.colors.primary} !important;
+      background-color: ${({ theme }) => theme.colors.primary} !important;
+      border-color: ${({ theme }) => theme.colors.primary} !important;
 
       &::after {
-        border-color: ${() => theme.colors.black} !important;
+        border-color: ${({ theme }) => theme.colors.black} !important;
       }
     }
 
     .ant-checkbox-wrapper:hover .ant-checkbox-inner,
     .ant-checkbox:hover .ant-checkbox-inner,
     .ant-checkbox-input:focus + .ant-checkbox-inner {
-      border-color: ${() => theme.colors.primary} !important;
+      border-color: ${({ theme }) => theme.colors.primary} !important;
     }
 
-    .ant-checkbox-checked::after {
-      border-color: ${() => theme.colors.primary} !important;
+    .ant-checkbox-indeterminate .ant-checkbox-inner::after {
+      background-color: ${({ theme }) => theme.colors.primary} !important;
+    }
+
+    .ant-checkbox-disabled .ant-checkbox-inner {
+      background: ${({ theme }) => theme.colors.bgSecondary} !important;
+      border-color: ${({ theme }) => theme.colors.borderLight} !important;
     }
   `,
-  switch: css`
-    .ant-switch {
-      background-color: ${() => theme.colors.gray} !important;
 
-      &:hover {
-        background-color: ${() => lighten(0.1, theme.colors.gray)} !important;
+  switch: css<ThemeProps>`
+    .ant-switch {
+      background-color: ${({ theme }) => theme.colors.border} !important;
+
+      &:hover:not(.ant-switch-disabled) {
+        background-color: ${({ theme }) => theme.colors.borderHover} !important;
       }
     }
 
     .ant-switch-checked {
-      background-color: ${() => theme.colors.primary} !important;
+      background-color: ${({ theme }) => theme.colors.primary} !important;
 
-      &:hover {
-        background-color: ${() =>
-          lighten(0.1, theme.colors.primary)} !important;
+      &:hover:not(.ant-switch-disabled) {
+        background-color: ${({ theme }) => theme.colors.primaryDark} !important;
       }
     }
 
     .ant-switch-inner {
-      color: ${() => theme.colors.white} !important;
+      color: ${({ theme }) => theme.colors.white} !important;
+    }
+
+    .ant-switch-disabled {
+      opacity: 0.4;
     }
   `,
-  dropdown: css`
+
+  dropdown: css<ThemeProps>`
     .ant-dropdown {
-      background: ${() => theme.colors.secondary} !important;
-      border: 1px solid ${() => lighten(0.1, theme.colors.secondary)} !important;
+      background: ${({ theme }) => theme.colors.bgTertiary} !important;
+      border: 1px solid ${({ theme }) => theme.colors.border} !important;
+      box-shadow: ${({ theme }) => theme.shadows.lg} !important;
     }
 
     .ant-dropdown-menu {
-      background: ${() => theme.colors.secondary} !important;
+      background: ${({ theme }) => theme.colors.bgTertiary} !important;
     }
 
     .ant-dropdown-menu-item,
     .ant-dropdown-menu-submenu-title {
-      color: ${() => theme.colors.font2} !important;
+      color: ${({ theme }) => theme.colors.fontSecondary} !important;
 
-      &:hover {
-        background: ${() => lighten(0.05, theme.colors.secondary)} !important;
-        color: ${() => theme.colors.primary} !important;
+      &:hover:not(.ant-dropdown-menu-item-disabled) {
+        background: ${({ theme }) => theme.colors.bgHover} !important;
+        color: ${({ theme }) => theme.colors.primary} !important;
+      }
+
+      &.ant-dropdown-menu-item-disabled {
+        color: ${({ theme }) => theme.colors.fontDisabled} !important;
       }
     }
 
     .ant-dropdown-menu-item-divider {
-      background: ${() => lighten(0.1, theme.colors.secondary)} !important;
+      background: ${({ theme }) => theme.colors.divider} !important;
     }
   `,
-  card: css`
+
+  card: css<ThemeProps>`
     .ant-card {
-      background: ${() => theme.colors.secondary} !important;
-      border: 1px solid ${() => lighten(0.05, theme.colors.secondary)} !important;
+      background: ${({ theme }) => theme.colors.bgSecondary} !important;
+      border: 1px solid ${({ theme }) => theme.colors.border} !important;
     }
 
     .ant-card-head {
-      border-bottom: 1px solid ${() => lighten(0.08, theme.colors.secondary)} !important;
-      color: ${() => theme.colors.font1} !important;
+      border-bottom: 1px solid ${({ theme }) => theme.colors.divider} !important;
+      color: ${({ theme }) => theme.colors.fontPrimary} !important;
+      background: ${({ theme }) => theme.colors.bgSecondary} !important;
 
       .ant-card-head-title {
-        color: ${() => theme.colors.font1} !important;
+        color: ${({ theme }) => theme.colors.fontPrimary} !important;
       }
     }
 
     .ant-card-body {
-      color: ${() => theme.colors.font2} !important;
+      color: ${({ theme }) => theme.colors.fontSecondary} !important;
     }
 
-    .ant-card-bordered {
-      border: 1px solid ${() => lighten(0.08, theme.colors.secondary)} !important;
+    .ant-card-hoverable:hover {
+      border-color: ${({ theme }) => theme.colors.borderHover} !important;
+      box-shadow: ${({ theme }) => theme.shadows.md} !important;
     }
   `,
 };
 
-const scroll = css`
+const scroll = css<ThemeProps>`
   ::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 8px;
@@ -459,17 +607,21 @@ const scroll = css`
   }
 
   ::-webkit-scrollbar-track {
-    background: ${() => theme.colors.secondary};
-    border-radius: 10px;
+    background: ${({ theme }) => theme.colors.bgSecondary};
+    border-radius: ${({ theme }) => theme.border_radius.small};
   }
 
   ::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: ${() => theme.colors.gray};
-    transition: background 0.2s ease;
+    border-radius: ${({ theme }) => theme.border_radius.small};
+    background: ${({ theme }) => theme.colors.border};
+    transition: background ${({ theme }) => theme.transitions.fast};
 
     &:hover {
-      background: ${() => theme.colors.primary};
+      background: ${({ theme }) => theme.colors.primary};
+    }
+
+    &:active {
+      background: ${({ theme }) => theme.colors.primaryDark};
     }
   }
 
@@ -478,7 +630,7 @@ const scroll = css`
   }
 `;
 
-export const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle<ThemeProps>`
     ${global}
     ${Object.values(antd).map((antdComponent) => antdComponent)}
     ${mediaQuery.minTablet}{
@@ -496,6 +648,13 @@ export const GlobalStyle = createGlobalStyle`
             margin: 0;
             padding: 0;
             background: #fff;
+            color: #000;
+        }
+
+        /* Ocultar elementos no necesarios en impresión */
+        button,
+        .no-print {
+            display: none !important;
         }
     }
 `;

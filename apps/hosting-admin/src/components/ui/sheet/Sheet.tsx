@@ -47,31 +47,25 @@ const Container = styled.section<ContainerProps>`
     -ms-user-select: text;
     user-select: text;
 
-    /* Vista en pantalla: ancho tipo A4, pero sin altura fija */
     width: ${PAGE_SIZES[layout].width};
     max-width: 100%;
     margin: 1rem auto;
     display: block;
     background: white;
 
-    /* IMPORTANTE: dejar que el contenido crezca */
-    /* Nada de overflow: hidden ni height fija */
-
     @media print {
-      /* En impresión dejamos que el navegador pagine solo */
       width: 100%;
       margin: 0;
       padding: 0;
       border: none;
       background: white;
-      /* No forzamos page-break-after aquí */
     }
   `}
 `;
 
 const PortraitCSS = css`
   width: ${PAGE_SIZES.portrait.width};
-  //height: ${PAGE_SIZES.portrait.height};
+  // height: ${PAGE_SIZES.portrait.height};
 `;
 
 const LandscapeCss = css`
@@ -98,5 +92,4 @@ const LayoutContainer = styled.div<LayoutContainerProps>`
 
 const Children = styled.div`
   width: 100%;
-  /* Quitamos height y overflow para que el contenido fluya */
 `;

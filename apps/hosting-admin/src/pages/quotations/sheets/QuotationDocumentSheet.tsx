@@ -11,8 +11,6 @@ interface QuotationDocumentSheetProps {
 export const QuotationDocumentSheet = ({
   quotation,
 }: QuotationDocumentSheetProps) => {
-  console.log(quotation);
-
   const subtotal = quotation?.quotationDetails?.reduce(
     (sum: number, item: any) => sum + item.subTotal,
     0
@@ -33,7 +31,7 @@ export const QuotationDocumentSheet = ({
             </LogoPlaceholder>
           </div>
           <div className="title-section">
-            <h1>COTIZACIÓN</h1>
+            <h1>INFORME TÉCNICO</h1>
             <ContractInfo>
               <p>
                 <strong>N° de Contrato:</strong> {quotation.contractNumber}
@@ -117,7 +115,7 @@ export const QuotationDocumentSheet = ({
             </InfoGrid>
           </Section>
           <Section>
-            <SectionTitle>INFORME TÉCNICO</SectionTitle>
+            <SectionTitle>DETALLES TÉCNICOS</SectionTitle>
             <TechnicalInfo>
               <div className="tech-item">
                 <h4>Problema que presenta:</h4>
@@ -160,9 +158,11 @@ export const QuotationDocumentSheet = ({
                 {quotation?.quotationDetails?.map(
                   (item: any, index: number) => (
                     <tr key={index}>
-                      <td style={{ whiteSpace: "pre-wrap", maxWidth: "10px" }}>
-                        {item.description}
-                      </td>
+                      <QuillContent
+                        dangerouslySetInnerHTML={{
+                          __html: item.description || "",
+                        }}
+                      />
                       <td className="center">{item.quantity}</td>
                       <td className="right">S/ {item.unitPrice.toFixed(2)}</td>
                       <td className="right">S/ {item.subTotal.toFixed(2)}</td>
@@ -236,7 +236,7 @@ export const QuotationDocumentSheet = ({
             </div>
             <div className="qr-container">
               <QRCode
-                value="https://servitecperu.com"
+                value={window.location.href}
                 color="black"
                 type="svg"
                 size={90}
@@ -273,9 +273,8 @@ const Container = styled.div`
 
   @media print {
     .sheet {
-      /* deja espacio para header y footer fijos en cada página */
-      padding-top: 40mm; /* ajustar según alto real de tu header */
-      padding-bottom: 35mm; /* ajustar según alto real de tu footer */
+      padding-top: 40mm;
+      padding-bottom: 35mm;
     }
   }
 `;

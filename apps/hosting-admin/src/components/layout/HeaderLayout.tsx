@@ -3,10 +3,10 @@ import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRightFromBracket,
-  faBars,
+  faBarsStaggered,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { mediaQuery, theme } from "../../styles";
+import { mediaQuery } from "../../styles";
 import { useAuthentication } from "../../providers";
 import { Dropdown } from "../ui";
 import { PhotoNoFound } from "../../images";
@@ -63,7 +63,8 @@ export const HeaderLayout = ({
             style={{ fontSize: "1.7em", display: "flex", alignItems: "center" }}
             onClick={() => onSetIsVisibleDrawer(!isVisibleDrawer)}
           >
-            <FontAwesomeIcon icon={faBars} className="icon-item" />
+            {/*<FontAwesomeIcon icon={faBars} className="icon-item" />*/}
+            <FontAwesomeIcon icon={faBarsStaggered} className="icon-item" />
           </div>
         </Space>
       </div>
@@ -93,14 +94,14 @@ export const HeaderLayout = ({
 };
 
 const HeaderContainer = styled(Header)`
-  ${() => css`
-    background: ${theme.colors.secondary} !important;
+  ${({ theme }) => css`
+    background: ${theme.colors.bgSecondary} !important;
     position: sticky;
     top: 1px;
     z-index: 1000;
     display: flex;
     justify-content: space-between;
-    box-shadow: 0 2px 8px ${theme.colors.dark}80;
+    box-shadow: 0 2px 8px ${theme.colors.black}80;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     overflow: hidden;
     padding: 0 ${theme.paddings.large};
@@ -115,7 +116,7 @@ const HeaderContainer = styled(Header)`
 
         .icon-item {
           cursor: pointer;
-          color: ${theme.colors.font1};
+          color: ${theme.colors.fontPrimary};
           transition: color 0.2s ease;
 
           &:hover {
@@ -138,7 +139,7 @@ const HeaderContainer = styled(Header)`
 `;
 
 const UserProfile = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     display: flex;
     align-items: center;
     gap: ${theme.paddings.medium};
@@ -162,7 +163,7 @@ const UserProfile = styled.div`
       h4 {
         margin: 0;
         font-size: ${theme.font_sizes.small};
-        color: ${theme.colors.font1};
+        color: ${theme.colors.fontPrimary};
         font-weight: ${theme.font_weight.medium};
         line-height: 1.2;
       }
@@ -170,7 +171,7 @@ const UserProfile = styled.div`
       p {
         margin: 0;
         font-size: ${theme.font_sizes.x_small};
-        color: ${theme.colors.font2};
+        color: ${theme.colors.fontSecondary};
         line-height: 1.2;
       }
     }
@@ -197,12 +198,12 @@ const UserProfile = styled.div`
 `;
 
 const MenuItemContent = styled.div<{ $danger?: boolean }>`
-  ${({ $danger }) => css`
+  ${({ theme, $danger }) => css`
     display: flex;
     align-items: center;
     gap: ${theme.paddings.small};
     padding: ${theme.paddings.small} ${theme.paddings.medium};
-    color: ${$danger ? theme.colors.error : theme.colors.font1};
+    color: ${$danger ? theme.colors.error : theme.colors.fontPrimary};
     transition: all 0.2s ease;
 
     svg {

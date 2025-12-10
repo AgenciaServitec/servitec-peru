@@ -1,14 +1,14 @@
-export const theme = {
+const BASE_CONSTANTS = {
   font_weight: {
     small: "400",
     medium: "500",
     large: "700",
   },
   border_radius: {
-    xx_small: ".3em",
-    x_small: ".5em",
-    small: ".7em",
-    medium: ".9em",
+    xx_small: "0.3em",
+    x_small: "0.5em",
+    small: "0.7em",
+    medium: "0.9em",
     large: "1em",
     x_large: "1.2em",
     xx_large: "1.4em",
@@ -17,19 +17,19 @@ export const theme = {
     percentage_full: "100%",
   },
   paddings: {
-    xx_small: ".3em",
-    x_small: ".5em",
-    small: ".7em",
-    medium: ".9em",
+    xx_small: "0.3em",
+    x_small: "0.5em",
+    small: "0.7em",
+    medium: "0.9em",
     large: "1em",
     x_large: "1.2em",
     xx_large: "1.4em",
     xxx_large: "1.7em",
   },
   font_sizes: {
-    xxx_small: ".6em",
-    xx_small: ".7em",
-    x_small: ".8em",
+    xxx_small: "0.6em",
+    xx_small: "0.7em",
+    x_small: "0.8em",
     small: "1em",
     medium: "1.1em",
     large: "1.3em",
@@ -37,65 +37,154 @@ export const theme = {
     xx_large: "1.6em",
     xxx_large: "1.8em",
   },
-  // colors: {
-  //   primary: "#FFC107",
-  //   secondary: "#000000",
-  //   tertiary: "#FFFFFF",
-  //
-  //   font1: "#333333",
-  //   font2: "#E0E0E0",
-  //   font3: "#007BFF",
-  //
-  //   success: "#0ECB81",
-  //   info: "#0795FF",
-  //   warning: "#FF9800",
-  //   error: "#F6465D",
-  //
-  //   black: "#090B0D",
-  //   white: "#FFFFFF",
-  //   dark: "#090B0D",
-  //   light: "#ECECEC",
-  //   gray: "#79838C",
-  // },
-  colors: {
-    // 🎨 IDENTIDAD SERVITEC
-    primary: "#FFC107", // ⭐ Amarillo corporativo (mantener)
-    primaryDark: "#FFB300", // Amarillo más oscuro para hover
-    primaryLight: "#FFD54F", // Amarillo claro para backgrounds
-
-    // 🌑 BACKGROUNDS - NEGRO PURO (SIN azul)
-    secondary: "#0F0F0F", // ✨ NUEVO: Negro carbón puro
-    tertiary: "#F5F5F5", // Blanco suave (mantener)
-
-    // 📝 FUENTES - Optimizadas para contraste
-    font1: "#FAFAFA", // Texto principal (blanco casi puro)
-    font2: "#A1A1A1", // Texto secundario (gris medio)
-    font3: "#FFC107", // Links en amarillo corporativo
-    fontDisabled: "#525252", // Texto deshabilitado
-
-    // ✅ ESTADOS - Colores vibrantes y claros
-    success: "#22C55E", // Verde más vibrante
-    info: "#06B6D4", // 🔄 CAMBIO: Cyan en vez de azul
-    warning: "#F59E0B", // Naranja (mantener)
-    error: "#EF4444", // Rojo (mantener)
-
-    // 🎯 BACKGROUNDS ESPECÍFICOS
-    bgPrimary: "#0F0F0F", // Fondo principal (negro)
-    bgSecondary: "#1A1A1A", // Fondo de cards/containers
-    bgTertiary: "#262626", // Fondo elevado (modals, dropdowns)
-    bgHover: "#1F1F1F", // Hover states
-    bgActive: "#2A2A2A", // Active states
-
-    // 🔲 BORDES Y DIVISORES
-    border: "#2A2A2A", // Bordes principales
-    borderLight: "#1F1F1F", // Bordes sutiles
-    borderHover: "#3F3F3F", // Bordes en hover
-
-    // 📦 BASES - Simplificadas
-    black: "#000000", // Negro puro
-    white: "#FFFFFF", // Blanco puro
-    dark: "#0F0F0F", // Alias de bgPrimary
-    light: "#F9FAFB", // Fondos claros
-    gray: "#737373", // Gris neutro
+  shadows: {
+    sm: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+    md: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
+    lg: "0 10px 15px -3px rgb(0 0 0 / 0.1)",
+    xl: "0 20px 25px -5px rgb(0 0 0 / 0.1)",
+  },
+  transitions: {
+    fast: "150ms ease",
+    normal: "300ms ease",
+    slow: "500ms ease",
   },
 } as const;
+
+const DARK_COLORS = {
+  primary: "#FFC107",
+  primaryDark: "#FFB300",
+  primaryLight: "#FFD54F",
+  primaryAlpha: "rgba(255, 193, 7, 0.1)",
+
+  bgPrimary: "#0A0A0A", // Fondo principal (negro más profundo)
+  bgSecondary: "#141414", // Cards y containers
+  bgTertiary: "#1F1F1F", // Elevados (modals, dropdowns)
+  bgHover: "#252525", // Hover states
+  bgActive: "#2D2D2D", // Active states
+  bgInput: "#1A1A1A", // Inputs y formularios
+
+  fontPrimary: "#FAFAFA", // Texto principal (contraste máximo)
+  fontSecondary: "#A3A3A3", // Texto secundario
+  fontTertiary: "#737373", // Texto terciario (hints, placeholders)
+  fontDisabled: "#525252", // Texto deshabilitado
+  fontLink: "#FFC107", // Links (amarillo corporativo)
+  fontLinkHover: "#FFD54F", // Links hover
+
+  success: "#22C55E",
+  successBg: "rgba(34, 197, 94, 0.1)",
+  info: "#06B6D4",
+  infoBg: "rgba(6, 182, 212, 0.1)",
+  warning: "#F59E0B",
+  warningBg: "rgba(245, 158, 11, 0.1)",
+  error: "#EF4444",
+  errorBg: "rgba(239, 68, 68, 0.1)",
+
+  border: "#2A2A2A",
+  borderLight: "#1F1F1F",
+  borderHover: "#404040",
+  divider: "#262626",
+
+  black: "#000000",
+  white: "#FFFFFF",
+  overlay: "rgba(0, 0, 0, 0.7)",
+} as const;
+
+const LIGHT_COLORS = {
+  primary: "#FFC107",
+  primaryDark: "#FFB300",
+  primaryLight: "#FFF9C4",
+  primaryAlpha: "rgba(255, 193, 7, 0.1)",
+
+  bgPrimary: "#FFFFFF",
+  bgSecondary: "#F9FAFB",
+  bgTertiary: "#F3F4F6",
+  bgHover: "#F5F5F5",
+  bgActive: "#E5E5E5",
+  bgInput: "#FFFFFF",
+
+  fontPrimary: "#111827",
+  fontSecondary: "#6B7280",
+  fontTertiary: "#9CA3AF",
+  fontDisabled: "#D1D5DB",
+  fontLink: "#FFA000",
+  fontLinkHover: "#FF8F00",
+
+  success: "#10B981",
+  successBg: "rgba(16, 185, 129, 0.1)",
+  info: "#0891B2",
+  infoBg: "rgba(8, 145, 178, 0.1)",
+  warning: "#F59E0B",
+  warningBg: "rgba(245, 158, 11, 0.1)",
+  error: "#DC2626",
+  errorBg: "rgba(220, 38, 38, 0.1)",
+
+  border: "#E5E7EB",
+  borderLight: "#F3F4F6",
+  borderHover: "#D1D5DB",
+  divider: "#E5E7EB",
+
+  black: "#000000",
+  white: "#FFFFFF",
+  overlay: "rgba(0, 0, 0, 0.5)",
+} as const;
+
+export const getTheme = (mode: "dark" | "light" = "dark") => {
+  const colors = mode === "dark" ? DARK_COLORS : LIGHT_COLORS;
+
+  return {
+    mode,
+    colors,
+    ...BASE_CONSTANTS,
+  } as const;
+};
+
+export const theme = getTheme("dark");
+
+export type Theme = ReturnType<typeof getTheme>;
+export type ThemeMode = "dark" | "light";
+export type ThemeColors = typeof DARK_COLORS;
+
+export const getAntDesignTheme = (mode: ThemeMode = "dark") => {
+  const colors = mode === "dark" ? DARK_COLORS : LIGHT_COLORS;
+
+  return {
+    token: {
+      colorPrimary: colors.primary,
+      colorSuccess: colors.success,
+      colorWarning: colors.warning,
+      colorError: colors.error,
+      colorInfo: colors.info,
+
+      colorBgContainer: colors.bgSecondary,
+      colorBgElevated: colors.bgTertiary,
+      colorBgLayout: colors.bgPrimary,
+      colorBgSpotlight: colors.bgHover,
+
+      colorText: colors.fontPrimary,
+      colorTextSecondary: colors.fontSecondary,
+      colorTextTertiary: colors.fontTertiary,
+      colorTextDisabled: colors.fontDisabled,
+
+      colorBorder: colors.border,
+      colorBorderSecondary: colors.borderLight,
+
+      controlItemBgHover: colors.bgHover,
+      controlItemBgActive: colors.bgActive,
+
+      borderRadius: 8,
+      fontSize: 14,
+      fontFamily:
+        "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+
+      boxShadow:
+        mode === "dark"
+          ? "0 2px 8px rgba(0, 0, 0, 0.45)"
+          : "0 2px 8px rgba(0, 0, 0, 0.15)",
+      boxShadowSecondary:
+        mode === "dark"
+          ? "0 6px 16px rgba(0, 0, 0, 0.32)"
+          : "0 6px 16px rgba(0, 0, 0, 0.08)",
+    },
+    algorithm: mode === "dark" ? undefined : undefined,
+  };
+};

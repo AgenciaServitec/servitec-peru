@@ -3,7 +3,6 @@ import { IconAction, Space, Table } from "../../components";
 import { faCalendar, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { capitalize, orderBy } from "lodash";
 import dayjs from "dayjs";
-import { theme } from "../../styles";
 import { Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 
@@ -111,8 +110,11 @@ export const UsersTable: React.FC<UsersTableProps> = ({
           />
           <IconAction
             tooltipTitle="Eliminar"
-            iconStyles={{ color: () => theme.colors.error }}
             icon={faTrash}
+            iconStyles={{
+              color: (theme) => theme.colors.error,
+              hoverColor: (theme) => theme.colors.error,
+            }}
             onClick={() => onRemoveUser(user)}
           />
         </Space>

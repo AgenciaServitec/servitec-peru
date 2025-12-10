@@ -2,7 +2,6 @@ import AntSelect from "antd/lib/select";
 import { ComponentContainer } from "./component-container";
 import { lighten } from "polished";
 import styled, { css } from "styled-components";
-import { theme } from "../../styles";
 
 type Option = { code?: string; label?: string; value?: string };
 
@@ -101,7 +100,7 @@ export const Select = ({
 const StyledSelectMobile = styled.select<
   Pick<SelectProps, "error" | "placeholder" | "value">
 >`
-  ${({ error, value, placeholder }) => css`
+  ${({ theme, error, value, placeholder }) => css`
     width: 100%;
     height: 32px;
     border: none;
@@ -109,14 +108,14 @@ const StyledSelectMobile = styled.select<
     font-size: 1rem;
     background-color: ${error
       ? lighten(0.4, theme.colors.error)
-      : theme.colors.secondary};
+      : theme.colors.bgSecondary};
     cursor: pointer;
     border-radius: ${theme.border_radius.xx_small};
     color: ${placeholder
       ? !value
-        ? theme.colors.font2
-        : theme.colors.font1
-      : theme.colors.font1};
+        ? theme.colors.fontSecondary
+        : theme.colors.fontPrimary
+      : theme.colors.fontPrimary};
     font-weight: ${theme.font_weight.medium};
 
     -webkit-appearance: none;
@@ -128,12 +127,12 @@ const StyledSelectMobile = styled.select<
     background-position: right center;
 
     option {
-      background: ${theme.colors.secondary};
-      color: ${theme.colors.font1};
+      background: ${theme.colors.bgSecondary};
+      color: ${theme.colors.fontPrimary};
     }
 
     &:focus-within {
-      background: ${lighten(0.05, theme.colors.secondary)};
+      background: ${lighten(0.05, theme.colors.bgSecondary)};
       outline: none;
       border: 1px solid ${theme.colors.primary};
     }

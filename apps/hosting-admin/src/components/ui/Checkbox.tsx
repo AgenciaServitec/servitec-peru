@@ -1,6 +1,6 @@
 import CheckboxAntd from "antd/lib/checkbox";
 import styled, { css } from "styled-components";
-import { classNames, keyframes, theme } from "../../styles";
+import { classNames, keyframes } from "../../styles";
 import type { ReactNode } from "react";
 
 interface CheckboxProps {
@@ -41,17 +41,17 @@ export const Checkbox = ({
 const CheckBoxAntdStyled = styled(CheckboxAntd)<
   Pick<CheckboxProps, "error" | "hidden">
 >`
-  ${({ error, hidden, required }) => css`
+  ${({ theme, error, hidden, required }) => css`
     font-size: ${theme.font_sizes.small};
     display: ${hidden && "none"};
-    color: ${error ? theme.colors.error : theme.colors.font2};
+    color: ${error ? theme.colors.error : theme.colors.fontSecondary};
     animation: ${error && keyframes.shake} 340ms
       cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 
     .ant-checkbox {
       .ant-checkbox-inner {
-        background: ${theme.colors.secondary};
-        border-color: ${theme.colors.gray};
+        background: ${theme.colors.bgSecondary};
+        border-color: ${theme.colors.fontDisabled};
       }
     }
 

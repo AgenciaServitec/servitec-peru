@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { capitalize, isEmpty, startCase, toString } from "lodash";
-import { classNames, keyframes, theme } from "../../../styles";
+import { classNames, keyframes } from "../../../styles";
 import Typography from "antd/lib/typography";
 import { lighten } from "polished";
 import type { ReactNode } from "react";
@@ -57,13 +57,13 @@ export const Filled = ({
 
 const labelAnimate = css`
   padding: 0 5px;
-  border-radius: ${() => theme.border_radius.xx_small};
+  border-radius: ${({ theme }) => theme.border_radius.xx_small};
   top: -9px;
   left: 6px;
   bottom: auto;
   font-weight: 600;
-  font-size: ${() => theme.font_sizes.x_small};
-  background-color: ${() => theme.colors.secondary};
+  font-size: ${({ theme }) => theme.font_sizes.x_small};
+  background-color: ${({ theme }) => theme.colors.bgPrimary};
 `;
 
 const Container = styled.div<
@@ -72,15 +72,15 @@ const Container = styled.div<
     "error" | "required" | "disabled" | "value" | "animation" | "hidden"
   >
 >`
-  ${({ error, required, disabled, value, animation, hidden }) => css`
+  ${({ theme, error, required, disabled, value, animation, hidden }) => css`
     position: relative;
     width: inherit;
     border-radius: 9px;
     background: ${disabled
-      ? lighten(0.02, theme.colors.secondary)
-      : theme.colors.secondary};
+      ? lighten(0.02, theme.colors.bgSecondary)
+      : theme.colors.bgSecondary};
     border: 1px solid
-      ${error ? theme.colors.error : lighten(0.1, theme.colors.secondary)};
+      ${error ? theme.colors.error : lighten(0.1, theme.colors.bgSecondary)};
     animation: ${error && keyframes.shake} 340ms
       cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 
@@ -89,7 +89,7 @@ const Container = styled.div<
       border-color: ${error
         ? theme.colors.error
         : disabled
-          ? lighten(0.1, theme.colors.secondary)
+          ? lighten(0.1, theme.colors.bgSecondary)
           : theme.colors.primary};
     }
 
@@ -98,8 +98,8 @@ const Container = styled.div<
       color: ${error
         ? theme.colors.error
         : disabled
-          ? theme.colors.gray
-          : theme.colors.font2};
+          ? theme.colors.fontDisabled
+          : theme.colors.fontSecondary};
     }
 
     .item-label {
@@ -112,7 +112,7 @@ const Container = styled.div<
       display: flex;
       align-items: center;
       background-color: transparent;
-      color: ${error ? theme.colors.error : theme.colors.font2};
+      color: ${error ? theme.colors.error : theme.colors.fontSecondary};
       font-size: ${theme.font_sizes.small};
       transition:
         all ease-in-out 150ms,
@@ -146,7 +146,7 @@ const Container = styled.div<
         color: ${error
           ? theme.colors.error
           : disabled
-            ? theme.colors.font2
+            ? theme.colors.fontSecondary
             : theme.colors.primary};
       }
 
@@ -167,15 +167,15 @@ const Container = styled.div<
       }
 
       input:-webkit-autofill {
-        -webkit-text-fill-color: ${theme.colors.font1};
-        -webkit-box-shadow: 0 0 0 1000px ${theme.colors.secondary} inset;
+        -webkit-text-fill-color: ${theme.colors.fontPrimary};
+        -webkit-box-shadow: 0 0 0 1000px ${theme.colors.bgSecondary} inset;
         ${value &&
         css`
-          -webkit-text-fill-color: ${theme.colors.font1};
+          -webkit-text-fill-color: ${theme.colors.fontPrimary};
         `};
 
         &:focus {
-          -webkit-text-fill-color: ${theme.colors.font1};
+          -webkit-text-fill-color: ${theme.colors.fontPrimary};
         }
       }
 
@@ -195,15 +195,15 @@ const Container = styled.div<
       }
 
       .ant-input-group-addon {
-        border: 0 solid ${lighten(0.1, theme.colors.secondary)};
-        border-left: 1px solid ${lighten(0.1, theme.colors.secondary)};
-        background: ${lighten(0.05, theme.colors.secondary)};
-        color: ${theme.colors.font2};
+        border: 0 solid ${lighten(0.1, theme.colors.bgSecondary)};
+        border-left: 1px solid ${lighten(0.1, theme.colors.bgSecondary)};
+        background: ${lighten(0.05, theme.colors.bgSecondary)};
+        color: ${theme.colors.fontSecondary};
       }
 
       .ant-input-suffix {
         svg {
-          fill: ${theme.colors.font2};
+          fill: ${theme.colors.fontSecondary};
         }
       }
     }
@@ -211,7 +211,7 @@ const Container = styled.div<
 `;
 
 const Error = styled(Text)<Pick<FilledProps, "error">>`
-  ${({ error }) => css`
+  ${({ theme, error }) => css`
     color: ${theme.colors.error};
     font-size: ${theme.font_sizes.x_small};
     ${error &&

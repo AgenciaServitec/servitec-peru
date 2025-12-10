@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
     "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
     "esModuleInterop": true,
-    "moduleResolution": "nodenext",
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
+    "forceConsistentCasingInFileNames": true,
     "outDir": "lib",
     "sourceMap": true,
     "strict": true,
-    "target": "es2017",
+    "noUnusedLocals": false,
+    "noImplicitReturns": true,
     "paths": {
       "@servitec-peru/types": ["../../packages/types/src/index.ts"]
     }

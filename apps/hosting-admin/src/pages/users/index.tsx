@@ -19,7 +19,6 @@ import { assign, isEmpty } from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import styled, { css } from "styled-components";
-import { theme } from "../../styles";
 import { Timestamp } from "firebase/firestore";
 import { assistancesRef } from "../../firebase/collections";
 import { UserAssistancesTable } from "./UserAssistancesTable.tsx";
@@ -158,7 +157,7 @@ export const Users: React.FC = () => {
             suffix={
               <FontAwesomeIcon
                 icon={faSearch}
-                style={{ color: theme.colors.font1 }}
+                // style={{ color: ({ theme }) => theme.colors.fontPrimary }}
               />
             }
           />
@@ -186,7 +185,7 @@ export const Users: React.FC = () => {
 };
 
 const Container = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     padding: ${theme.paddings.large};
     min-height: 100vh;
   `}

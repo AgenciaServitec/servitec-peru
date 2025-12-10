@@ -4,7 +4,6 @@ import {
   type FontAwesomeIconProps,
 } from "@fortawesome/react-fontawesome";
 import type { CSSProperties } from "react";
-import { theme } from "../../styles";
 
 interface IconProps extends Omit<FontAwesomeIconProps, "border"> {
   label?: string;
@@ -66,7 +65,7 @@ const Container = styled.div<Pick<IconProps, "margin" | "direction">>`
 `;
 
 const StyledIcon = styled(FontAwesomeIcon)<StyledIconProps>`
-  color: ${({ color }) => color || theme.colors.font2};
+  color: ${({ theme, color }) => color || theme.colors.fontSecondary};
   font-size: ${({ fontSize = "1.5rem" }) => fontSize};
   cursor: ${({ cursor }) => cursor};
   border: ${({ bordericon = "none" }) => bordericon};
@@ -74,13 +73,13 @@ const StyledIcon = styled(FontAwesomeIcon)<StyledIconProps>`
   transition: color 0.2s ease;
 
   &:hover {
-    color: ${() => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.primary};
   }
 `;
 
 const Text = styled.div`
   font-size: 12px;
-  color: ${() => theme.colors.font2};
+  color: ${({ theme }) => theme.colors.fontSecondary};
   line-height: 1;
   margin: 5px;
 `;

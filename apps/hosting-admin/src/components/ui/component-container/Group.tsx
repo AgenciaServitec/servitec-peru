@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { capitalize, startCase } from "lodash";
-import { keyframes, theme } from "../../../styles";
+import { keyframes } from "../../../styles";
 import Typography from "antd/lib/typography";
 import SpaceAntd from "antd/lib/space";
 import { lighten } from "polished";
@@ -46,19 +46,19 @@ export const Group = ({
 );
 
 const Container = styled.fieldset<Pick<GroupProps, "error">>`
-  border-radius: ${() => theme.border_radius.x_small};
+  border-radius: ${({ theme }) => theme.border_radius.x_small};
   border: solid 1px
-    ${({ error }) =>
-      error ? theme.colors.error : lighten(0.1, theme.colors.secondary)};
+    ${({ theme, error }) =>
+      error ? theme.colors.error : lighten(0.1, theme.colors.bgSecondary)};
   padding: 0.5em 1em;
   margin-top: -7px;
-  background: ${() => lighten(0.02, theme.colors.secondary)};
+  background: ${({ theme }) => lighten(0.02, theme.colors.bgSecondary)};
 `;
 
 const Legend = styled.legend<Pick<GroupProps, "required" | "error">>`
-  ${({ error, required }) => css`
-    background: ${theme.colors.secondary};
-    color: ${error ? theme.colors.error : theme.colors.font1};
+  ${({ theme, error, required }) => css`
+    background: ${theme.colors.bgSecondary};
+    color: ${error ? theme.colors.error : theme.colors.fontPrimary};
     border-radius: ${theme.border_radius.x_small};
     font-size: 0.9em;
     font-weight: 600;
@@ -85,8 +85,8 @@ const SpaceStyled = styled(SpaceAntd)`
 `;
 
 const Error = styled(Text)<Pick<GroupProps, "error">>`
-  color: ${() => theme.colors.error};
-  font-size: ${() => theme.font_sizes.x_small};
+  color: ${({ theme }) => theme.colors.error};
+  font-size: ${({ theme }) => theme.font_sizes.x_small};
   ${({ error }) =>
     error &&
     css`
