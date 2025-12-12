@@ -1,6 +1,8 @@
 import { useNotification } from "../components";
-import { isObject } from "lodash";
+import lodash from "lodash";
 import apiErrors from "../config/apiErros.json";
+
+const { isObject } = lodash;
 
 interface ApiError {
   title: string;

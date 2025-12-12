@@ -12,7 +12,7 @@ import {
   UploadBody,
   UploadDraggerBody,
 } from "./utils/upload/components";
-import { isEmpty } from "lodash";
+import lodash from "lodash";
 import AntdMessage from "antd/lib/message";
 import * as assert from "assert";
 import type {
@@ -22,6 +22,8 @@ import type {
   UploadedFile,
 } from "./types/upload.types";
 import { ComponentContainer, modalConfirm, useNotification } from "./ui";
+
+const { isEmpty } = lodash;
 
 interface UploadProps {
   accept?: string;

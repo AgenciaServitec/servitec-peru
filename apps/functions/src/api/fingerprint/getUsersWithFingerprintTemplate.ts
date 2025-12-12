@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
-import { isEmpty } from "lodash";
+import lodash from "lodash";
 
-import { fetchUsers } from "../../_firebase/collections";
+import { fetchUsers } from "../../_firebase/collections/index.js";
 import { User } from "../../globalTypes.js";
+
+const { isEmpty } = lodash;
 
 export const getUsersWithFingerprintTemplate = async (
   req: Request,

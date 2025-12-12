@@ -6,13 +6,15 @@ import {
   deleteFileAndFileThumbFromStorage,
   keepTryingGetThumbURL,
 } from "./utils/upload/functions";
-import { isString } from "lodash";
+import lodash from "lodash";
 import { v1 as uuidv1 } from "uuid";
 import { SortableImages } from "./SortableImages";
 import { IconAction, modalConfirm, Spin } from "./ui";
 import { faTrash, faUpload } from "@fortawesome/free-solid-svg-icons";
 import { BucketType, Image, ImageResize } from "./types/upload.types";
 import { theme } from "../styles";
+
+const { isString } = lodash;
 
 export interface UploadImagesProps {
   images: Image[];

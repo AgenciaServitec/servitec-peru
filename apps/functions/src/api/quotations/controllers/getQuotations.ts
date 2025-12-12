@@ -1,6 +1,6 @@
-import { Response, Request, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 
-import { fetchQuotations } from "../../../_firebase/collections";
+import { fetchQuotations } from "../../../_firebase/collections/index.js";
 
 export const getQuotations = async (
   req: Request,

@@ -1,6 +1,10 @@
 import { User } from "../../globalTypes.js";
-import { fetchCollection, fetchDocument } from "../firestore";
-import { firestore, setDocument } from "../index";
+import {
+  fetchCollection,
+  fetchDocument,
+  firestore,
+  setDocument,
+} from "../index.js";
 
 export const usersRef = firestore.collection("users");
 

@@ -3,12 +3,10 @@ import moment from "moment-timezone";
 
 import {
   assistancesRef,
-  fetchUserByDocument,
-  updateAssistance,
-} from "../../_firebase/collections";
-import {
   fetchTodayAssistancesByUserId,
+  fetchUserByDocument,
   getAssistanceId,
+  updateAssistance,
 } from "../../_firebase/collections/index.js";
 import { firestoreTimestamp } from "../../_firebase/index.js";
 import { defaultFirestoreProps } from "../../utils/index.js";

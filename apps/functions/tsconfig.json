@@ -1,18 +1,15 @@
 {
   "compilerOptions": {
     "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "target": "ES2022",
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "NodeNext",
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
     "outDir": "lib",
     "sourceMap": true,
     "strict": true,
-    "noUnusedLocals": false,
-    "noImplicitReturns": true,
-    "paths": {
-      "@servitec-peru/types": ["../../packages/types/src/index.ts"]
-    }
+    "target": "ES2022",
+    "forceConsistentCasingInFileNames": true,
   },
   "compileOnSave": true,
   "include": ["src/**/*"],

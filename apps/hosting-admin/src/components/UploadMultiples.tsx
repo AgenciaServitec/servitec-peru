@@ -14,10 +14,12 @@ import {
   UploadBody,
   UploadDraggerBody,
 } from "./utils/upload/components";
-import { isEmpty } from "lodash";
+import lodash from "lodash";
 import { useLoadings } from "../hooks";
 import * as assert from "assert";
 import { BucketType, ImageResize, UploadedFile } from "./types/upload.types";
+
+const { isEmpty } = lodash;
 
 type UploadValue = UploadedFile[];
 

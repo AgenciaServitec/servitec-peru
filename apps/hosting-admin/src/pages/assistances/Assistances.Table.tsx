@@ -3,7 +3,7 @@ import { IconAction, Table, Tag } from "../../components";
 import type { Assistance } from "../../globalTypes.ts";
 import { useUpdateMinutesWorked } from "./_utils";
 import { useEffect } from "react";
-import { orderBy } from "lodash";
+import lodash from "lodash";
 import {
   faBowlRice,
   faCheck,
@@ -17,6 +17,8 @@ interface AssistancesTableProps {
   assistances: Assistance[];
   onShowSubmitOrderLunch: (assistance: Assistance) => void;
 }
+
+const { orderBy } = lodash;
 
 export const AssistancesTable = ({
   assistances,

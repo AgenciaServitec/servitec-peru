@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
-import { addQuotation } from "../../../_firebase/collections";
-import { defaultFirestoreProps } from "../../../utils";
+import { addQuotation } from "../../../_firebase/collections/index.js";
+import { defaultFirestoreProps } from "../../../utils/index.js";
 
 const { assignCreateProps } = defaultFirestoreProps();
 

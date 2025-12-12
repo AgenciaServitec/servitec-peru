@@ -1,19 +1,20 @@
 import assert from "assert";
 
-import { Response, Request, NextFunction } from "express";
-import { isEmpty } from "lodash";
+import { NextFunction, Request, Response } from "express";
+import lodash from "lodash";
 
 import {
   auth,
   fetchCollection,
   fetchDocument,
   firestore,
-} from "../../../_firebase";
+} from "../../../_firebase/index.js";
 import { User } from "../../../globalTypes.js";
-import { defaultFirestoreProps } from "../../../utils";
+import { defaultFirestoreProps } from "../../../utils/index.js";
 
 type Params = { userId: string };
 
+const { isEmpty } = lodash;
 const { assignUpdateProps } = defaultFirestoreProps();
 
 export const putUser = async (

@@ -1,12 +1,16 @@
 import React, { type CSSProperties, JSX } from "react";
 import { SortableItems } from "./SortableItems";
 import styled, { css } from "styled-components";
-import { isString } from "lodash";
+import lodash from "lodash";
 import { type Image } from "./types/upload.types";
 import { type SortableOptions } from "./types/sortable.types";
 
-export interface SortableImagesProps
-  extends Pick<CSSProperties, "width" | "height"> {
+const { isString } = lodash;
+
+export interface SortableImagesProps extends Pick<
+  CSSProperties,
+  "width" | "height"
+> {
   images: Image[];
   onChange: (images: Image[]) => Promise<void>;
   overlayItem?: (image: Image) => JSX.Element;
