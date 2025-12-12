@@ -1,12 +1,9 @@
-export * from "./firestore.js";
+import { getApps, initializeApp } from "firebase-admin/app";
+import { getAuth } from "firebase-admin/auth";
+import { FieldValue, getFirestore, Timestamp } from "firebase-admin/firestore";
+import { getStorage } from "firebase-admin/storage";
 
-import * as admin from "firebase-admin";
-
-admin.initializeApp();
-
-export const firestore = admin.firestore();
-export const storage = admin.storage();
-export const auth = admin.auth();
+if (!getApps().length) initializeApp();
 
 // eslint-disable-next-line turbo/no-undeclared-env-vars
 const projectId = process.env.GCLOUD_PROJECT;
@@ -17,5 +14,11 @@ const currentEnvironment =
 export const isProduction = currentEnvironment === "production";
 
 export const bucketAtFunction = projectId + ".appspot.com";
-export const firestoreFieldValue = admin.firestore.FieldValue;
-export const firestoreTimestamp = admin.firestore.Timestamp;
+
+export const firestore = getFirestore();
+export const storage = getStorage();
+export const auth = getAuth();
+export const firestoreFieldValue = FieldValue;
+export const firestoreTimestamp = Timestamp;
+
+export * from "./firestore.js";

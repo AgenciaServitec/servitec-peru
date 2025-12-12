@@ -17,7 +17,7 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "@servitec-peru/types": "workspace:*",
+    "@servitec-peru/types": "file:../../packages/types",
     "@types/jest": "^30.0.0",
     "cors": "^2.8.5",
     "crypto-js": "^4.2.0",
@@ -31,8 +31,8 @@
     "ts-jest": "^29.4.5"
   },
   "devDependencies": {
-    "@servitec-peru/eslint-config": "workspace:*",
-    "@servitec-peru/typescript-config": "workspace:*",
+    "@servitec-peru/eslint-config": "file:../../packages/eslint-config",
+    "@servitec-peru/typescript-config": "file:../../packages/typescript-config",
     "@types/cors": "^2.8.19",
     "@types/crypto-js": "^4.2.2",
     "@types/express": "^5.0.3",

@@ -9,4 +9,4 @@ const httpsOptions = (httpsOptions?: Partial<HttpsOptions>): HttpsOptions => ({
   ...httpsOptions,
 });
 
-exports.api = onRequest(httpsOptions(), app);
+export const api = onRequest(httpsOptions(), app);
