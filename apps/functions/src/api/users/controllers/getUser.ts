@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-import { fetchUser } from "../../../_firebase/collections/index.js";
+import { fetchUser } from "../../../_firebase/collections";
 
 interface Params {
   userId: string;

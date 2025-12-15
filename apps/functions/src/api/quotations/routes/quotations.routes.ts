@@ -5,7 +5,7 @@ import {
   getQuotations,
   postQuotation,
   putQuotation,
-} from "../controllers/index.js";
+} from "../controllers";
 
 const router: Router = express.Router();
 

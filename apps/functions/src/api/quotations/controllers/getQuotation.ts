@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-import { fetchQuotation } from "../../../_firebase/collections/index.js";
+import { fetchQuotation } from "../../../_firebase/collections";
 
 interface Params {
   quotationId: string;

@@ -1,7 +1,7 @@
 import cors from "cors";
 import express from "express";
 
-import assistancesRoutes from "./assistances/routes/assistances.routes.js";
+import assistancesRoutes from "./assistances/routes/assistances.routes";
 import {
   getUsersWithFingerprintTemplate,
   putBiometricAssistanceByDni,

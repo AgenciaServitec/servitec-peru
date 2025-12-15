@@ -1,4 +1,4 @@
-import { App } from "antd";
+import { notification } from "antd";
 import type { NotificationPlacement } from "antd/es/notification/interface";
 import type { ReactNode } from "react";
 
@@ -34,8 +34,6 @@ const defaultTypes: Record<Type, { title: string; description: string }> = {
 };
 
 export const useNotification = () => {
-  const { notification } = App.useApp();
-
   const notify = ({
     type,
     title,

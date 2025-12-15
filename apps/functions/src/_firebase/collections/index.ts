@@ -1,3 +1,3 @@
-export * from "./users.js";
-export * from "./quotations.js";
-export * from "./assistances.js";
+export * from "./users";
+export * from "./quotations";
+export * from "./assistances";

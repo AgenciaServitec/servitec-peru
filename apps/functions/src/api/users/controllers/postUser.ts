@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import lodash from "lodash";
 
-import { auth, fetchCollection, firestore } from "../../../_firebase/index.js";
-import { getUserId } from "../../../_firebase/collections/index.js";
-import { User } from "../../../globalTypes.js";
-import { defaultFirestoreProps } from "../../../utils/index.js";
+import { auth, fetchCollection, firestore } from "../../../_firebase";
+import { getUserId } from "../../../_firebase/collections";
+import { User } from "../../../globalTypes";
+import { defaultFirestoreProps } from "../../../utils";
 
 const { isEmpty } = lodash;
 

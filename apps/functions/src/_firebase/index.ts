@@ -3,7 +3,9 @@ import { getAuth } from "firebase-admin/auth";
 import { FieldValue, getFirestore, Timestamp } from "firebase-admin/firestore";
 import { getStorage } from "firebase-admin/storage";
 
-if (!getApps().length) initializeApp();
+if (!getApps().length) {
+  initializeApp();
+}
 
 // eslint-disable-next-line turbo/no-undeclared-env-vars
 const projectId = process.env.GCLOUD_PROJECT;
@@ -21,4 +23,4 @@ export const auth = getAuth();
 export const firestoreFieldValue = FieldValue;
 export const firestoreTimestamp = Timestamp;
 
-export * from "./firestore.js";
+export * from "./firestore";

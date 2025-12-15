@@ -1,6 +1,6 @@
-import { Quotation } from "../../globalTypes.js";
-import { fetchCollection, fetchDocument } from "../firestore.js";
-import { firestore, setDocument } from "../index.js";
+import { Quotation } from "../../globalTypes";
+import { fetchCollection, fetchDocument } from "../firestore";
+import { firestore, setDocument } from "../index";
 
 export const quotationsRef = firestore.collection("quotations");
 

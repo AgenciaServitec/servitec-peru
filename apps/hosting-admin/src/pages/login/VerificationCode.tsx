@@ -78,8 +78,8 @@ export const VerificationCode = ({
     setCountdown(60);
 
     try {
-      notification({
-        type: "info",
+      return notification({
+        type: "success",
         title: "Reenviando código",
         description: "Por favor espera...",
       });
@@ -134,9 +134,7 @@ export const VerificationCode = ({
                 href="#"
                 onClick={(e) => {
                   e.preventDefault();
-                  if (!resendDisabled) {
-                    handleResendCode();
-                  }
+                  if (!resendDisabled) return handleResendCode();
                 }}
                 disabled={resendDisabled}
               >

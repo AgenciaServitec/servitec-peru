@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import lodash from "lodash";
 
-import { fetchUsers } from "../../_firebase/collections/index.js";
-import { User } from "../../globalTypes.js";
+import { fetchUsers } from "../../_firebase/collections";
+import { User } from "../../globalTypes";
 
 const { isEmpty } = lodash;
 

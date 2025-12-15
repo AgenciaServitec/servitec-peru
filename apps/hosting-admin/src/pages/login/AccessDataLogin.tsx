@@ -7,8 +7,8 @@ import {
   Col,
   Form,
   Input,
-  useNotification,
   Row,
+  useNotification,
 } from "../../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShieldHalved } from "@fortawesome/free-solid-svg-icons";
@@ -55,9 +55,9 @@ export const AccessDataLogin = ({ onNext }: StepDniProps) => {
       const user = await findUserByDNI(dni);
 
       if (isEmpty(user))
-        return notification({
-          type: "warning",
-          title: "El DNI, no se encuentra registrado!",
+        notification({
+          type: "error",
+          title: "El DNI no se encuentra registrado!",
         });
 
       console.log(user);

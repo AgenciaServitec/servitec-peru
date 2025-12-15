@@ -1,6 +1,6 @@
 import { HttpsOptions, onRequest } from "firebase-functions/v2/https";
 
-import { app } from "./api/index.js";
+import { app } from "./api";
 
 const httpsOptions = (httpsOptions?: Partial<HttpsOptions>): HttpsOptions => ({
   timeoutSeconds: 540,
@@ -9,4 +9,4 @@ const httpsOptions = (httpsOptions?: Partial<HttpsOptions>): HttpsOptions => ({
   ...httpsOptions,
 });
 
-export const api = onRequest(httpsOptions(), app);
+exports.api = onRequest(httpsOptions(), app);

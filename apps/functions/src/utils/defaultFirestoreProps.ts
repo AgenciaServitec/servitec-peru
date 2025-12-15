@@ -1,7 +1,7 @@
 import * as admin from "firebase-admin";
 import lodash from "lodash";
 
-import { firestoreTimestamp } from "../_firebase/index.js";
+import { firestoreTimestamp } from "../_firebase";
 // import { Timestamp } from "@google-cloud/firestore";
 
 const { assign } = lodash;

@@ -8,9 +8,9 @@ import {
   fetchCollection,
   fetchDocument,
   firestore,
-} from "../../../_firebase/index.js";
-import { User } from "../../../globalTypes.js";
-import { defaultFirestoreProps } from "../../../utils/index.js";
+} from "../../../_firebase";
+import { User } from "../../../globalTypes";
+import { defaultFirestoreProps } from "../../../utils";
 
 type Params = { userId: string };
 

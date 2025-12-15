@@ -5,7 +5,7 @@ import {
   getAssistances,
   postAssistance,
   putAssistance,
-} from "../controllers/index.js";
+} from "../controllers";
 
 const router: Router = express.Router();
 

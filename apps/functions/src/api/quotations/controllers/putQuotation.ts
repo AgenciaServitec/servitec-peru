@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 
-import { updateQuotation } from "../../../_firebase/collections/index.js";
-import { Quotation } from "../../../globalTypes.js";
-import { defaultFirestoreProps } from "../../../utils/index.js";
+import { updateQuotation } from "../../../_firebase/collections";
+import { Quotation } from "../../../globalTypes";
+import { defaultFirestoreProps } from "../../../utils";
 
 type Params = { quotationId: string };
 
