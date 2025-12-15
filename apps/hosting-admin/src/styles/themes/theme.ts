@@ -56,19 +56,19 @@ const DARK_COLORS = {
   primaryLight: "#FFD54F",
   primaryAlpha: "rgba(255, 193, 7, 0.1)",
 
-  bgPrimary: "#0A0A0A", // Fondo principal (negro más profundo)
-  bgSecondary: "#141414", // Cards y containers
-  bgTertiary: "#1F1F1F", // Elevados (modals, dropdowns)
-  bgHover: "#252525", // Hover states
-  bgActive: "#2D2D2D", // Active states
-  bgInput: "#1A1A1A", // Inputs y formularios
+  bgPrimary: "#0A0A0A",
+  bgSecondary: "#141414",
+  bgTertiary: "#1F1F1F",
+  bgHover: "#252525",
+  bgActive: "#2D2D2D",
+  bgInput: "#1A1A1A",
 
-  fontPrimary: "#FAFAFA", // Texto principal (contraste máximo)
-  fontSecondary: "#A3A3A3", // Texto secundario
-  fontTertiary: "#737373", // Texto terciario (hints, placeholders)
-  fontDisabled: "#525252", // Texto deshabilitado
-  fontLink: "#FFC107", // Links (amarillo corporativo)
-  fontLinkHover: "#FFD54F", // Links hover
+  fontPrimary: "#FAFAFA",
+  fontSecondary: "#A3A3A3",
+  fontTertiary: "#737373",
+  fontDisabled: "#525252",
+  fontLink: "#FFC107",
+  fontLinkHover: "#FFD54F",
 
   success: "#22C55E",
   successBg: "rgba(34, 197, 94, 0.1)",
