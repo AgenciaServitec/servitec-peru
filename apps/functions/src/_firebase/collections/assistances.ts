@@ -1,8 +1,12 @@
 import moment from "moment-timezone";
 
 import { Assistance } from "../../globalTypes.js";
-import { fetchCollection, fetchDocument } from "../firestore.js";
-import { firestore, firestoreTimestamp } from "../index.js";
+import {
+  fetchCollection,
+  fetchDocument,
+  firestore,
+  firestoreTimestamp,
+} from "../index.js";
 
 export const assistancesRef = firestore.collection("assistances");
 

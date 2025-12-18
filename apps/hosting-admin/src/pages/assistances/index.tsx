@@ -3,10 +3,9 @@ import {
   Button,
   Col,
   Legend,
-  notification,
   Row,
-  Spinner,
   Title,
+  useNotification,
 } from "../../components/ui";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -41,6 +40,8 @@ export function AssistancesIntegration() {
   const [assistances, assistancesLoading, assistancesError] = useCollectionData(
     assistancesRef.where("isDeleted", "==", false)
   );
+
+  const { notification } = useNotification();
 
   const assistancesView = (assistances || []).filter((assistance) => {
     if (
@@ -151,7 +152,12 @@ function AssistancesList({
               />
             </Col>
             <Col xs={24} md={8} style={{ textAlign: "right" }}>
-              <Button onClick={onClearFilters} danger>
+              <Button
+                type="primary"
+                danger
+                size="large"
+                onClick={onClearFilters}
+              >
                 Limpiar filtros
               </Button>
             </Col>
@@ -196,14 +202,11 @@ function AssistancesList({
       </Col>
 
       <Col span={24}>
-        {assistancesLoading ? (
-          <Spinner height="40svh" size="4x" />
-        ) : (
-          <AssistancesTable
-            assistances={filteredAssistances || []}
-            onShowSubmitOrderLunch={onShowSubmitOrderLunch}
-          />
-        )}
+        <AssistancesTable
+          assistances={filteredAssistances || []}
+          onShowSubmitOrderLunch={onShowSubmitOrderLunch}
+          assistancesLoading={assistancesLoading}
+        />
       </Col>
     </Row>
   );

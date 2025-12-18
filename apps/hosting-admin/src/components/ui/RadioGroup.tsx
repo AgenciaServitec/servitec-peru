@@ -3,7 +3,6 @@ import styled, { css } from "styled-components";
 import RadioAntd from "antd/lib/radio";
 import type { RadioGroupProps as AntdRadioGroupProps } from "antd";
 import { ComponentContainer } from "./component-container";
-import { theme } from "../../styles";
 
 export interface RadioOption {
   value: string | number | boolean;
@@ -59,11 +58,11 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
 };
 
 const RadioGroupStyled = styled(RadioAntd.Group)`
-  ${() => css`
+  ${({ theme }) => css`
     padding: ${theme.paddings.medium};
 
     .ant-radio-wrapper {
-      color: ${theme.colors.font1};
+      color: ${theme.colors.fontPrimary};
       font-size: ${theme.font_sizes.small};
       margin-right: ${theme.paddings.large};
       transition: all 0.2s ease;
@@ -76,8 +75,8 @@ const RadioGroupStyled = styled(RadioAntd.Group)`
 
       .ant-radio {
         .ant-radio-inner {
-          background-color: ${theme.colors.secondary};
-          border-color: ${theme.colors.font2};
+          background-color: ${theme.colors.bgSecondary};
+          border-color: ${theme.colors.fontSecondary};
           transition: all 0.2s ease;
 
           &:after {
@@ -91,7 +90,7 @@ const RadioGroupStyled = styled(RadioAntd.Group)`
             border-color: ${theme.colors.primary};
 
             &:after {
-              background-color: ${theme.colors.dark};
+              background-color: ${theme.colors.black};
             }
           }
 
@@ -110,7 +109,7 @@ const RadioGroupStyled = styled(RadioAntd.Group)`
         cursor: not-allowed;
 
         .ant-radio-inner {
-          background-color: ${theme.colors.dark}40;
+          background-color: ${theme.colors.black}40;
         }
       }
 
@@ -120,9 +119,9 @@ const RadioGroupStyled = styled(RadioAntd.Group)`
     }
 
     .ant-radio-button-wrapper {
-      background-color: ${theme.colors.secondary};
-      border-color: ${theme.colors.font2}40;
-      color: ${theme.colors.font1};
+      background-color: ${theme.colors.bgSecondary};
+      border-color: ${theme.colors.fontSecondary}40;
+      color: ${theme.colors.fontPrimary};
       transition: all 0.2s ease;
 
       &:hover {
@@ -133,12 +132,12 @@ const RadioGroupStyled = styled(RadioAntd.Group)`
       &.ant-radio-button-wrapper-checked {
         background-color: ${theme.colors.primary};
         border-color: ${theme.colors.primary};
-        color: ${theme.colors.dark};
+        color: ${theme.colors.black};
 
         &:hover {
           background-color: ${theme.colors.primary};
           border-color: ${theme.colors.primary};
-          color: ${theme.colors.dark};
+          color: ${theme.colors.black};
         }
 
         &:before {
@@ -149,7 +148,7 @@ const RadioGroupStyled = styled(RadioAntd.Group)`
       &.ant-radio-button-wrapper-disabled {
         opacity: 0.5;
         cursor: not-allowed;
-        background-color: ${theme.colors.dark}40;
+        background-color: ${theme.colors.black}40;
       }
     }
   `}

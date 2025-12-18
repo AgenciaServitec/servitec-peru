@@ -1,4 +1,4 @@
-import { Quotation } from "../../globalTypes.js";
+import { Quotation } from "../../globalTypes";
 import { fetchCollection, fetchDocument } from "../firestore";
 import { firestore, setDocument } from "../index";
 

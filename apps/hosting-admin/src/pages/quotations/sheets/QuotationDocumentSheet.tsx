@@ -11,8 +11,6 @@ interface QuotationDocumentSheetProps {
 export const QuotationDocumentSheet = ({
   quotation,
 }: QuotationDocumentSheetProps) => {
-  console.log(quotation);
-
   const subtotal = quotation?.quotationDetails?.reduce(
     (sum: number, item: any) => sum + item.subTotal,
     0
@@ -21,8 +19,8 @@ export const QuotationDocumentSheet = ({
   const total = subtotal + igv;
 
   return (
-    <Container>
-      <div className="sheet">
+    <div className="sheet">
+      <Container>
         <Header>
           <div className="logo-section">
             <LogoPlaceholder>
@@ -33,11 +31,10 @@ export const QuotationDocumentSheet = ({
             </LogoPlaceholder>
           </div>
           <div className="title-section">
-            <h1>COTIZACIÓN</h1>
+            <h1>INFORME TÉCNICO</h1>
             <ContractInfo>
               <p>
-                <strong>N° de Contrato:</strong>{" "}
-                {dayjs(quotation.createAt.toDate()).format("DDMMYYYYHHmm")}
+                <strong>N° de Contrato:</strong> {quotation.contractNumber}
               </p>
               <p>
                 <strong>Fecha:</strong>{" "}
@@ -46,36 +43,45 @@ export const QuotationDocumentSheet = ({
             </ContractInfo>
           </div>
         </Header>
+
         <Main>
           <Section>
             <SectionTitle>DATOS DEL CLIENTE</SectionTitle>
             <InfoGrid>
+              {quotation?.client.document.type === "dni" ? (
+                <InfoItem>
+                  <label>Nombre completo:</label>
+                  <span>
+                    {quotation?.client?.firstName}{" "}
+                    {quotation?.client?.paternalSurname}{" "}
+                    {quotation?.client?.maternalSurname}
+                  </span>
+                </InfoItem>
+              ) : (
+                <InfoItem>
+                  <label>Razón Social:</label>
+                  <span>{quotation?.client?.companyName || "-"}</span>
+                </InfoItem>
+              )}
               <InfoItem>
-                <label>Nombre completo:</label>
-                <span>
-                  {quotation?.client?.firstName}{" "}
-                  {quotation?.client?.paternalSurname}{" "}
-                  {quotation?.client?.maternalSurname}
-                </span>
-              </InfoItem>
-              <InfoItem>
-                <label>Documento:</label>
-                <span>
-                  {quotation?.client?.documentType} -{" "}
-                  {quotation?.client?.documentNumber}
-                </span>
+                {quotation?.client?.document.type === "dni" ? (
+                  <label>DNI:</label>
+                ) : (
+                  <label>RUC:</label>
+                )}
+                <span>{quotation?.client?.document.number || "-"}</span>
               </InfoItem>
               <InfoItem>
                 <label>Teléfono:</label>
-                <span>{quotation?.client?.phone.number}</span>
+                <span>{quotation?.client?.phone.number || "-"}</span>
               </InfoItem>
               <InfoItem>
                 <label>Correo:</label>
-                <span>{quotation?.client?.email}</span>
+                <span>{quotation?.client?.email || "-"}</span>
               </InfoItem>
               <InfoItem className="full-width">
                 <label>Dirección:</label>
-                <span>{quotation?.client?.address}</span>
+                <span>{quotation?.client?.address || "-"}</span>
               </InfoItem>
             </InfoGrid>
           </Section>
@@ -84,44 +90,56 @@ export const QuotationDocumentSheet = ({
             <InfoGrid>
               <InfoItem>
                 <label>Tipo:</label>
-                <span>{getDevice(quotation?.device?.type)}</span>
+                <span>{getDevice(quotation?.device?.type) || "-"}</span>
               </InfoItem>
               <InfoItem>
                 <label>Marca:</label>
-                <span>{quotation?.device?.brand}</span>
+                <span>{quotation?.device?.brand || "-"}</span>
               </InfoItem>
               <InfoItem>
                 <label>Modelo:</label>
-                <span>{quotation?.device?.model}</span>
+                <span>{quotation?.device?.model || "-"}</span>
               </InfoItem>
               <InfoItem>
                 <label>Serie:</label>
-                <span>{quotation?.device?.serialNumber}</span>
+                <span>{quotation?.device?.serialNumber || "-"}</span>
               </InfoItem>
               <InfoItem>
                 <label>Color:</label>
-                <span>{quotation?.device?.color}</span>
+                <span>{quotation?.device?.color || "-"}</span>
               </InfoItem>
               <InfoItem>
                 <label>Condición:</label>
-                <span>{quotation?.device?.condition}</span>
+                <span>{quotation?.device?.condition || "-"}</span>
               </InfoItem>
             </InfoGrid>
           </Section>
           <Section>
-            <SectionTitle>INFORME TÉCNICO</SectionTitle>
+            <SectionTitle>DETALLES TÉCNICOS</SectionTitle>
             <TechnicalInfo>
               <div className="tech-item">
                 <h4>Problema que presenta:</h4>
-                <p>{quotation?.reportedIssue}</p>
+                <QuillContent
+                  dangerouslySetInnerHTML={{
+                    __html: quotation?.reportedIssue || "",
+                  }}
+                />
               </div>
               <div className="tech-item">
                 <h4>Análisis:</h4>
-                <p>{quotation?.analysis}</p>
+                <QuillContent
+                  dangerouslySetInnerHTML={{
+                    __html: quotation?.analysis || "",
+                  }}
+                />
               </div>
               <div className="tech-item">
                 <h4>Solución y Recomendaciones:</h4>
-                <p>{quotation?.solutionAndRecommendations}</p>
+                <QuillContent
+                  dangerouslySetInnerHTML={{
+                    __html: quotation?.solutionAndRecommendations || "",
+                  }}
+                />
               </div>
             </TechnicalInfo>
           </Section>
@@ -140,9 +158,11 @@ export const QuotationDocumentSheet = ({
                 {quotation?.quotationDetails?.map(
                   (item: any, index: number) => (
                     <tr key={index}>
-                      <td style={{ whiteSpace: "pre-wrap", maxWidth: "10px" }}>
-                        {item.description}
-                      </td>
+                      <QuillContent
+                        dangerouslySetInnerHTML={{
+                          __html: item.description || "",
+                        }}
+                      />
                       <td className="center">{item.quantity}</td>
                       <td className="right">S/ {item.unitPrice.toFixed(2)}</td>
                       <td className="right">S/ {item.subTotal.toFixed(2)}</td>
@@ -178,7 +198,6 @@ export const QuotationDocumentSheet = ({
         </Main>
         <Footer>
           <CompanyInfo>
-            <h4>SERVITEC HARDWARE</h4>
             <p>
               <strong>Dirección:</strong> Defensores del Morro Cdra 13, Lima 09
               Chorrillos Peru / Ca. Nestor Bermudez 113, Esquina con Av.
@@ -207,25 +226,27 @@ export const QuotationDocumentSheet = ({
             <div className="qr-container">
               <QRCode
                 value="https://servitecperu.com"
-                type="canvas"
-                icon="https://servitecperu.com/logotipo-hard.png"
-                iconSize={20}
+                type="svg"
+                icon="/icon-servitec.png"
+                color="black"
+                iconSize={15}
                 size={90}
                 bordered={false}
               />
             </div>
             <div className="qr-container">
               <QRCode
-                value="https://servitecperu.com"
-                type="canvas"
+                value={window.location.href}
+                color="black"
+                type="svg"
                 size={90}
                 bordered={false}
               />
             </div>
           </QRSection>
         </Footer>
-      </div>
-    </Container>
+      </Container>
+    </div>
   );
 };
 
@@ -249,6 +270,13 @@ const Container = styled.div`
     flex-direction: column;
     gap: 1em;
   }
+
+  @media print {
+    .sheet {
+      padding-top: 40mm;
+      padding-bottom: 35mm;
+    }
+  }
 `;
 
 const Header = styled.header`
@@ -271,7 +299,7 @@ const Header = styled.header`
     h1 {
       font-size: 32px;
       font-weight: 700;
-      color: #2c3e50;
+      color: #000000;
       margin-bottom: 0.3em;
       letter-spacing: 2px;
     }
@@ -292,10 +320,11 @@ const ContractInfo = styled.div`
   font-size: 12px;
 
   p {
-    color: #7f8c8d;
+    color: #4b5563;
 
     strong {
-      color: #2c3e50;
+      color: #000000;
+      font-weight: 600;
     }
   }
 `;
@@ -308,13 +337,17 @@ const Main = styled.main`
 
 const Section = styled.section`
   background: #fff;
+
+  @media print {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
 `;
 
 const SectionTitle = styled.h3`
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   color: #fff;
-  //background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
   background: linear-gradient(
     135deg,
     ${() => theme.colors.primary} 0%,
@@ -343,35 +376,33 @@ const InfoItem = styled.div`
 
   label {
     font-weight: 600;
-    color: #34495e;
+    color: #000000;
     min-width: 120px;
   }
 
   span {
-    color: #2c3e50;
+    color: #4b5563;
   }
 `;
 
 const TechnicalInfo = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 0.8em;
   padding: 0 0.5em;
 
   .tech-item {
     h4 {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 600;
-      color: #34495e;
+      color: #000000; /* título negro */
       margin-bottom: 0.3em;
     }
+  }
 
-    p {
-      color: #2c3e50;
-      text-align: justify;
-      line-height: 1.5;
-      white-space: pre-wrap;
-    }
+  @media print {
+    break-inside: auto;
+    page-break-inside: auto;
   }
 `;
 
@@ -381,7 +412,6 @@ const Table = styled.table`
   margin-top: 0.5em;
 
   thead {
-    //background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
     background: linear-gradient(
       135deg,
       ${() => theme.colors.primary} 0%,
@@ -407,14 +437,13 @@ const Table = styled.table`
       }
 
       &:last-child {
-        //border-bottom: 2px solid #3498db;
         border-bottom: 2px solid ${() => theme.colors.primary};
       }
     }
 
     td {
       padding: 0.7em;
-      color: #2c3e50;
+      color: #000000;
 
       &.center {
         text-align: center;
@@ -426,6 +455,10 @@ const Table = styled.table`
       }
     }
   }
+
+  @media print {
+    page-break-inside: auto;
+  }
 `;
 
 const Totals = styled.div`
@@ -434,6 +467,10 @@ const Totals = styled.div`
   flex-direction: column;
   align-items: flex-end;
   gap: 0.4em;
+
+  @media print {
+    page-break-inside: avoid;
+  }
 `;
 
 const TotalRow = styled.div`
@@ -445,7 +482,6 @@ const TotalRow = styled.div`
   border-radius: 4px;
 
   &.final {
-    //background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
     background: linear-gradient(
       135deg,
       ${() => theme.colors.primary} 0%,
@@ -499,17 +535,17 @@ const CompanyInfo = styled.div`
 
   h4 {
     font-size: 14px;
-    color: #2c3e50;
+    color: #000000;
     margin-bottom: 0.5em;
     font-weight: 700;
   }
 
   p {
     margin-bottom: 0.3em;
-    color: #34495e;
+    color: #4b5563; /* texto gris */
 
     strong {
-      color: #2c3e50;
+      color: #000000; /* label negro: Dirección, Tel, RUC, etc. */
       font-weight: 600;
     }
   }
@@ -533,5 +569,38 @@ const QRSection = styled.div`
       font-weight: 600;
       text-align: center;
     }
+  }
+`;
+
+const QuillContent = styled.div`
+  color: #4b5563;
+  text-align: justify;
+  line-height: 1.5;
+  white-space: normal;
+
+  p {
+    margin-bottom: 0.5em;
+  }
+
+  ul,
+  ol {
+    margin: 0.5em 0 0.5em 1.5em;
+  }
+
+  li {
+    margin-bottom: 0.25em;
+  }
+
+  strong {
+    font-weight: 600;
+    color: #000000;
+  }
+
+  ol li[data-list="bullet"] {
+    list-style-type: disc;
+  }
+
+  ol li[data-list="ordered"] {
+    list-style-type: decimal;
   }
 `;

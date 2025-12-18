@@ -3,7 +3,7 @@ export * from "./login";
 export * from "./profile";
 export * from "./home";
 export * from "./users";
-export * from "./users/userId";
+export * from "./users/_userId";
 export * from "./assistances";
 export * from "./assistances/_assistancesId";
 export * from "./assistances/add-facial-biometrics";

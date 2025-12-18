@@ -1,6 +1,6 @@
 import OTPInput from "react-otp-input";
 import styled, { css } from "styled-components";
-import { keyframes, mediaQuery, theme } from "../../styles";
+import { keyframes, mediaQuery } from "../../styles";
 import { lighten } from "polished";
 
 interface InputCodeProps {
@@ -57,10 +57,10 @@ export const InputCode = ({
 };
 
 const Container = styled.div<Pick<InputCodeProps, "error">>`
-  ${({ error }) => css`
+  ${({ theme, error }) => css`
     .label {
       margin-bottom: 1rem;
-      color: ${theme.colors.font1};
+      color: ${theme.colors.fontPrimary};
       font-weight: ${theme.font_weight.medium};
       font-size: ${theme.font_sizes.small};
     }
@@ -79,10 +79,10 @@ const Container = styled.div<Pick<InputCodeProps, "error">>`
       margin: 0 0.3rem;
       font-size: 1.5rem;
       border-radius: 4px;
-      background: ${theme.colors.secondary};
-      color: ${theme.colors.font1};
+      background: ${theme.colors.bgSecondary};
+      color: ${theme.colors.fontPrimary};
       border: 1px solid
-        ${error ? theme.colors.error : lighten(0.1, theme.colors.secondary)};
+        ${error ? theme.colors.error : lighten(0.1, theme.colors.bgSecondary)};
       text-align: center;
       font-weight: ${theme.font_weight.large};
       transition: all 0.2s ease;

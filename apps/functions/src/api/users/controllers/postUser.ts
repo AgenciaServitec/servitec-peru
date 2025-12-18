@@ -1,10 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-import { isEmpty } from "lodash";
+import lodash from "lodash";
 
 import { auth, fetchCollection, firestore } from "../../../_firebase";
 import { getUserId } from "../../../_firebase/collections";
 import { User } from "../../../globalTypes";
 import { defaultFirestoreProps } from "../../../utils";
+
+const { isEmpty } = lodash;
 
 export const postUser = async (
   req: Request,

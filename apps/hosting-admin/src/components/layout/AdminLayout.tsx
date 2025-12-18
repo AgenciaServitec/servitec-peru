@@ -1,11 +1,10 @@
 import { Layout, Spin } from "../ui";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { type ReactNode, useState } from "react";
 import { DrawerLayout } from "./DrawerLayout.tsx";
 import { HeaderLayout } from "./HeaderLayout.tsx";
 import { BreadcrumbLayout } from "./Breadcrumb.tsx";
 import { useNavigate } from "react-router-dom";
-import { theme } from "../../styles";
 
 const { Content } = Layout;
 
@@ -45,22 +44,19 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
 };
 
 const LayoutContainer = styled(Layout)`
-  min-width: 100vw;
-  min-height: 100vh;
-  background: linear-gradient(
-    135deg,
-    ${theme.colors.dark} 0%,
-    #0f1419 100%
-  ) !important;
+  ${({ theme }) => css`
+    width: 100vw;
+    min-height: 100vh;
+    background: linear-gradient(
+      135deg,
+      ${theme.colors.bgPrimary} 0%,
+      #0f1419 100%
+    ) !important;
 
-  .site-layout-background {
-    background: ${theme.colors.secondary};
-    border-radius: ${theme.border_radius.small};
-    border: 1px solid rgba(255, 255, 255, 0.05);
-  }
-
-  .logo {
-    height: 32px;
-    margin: 16px;
-  }
+    .site-layout-background {
+      background: ${theme.colors.bgSecondary};
+      border-radius: ${theme.border_radius.small};
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+  `}
 `;

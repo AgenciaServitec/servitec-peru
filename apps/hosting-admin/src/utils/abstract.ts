@@ -1,5 +1,7 @@
-import { capitalize, concat } from "lodash";
+import lodash from "lodash";
 import { deviceTypes } from "../data-list";
+
+const { capitalize, concat } = lodash;
 
 export const userFullName = (user: any) => {
   if (!user) return null;

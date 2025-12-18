@@ -7,7 +7,7 @@ import {
 } from "react";
 import { auth, firebase, firestore } from "../firebase";
 import { isError, isObject } from "lodash";
-import { notification, Spinner } from "../components";
+import { Spinner, useNotification } from "../components";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { authPersistence } from "../firebase/auth";
 
@@ -74,6 +74,8 @@ export const AuthenticationProvider = ({
   const [verificationId, setVerificationId] = useState<string | null>(null);
   const [tempUser, setTempUser] = useState<User | null>(null);
   const [confirmationResult, setConfirmationResult] = useState<any>(null);
+
+  const { notification } = useNotification();
 
   const { firebaseUser, firebaseUserLoading, firestoreDocId } =
     useFirebaseUser();

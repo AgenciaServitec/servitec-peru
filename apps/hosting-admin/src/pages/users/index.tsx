@@ -3,9 +3,9 @@ import {
   Col,
   Input,
   modalConfirm,
-  notification,
   Row,
   Title,
+  useNotification,
 } from "../../components";
 import { useAuthentication, useGlobalData } from "../../providers";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +19,6 @@ import { assign, isEmpty } from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import styled, { css } from "styled-components";
-import { theme } from "../../styles";
 import { Timestamp } from "firebase/firestore";
 import { assistancesRef } from "../../firebase/collections";
 import { UserAssistancesTable } from "./UserAssistancesTable.tsx";
@@ -66,6 +65,8 @@ export const Users: React.FC = () => {
   const { authUser } = useAuthentication();
   const { users } = useGlobalData();
   const { patchUser, patchUserResponse } = useApiUserPatch();
+
+  const { notification } = useNotification();
 
   const [userSearch, setUserSearch] = useState<string>("");
   const [usersView, setUsersView] = useState<User[]>([]);
@@ -145,21 +146,21 @@ export const Users: React.FC = () => {
     <Container>
       <Row gutter={[16, 16]}>
         <Col span={24}>
-          <PageHeader>
-            <Title level={2}>Usuarios ({usersView.length})</Title>
-          </PageHeader>
+          <Title level={2}>Usuarios ({usersView.length})</Title>
         </Col>
-        <Col span={24} md={12} lg={8}>
-          <SearchContainer>
-            <Input
-              label="Búsqueda de usuarios"
-              placeholder="Nombres, apellidos o DNI"
-              value={userSearch}
-              onChange={handleUserSearch}
-              name="userSearch"
-              suffix={<FontAwesomeIcon icon={faSearch} />}
-            />
-          </SearchContainer>
+        <Col span={24}>
+          <Input
+            label="Búsqueda de usuarios"
+            value={userSearch}
+            onChange={handleUserSearch}
+            name="userSearch"
+            suffix={
+              <FontAwesomeIcon
+                icon={faSearch}
+                // style={{ color: ({ theme }) => theme.colors.fontPrimary }}
+              />
+            }
+          />
         </Col>
         <Col span={24}>
           <UsersTable
@@ -184,48 +185,8 @@ export const Users: React.FC = () => {
 };
 
 const Container = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     padding: ${theme.paddings.large};
     min-height: 100vh;
-  `}
-`;
-
-const PageHeader = styled.div`
-  ${() => css`
-    margin-bottom: ${theme.paddings.medium};
-
-    h2 {
-      color: ${theme.colors.font1};
-      margin: 0;
-    }
-  `}
-`;
-
-const SearchContainer = styled.div`
-  ${() => css`
-    input {
-      height: 2.5rem;
-    }
-
-    .ant-input-affix-wrapper {
-      background: ${theme.colors.secondary};
-      border-color: ${theme.colors.font2}40;
-
-      &:hover,
-      &:focus,
-      &:focus-within {
-        border-color: ${theme.colors.primary};
-        box-shadow: 0 0 0 2px ${theme.colors.primary}20;
-      }
-
-      .ant-input {
-        background: transparent;
-        color: ${theme.colors.font1};
-      }
-
-      .ant-input-suffix {
-        color: ${theme.colors.font2};
-      }
-    }
   `}
 `;

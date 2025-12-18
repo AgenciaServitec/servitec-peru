@@ -7,7 +7,7 @@ import React, {
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { FirestoreError, Timestamp } from "firebase/firestore";
 import { useAuthentication } from "./AuthenticationProvider";
-import { notification, Spinner } from "../components";
+import { Spinner, useNotification } from "../components";
 import { orderBy } from "lodash";
 import { quotationsRef, usersRef } from "../firebase/collections";
 
@@ -56,6 +56,7 @@ export const GlobalDataProvider: React.FC<GlobalDataProviderProps> = ({
   children,
 }) => {
   const { authUser } = useAuthentication();
+  const { notification } = useNotification();
 
   const [users = [], usersLoading, usersError] = useCollectionData<User>(
     authUser ? usersRef.where("isDeleted", "==", false) : null,
@@ -82,9 +83,7 @@ export const GlobalDataProvider: React.FC<GlobalDataProviderProps> = ({
     }
   }, [error]);
 
-  if (loading) {
-    return <Spinner height="100vh" />;
-  }
+  if (loading) return <Spinner height="100vh" />;
 
   return (
     <GlobalDataContext.Provider

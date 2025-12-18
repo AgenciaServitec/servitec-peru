@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { capitalize, isEmpty, startCase, toString } from "lodash";
-import { classNames, keyframes, theme } from "../../../styles";
+import { classNames, keyframes } from "../../../styles";
 import Typography from "antd/lib/typography";
 import { lighten } from "polished";
 import type { ReactNode } from "react";
@@ -59,7 +59,7 @@ export const Outlined = ({
 const Container = styled.div<
   Pick<OutlinedProps, "error" | "required" | "disabled" | "hidden">
 >`
-  ${({ error, required, disabled, hidden }) => css`
+  ${({ theme, error, required, disabled, hidden }) => css`
     width: 100%;
 
     .item-label,
@@ -67,8 +67,8 @@ const Container = styled.div<
       color: ${error
         ? theme.colors.error
         : disabled
-          ? theme.colors.gray
-          : theme.colors.font1};
+          ? theme.colors.fontDisabled
+          : theme.colors.fontPrimary};
     }
 
     .item-label {
@@ -78,7 +78,7 @@ const Container = styled.div<
       display: flex;
       align-items: center;
       background-color: transparent;
-      color: ${error ? theme.colors.error : theme.colors.font1};
+      color: ${error ? theme.colors.error : theme.colors.fontPrimary};
       font-size: ${theme.font_sizes.small};
       font-weight: ${theme.font_weight.medium};
       transition:
@@ -106,15 +106,15 @@ const Container = styled.div<
 `;
 
 const Wrapper = styled.div<Pick<OutlinedProps, "error" | "disabled" | "value">>`
-  ${({ error, disabled, value }) => css`
+  ${({ theme, error, disabled, value }) => css`
     position: relative;
     width: inherit;
     border-radius: ${theme.border_radius.xx_small};
     background: ${disabled
-      ? lighten(0.02, theme.colors.secondary)
-      : theme.colors.secondary};
+      ? lighten(0.02, theme.colors.bgSecondary)
+      : theme.colors.bgSecondary};
     border: 1px solid
-      ${error ? theme.colors.error : lighten(0.1, theme.colors.secondary)};
+      ${error ? theme.colors.error : lighten(0.1, theme.colors.bgSecondary)};
     animation: ${error && keyframes.shake} 340ms
       cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 
@@ -123,19 +123,19 @@ const Wrapper = styled.div<Pick<OutlinedProps, "error" | "disabled" | "value">>`
       border-color: ${error
         ? theme.colors.error
         : disabled
-          ? lighten(0.1, theme.colors.secondary)
+          ? lighten(0.1, theme.colors.bgSecondary)
           : theme.colors.primary};
     }
 
     .item-wrapper {
       input:-webkit-autofill {
         -webkit-text-fill-color: ${value
-          ? theme.colors.font1
-          : theme.colors.font1};
-        -webkit-box-shadow: 0 0 0 1000px ${theme.colors.secondary} inset;
+          ? theme.colors.fontPrimary
+          : theme.colors.fontPrimary};
+        -webkit-box-shadow: 0 0 0 1000px ${theme.colors.bgSecondary} inset;
 
         &:focus {
-          -webkit-text-fill-color: ${theme.colors.font1};
+          -webkit-text-fill-color: ${theme.colors.fontPrimary};
         }
       }
 
@@ -154,18 +154,18 @@ const Wrapper = styled.div<Pick<OutlinedProps, "error" | "disabled" | "value">>`
       }
 
       .ant-input-group-addon {
-        border: 0 solid ${lighten(0.1, theme.colors.secondary)};
-        border-left: 1px solid ${lighten(0.1, theme.colors.secondary)};
-        background: ${lighten(0.05, theme.colors.secondary)};
-        color: ${theme.colors.font2};
+        border: 0 solid ${lighten(0.1, theme.colors.bgSecondary)};
+        border-left: 1px solid ${lighten(0.1, theme.colors.bgSecondary)};
+        background: ${lighten(0.05, theme.colors.bgSecondary)};
+        color: ${theme.colors.fontSecondary};
       }
     }
   `}
 `;
 
 const Error = styled(Text)<Pick<OutlinedProps, "error">>`
-  color: ${() => theme.colors.error};
-  font-size: ${() => theme.font_sizes.x_small};
+  color: ${({ theme }) => theme.colors.error};
+  font-size: ${({ theme }) => theme.font_sizes.x_small};
   ${({ error }) =>
     error &&
     css`

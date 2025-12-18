@@ -48,24 +48,13 @@ const Container = styled.section<ContainerProps>`
     user-select: text;
 
     width: ${PAGE_SIZES[layout].width};
-    height: ${PAGE_SIZES[layout].height};
-
+    max-width: 100%;
     margin: 1rem auto;
     display: block;
-    overflow: hidden;
     background: white;
-    page-break-after: always;
-
-    @page {
-      size: A4 portrait;
-      margin: 0;
-      padding: 0;
-    }
 
     @media print {
-      width: ${PAGE_SIZES.portrait.width};
-      height: ${PAGE_SIZES.portrait.height};
-
+      width: 100%;
       margin: 0;
       padding: 0;
       border: none;
@@ -76,7 +65,7 @@ const Container = styled.section<ContainerProps>`
 
 const PortraitCSS = css`
   width: ${PAGE_SIZES.portrait.width};
-  height: ${PAGE_SIZES.portrait.height};
+  // height: ${PAGE_SIZES.portrait.height};
 `;
 
 const LandscapeCss = css`
@@ -102,7 +91,5 @@ const LayoutContainer = styled.div<LayoutContainerProps>`
 `;
 
 const Children = styled.div`
-  height: 100%;
   width: 100%;
-  overflow: hidden;
 `;

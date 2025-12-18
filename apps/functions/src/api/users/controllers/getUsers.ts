@@ -1,4 +1,4 @@
-import { Response, Request, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 
 import { fetchUsers } from "../../../_firebase/collections";
 

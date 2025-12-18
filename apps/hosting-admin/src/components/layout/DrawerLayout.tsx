@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Drawer, Menu } from "../ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,7 +10,6 @@ import {
   faSquarePlus,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
-import { theme } from "../../styles";
 import { useAuthentication } from "../../providers";
 
 type DrawerLayoutProps = {
@@ -38,26 +37,11 @@ export const DrawerLayout = ({
 
   const items = [
     {
-      label: "Home",
+      label: "Inicio",
       key: "home",
       icon: <FontAwesomeIcon icon={faHome} size="lg" />,
       onClick: () => onClickHome(),
     },
-    // {
-    //   label: "Control de Accesos (acls)",
-    //   key: "group-acls",
-    //   icon: <FontAwesomeIcon icon={faUsersCog} size="lg" />,
-    //   children: [
-    //     {
-    //       label: "Roles con Acls",
-    //       key: "default-roles-acls",
-    //     },
-    //     {
-    //       label: "Administrador Acls",
-    //       key: "manage-acls",
-    //     },
-    //   ],
-    // },
     [
       "XfQXaMRZD7Gro2kPaIvU",
       "fRiTn5k6TP5TJvpXZeLS",
@@ -115,56 +99,6 @@ export const DrawerLayout = ({
         },
       ],
     },
-    // {
-    //   label: "Sorteos",
-    //   key: "raffles-group",
-    //   icon: <FontAwesomeIcon icon={faTicket} size="lg" />,
-    //   children: [
-    //     {
-    //       label: "Crear Sorteo",
-    //       key: "raffle-new",
-    //       icon: <FontAwesomeIcon icon={faSquarePlus} size="lg" />,
-    //       onClick: () => onClickMenu("/raffles/new"),
-    //     },
-    //     {
-    //       label: "Lista de Sorteos",
-    //       key: "raffles-list",
-    //       icon: <FontAwesomeIcon icon={faList} size="lg" />,
-    //       onClick: () => onClickMenu("/raffles"),
-    //     },
-    //   ],
-    // },
-    // {
-    //   label: "Tutoriales",
-    //   key: "tutorials-group",
-    //   icon: <FontAwesomeIcon icon={faShapes} size="lg" />,
-    //   children: [
-    //     {
-    //       label: "Crear Tutorial",
-    //       key: "tutorial-new",
-    //       icon: <FontAwesomeIcon icon={faSquarePlus} size="lg" />,
-    //       onClick: () => onClickMenu("/tutorials/new"),
-    //     },
-    //     {
-    //       label: "Lista de Tutoriales",
-    //       key: "tutorials-list",
-    //       icon: <FontAwesomeIcon icon={faList} size="lg" />,
-    //       onClick: () => onClickMenu("/tutorials"),
-    //     },
-    //   ],
-    // },
-    // {
-    //   label: "Encuestas",
-    //   key: "surveys-group",
-    //   icon: <FontAwesomeIcon icon={faPoll} size="lg" />,
-    //   children: [
-    //     {
-    //       label: "Estudio del Clima Organizacional",
-    //       key: "organizational-climate-studies",
-    //       icon: <FontAwesomeIcon icon={faFileAlt} size="lg" />,
-    //     },
-    //   ],
-    // },
   ];
 
   return (
@@ -198,47 +132,53 @@ export const DrawerLayout = ({
 };
 
 const DrawerContainer = styled(Drawer)`
-  .ant-drawer-header {
-    background: ${theme.colors.black};
-    border-bottom: 1px solid rgba(255, 193, 7, 0.2);
-    padding: 1.2em 1.5em;
-  }
-
-  .ant-drawer-body {
-    background: ${theme.colors.secondary};
-    padding: 0;
-  }
-
-  .ant-drawer-close {
-    color: ${theme.colors.font1};
-
-    &:hover {
-      color: ${theme.colors.primary};
+  ${({ theme }) => css`
+    .ant-drawer-header {
+      background: ${theme.colors.black};
+      border-bottom: 1px solid rgba(255, 193, 7, 0.2);
+      padding: 1.2em 1.5em;
     }
-  }
+
+    .ant-drawer-body {
+      background: ${theme.colors.bgSecondary};
+      padding: 0;
+    }
+
+    .ant-drawer-close {
+      color: ${theme.colors.fontPrimary};
+
+      &:hover {
+        color: ${theme.colors.primary};
+      }
+    }
+  `}
 `;
 
 const HeaderTitle = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 
-  h3 {
-    margin: 0;
-    color: ${theme.colors.font1};
-    font-size: 1.2em;
-    font-weight: ${theme.font_weight.large};
-  }
+    h3 {
+      margin: 0;
+      color: ${theme.colors.fontPrimary};
+      font-size: 1.2em;
+      font-weight: ${theme.font_weight.large};
+    }
+  `}
 `;
 
 const VersionBadge = styled.span`
-  background: ${theme.colors.primary};
-  color: ${theme.colors.black};
-  padding: 0.3em 0.7em;
-  border-radius: ${theme.border_radius.x_small};
-  font-size: 0.75em;
-  font-weight: ${theme.font_weight.medium};
+  ${({ theme }) => css`
+    background: ${theme.colors.primary};
+    color: ${theme.colors.black};
+    padding: 0.3em 0.7em;
+    border-radius: ${theme.border_radius.x_small};
+    font-size: 0.75em;
+    font-weight: ${theme.font_weight.medium};
+  `}
 `;
 
 const MenuContainer = styled.div`

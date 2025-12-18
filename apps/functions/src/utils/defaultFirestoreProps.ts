@@ -1,8 +1,10 @@
 import * as admin from "firebase-admin";
-import { assign } from "lodash";
+import lodash from "lodash";
 
 import { firestoreTimestamp } from "../_firebase";
 // import { Timestamp } from "@google-cloud/firestore";
+
+const { assign } = lodash;
 
 interface DocumentCreate {
   createAt: admin.firestore.Timestamp;

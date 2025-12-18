@@ -1,4 +1,10 @@
-import { Controller, useFieldArray, useWatch } from "react-hook-form";
+import React, { useEffect } from "react";
+import {
+  type Control,
+  Controller,
+  useFieldArray,
+  useWatch,
+} from "react-hook-form";
 import {
   Button,
   Col,
@@ -9,34 +15,60 @@ import {
   Space,
 } from "../ui";
 import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { theme } from "../../styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect } from "react";
+import styled, { css } from "styled-components";
 
-export const QuotationItemsTable = ({ name = "items", control, errors }) => {
+interface QuotationItemsTableProps {
+  name?: string;
+  control: Control<any>;
+  errors?: any;
+}
+
+interface QuotationItemRowProps {
+  name: string;
+  index: number;
+  control: Control<any>;
+  errors?: any;
+  onRemove: () => void;
+}
+
+export const QuotationItemsTable: React.FC<QuotationItemsTableProps> = ({
+  name = "items",
+  control,
+  errors,
+}) => {
   const { fields, append, remove } = useFieldArray({
     control,
     name,
   });
+
+  const handleAddItem = () => {
+    append({
+      description: "",
+      quantity: 1,
+      unitPrice: 0,
+      subTotal: 0,
+    });
+  };
 
   return (
     <Row gutter={[16, 16]}>
       <Col span={24}>
         <Row gutter={[16, 16]}>
           <Col span={8}>
-            <h6 style={{ textAlign: "center" }}>Descripción</h6>
+            <HeaderCell>Descripción</HeaderCell>
           </Col>
           <Col span={4}>
-            <h6 style={{ textAlign: "center" }}>Unidades(mts)</h6>
+            <HeaderCell>Unidades (mts)</HeaderCell>
           </Col>
           <Col span={4}>
-            <h6 style={{ textAlign: "center" }}>Precio Unitario</h6>
+            <HeaderCell>Precio unitario</HeaderCell>
           </Col>
           <Col span={4}>
-            <h6 style={{ textAlign: "center" }}>Subtotal</h6>
+            <HeaderCell>Subtotal</HeaderCell>
           </Col>
           <Col span={4}>
-            <h6 style={{ textAlign: "center" }}>Opciones</h6>
+            <HeaderCell>Opciones</HeaderCell>
           </Col>
         </Row>
       </Col>
@@ -53,21 +85,14 @@ export const QuotationItemsTable = ({ name = "items", control, errors }) => {
           />
         ))}
       </Col>
+
       <Col span={24}>
         <Row justify="center" gutter={[16, 16]}>
-          <Button
-            size="large"
-            onClick={() =>
-              append({
-                description: "",
-                quantity: 1,
-                unitPrice: 0,
-                subTotal: 0,
-              })
-            }
-          >
-            <FontAwesomeIcon icon={faPlus} />
-            <span>Agregar ítem</span>
+          <Button size="large" onClick={handleAddItem}>
+            <Space size="small">
+              <FontAwesomeIcon icon={faPlus} />
+              <span>Agregar ítem</span>
+            </Space>
           </Button>
         </Row>
       </Col>
@@ -75,7 +100,13 @@ export const QuotationItemsTable = ({ name = "items", control, errors }) => {
   );
 };
 
-const QuotationItemRow = ({ name, index, control, errors, onRemove }) => {
+const QuotationItemRow: React.FC<QuotationItemRowProps> = ({
+  name,
+  index,
+  control,
+  errors,
+  onRemove,
+}) => {
   const quantity = useWatch({
     control,
     name: `${name}.${index}.quantity`,
@@ -88,9 +119,13 @@ const QuotationItemRow = ({ name, index, control, errors, onRemove }) => {
     defaultValue: 0,
   });
 
+  // Nota: aquí se sigue usando la mutación directa, como en tu código original.
+  // Si luego quieres, lo cambiamos a setValue pasando setValue como prop.
   useEffect(() => {
     const subTotal = (quantity || 0) * (unitPrice || 0);
-    control._formValues[name][index].subTotal = subTotal;
+    if (control?._formValues?.[name]?.[index]) {
+      control._formValues[name][index].subTotal = subTotal;
+    }
   }, [quantity, unitPrice, control, name, index]);
 
   return (
@@ -103,15 +138,16 @@ const QuotationItemRow = ({ name, index, control, errors, onRemove }) => {
             <RichTextEditor
               label="Descripción"
               name={fieldName}
-              value={value}
+              value={value || ""}
               onChange={onChange}
               height="150px"
               error={errors?.[name]?.[index]?.description?.message}
-              required={true}
+              required
             />
           )}
         />
       </Col>
+
       <Col span={24} md={4}>
         <Controller
           name={`${name}.${index}.quantity`}
@@ -121,17 +157,18 @@ const QuotationItemRow = ({ name, index, control, errors, onRemove }) => {
               label="Unidades"
               name={fieldName}
               type="number"
-              value={value || ""}
+              value={value ?? ""}
               onChange={(e) =>
                 onChange(e.target.value ? Number(e.target.value) : "")
               }
               error={errors?.[name]?.[index]?.quantity?.message}
-              required={true}
+              required
               min={1}
             />
           )}
         />
       </Col>
+
       <Col span={24} md={4}>
         <Controller
           name={`${name}.${index}.unitPrice`}
@@ -142,16 +179,17 @@ const QuotationItemRow = ({ name, index, control, errors, onRemove }) => {
               name={fieldName}
               type="number"
               step="0.01"
-              value={value || ""}
+              value={value ?? ""}
               onChange={(e) =>
                 onChange(e.target.value ? Number(e.target.value) : "")
               }
               error={errors?.[name]?.[index]?.unitPrice?.message}
-              required={true}
+              required
             />
           )}
         />
       </Col>
+
       <Col span={24} md={4}>
         <Controller
           name={`${name}.${index}.subTotal`}
@@ -162,23 +200,24 @@ const QuotationItemRow = ({ name, index, control, errors, onRemove }) => {
               name={fieldName}
               type="number"
               step="0.01"
-              value={value || 0}
-              disabled={true}
+              value={value ?? 0}
+              disabled
               placeholder="S/ 0.00"
             />
           )}
         />
       </Col>
+
       <Col span={24} md={4}>
         <Row justify="center" gutter={[16, 16]}>
           <Space>
             <IconAction
               tooltipTitle="Editar"
-              onClick={() => ""}
+              onClick={() => null}
               size={33}
               icon={faEdit}
               iconStyles={{
-                color: () => theme.colors.warning,
+                color: (theme) => theme.colors.warning,
               }}
             />
             <IconAction
@@ -187,7 +226,7 @@ const QuotationItemRow = ({ name, index, control, errors, onRemove }) => {
               size={33}
               icon={faTrash}
               iconStyles={{
-                color: () => theme.colors.error,
+                color: (theme) => theme.colors.error,
               }}
             />
           </Space>
@@ -196,3 +235,13 @@ const QuotationItemRow = ({ name, index, control, errors, onRemove }) => {
     </Row>
   );
 };
+
+const HeaderCell = styled.h6`
+  ${({ theme }) => css`
+    text-align: center;
+    margin: 0;
+    font-size: ${theme.font_sizes.small};
+    font-weight: ${theme.font_weight.medium};
+    color: ${theme.colors.fontSecondary};
+  `}
+`;

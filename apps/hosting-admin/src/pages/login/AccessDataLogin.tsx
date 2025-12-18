@@ -2,7 +2,14 @@ import * as yup from "yup";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useFormUtils } from "../../hooks";
-import { Button, Col, Form, Input, notification, Row } from "../../components";
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  Row,
+  useNotification,
+} from "../../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShieldHalved } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
@@ -23,6 +30,8 @@ interface DniForm {
 export const AccessDataLogin = ({ onNext }: StepDniProps) => {
   const [loading, setLoading] = useState(false);
   const { findUserByDNI } = useAuthentication();
+
+  const { notification } = useNotification();
 
   const schema = yup.object({
     dni: yup.string().min(8).max(8).required(),
@@ -46,9 +55,9 @@ export const AccessDataLogin = ({ onNext }: StepDniProps) => {
       const user = await findUserByDNI(dni);
 
       if (isEmpty(user))
-        return notification({
-          type: "warning",
-          title: "El DNI, no se encuentra registrado!",
+        notification({
+          type: "error",
+          title: "El DNI no se encuentra registrado!",
         });
 
       console.log(user);

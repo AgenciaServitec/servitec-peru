@@ -1,4 +1,4 @@
-import { Response, Request, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 
 import { fetchQuotations } from "../../../_firebase/collections";
 

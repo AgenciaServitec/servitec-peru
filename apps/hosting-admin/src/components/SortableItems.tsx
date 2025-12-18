@@ -4,9 +4,9 @@ import {
   DndContext,
   DragEndEvent,
   TouchSensor,
+  UniqueIdentifier,
   useSensor,
   useSensors,
-  UniqueIdentifier,
 } from "@dnd-kit/core";
 import {
   arrayMove,
@@ -21,12 +21,14 @@ import {
   disableDragProps,
   MouseSensor,
 } from "./utils/upload/SortableItems.utils";
-import { get } from "lodash";
+import lodash from "lodash";
 import {
   DataSourceValue,
   FieldAsId,
   SortableOptions,
 } from "./types/sortable.types";
+
+const { get } = lodash;
 
 export interface SortableItemsProps<Data extends DataSourceValue> {
   dataSource: Data[];

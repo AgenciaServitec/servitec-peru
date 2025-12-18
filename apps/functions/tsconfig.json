@@ -1,19 +1,11 @@
 {
   "compilerOptions": {
-    "module": "NodeNext",
-    "esModuleInterop": true,
-    "moduleResolution": "nodenext",
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "target": "ES2020",
     "outDir": "lib",
-    "sourceMap": true,
     "strict": true,
-    "target": "es2017",
-    "paths": {
-      "@servitec-peru/types": ["../../packages/types/src/index.ts"]
-    }
+    "esModuleInterop": true
   },
-  "compileOnSave": true,
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "lib"]
+  "include": ["src"]
 }

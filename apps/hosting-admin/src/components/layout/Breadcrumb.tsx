@@ -1,7 +1,6 @@
 import { capitalize } from "lodash";
 import { Breadcrumb } from "antd";
-import styled from "styled-components";
-import { theme } from "../../styles";
+import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
@@ -29,40 +28,42 @@ export const BreadcrumbLayout = () => {
 };
 
 const BreadcrumbContainer = styled(Breadcrumb)`
-  margin: 16px 0;
-  padding: 0.8em 0;
-  display: flex;
-  align-items: center;
-
-  .ant-breadcrumb-link {
-    color: ${theme.colors.font2};
-    font-size: ${theme.font_sizes.small};
-    transition: color 0.2s ease;
-
-    &:hover {
-      color: ${theme.colors.primary};
-    }
-  }
-
-  li:last-child .ant-breadcrumb-link {
-    color: ${theme.colors.font1};
-    font-weight: ${theme.font_weight.medium};
-    display: flex;
-    align-items: center;
-  }
-
-  .ant-breadcrumb-separator {
-    color: ${theme.colors.gray};
-    margin: 0 0.5em;
-  }
-
-  li:first-child .ant-breadcrumb-link {
-    color: ${theme.colors.font2};
+  ${({ theme }) => css`
+    margin: 16px 0;
+    padding: 0.8em 0;
     display: flex;
     align-items: center;
 
-    &:hover {
-      color: ${theme.colors.primary};
+    .ant-breadcrumb-link {
+      color: ${theme.colors.fontSecondary};
+      font-size: ${theme.font_sizes.small};
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: ${theme.colors.primary};
+      }
     }
-  }
+
+    li:last-child .ant-breadcrumb-link {
+      color: ${theme.colors.fontPrimary};
+      font-weight: ${theme.font_weight.medium};
+      display: flex;
+      align-items: center;
+    }
+
+    .ant-breadcrumb-separator {
+      color: ${theme.colors.fontDisabled};
+      margin: 0 0.5em;
+    }
+
+    li:first-child .ant-breadcrumb-link {
+      color: ${theme.colors.fontSecondary};
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        color: ${theme.colors.primary};
+      }
+    }
+  `}}
 `;

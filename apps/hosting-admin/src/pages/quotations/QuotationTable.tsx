@@ -1,50 +1,156 @@
-import dayjs from "dayjs";
 import { Space } from "antd";
 import { IconAction, Table } from "../../components";
 import { useNavigate } from "react-router-dom";
-import { faEdit, faFilePdf, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faFilePdf,
+  faPaperPlane,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { theme } from "../../styles";
-import styled from "styled-components";
-import { orderBy } from "lodash";
+import { isEmpty, orderBy, truncate } from "lodash";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import type { ColumnsType } from "antd/es/table";
+import type { Assistance } from "../../globalTypes.ts";
 
 export const QuotationTable = ({ quotations, quotationsLoading }) => {
   const navigate = useNavigate();
 
   const navigateTo = (pathname) => navigate(pathname);
 
-  const columns = [
+  const columns: ColumnsType<Partial<Assistance>> = [
     {
-      title: "F. Creación",
-      dataIndex: "createAt",
-      key: "createAt",
-      width: 180,
+      title: "N° de Contrato",
+      key: "contractNumber",
+      dataIndex: "contractNumber",
+      width: 70,
       align: "center",
-      render: (_, quotation) =>
-        dayjs(quotation.createAt.toDate()).format("DD/MM/YYYY HH:mm"),
+      render: (_, quotation) => quotation?.contractNumber || "-",
     },
     {
       title: "Cliente",
-      dataIndex: "client",
       key: "client",
-      width: 180,
+      dataIndex: "client",
+      width: 120,
+      align: "center",
+      render: (_, quotation) =>
+        quotation.client.document.type === "dni" ? (
+          <Space align="center" direction="vertical">
+            <strong>
+              {`${quotation.client?.paternalSurname} ${quotation.client?.maternalSurname} ${quotation.client?.firstName}` ||
+                "-"}
+            </strong>
+            <span>
+              DNI: <strong>{quotation.client.document.number || "-"}</strong>
+            </span>
+          </Space>
+        ) : (
+          <Space align="center" direction="vertical">
+            <strong>{quotation.client?.companyName || "-"}</strong>
+            <span>
+              RUC: <strong>{quotation.client.document.number || "-"}</strong>
+            </span>
+          </Space>
+        ),
+    },
+    {
+      title: "Contacto",
+      key: "contact",
+      dataIndex: "contact",
+      width: 120,
       align: "center",
       render: (_, quotation) => (
-        <Space align="center" direction="vertical">
-          <strong>{quotation.client.document.number}</strong>
+        <Space direction="vertical">
+          {!isEmpty(quotation.client.email) ? (
+            <a href={`mailto:${quotation.client.email}`}>
+              {quotation.client.email}
+            </a>
+          ) : (
+            "-"
+          )}
+          <Space>
+            <IconAction
+              tooltipTitle="Whatsapp"
+              icon={faWhatsapp}
+              size={27}
+              iconStyles={{ color: () => theme.colors.success }}
+              onClick={() =>
+                window.open(
+                  `https://api.whatsapp.com/send?phone=${quotation.client.phone.prefix.replace(
+                    "+",
+                    ""
+                  )}${quotation.client.phone.number}`
+                )
+              }
+            />
+            <span>
+              {quotation.client.phone.prefix} &nbsp;
+              {quotation.client.phone.number || "-"}
+            </span>
+          </Space>
         </Space>
       ),
     },
     {
-      title: "Opciones",
-      dataIndex: "options",
-      key: "options",
+      title: "Problema",
+      key: "reportedIssue",
+      dataIndex: "reportedIssue",
+      width: 100,
       align: "center",
-      width: 120,
       render: (_, quotation) => (
-        <Space>
+        <span>
+          {truncate(quotation.reportedIssue, {
+            length: 50,
+          }) || "-"}
+        </span>
+      ),
+    },
+    {
+      title: "Análisis",
+      key: "analysis",
+      dataIndex: "analysis",
+      width: 100,
+      align: "center",
+      render: (_, quotation) => (
+        <span>
+          {truncate(quotation.analysis, {
+            length: 50,
+          }) || "-"}
+        </span>
+      ),
+    },
+    {
+      title: "Solución",
+      key: "solutionAndRecommendations",
+      dataIndex: "solutionAndRecommendations",
+      width: 100,
+      align: "center",
+      render: (_, quotation) => (
+        <span>
+          {truncate(quotation.solutionAndRecommendations, {
+            length: 50,
+          }) || "-"}
+        </span>
+      ),
+    },
+    {
+      title: "Acciones",
+      key: "actions",
+      dataIndex: "actions",
+      width: 100,
+      align: "center",
+      fixed: "right",
+      render: (_, quotation) => (
+        <Space size="small">
           <IconAction
             tooltipTitle="Editar"
             icon={faEdit}
+            onClick={() => navigateTo(`/quotations/${quotation.id}`)}
+          />
+          <IconAction
+            tooltipTitle="Enviar"
+            icon={faPaperPlane}
+            iconStyles={{ color: () => theme.colors.info }}
             onClick={() => navigateTo(`/quotations/${quotation.id}`)}
           />
           <IconAction
@@ -64,29 +170,18 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
     },
   ];
 
+  const dataSource: Assistance[] = orderBy(quotations, "createAt", "desc");
+
   return (
-    <Container>
-      <Table
-        columns={columns}
-        dataSource={orderBy(quotations, "createAt", "desc")}
-        pagination={{
-          pageSize: 10,
-          showSizeChanger: true,
-          showTotal: (total) => `Total: ${total} usuarios`,
-        }}
-        scroll={{ x: 1200 }}
-        loading={quotationsLoading}
-      />
-    </Container>
+    <Table
+      bordered
+      virtual
+      columns={columns}
+      dataSource={dataSource}
+      size="small"
+      scroll={{ x: 1200, y: 600 }}
+      loading={quotationsLoading}
+      pagination={false}
+    />
   );
 };
-
-const Container = styled.div`
-  width: 100%;
-  .contact {
-    &__item {
-      display: flex;
-      align-items: center;
-    }
-  }
-`;

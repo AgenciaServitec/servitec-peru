@@ -1,7 +1,28 @@
-import React from "react";
-import ReactQuill from "react-quill-new";
-import "react-quill-new/dist/quill.snow.css";
-import styled from "styled-components";
+import React, { useEffect } from "react";
+import styled, { css } from "styled-components";
+import { EditorContent, useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import Underline from "@tiptap/extension-underline";
+import Link from "@tiptap/extension-link";
+import Placeholder from "@tiptap/extension-placeholder";
+import TextAlign from "@tiptap/extension-text-align";
+import Highlight from "@tiptap/extension-highlight";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faAlignCenter,
+  faAlignLeft,
+  faAlignRight,
+  faBold,
+  faHeading,
+  faHighlighter,
+  faItalic,
+  faListOl,
+  faListUl,
+  faStrikethrough,
+  faUnderline,
+} from "@fortawesome/free-solid-svg-icons";
+import Tooltip from "antd/lib/tooltip";
 
 interface RichTextEditorProps {
   label?: string;
@@ -22,41 +43,194 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
   required,
   height = "400px",
 }) => {
-  const modules = {
-    toolbar: [
-      [{ header: [1, 2, 3, false] }],
-      ["bold", "italic", "underline", "strike"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ indent: "-1" }, { indent: "+1" }],
-      ["link"],
+  const editor = useEditor({
+    extensions: [
+      StarterKit.configure({
+        heading: {
+          levels: [1, 2, 3],
+        },
+      }),
+      Underline,
+      Highlight,
+      Link.configure({
+        openOnClick: false,
+        linkOnPaste: true,
+      }),
+      TextAlign.configure({
+        types: ["heading", "paragraph"],
+      }),
+      Placeholder.configure({
+        placeholder: "Escribe aquí...",
+      }),
     ],
-  };
+    content: value || "",
+    onUpdate: ({ editor }) => {
+      onChange(editor.getHTML());
+    },
+    editorProps: {
+      attributes: {
+        id: name,
+        class: "tiptap-editor-content",
+      },
+    },
+  });
 
-  const formats = [
-    "header",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-  ];
+  useEffect(() => {
+    if (!editor) return;
+    if (value !== editor.getHTML()) {
+      editor.commands.setContent(value, false);
+    }
+  }, [value, editor]);
+
+  if (!editor) return null;
+
+  const headingLevels = [1, 2, 3];
 
   return (
     <Container>
-      {label && <Label>{label}</Label>}
-      <EditorWrapper height={height} hasError={!!error}>
-        <ReactQuill
-          theme="snow"
-          value={value || ""}
-          onChange={onChange}
-          modules={modules}
-          formats={formats}
-          placeholder="Escribe aquí..."
-        />
+      {label && <Label htmlFor={name}>{label}</Label>}
+
+      <EditorWrapper $height={height} $hasError={!!error}>
+        <Toolbar>
+          <ToolbarGroup>
+            {headingLevels.map((lvl) => (
+              <Tooltip
+                key={`h-${lvl}`}
+                title={`Encabezado ${lvl}`}
+                placement="bottom"
+              >
+                <ToolbarButton
+                  type="button"
+                  $active={editor.isActive("heading", { level: lvl })}
+                  onClick={() =>
+                    editor.chain().focus().toggleHeading({ level: lvl }).run()
+                  }
+                >
+                  <FontAwesomeIcon icon={faHeading} />
+                  <span style={{ marginLeft: 4 }}>{lvl}</span>
+                </ToolbarButton>
+              </Tooltip>
+            ))}
+          </ToolbarGroup>
+
+          <ToolbarGroup>
+            <Tooltip title="Negrita" placement="bottom">
+              <ToolbarButton
+                type="button"
+                $active={editor.isActive("bold")}
+                onClick={() => editor.chain().focus().toggleBold().run()}
+              >
+                <FontAwesomeIcon icon={faBold} />
+              </ToolbarButton>
+            </Tooltip>
+
+            <Tooltip title="Cursiva" placement="bottom">
+              <ToolbarButton
+                type="button"
+                $active={editor.isActive("italic")}
+                onClick={() => editor.chain().focus().toggleItalic().run()}
+              >
+                <FontAwesomeIcon icon={faItalic} />
+              </ToolbarButton>
+            </Tooltip>
+
+            <Tooltip title="Subrayado" placement="bottom">
+              <ToolbarButton
+                type="button"
+                $active={editor.isActive("underline")}
+                onClick={() => editor.chain().focus().toggleUnderline().run()}
+              >
+                <FontAwesomeIcon icon={faUnderline} />
+              </ToolbarButton>
+            </Tooltip>
+
+            <Tooltip title="Tachado" placement="bottom">
+              <ToolbarButton
+                type="button"
+                $active={editor.isActive("strike")}
+                onClick={() => editor.chain().focus().toggleStrike().run()}
+              >
+                <FontAwesomeIcon icon={faStrikethrough} />
+              </ToolbarButton>
+            </Tooltip>
+
+            <Tooltip title="Resaltar texto" placement="bottom">
+              <ToolbarButton
+                type="button"
+                $active={editor.isActive("highlight")}
+                onClick={() => editor.chain().focus().toggleHighlight().run()}
+              >
+                <FontAwesomeIcon icon={faHighlighter} />
+              </ToolbarButton>
+            </Tooltip>
+          </ToolbarGroup>
+
+          <ToolbarGroup>
+            <Tooltip title="Lista con viñetas" placement="bottom">
+              <ToolbarButton
+                type="button"
+                $active={editor.isActive("bulletList")}
+                onClick={() => editor.chain().focus().toggleBulletList().run()}
+              >
+                <FontAwesomeIcon icon={faListUl} />
+              </ToolbarButton>
+            </Tooltip>
+
+            <Tooltip title="Lista numerada" placement="bottom">
+              <ToolbarButton
+                type="button"
+                $active={editor.isActive("orderedList")}
+                onClick={() => editor.chain().focus().toggleOrderedList().run()}
+              >
+                <FontAwesomeIcon icon={faListOl} />
+              </ToolbarButton>
+            </Tooltip>
+          </ToolbarGroup>
+
+          <ToolbarGroup>
+            <Tooltip title="Alinear a la izquierda" placement="bottom">
+              <ToolbarButton
+                type="button"
+                $active={editor.isActive({ textAlign: "left" })}
+                onClick={() =>
+                  editor.chain().focus().setTextAlign("left").run()
+                }
+              >
+                <FontAwesomeIcon icon={faAlignLeft} />
+              </ToolbarButton>
+            </Tooltip>
+
+            <Tooltip title="Alinear al centro" placement="bottom">
+              <ToolbarButton
+                type="button"
+                $active={editor.isActive({ textAlign: "center" })}
+                onClick={() =>
+                  editor.chain().focus().setTextAlign("center").run()
+                }
+              >
+                <FontAwesomeIcon icon={faAlignCenter} />
+              </ToolbarButton>
+            </Tooltip>
+
+            <Tooltip title="Alinear a la derecha" placement="bottom">
+              <ToolbarButton
+                type="button"
+                $active={editor.isActive({ textAlign: "right" })}
+                onClick={() =>
+                  editor.chain().focus().setTextAlign("right").run()
+                }
+              >
+                <FontAwesomeIcon icon={faAlignRight} />
+              </ToolbarButton>
+            </Tooltip>
+          </ToolbarGroup>
+        </Toolbar>
+
+        <EditorContainer>
+          <EditorContent editor={editor} />
+        </EditorContainer>
       </EditorWrapper>
+
       {error && <ErrorText>{error}</ErrorText>}
     </Container>
   );
@@ -68,57 +242,109 @@ const Container = styled.div`
 `;
 
 const Label = styled.label`
-  display: block;
+  display: inline-flex;
+  align-items: center;
   margin-bottom: 8px;
-  font-weight: 500;
-  color: #b6b7b8;
-  font-size: 12px;
-  background-color: #1a1d23;
-  width: max-content;
-  padding: 1px 5px;
-  border-radius: 5px;
+  font-weight: ${({ theme }) => theme.font_weight.medium};
+  color: ${({ theme }) => theme.colors.fontSecondary};
+  font-size: ${({ theme }) => theme.font_sizes.x_small};
+  background-color: ${({ theme }) => theme.colors.bgSecondary};
+  padding: 2px 8px;
+  border-radius: ${({ theme }) => theme.border_radius.x_small};
 `;
 
-const EditorWrapper = styled.div<{ height: string; hasError: boolean }>`
-  .rich-text-editor .ql-toolbar {
+const EditorWrapper = styled.div<{ $height: string; $hasError: boolean }>`
+  ${({ theme, $height, $hasError }) => css`
+    border-radius: ${theme.border_radius.small};
+    border: 1px solid ${$hasError ? theme.colors.error : theme.colors.border};
+    background: ${theme.colors.bgSecondary};
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    .tiptap-editor-content {
+      min-height: ${$height};
+    }
+  `}
+`;
+
+const Toolbar = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    flex-wrap: wrap;
+    gap: ${theme.paddings.x_small};
+    padding: ${theme.paddings.x_small} ${theme.paddings.small};
+    border-bottom: 1px solid ${theme.colors.border};
+    background: ${theme.colors.bgTertiary};
+  `}
+`;
+
+const ToolbarGroup = styled.div`
+  display: inline-flex;
+  gap: 4px;
+  margin-right: 8px;
+`;
+
+const ToolbarButton = styled.button<{ $active?: boolean }>`
+  ${({ theme, $active }) => css`
     border: none;
-    border-bottom: 1px solid
-      ${({ hasError }) => (hasError ? "#ff4d4f" : "#303030")};
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    background: #1f1f1f;
-    color: #f0f0f0;
-  }
+    padding: 4px 8px;
+    border-radius: ${theme.border_radius.xx_small};
+    font-size: ${theme.font_sizes.small};
+    background: ${$active ? theme.colors.primaryAlpha : "transparent"};
+    color: ${$active ? theme.colors.primary : theme.colors.fontSecondary};
+    cursor: pointer;
+    transition: all 0.15s ease;
 
-  .rich-text-editor .ql-toolbar .ql-picker-label,
-  .rich-text-editor .ql-toolbar .ql-stroke,
-  .rich-text-editor .ql-toolbar .ql-fill {
-    color: #f0f0f0;
-    stroke: #f0f0f0;
-  }
+    &:hover {
+      background: ${theme.colors.primaryAlpha};
+      color: ${theme.colors.primary};
+    }
+  `}
+`;
 
-  .rich-text-editor .ql-container {
-    border: none;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    background: #141414;
-    color: #f0f0f0;
-    min-height: ${({ height }) => height};
-  }
+const EditorContainer = styled.div`
+  ${({ theme }) => css`
+    background: ${theme.colors.bgSecondary};
+    color: ${theme.colors.fontPrimary};
+    padding: ${theme.paddings.small};
 
-  .rich-text-editor .ql-editor {
-    min-height: ${({ height }) => height};
-  }
+    .tiptap-editor-content {
+      outline: none;
 
-  .rich-text-editor .ql-editor.ql-blank::before {
-    color: #8c8c8c;
-    font-style: normal;
-  }
+      p {
+        margin: 0 0 0.5em;
+      }
+
+      a {
+        color: ${theme.colors.fontLink};
+        text-decoration: underline;
+
+        &:hover {
+          color: ${theme.colors.fontLinkHover};
+        }
+      }
+
+      ul,
+      ol {
+        padding-left: 1.5em;
+      }
+
+      blockquote {
+        border-left: 3px solid ${theme.colors.border};
+        margin: 0.5em 0;
+        padding-left: 0.75em;
+        color: ${theme.colors.fontSecondary};
+      }
+    }
+  `}
 `;
 
 const ErrorText = styled.span`
-  display: block;
-  margin-top: 4px;
-  color: #ff4d4f;
-  font-size: 12px;
+  ${({ theme }) => css`
+    display: block;
+    margin-top: 4px;
+    color: ${theme.colors.error};
+    font-size: ${theme.font_sizes.xxx_small};
+  `}
 `;

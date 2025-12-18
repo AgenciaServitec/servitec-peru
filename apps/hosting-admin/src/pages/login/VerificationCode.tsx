@@ -8,8 +8,8 @@ import {
   Col,
   Form,
   InputCode,
-  notification,
   Row,
+  useNotification,
 } from "../../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -32,6 +32,8 @@ export const VerificationCode = ({
   const [resendDisabled, setResendDisabled] = useState(false);
   const [countdown, setCountdown] = useState(0);
   const [loading, setLoading] = useState(false);
+
+  const { notification } = useNotification();
 
   const schema = yup.object({
     code: yup.string().required(),
@@ -76,8 +78,8 @@ export const VerificationCode = ({
     setCountdown(60);
 
     try {
-      notification({
-        type: "info",
+      return notification({
+        type: "success",
         title: "Reenviando código",
         description: "Por favor espera...",
       });
@@ -132,9 +134,7 @@ export const VerificationCode = ({
                 href="#"
                 onClick={(e) => {
                   e.preventDefault();
-                  if (!resendDisabled) {
-                    handleResendCode();
-                  }
+                  if (!resendDisabled) return handleResendCode();
                 }}
                 disabled={resendDisabled}
               >

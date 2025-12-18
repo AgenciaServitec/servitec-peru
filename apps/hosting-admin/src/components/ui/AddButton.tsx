@@ -3,7 +3,6 @@ import styled, { css } from "styled-components";
 import { Icon } from "./Icon";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "./index";
-import { theme } from "../../styles";
 
 export interface AddButtonProps {
   title: string;
@@ -42,9 +41,8 @@ export const AddButton: React.FC<AddButtonProps> = ({
   );
 };
 
-// Styled Components
 const Container = styled(Button)<ContainerProps>`
-  ${({ $margin }) => css`
+  ${({ theme, $margin }) => css`
     min-width: 120px;
     width: auto;
     height: auto;
@@ -59,7 +57,6 @@ const Container = styled(Button)<ContainerProps>`
       background: ${theme.colors.primary}dd;
       border-color: ${theme.colors.primary}dd;
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px ${theme.colors.primary}40;
     }
 
     &:active:not(:disabled) {
@@ -74,7 +71,7 @@ const Container = styled(Button)<ContainerProps>`
 `;
 
 const ContentWrapper = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -85,7 +82,7 @@ const ContentWrapper = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
-      color: ${theme.colors.dark};
+      color: ${theme.colors.black};
 
       svg {
         margin: 0;
@@ -95,13 +92,13 @@ const ContentWrapper = styled.div`
 `;
 
 const TextWrapper = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     white-space: normal;
     font-size: ${theme.font_sizes.small};
     font-weight: ${theme.font_weight.medium};
     text-transform: uppercase;
     text-shadow: none;
-    color: ${theme.colors.dark};
+    color: ${theme.colors.black};
     letter-spacing: 0.5px;
 
     span {

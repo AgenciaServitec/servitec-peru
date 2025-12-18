@@ -12,7 +12,7 @@ import {
   UploadBody,
   UploadDraggerBody,
 } from "./utils/upload/components";
-import { isEmpty } from "lodash";
+import lodash from "lodash";
 import AntdMessage from "antd/lib/message";
 import * as assert from "assert";
 import type {
@@ -21,7 +21,9 @@ import type {
   ImageResize,
   UploadedFile,
 } from "./types/upload.types";
-import { ComponentContainer, modalConfirm, notification } from "./ui";
+import { ComponentContainer, modalConfirm, useNotification } from "./ui";
+
+const { isEmpty } = lodash;
 
 interface UploadProps {
   accept?: string;
@@ -81,6 +83,8 @@ export const Upload: React.FC<UploadProps> = ({
   onChangeCopy,
   copyFilesTo = null,
 }) => {
+  const { notification } = useNotification();
+
   const storage = buckets[bucket];
 
   const [files, setFiles] = useState<UploadFileWithStatus[]>([]);
