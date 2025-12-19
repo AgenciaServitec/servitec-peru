@@ -16,6 +16,7 @@ interface AssistancesTableProps {
   assistancesLoading: boolean;
   assistances: Assistance[];
   onShowSubmitOrderLunch: (assistance: Assistance) => void;
+  canApproveLunch: boolean;
 }
 
 const { orderBy } = lodash;
@@ -24,7 +25,10 @@ export const AssistancesTable = ({
   assistances,
   onShowSubmitOrderLunch,
   assistancesLoading,
+  canApproveLunch,
 }: AssistancesTableProps) => {
+  console.log("canApproveLunch:", canApproveLunch);
+
   const { updateMinutesWorked } = useUpdateMinutesWorked();
   useEffect(() => {
     assistances?.forEach((assistance: Assistance) => {
@@ -88,14 +92,16 @@ export const AssistancesTable = ({
               gap: "0.4rem",
             }}
           >
-            <IconAction
-              tooltipTitle="Almuerzo"
-              icon={faBowlRice}
-              iconStyles={{
-                color: () => theme.colors.info,
-              }}
-              onClick={() => onShowSubmitOrderLunch(assistance)}
-            />
+            {canApproveLunch && (
+              <IconAction
+                tooltipTitle="Calificar almuerzo"
+                icon={faBowlRice}
+                iconStyles={{
+                  color: () => theme.colors.info,
+                }}
+                onClick={() => onShowSubmitOrderLunch(assistance)}
+              />
+            )}
 
             {hasValue && (
               <IconAction
@@ -114,7 +120,6 @@ export const AssistancesTable = ({
         );
       },
     },
-
     {
       key: "entry",
       dataIndex: "entry",

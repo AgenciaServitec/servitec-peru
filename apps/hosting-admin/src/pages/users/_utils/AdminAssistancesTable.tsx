@@ -78,6 +78,12 @@ export const AdminAssistancesTable: React.FC<AssistancesTableProps> = ({
     setSelected(null);
   };
 
+  const updateOrderLunch = async (assistance: Assistance, value: boolean) => {
+    await updateAssistance(assistance.id, {
+      orderLunch: value,
+    });
+  };
+
   const columns: ColumnsType<TableAssistance> = [
     {
       title: "Fecha",
@@ -147,11 +153,30 @@ export const AdminAssistancesTable: React.FC<AssistancesTableProps> = ({
       width: 180,
       align: "center",
       render: (_, assistance) => {
-        const val = assistance?.orderLunch;
+        const val = assistance.orderLunch;
 
-        if (val !== true && val !== false) return "-";
+        return (
+          <div
+            style={{ display: "flex", gap: "0.5rem", justifyContent: "center" }}
+          >
+            <Button
+              size="small"
+              type={val === true ? "primary" : "default"}
+              onClick={() => updateOrderLunch(assistance, true)}
+            >
+              Sí
+            </Button>
 
-        return val ? "Si" : "No";
+            <Button
+              size="small"
+              danger={val === false}
+              type={val === false ? "primary" : "default"}
+              onClick={() => updateOrderLunch(assistance, false)}
+            >
+              No
+            </Button>
+          </div>
+        );
       },
     },
   ];
