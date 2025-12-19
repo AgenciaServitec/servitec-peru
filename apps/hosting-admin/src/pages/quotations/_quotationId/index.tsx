@@ -3,7 +3,6 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDefaultFirestoreProps, useFormUtils } from "../../../hooks";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAuthentication } from "../../../providers";
 import { useEffect, useState } from "react";
 import {
   Col,
@@ -15,7 +14,6 @@ import {
   Row,
   Select,
   Title,
-  useNotification,
 } from "../../../components";
 import {
   addQuotation,
@@ -26,23 +24,25 @@ import {
 import { Button, Spin } from "antd";
 import { deviceTypes, DocumentTypes } from "../../../data-list";
 import { capitalize } from "lodash";
+import { useApiDataByDniOrRucGet } from "../../../api";
 
 export function QuotationIntegration() {
-  const { authUser } = useAuthentication();
   const navigate = useNavigate();
   const { quotationId } = useParams();
   const { assignCreateProps, assignUpdateProps } = useDefaultFirestoreProps();
 
+  const [documentType, setDocumentType] = useState("ruc");
   const [quotation, setQuotation] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [documentNumber, setDocumentNumber] = useState("");
-  const [dataEntity, setDataEntity] = useState(null);
-  const [dataEntityLoading, setDataEntityLoading] = useState(false);
+
+  const {
+    getDataByDniOrRuc,
+    getDataByDniOrRucLoading,
+    getDataByDniOrRucResponse,
+  } = useApiDataByDniOrRucGet(documentType);
 
   const isNew = quotationId === "new";
   const onGoBack = () => navigate(-1);
-
-  const { notification } = useNotification();
 
   useEffect(() => {
     (async () => {
@@ -56,32 +56,6 @@ export function QuotationIntegration() {
     })();
   }, []);
 
-  const onGetDataByDniOrRuc = async (number: string, type: string) => {
-    try {
-      setDataEntityLoading(true);
-      if (type === "dni") {
-        const response = await fetch(
-          `http://api-korekenke.web.app/entities/dni/${number}`
-        );
-        return response.json();
-      }
-
-      notification({
-        type: "success",
-        description:
-          "Se obtuve de forma satisfactoria los datos de la Entidad.",
-      });
-    } catch (e) {
-      console.error(e);
-      notification({
-        type: "error",
-        description: "No se encontró el documento.",
-      });
-    } finally {
-      setDataEntityLoading(false);
-    }
-  };
-
   const mapQuotation = (formData) => ({
     ...quotation,
     client: {
@@ -89,9 +63,13 @@ export function QuotationIntegration() {
         type: formData.client.documentType,
         number: formData.client.documentNumber,
       },
-      firstName: formData.client.firstName,
-      paternalSurname: formData.client.paternalSurname,
-      maternalSurname: formData.client.maternalSurname,
+      ...(formData.client.documentType === "ruc"
+        ? { companyName: formData.companyName }
+        : {
+            firstName: formData.client.firstName,
+            paternalSurname: formData.client.paternalSurname,
+            maternalSurname: formData.client.maternalSurname,
+          }),
       phone: {
         prefix: "+51",
         number: formData.client.phoneNumber,
@@ -142,38 +120,32 @@ export function QuotationIntegration() {
   return (
     <Quotation
       quotation={quotation}
-      user={authUser}
       loading={loading}
       isNew={isNew}
       onSubmit={onSubmit}
       onGoBack={onGoBack}
-      documentNumber={documentNumber}
-      setDocumentNumber={setDocumentNumber}
-      dataEntity={dataEntity}
-      dataEntityLoading={dataEntityLoading}
-      onGetDataByDniOrRuc={onGetDataByDniOrRuc}
+      setDocumentType={setDocumentType}
+      getDataByDniOrRuc={getDataByDniOrRuc}
+      getDataByDniOrRucLoading={getDataByDniOrRucLoading}
     />
   );
 }
 
 const Quotation = ({
   quotation,
-  quotationId,
-  user,
   loading,
   isNew,
   onSubmit,
   onGoBack,
-  documentNumber,
-  setDocumentNumber,
-  dataEntity,
-  dataEntityLoading,
-  onGetDataByDniOrRuc,
+  setDocumentType,
+  getDataByDniOrRuc,
+  getDataByDniOrRucLoading,
 }) => {
   const schema = yup.object({
     client: yup.object({
       documentType: yup.string(),
       documentNumber: yup.string(),
+      companyName: yup.string(),
       firstName: yup.string(),
       paternalSurname: yup.string(),
       maternalSurname: yup.string(),
@@ -222,36 +194,47 @@ const Quotation = ({
 
   const { required, error } = useFormUtils({ errors, schema });
 
+  console.log("error: ", error);
+  console.log("errors: ", errors);
+
   useEffect(() => {
-    const existsDni = (watch("client.documentNumber") || "").length === 8;
+    setDocumentType(watch("client.documentType"));
+  }, [watch("client.documentType")]);
 
-    if (existsDni) {
+  let documentNumber = watch("client.documentNumber") || "";
+
+  useEffect(() => {
+    const existsDni =
+      documentNumber.length === 8 || documentNumber.length === 11;
+
+    if (existsDni && isNew) {
       (async () => {
-        const data = await onGetDataByDniOrRuc(
-          watch("client.documentNumber"),
-          watch("client.documentType")
-        );
+        const data = await getDataByDniOrRuc(watch("client.documentNumber"));
 
-        setValue("client.firstName", capitalize(data.firstName || ""));
-        setValue(
-          "client.paternalSurname",
-          capitalize(data.paternalSurname || "")
-        );
-        setValue(
-          "client.maternalSurname",
-          capitalize(data.maternalSurname || "")
-        );
+        if (watch("client.documentType") === "dni") {
+          setValue("client.firstName", capitalize(data.firstName || ""));
+          setValue(
+            "client.paternalSurname",
+            capitalize(data.paternalSurname || "")
+          );
+          setValue(
+            "client.maternalSurname",
+            capitalize(data.maternalSurname || "")
+          );
+        } else {
+          setValue("client.companyName", capitalize(data.companyName || ""));
+          setValue("client.address", capitalize(data.address || ""));
+        }
       })();
     }
   }, [watch("client.documentNumber")]);
 
-  console.log(dataEntity);
-
   const resetForm = () => {
     reset({
       client: {
-        documentType: quotation?.client?.document?.type || "dni",
+        documentType: quotation?.client?.document?.type || "ruc",
         documentNumber: quotation?.client?.document?.number || "",
+        companyName: quotation?.client?.companyName || "",
         firstName: quotation?.client?.firstName || "",
         paternalSurname: quotation?.client?.paternalSurname || "",
         maternalSurname: quotation?.client?.maternalSurname || "",
@@ -302,6 +285,7 @@ const Quotation = ({
                           label="Tipo de documento"
                           name={name}
                           value={value}
+                          disabled={quotation?.client?.document.type}
                           options={DocumentTypes}
                           onChange={onChange}
                           error={error(name)}
@@ -319,11 +303,12 @@ const Quotation = ({
                           label="Número de documento"
                           name={name}
                           value={value}
+                          disabled={quotation?.client?.document.number}
                           onChange={onChange}
                           error={error(name)}
                           required={required(name)}
                           suffix={
-                            dataEntityLoading && (
+                            getDataByDniOrRucLoading && (
                               <Spin size="1x" style={{ padding: ".1em" }} />
                             )
                           }
@@ -331,54 +316,81 @@ const Quotation = ({
                       )}
                     />
                   </Col>
-                  <Col span={24} md={8}>
-                    <Controller
-                      name="client.firstName"
-                      control={control}
-                      render={({ field: { onChange, value, name } }) => (
-                        <Input
-                          label="Nombres"
-                          name={name}
-                          value={value}
-                          onChange={onChange}
-                          error={error(name)}
-                          required={required(name)}
-                        />
-                      )}
-                    />
-                  </Col>
-                  <Col span={24} md={8}>
-                    <Controller
-                      name="client.paternalSurname"
-                      control={control}
-                      render={({ field: { onChange, value, name } }) => (
-                        <Input
-                          label="Apellido Paterno"
-                          name={name}
-                          value={value}
-                          onChange={onChange}
-                          error={error(name)}
-                          required={required(name)}
-                        />
-                      )}
-                    />
-                  </Col>
-                  <Col span={24} md={8}>
-                    <Controller
-                      name="client.maternalSurname"
-                      control={control}
-                      render={({ field: { onChange, value, name } }) => (
-                        <Input
-                          label="Apellido Materno"
-                          name={name}
-                          value={value}
-                          onChange={onChange}
-                          error={error(name)}
-                          required={required(name)}
-                        />
-                      )}
-                    />
-                  </Col>
+                  {watch("client.documentType") === "ruc" ? (
+                    <Col span={24}>
+                      <Controller
+                        name="client.companyName"
+                        control={control}
+                        render={({ field: { onChange, value, name } }) => (
+                          <Input
+                            label="Razón Social"
+                            name={name}
+                            value={value}
+                            disabled={true}
+                            onChange={onChange}
+                            error={error(name)}
+                            required={required(name)}
+                          />
+                        )}
+                      />
+                    </Col>
+                  ) : (
+                    <Col span={24}>
+                      <Row gutter={[16, 16]}>
+                        <Col span={24} md={8}>
+                          <Controller
+                            name="client.firstName"
+                            control={control}
+                            render={({ field: { onChange, value, name } }) => (
+                              <Input
+                                label="Nombres"
+                                name={name}
+                                value={value}
+                                disabled={true}
+                                onChange={onChange}
+                                error={error(name)}
+                                required={required(name)}
+                              />
+                            )}
+                          />
+                        </Col>
+                        <Col span={24} md={8}>
+                          <Controller
+                            name="client.paternalSurname"
+                            control={control}
+                            render={({ field: { onChange, value, name } }) => (
+                              <Input
+                                label="Apellido Paterno"
+                                name={name}
+                                value={value}
+                                disabled={true}
+                                onChange={onChange}
+                                error={error(name)}
+                                required={required(name)}
+                              />
+                            )}
+                          />
+                        </Col>
+                        <Col span={24} md={8}>
+                          <Controller
+                            name="client.maternalSurname"
+                            control={control}
+                            render={({ field: { onChange, value, name } }) => (
+                              <Input
+                                label="Apellido Materno"
+                                name={name}
+                                value={value}
+                                disabled={true}
+                                onChange={onChange}
+                                error={error(name)}
+                                required={required(name)}
+                              />
+                            )}
+                          />
+                        </Col>
+                      </Row>
+                    </Col>
+                  )}
                   <Col span={24}>
                     <Controller
                       name="client.phoneNumber"
