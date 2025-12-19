@@ -15,6 +15,7 @@ import {
   Row,
   Select,
   Title,
+  useNotification,
 } from "../../../components";
 import {
   addQuotation,
@@ -22,8 +23,9 @@ import {
   getQuotationId,
   updateQuotation,
 } from "../../../firebase/collections";
-import { Button } from "antd";
+import { Button, Spin } from "antd";
 import { deviceTypes, DocumentTypes } from "../../../data-list";
+import { capitalize } from "lodash";
 
 export function QuotationIntegration() {
   const { authUser } = useAuthentication();
@@ -33,9 +35,14 @@ export function QuotationIntegration() {
 
   const [quotation, setQuotation] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [documentNumber, setDocumentNumber] = useState("");
+  const [dataEntity, setDataEntity] = useState(null);
+  const [dataEntityLoading, setDataEntityLoading] = useState(false);
 
   const isNew = quotationId === "new";
   const onGoBack = () => navigate(-1);
+
+  const { notification } = useNotification();
 
   useEffect(() => {
     (async () => {
@@ -48,6 +55,32 @@ export function QuotationIntegration() {
       setQuotation(_quotation);
     })();
   }, []);
+
+  const onGetDataByDniOrRuc = async (number: string, type: string) => {
+    try {
+      setDataEntityLoading(true);
+      if (type === "dni") {
+        const response = await fetch(
+          `http://api-korekenke.web.app/entities/dni/${number}`
+        );
+        return response.json();
+      }
+
+      notification({
+        type: "success",
+        description:
+          "Se obtuve de forma satisfactoria los datos de la Entidad.",
+      });
+    } catch (e) {
+      console.error(e);
+      notification({
+        type: "error",
+        description: "No se encontró el documento.",
+      });
+    } finally {
+      setDataEntityLoading(false);
+    }
+  };
 
   const mapQuotation = (formData) => ({
     ...quotation,
@@ -114,6 +147,11 @@ export function QuotationIntegration() {
       isNew={isNew}
       onSubmit={onSubmit}
       onGoBack={onGoBack}
+      documentNumber={documentNumber}
+      setDocumentNumber={setDocumentNumber}
+      dataEntity={dataEntity}
+      dataEntityLoading={dataEntityLoading}
+      onGetDataByDniOrRuc={onGetDataByDniOrRuc}
     />
   );
 }
@@ -126,6 +164,11 @@ const Quotation = ({
   isNew,
   onSubmit,
   onGoBack,
+  documentNumber,
+  setDocumentNumber,
+  dataEntity,
+  dataEntityLoading,
+  onGetDataByDniOrRuc,
 }) => {
   const schema = yup.object({
     client: yup.object({
@@ -171,11 +214,38 @@ const Quotation = ({
     handleSubmit,
     control,
     reset,
+    watch,
+    setValue,
   } = useForm({
     resolver: yupResolver(schema),
   });
 
   const { required, error } = useFormUtils({ errors, schema });
+
+  useEffect(() => {
+    const existsDni = (watch("client.documentNumber") || "").length === 8;
+
+    if (existsDni) {
+      (async () => {
+        const data = await onGetDataByDniOrRuc(
+          watch("client.documentNumber"),
+          watch("client.documentType")
+        );
+
+        setValue("client.firstName", capitalize(data.firstName || ""));
+        setValue(
+          "client.paternalSurname",
+          capitalize(data.paternalSurname || "")
+        );
+        setValue(
+          "client.maternalSurname",
+          capitalize(data.maternalSurname || "")
+        );
+      })();
+    }
+  }, [watch("client.documentNumber")]);
+
+  console.log(dataEntity);
 
   const resetForm = () => {
     reset({
@@ -252,6 +322,11 @@ const Quotation = ({
                           onChange={onChange}
                           error={error(name)}
                           required={required(name)}
+                          suffix={
+                            dataEntityLoading && (
+                              <Spin size="1x" style={{ padding: ".1em" }} />
+                            )
+                          }
                         />
                       )}
                     />
