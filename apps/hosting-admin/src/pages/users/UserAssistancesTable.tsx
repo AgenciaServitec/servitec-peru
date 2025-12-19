@@ -37,7 +37,7 @@ export const UserAssistancesTable = ({
 
   useEffect(() => {
     setTotales(null);
-  }, [endDate, startDate, selectedUser]);
+  }, [endDate, startDate, selectedUser, userAssistances]);
 
   const filtered = useMemo(() => {
     if (!startDate || !endDate) return userAssistances;
@@ -87,6 +87,7 @@ export const UserAssistancesTable = ({
             <TotalCard
               {...totales}
               foodVoucher={selectedUser?.foodVoucher}
+              accountNumber={selectedUser?.accountNumber}
               payPerMinute={selectedUser?.payPerMinute}
             />
           )}

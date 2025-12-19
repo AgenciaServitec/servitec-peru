@@ -22,6 +22,7 @@ import { exportAssistancesExcel } from "./_utils";
 import { AssistancesSubmitOrderLunch } from "./AssistancesSubmitOrderLunch.tsx";
 import { useDevice } from "../../hooks";
 import { AssistancesTable } from "./Assistances.Table.tsx";
+import { canApproveLunch } from "./_utils/permissions.ts";
 
 export function AssistancesIntegration() {
   const navigate = useNavigate();
@@ -108,6 +109,7 @@ export function AssistancesIntegration() {
         onSearchName={handleNameSearch}
         onClearFilters={clearAllFilters}
         onNavigateGoTo={onNavigateGoTo}
+        user={authUser}
       />
     </ModalProvider>
   );
@@ -121,6 +123,7 @@ function AssistancesList({
   onSearchName,
   onClearFilters,
   onNavigateGoTo,
+  user,
 }) {
   const { onShowModal, onCloseModal } = useModal();
   const { isTablet } = useDevice();
@@ -206,6 +209,7 @@ function AssistancesList({
           assistances={filteredAssistances || []}
           onShowSubmitOrderLunch={onShowSubmitOrderLunch}
           assistancesLoading={assistancesLoading}
+          canApproveLunch={canApproveLunch(user?.id)}
         />
       </Col>
     </Row>
