@@ -17,6 +17,7 @@
   "main": "lib/index.js",
   "dependencies": {
     "@types/jest": "^30.0.0",
+    "axios": "^1.13.2",
     "cors": "^2.8.5",
     "crypto-js": "^4.2.0",
     "express": "^5.1.0",
