@@ -25,6 +25,7 @@ import { Button, Spin } from "antd";
 import { deviceTypes, DocumentTypes } from "../../../data-list";
 import { capitalize } from "lodash";
 import { useApiDataByDniOrRucGet } from "../../../api";
+import dayjs from "dayjs";
 
 export function QuotationIntegration() {
   const navigate = useNavigate();
@@ -96,6 +97,7 @@ export function QuotationIntegration() {
       ...item,
       description: item.description,
     })),
+    contractNumber: dayjs().format("YYYYMMDDHHmmss"),
   });
 
   const onSubmit = async (formData) => {
