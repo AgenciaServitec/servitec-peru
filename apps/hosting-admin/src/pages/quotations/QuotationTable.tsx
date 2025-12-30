@@ -12,11 +12,17 @@ import { isEmpty, orderBy, truncate } from "lodash";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import type { ColumnsType } from "antd/es/table";
 import type { Assistance } from "../../globalTypes.ts";
+import { htmlToText } from "html-to-text";
 
 export const QuotationTable = ({ quotations, quotationsLoading }) => {
   const navigate = useNavigate();
 
   const navigateTo = (pathname) => navigate(pathname);
+
+  const convertHtmlToText = (item: any) =>
+    htmlToText(item, {
+      wordwrap: false,
+    });
 
   const columns: ColumnsType<Partial<Assistance>> = [
     {
@@ -99,7 +105,7 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
       align: "center",
       render: (_, quotation) => (
         <span>
-          {truncate(quotation.reportedIssue, {
+          {truncate(convertHtmlToText(quotation?.reportedIssue), {
             length: 50,
           }) || "-"}
         </span>
@@ -113,7 +119,7 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
       align: "center",
       render: (_, quotation) => (
         <span>
-          {truncate(quotation.analysis, {
+          {truncate(convertHtmlToText(quotation?.analysis), {
             length: 50,
           }) || "-"}
         </span>
@@ -127,7 +133,7 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
       align: "center",
       render: (_, quotation) => (
         <span>
-          {truncate(quotation.solutionAndRecommendations, {
+          {truncate(convertHtmlToText(quotation?.solutionAndRecommendations), {
             length: 50,
           }) || "-"}
         </span>
@@ -179,7 +185,7 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
       columns={columns}
       dataSource={dataSource}
       size="small"
-      scroll={{ x: 1200, y: 600 }}
+      scroll={{ x: 1200 }}
       loading={quotationsLoading}
       pagination={false}
     />

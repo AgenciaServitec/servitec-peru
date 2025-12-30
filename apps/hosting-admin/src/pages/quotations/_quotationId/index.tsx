@@ -3,7 +3,6 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDefaultFirestoreProps, useFormUtils } from "../../../hooks";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAuthentication } from "../../../providers";
 import { useEffect, useState } from "react";
 import {
   Col,
@@ -22,17 +21,25 @@ import {
   getQuotationId,
   updateQuotation,
 } from "../../../firebase/collections";
-import { Button } from "antd";
+import { Button, Spin } from "antd";
 import { deviceTypes, DocumentTypes } from "../../../data-list";
+import { capitalize } from "lodash";
+import { useApiDataByDniOrRucGet } from "../../../api";
 
 export function QuotationIntegration() {
-  const { authUser } = useAuthentication();
   const navigate = useNavigate();
   const { quotationId } = useParams();
   const { assignCreateProps, assignUpdateProps } = useDefaultFirestoreProps();
 
+  const [documentType, setDocumentType] = useState("ruc");
   const [quotation, setQuotation] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const {
+    getDataByDniOrRuc,
+    getDataByDniOrRucLoading,
+    getDataByDniOrRucResponse,
+  } = useApiDataByDniOrRucGet(documentType);
 
   const isNew = quotationId === "new";
   const onGoBack = () => navigate(-1);
@@ -56,9 +63,13 @@ export function QuotationIntegration() {
         type: formData.client.documentType,
         number: formData.client.documentNumber,
       },
-      firstName: formData.client.firstName,
-      paternalSurname: formData.client.paternalSurname,
-      maternalSurname: formData.client.maternalSurname,
+      ...(formData.client.documentType === "ruc"
+        ? { companyName: formData.companyName }
+        : {
+            firstName: formData.client.firstName,
+            paternalSurname: formData.client.paternalSurname,
+            maternalSurname: formData.client.maternalSurname,
+          }),
       phone: {
         prefix: "+51",
         number: formData.client.phoneNumber,
@@ -109,28 +120,32 @@ export function QuotationIntegration() {
   return (
     <Quotation
       quotation={quotation}
-      user={authUser}
       loading={loading}
       isNew={isNew}
       onSubmit={onSubmit}
       onGoBack={onGoBack}
+      setDocumentType={setDocumentType}
+      getDataByDniOrRuc={getDataByDniOrRuc}
+      getDataByDniOrRucLoading={getDataByDniOrRucLoading}
     />
   );
 }
 
 const Quotation = ({
   quotation,
-  quotationId,
-  user,
   loading,
   isNew,
   onSubmit,
   onGoBack,
+  setDocumentType,
+  getDataByDniOrRuc,
+  getDataByDniOrRucLoading,
 }) => {
   const schema = yup.object({
     client: yup.object({
       documentType: yup.string(),
       documentNumber: yup.string(),
+      companyName: yup.string(),
       firstName: yup.string(),
       paternalSurname: yup.string(),
       maternalSurname: yup.string(),
@@ -171,17 +186,55 @@ const Quotation = ({
     handleSubmit,
     control,
     reset,
+    watch,
+    setValue,
   } = useForm({
     resolver: yupResolver(schema),
   });
 
   const { required, error } = useFormUtils({ errors, schema });
 
+  console.log("error: ", error);
+  console.log("errors: ", errors);
+
+  useEffect(() => {
+    setDocumentType(watch("client.documentType"));
+  }, [watch("client.documentType")]);
+
+  let documentNumber = watch("client.documentNumber") || "";
+
+  useEffect(() => {
+    const existsDni =
+      documentNumber.length === 8 || documentNumber.length === 11;
+
+    if (existsDni && isNew) {
+      (async () => {
+        const data = await getDataByDniOrRuc(watch("client.documentNumber"));
+
+        if (watch("client.documentType") === "dni") {
+          setValue("client.firstName", capitalize(data.firstName || ""));
+          setValue(
+            "client.paternalSurname",
+            capitalize(data.paternalSurname || "")
+          );
+          setValue(
+            "client.maternalSurname",
+            capitalize(data.maternalSurname || "")
+          );
+        } else {
+          setValue("client.companyName", capitalize(data.companyName || ""));
+          setValue("client.address", capitalize(data.address || ""));
+        }
+      })();
+    }
+  }, [watch("client.documentNumber")]);
+
   const resetForm = () => {
     reset({
       client: {
-        documentType: quotation?.client?.document?.type || "dni",
+        documentType: quotation?.client?.document?.type || "ruc",
         documentNumber: quotation?.client?.document?.number || "",
+        companyName: quotation?.client?.companyName || "",
         firstName: quotation?.client?.firstName || "",
         paternalSurname: quotation?.client?.paternalSurname || "",
         maternalSurname: quotation?.client?.maternalSurname || "",
@@ -232,6 +285,7 @@ const Quotation = ({
                           label="Tipo de documento"
                           name={name}
                           value={value}
+                          disabled={quotation?.client?.document.type}
                           options={DocumentTypes}
                           onChange={onChange}
                           error={error(name)}
@@ -249,61 +303,94 @@ const Quotation = ({
                           label="Número de documento"
                           name={name}
                           value={value}
+                          disabled={quotation?.client?.document.number}
                           onChange={onChange}
                           error={error(name)}
                           required={required(name)}
+                          suffix={
+                            getDataByDniOrRucLoading && (
+                              <Spin size="1x" style={{ padding: ".1em" }} />
+                            )
+                          }
                         />
                       )}
                     />
                   </Col>
-                  <Col span={24} md={8}>
-                    <Controller
-                      name="client.firstName"
-                      control={control}
-                      render={({ field: { onChange, value, name } }) => (
-                        <Input
-                          label="Nombres"
-                          name={name}
-                          value={value}
-                          onChange={onChange}
-                          error={error(name)}
-                          required={required(name)}
-                        />
-                      )}
-                    />
-                  </Col>
-                  <Col span={24} md={8}>
-                    <Controller
-                      name="client.paternalSurname"
-                      control={control}
-                      render={({ field: { onChange, value, name } }) => (
-                        <Input
-                          label="Apellido Paterno"
-                          name={name}
-                          value={value}
-                          onChange={onChange}
-                          error={error(name)}
-                          required={required(name)}
-                        />
-                      )}
-                    />
-                  </Col>
-                  <Col span={24} md={8}>
-                    <Controller
-                      name="client.maternalSurname"
-                      control={control}
-                      render={({ field: { onChange, value, name } }) => (
-                        <Input
-                          label="Apellido Materno"
-                          name={name}
-                          value={value}
-                          onChange={onChange}
-                          error={error(name)}
-                          required={required(name)}
-                        />
-                      )}
-                    />
-                  </Col>
+                  {watch("client.documentType") === "ruc" ? (
+                    <Col span={24}>
+                      <Controller
+                        name="client.companyName"
+                        control={control}
+                        render={({ field: { onChange, value, name } }) => (
+                          <Input
+                            label="Razón Social"
+                            name={name}
+                            value={value}
+                            disabled={true}
+                            onChange={onChange}
+                            error={error(name)}
+                            required={required(name)}
+                          />
+                        )}
+                      />
+                    </Col>
+                  ) : (
+                    <Col span={24}>
+                      <Row gutter={[16, 16]}>
+                        <Col span={24} md={8}>
+                          <Controller
+                            name="client.firstName"
+                            control={control}
+                            render={({ field: { onChange, value, name } }) => (
+                              <Input
+                                label="Nombres"
+                                name={name}
+                                value={value}
+                                disabled={true}
+                                onChange={onChange}
+                                error={error(name)}
+                                required={required(name)}
+                              />
+                            )}
+                          />
+                        </Col>
+                        <Col span={24} md={8}>
+                          <Controller
+                            name="client.paternalSurname"
+                            control={control}
+                            render={({ field: { onChange, value, name } }) => (
+                              <Input
+                                label="Apellido Paterno"
+                                name={name}
+                                value={value}
+                                disabled={true}
+                                onChange={onChange}
+                                error={error(name)}
+                                required={required(name)}
+                              />
+                            )}
+                          />
+                        </Col>
+                        <Col span={24} md={8}>
+                          <Controller
+                            name="client.maternalSurname"
+                            control={control}
+                            render={({ field: { onChange, value, name } }) => (
+                              <Input
+                                label="Apellido Materno"
+                                name={name}
+                                value={value}
+                                disabled={true}
+                                onChange={onChange}
+                                error={error(name)}
+                                required={required(name)}
+                              />
+                            )}
+                          />
+                        </Col>
+                      </Row>
+                    </Col>
+                  )}
                   <Col span={24}>
                     <Controller
                       name="client.phoneNumber"
