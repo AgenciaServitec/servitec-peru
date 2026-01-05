@@ -349,6 +349,20 @@ const global = css<ThemeProps>`
     }
   }
 
+  .ant-btn {
+    box-shadow: none !important;
+  }
+
+  .ant-btn::after {
+    display: none !important;
+  }
+
+  .ant-btn:focus,
+  .ant-btn:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
   /* 🔔 NOTIFICATIONS */
   .ant-notification-notice {
     background: ${({ theme }) => theme.colors.bgSecondary} !important;
