@@ -1,6 +1,6 @@
-import { useMemo, useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import dayjs from "dayjs";
-import { Title, Button } from "../../components";
+import { Button, Col, Row, Title } from "../../components";
 import {
   AdminAssistancesTable,
   calcularTotales,
@@ -55,44 +55,49 @@ export const UserAssistancesTable = ({
   };
 
   return (
-    <>
-      <Title level={3}>Asistencias de {selectedUser?.firstName}</Title>
+    <Row gutter={[16, 16]}>
+      <Col span={24}>
+        <Title level={3}>Asistencias de {selectedUser?.firstName}</Title>
+      </Col>
+      <Col span={24}>
+        <Filters
+          startDate={startDate}
+          endDate={endDate}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+          clear={() => {
+            const { previousSunday, lastFriday } = getDefaultRange();
+            setStartDate(previousSunday);
+            setEndDate(lastFriday);
+            setTotales(null);
+          }}
+        />
+      </Col>
+      <Col span={24}>
+        <RangeLabel startDate={startDate} endDate={endDate} />
+      </Col>
+      <Col span={24}>
+        {loadingAssistances ? (
+          <p>Cargando...</p>
+        ) : (
+          <>
+            <AdminAssistancesTable assistances={filtered} />
 
-      <Filters
-        startDate={startDate}
-        endDate={endDate}
-        setStartDate={setStartDate}
-        setEndDate={setEndDate}
-        clear={() => {
-          const { previousSunday, lastFriday } = getDefaultRange();
-          setStartDate(previousSunday);
-          setEndDate(lastFriday);
-          setTotales(null);
-        }}
-      />
+            <Button type="primary" onClick={handleCalc}>
+              Calcular
+            </Button>
 
-      <RangeLabel startDate={startDate} endDate={endDate} />
-
-      {loadingAssistances ? (
-        <p>Cargando...</p>
-      ) : (
-        <>
-          <AdminAssistancesTable assistances={filtered} />
-
-          <Button type="primary" onClick={handleCalc}>
-            Calcular
-          </Button>
-
-          {totales && (
-            <TotalCard
-              {...totales}
-              foodVoucher={selectedUser?.foodVoucher}
-              accountNumber={selectedUser?.accountNumber}
-              payPerMinute={selectedUser?.payPerMinute}
-            />
-          )}
-        </>
-      )}
-    </>
+            {totales && (
+              <TotalCard
+                {...totales}
+                foodVoucher={selectedUser?.foodVoucher}
+                accountNumber={selectedUser?.accountNumber}
+                payPerMinute={selectedUser?.payPerMinute}
+              />
+            )}
+          </>
+        )}
+      </Col>
+    </Row>
   );
 };

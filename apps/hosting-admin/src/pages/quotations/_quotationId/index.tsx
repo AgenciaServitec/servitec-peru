@@ -65,7 +65,7 @@ export function QuotationIntegration() {
         number: formData.client.documentNumber,
       },
       ...(formData.client.documentType === "ruc"
-        ? { companyName: formData.companyName }
+        ? { companyName: formData.client.companyName }
         : {
             firstName: formData.client.firstName,
             paternalSurname: formData.client.paternalSurname,
@@ -111,7 +111,7 @@ export function QuotationIntegration() {
             assignUpdateProps(mapQuotation(formData))
           );
 
-      navigate(-1);
+      navigate("/quotations");
     } catch (e) {
       console.error(e);
     } finally {
@@ -287,7 +287,6 @@ const Quotation = ({
                           label="Tipo de documento"
                           name={name}
                           value={value}
-                          disabled={quotation?.client?.document.type}
                           options={DocumentTypes}
                           onChange={onChange}
                           error={error(name)}
@@ -305,7 +304,6 @@ const Quotation = ({
                           label="Número de documento"
                           name={name}
                           value={value}
-                          disabled={quotation?.client?.document.number}
                           onChange={onChange}
                           error={error(name)}
                           required={required(name)}
