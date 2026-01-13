@@ -1,32 +1,29 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import * as A from "../pages";
 import { AdminLayout, PublicLayout } from "../components";
-import { PublicRoute } from "./PublicRoute";
 import { PrivateRoute } from "./PrivateRoute";
 
 export function Router() {
   return (
     <Routes>
-      <Route element={<PublicRoute />}>
-        <Route path="/" element={<A.Login />} />
-        <Route path="/register" element={<A.Register />} />
-        <Route
-          path="/assistances/assistance"
-          element={
-            <PublicLayout>
-              <A.AssistanceIntegration />
-            </PublicLayout>
-          }
-        />
-      </Route>
+      <Route path="/login" element={<A.Login />} />
+      <Route path="/register" element={<A.Register />} />
+      <Route
+        path="/assistances/assistance"
+        element={
+          <PublicLayout>
+            <A.AssistanceIntegration />
+          </PublicLayout>
+        }
+      />
       <Route
         path="/quotations/:quotationId/sheets"
         element={<A.QuotationSheets />}
       />
 
-      <Route element={<PrivateRoute />}>
+      <Route path="/" element={<PrivateRoute />}>
         <Route
-          path="/home"
+          path="home"
           element={
             <AdminLayout>
               <A.Home />
@@ -34,7 +31,7 @@ export function Router() {
           }
         />
         <Route
-          path="/profile"
+          path="profile"
           element={
             <AdminLayout>
               <A.Profile />
@@ -42,7 +39,7 @@ export function Router() {
           }
         />
         <Route
-          path="/quotations"
+          path="quotations"
           element={
             <AdminLayout>
               <A.QuotationsIntegrations />
@@ -50,7 +47,7 @@ export function Router() {
           }
         />
         <Route
-          path="/quotations/:quotationId"
+          path="quotations/:quotationId"
           element={
             <AdminLayout>
               <A.QuotationIntegration />
@@ -58,7 +55,7 @@ export function Router() {
           }
         />
         <Route
-          path="/assistances"
+          path="assistances"
           element={
             <AdminLayout>
               <A.AssistancesIntegration />
@@ -66,7 +63,7 @@ export function Router() {
           }
         />
         <Route
-          path="/assistances/new"
+          path="assistances/new"
           element={
             <AdminLayout>
               <A.AssistancesIntegration />
@@ -74,7 +71,7 @@ export function Router() {
           }
         />
         <Route
-          path="/assistances/register"
+          path="assistances/register"
           element={
             <AdminLayout>
               <A.FaceRegistration />
@@ -82,7 +79,7 @@ export function Router() {
           }
         />
         <Route
-          path="/users"
+          path="users"
           element={
             <AdminLayout>
               <A.Users />
@@ -90,7 +87,7 @@ export function Router() {
           }
         />
         <Route
-          path="/users/:userId"
+          path="users/:userId"
           element={
             <AdminLayout>
               <A.UserIntegration />
