@@ -24,6 +24,7 @@ export type Image = Omit<_Image, "createAt"> & { createAt: Date };
 
 interface Quotation extends DefaultFirestoreProps {
   id: string;
+  sequenceNumber: number;
   client: {
     firstName?: string;
     paternalSurname?: string;
@@ -33,7 +34,10 @@ interface Quotation extends DefaultFirestoreProps {
       type: string;
       number: string;
     };
-    phone: Phone;
+    phone: {
+      prefix: "+51";
+      number: string;
+    };
   };
   device: {
     problemDescription: string;

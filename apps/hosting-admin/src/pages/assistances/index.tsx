@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Col,
+  Form,
   Legend,
   Row,
   Title,
@@ -9,7 +10,13 @@ import {
 } from "../../components/ui";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCameraRetro,
+  faEraser,
+  faFileExcel,
+  faPlus,
+  faSignInAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { assistancesRef } from "../../firebase/collections";
 import { ModalProvider, useAuthentication, useModal } from "../../providers";
@@ -23,11 +30,13 @@ import { AssistancesSubmitOrderLunch } from "./AssistancesSubmitOrderLunch.tsx";
 import { useDevice } from "../../hooks";
 import { AssistancesTable } from "./Assistances.Table.tsx";
 import { canApproveLunch } from "./_utils/permissions.ts";
+import { Modal } from "../../components";
 
 export function AssistancesIntegration() {
   const navigate = useNavigate();
   const { authUser } = useAuthentication();
 
+  const [open, setOpen] = useState(false);
   const [resetSignal, setResetSignal] = useState(0);
   const [filteredAssistances, setFilteredAssistances] = useState<Assistance[]>(
     []
@@ -110,6 +119,8 @@ export function AssistancesIntegration() {
         onClearFilters={clearAllFilters}
         onNavigateGoTo={onNavigateGoTo}
         user={authUser}
+        setOpen={setOpen}
+        open={open}
       />
     </ModalProvider>
   );
@@ -124,9 +135,12 @@ function AssistancesList({
   onClearFilters,
   onNavigateGoTo,
   user,
+  setOpen,
+  open,
 }) {
   const { onShowModal, onCloseModal } = useModal();
   const { isTablet } = useDevice();
+
   const onShowSubmitOrderLunch = (assistance: Assistance) => {
     onShowModal({
       title: "Pidio Almuerzo?",
@@ -140,78 +154,111 @@ function AssistancesList({
       ),
     });
   };
+
   return (
-    <Row gutter={[16, 16]}>
-      <Col span={24}>
-        <Legend title="Filtros">
-          <Row gutter={[16, 16]} align="middle">
-            <Col xs={24} md={8}>
-              <AssistancesNameFilter onSearch={onSearchName} />
-            </Col>
-            <Col xs={24} md={8}>
-              <AssistancesFilter
-                onFilter={onFilter}
-                resetSignal={resetSignal}
-              />
-            </Col>
-            <Col xs={24} md={8} style={{ textAlign: "right" }}>
+    <>
+      <Row gutter={[16, 16]}>
+        {/*<Col xs={24} sm={6} md={4}>*/}
+        {/*  <Button*/}
+        {/*    onClick={() => setOpen(true)}*/}
+        {/*    type="primary"*/}
+        {/*    size="large"*/}
+        {/*    block*/}
+        {/*  >*/}
+        {/*    <FontAwesomeIcon icon={faPlus} />*/}
+        {/*    Agregar Asistencia*/}
+        {/*  </Button>*/}
+        {/*</Col>*/}
+        <Col span={24}>
+          <Legend title="Filtros">
+            <Row gutter={[16, 16]} align="middle">
+              <Col xs={24} md={8}>
+                <AssistancesNameFilter onSearch={onSearchName} />
+              </Col>
+              <Col xs={24} md={8}>
+                <AssistancesFilter
+                  onFilter={onFilter}
+                  resetSignal={resetSignal}
+                />
+              </Col>
+              <Col xs={24} md={8} style={{ textAlign: "right" }}>
+                <Button size="large" onClick={onClearFilters}>
+                  <FontAwesomeIcon icon={faEraser} />
+                  Limpiar filtros
+                </Button>
+              </Col>
+            </Row>
+          </Legend>
+        </Col>
+        <Col span={24} md={12}>
+          <Button
+            onClick={() => onNavigateGoTo("/assistances/assistance")}
+            type="primary"
+            size="large"
+            block
+          >
+            <FontAwesomeIcon icon={faSignInAlt} />
+            Marcar mi asistencia
+          </Button>
+        </Col>
+        <Col span={24} md={12}>
+          <Button
+            onClick={() => onNavigateGoTo("/assistances/register")}
+            size="large"
+            block
+          >
+            <FontAwesomeIcon icon={faCameraRetro} />
+            Registrar mi rostro
+          </Button>
+        </Col>
+        <Col span={24}>
+          <Title level={2}>Lista de Asistencias</Title>
+        </Col>
+        <Col span={24}>
+          <Row justify="end" gutter={[16, 16]}>
+            <Col xs={24} sm={6} md={4}>
               <Button
                 type="primary"
-                danger
+                onClick={() => exportAssistancesExcel(filteredAssistances)}
                 size="large"
-                onClick={onClearFilters}
+                block
               >
-                Limpiar filtros
+                <FontAwesomeIcon icon={faFileExcel} />
+                Exportar a Excel
               </Button>
             </Col>
           </Row>
-        </Legend>
-      </Col>
+        </Col>
+        <Col span={24}>
+          <AssistancesTable
+            assistances={filteredAssistances || []}
+            onShowSubmitOrderLunch={onShowSubmitOrderLunch}
+            assistancesLoading={assistancesLoading}
+            canApproveLunch={canApproveLunch(user?.id)}
+          />
+        </Col>
+      </Row>
 
-      <Col span={24} md={12}>
-        <Button
-          onClick={() => onNavigateGoTo("/assistances/assistance")}
-          type="primary"
-          size="large"
-          block
-        >
-          <FontAwesomeIcon icon={faSignInAlt} />
-          Marcar mi asistencia
-        </Button>
-      </Col>
-
-      <Col span={24} md={12}>
-        <Button
-          onClick={() => onNavigateGoTo("/assistances/register")}
-          size="large"
-          block
-        >
-          <FontAwesomeIcon icon={faSignInAlt} />
-          Registrar mi rostro
-        </Button>
-      </Col>
-
-      <Col span={24}>
-        <Title level={2}>Lista de Asistencias</Title>
-      </Col>
-
-      <Col span={24}>
-        <Button
-          type="primary"
-          onClick={() => exportAssistancesExcel(filteredAssistances)}
-        >
-          Exportar a Excel
-        </Button>
-      </Col>
-
-      <Col span={24}>
-        <AssistancesTable
-          assistances={filteredAssistances || []}
-          onShowSubmitOrderLunch={onShowSubmitOrderLunch}
-          assistancesLoading={assistancesLoading}
-          canApproveLunch={canApproveLunch(user?.id)}
-        />
-      </Col>
-    </Row>
+      <Modal
+        open={open}
+        onCancel={() => setOpen(false)}
+        title="Agregar Asistencia"
+        footer={[
+          <Button key="cancel" onClick={() => setOpen(false)}>
+            Cancelar
+          </Button>,
+          <Button key="save" type="primary" onClick={() => ""}>
+            Guardar
+          </Button>,
+        ]}
+      >
+        <Form>
+          <Row gutter={[16, 16]}>
+            <Col span={24}></Col>
+            <Col span={24}></Col>
+          </Row>
+        </Form>
+      </Modal>
+    </>
   );
 }
