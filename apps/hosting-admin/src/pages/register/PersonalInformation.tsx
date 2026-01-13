@@ -202,6 +202,7 @@ export const PersonalInformation = ({
                   required={required(name)}
                   size="large"
                   variant="outlined"
+                  disabled
                 />
               )}
             />
@@ -221,6 +222,7 @@ export const PersonalInformation = ({
                   required={required(name)}
                   size="large"
                   variant="outlined"
+                  disabled
                 />
               )}
             />
@@ -240,6 +242,7 @@ export const PersonalInformation = ({
                   required={required(name)}
                   size="large"
                   variant="outlined"
+                  disabled
                 />
               )}
             />
