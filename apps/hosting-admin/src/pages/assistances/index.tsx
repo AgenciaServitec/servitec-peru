@@ -158,17 +158,17 @@ function AssistancesList({
   return (
     <>
       <Row gutter={[16, 16]}>
-        <Col xs={24} sm={6} md={4}>
-          <Button
-            onClick={() => setOpen(true)}
-            type="primary"
-            size="large"
-            block
-          >
-            <FontAwesomeIcon icon={faPlus} />
-            Agregar Asistencia
-          </Button>
-        </Col>
+        {/*<Col xs={24} sm={6} md={4}>*/}
+        {/*  <Button*/}
+        {/*    onClick={() => setOpen(true)}*/}
+        {/*    type="primary"*/}
+        {/*    size="large"*/}
+        {/*    block*/}
+        {/*  >*/}
+        {/*    <FontAwesomeIcon icon={faPlus} />*/}
+        {/*    Agregar Asistencia*/}
+        {/*  </Button>*/}
+        {/*</Col>*/}
         <Col span={24}>
           <Legend title="Filtros">
             <Row gutter={[16, 16]} align="middle">

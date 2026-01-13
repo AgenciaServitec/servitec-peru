@@ -74,6 +74,14 @@ export function Router() {
           }
         />
         <Route
+          path="/assistances/register"
+          element={
+            <AdminLayout>
+              <A.FaceRegistration />
+            </AdminLayout>
+          }
+        />
+        <Route
           path="/users"
           element={
             <AdminLayout>

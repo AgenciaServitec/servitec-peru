@@ -3,6 +3,8 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import { firestore } from "../../firebase";
 import { Button, Col, Row, Title } from "../../components";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export function QuotationsIntegrations() {
   const navigate = useNavigate();
@@ -15,7 +17,12 @@ export function QuotationsIntegrations() {
   return (
     <Row gutter={[16, 16]}>
       <Col span={24}>
-        <Button type="primary" onClick={() => navigate("/quotations/new")}>
+        <Button
+          type="primary"
+          size="large"
+          onClick={() => navigate("/quotations/new")}
+        >
+          <FontAwesomeIcon icon={faPlus} />
           Agregar Cotización
         </Button>
       </Col>

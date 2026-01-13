@@ -34,6 +34,14 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
   const columns = useMemo<ColumnsType<Partial<Assistance>>>(
     () => [
       {
+        title: "N°",
+        key: "correlative",
+        dataIndex: "correlative",
+        width: 40,
+        align: "center",
+        render: (_, quotation) => quotation?.sequenceNumber || "-",
+      },
+      {
         title: "N° de Contrato",
         key: "contractNumber",
         dataIndex: "contractNumber",
@@ -165,16 +173,16 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
               onClick={() => navigateTo(`/quotations/${quotation.id}`)}
             />
             <IconAction
-              tooltipTitle="Enviar"
-              icon={faPaperPlane}
-              iconStyles={{ color: () => theme.colors.info }}
-              onClick={() => navigateTo(`/quotations/${quotation.id}`)}
-            />
-            <IconAction
               tooltipTitle="PDF"
               icon={faFilePdf}
               iconStyles={{ color: () => theme.colors.error }}
               onClick={() => navigateTo(`${quotation.id}/sheets`)}
+            />
+            <IconAction
+              tooltipTitle="Enviar"
+              icon={faPaperPlane}
+              iconStyles={{ color: () => theme.colors.info }}
+              onClick={() => navigateTo(`/quotations/${quotation.id}`)}
             />
             <IconAction
               tooltipTitle="Eliminar"
@@ -189,17 +197,14 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
     [convertHtmlToText, navigateTo]
   );
 
-  const dataSource = useMemo<Assistance[]>(
-    () => orderBy(quotations, "createAt", "desc"),
-    [quotations]
-  );
+  const dataSource = orderBy(quotations, "createAt", "desc");
 
   return (
     <Table
       bordered
       virtual
       columns={columns}
-      dataSource={dataSource}
+      dataSource={orderBy(quotations, "createAt", "desc")}
       size="small"
       scroll={{ x: 1200, y: 600 }}
       loading={quotationsLoading}
