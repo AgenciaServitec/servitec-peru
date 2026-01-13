@@ -196,9 +196,6 @@ const Quotation = ({
 
   const { required, error } = useFormUtils({ errors, schema });
 
-  console.log("error: ", error);
-  console.log("errors: ", errors);
-
   useEffect(() => {
     setDocumentType(watch("client.documentType"));
   }, [watch("client.documentType")]);
