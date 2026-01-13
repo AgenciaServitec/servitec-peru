@@ -3,9 +3,9 @@ export const config: Config = {
     "node-mailer": {
       port: 465,
       host: "smtp.gmail.com",
-      from: "Korekenke App",
-      user: "korekenke.mil.pe@gmail.com",
-      pass: "qfnd bxll yiww knsg",
+      from: "Servitec Work App",
+      user: "servitec.work.oficial@gmail.com",
+      pass: "iiqp wvls brwa cubh",
     },
   },
   development: {
