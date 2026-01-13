@@ -65,7 +65,7 @@ export function QuotationIntegration() {
         number: formData.client.documentNumber,
       },
       ...(formData.client.documentType === "ruc"
-        ? { companyName: formData.companyName }
+        ? { companyName: formData.client.companyName }
         : {
             firstName: formData.client.firstName,
             paternalSurname: formData.client.paternalSurname,
@@ -111,7 +111,7 @@ export function QuotationIntegration() {
             assignUpdateProps(mapQuotation(formData))
           );
 
-      navigate(-1);
+      navigate("/quotations");
     } catch (e) {
       console.error(e);
     } finally {
@@ -195,9 +195,6 @@ const Quotation = ({
   });
 
   const { required, error } = useFormUtils({ errors, schema });
-
-  console.log("error: ", error);
-  console.log("errors: ", errors);
 
   useEffect(() => {
     setDocumentType(watch("client.documentType"));
@@ -287,7 +284,6 @@ const Quotation = ({
                           label="Tipo de documento"
                           name={name}
                           value={value}
-                          disabled={quotation?.client?.document.type}
                           options={DocumentTypes}
                           onChange={onChange}
                           error={error(name)}
@@ -305,7 +301,6 @@ const Quotation = ({
                           label="Número de documento"
                           name={name}
                           value={value}
-                          disabled={quotation?.client?.document.number}
                           onChange={onChange}
                           error={error(name)}
                           required={required(name)}
@@ -447,7 +442,7 @@ const Quotation = ({
             <Col span={24}>
               <ComponentContainer.group label="Datos del dispositivo">
                 <Row gutter={[16, 16]}>
-                  <Col span={24} md={16}>
+                  <Col span={24}>
                     <Controller
                       name="device.type"
                       control={control}
@@ -480,7 +475,7 @@ const Quotation = ({
                       )}
                     />
                   </Col>
-                  <Col span={24} md={12}>
+                  <Col span={24} md={8}>
                     <Controller
                       name="device.brand"
                       control={control}
@@ -496,7 +491,7 @@ const Quotation = ({
                       )}
                     />
                   </Col>
-                  <Col span={24} md={12}>
+                  <Col span={24} md={8}>
                     <Controller
                       name="device.model"
                       control={control}
@@ -608,6 +603,57 @@ const Quotation = ({
                       )}
                     />
                   </Col>
+                  {/*<Col span={24} md={8}>*/}
+                  {/*  <Controller*/}
+                  {/*    name="device.reportedIssue"*/}
+                  {/*    control={control}*/}
+                  {/*    render={({ field: { onChange, value, name } }) => (*/}
+                  {/*      <RichTextEditor*/}
+                  {/*        label="Problema que presenta"*/}
+                  {/*        name={name}*/}
+                  {/*        value={value}*/}
+                  {/*        onChange={onChange}*/}
+                  {/*        height="200px"*/}
+                  {/*        error={error(name)}*/}
+                  {/*        required={required(name)}*/}
+                  {/*      />*/}
+                  {/*    )}*/}
+                  {/*  />*/}
+                  {/*</Col>*/}
+                  {/*<Col span={24} md={8}>*/}
+                  {/*  <Controller*/}
+                  {/*    name="device.analysis"*/}
+                  {/*    control={control}*/}
+                  {/*    render={({ field: { onChange, value, name } }) => (*/}
+                  {/*      <RichTextEditor*/}
+                  {/*        label="Análisis"*/}
+                  {/*        name={name}*/}
+                  {/*        value={value}*/}
+                  {/*        onChange={onChange}*/}
+                  {/*        height="200px"*/}
+                  {/*        error={error(name)}*/}
+                  {/*        required={required(name)}*/}
+                  {/*      />*/}
+                  {/*    )}*/}
+                  {/*  />*/}
+                  {/*</Col>*/}
+                  {/*<Col span={24} md={8}>*/}
+                  {/*  <Controller*/}
+                  {/*    name="device.solutionAndRecommendations"*/}
+                  {/*    control={control}*/}
+                  {/*    render={({ field: { onChange, value, name } }) => (*/}
+                  {/*      <RichTextEditor*/}
+                  {/*        label="Soluciones y recomendaciones"*/}
+                  {/*        name={name}*/}
+                  {/*        value={value}*/}
+                  {/*        onChange={onChange}*/}
+                  {/*        height="200px"*/}
+                  {/*        error={error(name)}*/}
+                  {/*        required={required(name)}*/}
+                  {/*      />*/}
+                  {/*    )}*/}
+                  {/*  />*/}
+                  {/*</Col>*/}
                 </Row>
               </ComponentContainer.group>
             </Col>
