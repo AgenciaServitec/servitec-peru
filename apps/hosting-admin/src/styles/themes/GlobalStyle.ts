@@ -124,7 +124,7 @@ const global = css<ThemeProps>`
   .ant-input-number-input,
   .ant-select-selector,
   .ant-picker {
-    background: ${({ theme }) => theme.colors.bgInput} !important;
+    //background: ${({ theme }) => theme.colors.bgInput} !important;
     border-color: ${({ theme }) => theme.colors.border} !important;
     color: ${({ theme }) => theme.colors.fontPrimary} !important;
     transition: all ${({ theme }) => theme.transitions.fast};
