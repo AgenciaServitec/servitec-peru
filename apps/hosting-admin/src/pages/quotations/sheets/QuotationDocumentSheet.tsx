@@ -408,7 +408,7 @@ const TechnicalInfo = styled.div`
 
 const Table = styled.table`
   width: 100%;
-  border-collapse: collapse;
+  //border-collapse: collapse;
   margin-top: 0.5em;
 
   thead {
