@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShieldHalved } from "@fortawesome/free-solid-svg-icons";
@@ -11,9 +11,14 @@ import { VerificationMethod } from "./VerificationMethod.tsx";
 
 export function Login() {
   const navigate = useNavigate();
-  const { verifyCode, loginLoading } = useAuthentication();
+  const { authUser, verifyCode, loginLoading } = useAuthentication();
 
   const [currentStep, setCurrentStep] = useState(0);
+
+  useEffect(() => {
+    authUser && navigate("/home");
+  }, [authUser]);
+
   const onNext = () => setCurrentStep((prev) => prev + 1);
   const prevStep = () => setCurrentStep((prev) => prev - 1);
 
