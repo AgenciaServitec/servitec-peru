@@ -447,12 +447,14 @@ const Table = styled.table`
 
       &.center {
         text-align: center;
+        border-left: 1px solid #ecf0f1;
       }
 
       &.right {
-        text-align: right;
+        text-align: center;
         font-weight: 500;
         width: 80px;
+        border-left: 1px solid #ecf0f1;
       }
     }
   }
