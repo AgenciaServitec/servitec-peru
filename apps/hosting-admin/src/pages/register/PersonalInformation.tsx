@@ -1,4 +1,12 @@
-import { Button, Col, Form, Input, Row, Select } from "../../components";
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  Row,
+  Select,
+  useNotification,
+} from "../../components";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -12,6 +20,10 @@ import {
 import { useFormUtils } from "../../hooks";
 import styled from "styled-components";
 import { theme } from "../../styles";
+import { getLocalStorage } from "../../utils";
+import { useEffect } from "react";
+import { useApiUserPost } from "../../api";
+import { useNavigate } from "react-router-dom";
 
 type Gender = "male" | "female" | "other";
 
@@ -27,15 +39,19 @@ interface UserRegister {
 
 type PersonalInformationProps = {
   onBack: () => void;
-  onSubmit: (data: UserRegister) => void;
   loading: boolean;
+  currentStep: number;
 };
 
 export const PersonalInformation = ({
   onBack,
-  onSubmit,
   loading,
+  currentStep,
 }: PersonalInformationProps) => {
+  const navigate = useNavigate();
+  const { postUser, postUserLoading } = useApiUserPost();
+  const { notification } = useNotification();
+
   const schema = yup.object({
     firstName: yup
       .string()
@@ -64,6 +80,7 @@ export const PersonalInformation = ({
   const {
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm<UserRegister>({
     resolver: yupResolver(schema),
@@ -79,6 +96,77 @@ export const PersonalInformation = ({
   });
 
   const { required, error, errorMessage } = useFormUtils({ errors, schema });
+
+  const step1Data = getLocalStorage("register");
+
+  useEffect(() => {
+    reset({
+      firstName: step1Data?.firstName || "",
+      paternalSurname: step1Data?.paternalSurname || "",
+      maternalSurname: step1Data?.maternalSurname || "",
+      email: step1Data?.email || "",
+    });
+  }, [currentStep]);
+
+  const onSubmit = async (user) => {
+    const fullData = {
+      ...step1Data!,
+      ...user,
+    };
+
+    try {
+      const userData = {
+        firstName: fullData.firstName,
+        paternalSurname: fullData.paternalSurname,
+        maternalSurname: fullData.maternalSurname,
+        email: fullData.email,
+        document: {
+          type: fullData.documentType,
+          number: fullData.documentNumber,
+        },
+        phone: {
+          prefix: "+51",
+          number: fullData.phoneNumber,
+        },
+        gender: fullData.gender,
+      };
+
+      const response = await postUser(userData);
+
+      if (response && response.ok !== false) {
+        notification({
+          type: "success",
+          title: "¡Registro exitoso!",
+          description: "Tu cuenta ha sido creada. Ahora puedes iniciar sesión.",
+        });
+
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
+      } else {
+        throw new Error("Error in the register");
+      }
+    } catch (error: any) {
+      console.error("Error in register:", error);
+
+      let errorMessage =
+        "No se pudo completar el registro. Intenta nuevamente.";
+
+      if (error.message?.includes("email_already_exists")) {
+        errorMessage = "Este correo electrónico ya está registrado";
+      } else if (error.message?.includes("dni_already_exists")) {
+        errorMessage = "Este documento ya está registrado";
+      } else if (error.message?.includes("phone_number_already_exists")) {
+        errorMessage = "Este número de teléfono ya está registrado";
+      }
+
+      notification({
+        type: "error",
+        title: "Error en el registro",
+        description: errorMessage,
+      });
+    }
+  };
 
   const genderOptions = [
     { value: "male", label: "Masculino" },
@@ -118,7 +206,7 @@ export const PersonalInformation = ({
               )}
             />
           </Col>
-          <Col xs={24} sm={12}>
+          <Col xs={24}>
             <Controller
               name="paternalSurname"
               control={control}
@@ -137,7 +225,7 @@ export const PersonalInformation = ({
               )}
             />
           </Col>
-          <Col xs={24} sm={12}>
+          <Col xs={24}>
             <Controller
               name="maternalSurname"
               control={control}

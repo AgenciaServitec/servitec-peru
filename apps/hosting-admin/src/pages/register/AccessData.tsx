@@ -1,6 +1,14 @@
 import styled from "styled-components";
 import { Controller, useForm } from "react-hook-form";
-import { Button, Col, Form, Input, Row, Select } from "../../components";
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  Row,
+  Select,
+  useNotification,
+} from "../../components";
 import { theme } from "../../styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faIdCard, faKey } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +16,11 @@ import { useFormUtils } from "../../hooks";
 import * as yup from "yup";
 import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { fetchCollectionOnce } from "../../firebase/firestore.ts";
+import { firestore } from "../../firebase";
+import { useApiDataByDniOrRucGet } from "../../api";
+import { setLocalStorage } from "../../utils";
+import { capitalize } from "lodash";
 
 type DocumentType = "dni" | "ruc" | "ce";
 
@@ -16,8 +29,17 @@ type DocumentType = "dni" | "ruc" | "ce";
 //   documentNumber: string;
 // }
 
-export const AccessData = ({ onNext }: { onNext: (user: any) => void }) => {
+export const AccessData = ({ onNext }: { onNext: () => void }) => {
   const [documentType, setDocumentType] = useState<DocumentType>("dni");
+  const [loading, setLoading] = useState(false);
+
+  const { notification } = useNotification();
+
+  const {
+    getDataByDniOrRuc,
+    getDataByDniOrRucLoading,
+    getDataByDniOrRucResponse,
+  } = useApiDataByDniOrRucGet(documentType || "dni");
 
   const getDocumentValidation = (type: DocumentType) => {
     switch (type) {
@@ -67,8 +89,39 @@ export const AccessData = ({ onNext }: { onNext: (user: any) => void }) => {
     setDocumentType(watchedDocType as DocumentType);
   }
 
-  const onSubmit = (formData: IdentityDocument) => {
-    onNext(formData);
+  const onSubmit = async ({ documentNumber }) => {
+    try {
+      setLoading(true);
+
+      const userWithDni = await userByDni(documentNumber);
+
+      if (userWithDni)
+        return notification({
+          type: "warning",
+          title: `El DNI ya se encuentra registrado!`,
+        });
+
+      const personData = await getDataByDniOrRuc(documentNumber);
+
+      setLocalStorage("register", {
+        document: {
+          documentType: "dni",
+          documentNumber,
+        },
+        firstName: capitalize(personData?.firstName || ""),
+        paternalSurname: capitalize(personData?.paternalSurname || ""),
+        maternalSurname: capitalize(personData?.maternalSurname || ""),
+        birthdate: personData?.birthdate || "",
+      });
+
+      onNext();
+    } catch (e) {
+      console.error(e);
+
+      notification({ type: "error" });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const documentOptions = [
@@ -105,6 +158,7 @@ export const AccessData = ({ onNext }: { onNext: (user: any) => void }) => {
                   helperText={errorMessage(name)}
                   required={required(name)}
                   variant="outlined"
+                  disabled
                 />
               )}
             />
@@ -143,7 +197,13 @@ export const AccessData = ({ onNext }: { onNext: (user: any) => void }) => {
         </Row>
         <Row gutter={[16, 16]}>
           <Col span={24}>
-            <Button type="primary" htmlType="submit" size="large" block>
+            <Button
+              type="primary"
+              htmlType="submit"
+              size="large"
+              loading={loading}
+              block
+            >
               Siguiente
             </Button>
           </Col>
@@ -151,6 +211,18 @@ export const AccessData = ({ onNext }: { onNext: (user: any) => void }) => {
       </Form>
     </StepContainer>
   );
+};
+
+const userByDni = async (dniNumber: string) => {
+  const response = await fetchCollectionOnce(
+    firestore
+      .collection("users")
+      .where("document.number", "==", dniNumber)
+      .where("isDeleted", "==", false)
+      .limit(1)
+  );
+
+  return response[0];
 };
 
 const StepContainer = styled.div`

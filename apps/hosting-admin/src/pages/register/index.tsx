@@ -1,11 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { useNotification } from "../../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { theme } from "../../styles";
 import { Link, useNavigate } from "react-router-dom";
-import { useApiUserPost } from "../../api";
 import { PersonalInformation } from "./PersonalInformation.tsx";
 import { AccessData } from "./AccessData.tsx";
 
@@ -13,76 +11,12 @@ export function Register() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [step1Data, setStep1Data] = useState<Step1Form | null>(null);
-  const { notification } = useNotification();
-
-  const { postUser, postUserLoading } = useApiUserPost();
 
   const nextStep = () => setCurrentStep((prev) => prev + 1);
   const prevStep = () => setCurrentStep((prev) => prev - 1);
 
   const onSubmitAccessData = (user) => {
     setStep1Data(user);
-    nextStep();
-  };
-
-  const onSubmit = async (user) => {
-    const fullData = {
-      ...step1Data!,
-      ...user,
-    };
-
-    try {
-      const userData = {
-        firstName: fullData.firstName,
-        paternalSurname: fullData.paternalSurname,
-        maternalSurname: fullData.maternalSurname,
-        email: fullData.email,
-        document: {
-          type: fullData.documentType,
-          number: fullData.documentNumber,
-        },
-        phone: {
-          prefix: "+51",
-          number: fullData.phoneNumber,
-        },
-        gender: fullData.gender,
-      };
-
-      const response = await postUser(userData);
-
-      if (response && response.ok !== false) {
-        notification({
-          type: "success",
-          title: "¡Registro exitoso!",
-          description: "Tu cuenta ha sido creada. Ahora puedes iniciar sesión.",
-        });
-
-        setTimeout(() => {
-          navigate("/");
-        }, 2000);
-      } else {
-        throw new Error("Error in the register");
-      }
-    } catch (error: any) {
-      console.error("Error in register:", error);
-
-      let errorMessage =
-        "No se pudo completar el registro. Intenta nuevamente.";
-
-      if (error.message?.includes("email_already_exists")) {
-        errorMessage = "Este correo electrónico ya está registrado";
-      } else if (error.message?.includes("dni_already_exists")) {
-        errorMessage = "Este documento ya está registrado";
-      } else if (error.message?.includes("phone_number_already_exists")) {
-        errorMessage = "Este número de teléfono ya está registrado";
-      }
-
-      notification({
-        type: "error",
-        title: "Error en el registro",
-        description: errorMessage,
-      });
-    }
   };
 
   return (
@@ -147,12 +81,11 @@ export function Register() {
           </WelcomeHeader>
 
           <StepsContent>
-            {currentStep === 0 && <AccessData onNext={onSubmitAccessData} />}
+            {currentStep === 0 && <AccessData onNext={nextStep} />}
             {currentStep === 1 && (
               <PersonalInformation
                 onBack={prevStep}
-                onSubmit={onSubmit}
-                loading={postUserLoading}
+                currentStep={currentStep}
               />
             )}
           </StepsContent>
