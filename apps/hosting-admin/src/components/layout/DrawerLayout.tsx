@@ -9,6 +9,7 @@ import {
   faList,
   faSquarePlus,
   faUsers,
+  faWrench,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuthentication } from "../../providers";
 
@@ -77,6 +78,25 @@ export const DrawerLayout = ({
           key: "quotations-list",
           icon: <FontAwesomeIcon icon={faList} size="lg" />,
           onClick: () => onClickMenu("/quotations"),
+        },
+      ],
+    },
+    {
+      label: "Solicitudes de Servicio",
+      key: "services-requests-group",
+      icon: <FontAwesomeIcon icon={faWrench} size="lg" />,
+      children: [
+        {
+          label: "Crear Solictud de Servicio",
+          key: "service-request-new",
+          icon: <FontAwesomeIcon icon={faSquarePlus} size="lg" />,
+          onClick: () => onClickMenu("/services-requests/new"),
+        },
+        {
+          label: "Lista de Solictudes de Servicio",
+          key: "services-requests-list",
+          icon: <FontAwesomeIcon icon={faList} size="lg" />,
+          onClick: () => onClickMenu("/services-requests"),
         },
       ],
     },

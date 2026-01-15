@@ -66,3 +66,33 @@ export interface Assistance extends DefaultFirestoreProps {
   user: User;
   workPlace?: string;
 }
+
+export interface ServiceRequest extends DefaultFirestoreProps {
+  id: string;
+  status: "pending" | "inProgress" | "completed" | "cancelled";
+  client: {
+    firstName?: string;
+    paternalSurname?: string;
+    maternalSurname?: string;
+    companyName?: string;
+    document: {
+      type: "dni" | "ruc";
+      number: string;
+    };
+    phone: {
+      prefix: "+51";
+      number: string;
+    };
+    email: string;
+  };
+  location: {
+    address: string;
+    geoPoint: {
+      lat: string;
+      lng: string;
+    };
+  };
+  problemDescription: string;
+  device: string;
+  assignment?: string | null;
+}

@@ -10,3 +10,5 @@ export * from "./assistances/add-facial-biometrics";
 export * from "./quotations";
 export * from "./quotations/_quotationId";
 export * from "./quotations/sheets";
+export * from "./services-requests";
+export * from "./services-requests/_services-requests";

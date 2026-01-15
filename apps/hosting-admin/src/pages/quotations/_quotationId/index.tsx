@@ -2,7 +2,7 @@ import * as yup from "yup";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDefaultFirestoreProps, useFormUtils } from "../../../hooks";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   Col,
@@ -29,6 +29,7 @@ import dayjs from "dayjs";
 
 export function QuotationIntegration() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { quotationId } = useParams();
   const { assignCreateProps, assignUpdateProps } = useDefaultFirestoreProps();
 
@@ -47,15 +48,41 @@ export function QuotationIntegration() {
 
   useEffect(() => {
     (async () => {
-      const _quotation = isNew
-        ? { id: getQuotationId() }
-        : await fetchQuotation(quotationId);
+      if (isNew) {
+        const preloadedServiceRequest = location.state?.serviceRequest;
 
-      if (!_quotation) return onGoBack();
-
-      setQuotation(_quotation);
+        if (preloadedServiceRequest) {
+          setQuotation({
+            id: getQuotationId(),
+            serviceRequestId: preloadedServiceRequest.id,
+            client: {
+              document: preloadedServiceRequest.client.document,
+              firstName: preloadedServiceRequest.client.firstName,
+              paternalSurname: preloadedServiceRequest.client.paternalSurname,
+              maternalSurname: preloadedServiceRequest.client.maternalSurname,
+              companyName: preloadedServiceRequest.client.companyName,
+              phone: preloadedServiceRequest.client.phone,
+              email: preloadedServiceRequest.client.email,
+              address: preloadedServiceRequest.location.address,
+            },
+            device: {
+              type: preloadedServiceRequest.device,
+            },
+            reportedIssue: preloadedServiceRequest.problemDescription,
+            analysis: "",
+            solutionAndRecommendations: "",
+            quotationDetails: [],
+          });
+        } else {
+          setQuotation({ id: getQuotationId() });
+        }
+      } else {
+        const _quotation = await fetchQuotation(quotationId);
+        if (!_quotation) return navigate(-1);
+        setQuotation(_quotation);
+      }
     })();
-  }, []);
+  }, [quotationId, isNew, location.state]);
 
   const mapQuotation = (formData) => ({
     ...quotation,
@@ -203,30 +230,42 @@ const Quotation = ({
   let documentNumber = watch("client.documentNumber") || "";
 
   useEffect(() => {
-    const existsDni =
-      documentNumber.length === 8 || documentNumber.length === 11;
+    const docNumber = watch("client.documentNumber") || "";
+    const docType = watch("client.documentType");
 
-    if (existsDni && isNew) {
+    const isValidLength =
+      (docType === "dni" && docNumber.length === 8) ||
+      (docType === "ruc" && docNumber.length === 11);
+
+    const isNameEmpty =
+      !watch("client.firstName") && !watch("client.companyName");
+
+    if (isValidLength && isNew && isNameEmpty) {
       (async () => {
-        const data = await getDataByDniOrRuc(watch("client.documentNumber"));
+        try {
+          const data = await getDataByDniOrRuc(docNumber);
+          if (!data) return;
 
-        if (watch("client.documentType") === "dni") {
-          setValue("client.firstName", capitalize(data.firstName || ""));
-          setValue(
-            "client.paternalSurname",
-            capitalize(data.paternalSurname || "")
-          );
-          setValue(
-            "client.maternalSurname",
-            capitalize(data.maternalSurname || "")
-          );
-        } else {
-          setValue("client.companyName", capitalize(data.companyName || ""));
-          setValue("client.address", capitalize(data.address || ""));
+          if (docType === "dni") {
+            setValue("client.firstName", capitalize(data.firstName || ""));
+            setValue(
+              "client.paternalSurname",
+              capitalize(data.paternalSurname || "")
+            );
+            setValue(
+              "client.maternalSurname",
+              capitalize(data.maternalSurname || "")
+            );
+          } else {
+            setValue("client.companyName", capitalize(data.companyName || ""));
+            setValue("client.address", capitalize(data.address || ""));
+          }
+        } catch (err) {
+          console.error("Error consultando API:", err);
         }
       })();
     }
-  }, [watch("client.documentNumber")]);
+  }, [documentNumber, isNew]);
 
   const resetForm = () => {
     reset({
@@ -259,7 +298,6 @@ const Quotation = ({
       quotationDetails: quotation?.quotationDetails || [],
     });
   };
-
   useEffect(() => {
     resetForm();
   }, [quotation]);

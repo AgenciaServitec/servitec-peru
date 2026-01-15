@@ -1,0 +1,6 @@
+{
+  "pending": { "color": "gold", "text": "Pendiente" },
+  "inProgress": { "color": "blue", "text": "En Proceso" },
+  "completed": { "color": "green", "text": "Completado" },
+  "cancelled": { "color": "red", "text": "Cancelado" }
+}
