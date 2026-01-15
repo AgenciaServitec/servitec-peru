@@ -121,8 +121,8 @@ export const PersonalInformation = ({
         maternalSurname: fullData.maternalSurname,
         email: fullData.email,
         document: {
-          type: fullData.documentType,
-          number: fullData.documentNumber,
+          type: fullData.document.documentType,
+          number: fullData.document.documentNumber,
         },
         phone: {
           prefix: "+51",
