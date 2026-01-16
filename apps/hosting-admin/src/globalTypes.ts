@@ -88,9 +88,13 @@ export interface ServiceRequest extends DefaultFirestoreProps {
   location: {
     address: string;
     geoPoint: {
-      lat: string;
-      lng: string;
+      lat: number;
+      lng: number;
     };
+  };
+  technicianLocation: {
+    lat: number;
+    lng: number;
   };
   problemDescription: string;
   device: string;

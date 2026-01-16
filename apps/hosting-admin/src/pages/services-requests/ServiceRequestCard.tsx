@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -6,15 +6,19 @@ import {
   faTools,
   faExternalLinkAlt,
   faLocationArrow,
+  faCheck,
+  faX,
 } from "@fortawesome/free-solid-svg-icons";
-import { Card, Tag, Typography, Button, Space } from "../../components";
+import { Card, Tag, Typography, Button } from "../../components";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/es";
 import { ServiceRequestsStatus } from "../../data-list";
 import { getDevice } from "../../utils";
 import type { ServiceRequest } from "../../globalTypes.ts";
+import { useAcceptService, useCancelService } from "./_utils";
 import { useNavigate } from "react-router-dom";
+import { useAuthentication } from "../../providers";
 
 dayjs.extend(relativeTime);
 dayjs.locale("es");
@@ -27,116 +31,151 @@ const COLORS = {
   textPrimary: "#ffffff",
   textSecondary: "#777777",
   accent: "#fadb14",
-  accentDark: "#c4a706",
+  success: "#52c41a",
+  cancel: "#ef0a0a",
 };
 
 const StyledCard = styled(Card)`
   background: ${COLORS.cardBg} !important;
-  border-radius: 24px !important;
+  border-radius: 28px !important;
   border: 1px solid ${COLORS.border} !important;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6) !important;
   overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1) !important;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
 
   &:hover {
-    transform: translateY(-10px);
-    border-color: ${COLORS.accent} !important;
-    box-shadow: 0 0 20px rgba(250, 219, 20, 0.15) !important;
-  }
-
-  .ant-card-cover {
-    position: relative;
-    height: 190px;
-    overflow: hidden;
-    filter: saturate(1.2) brightness(0.85);
+    transform: translateY(-8px);
+    border-color: ${COLORS.accent}66 !important;
   }
 `;
 
-const MapOverlay = styled.div`
+const AcceptFloatingButton = styled.button`
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(13, 13, 13, 0.2) 0%,
-    rgba(13, 13, 13, 0.9) 100%
-  );
+  top: 15px;
+  right: 15px;
+  z-index: 10;
+  background: ${COLORS.success};
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(82, 196, 26, 0.4);
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    background: #73d13d;
+    box-shadow: 0 6px 20px rgba(82, 196, 26, 0.6);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+`;
+
+const CancelFloatingButton = styled.button`
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 10;
+  background: ${COLORS.success};
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(154, 0, 0, 0.4);
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    background: #ff4949;
+    box-shadow: 0 6px 20px rgba(151, 13, 13, 0.6);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
 `;
 
 const GlassTag = styled.div`
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(12px);
-  padding: 8px 16px;
-  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  padding: 6px 14px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   color: ${COLORS.accent};
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.8px;
-  border: 1px solid rgba(250, 219, 20, 0.3);
+  font-size: 10px;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 `;
 
 const ClientBox = styled.div`
   background: ${COLORS.innerBox};
-  border-radius: 20px;
-  padding: 16px;
-  margin-bottom: 24px;
+  border-radius: 18px;
+  padding: 14px;
+  margin-bottom: 20px;
   border: 1px solid ${COLORS.border};
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 `;
 
 const Avatar = styled.div`
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
-  background: ${COLORS.accent};
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, ${COLORS.accent} 0%, #f1c40f 100%);
   display: flex;
   justify-content: center;
   align-items: center;
   color: #000;
   font-weight: 900;
-  font-size: 16px;
-  box-shadow: 0 4px 15px rgba(250, 219, 20, 0.4);
   flex-shrink: 0;
-`;
-
-const ActionButton = styled(Button)`
-  border-radius: 16px !important;
-  height: 52px !important;
-  font-weight: 700 !important;
-  background: transparent !important;
-  border: 2px solid ${COLORS.border} !important;
-  color: ${COLORS.textPrimary} !important;
-  transition: all 0.2s !important;
-
-  &:hover {
-    border-color: ${COLORS.textSecondary} !important;
-    transform: scale(1.05);
-  }
 `;
 
 const QuoteButton = styled(Button)`
   flex: 1;
-  border-radius: 16px !important;
-  height: 52px !important;
+  border-radius: 14px !important;
+  height: 48px !important;
   font-weight: 800 !important;
   background: ${COLORS.accent} !important;
   color: #000 !important;
   border: none !important;
-  box-shadow: 0 6px 20px rgba(250, 219, 20, 0.3) !important;
-  font-size: 15px !important;
+  font-size: 14px !important;
+  text-transform: uppercase;
   letter-spacing: 0.5px;
 
   &:hover {
     background: #fff !important;
-    transform: scale(1.02);
-    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 0 20px ${COLORS.accent}44 !important;
+  }
+`;
+
+const DetailIconBtn = styled(Button)`
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 14px !important;
+  background: ${COLORS.innerBox} !important;
+  border: 1px solid ${COLORS.border} !important;
+  color: ${COLORS.textSecondary} !important;
+
+  &:hover {
+    color: ${COLORS.accent} !important;
+    border-color: ${COLORS.accent} !important;
   }
 `;
 
@@ -151,120 +190,151 @@ export const ServicesRequestCard: React.FC<ServiceRequestCardProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  const handleNavigateQuote = useCallback(
-    (request: ServiceRequest) => {
-      navigate(`/quotations/new`, { state: { serviceRequest: request } });
-    },
-    [navigate]
-  );
+  const { authUser } = useAuthentication();
+
+  const { acceptRequest, isAccepting } = useAcceptService();
+  const { cancelRequest, isCanceling } = useCancelService();
+
+  const handleAcceptClick = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    await acceptRequest(request.id, authUser.id);
+  };
+  const handleCancelClick = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    await cancelRequest(request.id);
+  };
+
+  const handleNavigateQuote = useCallback(() => {
+    navigate(`/quotations/new`, { state: { serviceRequest: request } });
+  }, [navigate, request]);
+
+  const clientInfo = useMemo(() => {
+    const isRuc = request.client?.document?.type === "ruc";
+    return {
+      name: isRuc
+        ? request.client?.companyName
+        : `${request.client?.firstName} ${request.client?.paternalSurname}`,
+      initials:
+        (isRuc
+          ? request.client?.companyName?.charAt(0)
+          : `${request.client?.firstName?.charAt(0)}${request.client?.paternalSurname?.charAt(0)}`) ||
+        "S",
+      date: request.createAt?.toDate
+        ? request.createAt.toDate()
+        : request.createAt,
+    };
+  }, [request]);
 
   const statusConfig =
     ServiceRequestsStatus[
       request.status as keyof typeof ServiceRequestsStatus
     ] || ServiceRequestsStatus.pending;
 
-  const isRuc = request.client?.document?.type === "ruc";
-
-  const clientDisplayName = isRuc
-    ? request.client?.companyName
-    : `${request.client?.firstName} ${request.client?.paternalSurname}`;
-
-  const initials = isRuc
-    ? request.client?.companyName?.charAt(0) || "R"
-    : `${request.client?.firstName?.charAt(0) || ""}${request.client?.paternalSurname?.charAt(0) || ""}`;
-
-  const date = request.createAt?.toDate
-    ? request.createAt.toDate()
-    : request.createAt;
-
-  const staticMapUrl = `https://static-maps.yandex.ru/1.x/?lang=es_PE&ll=${request.location?.geoPoint?.lng},${request.location?.geoPoint?.lat}&z=14&l=map&size=450,250&pt=${request.location?.geoPoint?.lng},${request.location?.geoPoint?.lat},pm2rdm`;
-
   return (
     <StyledCard
-      hoverable
-      bodyStyle={{ padding: "24px" }}
+      bodyStyle={{ padding: "20px" }}
       cover={
-        <>
+        <div style={{ position: "relative", height: "180px" }}>
           <img
-            alt="map"
-            src={staticMapUrl}
+            alt="location"
+            src={`https://static-maps.yandex.ru/1.x/?lang=es_PE&ll=${request.location?.geoPoint?.lng},${request.location?.geoPoint?.lat}&z=14&l=map&size=450,250&pt=${request.location?.geoPoint?.lng},${request.location?.geoPoint?.lat},pm2rdm`}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
-          <MapOverlay />
-          <div style={{ position: "absolute", top: "15px", left: "15px" }}>
-            <Tag
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background:
+                "linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(13,13,13,1))",
+            }}
+          />
+
+          {request.status === "pending" ? (
+            <AcceptFloatingButton
+              onClick={handleAcceptClick}
+              disabled={isAccepting}
               style={{
-                borderRadius: "8px",
-                border: "none",
-                fontWeight: 900,
-                padding: "4px 12px",
-                fontSize: "11px",
-                background: statusConfig.color,
-                color: "#000",
-                textTransform: "uppercase",
+                background: isAccepting ? COLORS.border : COLORS.success,
+                cursor: isAccepting ? "not-allowed" : "pointer",
               }}
             >
-              {statusConfig.text}
+              <FontAwesomeIcon icon={faCheck} spin={isAccepting} />
+              {isAccepting ? "ACEPTANDO..." : "ACEPTAR"}
+            </AcceptFloatingButton>
+          ) : (
+            <CancelFloatingButton
+              onClick={handleCancelClick}
+              disabled={isAccepting}
+              style={{
+                background: isAccepting ? COLORS.border : COLORS.cancel,
+                cursor: isAccepting ? "not-allowed" : "pointer",
+              }}
+            >
+              <FontAwesomeIcon icon={faX} spin={isCanceling} />
+              {isCanceling ? "CANCELANDO..." : "CANCELAR"}
+            </CancelFloatingButton>
+          )}
+
+          <div style={{ position: "absolute", top: "15px", left: "15px" }}>
+            <Tag
+              color={statusConfig.color}
+              style={{
+                borderRadius: "6px",
+                fontWeight: 800,
+                border: "none",
+                color: "#000",
+              }}
+            >
+              {statusConfig.text.toUpperCase()}
             </Tag>
           </div>
-          <div style={{ position: "absolute", bottom: "15px", left: "15px" }}>
+
+          <div style={{ position: "absolute", bottom: "10px", left: "15px" }}>
             <GlassTag>
               <FontAwesomeIcon icon={faLocationArrow} />
-
-              <span>DISTRITO IDENTIFICADO</span>
+              <span>UBICACIÓN</span>
             </GlassTag>
-          </div>{" "}
-        </>
+          </div>
+        </div>
       }
     >
-      <div style={{ marginBottom: "20px" }}>
-        <Title
-          level={4}
+      <div style={{ marginBottom: "16px" }}>
+        <Title level={5} style={{ color: "white", margin: 0, fontWeight: 800 }}>
+          <FontAwesomeIcon
+            icon={faTools}
+            style={{ color: COLORS.accent, marginRight: "10px" }}
+          />
+          {getDevice(request?.device)}
+        </Title>
+        <Text
           style={{
-            margin: "0 0 4px 0",
-            fontSize: "20px",
-            fontWeight: 900,
-            color: COLORS.textPrimary,
-            letterSpacing: "-0.5px",
+            fontSize: "11px",
+            color: COLORS.textSecondary,
+            textTransform: "uppercase",
           }}
         >
           <FontAwesomeIcon
-            icon={faTools}
-            style={{ marginRight: "12px", color: COLORS.accent }}
+            icon={faCalendarAlt}
+            style={{ marginRight: "6px" }}
           />
-          {getDevice(request?.device) || "Equipo"}
-        </Title>
-        <Space
-          style={{
-            fontSize: "12px",
-            color: COLORS.textSecondary,
-            fontWeight: 500,
-          }}
-        >
-          <FontAwesomeIcon icon={faCalendarAlt} />
-
-          <span>SOLICITADO {dayjs(date).fromNow().toUpperCase()}</span>
-        </Space>
+          {dayjs(clientInfo.date).fromNow()}
+        </Text>
       </div>
 
       <ClientBox>
-        <Avatar>{initials.toUpperCase()}</Avatar>
+        <Avatar>{clientInfo.initials.toUpperCase()}</Avatar>
         <div style={{ flex: 1, minWidth: 0 }}>
           <Text
             strong
-            style={{
-              display: "block",
-              fontSize: "15px",
-              color: COLORS.textPrimary,
-            }}
+            style={{ color: "white", fontSize: "14px", display: "block" }}
             ellipsis
           >
-            {clientDisplayName}
+            {clientInfo.name}
           </Text>
           <Text
             style={{
-              fontSize: "12px",
               color: COLORS.textSecondary,
+              fontSize: "11px",
               display: "block",
             }}
             ellipsis
@@ -274,16 +344,13 @@ export const ServicesRequestCard: React.FC<ServiceRequestCardProps> = ({
         </div>
       </ClientBox>
 
-      <div style={{ display: "flex", gap: "12px" }}>
-        <ActionButton onClick={() => onShowServiceDetail(request)}>
-          <FontAwesomeIcon icon={faExternalLinkAlt} size="lg" />
-        </ActionButton>
+      <div style={{ display: "flex", gap: "10px" }}>
+        <DetailIconBtn onClick={() => onShowServiceDetail(request)}>
+          <FontAwesomeIcon icon={faExternalLinkAlt} />
+        </DetailIconBtn>
 
-        <QuoteButton
-          type="primary"
-          onClick={() => handleNavigateQuote(request)}
-        >
-          COTIZAR AHORA
+        <QuoteButton onClick={handleNavigateQuote}>
+          Cotizar Servicio
         </QuoteButton>
       </div>
     </StyledCard>
