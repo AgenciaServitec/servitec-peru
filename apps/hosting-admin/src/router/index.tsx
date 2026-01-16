@@ -55,6 +55,22 @@ export function Router() {
           }
         />
         <Route
+          path="services-requests"
+          element={
+            <AdminLayout>
+              <A.ServicesRequestsIntegrations />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="services-requests/:serviceRequestId"
+          element={
+            <AdminLayout>
+              <A.ServiceRequestIntegration />
+            </AdminLayout>
+          }
+        />
+        <Route
           path="assistances"
           element={
             <AdminLayout>
