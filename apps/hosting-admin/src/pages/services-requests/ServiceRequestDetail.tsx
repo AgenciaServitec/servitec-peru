@@ -21,11 +21,19 @@ import {
   Space,
   Button,
 } from "../../components";
-import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  useMap,
+  // Polyline, // COMENTADO: No se usa sin el técnico
+} from "react-leaflet";
 import L from "leaflet";
 import dayjs from "dayjs";
 import "leaflet/dist/leaflet.css";
 import { getDevice } from "../../utils";
+import { useAuthentication } from "../../providers";
+// import { useTrackTechnicianLocation } from "./_utils"; // COMENTADO: Rastreo del técnico
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -38,16 +46,67 @@ const DefaultIcon = L.icon({
   iconAnchor: [12, 41],
 });
 
+// COMENTADO: Icono del técnico
+/*
+const TechIcon = L.icon({
+  iconUrl: "https://cdn-icons-png.flaticon.com/512/71/71222.png",
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+});
+*/
+
 const RecenterMap = ({ coords }: { coords: [number, number] }) => {
   const map = useMap();
   useEffect(() => {
-    setTimeout(() => {
-      map.invalidateSize();
-      map.setView(coords, 16);
-    }, 250);
-  }, [map, coords]);
+    if (map && (map as any)._loaded) {
+      const timer = setTimeout(() => {
+        map.invalidateSize();
+        map.setView(coords, 16);
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [map, JSON.stringify(coords)]);
   return null;
 };
+
+// COMENTADO: Ajuste de cámara para dos puntos
+/*
+const FitBounds = ({ points }: { points: [number, number][] }) => {
+  const map = useMap();
+  const pointsStr = JSON.stringify(points);
+
+  useEffect(() => {
+    const validPoints = points.filter(
+      (p) =>
+        Array.isArray(p) &&
+        typeof p[0] === "number" &&
+        !isNaN(p[0]) &&
+        typeof p[1] === "number" &&
+        !isNaN(p[1])
+    );
+
+    if (validPoints.length > 1 && map && (map as any)._loaded) {
+      const timer = setTimeout(() => {
+        try {
+          const bounds = L.latLngBounds(validPoints);
+          if (bounds.isValid()) {
+            map.flyToBounds(bounds, {
+              padding: [50, 50],
+              duration: 1.5,
+              animate: true,
+            });
+          }
+        } catch (e) {
+          console.error("Error calculando bounds:", e);
+        }
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [pointsStr, map]);
+
+  return null;
+};
+*/
 
 const ModalContainer = styled.div`
   background: #0a0a0a;
@@ -138,40 +197,85 @@ const InfoItem = React.memo(
 );
 
 export const ServiceRequestDetail: React.FC<any> = ({ serviceRequest }) => {
+  const { authUser } = useAuthentication();
+
+  // COMENTADO: Lógica de activación de rastreo
+  /*
+  const isAssignedTech = authUser?.id === serviceRequest?.assignment;
+  const shouldTrack = isAssignedTech && serviceRequest?.status === "inProgress";
+  useTrackTechnicianLocation(serviceRequest?.id, shouldTrack);
+  */
+
   const memoizedData = useMemo(() => {
     if (!serviceRequest) return null;
 
     const date = serviceRequest.createAt?.toDate
       ? serviceRequest.createAt.toDate()
       : serviceRequest.createAt;
-    const lat = parseFloat(serviceRequest.location?.geoPoint?.lat || "0");
-    const lng = parseFloat(serviceRequest.location?.geoPoint?.lng || "0");
+
+    const cLat = serviceRequest.location?.geoPoint?.lat;
+    const cLng = serviceRequest.location?.geoPoint?.lng;
+    const isValidClientPos =
+      typeof cLat === "number" && typeof cLng === "number";
+
+    // COMENTADO: Validación de posición del técnico
+    /*
+    const tLat = serviceRequest.technicianLocation?.lat;
+    const tLng = serviceRequest.technicianLocation?.lng;
+    const isValidTechPos = typeof tLat === "number" && typeof tLng === "number";
+    */
+
+    const clientPos: [number, number] = isValidClientPos
+      ? [cLat, cLng]
+      : [0, 0];
+
+    /*
+    const techPos: [number, number] | null = isValidTechPos
+      ? [tLat!, tLng!]
+      : null;
+    */
 
     return {
-      position: [lat, lng] as [number, number],
+      position: clientPos,
+      // techPosition: techPos, // COMENTADO
+      isValid: isValidClientPos,
       timeAgo: dayjs(date).fromNow(),
-      clientName: `${serviceRequest.client?.firstName} ${serviceRequest.client?.paternalSurname}`,
-      companyName: `${serviceRequest.client?.companyName}`,
+      clientName: `${serviceRequest.client?.firstName || ""} ${serviceRequest.client?.paternalSurname || ""}`,
+      companyName: `${serviceRequest.client?.companyName || ""}`,
     };
   }, [serviceRequest]);
 
   const handleOpenMaps = () => {
     if (!memoizedData) return;
     const [lat, lng] = memoizedData.position;
-
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-    if (isMobile) {
-      window.open(
-        `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`,
-        "_blank"
-      );
-    } else {
-      window.open(`https://www.google.com/maps?q=${lat},${lng}`, "_blank");
-    }
+    window.open(
+      `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`,
+      "_blank"
+    );
   };
 
-  if (!memoizedData || !serviceRequest) return null;
+  if (!memoizedData || !memoizedData.isValid) {
+    return (
+      <div
+        style={{
+          height: 280,
+          background: "#0d0d0d",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Text style={{ color: "#444" }}>Coordenadas no disponibles</Text>
+      </div>
+    );
+  }
+
+  // COMENTADO: Puntos del mapa para encuadre
+  /*
+  const mapPoints: [number, number][] = [];
+  if (memoizedData.isValid) mapPoints.push(memoizedData.position);
+  if (memoizedData.techPosition) mapPoints.push(memoizedData.techPosition);
+  */
 
   return (
     <ModalContainer>
@@ -188,9 +292,35 @@ export const ServiceRequestDetail: React.FC<any> = ({ serviceRequest }) => {
           scrollWheelZoom={true}
           zoomControl={false}
           attributionControl={false}
+          style={{ height: "100%", width: "100%" }}
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          {/* COMENTADO: Polyline de recorrido */}
+          /*
+          {memoizedData.techPosition && (
+            <Polyline
+              positions={[memoizedData.techPosition, memoizedData.position]}
+              color="#fadb14"
+              dashArray="10, 10"
+              weight={2}
+            />
+          )}
+          */
           <Marker position={memoizedData.position} icon={DefaultIcon} />
+          {/* COMENTADO: Marcador del técnico */}
+          /*
+          {memoizedData.techPosition &&
+            !isNaN(memoizedData.techPosition[0]) && (
+              <Marker position={memoizedData.techPosition} icon={TechIcon} />
+            )}
+          */
+          {/* COMENTADO: Lógica condicional de FitBounds o Recenter */}
+          {/* {memoizedData.techPosition ? (
+            <FitBounds points={mapPoints} />
+          ) : (
+            <RecenterMap coords={memoizedData.position} />
+          )} */}
+          {/* Solo usamos RecenterMap para el cliente */}
           <RecenterMap coords={memoizedData.position} />
         </MapContainer>
         <div
@@ -377,7 +507,7 @@ export const ServiceRequestDetail: React.FC<any> = ({ serviceRequest }) => {
               <InfoItem
                 icon={faClock}
                 label="Hace cuanto"
-                value={memoizedData.timeAgo}
+                value={memoizedData?.timeAgo}
               />
             </SectionBox>
           </Col>

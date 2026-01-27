@@ -62,7 +62,7 @@ export function ServiceRequestIntegration() {
     const isRuc = formData.client.document.type === "ruc";
 
     return {
-      id: formData.id,
+      id: formData.id || serviceRequest?.id,
       status: formData.status || "pending",
       client: {
         firstName: isRuc ? "" : formData.client.firstName,
@@ -82,8 +82,8 @@ export function ServiceRequestIntegration() {
       location: {
         address: formData.location.address,
         geoPoint: {
-          lat: formData.location.geoPoint.lat,
-          lng: formData.location.geoPoint.lng,
+          lat: Number(formData.location.geoPoint.lat),
+          lng: Number(formData.location.geoPoint.lng),
         },
       },
       problemDescription: formData.problemDescription,
@@ -157,8 +157,8 @@ const ServiceRequest = ({
     location: yup.object({
       address: yup.string().required("La dirección es obligatoria"),
       geoPoint: yup.object({
-        lat: yup.string().required(),
-        lng: yup.string().required(),
+        lat: yup.number().typeError("Debe ser un número").required(),
+        lng: yup.number().typeError("Debe ser un número").required(),
       }),
     }),
     problemDescription: yup.string().required("La descripción es obligatoria"),
@@ -226,6 +226,7 @@ const ServiceRequest = ({
 
   const resetForm = () => {
     reset({
+      id: serviceRequest?.id || "",
       // category: serviceRequest?.category || "",
       client: {
         firstName: serviceRequest?.client?.firstName || "",
@@ -244,8 +245,14 @@ const ServiceRequest = ({
       location: {
         address: serviceRequest?.location?.address || "",
         geoPoint: {
-          lat: serviceRequest?.location?.geopoint?.lat || "",
-          lng: serviceRequest?.location?.geopoint?.lng || "",
+          lat:
+            serviceRequest?.location?.geoPoint?.lat !== undefined
+              ? Number(serviceRequest.location.geoPoint.lat)
+              : "",
+          lng:
+            serviceRequest?.location?.geoPoint?.lng !== undefined
+              ? Number(serviceRequest.location.geoPoint.lng)
+              : "",
         },
       },
       problemDescription: serviceRequest?.problemDescription || "",
