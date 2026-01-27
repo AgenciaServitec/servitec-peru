@@ -93,3 +93,37 @@ interface Assistance extends DefaultFirestoreProps {
   status: "delay" | "attended" | null;
   minutesWorked: number | 0;
 }
+
+export interface ServiceRequest extends DefaultFirestoreProps {
+  id: string;
+  status: "pending" | "inProgress" | "completed" | "cancelled";
+  client: {
+    firstName?: string;
+    paternalSurname?: string;
+    maternalSurname?: string;
+    companyName?: string;
+    document: {
+      type: "dni" | "ruc";
+      number: string;
+    };
+    phone: {
+      prefix: "+51";
+      number: string;
+    };
+    email: string;
+  };
+  location: {
+    address: string;
+    geoPoint: {
+      lat: number;
+      lng: number;
+    };
+  };
+  technicianLocation: {
+    lat: number;
+    lng: number;
+  };
+  problemDescription: string;
+  device: string;
+  assignment?: string | null;
+}

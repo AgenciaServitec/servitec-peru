@@ -10,6 +10,7 @@ import {
 import quotationsRoutes from "./quotations/routes/quotations.routes";
 import usersRoutes from "./users/routes/users.routes";
 import identitiesRoutes from "./identities/routes/identities.routes";
+import servicesRequestsRoutes from "./service-request/routes/servicesRequests.routes";
 
 const app: express.Application = express();
 
@@ -21,6 +22,7 @@ app.get("/", (req, res) => res.status(200).send("Welcome!").end());
 app.use("/users", usersRoutes);
 app.use("/assistances", assistancesRoutes);
 app.use("/quotations", quotationsRoutes);
+app.use("/services-requests", servicesRequestsRoutes);
 app.use("/identities", identitiesRoutes);
 
 app.put("/users/:dni/fingerprint", putUserFingerprintTemplate);

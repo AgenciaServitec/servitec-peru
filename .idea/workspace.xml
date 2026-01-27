@@ -4,124 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a0bc1f7b-7929-498b-9533-bc36201613d2" name="Changes" comment="">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="add accept service request">
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/servicesRequests.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/service-request/controllers/getServiceRequest.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/service-request/controllers/getServicesRequests.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/service-request/controllers/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/service-request/controllers/postServiceRequest.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/service-request/controllers/putServiceRequest.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/service-request/routes/servicesRequests.routes.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/data-list/workPlaces.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/data-list/workPlaces.json" afterDir="false" />
-    </list>
-    <option name="SHOW_DIALOG" value="false" />
-    <option name="HIGHLIGHT_CONFLICTS" value="true" />
-    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
-    <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="refactor_design_hosting_admin" />
-      </map>
-    </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;AngelDev2001&quot;
-  }
-}</component>
-  <component name="GithubProjectSettings">
-    <option name="branchProtectionPatterns">
-      <list>
-        <option value="main" />
-      </list>
-    </option>
-  </component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/AgenciaServitec/servitec-peru.git&quot;,
-    &quot;accountId&quot;: &quot;eed1d776-978f-4f57-88e8-2aa6e801d3a7&quot;
-  }
-}</component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 1
-}</component>
-  <component name="ProjectId" id="36JFPDCOFNhX1WaP3PKt3a3xLfd" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "pnpm",
-    "ts.external.directory.path": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
-  }
-}]]></component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-WS-243.22562.112" />
-      </set>
-    </attachedChunks>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
-  <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="a0bc1f7b-7929-498b-9533-bc36201613d2" name="Changes" comment="" />
-      <created>1764716741890</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1764716741890</updated>
-      <workItem from="1764716743043" duration="384000" />
-      <workItem from="1765212696789" duration="1634000" />
-      <workItem from="1765220847595" duration="4784000" />
-    </task>
-    <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactor design hosting admin" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor design hosting admin" />
-  </component>
-</project>
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
-  <component name="ChangeListManager">
-    <list default="true" id="7161bade-0448-4224-a226-93e7678b8b6e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/api/apiErrors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/api/apiErrors.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/Upload.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/Upload.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/notification.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/notification.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/sheet/PDF.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/sheet/PDF.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/sheet/Sheet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/sheet/Sheet.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/hooks/useAssistances.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/hooks/useAssistances.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/AssistancesSubmitOrderLunch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/AssistancesSubmitOrderLunch.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/home/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/home/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/AccessDataLogin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/AccessDataLogin.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/VerificationCode.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/VerificationCode.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/profile/ProfileDataForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/profile/ProfileDataForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/QuotationTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/QuotationTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/sheets/QuotationDocumentSheet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/sheets/QuotationDocumentSheet.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/register/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/register/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/UsersTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/UsersTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/userId/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/userId/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/providers/AuthenticationProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/providers/AuthenticationProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/providers/GlobalDataProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/providers/GlobalDataProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/GlobalStyle.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/styles/themes/GlobalStyle.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/globalTypes.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/globalTypes.d.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,72 +33,63 @@
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;AngelDev2001&quot;
+    &quot;assignee&quot;: &quot;Joaquin-Huaranga&quot;
   }
 }</component>
-  <component name="GithubProjectSettings">
-    <option name="branchProtectionPatterns">
-      <list>
-        <option value="main" />
-      </list>
-    </option>
-  </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/AgenciaServitec/servitec-peru.git&quot;,
-    &quot;accountId&quot;: &quot;eed1d776-978f-4f57-88e8-2aa6e801d3a7&quot;
+    &quot;accountId&quot;: &quot;df5a1a8b-54be-4713-9800-9dc3f50845ee&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 8
+  &quot;associatedIndex&quot;: 5
 }</component>
-  <component name="ProjectId" id="35vuMsb02UAYEboaA7Min9s1Ffn" />
+  <component name="ProjectId" id="38qyikvDlJj7a3PNPs5u3SSLEI0" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;refactor__design__hosting__admin&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "add-serviceRequest-endpoint",
+    "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "pnpm",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Owner\\Desktop\\servitec-projects\\servitec-peru\\node_modules\\prettier",
+    "ts.external.directory.path": "C:\\Users\\Owner\\Desktop\\servitec-projects\\servitec-peru\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-WS-243.22562.112" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-WS-251.25410.117" />
       </set>
     </attachedChunks>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="7161bade-0448-4224-a226-93e7678b8b6e" name="Changes" comment="" />
-      <created>1764002837635</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1764002837635</updated>
-      <workItem from="1764002839215" duration="4160000" />
-      <workItem from="1764100196464" duration="20435000" />
-      <workItem from="1764174425923" duration="27211000" />
-    </task>
-    <task id="LOCAL-00001" summary="refactored design hosting admin">
+    <task id="LOCAL-00001" summary="add accept service request">
       <option name="closed" value="true" />
-      <created>1764121877978</created>
+      <created>1768595723516</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1764121877978</updated>
+      <updated>1768595723516</updated>
+    </task>
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="add accept service request" />
+      <created>1769541529136</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1769541529136</updated>
+      <workItem from="1769541530586" duration="2021000" />
+      <workItem from="1769543976990" duration="3360000" />
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />
@@ -212,8 +97,19 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactored design hosting admin" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored design hosting admin" />
+    <MESSAGE value="add accept service request" />
+    <option name="LAST_COMMIT_MESSAGE" value="add accept service request" />
   </component>
 </project>
