@@ -1,12 +1,81 @@
 import Image from "next/image";
 import { ContentWidth } from "@/components/ContentWidth";
+import {
+  BadgeCheck,
+  Building2,
+  Clock,
+  Mail,
+  MapPin,
+  Phone,
+} from "lucide-react";
+
+/** Social SVGs (brand) */
+const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    viewBox="0 0 256 256"
+    width="28"
+    height="28"
+    aria-hidden="true"
+    {...props}
+  >
+    <path
+      fill="currentColor"
+      d="M256 128C256 57.308 198.692 0 128 0S0 57.308 0 128c0 63.888 46.808 116.843 108 126.445V165H75.5v-37H108V99.8c0-32.08 19.11-49.8 48.348-49.8C170.352 50 185 52.5 185 52.5V84h-16.14C152.959 84 148 93.867 148 103.99V128h35.5l-5.675 37H148v89.445c61.192-9.602 108-62.556 108-126.445"
+    />
+  </svg>
+);
+
+const YouTubeIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    viewBox="0 0 256 180"
+    width="28"
+    height="28"
+    aria-hidden="true"
+    {...props}
+  >
+    <path
+      fill="currentColor"
+      d="M250.346 28.075A32.18 32.18 0 0 0 227.69 5.418C207.824 0 127.87 0 127.87 0S47.912.164 28.046 5.582A32.18 32.18 0 0 0 5.39 28.24c-6.009 35.298-8.34 89.084.165 122.97a32.18 32.18 0 0 0 22.656 22.657c19.866 5.418 99.822 5.418 99.822 5.418s79.955 0 99.82-5.418a32.18 32.18 0 0 0 22.657-22.657c6.338-35.348 8.291-89.1-.164-123.134"
+    />
+    <path
+      fill="#000"
+      opacity="0.25"
+      d="M250.346 28.075A32.18 32.18 0 0 0 227.69 5.418C207.824 0 127.87 0 127.87 0S47.912.164 28.046 5.582A32.18 32.18 0 0 0 5.39 28.24c-6.009 35.298-8.34 89.084.165 122.97a32.18 32.18 0 0 0 22.656 22.657c19.866 5.418 99.822 5.418 99.822 5.418s79.955 0 99.82-5.418a32.18 32.18 0 0 0 22.657-22.657c6.338-35.348 8.291-89.1-.164-123.134"
+    />
+    <path fill="#fff" d="m102.421 128.06l66.328-38.418l-66.328-38.418z" />
+  </svg>
+);
+
+const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    viewBox="0 0 256 258"
+    width="28"
+    height="28"
+    aria-hidden="true"
+    {...props}
+  >
+    <path
+      fill="currentColor"
+      d="M128.6 0C58.3 0 1.1 57.2 1.1 127.5c0 22.5 5.9 44.4 17 63.7L0 257.1l67.6-17.7c18.6 10.1 39.6 15.5 60.9 15.5h.1c70.3 0 127.4-57.2 127.4-127.4c0-34-13.2-66.1-37.3-90.2C194.6 13.3 162.6 0 128.6 0z"
+    />
+    <path
+      fill="#fff"
+      d="M96.7 74.1c-2.4-5.3-4.9-5.4-7.2-5.5c-1.9-.1-4-.1-6.1-.1c-2.1 0-5.6.8-8.5 4c-2.9 3.2-11.1 10.9-11.1 26.6s11.4 30.8 13 32.9c1.6 2.1 22 35.3 54.4 48.1c26.9 10.6 32.4 8.5 38.2 8c5.8-.5 18.8-7.7 21.5-15.1c2.7-7.4 2.7-13.8 1.9-15.1c-.8-1.3-2.9-2.1-6.1-3.7c-3.2-1.6-18.8-9.3-21.8-10.4c-2.9-1.1-5-1.6-7.2 1.6c-2.1 3.2-8.2 10.4-10.1 12.5c-1.9 2.1-3.7 2.4-6.9.8c-3.2-1.6-13.4-5-25.6-15.8c-9.5-8.4-15.9-18.9-17.7-22.1c-1.9-3.2-.2-4.9 1.4-6.5c1.4-1.4 3.2-3.7 4.8-5.6c1.6-1.9 2.1-3.2 3.2-5.3c1.1-2.1.5-4-.3-5.6c-.8-1.6-7-17.3-9.8-23.6z"
+    />
+  </svg>
+);
 
 export const FooterLayout = () => {
+  // ✅ NO invento datos: reemplaza el RUC por el real cuando lo tengas
+  const razonSocial = "Servitec Perú Group E.I.R.L.";
+  const ruc = "20XXXXXXXXXX";
+
   return (
-    <footer className="bg-black py-5">
+    <footer className="mt-10 bg-[#0A0D12] border-t border-white/10">
       <ContentWidth>
-        <div className="flex flex-col md:flex-row justify-between items-center mb-10">
-          <div className="flex items-center">
+        {/* Top row */}
+        <div className="py-10 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex items-center justify-center lg:justify-start">
             <Image
               src="/logo-servitec.png"
               alt="Logo de Servitec Perú"
@@ -15,152 +84,143 @@ export const FooterLayout = () => {
               priority
             />
           </div>
-          <div className="p-4 rounded-xl w-full md:w-auto text-center">
-            <p className="font-bold text-xl">
+
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+            <p className="text-base sm:text-lg font-semibold text-white text-center">
               Conéctate Socialmente con Servitec
             </p>
-            <div className="flex justify-center gap-10 mt-4">
+
+            <div className="mt-5 flex flex-wrap justify-center gap-8">
               <a
                 href="https://www.facebook.com/Servitec.chorrillos/?locale=es_LA"
                 target="_blank"
-                className="flex flex-col items-center text-center gap-1 hover:text-blue-600"
+                rel="noreferrer"
+                className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 hover:bg-white/[0.05] transition"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="40"
-                  height="40"
-                  viewBox="0 0 256 256"
-                >
-                  <path
-                    fill="#1877f2"
-                    d="M256 128C256 57.308 198.692 0 128 0S0 57.308 0 128c0 63.888 46.808 116.843 108 126.445V165H75.5v-37H108V99.8c0-32.08 19.11-49.8 48.348-49.8C170.352 50 185 52.5 185 52.5V84h-16.14C152.959 84 148 93.867 148 103.99V128h35.5l-5.675 37H148v89.445c61.192-9.602 108-62.556 108-126.445"
-                  />
-                  <path
-                    fill="#fff"
-                    d="m177.825 165l5.675-37H148v-24.01C148 93.866 152.959 84 168.86 84H185V52.5S170.352 50 156.347 50C127.11 50 108 67.72 108 99.8V128H75.5v37H108v89.445A129 129 0 0 0 128 256a129 129 0 0 0 20-1.555V165z"
-                  />
-                </svg>
-                <span>Visitanos en Facebook</span>
+                <span className="text-white/90 group-hover:text-white">
+                  <FacebookIcon />
+                </span>
+                <span className="text-sm text-white/80 group-hover:text-white">
+                  Visítanos en Facebook
+                </span>
               </a>
+
               <a
                 href="https://www.youtube.com/channel/UC0fs7G_IrQ9nBPOpKsaDTJg"
                 target="_blank"
-                className="flex flex-col items-center text-center gap-1 hover:text-red-600"
+                rel="noreferrer"
+                className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 hover:bg-white/[0.05] transition"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="40"
-                  height="40"
-                  viewBox="0 0 256 180"
-                >
-                  <path
-                    fill="#f00"
-                    d="M250.346 28.075A32.18 32.18 0 0 0 227.69 5.418C207.824 0 127.87 0 127.87 0S47.912.164 28.046 5.582A32.18 32.18 0 0 0 5.39 28.24c-6.009 35.298-8.34 89.084.165 122.97a32.18 32.18 0 0 0 22.656 22.657c19.866 5.418 99.822 5.418 99.822 5.418s79.955 0 99.82-5.418a32.18 32.18 0 0 0 22.657-22.657c6.338-35.348 8.291-89.1-.164-123.134"
-                  />
-                  <path
-                    fill="#fff"
-                    d="m102.421 128.06l66.328-38.418l-66.328-38.418z"
-                  />
-                </svg>
-                <span>Visitanos en Youtube</span>
+                <span className="text-white/90 group-hover:text-white">
+                  <YouTubeIcon />
+                </span>
+                <span className="text-sm text-white/80 group-hover:text-white">
+                  Visítanos en YouTube
+                </span>
               </a>
+
               <a
                 href="https://wa.me/51941801827"
                 target="_blank"
-                className="flex flex-col items-center text-center gap-1 hover:text-green-600"
+                rel="noreferrer"
+                className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 hover:bg-white/[0.05] transition"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="40"
-                  height="40"
-                  viewBox="0 0 256 258"
-                >
-                  <defs>
-                    <linearGradient
-                      id="SVGBRLHCcSy"
-                      x1="50%"
-                      x2="50%"
-                      y1="100%"
-                      y2="0%"
-                    >
-                      <stop offset="0%" stopColor="#1faf38" />
-                      <stop offset="100%" stopColor="#60d669" />
-                    </linearGradient>
-                    <linearGradient
-                      id="SVGHW6lecxh"
-                      x1="50%"
-                      x2="50%"
-                      y1="100%"
-                      y2="0%"
-                    >
-                      <stop offset="0%" stopColor="#f9f9f9" />
-                      <stop offset="100%" stopColor="#fff" />
-                    </linearGradient>
-                  </defs>
-                  <path
-                    fill="url(#SVGBRLHCcSy)"
-                    d="M5.463 127.456c-.006 21.677 5.658 42.843 16.428 61.499L4.433 252.697l65.232-17.104a123 123 0 0 0 58.8 14.97h.054c67.815 0 123.018-55.183 123.047-123.01c.013-32.867-12.775-63.773-36.009-87.025c-23.23-23.25-54.125-36.061-87.043-36.076c-67.823 0-123.022 55.18-123.05 123.004"
-                  />
-                  <path
-                    fill="url(#SVGHW6lecxh)"
-                    d="M1.07 127.416c-.007 22.457 5.86 44.38 17.014 63.704L0 257.147l67.571-17.717c18.618 10.151 39.58 15.503 60.91 15.511h.055c70.248 0 127.434-57.168 127.464-127.423c.012-34.048-13.236-66.065-37.3-90.15C194.633 13.286 162.633.014 128.536 0C58.276 0 1.099 57.16 1.071 127.416m40.24 60.376l-2.523-4.005c-10.606-16.864-16.204-36.352-16.196-56.363C22.614 69.029 70.138 21.52 128.576 21.52c28.3.012 54.896 11.044 74.9 31.06c20.003 20.018 31.01 46.628 31.003 74.93c-.026 58.395-47.551 105.91-105.943 105.91h-.042c-19.013-.01-37.66-5.116-53.922-14.765l-3.87-2.295l-40.098 10.513z"
-                  />
-                  <path
-                    fill="#fff"
-                    d="M96.678 74.148c-2.386-5.303-4.897-5.41-7.166-5.503c-1.858-.08-3.982-.074-6.104-.074c-2.124 0-5.575.799-8.492 3.984c-2.92 3.188-11.148 10.892-11.148 26.561s11.413 30.813 13.004 32.94c1.593 2.123 22.033 35.307 54.405 48.073c26.904 10.609 32.379 8.499 38.218 7.967c5.84-.53 18.844-7.702 21.497-15.139c2.655-7.436 2.655-13.81 1.859-15.142c-.796-1.327-2.92-2.124-6.105-3.716s-18.844-9.298-21.763-10.361c-2.92-1.062-5.043-1.592-7.167 1.597c-2.124 3.184-8.223 10.356-10.082 12.48c-1.857 2.129-3.716 2.394-6.9.801c-3.187-1.598-13.444-4.957-25.613-15.806c-9.468-8.442-15.86-18.867-17.718-22.056c-1.858-3.184-.199-4.91 1.398-6.497c1.431-1.427 3.186-3.719 4.78-5.578c1.588-1.86 2.118-3.187 3.18-5.311c1.063-2.126.531-3.986-.264-5.579c-.798-1.593-6.987-17.343-9.819-23.64"
-                  />
-                </svg>
-                <span>Escribenos en Whatsapp</span>
+                <span className="text-white/90 group-hover:text-white">
+                  <WhatsAppIcon />
+                </span>
+                <span className="text-sm text-white/80 group-hover:text-white">
+                  Escríbenos en WhatsApp
+                </span>
               </a>
             </div>
           </div>
         </div>
-        <hr className="border-gray-800 border-1 my-8" />
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+
+        <div className="h-px w-full bg-white/10" />
+
+        {/* Columns */}
+        <div className="py-10 grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <h3 className="text-white font-semibold text-lg mb-3">
+            <h3 className="text-white font-semibold text-base mb-3">
               Sobre nosotros
             </h3>
-            <p className="text-gray-400">
+            <p className="text-sm leading-relaxed text-white/70">
               Somos una empresa que brinda servicios informáticos de forma
               integral en la asesoría y consultoría en hardware y software,
               tanto para usuarios domésticos, negocios y empresas corporativas.
             </p>
           </div>
+
           <div>
-            <h3 className="text-white font-semibold text-lg mb-3">
+            <h3 className="text-white font-semibold text-base mb-3">
               Horario de atención
             </h3>
-            <p className="text-gray-400">9:00 am a 6:00 pm</p>
+            <div className="flex items-start gap-2 text-sm text-white/70">
+              <Clock className="mt-0.5 h-4 w-4 text-primary" />
+              <span>9:00 am a 6:00 pm</span>
+            </div>
           </div>
+
           <div>
-            <h3 className="text-white font-semibold text-lg mb-3">Dirección</h3>
-            <ul className="text-gray-400">
-              Néstor Bermúdez 113, Chorrillos, Lima, Perú
-            </ul>
+            <h3 className="text-white font-semibold text-base mb-3">
+              Dirección
+            </h3>
+            <div className="flex items-start gap-2 text-sm text-white/70">
+              <MapPin className="mt-0.5 h-4 w-4 text-primary" />
+              <span>Néstor Bermúdez 113, Chorrillos, Lima, Perú</span>
+            </div>
           </div>
+
           <div>
-            <h3 className="text-white font-semibold text-lg mb-3">Contacto</h3>
-            <ul className="text-gray-400">
-              <li className="flex-gap items-center">941 801 827</li>
-              <li className="flex-gap items-center">972 252 744</li>
-              <li className="flex-gap items-center">
-                contactos@servitec-peru.com
+            <h3 className="text-white font-semibold text-base mb-3">
+              Contacto
+            </h3>
+            <ul className="space-y-3 text-sm text-white/70">
+              <li className="flex items-center gap-2">
+                <Phone className="h-4 w-4 text-primary" />
+                <span>941 801 827</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <Phone className="h-4 w-4 text-primary" />
+                <span>972 252 744</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <Mail className="h-4 w-4 text-primary" />
+                <span>contactos@servitec-peru.com</span>
               </li>
             </ul>
           </div>
         </div>
-        <hr className="border-gray-800 border-1 my-8" />
-        <div className="flex flex-col md:flex-row justify-between text-sm text-gray-400">
-          <p>Copyrights © 2025 - Desarrollado por Agencia Servitec </p>
-          <div className="flex mt-4 md:mt-0">
-            <a
-              href="https://drive.google.com/file/d/1zEqBvWZsx0zsnixUNf1Ag_xrlqOfGIK4/view?pli=1"
-              className="border-b-1 border-transparent hover:border-gray-400"
-            >
-              Terminos y condiciones
-            </a>
+
+        <div className="h-px w-full bg-white/10" />
+
+        {/* Bottom */}
+        <div className="py-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="space-y-2">
+            <p className="text-sm text-white/60">
+              Copyright © 2026 - Todos los derechos reservados
+            </p>
+
+            {/* ✅ Razón social + RUC */}
+            <div className="flex flex-col gap-2 text-sm text-white/60 sm:flex-row sm:items-center sm:gap-6">
+              <span className="flex items-center gap-2">
+                <Building2 className="h-4 w-4 text-primary" />
+                <span>Razón social: {razonSocial}</span>
+              </span>
+
+              <span className="flex items-center gap-2">
+                <BadgeCheck className="h-4 w-4 text-primary" />
+                <span>RUC: {ruc}</span>
+              </span>
+            </div>
           </div>
+
+          <a
+            href="https://drive.google.com/file/d/1zEqBvWZsx0zsnixUNf1Ag_xrlqOfGIK4/view?pli=1"
+            className="text-sm text-white/60 hover:text-white transition"
+          >
+            Terminos y condiciones
+          </a>
         </div>
       </ContentWidth>
     </footer>
