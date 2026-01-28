@@ -1,19 +1,21 @@
-import { BusinessBoostBanner } from "@/sections/BusinessBoostBanner";
-import { NewsLetterSection } from "@/sections/NewsLetterSection";
-import { ServicesSection } from "@/sections";
-import { CarouselSection } from "@/sections/CarouselSection";
-import { BrandsSection } from "@/sections/BrandsSection";
-import { WhatDoWeDo } from "@/sections/WhatDoWeDo";
+import { Hero, Specialties } from "@/sections";
+import { HowWeWork } from "@/sections/HowWeWork";
+import { Location } from "@/sections/Location";
+import { CTA } from "@/sections/CTA";
 
 export default function Home() {
   return (
     <main>
-      <CarouselSection />
-      <WhatDoWeDo />
-      <ServicesSection />
-      <BusinessBoostBanner />
-      <NewsLetterSection />
-      <BrandsSection />
+      <Hero />
+      <Specialties />
+      <HowWeWork />
+      <Location />
+      <CTA />
+      {/*<WhatDoWeDo />*/}
+      {/*<ServicesSection />*/}
+      {/*<BusinessBoostBanner />*/}
+      {/*<NewsLetterSection />*/}
+      {/*<BrandsSection />*/}
     </main>
   );
 }
