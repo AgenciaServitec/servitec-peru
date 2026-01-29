@@ -3,7 +3,6 @@
 import { ContentWidth } from "@/components/ContentWidth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import {
   ArrowRight,
   Clock,
@@ -161,7 +160,7 @@ export function Location() {
               </div>
 
               {/* iframe */}
-              <div className="relative h-[360px] sm:h-[420px] lg:h-[520px]">
+              <div className="relative h-[340px] sm:h-[400px] lg:h-[460px]">
                 <iframe
                   src={embedUrl}
                   className="h-full w-full"

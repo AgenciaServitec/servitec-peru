@@ -13,7 +13,7 @@ import {
 
 export function CTA() {
   return (
-    <section className="py-14">
+    <section className="py-10">
       <ContentWidth>
         <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-gradient-to-br from-[#F5C400] to-[#E6B800]">
           <div className="relative p-8 sm:p-10 md:p-12">
@@ -29,25 +29,25 @@ export function CTA() {
                   Te orientamos y, si deseas, te enviamos una cotización.
                 </p>
 
-                <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-black/70">
-                  <span className="flex items-center gap-2">
-                    <MapPin className="w-4" />
-                    <strong>Chorrillos - Lima</strong>
+                <div className="mt-6 flex flex-wrap gap-2 text-sm text-black/75">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-black/10 px-3 py-1">
+                    <MapPin className="h-4 w-4" />
+                    Chorrillos - Lima
                   </span>
-                  <span className="flex items-center gap-2">
-                    <Clock className="w-4" />
-                    <strong>Lun–Vie 9:00 a.m. – 7:00 p.m.</strong>
+                  <span className="inline-flex items-center gap-2 rounded-full bg-black/10 px-3 py-1">
+                    <Clock className="h-4 w-4" />
+                    Lun–Vie 9:00 a.m. – 7:00 p.m.
                   </span>
-                  <span className="flex items-center gap-2">
-                    <BadgeCheck className="w-4" />
-                    <strong>Empresas y hogares</strong>
+                  <span className="inline-flex items-center gap-2 rounded-full bg-black/10 px-3 py-1">
+                    <BadgeCheck className="h-4 w-4" />
+                    Empresas y hogares
                   </span>
                 </div>
               </div>
 
-              {/* Right (anchored panel) */}
+              {/* Right */}
               <div className="md:col-span-5">
-                <div className="rounded-2xl border border-black/10 bg-black/10 p-4 sm:p-5">
+                <div className="rounded-2xl border border-black/10 bg-black/10 p-5">
                   <p className="text-sm font-medium text-black">
                     Contáctanos ahora
                   </p>
@@ -98,7 +98,7 @@ export function CTA() {
             className="pointer-events-none absolute inset-0 opacity-20"
             style={{
               backgroundImage:
-                "radial-gradient(circle at 20% 30%, rgba(0,0,0,0.28) 0, transparent 55%), radial-gradient(circle at 80% 60%, rgba(255,255,255,0.18) 0, transparent 55%)",
+                "radial-gradient(circle at 20% 30%, rgba(0,0,0,0.25) 0, transparent 55%), radial-gradient(circle at 80% 60%, rgba(255,255,255,0.16) 0, transparent 55%)",
             }}
           />
         </div>

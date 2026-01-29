@@ -1,7 +1,6 @@
 "use client";
 
 import { ContentWidth } from "@/components/ContentWidth";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
@@ -36,7 +35,7 @@ const steps = [
 
 export function HowWeWork() {
   return (
-    <section className="py-14">
+    <section className="py-10">
       <ContentWidth>
         <div className="max-w-2xl">
           <p className="text-sm text-muted-foreground">Confianza</p>
@@ -49,35 +48,44 @@ export function HowWeWork() {
           </p>
         </div>
 
-        <div className="mt-8 grid gap-5 md:grid-cols-2">
-          {steps.map((s) => {
+        {/* Timeline */}
+        <div className="mt-8 grid gap-6 lg:grid-cols-2">
+          {steps.map((s, idx) => {
             const Icon = s.icon;
             return (
-              <Card
+              <div
                 key={s.title}
-                className="border-white/10 bg-white/[0.04] hover:bg-white/[0.06] transition"
+                className="relative rounded-2xl border border-white/10 bg-white/[0.03] p-6 hover:bg-white/[0.05] transition"
               >
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="rounded-xl bg-primary/15 p-3 text-primary">
-                      <Icon className="h-5 w-5" />
-                    </div>
+                {/* left line */}
+                <div className="absolute left-6 top-0 h-full w-px bg-white/10" />
 
-                    <div>
-                      <h3 className="text-base font-medium text-white">
-                        {s.title}
-                      </h3>
-                      <p className="mt-2 text-sm text-white/70">{s.desc}</p>
-                    </div>
+                {/* step dot */}
+                <div className="relative flex gap-4">
+                  <div className="relative z-10 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/15 text-primary">
+                    <Icon className="h-5 w-5" />
                   </div>
-                </CardContent>
-              </Card>
+
+                  <div>
+                    <p className="text-xs text-white/50">Paso {idx + 1}</p>
+                    <h3 className="mt-1 text-base font-medium text-white">
+                      {s.title}
+                    </h3>
+                    <p className="mt-2 text-sm text-white/70">{s.desc}</p>
+                  </div>
+                </div>
+              </div>
             );
           })}
         </div>
 
+        {/* CTA */}
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Button className="bg-primary text-black hover:bg-primary/90" asChild>
+          <Button
+            className="bg-primary text-black hover:bg-primary/90"
+            asChild
+            size="lg"
+          >
             <a
               href="https://wa.me/51941801827"
               target="_blank"
@@ -91,6 +99,7 @@ export function HowWeWork() {
             variant="secondary"
             className="bg-white/10 text-white hover:bg-white/15"
             asChild
+            size="lg"
           >
             <a href="/contacto">
               Solicitar cotización <ArrowRight className="ml-2 h-4 w-4" />
