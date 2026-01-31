@@ -1,0 +1,582 @@
+[
+  {
+    "type": "liquid-spill",
+    "typeSpeciality": "laptop-repair",
+    "slug": "reparacion-por-derrame-de-liquido",
+    "title": "Derrame de líquido",
+    "description": "Limpieza ultrasónica y reparación de circuitos afectados por humedad o derrames accidentales.",
+    "longDescription": "Brindamos un servicio avanzado de rescate para laptops que han sufrido accidentes con líquidos. Nuestro proceso incluye el desmontaje total, limpieza química para eliminar la corrosión en la placa base y reparación de fallas de video o encendido provocadas por cortocircuitos.",
+    "image": "/specialties/derrame-de-liquido.jpg",
+    "includes": ["Limpieza de placa base", "Secado técnico", "Pruebas de encendido y video"]
+  },
+  {
+    "type": "virus-malware-issues",
+    "typeSpeciality": "laptop-repair",
+    "slug": "eliminacion-de-virus-y-malware",
+    "title": "Problema de virus",
+    "description": "Detección y eliminación de malware, troyanos y spyware para proteger tus datos.",
+    "longDescription": "Si tu laptop está lenta, aparecen archivos extraños o programas desconocidos, es probable que esté infectada. Realizamos un escaneo profundo para eliminar virus, troyanos y spyware que causan corrupción de datos o errores de sistema, garantizando la integridad de tu información.",
+    "image": "/specialties/problema-virus.jpg",
+    "includes": ["Escaneo profundo de seguridad", "Eliminación de Malware/Spyware", "Optimización de inicio"]
+  },
+  {
+    "type": "only-leds-on",
+    "typeSpeciality": "laptop-repair",
+    "slug": "reparacion-encendido-led",
+    "title": "Solo encienden los LED",
+    "description": "Diagnóstico y solución para equipos que encienden pero no muestran imagen en pantalla.",
+    "longDescription": "Este servicio está diseñado para equipos que presentan señales de vida (luces LED o ventiladores) pero mantienen la pantalla negra. Analizamos fallas en la memoria RAM, procesador o integrados de video para devolverle la vida a tu equipo 'muerto' de manera rápida y eficiente.",
+    "image": "/specialties/solo-led.jpg",
+    "includes": ["Diagnóstico de placa madre", "Revisión de módulos de memoria", "Reparación de etapa de potencia"]
+  },
+  {
+    "type": "overheating",
+    "typeSpeciality": "laptop-repair",
+    "slug": "mantenimiento-por-sobrecalentamiento",
+    "title": "Sobrecalentamiento de laptop",
+    "description": "Mantenimiento preventivo y correctivo para evitar daños por exceso de calor.",
+    "longDescription": "El calor excesivo es el principal enemigo de los componentes internos. Realizamos un mantenimiento integral que incluye la limpieza de ventiladores, ductos de ventilación y el cambio de pasta térmica de alta conductividad para asegurar que tu laptop trabaje a la temperatura ideal.",
+    "image": "/specialties/sobrecalentamiento.jpg",
+    "includes": ["Limpieza de ventiladores", "Cambio de pasta térmica", "Optimización de flujo de aire"]
+  },
+  {
+    "type": "operating-system-failure",
+    "typeSpeciality": "laptop-repair",
+    "slug": "reparacion-sistema-operativo",
+    "title": "Fallas en Sistema Operativo",
+    "description": "Solución a pantallas azules, bloqueos constantes y errores de carga de Windows o MacOS.",
+    "longDescription": "Corregimos problemas críticos del software, desde pantallas azules y bucles de reinicio hasta lentitud extrema. Realizamos reparaciones de archivos de sistema, reinstalaciones limpias y configuración de drivers para que tu equipo funcione como nuevo.",
+    "image": "/specialties/fallas-sistema.jpg",
+    "includes": ["Reparación de arranque", "Instalación de drivers oficiales", "Optimización de registro"]
+  },
+  {
+    "type": "broken-hinges",
+    "typeSpeciality": "laptop-repair",
+    "slug": "reparacion-de-bisagras",
+    "title": "Bisagras quebradas",
+    "description": "Reconstrucción y cambio de bisagras y carcasas dañadas por el uso constante.",
+    "longDescription": "El desgaste por abrir y cerrar la laptop suele romper los soportes internos. Somos especialistas en la sustitución y reconstrucción de bisagras dañadas, asegurando que la estructura de tu pantalla recupere su firmeza y movilidad original sin riesgo de romper el cable de video.",
+    "image": "/specialties/bisagras.jpg",
+    "includes": ["Cambio de bisagras", "Refuerzo de soportes", "Ajuste de tensión"]
+  },
+  {
+    "type": "broken-screen",
+    "typeSpeciality": "laptop-repair",
+    "slug": "cambio-de-pantalla-laptop",
+    "title": "Pantalla Quebrada",
+    "description": "Sustitución inmediata de pantallas LED/LCD de todas las marcas y tamaños.",
+    "longDescription": "Una pantalla rota no significa el fin de tu equipo. Somos importadores directos de repuestos para todas las marcas (HP, Dell, Apple, etc.). Ofrecemos el cambio de paneles dañados con acabados originales y garantía técnica de funcionamiento y color.",
+    "image": "/specialties/pantalla-quebrada.jpg",
+    "includes": ["Repuestos originales", "Instalación express", "Garantía de color y brillo"]
+  },
+  {
+    "type": "keyboard-failure",
+    "typeSpeciality": "laptop-repair",
+    "slug": "reparacion-de-teclado",
+    "title": "No funciona el teclado",
+    "description": "Reparación y cambio de teclados para laptops de todas las gamas y modelos.",
+    "longDescription": "Si a tu teclado le faltan teclas, están pegajosas por derrame de líquido o simplemente no responden, realizamos el cambio completo de la pieza. Trabajamos con modelos internos, retroiluminados y de alta gama para marcas como MacBook, Asus, Toshiba y más.",
+    "image": "/specialties/teclado.jpg",
+    "includes": ["Cambio de teclado completo", "Limpieza de contactos", "Pruebas de pulsación"]
+  },
+  {
+    "type": "port-failure",
+    "typeSpeciality": "laptop-repair",
+    "slug": "reparacion-puertos-usb-carga",
+    "title": "Puertos no funcionan",
+    "description": "Reparación de puertos USB, HDMI, Audio y conectores de carga dañados.",
+    "longDescription": "Los puertos y el touchpad están sujetos a un desgaste intensivo. Reparamos soldaduras frías en puertos USB, reemplazamos conectores de carga (DC Jack) y solucionamos problemas de respuesta en el touchpad para que recuperes la conectividad total de tu dispositivo.",
+    "image": "/specialties/puertos-fallan.jpg",
+    "includes": ["Micro-soldadura de puertos", "Cambio de conectores", "Pruebas de transferencia de datos"]
+  },
+  {
+    "type": "audio-microphone-failure",
+    "typeSpeciality": "smartphone-repair",
+    "slug": "falla-microfono-audio-smartphone",
+    "title": "Falla en micrófono de iPhone o Galaxy",
+    "description": "Reparación de problemas de audio, distorsión en auriculares o fallas en el micrófono.",
+    "longDescription": "Solucionamos problemas donde el sonido es deficiente, distorsionado o nulo al conectar auriculares o usar el modo manos libres. Si no te escuchan durante las llamadas o el audio solo sale por un auricular, realizamos el cambio de los componentes de audio y jack correspondientes.",
+    "image": "/specialties/falla-audio.jpg",
+    "includes": ["Cambio de micrófono", "Reparación de jack de audio", "Limpieza de canales de sonido"]
+  },
+  {
+    "type": "smartphone-overheating",
+    "typeSpeciality": "smartphone-repair",
+    "slug": "sobrecalentamiento-smartphone",
+    "title": "Sobrecalentamiento de iPhone o Galaxy",
+    "description": "Diagnóstico y solución para equipos que calientan de forma anormal durante su uso.",
+    "longDescription": "Si tu dispositivo calienta excesivamente al realizar llamadas o utilizar aplicaciones, es una señal de alerta que requiere revisión inmediata. Identificamos si el problema se debe a procesos en segundo plano, fallas en la batería o cortocircuitos internos en la placa.",
+    "image": "/specialties/sobrecalentamiento-smartphone.jpg",
+    "includes": ["Diagnóstico térmico", "Revisión de consumo de batería", "Optimización de sistema"]
+  },
+  {
+    "type": "broken-home-button",
+    "typeSpeciality": "smartphone-repair",
+    "slug": "boton-home-danado",
+    "title": "Botón Home o inicio dañado",
+    "description": "Reparación o reemplazo de botones de inicio atascados, duros o que no responden.",
+    "longDescription": "Corregimos fallas en el botón Home cuando este se encuentra duro, atascado o funciona de forma intermitente. Este componente es vital para el encendido y navegación correcta del iPhone o Galaxy, por lo que realizamos una sustitución técnica para recuperar su sensibilidad original.",
+    "image": "/specialties/boton-home.jpg",
+    "includes": ["Reemplazo de botón de inicio", "Limpieza de contactos", "Ajuste de presión mecánica"]
+  },
+  {
+    "type": "broken-touch-lcd",
+    "typeSpeciality": "smartphone-repair",
+    "slug": "touch-quebrado-iphone-galaxy",
+    "title": "Touch quebrado de iPhone o Galaxy",
+    "description": "Sustitución de pantalla táctil y digitalizador para equipos con cristal roto.",
+    "longDescription": "Diferenciamos entre el daño del cristal protector y la pantalla táctil (digitalizadora). Si tu pantalla presenta quebraduras pero el equipo sigue encendiendo, realizamos el cambio del panel táctil para restaurar la funcionalidad completa del dispositivo.",
+    "image": "/specialties/touch-quebrado.jpg",
+    "includes": ["Cambio de digitalizador", "Sustitución de cristal frontal", "Calibración de tacto"]
+  },
+  {
+    "type": "charging-port-failure",
+    "typeSpeciality": "smartphone-repair",
+    "slug": "problemas-jack-puerto-carga",
+    "title": "Problemas con el Jack de tu iPhone",
+    "description": "Reparación de puertos de carga flojos o que no reconocen la conexión a iTunes.",
+    "longDescription": "Si el puerto de carga se ha aflojado o el equipo no se conecta adecuadamente a la computadora para sincronizar con iTunes, realizamos el cambio del conector de carga. Utilizamos repuestos originales para asegurar una carga rápida y estable.",
+    "image": "/specialties/puerto-carga.jpg",
+    "includes": ["Cambio de pin de carga", "Limpieza de puerto", "Pruebas de transferencia de datos"]
+  },
+  {
+    "type": "liquid-contact",
+    "typeSpeciality": "smartphone-repair",
+    "slug": "contacto-con-liquidos-smartphone",
+    "title": "Problemas por contacto con líquidos",
+    "description": "Tratamiento de deshumidificación y limpieza química para equipos mojados.",
+    "longDescription": "El contacto con agua u otros líquidos es una de las causas más comunes de avería en smartphones. Realizamos una revisión profunda para diagnosticar componentes internos afectados y prevenir la corrosión que puede dejar el equipo inoperativo permanentemente.",
+    "image": "/specialties/contacto-liquidos.jpg",
+    "includes": ["Limpieza ultrasónica", "Deshumidificación técnica", "Tratamiento anticorrosión"]
+  },
+  {
+    "type": "battery-issues",
+    "typeSpeciality": "smartphone-repair",
+    "slug": "problemas-bateria-smartphone",
+    "title": "Problemas en batería de Smartphone",
+    "description": "Cambio de baterías que duran poco tiempo o no cargan correctamente.",
+    "longDescription": "Si tu batería se carga completamente pero dura mucho menos de lo normal, es una señal clara de agotamiento de vida útil. Contamos con herramientas especializadas para sustituir la batería interna por una nueva de alto rendimiento.",
+    "image": "/specialties/problema-bateria.jpg",
+    "includes": ["Sustitución de batería interna", "Pruebas de ciclos de carga", "Garantía de autonomía"]
+  },
+  {
+    "type": "camera-failure",
+    "typeSpeciality": "smartphone-repair",
+    "slug": "problemas-camara-smartphone",
+    "title": "Problemas de cámara de iPhone o Galaxy",
+    "description": "Reparación de cámaras que toman fotos pixeleadas o que no responden.",
+    "longDescription": "Solucionamos fallas de hardware en cámaras frontales y traseras cuando las fotografías salen desenfocadas, con manchas o si la aplicación de cámara se queda en negro. Realizamos el cambio del módulo de cámara completo para recuperar la nitidez original.",
+    "image": "/specialties/problema-camara.jpg",
+    "includes": ["Cambio de módulo de cámara", "Limpieza de lente interno", "Pruebas de enfoque"]
+  },
+  {
+    "type": "wifi-connectivity-failure",
+    "typeSpeciality": "smartphone-repair",
+    "slug": "problemas-wifi-cobertura",
+    "title": "No reconoce WIFI",
+    "description": "Solución a problemas de pérdida de datos o falta de cobertura de señal inalámbrica.",
+    "longDescription": "Reparamos fallas de conectividad cuando el terminal presenta poca cobertura de señal o no logra detectar redes inalámbricas cercanas. Analizamos la antena interna y los chips de red para asegurar una navegación estable y veloz.",
+    "image": "/specialties/falla-wifi.jpg",
+    "includes": ["Reparación de antena WiFi", "Configuración de red", "Cambio de chip de señal"]
+  },
+  {
+    "type": "broken-lcd",
+    "typeSpeciality": "smartphone-repair",
+    "slug": "lcd-quebrado-smartphone",
+    "title": "LCD quebrado de iPhone o Galaxy",
+    "description": "Sustitución de pantalla LCD interna para equipos con manchas o sin imagen.",
+    "longDescription": "Cuando el panel LCD interno se daña, suelen aparecer manchas negras o líneas de colores. Aunque el cristal exterior parezca intacto, si la imagen se ve afectada, es necesaria una revisión y cambio del módulo de visualización para que el iPhone vuelva a ser operativo.",
+    "image": "/specialties/lcd-quebrado.jpg",
+    "includes": ["Cambio de panel LCD", "Pruebas de brillo", "Ajuste de color"]
+  },
+  {
+    "type": "reboot-loop-issue",
+    "typeSpeciality": "smartphone-repair",
+    "slug": "smartphone-se-reinicia",
+    "title": "Se reinicia tu iPhone o Galaxy",
+    "description": "Diagnóstico de equipos que se quedan pegados en el logo o se reinician constantemente.",
+    "longDescription": "Si tu dispositivo no enciende, se queda en pantalla negra o entra en un bucle de reinicios constantes, es urgente una revisión técnica. Identificamos si se trata de un error de software crítico o una falla de hardware en el sector de arranque.",
+    "image": "/specialties/reinicio-loop.jpg",
+    "includes": ["Restauración de sistema", "Diagnóstico de memoria flash", "Reparación de arranque"]
+  },
+  {
+    "type": "broken-touch-screen",
+    "typeSpeciality": "tablet-repair",
+    "slug": "pantalla-touch-quebrada-tablet",
+    "title": "Pantalla de touch quebrada",
+    "description": "Reemplazo del cristal exterior sensibilizado para iPad o Galaxy Tab.",
+    "longDescription": "Muchos usuarios piensan que al quebrarse la pantalla se debe cambiar toda la pieza. En la mayoría de los casos, solo es necesario cambiar el cristal transparente sensibilizado (digitalizador). Realizamos el cambio técnico para que tu iPad o Galaxy Tab recupere su funcionalidad táctil original.",
+    "image": "/specialties/touch-quebrado-tablet.jpg",
+    "includes": ["Cambio de digitalizador", "Limpieza de residuos de cristal", "Pruebas de precisión táctil"]
+  },
+  {
+    "type": "touch-lcd-damage",
+    "typeSpeciality": "tablet-repair",
+    "slug": "touch-lcd-quebrado-ipad",
+    "title": "Touch+ LCD quebrado de tu iPad o Galaxy Tab",
+    "description": "Sustitución completa de visualizador y táctil cuando ambos componentes están dañados.",
+    "longDescription": "Si tu tablet presenta rotura tanto en el cristal protector como en la pantalla interna (LCD), realizamos una sustitución integral del módulo. Distinguimos cuidadosamente el nivel de daño para ofrecerte la solución más eficiente y devolver la imagen nítida a tu dispositivo.",
+    "image": "/specialties/touch-lcd-tablet.jpg",
+    "includes": ["Reemplazo de módulo completo", "Calibración de imagen", "Sellado de fábrica"]
+  },
+  {
+    "type": "touch-malfunction",
+    "typeSpeciality": "tablet-repair",
+    "slug": "falla-touch-ipad-tablet",
+    "title": "No Funciona el Touch de tu iPad o Galaxy Tab",
+    "description": "Reparación de pantallas que se congelan o funcionan solo por partes.",
+    "longDescription": "Cuando la imagen se congela o el touch deja de responder total o parcialmente, suele ser resultado de fallas de fábrica o golpes internos. Realizamos un diagnóstico para determinar si es necesario el cambio de la pieza para restaurar la interactividad del equipo.",
+    "image": "/specialties/falla-touch-tablet.jpg",
+    "includes": ["Diagnóstico de controlador táctil", "Revisión de flexores", "Pruebas de respuesta"]
+  },
+  {
+    "type": "liquid-accident",
+    "typeSpeciality": "tablet-repair",
+    "slug": "accidente-liquidos-tablet",
+    "title": "Accidente de líquidos con tu iPhone o Galaxy Tab",
+    "description": "Tratamiento de emergencia para equipos sumergidos o mojados.",
+    "longDescription": "El contacto con agua u otros líquidos es una de las causas de avería más comunes. Realizamos una apertura inmediata y limpieza química para evitar que los componentes internos se dañen permanentemente por corrosión o cortocircuitos.",
+    "image": "/specialties/liquidos-tablet.jpg",
+    "includes": ["Secado profesional", "Limpieza de sulfatación", "Pruebas de encendido post-secado"]
+  },
+  {
+    "type": "home-button-repair",
+    "typeSpeciality": "tablet-repair",
+    "slug": "reparacion-boton-home-tablet",
+    "title": "Reparación de Boton Home",
+    "description": "Corrección de botones de inicio atascados o que no responden.",
+    "longDescription": "Si el botón Home de tu iPad o Galaxy Tab no funciona, está muy duro o responde de forma intermitente, lo reparamos o sustituimos. Es vital para el encendido y la navegación correcta del sistema operativo de tu tablet.",
+    "image": "/specialties/boton-home-tablet.jpg",
+    "includes": ["Sustitución de membrana", "Ajuste de presión", "Limpieza de contactos"]
+  },
+  {
+    "type": "battery-replacement",
+    "typeSpeciality": "tablet-repair",
+    "slug": "cambio-bateria-tablet",
+    "title": "Cambio de batería",
+    "description": "Sustitución de baterías agotadas que no cargan o duran poco.",
+    "longDescription": "Es muy común que tras un tiempo de uso la batería deje de cargar correctamente. Realizamos un diagnóstico del sistema de rendimiento y verificamos las entradas de voltaje para asegurar que el cambio de batería sea la solución definitiva.",
+    "image": "/specialties/bateria-tablet.jpg",
+    "includes": ["Prueba de ciclos de carga", "Instalación de batería nueva", "Revisión de IC de carga"]
+  },
+  {
+    "type": "auto-reboot-issue",
+    "typeSpeciality": "tablet-repair",
+    "slug": "se-reinicia-sola-tablet",
+    "title": "Se reinicia sola tu iPad o Galaxy",
+    "description": "Solución para equipos que se quedan en pantalla negra o bucles de reinicio.",
+    "longDescription": "Si tu tablet no enciende o se reinicia constantemente, es una señal de alarma urgente. Diagnosticamos si el problema reside en el software corrupto, la memoria flash o fallos en la etapa de potencia de la placa.",
+    "image": "/specialties/reinicio-tablet.jpg",
+    "includes": ["Restauración de firmware", "Diagnóstico de placa", "Recuperación de arranque"]
+  },
+  {
+    "type": "deformation-swollen-battery",
+    "typeSpeciality": "tablet-repair",
+    "slug": "deformacion-ipad-tablet",
+    "title": "Deformación en tu iPad o Galaxy",
+    "description": "Reparación de equipos con baterías hinchadas que deforman la estructura.",
+    "longDescription": "Las baterías hinchadas pueden calentar el equipo y deformar la carcasa o pantalla. Somos importadores directos de partes y repuestos para modelos iPad (1 al 4, Mini, Air) y Galaxy Tab, permitiendo una reparación estructural segura.",
+    "image": "/specialties/deformacion-tablet.jpg",
+    "includes": ["Cambio de batería hinchada", "Alineación de carcasa", "Revisión de integridad de pantalla"]
+  },
+  {
+    "type": "unlocking-service",
+    "typeSpeciality": "tablet-repair",
+    "slug": "desbloqueo-ipad-tablet",
+    "title": "Desbloqueo de iPad y Galaxy Tab",
+    "description": "Servicio técnico para recuperar el acceso a equipos bloqueados por contraseña.",
+    "longDescription": "¿Olvidaste tu contraseña? Realizamos procesos técnicos bajo tu autorización para desbloquear el acceso a tu equipo. Somos profesionales en solucionar este tipo de fallas de acceso a nivel de sistema y BIOS.",
+    "image": "/specialties/desbloqueo-tablet.jpg",
+    "includes": ["Restablecimiento de fábrica", "Remoción de bloqueos de software", "Actualización de sistema"]
+  },
+  {
+    "type": "camera-issues",
+    "typeSpeciality": "tablet-repair",
+    "slug": "problemas-camara-tablet",
+    "title": "Problemas en cámara",
+    "description": "Reparación de cámaras que toman fotos borrosas o no abren.",
+    "longDescription": "Si detectas fotos pixeleadas o si la cámara simplemente no responde, realizamos el cambio del módulo. Contamos con piezas originales para que la cámara de tu tablet funcione tan bien como el primer día.",
+    "image": "/specialties/camara-tablet.jpg",
+    "includes": ["Sustitución de cámara frontal/trasera", "Limpieza de lente", "Calibración de enfoque"]
+  },
+  {
+    "type": "port-connector-failure",
+    "typeSpeciality": "tablet-repair",
+    "slug": "problemas-puertos-tablet",
+    "title": "Problemas en los puertos",
+    "description": "Reparación o sustitución de puertos de carga y conectores Jack.",
+    "longDescription": "Si el puerto de carga se afloja o no reconoce los dispositivos conectados, es necesaria una sustitución. Contamos con repuestos originales para iPad (todos los modelos) y Galaxy Tab para garantizar una conexión estable.",
+    "image": "/specialties/puertos-tablet.jpg",
+    "includes": ["Cambio de pin de carga", "Reparación de Jack de audio", "Soldadura de precisión"]
+  },
+  {
+    "type": "video-distortion",
+    "typeSpeciality": "projector-repair",
+    "slug": "distorsion-de-video-proyector",
+    "title": "Distorsión en el vídeo",
+    "description": "Corrección de imágenes deformadas o con colores alterados en proyecciones.",
+    "longDescription": "Si tras realizar los ajustes de configuración la imagen sigue viéndose distorsionada, el problema puede ser interno. Nuestro Centro de Servicio Técnico resolverá fallas en el procesado de imagen y ópticos para recuperar la geometría y fidelidad de tu proyección.",
+    "image": "/specialties/distorsion-video-proyector.jpg",
+    "includes": ["Ajuste de convergencia", "Revisión de chip DMD/LCD", "Calibración de color"]
+  },
+  {
+    "type": "blurry-image",
+    "typeSpeciality": "projector-repair",
+    "slug": "imagen-borrosa-proyector",
+    "title": "Imagen borrosa",
+    "description": "Limpieza y ajuste de lentes para recuperar la nitidez y el enfoque perdido.",
+    "longDescription": "Una proyección desenfocada puede deberse a suciedad interna o desajuste de los lentes. Cuando los controles externos no bastan, realizamos una limpieza técnica profunda del bloque óptico y ajuste de los cristales para garantizar una imagen clara.",
+    "image": "/specialties/imagen-borrosa-proyector.jpg",
+    "includes": ["Limpieza de ópticas", "Ajuste de foco interno", "Mantenimiento preventivo"]
+  },
+  {
+    "type": "dotted-image",
+    "typeSpeciality": "projector-repair",
+    "slug": "imagen-con-puntos-proyector",
+    "title": "Imagen con puntos",
+    "description": "Reparación de fallas de píxeles o puntos blancos y negros en la pantalla.",
+    "longDescription": "La aparición de puntos en la proyección es una falla crítica que no debe pasarse por alto. Contamos con especialistas para diagnosticar si el problema reside en el chip DMD o en los paneles LCD, devolviendo la pureza visual a tus presentaciones.",
+    "image": "/specialties/puntos-imagen-proyector.jpg",
+    "includes": ["Cambio de chip DMD", "Revisión de matriz", "Limpieza de motas de polvo"]
+  },
+  {
+    "type": "no-signal-message",
+    "typeSpeciality": "projector-repair",
+    "slug": "mensaje-sin-senal-proyector",
+    "title": "Mensaje de 'sin señal'",
+    "description": "Solución a problemas de conectividad y reconocimiento de puertos de entrada.",
+    "longDescription": "Si tu proyector muestra 'Sin Señal' incluso con cables conectados, diagnosticamos fallas a nivel de fabricante. Reparamos puertos HDMI, VGA y circuitos integrados que gestionan la entrada de video para que tu equipo vuelva a reconocer cualquier dispositivo.",
+    "image": "/specialties/sin-senal-proyector.jpg",
+    "includes": ["Reparación de puertos HDMI/VGA", "Diagnóstico de mainboard", "Pruebas de conectividad"]
+  },
+  {
+    "type": "auto-shutdown-reboot",
+    "typeSpeciality": "projector-repair",
+    "slug": "proyector-se-apaga-o-reinicia",
+    "title": "Se apaga o se reinicia solo",
+    "description": "Diagnóstico de fallas eléctricas que causan apagados repentinos del equipo.",
+    "longDescription": "Cuando un proyector se apaga al poco tiempo de encendido o entra en un bucle de reinicio, es señal de una falla interna inminente. Revisamos sensores de temperatura, ventiladores y fuentes de poder para asegurar un funcionamiento continuo.",
+    "image": "/specialties/reinicio-proyector.jpg",
+    "includes": ["Revisión de fuente de poder", "Mantenimiento de ventilación", "Diagnóstico de sensores"]
+  },
+  {
+    "type": "lamp-failure",
+    "typeSpeciality": "projector-repair",
+    "slug": "falla-lampara-proyector",
+    "title": "¿Falla la lámpara?",
+    "description": "Cambio de lámparas originales y reparación de circuitos de encendido.",
+    "longDescription": "Si tu proyector solo enciende los LED de advertencia y no proyecta luz, es probable que la lámpara haya llegado al fin de su vida útil. Somos especialistas en diagnóstico y cambio de lámparas para todas las marcas y modelos del mercado.",
+    "image": "/specialties/falla-lampara.jpg",
+    "includes": ["Sustitución de lámpara original", "Reseteo de contador", "Limpieza de ductos de calor"]
+  },
+  {
+    "type": "projector-overheating",
+    "typeSpeciality": "projector-repair",
+    "slug": "sobrecalentamiento-proyector",
+    "title": "¿Tu Proyector se Recalienta?",
+    "description": "Servicio de enfriamiento y limpieza para evitar daños por exceso de temperatura.",
+    "longDescription": "El calor exagerado es una señal de alarma que requiere atención inmediata para prevenir problemas graves. Aplicamos un diagnóstico adecuado para optimizar el sistema de enfriamiento y evitar que los componentes internos se fundan por altas temperaturas.",
+    "image": "/specialties/sobrecalentamiento-proyector.jpg",
+    "includes": ["Limpieza de filtros", "Lubricación de extractores", "Cambio de sensores térmicos"]
+  },
+  {
+    "type": "forgotten-password",
+    "typeSpeciality": "all-in-one-repair",
+    "slug": "recuperacion-contrasena-pc-all-in-one",
+    "title": "¿Olvidaste la contraseña de tu PC?",
+    "description": "Servicio técnico para recuperar el acceso a tu equipo All-in-One bloqueado.",
+    "longDescription": "Si has olvidado la contraseña de inicio de sesión y no puedes ingresar a tu sistema, realizamos procesos técnicos avanzados para restablecer el acceso. Trabajamos bajo tu autorización para desbloquear el equipo o quitar la contraseña de la BIOS sin comprometer tus archivos personales.",
+    "image": "/specialties/contrasena-bloqueada-aio.jpg",
+    "includes": ["Restablecimiento de credenciales", "Desbloqueo de BIOS", "Protección de datos personales"]
+  },
+  {
+    "type": "blue-screen-error",
+    "typeSpeciality": "all-in-one-repair",
+    "slug": "reparacion-pantalla-azul-aio",
+    "title": "¿Pantalla Azul?",
+    "description": "Solución a errores críticos de sistema, lentitud extrema y bloqueos constantes.",
+    "longDescription": "La aparición de pantallas azules o moradas indica fallas críticas en el software o hardware. Diagnosticamos la raíz del problema, ya sea por archivos de sistema corruptos, drivers incompatibles o fallos en el disco duro, garantizando que tu All-in-One vuelva a ser estable y rápida.",
+    "image": "/specialties/pantalla-azul-aio.jpg",
+    "includes": ["Reparación de registro de Windows", "Actualización de drivers oficiales", "Optimización de arranque"]
+  },
+  {
+    "type": "motherboard-repair",
+    "typeSpeciality": "all-in-one-repair",
+    "slug": "reparacion-placa-madre-aio",
+    "title": "Reparación de Placas",
+    "description": "Servicio avanzado a nivel componente para fallas complejas en la motherboard.",
+    "longDescription": "Realizamos reparaciones electrónicas profundas en la placa base de tu All-in-One. Somos expertos en microsoldadura y diagnóstico de circuitos integrados, permitiéndonos solucionar fallas que otros centros consideran 'irreparables' sin necesidad de cambiar la placa completa.",
+    "image": "/specialties/reparacion-placa-aio.jpg",
+    "includes": ["Diagnóstico electrónico", "Cambio de condensadores/MOSFETs", "Mantenimiento a nivel componente"]
+  },
+  {
+    "type": "no-video-output",
+    "typeSpeciality": "all-in-one-repair",
+    "slug": "falla-imagen-video-aio",
+    "title": "¿No da Imagen?",
+    "description": "Diagnóstico de equipos que encienden pero mantienen la pantalla en negro.",
+    "longDescription": "Si tu PC enciende, giran los ventiladores y cargan los LED pero no muestra imagen, el problema puede residir en el chip de video o la pantalla. Realizamos pruebas de descarte en la BIOS y el hardware gráfico para devolver la señal de video a tu equipo.",
+    "image": "/specialties/sin-imagen-aio.jpg",
+    "includes": ["Revisión de chip gráfico", "Pruebas de pantalla interna", "Mantenimiento preventivo"]
+  },
+  {
+    "type": "damaged-aio-screen",
+    "typeSpeciality": "all-in-one-repair",
+    "slug": "cambio-pantalla-dañada-aio",
+    "title": "Pantalla Dañada",
+    "description": "Sustitución de paneles LED/LCD quebrados para computadoras All-in-One.",
+    "longDescription": "Una pantalla quebrada no significa el fin de tu All-in-One. Somos importadores directos de paneles de repuesto para todas las marcas y tamaños. Realizamos el cambio técnico del módulo de visualización asegurando un acabado original y garantía de color.",
+    "image": "/specialties/pantalla-quebrada-aio.jpg",
+    "includes": ["Repuestos originales", "Instalación de alta precisión", "Garantía de funcionamiento"]
+  },
+  {
+    "type": "auto-power-off",
+    "typeSpeciality": "all-in-one-repair",
+    "slug": "pc-all-in-one-se-apaga",
+    "title": "¿Tu All in One Se Apaga Sola?",
+    "description": "Reparación de equipos con apagados repentinos o reinicios intermitentes.",
+    "longDescription": "Los apagados inesperados suelen ser causados por fallas en la fuente de poder o saturación térmica. Nuestro servicio incluye una revisión profunda de la etapa de potencia y el sistema de enfriamiento para evitar daños mayores en los componentes internos de tu PC.",
+    "image": "/specialties/reinicio-solo-aio.jpg",
+    "includes": ["Revisión de fuente interna", "Mantenimiento de ventilación", "Reseteo técnico de BIOS"]
+  },
+  {
+    "type": "virus-cleaning-aio",
+    "typeSpeciality": "all-in-one-repair",
+    "slug": "limpieza-virus-malware-aio",
+    "title": "¿Virus?",
+    "description": "Eliminación profunda de amenazas digitales sin formatear ni perder tus archivos.",
+    "longDescription": "Si tu All-in-One abre ventanas de publicidad o se congela al navegar, realizamos una limpieza exhaustiva de virus y malware. Nuestro proceso incluye la creación de copias de seguridad de tus documentos para garantizar que tu información esté a salvo durante la desinfección.",
+    "image": "/specialties/virus-aio.jpg",
+    "includes": ["Escaneo profundo de seguridad", "Backup de archivos", "Optimización de sistema operativo"]
+  },
+  {
+    "type": "aio-overheating",
+    "typeSpeciality": "all-in-one-repair",
+    "slug": "sobrecalentamiento-pc-aio",
+    "title": "Sobrecalentamiento",
+    "description": "Limpieza interna y cambio de pasta térmica para evitar daños por calor excesivo.",
+    "longDescription": "Las All-in-One tienden a acumular polvo rápidamente debido a su diseño compacto. Realizamos un mantenimiento preventivo completo que incluye la limpieza de ductos de ventilación y el cambio de pasta térmica para asegurar que tu equipo trabaje a temperaturas óptimas.",
+    "image": "/specialties/calentamiento-aio.jpg",
+    "includes": ["Limpieza de disipadores", "Cambio de pasta térmica premium", "Lubricación de ventiladores"]
+  },
+  {
+    "type": "dead-pc-repair",
+    "typeSpeciality": "all-in-one-repair",
+    "slug": "pc-aio-no-enciende",
+    "title": "No Enciende",
+    "description": "Reparación de equipos sin signos de vida o con olor a quemado.",
+    "longDescription": "Diagnosticamos computadoras All-in-One que no dan señales de inicio o que presentan parpadeos de LED sin encender. Somos especialistas en detectar cortocircuitos en la placa o fallas en el sistema de carga, incluso si el equipo presenta olor a quemado.",
+    "image": "/specialties/no-prende-aio.jpg",
+    "includes": ["Diagnóstico de etapa de carga", "Detección de cortocircuitos", "Reparación de placa base"]
+  },
+  {
+    "type": "hard-drive-data-recovery",
+    "typeSpeciality": "data-recovery",
+    "slug": "recuperacion-de-datos-disco-duro",
+    "title": "Recuperación de Datos",
+    "description": "Servicio profesional para rescatar información de discos duros con fallas lógicas o físicas.",
+    "longDescription": "Los discos duros pueden sufrir múltiples fallas debido a golpes, apagados forzosos o sectores dañados. Recuperamos tu información ante borrados accidentales, formateos por error, daños por virus o corrupción lógica del sistema, garantizando la mayor tasa de éxito en el rescate de tus archivos personales y de trabajo.",
+    "image": "/specialties/recuperacion-datos.jpg",
+    "includes": [
+      "Diagnóstico de sectores dañados",
+      "Recuperación por borrado accidental",
+      "Rescate de archivos por falla lógica"
+    ]
+  },
+  {
+    "type": "server-and-network-maintenance",
+    "typeSpeciality": "servers-and-network-maintenance",
+    "slug": "mantenimiento-de-servidores-y-redes",
+    "title": "Servidores y Redes",
+    "description": "Mantenimiento integral y soporte técnico para infraestructuras de servidores y redes empresariales.",
+    "longDescription": "Contamos con años de experiencia brindando soluciones especializadas para servidores. Nuestro servicio asegura la operatividad constante de tu infraestructura de red, optimizando el rendimiento del hardware y garantizando la conectividad estable de todos tus sistemas críticos corporativos.",
+    "image": "/specialties/servidores-redes.jpg",
+    "includes": [
+      "Mantenimiento preventivo de servidores",
+      "Configuración de redes locales",
+      "Optimización de conectividad"
+    ]
+  },
+  {
+    "type": "chipset-reballing",
+    "typeSpeciality": "reballing",
+    "slug": "servicio-de-reballing-profesional",
+    "title": "¿Necesitas Reballing?",
+    "description": "Reparación avanzada de soldaduras en el chipset para equipos con fallas de video o encendido.",
+    "longDescription": "El reballing es un servicio especializado para equipos que encienden pero no dan imagen, muestran mala calidad visual, se sobrecalientan o se apagan y reinician sin previo aviso. Esta técnica soluciona fallas críticas de conexión entre el chip y la placa base, devolviendo la operatividad a equipos que presentan errores de encendido espontáneo o distorsión de video.",
+    "image": "/specialties/reballing-service.jpg",
+    "includes": [
+      "Extracción y limpieza de chip",
+      "Sustitución de esferas de soldadura",
+      "Pruebas térmicas de rendimiento"
+    ]
+  },
+  {
+    "type": "cctv-installation-maintenance",
+    "typeSpeciality": "security-camera-installation",
+    "slug": "instalacion-mantenimiento-camaras-seguridad",
+    "title": "Cámaras de Seguridad",
+    "description": "Soluciones completas de videovigilancia, desde la instalación hasta el mantenimiento preventivo.",
+    "longDescription": "Ofrecemos un servicio especializado en sistemas de seguridad y monitoreo. Realizamos la instalación técnica de cámaras, configuración de DVR/NVR y mantenimiento de redes de videovigilancia para garantizar la protección de tus espacios personales o comerciales con tecnología de alta definición.",
+    "image": "/specialties/camaras-seguridad.jpg",
+    "includes": [
+      "Instalación de cámaras de seguridad",
+      "Configuración de monitoreo remoto",
+      "Mantenimiento de sistemas de grabación"
+    ]
+  },
+  {
+    "type": "intercom-system-installation",
+    "typeSpeciality": "intercom-installation",
+    "slug": "instalacion-y-reparacion-de-intercomunicadores",
+    "title": "Instalación de Intercomunicadores",
+    "description": "Instalación, configuración y reparación de sistemas de intercomunicación y videoporteros.",
+    "longDescription": "Brindamos soluciones integrales en comunicación y acceso para hogares, edificios y empresas. Nuestro servicio abarca desde el cableado estructurado hasta la instalación de frentes de calle y citófonos internos, asegurando una comunicación clara y un control de acceso seguro y eficiente para tu propiedad.",
+    "image": "/specialties/intercom-installation.jpg",
+    "includes": [
+      "Instalación de frentes de calle",
+      "Configuración de videoporteros",
+      "Mantenimiento de cableado y audio"
+    ]
+  },
+  {
+    "type": "mechanical-components-repair",
+    "typeSpeciality": "printer-and-copier-repair",
+    "slug": "reparacion-componentes-mecanicos-impresora",
+    "title": "Falla en Rodillos y Fajas",
+    "description": "Reparación de sistemas de tracción y mecanismos internos de impresión.",
+    "longDescription": "Resolvemos problemas de atascos de papel frecuentes y ruidos extraños causados por el desgaste de rodillos, fajas de transferencia y engranajes. Sustituimos las piezas mecánicas dañadas para asegurar que el flujo de papel sea continuo y sin obstrucciones en equipos de alto volumen.",
+    "image": "/specialties/mecanismo-impresora.jpg",
+    "includes": ["Cambio de gomas de arrastre", "Sustitución de fajas", "Lubricación de engranajes"]
+  },
+  {
+    "type": "laser-unit-repair",
+    "typeSpeciality": "printer-and-copier-repair",
+    "slug": "reparacion-unidad-laser-copiadora",
+    "title": "Falla en Unidad Láser o Escáner",
+    "description": "Diagnóstico y reparación de errores de lectura y unidades de exposición láser.",
+    "longDescription": "Si tu copiadora muestra códigos de error relacionados con la unidad láser o si las impresiones salen con manchas o sectores borrosos, realizamos la limpieza y calibración del sistema óptico. Reparamos el polígono motor y los espejos internos para devolver la nitidez a tus documentos.",
+    "image": "/specialties/unidad-laser.jpg",
+    "includes": ["Limpieza de espejos ópticos", "Calibración de unidad láser", "Solución de errores de escáner"]
+  },
+  {
+    "type": "logic-board-printer-repair",
+    "typeSpeciality": "printer-and-copier-repair",
+    "slug": "reparacion-placa-logica-impresora",
+    "title": "Falla en Placa Lógica",
+    "description": "Reparación de circuitos electrónicos y puertos de comunicación en impresoras.",
+    "longDescription": "Atendemos problemas donde la impresora no es reconocida por la computadora o no procesa las órdenes de impresión. Reparamos la placa principal (Mainboard) y los puertos USB o de red que puedan haber sufrido daños por picos de voltaje o uso intensivo.",
+    "image": "/specialties/placa-impresora.jpg",
+    "includes": ["Reparación de puertos USB/Red", "Diagnóstico de firmware", "Cambio de componentes electrónicos"]
+  },
+  {
+    "type": "continuous-ink-installation",
+    "typeSpeciality": "printer-and-copier-repair",
+    "slug": "instalacion-sistema-tinta-continua",
+    "title": "Instalación de Sistema Continuo",
+    "description": "Adaptación de sistemas de tinta de alto rendimiento para ahorro de costos.",
+    "longDescription": "Realizamos la instalación profesional de tanques de tinta externos para impresoras de inyección. Este sistema permite imprimir grandes volúmenes a una fracción del costo de los cartuchos originales, incluyendo la purga de mangueras y configuración de niveles de tinta.",
+    "image": "/specialties/sistema-continuo.jpg",
+    "includes": ["Montaje de tanques externos", "Purga de aire en mangueras", "Configuración de cartuchos rellenables"]
+  }
+]
