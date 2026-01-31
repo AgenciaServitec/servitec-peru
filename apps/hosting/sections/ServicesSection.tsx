@@ -1,6 +1,6 @@
 "use client";
 
-import { ServicesList } from "@/data-list";
+import { ServicesData } from "@/data-list";
 import React, { useState } from "react";
 import Image from "next/image";
 import { ContentWidth } from "@/components/ContentWidth";
@@ -11,7 +11,7 @@ export const ServicesSection = () => {
     "laptop-repair"
   );
 
-  const selectedService = ServicesList.find(
+  const selectedService = ServicesData.find(
     (service) => service.type === selectedType
   );
   return (
@@ -38,7 +38,7 @@ export const ServicesSection = () => {
             px-1 lg:px-0 snap-x snap-mandatory
           "
           >
-            {ServicesList.map((service) => (
+            {ServicesData.map((service) => (
               <button
                 key={service.type}
                 onClick={() =>

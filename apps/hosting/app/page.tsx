@@ -1,21 +1,17 @@
-import { Hero, Specialties } from "@/sections";
+import { Hero, SocialProof, Specialties } from "@/sections";
 import { HowWeWork } from "@/sections/HowWeWork";
+import { CommonIssuesBridge } from "@/sections/CommonIssuesBridge";
 import { Location } from "@/sections/Location";
-import { CTA } from "@/sections/CTA";
 
 export default function Home() {
   return (
     <main>
       <Hero />
+      <CommonIssuesBridge />
       <Specialties />
       <HowWeWork />
       <Location />
-      <CTA />
-      {/*<WhatDoWeDo />*/}
-      {/*<ServicesSection />*/}
-      {/*<BusinessBoostBanner />*/}
-      {/*<NewsLetterSection />*/}
-      {/*<BrandsSection />*/}
+      <SocialProof />
     </main>
   );
 }

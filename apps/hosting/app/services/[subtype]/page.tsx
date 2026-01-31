@@ -1,10 +1,10 @@
-import { ServicesList } from "@/data-list";
+import { ServicesData } from "@/data-list";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
 function findSubtype(subtype: string) {
-  for (const service of ServicesList) {
+  for (const service of ServicesData) {
     if (!service.subtype) continue;
 
     const found = service.subtype.find((s) => s.subtype === subtype);
