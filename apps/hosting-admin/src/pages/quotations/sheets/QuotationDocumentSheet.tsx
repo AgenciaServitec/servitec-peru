@@ -387,11 +387,14 @@ const InfoItem = styled.div`
 
 const TechnicalInfo = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 0.8em;
   padding: 0 0.5em;
 
   .tech-item {
+    &:first-child {
+      grid-column: span 2;
+    }
     h4 {
       font-size: 14px;
       font-weight: 600;
