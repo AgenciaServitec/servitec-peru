@@ -18,8 +18,18 @@ import {
   faSignInAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { assistancesRef } from "../../firebase/collections";
-import { ModalProvider, useAuthentication, useModal } from "../../providers";
+import {
+  addAssistance,
+  assistancesRef,
+  fetchUser,
+  getAssistanceId,
+} from "../../firebase/collections";
+import {
+  ModalProvider,
+  useAuthentication,
+  useModal,
+  type User,
+} from "../../providers";
 import { AssistancesFilter } from "./AssistancesFilter.tsx";
 import { AssistancesNameFilter } from "./AssistancesNameFilter.tsx";
 
@@ -27,7 +37,7 @@ import type { Assistance } from "../../globalTypes.ts";
 import type { DateFilter } from "./types.ts";
 import { exportAssistancesExcel } from "./_utils";
 import { AssistancesSubmitOrderLunch } from "./AssistancesSubmitOrderLunch.tsx";
-import { useDevice } from "../../hooks";
+import { useDefaultFirestoreProps, useDevice } from "../../hooks";
 import { AssistancesTable } from "./Assistances.Table.tsx";
 import { canApproveLunch } from "./_utils/permissions.ts";
 import { Modal } from "../../components";
@@ -141,6 +151,8 @@ function AssistancesList({
   const { onShowModal, onCloseModal } = useModal();
   const { isTablet } = useDevice();
 
+  const { assignCreateProps } = useDefaultFirestoreProps();
+
   const onShowSubmitOrderLunch = (assistance: Assistance) => {
     onShowModal({
       title: "Pidio Almuerzo?",
@@ -154,21 +166,44 @@ function AssistancesList({
       ),
     });
   };
+  // 11:20 a 21:00
+
+  const mapAssistance = (user: User) => ({
+    id: getAssistanceId(),
+    createAtString: "21-01-2026 11:20",
+    entry: {
+      date: "21-01-2026 11:20",
+    },
+    outlet: {
+      date: "21-01-2026 21:00",
+    },
+    userId: "AQwioreyVabvnTYmj6tH",
+    minutesWorked: 0,
+    workPlace: "Servitec",
+    user,
+  });
+
+  const onSaveAssistances = async () => {
+    try {
+      const user = await fetchUser("AQwioreyVabvnTYmj6tH");
+
+      await addAssistance(assignCreateProps<Assistance>(mapAssistance(user)));
+
+      console.log("SATISFACTORIO!!!");
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <>
       <Row gutter={[16, 16]}>
-        {/*<Col xs={24} sm={6} md={4}>*/}
-        {/*  <Button*/}
-        {/*    onClick={() => setOpen(true)}*/}
-        {/*    type="primary"*/}
-        {/*    size="large"*/}
-        {/*    block*/}
-        {/*  >*/}
-        {/*    <FontAwesomeIcon icon={faPlus} />*/}
-        {/*    Agregar Asistencia*/}
-        {/*  </Button>*/}
-        {/*</Col>*/}
+        <Col xs={24} sm={6} md={4}>
+          <Button onClick={onSaveAssistances} type="primary" size="large" block>
+            <FontAwesomeIcon icon={faPlus} />
+            Agregar Asistencia
+          </Button>
+        </Col>
         <Col span={24}>
           <Legend title="Filtros">
             <Row gutter={[16, 16]} align="middle">

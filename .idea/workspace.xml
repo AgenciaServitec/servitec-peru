@@ -5,8 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/all-in-one-repair.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/intercom-installation.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/project-repair.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/reballing.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/security-camera-installation.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/tablet-repair.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/sheets/QuotationDocumentSheet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/sheets/QuotationDocumentSheet.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/assistances/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/services/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/services/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/data-list/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/data-list/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/data-list/specialties.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/data-list/specialties.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/all-in-one-repair.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/data-recovery.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/data-recovery.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/intercom-installation.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/laptop-repair.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/laptop-repair.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/projector-repair.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/reballing.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/security-camera-installation.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/servers-and-network-maintenance.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/servers-and-network-maintenance.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/smartphone-repair.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/smartphone-repair.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/tablet-repair.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/Specialties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/Specialties.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +64,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/AgenciaServitec/servitec-peru.git&quot;,
-    &quot;accountId&quot;: &quot;eed1d776-978f-4f57-88e8-2aa6e801d3a7&quot;
+    &quot;accountId&quot;: &quot;e345968d-7d21-452d-8db2-36d5945ef979&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -59,7 +79,9 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Angel/WebstormProjects/servitec-peru/apps/hosting/public&quot;,
@@ -69,6 +91,7 @@
     &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
     &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
     &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -78,13 +101,14 @@
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\specialties" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public" />
     </key>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-WS-243.22562.112" />
+        <option value="bundled-js-predefined-d6986cc7102b-e03c56caf84a-JavaScript-WS-252.23892.411" />
       </set>
     </attachedChunks>
   </component>
@@ -110,6 +134,9 @@
       <workItem from="1769703346591" duration="2744000" />
       <workItem from="1769791216482" duration="27105000" />
       <workItem from="1770157179706" duration="3112000" />
+      <workItem from="1770609076308" duration="602000" />
+      <workItem from="1770612707824" duration="1755000" />
+      <workItem from="1770815692427" duration="6306000" />
     </task>
     <task id="LOCAL-00002" summary="updated the version of react and nextjs">
       <option name="closed" value="true" />
