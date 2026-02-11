@@ -17,8 +17,9 @@ import {
 } from "@/components/ui/select";
 import Image from "next/image";
 import Link from "next/link";
-import { ServicesData, SpecialtiesData } from "../../data-list";
+import { ServicesData } from "../../data-list";
 import { ArrowRight, LocateFixed, Search } from "lucide-react";
+import { SPECIALTIES_DATA } from "@/data-list/specialties";
 
 type ServiceItem = {
   type: string;
@@ -43,7 +44,7 @@ type SpecialtyItem = {
 
 const SPECIALTY_OPTIONS = [
   { value: "all", label: "Todas las especialidades" },
-  ...(SpecialtiesData as any[])
+  ...(SPECIALTIES_DATA as any[])
     .filter((x) => !("typeSpeciality" in x))
     .map((s: SpecialtyItem) => ({ value: s.type, label: s.title }))
     .sort((a, b) => a.label.localeCompare(b.label, "es")),

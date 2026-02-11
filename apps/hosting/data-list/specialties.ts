@@ -1,0 +1,177 @@
+import {
+  Cpu,
+  Database,
+  Laptop,
+  Monitor,
+  MonitorSmartphone,
+  PhoneCall,
+  Printer,
+  Server,
+  Smartphone,
+  Tablet,
+  Video,
+} from "lucide-react";
+
+export const SPECIALTIES_DATA = [
+  {
+    type: "intercom-installation",
+    slug: "instalacion-de-intercomunicadores",
+    title: "Instalación de intercomunicadores",
+    description:
+      "Instalación y configuración de intercomunicadores para hogares, edificios y empresas.",
+    image: "/specialties/intercom-installation.png",
+    includes: [
+      "Instalación de equipos",
+      "Configuración básica",
+      "Pruebas de funcionamiento",
+    ],
+    services: [],
+    icon: PhoneCall,
+  },
+  {
+    type: "security-camera-installation",
+    slug: "instalacion-de-camaras",
+    title: "Instalación de cámaras de seguridad",
+    description:
+      "Implementación de videovigilancia para control y seguridad de espacios.",
+    image: "/specialties/security-camera-installation.png",
+    includes: [
+      "Instalación de cámaras",
+      "Configuración de grabador",
+      "Pruebas de visualización",
+    ],
+    services: [],
+    icon: Video,
+  },
+  {
+    type: "reballing",
+    slug: "servicio-de-reballing",
+    title: "Servicio de reballing",
+    description:
+      "Reparación de placas electrónicas mediante reballing profesional.",
+    image: "/specialties/reballing.png",
+    includes: [
+      "Diagnóstico de placa",
+      "Reballing de chipset",
+      "Pruebas de estabilidad",
+    ],
+    services: [],
+    icon: Cpu,
+  },
+  {
+    type: "servers-and-network-maintenance",
+    slug: "mantenimiento-de-server-y-redes",
+    title: "Mantenimiento de servidores y redes",
+    description:
+      "Mantenimiento preventivo y soporte técnico para redes y servidores.",
+    image: "/specialties/servers-and-network-maintenance.png",
+    includes: [
+      "Revisión de red",
+      "Mantenimiento preventivo",
+      "Optimización de conectividad",
+    ],
+    services: [],
+    icon: Server,
+  },
+  {
+    type: "data-recovery",
+    slug: "recuperacion-de-datos",
+    title: "Recuperación de datos",
+    description:
+      "Recuperación de información desde discos o sistemas con fallas.",
+    image: "/specialties/data-recovery.png",
+    includes: [
+      "Evaluación de unidad",
+      "Recuperación de archivos",
+      "Entrega de información recuperada",
+    ],
+    services: [],
+    icon: Database,
+  },
+  {
+    type: "all-in-one-repair",
+    slug: "reparacion-de-all-in-one",
+    title: "Reparación de equipos All-in-One",
+    description: "Reparación y mantenimiento de computadoras All-in-One.",
+    image: "/specialties/all-in-one-repair.png",
+    includes: [
+      "Diagnóstico general",
+      "Reparación de hardware",
+      "Pruebas de funcionamiento",
+    ],
+    services: [],
+    icon: MonitorSmartphone,
+  },
+  {
+    type: "projector-repair",
+    slug: "reparacion-de-proyectores",
+    title: "Reparación de proyectores",
+    description: "Mantenimiento y reparación de proyectores con garantía.",
+    image: "/specialties/projector-repair.png",
+    includes: [
+      "Limpieza interna",
+      "Cambio de lámpara",
+      "Revisión de imagen y enfoque",
+    ],
+    services: [],
+    icon: Monitor,
+  },
+  {
+    type: "tablet-repair",
+    slug: "reparacion-de-ipad-tablet",
+    title: "Reparación de iPad y tablets",
+    description: "Solución de fallas comunes en tablets y dispositivos iPad.",
+    image: "/specialties/tablet-repair.png",
+    includes: [
+      "Cambio de pantalla",
+      "Revisión de batería",
+      "Diagnóstico de software",
+    ],
+    services: [],
+    icon: Tablet,
+  },
+  {
+    type: "smartphone-repair",
+    slug: "reparacion-de-iphone-galaxy",
+    title: "Reparación de iPhone y Galaxy",
+    description: "Servicio técnico para celulares iPhone y Samsung Galaxy.",
+    image: "/specialties/smartphone-repair.png",
+    includes: [
+      "Cambio de pantalla",
+      "Reemplazo de batería",
+      "Revisión de puertos",
+    ],
+    services: [],
+    icon: Smartphone,
+  },
+  {
+    type: "laptop-repair",
+    slug: "reparacion-de-laptops",
+    title: "Reparación de laptops",
+    description:
+      "Mantenimiento y reparación de laptops para mejor rendimiento.",
+    image: "/specialties/laptop-repair.png",
+    includes: [
+      "Optimización del sistema",
+      "Cambio de SSD o RAM",
+      "Revisión de teclado y pantalla",
+    ],
+    services: [],
+    icon: Laptop,
+  },
+  {
+    type: "printer-and-copier-repair",
+    slug: "reparacion-de-fotocopiadora-e-impresora",
+    title: "Reparación de fotocopiadoras e impresoras",
+    description:
+      "Servicio técnico para impresoras y fotocopiadoras de oficina.",
+    image: "/specialties/printer-and-copier-repair.jpg",
+    includes: [
+      "Limpieza interna",
+      "Revisión de rodillos",
+      "Pruebas de impresión",
+    ],
+    services: [],
+    icon: Printer,
+  },
+];
