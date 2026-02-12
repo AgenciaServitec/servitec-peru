@@ -35,7 +35,7 @@ export default function Contact() {
     service: SERVICES[0],
     brandModel: "",
     issue: "",
-    preferred: "whatsapp",
+    preferred: "whatsapp" as const,
   });
 
   const address = "Néstor Bermúdez 113, Chorrillos, Lima, Perú";
