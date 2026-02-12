@@ -37,7 +37,7 @@ const posts = [
   {
     title: "Recupera la potencia de tu imagen",
     meta: "Tips • Proyectores",
-    image: "/projector-repair.jpg",
+    image: "/projector-repair.png",
   },
   {
     title: "Mantenimiento preventivo",

@@ -1,255 +1,256 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import {
-  ArrowRight,
-  BadgeCheck,
-  Clock,
-  FileText,
-  MapPin,
-  PhoneCall,
-} from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { BadgeCheck, Clock, MapPin } from "lucide-react";
 import { ContentWidth } from "@/components/ContentWidth";
 
-type Props = {
-  title?: React.ReactNode;
-  subtitle?: string;
-  videoSrc?: string;
-  posterSrc?: string;
-  overlayDark?: string;
-  overlayLeft?: boolean;
-};
+export function Hero() {
+  const words = [
+    "Reparación de Laptops",
+    "Soporte Técnico",
+    "Desarrollo de Software",
+    "Cámaras de Seguridad",
+    "Reparación de Proyectores",
+  ];
+  const [index, setIndex] = React.useState(0);
+  const [subIndex, setSubIndex] = React.useState(0);
+  const [reverse, setReverse] = React.useState(false);
 
-export function Hero({
-  title = (
-    <>
-      Reparación y soporte técnico{" "}
-      <span className="text-primary">con garantía</span>
-    </>
-  ),
-  subtitle = "Proyectores, laptops, celulares, redes y soluciones tecnológicas para empresas y hogares.",
-  videoSrc = "/videos/hero-repair.mp4",
-  posterSrc = "/images/hero-poster.webp",
-  overlayDark = "bg-black/65",
-  overlayLeft = true,
-}: Props) {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
+  const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
+
+  function handleMouseMove({
+    clientX,
+    clientY,
+    currentTarget,
+  }: React.MouseEvent) {
+    const { left, top } = currentTarget.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
+
+  React.useEffect(() => {
+    if (subIndex === words[index].length + 1 && !reverse) {
+      const timeout2 = setTimeout(() => setReverse(true), 2000);
+      return () => clearTimeout(timeout2);
+    }
+    if (subIndex === 0 && reverse) {
+      setReverse(false);
+      setIndex((prev) => (prev + 1) % words.length);
+      return;
+    }
+    const timeout = setTimeout(
+      () => {
+        setSubIndex((prev) => prev + (reverse ? -1 : 1));
+      },
+      reverse ? 30 : 80
+    );
+    return () => clearTimeout(timeout);
+  }, [subIndex, index, reverse, words]);
+
   return (
-    <section className="relative isolate overflow-hidden bg-background pt-20">
-      <div className="absolute inset-0 -z-10">
-        <video
-          className="h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster={posterSrc}
-        >
-          <source src="/video-hero.mp4" type="video/mp4" />
-        </video>
-
-        <div className={`absolute inset-0 ${overlayDark}`} />
-
-        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/15" />
-
-        {overlayLeft ? (
-          <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/35 to-transparent" />
-        ) : null}
-
-        <div
-          className="absolute inset-0 opacity-[0.10]"
+    <section
+      onMouseMove={handleMouseMove}
+      className="relative isolate min-h-[65vh] md:min-h-[75vh] flex items-center overflow-hidden bg-[#050505] pt-20"
+    >
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        {/* Malla de puntos con Parallax sutil */}
+        <motion.div
+          className="absolute inset-0 opacity-[0.12]"
           style={{
-            backgroundImage:
-              "radial-gradient(circle at 20% 30%, rgba(245,196,0,0.28) 0, transparent 45%), radial-gradient(circle at 80% 60%, rgba(255,255,255,0.10) 0, transparent 40%)",
+            backgroundImage: `radial-gradient(circle, #ffffff 1px, transparent 1px)`,
+            backgroundSize: "40px 40px",
+            x: useTransform(springX, (v) => v * -0.015),
+            y: useTransform(springY, (v) => v * -0.015),
           }}
         />
+
+        {/* SVG de Cometas Suavizados */}
+        <svg
+          className="absolute inset-0 h-full w-full"
+          viewBox="0 0 1000 1000"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <defs>
+            {/* Gradiente Suave Blanco */}
+            <linearGradient id="cometWhite" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="white" stopOpacity="0" />
+              <stop offset="50%" stopColor="white" stopOpacity="0.2" />
+              <stop offset="100%" stopColor="white" stopOpacity="0.5" />
+            </linearGradient>
+
+            {/* Gradiente Suave Amarillo */}
+            <linearGradient id="cometYellow" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#eab308" stopOpacity="0" />
+              <stop offset="50%" stopColor="#eab308" stopOpacity="0.1" />
+              <stop offset="100%" stopColor="#eab308" stopOpacity="0.4" />
+            </linearGradient>
+
+            <filter id="cometGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="2" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+
+          {/* COMETA 1: Izquierda a Derecha */}
+          <motion.path
+            d="M -100 250 L 300 180 L 500 420 L 800 150 L 1100 250"
+            stroke="url(#cometWhite)"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            fill="none"
+            filter="url(#cometGlow)"
+            initial={{ pathLength: 0.15, pathOffset: -0.15, opacity: 0 }}
+            animate={{
+              pathOffset: [0, 1.15],
+              opacity: [0, 0.4, 0.4, 0],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              repeatDelay: 3,
+              ease: "linear",
+            }}
+          />
+
+          {/* COMETA 2: Derecha a Izquierda */}
+          <motion.path
+            d="M 1100 750 L 700 820 L 500 620 L 200 880 L -100 720"
+            stroke="url(#cometYellow)"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+            fill="none"
+            filter="url(#cometGlow)"
+            initial={{ pathLength: 0.15, pathOffset: -0.15, opacity: 0 }}
+            animate={{
+              pathOffset: [0, 1.15],
+              opacity: [0, 0.3, 0.3, 0],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              repeatDelay: 5,
+              delay: 2,
+              ease: "linear",
+            }}
+          />
+        </svg>
+
+        {/* Glow central sutil de fondo */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] rounded-full bg-primary/[0.015] blur-[120px]" />
+
+        {/* Desvanecido inferior */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#050505]" />
       </div>
 
       <ContentWidth>
-        <div className="relative">
-          <div className="py-12 sm:py-16 md:py-20">
-            <div className="max-w-xl">
-              <motion.h1
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, ease: "easeOut" }}
-                className="text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl"
-              >
-                {title}
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, delay: 0.08, ease: "easeOut" }}
-                className="mt-4 text-sm leading-relaxed text-white/80 sm:text-base md:text-lg"
-              >
-                {subtitle}
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.14, ease: "easeOut" }}
-                className="mt-7 grid gap-3 sm:flex sm:flex-wrap"
-              >
-                <Button
-                  size="lg"
-                  className="w-full bg-primary text-black hover:bg-primary/90 sm:w-auto"
-                  asChild
-                >
-                  <a
-                    href="https://wa.me/51941801827"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <svg
-                      className="w-20 h-20"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 640 640"
-                      fill="currentColor"
-                    >
-                      <path d="M476.9 161.1C435 119.1 379.2 96 319.9 96C197.5 96 97.9 195.6 97.9 318C97.9 357.1 108.1 395.3 127.5 429L96 544L213.7 513.1C246.1 530.8 282.6 540.1 319.8 540.1L319.9 540.1C442.2 540.1 544 440.5 544 318.1C544 258.8 518.8 203.1 476.9 161.1zM319.9 502.7C286.7 502.7 254.2 493.8 225.9 477L219.2 473L149.4 491.3L168 423.2L163.6 416.2C145.1 386.8 135.4 352.9 135.4 318C135.4 216.3 218.2 133.5 320 133.5C369.3 133.5 415.6 152.7 450.4 187.6C485.2 222.5 506.6 268.8 506.5 318.1C506.5 419.9 421.6 502.7 319.9 502.7zM421.1 364.5C415.6 361.7 388.3 348.3 383.2 346.5C378.1 344.6 374.4 343.7 370.7 349.3C367 354.9 356.4 367.3 353.1 371.1C349.9 374.8 346.6 375.3 341.1 372.5C308.5 356.2 287.1 343.4 265.6 306.5C259.9 296.7 271.3 297.4 281.9 276.2C283.7 272.5 282.8 269.3 281.4 266.5C280 263.7 268.9 236.4 264.3 225.3C259.8 214.5 255.2 216 251.8 215.8C248.6 215.6 244.9 215.6 241.2 215.6C237.5 215.6 231.5 217 226.4 222.5C221.3 228.1 207 241.5 207 268.8C207 296.1 226.9 322.5 229.6 326.2C232.4 329.9 268.7 385.9 324.4 410C359.6 425.2 373.4 426.5 391 423.9C401.7 422.3 423.8 410.5 428.4 397.5C433 384.5 433 373.4 431.6 371.1C430.3 368.6 426.6 367.2 421.1 364.5z" />
-                    </svg>
-                    <span>WhatsApp</span>
-                  </a>
-                </Button>
-
-                <Button
-                  size="lg"
-                  variant="secondary"
-                  className="w-full bg-white/10 text-white hover:bg-white/15 sm:w-auto"
-                  asChild
-                >
-                  <a href="/servicios">
-                    Ver servicios
-                    <ArrowRight className="ml-2 w-4" />
-                  </a>
-                </Button>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="mt-6 space-y-2 text-sm text-white/70 sm:space-y-0 sm:flex sm:flex-wrap sm:gap-x-6 sm:gap-y-2"
-              >
-                <span className="flex items-center gap-2">
-                  <MapPin className="w-4" />
-                  <strong>Chorrillos - Lima</strong>
-                </span>
-                <span className="flex items-center gap-2">
-                  <Clock className="w-4" />
-                  <strong>Lun–Vie 9:00 a.m. – 7:00 p.m.</strong>
-                </span>
-                <span className="flex items-center gap-2">
-                  <BadgeCheck className="w-4" />
-                  <strong>Atención a empresas y hogares</strong>
-                </span>
-              </motion.div>
-
-              <div className="mt-8 md:hidden">
-                <Card className="border-white/10 bg-white/10 backdrop-blur-md">
-                  <CardContent className="p-5">
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <p className="text-xs text-white/70 font-bold">
-                          Cotización
-                        </p>
-                        <h3 className="mt-1 text-base font-medium text-white">
-                          ¿Necesitas un precio estimado?
-                        </h3>
-                        <p className="mt-2 text-sm text-white/75">
-                          Envíanos el modelo y una foto del problema.
-                        </p>
-                      </div>
-                      <div className="rounded-xl bg-primary/15 p-2 text-primary">
-                        <FileText className="h-5 w-5" />
-                      </div>
-                    </div>
-
-                    <div className="mt-4">
-                      <Button
-                        className="w-full bg-primary text-black hover:bg-primary/90"
-                        asChild
-                      >
-                        <a href="/contacto">
-                          Solicitar cotización
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </a>
-                      </Button>
-                    </div>
-
-                    <p className="mt-3 text-xs text-white/60">
-                      Con una foto del equipo avanzamos más rápido.
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
+        <div className="relative z-10 flex flex-col items-center text-center">
+          <div className="min-h-[110px] sm:min-h-[140px] md:min-h-[160px] flex flex-col items-center justify-center">
+            <h1 className="text-3xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl max-w-5xl leading-[1.1]">
+              Expertos en <br />
+              <span className="text-primary inline-flex items-center">
+                {words[index].substring(0, subIndex)}
+                <motion.span
+                  animate={{ opacity: [1, 0] }}
+                  transition={{
+                    duration: 0.6,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                  className="inline-block w-[4px] md:w-[8px] h-[0.9em] bg-primary ml-2"
+                />
+              </span>
+            </h1>
           </div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.1, ease: "easeOut" }}
+            className="mt-6 text-sm leading-relaxed text-white/70 sm:text-base md:text-lg max-w-2xl"
+          >
+            Servicio técnico especializado en hardware y desarrollo de sistemas
+            a medida para empresas y hogares en Lima.
+          </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.18, ease: "easeOut" }}
-            className="absolute bottom-4 md:bottom-8 right-0 hidden md:block"
+            transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+            className="mt-10 flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
           >
-            <Card className="w-[360px] border-white/10 bg-white/10 backdrop-blur-md shadow-lg">
-              <CardContent className="p-5">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="text-xs text-white/70 font-bold">
-                      Cotización
-                    </p>
-                    <h3 className="mt-1 text-base font-medium text-white">
-                      ¿Necesitas un precio estimado?
-                    </h3>
-                    <p className="mt-2 text-sm text-white/75">
-                      Envíanos el modelo y una foto del problema. Te respondemos
-                      con una propuesta.
-                    </p>
-                  </div>
-                  <div className="rounded-xl bg-primary/15 p-2 text-primary">
-                    <FileText className="h-5 w-5" />
-                  </div>
-                </div>
-
-                <div className="mt-4 grid gap-2">
-                  <Button
-                    className="w-full bg-primary text-black hover:bg-primary/90"
-                    asChild
+            <Button
+              size="lg"
+              className="bg-primary text-black hover:bg-primary/90 px-10 transition-all active:scale-95 border-none shadow-none"
+              asChild
+            >
+              <a href="https://wa.me/51941801827" target="_blank">
+                <span className="flex items-center gap-2">
+                  <svg
+                    className="w-4 h-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
                   >
-                    <a href="/contacto">
-                      Solicitar cotización
-                      <ArrowRight className="ml-2 w-4" />
-                    </a>
-                  </Button>
+                    <path
+                      fill="currentColor"
+                      d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.7 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"
+                    />
+                  </svg>
+                  Cotizar por WhatsApp
+                </span>
+              </a>
+            </Button>
 
-                  <Button
-                    variant="secondary"
-                    className="w-full bg-white/10 text-white hover:bg-white/15"
-                    asChild
-                  >
-                    <a
-                      href="https://wa.me/51941801827"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <PhoneCall className="mr-2 w-4" />
-                      Hablar con un técnico
-                    </a>
-                  </Button>
-                </div>
+            <Button
+              size="lg"
+              variant="outline"
+              className="bg-white/5 text-white border-white/10 hover:bg-white/10 px-10 transition-all shadow-none"
+              asChild
+            >
+              <a href="/servicios">
+                <svg
+                  className="h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M14 15h-4v-2H2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6h-8zm6-9h-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v4h20V8a2 2 0 0 0-2-2m-4 0H8V4h8z"
+                  />
+                </svg>
+                <span>Nuestros Servicios</span>
+              </a>
+            </Button>
+          </motion.div>
 
-                <p className="mt-3 text-xs text-white/60">
-                  Tip: con una foto del equipo avanzamos más rápido.
-                </p>
-              </CardContent>
-            </Card>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="mt-16 flex flex-wrap justify-center gap-x-10 gap-y-5 text-[13px] uppercase tracking-wider text-white/50"
+          >
+            <div className="flex items-center gap-2">
+              <MapPin className="w-4 text-primary" />
+              <span className="font-medium text-white/60">
+                Chorrillos, Lima
+              </span>
+            </div>
+            <div className="flex items-center gap-2 border-x border-white/10 px-10 hidden md:flex">
+              <Clock className="w-4 text-primary" />
+              <span className="font-medium text-white/60">
+                Lun–Vie 9am – 7pm
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <BadgeCheck className="w-4 text-primary" />
+              <span className="font-medium text-white/60">Garantía</span>
+            </div>
           </motion.div>
         </div>
       </ContentWidth>
