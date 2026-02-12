@@ -22,26 +22,29 @@ export const HeaderLayout = () => {
         "fixed top-0 left-0 right-0 z-50",
         "transition-all duration-300",
         scrolled
-          ? "bg-black/55 backdrop-blur-md border-b border-white/10"
-          : "bg-transparent",
+          ? "bg-black/80 backdrop-blur-md border-b border-white/10 py-2"
+          : "bg-transparent py-4",
       ].join(" ")}
     >
       <ContentWidth>
-        <div className="flex items-center justify-between py-3">
-          <Link href="/" className="flex items-center gap-3">
+        <div className="flex items-center justify-between">
+          <Link
+            href="/"
+            className="flex items-center gap-3 hover:opacity-90 transition"
+          >
             <Image
               src="/logo-servitec.png"
               alt="Logo de Servitec Perú"
-              width={170}
-              height={36}
+              width={160}
+              height={34}
               priority
+              className="w-auto h-8 md:h-9"
             />
           </Link>
 
-          {/* Mobile */}
-          <button className="lg:hidden rounded-xl border border-white/10 bg-white/5 p-2 text-white hover:bg-white/10">
+          <button className="lg:hidden rounded-xl border border-white/10 bg-white/5 p-2 text-white hover:bg-white/10 transition active:scale-95">
             <svg
-              className="h-7 w-7"
+              className="h-6 w-6"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 640 640"
               fill="currentColor"
@@ -50,9 +53,8 @@ export const HeaderLayout = () => {
             </svg>
           </button>
 
-          {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-4">
-            <ul className="flex items-center gap-2">
+          <nav className="hidden lg:flex items-center gap-6">
+            <ul className="flex items-center gap-1">
               <NavItem href="/" label="Inicio">
                 <svg
                   className="h-4 w-4"
@@ -97,7 +99,7 @@ export const HeaderLayout = () => {
               </NavItem>
             </ul>
 
-            <div className="flex items-center gap-2 pl-2">
+            <div className="flex items-center gap-3 pl-4 border-l border-white/10">
               <CtaPill href="/work" variant="work">
                 <HardHat className="w-4" />
                 <span>Servitec Work</span>
@@ -128,9 +130,9 @@ function NavItem({
     <li>
       <Link
         href={href}
-        className="flex items-center gap-2 rounded-full px-3 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 transition"
+        className="flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 transition-all"
       >
-        {children}
+        <span className="opacity-70 group-hover:opacity-100">{children}</span>
         <span>{label}</span>
       </Link>
     </li>
@@ -147,12 +149,12 @@ function CtaPill({
   children: ReactNode;
 }) {
   const base =
-    "inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm transition border";
+    "inline-flex items-center gap-2 rounded-md px-5 py-2.5 text-xs font-bold uppercase tracking-wide transition-all active:scale-95";
 
   const styles =
     variant === "work"
-      ? "border-white/15 bg-white/5 text-white hover:bg-white/10"
-      : "border-primary/30 bg-primary/15 text-white hover:bg-primary/20";
+      ? "bg-black border border-white/20 text-white hover:bg-neutral-900 hover:border-white/40"
+      : "bg-primary text-black border border-primary hover:bg-primary/90";
 
   return (
     <Link href={href} className={`${base} ${styles}`}>

@@ -1,13 +1,13 @@
 import { Hero, SocialProof, Specialties } from "@/sections";
 import { HowWeWork } from "@/sections/HowWeWork";
-import { CommonIssuesBridge } from "@/sections/CommonIssuesBridge";
+import { TrustBar } from "@/sections/TrustBar";
 import { Location } from "@/sections/Location";
 
 export default function Home() {
   return (
     <main>
       <Hero />
-      <CommonIssuesBridge />
+      <TrustBar />
       <Specialties />
       <HowWeWork />
       <Location />
