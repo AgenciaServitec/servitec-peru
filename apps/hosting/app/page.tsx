@@ -1,4 +1,4 @@
-import { DigitalSolutions, Hero, Specialties } from "@/sections";
+import { Hero, Specialties } from "@/sections";
 import { HowWeWork } from "@/sections/HowWeWork";
 import { TrustBar } from "@/sections/TrustBar";
 
@@ -9,7 +9,6 @@ export default function Home() {
       <TrustBar />
       <HowWeWork />
       <Specialties />
-      <DigitalSolutions />
     </main>
   );
 }

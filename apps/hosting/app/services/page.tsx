@@ -5,20 +5,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import { ContentWidth } from "@/components/ContentWidth";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import Image from "next/image";
-import Link from "next/link";
 import { ServicesData } from "../../data-list";
-import { ArrowRight, LocateFixed, Search } from "lucide-react";
+import { ArrowRight, LocateFixed } from "lucide-react";
 import { SPECIALTIES_DATA } from "@/data-list/specialties";
 
 type ServiceItem = {
@@ -435,116 +425,116 @@ export default function Services() {
           <div className="h-px w-full bg-white/10" />
         </div>
 
-        <div className="mt-14 flex flex-col gap-2">
-          <p className="text-sm text-white/60">Catálogo</p>
-          <h2 className="text-xl sm:text-2xl font-semibold text-white">
-            Buscar y filtrar servicios
-          </h2>
-        </div>
+        {/*<div className="mt-14 flex flex-col gap-2">*/}
+        {/*  <p className="text-sm text-white/60">Catálogo</p>*/}
+        {/*  <h2 className="text-xl sm:text-2xl font-semibold text-white">*/}
+        {/*    Buscar y filtrar servicios*/}
+        {/*  </h2>*/}
+        {/*</div>*/}
 
-        <div className="mt-6 grid gap-3 md:grid-cols-12 md:items-center">
-          <div className="relative md:col-span-7">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-white/50" />
-            <Input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Buscar (ej: pantalla, lámpara, batería...)"
-              className="pl-12 h-12 text-base bg-white/5 border-white/10 text-white placeholder:text-white/40"
-            />
-          </div>
+        {/*<div className="mt-6 grid gap-3 md:grid-cols-12 md:items-center">*/}
+        {/*  <div className="relative md:col-span-7">*/}
+        {/*    <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-white/50" />*/}
+        {/*    <Input*/}
+        {/*      value={query}*/}
+        {/*      onChange={(e) => setQuery(e.target.value)}*/}
+        {/*      placeholder="Buscar (ej: pantalla, lámpara, batería...)"*/}
+        {/*      className="pl-12 h-12 text-base bg-white/5 border-white/10 text-white placeholder:text-white/40"*/}
+        {/*    />*/}
+        {/*  </div>*/}
 
-          <div className="md:col-span-5">
-            <Select
-              value={specialty}
-              onValueChange={(v) => onChangeSpecialty(v)}
-            >
-              <SelectTrigger className="h-12 text-base bg-white/5 border-white/10 text-white">
-                <SelectValue placeholder="Seleccionar especialidad" />
-              </SelectTrigger>
+        {/*  <div className="md:col-span-5">*/}
+        {/*    <Select*/}
+        {/*      value={specialty}*/}
+        {/*      onValueChange={(v) => onChangeSpecialty(v)}*/}
+        {/*    >*/}
+        {/*      <SelectTrigger className="h-12 text-base bg-white/5 border-white/10 text-white">*/}
+        {/*        <SelectValue placeholder="Seleccionar especialidad" />*/}
+        {/*      </SelectTrigger>*/}
 
-              <SelectContent className="bg-[#0b0f14] border-white/10 text-white">
-                {SPECIALTY_OPTIONS.map((opt) => (
-                  <SelectItem
-                    key={opt.value}
-                    value={opt.value}
-                    className="focus:bg-white/10 focus:text-white"
-                  >
-                    {opt.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
+        {/*      <SelectContent className="bg-[#0b0f14] border-white/10 text-white">*/}
+        {/*        {SPECIALTY_OPTIONS.map((opt) => (*/}
+        {/*          <SelectItem*/}
+        {/*            key={opt.value}*/}
+        {/*            value={opt.value}*/}
+        {/*            className="focus:bg-white/10 focus:text-white"*/}
+        {/*          >*/}
+        {/*            {opt.label}*/}
+        {/*          </SelectItem>*/}
+        {/*        ))}*/}
+        {/*      </SelectContent>*/}
+        {/*    </Select>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
 
-        <div className="mt-10">
-          <p className="text-sm text-white/60">
-            Mostrando <span className="text-white">{filtered.length}</span>{" "}
-            resultados
-          </p>
+        {/*<div className="mt-10">*/}
+        {/*  <p className="text-sm text-white/60">*/}
+        {/*    Mostrando <span className="text-white">{filtered.length}</span>{" "}*/}
+        {/*    resultados*/}
+        {/*  </p>*/}
 
-          <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {filtered.map((s) => (
-              <Card
-                key={s.slug}
-                className="overflow-hidden border-white/10 bg-white/[0.03] hover:bg-white/[0.05] transition"
-              >
-                <div className="relative aspect-[16/9] w-full">
-                  <Image
-                    src={s.image}
-                    alt={s.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1280px) 100vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
-                </div>
+        {/*  <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">*/}
+        {/*    {filtered.map((s) => (*/}
+        {/*      <Card*/}
+        {/*        key={s.slug}*/}
+        {/*        className="overflow-hidden border-white/10 bg-white/[0.03] hover:bg-white/[0.05] transition"*/}
+        {/*      >*/}
+        {/*        <div className="relative aspect-[16/9] w-full">*/}
+        {/*          <Image*/}
+        {/*            src={s.image}*/}
+        {/*            alt={s.title}*/}
+        {/*            fill*/}
+        {/*            className="object-cover"*/}
+        {/*            sizes="(max-width: 1280px) 100vw, 33vw"*/}
+        {/*          />*/}
+        {/*          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />*/}
+        {/*        </div>*/}
 
-                <CardContent className="p-6">
-                  <p className="text-white font-semibold text-lg">{s.title}</p>
-                  <p className="mt-2 text-sm text-white/70 line-clamp-2">
-                    {s.description}
-                  </p>
+        {/*        <CardContent className="p-6">*/}
+        {/*          <p className="text-white font-semibold text-lg">{s.title}</p>*/}
+        {/*          <p className="mt-2 text-sm text-white/70 line-clamp-2">*/}
+        {/*            {s.description}*/}
+        {/*          </p>*/}
 
-                  {s.includes?.length > 0 && (
-                    <ul className="mt-4 space-y-2 text-sm text-white/70">
-                      {s.includes.slice(0, 3).map((b) => (
-                        <li key={b} className="flex gap-2">
-                          <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary" />
-                          <span className="line-clamp-1">{b}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+        {/*          {s.includes?.length > 0 && (*/}
+        {/*            <ul className="mt-4 space-y-2 text-sm text-white/70">*/}
+        {/*              {s.includes.slice(0, 3).map((b) => (*/}
+        {/*                <li key={b} className="flex gap-2">*/}
+        {/*                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary" />*/}
+        {/*                  <span className="line-clamp-1">{b}</span>*/}
+        {/*                </li>*/}
+        {/*              ))}*/}
+        {/*            </ul>*/}
+        {/*          )}*/}
 
-                  <div className="mt-5 flex gap-3">
-                    <Button
-                      className="bg-primary text-black hover:bg-primary/90"
-                      asChild
-                    >
-                      <Link href={`/services/${s.slug}`}>
-                        Ver detalle <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
-                    </Button>
+        {/*          <div className="mt-5 flex gap-3">*/}
+        {/*            <Button*/}
+        {/*              className="bg-primary text-black hover:bg-primary/90"*/}
+        {/*              asChild*/}
+        {/*            >*/}
+        {/*              <Link href={`/services/${s.slug}`}>*/}
+        {/*                Ver detalle <ArrowRight className="ml-2 h-4 w-4" />*/}
+        {/*              </Link>*/}
+        {/*            </Button>*/}
 
-                    <Button
-                      variant="secondary"
-                      className="border border-white/10 bg-white/10 text-white hover:bg-white/15"
-                      asChild
-                    >
-                      <Link href="/contact">Cotizar</Link>
-                    </Button>
-                  </div>
+        {/*            <Button*/}
+        {/*              variant="secondary"*/}
+        {/*              className="border border-white/10 bg-white/10 text-white hover:bg-white/15"*/}
+        {/*              asChild*/}
+        {/*            >*/}
+        {/*              <Link href="/contact">Cotizar</Link>*/}
+        {/*            </Button>*/}
+        {/*          </div>*/}
 
-                  <p className="mt-3 text-xs text-white/50">
-                    Categoría:{" "}
-                    <span className="text-white/70">{s.typeSpeciality}</span>
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
+        {/*          <p className="mt-3 text-xs text-white/50">*/}
+        {/*            Categoría:{" "}*/}
+        {/*            <span className="text-white/70">{s.typeSpeciality}</span>*/}
+        {/*          </p>*/}
+        {/*        </CardContent>*/}
+        {/*      </Card>*/}
+        {/*    ))}*/}
+        {/*  </div>*/}
+        {/*</div>*/}
       </ContentWidth>
     </section>
   );

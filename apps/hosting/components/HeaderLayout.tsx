@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { ReactNode } from "react";
 import { ContentWidth } from "@/components/ContentWidth";
-import { HardHat, Headset, Store } from "lucide-react";
+import { Headset } from "lucide-react";
 
 export const HeaderLayout = () => {
   const [scrolled, setScrolled] = React.useState(false);
@@ -42,7 +42,7 @@ export const HeaderLayout = () => {
             />
           </Link>
 
-          <button className="lg:hidden rounded-xl border border-white/10 bg-white/5 p-2 text-white hover:bg-white/10 transition active:scale-95">
+          <button className="lg:hidden ui-radius-md ui-surface ui-surface-hover p-2 text-white transition active:scale-95">
             <svg
               className="h-6 w-6"
               xmlns="http://www.w3.org/2000/svg"
@@ -99,17 +99,17 @@ export const HeaderLayout = () => {
               </NavItem>
             </ul>
 
-            <div className="flex items-center gap-3 pl-4 border-l border-white/10">
-              <CtaPill href="/work" variant="work">
-                <HardHat className="w-4" />
-                <span>Servitec Work</span>
-              </CtaPill>
+            {/*<div className="flex items-center gap-3 pl-4 border-l border-white/10">*/}
+            {/*  <CtaPill href="/work" variant="work">*/}
+            {/*    <HardHat className="w-4" />*/}
+            {/*    <span>Servitec Work</span>*/}
+            {/*  </CtaPill>*/}
 
-              <CtaPill href="/tienda" variant="shop">
-                <Store className="w-4" />
-                <span>Tienda</span>
-              </CtaPill>
-            </div>
+            {/*  <CtaPill href="/tienda" variant="shop">*/}
+            {/*    <Store className="w-4" />*/}
+            {/*    <span>Tienda</span>*/}
+            {/*  </CtaPill>*/}
+            {/*</div>*/}
           </nav>
         </div>
       </ContentWidth>

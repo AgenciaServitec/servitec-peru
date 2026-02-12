@@ -92,6 +92,32 @@ export const FooterLayout = () => {
               integral en la asesoría y consultoría en hardware y software,
               tanto para usuarios domésticos, negocios y empresas corporativas.
             </p>
+
+            <div className="mt-4 rounded-xl border border-white/10 bg-white/[0.04] p-4 space-y-3">
+              <div className="flex items-start gap-3">
+                <Building2 className="h-5 w-5 text-primary mt-0.5" />
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-white/50">
+                    Razón social
+                  </p>
+                  <p className="text-sm font-semibold text-white">
+                    {razonSocial}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <BadgeCheck className="h-5 w-5 text-primary mt-0.5" />
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-white/50">
+                    RUC
+                  </p>
+                  <p className="text-sm font-semibold text-white tracking-wider">
+                    {ruc}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div>
@@ -142,18 +168,6 @@ export const FooterLayout = () => {
             <p className="text-sm text-white/60">
               Copyright © 2026 - Todos los derechos reservados
             </p>
-
-            <div className="flex flex-col gap-2 text-sm text-white/60 sm:flex-row sm:items-center sm:gap-6">
-              <span className="flex items-center gap-2">
-                <Building2 className="h-4 w-4 text-primary" />
-                <span>Razón social: {razonSocial}</span>
-              </span>
-
-              <span className="flex items-center gap-2">
-                <BadgeCheck className="h-4 w-4 text-primary" />
-                <span>RUC: {ruc}</span>
-              </span>
-            </div>
           </div>
 
           <a

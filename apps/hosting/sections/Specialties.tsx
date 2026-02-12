@@ -26,7 +26,7 @@ export function Specialties() {
             return (
               <div
                 key={s.type}
-                className={`group flex flex-col overflow-hidden rounded-md border border-white/5 bg-[#0D0D0D] transition-all duration-500 hover:border-primary/20 
+                className={`group flex flex-col overflow-hidden rounded-md bg-white/5 border border-white/10 shadow-sm hover:shadow-md transition 
                   ${isFeatured ? "lg:col-span-2 lg:row-span-2" : "lg:col-span-1 lg:row-span-2"}
                 `}
               >
@@ -55,7 +55,7 @@ export function Specialties() {
 
                   <div className="flex gap-2 mt-4">
                     <Button asChild className="bg-foreground">
-                      <Link href="/quote">Cotizar</Link>
+                      <Link href="/services">Cotizar</Link>
                     </Button>
                     <Button
                       asChild
