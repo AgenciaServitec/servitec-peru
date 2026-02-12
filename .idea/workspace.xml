@@ -4,19 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="refactor specialties">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/about/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/about/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/app/contact/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/contact/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/services/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/services/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/components/ContentWidth.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/ContentWidth.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/components/FooterLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/FooterLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/components/HeaderLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/HeaderLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/AboutDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/AboutDetails.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/Hero.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/Hero.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/Specialties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/Specialties.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -257,7 +247,15 @@
       <option name="project" value="LOCAL" />
       <updated>1769823055001</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="refactor specialties">
+      <option name="closed" value="true" />
+      <created>1770934722574</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1770934722574</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -292,6 +290,7 @@
     <MESSAGE value="added specialties images" />
     <MESSAGE value="refactor design" />
     <MESSAGE value="updated specialities and services" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated specialities and services" />
+    <MESSAGE value="refactor specialties" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor specialties" />
   </component>
 </project>
