@@ -5,31 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/printer-and-copier-repair.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/projector-repair.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/hosting/sections/TrustBar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/sections/DigitalSolutions.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/components/HeaderLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/HeaderLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/services/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/services/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/data-list/specialties.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/data-list/specialties.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/logo-servitec.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/logo-servitec.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/projector-repair.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/all-in-one-repair.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/all-in-one-repair.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/data-recovery.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/data-recovery.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/intercom-installation.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/intercom-installation.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/laptop-repair.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/laptop-repair.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/printer-and-copier-repair.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/project-repair.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/printer-and-copier-repair.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/printer-and-copier-repair.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/projector-repair.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/projector-repair.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/reballing.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/reballing.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/security-camera-installation.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/security-camera-installation.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/servers-and-network-maintenance.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/servers-and-network-maintenance.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/smartphone-repair.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/smartphone-repair.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/public/specialties/tablet-repair.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/specialties/tablet-repair.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/CommonIssuesBridge.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/video-hero.mp4" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/sections/Hero.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/Hero.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/sections/HowWeWork.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/HowWeWork.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/SocialProof.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/SocialProof.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/sections/Specialties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/Specialties.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/TrustBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/TrustBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,26 +76,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "refactor__specialties__section",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/Angel/WebstormProjects/servitec-peru/apps/hosting/public",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "pnpm",
-    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "to.speed.mode.migration.done": "true",
-    "ts.external.directory.path": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;refactor__specialties__section&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Angel/WebstormProjects/servitec-peru/apps/hosting/public&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public" />
@@ -140,6 +137,7 @@
       <workItem from="1770609076308" duration="602000" />
       <workItem from="1770612707824" duration="1755000" />
       <workItem from="1770815692427" duration="6306000" />
+      <workItem from="1770898924359" duration="2488000" />
     </task>
     <task id="LOCAL-00002" summary="updated the version of react and nextjs">
       <option name="closed" value="true" />

@@ -52,11 +52,10 @@ const SPECIALTY_OPTIONS = [
 
 const SERVICES = ServicesData as ServiceItem[];
 
-// ✅ Ejemplo: reemplaza por tu data real
 type Service = {
   id: string;
   title: string;
-  specialtyType: string; // e.g. "projector-repair"
+  specialtyType: string;
 };
 
 export default function Services() {
@@ -65,11 +64,9 @@ export default function Services() {
 
   const urlSpecialty = searchParams.get("type-specialty") ?? "all";
 
-  // Catálogo
   const [query, setQuery] = useState("");
   const [specialty, setSpecialty] = useState<string>(urlSpecialty);
 
-  // Cotización
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [isLocating, setIsLocating] = useState(false);
 
@@ -79,7 +76,7 @@ export default function Services() {
     district: "",
     locationCoords: "",
 
-    fullName: "", // Apellidos y nombres
+    fullName: "",
     phone: "",
     email: "",
   });
@@ -209,9 +206,7 @@ export default function Services() {
   return (
     <section className="py-14">
       <ContentWidth>
-        {/* Header */}
         <div className="flex flex-col gap-3">
-          <p className="text-sm text-white/60">Servicios</p>
           <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white">
             Todos los servicios
           </h1>
@@ -220,7 +215,6 @@ export default function Services() {
           </p>
         </div>
 
-        {/* Cotización (arriba) */}
         <div className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] overflow-hidden">
           <div className="p-6 sm:p-8">
             <div className="flex flex-col gap-2">
@@ -233,10 +227,8 @@ export default function Services() {
               </p>
             </div>
 
-            {/* Steps centered */}
             <div className="mt-6">{stepsUi}</div>
 
-            {/* Step content */}
             <div className="mt-8 grid gap-4 md:grid-cols-12">
               {step === 1 && (
                 <>
@@ -392,7 +384,6 @@ export default function Services() {
               )}
             </div>
 
-            {/* Buttons below form */}
             <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
               <Button
                 variant="secondary"
@@ -444,7 +435,6 @@ export default function Services() {
           <div className="h-px w-full bg-white/10" />
         </div>
 
-        {/* Catálogo */}
         <div className="mt-14 flex flex-col gap-2">
           <p className="text-sm text-white/60">Catálogo</p>
           <h2 className="text-xl sm:text-2xl font-semibold text-white">
@@ -452,7 +442,6 @@ export default function Services() {
           </h2>
         </div>
 
-        {/* Toolbar: búsqueda + Select (shadcn) */}
         <div className="mt-6 grid gap-3 md:grid-cols-12 md:items-center">
           <div className="relative md:col-span-7">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-white/50" />
@@ -488,7 +477,6 @@ export default function Services() {
           </div>
         </div>
 
-        {/* Results */}
         <div className="mt-10">
           <p className="text-sm text-white/60">
             Mostrando <span className="text-white">{filtered.length}</span>{" "}
@@ -501,7 +489,6 @@ export default function Services() {
                 key={s.slug}
                 className="overflow-hidden border-white/10 bg-white/[0.03] hover:bg-white/[0.05] transition"
               >
-                {/* Image */}
                 <div className="relative aspect-[16/9] w-full">
                   <Image
                     src={s.image}
