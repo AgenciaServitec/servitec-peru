@@ -5,6 +5,7 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { BadgeCheck, Clock, MapPin } from "lucide-react";
 import { ContentWidth } from "@/components/ContentWidth";
+import Link from "next/link";
 
 export function Hero() {
   const words = [
@@ -177,11 +178,7 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
             className="mt-10 flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
           >
-            <Button
-              size="lg"
-              className="bg-primary text-black hover:bg-primary/90 px-10 transition-all active:scale-95 border-none shadow-none"
-              asChild
-            >
+            <Button size="lg" className="btn-primary px-10" asChild>
               <a href="https://wa.me/51941801827" target="_blank">
                 <span className="flex items-center gap-2">
                   <svg
@@ -202,10 +199,10 @@ export function Hero() {
             <Button
               size="lg"
               variant="outline"
-              className="bg-white/5 text-white border-white/10 hover:bg-white/10 px-10 transition-all shadow-none"
+              className="btn-ghost-dark px-10"
               asChild
             >
-              <a href="/#specialties">
+              <Link href="/#specialties">
                 <svg
                   className="h-4 w-4"
                   xmlns="http://www.w3.org/2000/svg"
@@ -217,7 +214,7 @@ export function Hero() {
                   />
                 </svg>
                 <span>Nuestras Especialidades</span>
-              </a>
+              </Link>
             </Button>
           </motion.div>
 
@@ -236,7 +233,7 @@ export function Hero() {
             <div className="items-center gap-2 border-x border-white/10 px-10 hidden md:flex">
               <Clock className="w-4 text-primary" />
               <span className="font-medium text-white/60">
-                Lun–Vie 9am – 7pm
+                Lun – Vie de 9am – 7pm
               </span>
             </div>
             <div className="flex items-center gap-2">

@@ -2,13 +2,11 @@
 
 import * as React from "react";
 import { ContentWidth } from "@/components/ContentWidth";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { ArrowRight, Clock, FileText, MapPin, PhoneCall } from "lucide-react";
+import { ArrowRight, Clock, MapPin, PhoneCall, Sparkles } from "lucide-react";
 
 type FormState = {
   name: string;
@@ -43,18 +41,20 @@ export default function Contact() {
   const address = "Néstor Bermúdez 113, Chorrillos, Lima, Perú";
   const schedule = "Lun–Vie: 9:00 a.m. – 7:00 p.m.";
 
+  // Ajuste del template para que sea una CONSULTA
   const whatsappUrl = React.useMemo(() => {
-    const msg = [
-      "Hola, quiero una cotización.",
-      `Nombre: ${data.name || "-"}`,
-      `Celular: ${data.phone || "-"}`,
-      `Servicio: ${data.service || "-"}`,
-      `Marca/Modelo: ${data.brandModel || "-"}`,
-      `Problema: ${data.issue || "-"}`,
-      `Preferencia: ${data.preferred === "whatsapp" ? "WhatsApp" : "Llamada"}`,
-    ].join("\n");
+    const template = `*CONSULTA TÉCNICA ESPECIALIZADA*
+---------------------------------------
+*Cliente:* ${data.name || "No especificado"}
+*Contacto:* ${data.phone || "No especificado"}
+*Servicio:* ${data.service}
+*Equipo:* ${data.brandModel || "No especificado"}
+*Consulta/Falla:* ${data.issue || "Sin descripción"}
+*Preferencia:* ${data.preferred === "whatsapp" ? "Responder por WhatsApp" : "Solicita llamada telefónica"}
+---------------------------------------
+_Enviado desde el Centro de Consultas Servitec_`;
 
-    return `https://wa.me/51941801827?text=${encodeURIComponent(msg)}`;
+    return `https://wa.me/51941801827?text=${encodeURIComponent(template)}`;
   }, [data]);
 
   const onChange =
@@ -63,242 +63,208 @@ export default function Contact() {
       setData((prev) => ({ ...prev, [key]: e.target.value }));
     };
 
-  function setPreferred(pref: FormState["preferred"]) {
-    setData((prev) => ({ ...prev, preferred: pref }));
-  }
-
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // Para no inventar backend: enviamos por WhatsApp (rápido y real para Servitec)
     setLoading(true);
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-    setLoading(false);
+    setTimeout(() => {
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+      setLoading(false);
+    }, 500);
   }
 
   return (
-    <section className="py-14">
-      <ContentWidth>
-        <div className="max-w-2xl">
-          <p className="text-sm text-muted-foreground">Cotización</p>
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
-            Solicitar cotización
-          </h1>
-          <p className="mt-3 text-muted-foreground">
-            Completa los datos y envíanos el modelo + una breve descripción del
-            problema. Te respondemos con una propuesta clara.
-          </p>
-        </div>
+    <section className="bg-[#050505] selection:bg-[#FFD200] selection:text-black min-h-screen">
+      {/* HERO INDUSTRIAL STYLE */}
+      <div className="relative h-[45vh] md:h-[55vh] flex items-center justify-center overflow-hidden border-b border-white/5">
+        <div
+          className="absolute inset-0 z-0 opacity-40 bg-cover bg-center bg-no-repeat transition-transform duration-700 hover:scale-105"
+          style={{ backgroundImage: "url('/images/contact-hero.jpg')" }}
+        />
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
 
-        <div className="mt-8 grid gap-6 lg:grid-cols-2 lg:items-start">
-          {/* Form */}
-          <Card className="border-white/10 bg-white/[0.04]">
-            <CardContent className="p-6">
-              <div className="flex items-center gap-2">
-                <div className="rounded-xl bg-primary/15 p-2 text-primary">
-                  <FileText className="h-5 w-5" />
+        <div className="relative z-20 text-center px-6">
+          <h1 className="text-6xl md:text-9xl font-black text-white">
+            Contacto<span className="text-[#FFD200]">.</span>
+          </h1>
+          <div className="mt-6 flex flex-col items-center gap-3">
+            <p className="text-white/60">Centro de Consultas Técnicas</p>
+          </div>
+        </div>
+      </div>
+
+      <ContentWidth>
+        <div className="py-24 grid gap-12 lg:grid-cols-3 lg:items-start">
+          {/* Formulario Principal */}
+          <div className="lg:col-span-2 space-y-8">
+            <div className="space-y-4">
+              <h2 className="text-3xl font-bold text-white">
+                Realizar Consulta Especializada
+              </h2>
+              <p className="text-white/40 text-lg font-light max-w-2xl">
+                ¿Tiene dudas sobre su equipo o infraestructura? Describa su
+                problema y un ingeniero le brindará orientación inicial.
+              </p>
+            </div>
+
+            <div className="bg-[#0A0A0A] border border-white/5 rounded-md overflow-hidden relative group transition-all duration-500 hover:border-white/10 shadow-2xl">
+              <div className="p-8 md:p-12">
+                <form onSubmit={onSubmit} className="space-y-8">
+                  <div className="grid gap-8 sm:grid-cols-2">
+                    <div className="space-y-3">
+                      <Label>Nombre completo</Label>
+                      <Input
+                        value={data.name}
+                        onChange={onChange("name")}
+                        className="bg-black/40 border-white/10 rounded-md text-white h-12 focus:border-[#FFD200] transition-all placeholder:text-white/10"
+                        placeholder="Nombre y Apellido"
+                        required
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label>WhatsApp / Celular</Label>
+                      <Input
+                        value={data.phone}
+                        onChange={onChange("phone")}
+                        className="bg-black/40 border-white/10 rounded-md text-white h-12 focus:border-[#FFD200] transition-all placeholder:text-white/10"
+                        placeholder="999 999 999"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid gap-8 sm:grid-cols-2">
+                    <div className="space-y-3">
+                      <Label>Área de interés</Label>
+                      <select
+                        value={data.service}
+                        onChange={(e) =>
+                          setData((p) => ({ ...p, service: e.target.value }))
+                        }
+                        className="w-full h-12 bg-black/40 border border-white/10 rounded-md px-3 text-white/80 outline-none focus:border-[#FFD200] transition-all"
+                      >
+                        {SERVICES.map((s) => (
+                          <option key={s} value={s} className="bg-[#0A0A0A]">
+                            {s}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="space-y-3">
+                      <Label>Marca y Modelo (Opcional)</Label>
+                      <Input
+                        value={data.brandModel}
+                        onChange={onChange("brandModel")}
+                        className="bg-black/40 border-white/10 rounded-md text-white h-12 focus:border-[#FFD200] transition-all placeholder:text-white/10"
+                        placeholder="Ej: Epson L3110 / MacBook Pro"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <Label>¿En qué podemos ayudarle?</Label>
+                    <Textarea
+                      value={data.issue}
+                      onChange={onChange("issue")}
+                      className="min-h-[140px] bg-black/40 border-white/10 rounded-md text-white p-4 focus:border-[#FFD200] transition-all placeholder:text-white/10 resize-none"
+                      placeholder="Describa su duda técnica o los síntomas de su equipo..."
+                      required
+                    />
+                  </div>
+
+                  <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row gap-6 items-center justify-between">
+                    <div className="flex bg-black p-1 border border-white/10 rounded-md">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setData((prev) => ({
+                            ...prev,
+                            preferred: "whatsapp",
+                          }))
+                        }
+                        className={`px-6 py-2 font-bold tracking-widest rounded-md transition-all ${data.preferred === "whatsapp" ? "bg-[#FFD200] text-black shadow-lg" : "text-white/30 hover:text-white"}`}
+                      >
+                        WhatsApp
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setData((prev) => ({ ...prev, preferred: "call" }))
+                        }
+                        className={`px-6 py-2 font-bold tracking-widest rounded-md transition-all ${data.preferred === "call" ? "bg-[#FFD200] text-black shadow-lg" : "text-white/30 hover:text-white"}`}
+                      >
+                        Llamada
+                      </button>
+                    </div>
+
+                    <Button
+                      type="submit"
+                      disabled={loading}
+                      className="w-full md:w-fit bg-primary text-black font-bold rounded-md px-12 py-8 hover:scale-[1.05] transition-all shadow-[0_10px_30px_rgba(255,210,0,0.15)]"
+                    >
+                      {loading ? "Procesando..." : "Enviar Consulta"}
+                    </Button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          {/* Sidebar Info */}
+          <div className="space-y-8">
+            <div className="bg-[#0A0A0A] border border-white/5 rounded-md p-10 space-y-10">
+              <div className="flex items-start gap-5">
+                <div className="bg-white/5 p-3 rounded-md border border-white/10">
+                  <MapPin className="h-5 w-5 text-[#FFD200]" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-white">
-                    Formulario rápido
-                  </p>
-                  <p className="text-sm text-white/70">
-                    Se abrirá WhatsApp con el mensaje listo para enviar.
-                  </p>
+                  <p className="text-white/20">Sede Central</p>
+                  <p className="text-white/80 font-bold">{address}</p>
                 </div>
               </div>
 
-              <form onSubmit={onSubmit} className="mt-6 space-y-5">
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label className="text-white/80">Nombre</Label>
-                    <Input
-                      value={data.name}
-                      onChange={onChange("name")}
-                      placeholder="Tu nombre"
-                      className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label className="text-white/80">Celular</Label>
-                    <Input
-                      value={data.phone}
-                      onChange={onChange("phone")}
-                      placeholder="Ej: 941801827"
-                      inputMode="tel"
-                      className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
-                    />
-                  </div>
+              <div className="flex items-start gap-5">
+                <div className="bg-white/5 p-3 rounded-md border border-white/10">
+                  <Clock className="h-5 w-5 text-[#FFD200]" />
                 </div>
-
-                <div className="space-y-2">
-                  <Label className="text-white/80">Servicio</Label>
-                  <select
-                    value={data.service}
-                    onChange={(e) =>
-                      setData((p) => ({ ...p, service: e.target.value }))
-                    }
-                    className="w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:ring-2 focus:ring-primary/30"
-                  >
-                    {SERVICES.map((s) => (
-                      <option key={s} value={s} className="bg-black">
-                        {s}
-                      </option>
-                    ))}
-                  </select>
+                <div>
+                  <p className="text-white/20">Disponibilidad</p>
+                  <p className="text-white/80 font-bold">{schedule}</p>
                 </div>
+              </div>
+            </div>
 
-                <div className="space-y-2">
-                  <Label className="text-white/80">Marca / modelo</Label>
-                  <Input
-                    value={data.brandModel}
-                    onChange={onChange("brandModel")}
-                    placeholder="Ej: Epson X41 / Dell Inspiron / iPhone 11"
-                    className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
-                  />
+            <div className="bg-[#FFD200] rounded-md p-10 relative overflow-hidden group border border-white/10 shadow-xl">
+              <div className="relative z-10">
+                <div className="bg-black p-3 rounded-md w-fit mb-8 shadow-xl">
+                  <Sparkles className="h-6 w-6 text-[#FFD200]" />
                 </div>
-
-                <div className="space-y-2">
-                  <Label className="text-white/80">Describe el problema</Label>
-                  <Textarea
-                    value={data.issue}
-                    onChange={onChange("issue")}
-                    placeholder="Ej: No enciende / se apaga / imagen borrosa / puerto dañado…"
-                    className="min-h-[120px] bg-white/5 border-white/10 text-white placeholder:text-white/40"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label className="text-white/80">
-                    Preferencia de contacto
-                  </Label>
-                  <div className="flex flex-wrap gap-2">
-                    <Button
-                      type="button"
-                      variant="secondary"
-                      className={[
-                        "bg-white/10 text-white hover:bg-white/15",
-                        data.preferred === "whatsapp"
-                          ? "ring-2 ring-primary/40"
-                          : "",
-                      ].join(" ")}
-                      onClick={() => setPreferred("whatsapp")}
+                <h3 className="text-3xl font-bold text-black">
+                  Atención <br /> Inmediata
+                </h3>
+                <ul className="space-y-5">
+                  {[
+                    "Análisis preliminar",
+                    "Resolución de dudas",
+                    "Asesoría de mejora",
+                  ].map((item, i) => (
+                    <li
+                      key={i}
+                      className="flex items-center gap-2 font-bold text-black/70"
                     >
-                      WhatsApp
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="secondary"
-                      className={[
-                        "bg-white/10 text-white hover:bg-white/15",
-                        data.preferred === "call"
-                          ? "ring-2 ring-primary/40"
-                          : "",
-                      ].join(" ")}
-                      onClick={() => setPreferred("call")}
-                    >
-                      Llamada
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="grid gap-3 sm:grid-cols-2">
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="bg-primary text-black hover:bg-primary/90"
-                    disabled={loading}
-                  >
-                    Enviar por WhatsApp <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-
-                  <Button
-                    type="button"
-                    size="lg"
-                    variant="secondary"
-                    className="bg-white/10 text-white hover:bg-white/15"
-                    asChild
-                  >
-                    <a href="tel:+51941801827">
-                      <PhoneCall className="mr-2 h-4 w-4" />
-                      Llamar
-                    </a>
-                  </Button>
-                </div>
-
-                <p className="text-xs text-white/60">
-                  Tip: si adjuntas una foto o video del problema, el diagnóstico
-                  es más rápido.
-                </p>
-              </form>
-            </CardContent>
-          </Card>
-
-          {/* Sidebar */}
-          <div className="space-y-6">
-            <Card className="border-white/10 bg-white/[0.04]">
-              <CardContent className="p-6 space-y-4">
-                <div className="flex items-start gap-3">
-                  <div className="mt-0.5 rounded-xl bg-primary/15 p-2 text-primary">
-                    <MapPin className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-white">Dirección</p>
-                    <p className="mt-1 text-sm text-white/70">{address}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <div className="mt-0.5 rounded-xl bg-primary/15 p-2 text-primary">
-                    <Clock className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-white">Horario</p>
-                    <p className="mt-1 text-sm text-white/70">{schedule}</p>
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap gap-2">
-                  <Badge className="bg-primary text-black hover:bg-primary/90">
-                    Chorrillos
-                  </Badge>
-                  <Badge
-                    variant="secondary"
-                    className="bg-white/10 text-white hover:bg-white/15"
-                  >
-                    Lima Metropolitana
-                  </Badge>
-                  <Badge
-                    variant="secondary"
-                    className="bg-white/10 text-white hover:bg-white/15"
-                  >
-                    Empresas y hogares
-                  </Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-white/10 bg-white/[0.04]">
-              <CardContent className="p-6">
-                <p className="text-sm font-medium text-white">
-                  Qué enviar para cotizar rápido
-                </p>
-                <ul className="mt-3 space-y-2 text-sm text-white/70">
-                  <li className="flex gap-2">
-                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary" />
-                    Marca y modelo del equipo
-                  </li>
-                  <li className="flex gap-2">
-                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary" />
-                    Foto o video del problema
-                  </li>
-                  <li className="flex gap-2">
-                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary" />
-                    Si ya fue revisado: qué le hicieron y qué pasó después
-                  </li>
+                      {item}
+                    </li>
+                  ))}
                 </ul>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
+
+            <a
+              href="tel:+51941801827"
+              className="flex items-center justify-center gap-4 w-full py-8 border border-white/10 bg-white/5 text-white font-bold rounded-md hover:bg-[#FFD200] hover:text-black hover:border-[#FFD200] transition-all group shadow-xl"
+            >
+              <PhoneCall className="h-5 w-5 text-[#FFD200] group-hover:text-black" />{" "}
+              Soporte Telefónico
+            </a>
           </div>
         </div>
       </ContentWidth>
