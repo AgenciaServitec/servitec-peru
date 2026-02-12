@@ -6,12 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { ArrowRight, Clock, MapPin, PhoneCall, Sparkles } from "lucide-react";
+import { Clock, MapPin, PhoneCall, Sparkles } from "lucide-react";
 
 type FormState = {
   name: string;
   phone: string;
-  service: string;
+  service: string | undefined;
   brandModel: string;
   issue: string;
   preferred: "whatsapp" | "call";
@@ -41,7 +41,6 @@ export default function Contact() {
   const address = "Néstor Bermúdez 113, Chorrillos, Lima, Perú";
   const schedule = "Lun–Vie: 9:00 a.m. – 7:00 p.m.";
 
-  // Ajuste del template para que sea una CONSULTA
   const whatsappUrl = React.useMemo(() => {
     const template = `*CONSULTA TÉCNICA ESPECIALIZADA*
 ---------------------------------------
