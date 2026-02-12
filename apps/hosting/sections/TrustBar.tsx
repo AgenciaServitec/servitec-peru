@@ -114,15 +114,13 @@ export function TrustBar() {
       <ContentWidth>
         <div className="flex items-center justify-between gap-6 md:gap-12">
           <div className="shrink-0 flex flex-col gap-1 text-left z-10 pr-4 md:pr-8">
-            <span className="text-primary font-bold text-xl md:text-3xl tracking-tighter">
+            <span className="font-bold text-xl md:text-3xl tracking-tighter">
               +5 Años
             </span>
             <span className="text-white/40 text-[9px] md:text-[10px] uppercase tracking-[0.15em] font-medium whitespace-nowrap">
               Líderes en soporte
             </span>
           </div>
-
-          {/* Sustituye tu div de gradientes por esta estructura de máscara */}
           <div
             className="relative flex-1 overflow-hidden pointer-events-none"
             style={{
@@ -154,7 +152,6 @@ export function TrustBar() {
             </motion.div>
           </div>
 
-          {/* Métrica Derecha (Fija) */}
           <div className="shrink-0 flex flex-col gap-1 text-right z-10 pl-4 md:pl-8">
             <span className="text-white font-medium text-base md:text-xl tracking-tight whitespace-nowrap">
               Hardware & Software

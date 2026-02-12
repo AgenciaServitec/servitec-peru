@@ -28,21 +28,6 @@ export const SPECIALTIES_DATA = [
     icon: Monitor,
   },
   {
-    type: "security-camera-installation",
-    slug: "instalacion-de-camaras",
-    title: "Instalación de cámaras de seguridad",
-    description:
-      "Implementación de videovigilancia para control y seguridad de espacios.",
-    image: "/specialties/security-camera-installation.png",
-    includes: [
-      "Instalación de cámaras",
-      "Configuración de grabador",
-      "Pruebas de visualización",
-    ],
-    services: [],
-    icon: Video,
-  },
-  {
     type: "laptop-repair",
     slug: "reparacion-de-laptops",
     title: "Reparación de laptops",
@@ -86,6 +71,21 @@ export const SPECIALTIES_DATA = [
     ],
     services: [],
     icon: Printer,
+  },
+  {
+    type: "security-camera-installation",
+    slug: "instalacion-de-camaras",
+    title: "Instalación de cámaras de seguridad",
+    description:
+      "Implementación de videovigilancia para control y seguridad de espacios.",
+    image: "/specialties/security-camera-installation.png",
+    includes: [
+      "Instalación de cámaras",
+      "Configuración de grabador",
+      "Pruebas de visualización",
+    ],
+    services: [],
+    icon: Video,
   },
   {
     type: "all-in-one-repair",
@@ -145,21 +145,6 @@ export const SPECIALTIES_DATA = [
     icon: Smartphone,
   },
   {
-    type: "reballing",
-    slug: "servicio-de-reballing",
-    title: "Servicio de reballing",
-    description:
-      "Reparación de placas electrónicas mediante reballing profesional.",
-    image: "/specialties/reballing.png",
-    includes: [
-      "Diagnóstico de placa",
-      "Reballing de chipset",
-      "Pruebas de estabilidad",
-    ],
-    services: [],
-    icon: Cpu,
-  },
-  {
     type: "data-recovery",
     slug: "recuperacion-de-datos",
     title: "Recuperación de datos",
@@ -174,4 +159,19 @@ export const SPECIALTIES_DATA = [
     services: [],
     icon: Database,
   },
+  {
+    type: "reballing",
+    slug: "servicio-de-reballing",
+    title: "Servicio de reballing",
+    description:
+      "Reparación de placas electrónicas mediante reballing profesional.",
+    image: "/specialties/reballing.png",
+    includes: [
+      "Diagnóstico de placa",
+      "Reballing de chipset",
+      "Pruebas de estabilidad",
+    ],
+    services: [],
+    icon: Cpu,
+  }
 ];

@@ -59,7 +59,6 @@ export function Hero() {
       className="relative isolate min-h-[65vh] md:min-h-[75vh] flex items-center overflow-hidden bg-[#050505] pt-20"
     >
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        {/* Malla de puntos con Parallax sutil */}
         <motion.div
           className="absolute inset-0 opacity-[0.12]"
           style={{
@@ -70,7 +69,6 @@ export function Hero() {
           }}
         />
 
-        {/* SVG de Cometas Suavizados */}
         <svg
           className="absolute inset-0 h-full w-full"
           viewBox="0 0 1000 1000"
@@ -78,14 +76,12 @@ export function Hero() {
           aria-hidden="true"
         >
           <defs>
-            {/* Gradiente Suave Blanco */}
             <linearGradient id="cometWhite" gradientUnits="userSpaceOnUse">
               <stop offset="0%" stopColor="white" stopOpacity="0" />
               <stop offset="50%" stopColor="white" stopOpacity="0.2" />
               <stop offset="100%" stopColor="white" stopOpacity="0.5" />
             </linearGradient>
 
-            {/* Gradiente Suave Amarillo */}
             <linearGradient id="cometYellow" gradientUnits="userSpaceOnUse">
               <stop offset="0%" stopColor="#eab308" stopOpacity="0" />
               <stop offset="50%" stopColor="#eab308" stopOpacity="0.1" />
@@ -98,7 +94,6 @@ export function Hero() {
             </filter>
           </defs>
 
-          {/* COMETA 1: Izquierda a Derecha */}
           <motion.path
             d="M -100 250 L 300 180 L 500 420 L 800 150 L 1100 250"
             stroke="url(#cometWhite)"
@@ -119,7 +114,6 @@ export function Hero() {
             }}
           />
 
-          {/* COMETA 2: Derecha a Izquierda */}
           <motion.path
             d="M 1100 750 L 700 820 L 500 620 L 200 880 L -100 720"
             stroke="url(#cometYellow)"
@@ -142,10 +136,8 @@ export function Hero() {
           />
         </svg>
 
-        {/* Glow central sutil de fondo */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] rounded-full bg-primary/[0.015] blur-[120px]" />
 
-        {/* Desvanecido inferior */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#050505]" />
       </div>
 
@@ -213,7 +205,7 @@ export function Hero() {
               className="bg-white/5 text-white border-white/10 hover:bg-white/10 px-10 transition-all shadow-none"
               asChild
             >
-              <a href="/servicios">
+              <a href="/#specialties">
                 <svg
                   className="h-4 w-4"
                   xmlns="http://www.w3.org/2000/svg"
@@ -224,7 +216,7 @@ export function Hero() {
                     d="M14 15h-4v-2H2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6h-8zm6-9h-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v4h20V8a2 2 0 0 0-2-2m-4 0H8V4h8z"
                   />
                 </svg>
-                <span>Nuestros Servicios</span>
+                <span>Nuestras Especialidades</span>
               </a>
             </Button>
           </motion.div>
@@ -241,7 +233,7 @@ export function Hero() {
                 Chorrillos, Lima
               </span>
             </div>
-            <div className="flex items-center gap-2 border-x border-white/10 px-10 hidden md:flex">
+            <div className="items-center gap-2 border-x border-white/10 px-10 hidden md:flex">
               <Clock className="w-4 text-primary" />
               <span className="font-medium text-white/60">
                 Lun–Vie 9am – 7pm
