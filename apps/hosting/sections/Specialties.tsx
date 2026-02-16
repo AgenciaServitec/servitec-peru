@@ -5,68 +5,96 @@ import { ContentWidth } from "@/components/ContentWidth";
 import { SPECIALTIES_DATA } from "@/data-list/specialties";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 
 export function Specialties() {
   return (
-    <section id="specialties" className="py-24 bg-[#050505]">
+    <section
+      id="specialties"
+      className="py-24 bg-black border-t border-white/5"
+    >
       <ContentWidth>
-        <div className="mb-12">
-          <h2 className="text-4xl md:text-5xl text-white font-bold">
-            Nuestras Especialidades
-          </h2>
-          <p className="text-white/40 mt-3 max-w-xl">
-            Soporte técnico avanzado con diagnóstico profesional.
+        {/* Cabecera: Título normal y limpio */}
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+          <div className="text-left">
+            <span className="text-primary text-[10px] font-bold tracking-[0.3em] uppercase">
+              Soluciones
+            </span>
+            <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight mt-2">
+              Nuestras Especialidades
+            </h2>
+          </div>
+          <p className="text-white/40 max-w-xs text-sm md:text-right leading-relaxed font-normal">
+            Ingeniería de precisión aplicada a la recuperación de
+            infraestructura tecnológica crítica.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-[200px] gap-4 md:gap-6">
-          {SPECIALTIES_DATA.map((s, index) => {
-            const isFeatured = index === 0 || index === 6;
+        {/* Grilla técnica */}
+        <div className="grid gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-3 border border-white/10 rounded-sm overflow-hidden">
+          {SPECIALTIES_DATA.map((s) => {
+            const specialtyUrl = `/especialidades/${s.slug}`;
 
             return (
-              <div
-                key={s.type}
-                className={`group flex flex-col overflow-hidden rounded-md bg-white/5 border border-white/10 shadow-sm hover:shadow-md transition 
-                  ${isFeatured ? "lg:col-span-2 lg:row-span-2" : "lg:col-span-1 lg:row-span-2"}
-                `}
+              <motion.div
+                key={s.slug}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                className="group relative bg-black overflow-hidden flex flex-col min-h-[340px]"
               >
-                <div className="relative h-[55%] w-full overflow-hidden bg-[#111]">
+                {/* Imagen de fondo */}
+                <div className="absolute inset-0 z-0 transition-all duration-700">
                   <Image
                     src={s.image}
                     alt={s.title}
                     fill
-                    className="object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover opacity-20 grayscale group-hover:grayscale-0 group-hover:opacity-40 group-hover:scale-105 transition-all duration-700"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
                 </div>
 
-                <div className="p-6 md:p-8 flex flex-col justify-between flex-1">
-                  <div>
-                    <h3
-                      className={`font-bold text-white tracking-tight mb-2 ${isFeatured ? "text-xl md:text-2xl" : "text-lg"}`}
+                {/* Contenido */}
+                <div className="relative z-10 p-8 flex flex-col h-full">
+                  <div className="flex justify-end items-start mb-8">
+                    <ArrowUpRight className="h-4 w-4 text-white/20 group-hover:text-primary transition-colors" />
+                  </div>
+
+                  <div className="mt-auto">
+                    <Link
+                      href={specialtyUrl}
+                      className="inline-block group/link"
                     >
-                      {s.title}
-                    </h3>
-                    <p className="text-xs md:text-sm text-white/40 line-clamp-2 leading-relaxed font-medium">
+                      <h3 className="text-xl font-bold text-white tracking-tight mb-3 group-hover/link:text-primary transition-colors">
+                        {s.title}
+                      </h3>
+                    </Link>
+                    <p className="text-sm leading-relaxed text-white/40 font-normal line-clamp-2 mb-8">
                       {s.description ||
-                        "Servicio técnico especializado con garantía y repuestos originales."}
+                        `Soporte especializado y reparación avanzada de sistemas de ${s.title.toLowerCase()}.`}
                     </p>
-                  </div>
 
-                  <div className="flex gap-2 mt-4">
-                    <Button asChild className="bg-foreground">
-                      <Link href="/services">Cotizar</Link>
-                    </Button>
-                    <Button
-                      asChild
-                      variant="outline"
-                      className="border-white/10 bg-white/5 text-white hover:bg-white/10 backdrop-blur-sm"
-                    >
-                      <Link href="/services">Ver servicios</Link>
-                    </Button>
+                    <div className="flex items-center gap-6">
+                      <Button
+                        asChild
+                        className="h-10 px-6 bg-primary text-black font-bold text-xs hover:bg-white transition-colors rounded-md"
+                      >
+                        <Link href={specialtyUrl}>Cotizar</Link>
+                      </Button>
+                      <Link
+                        href={specialtyUrl}
+                        className="text-xs font-bold text-white/40 hover:text-white uppercase tracking-wider transition-colors"
+                      >
+                        Detalles
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
+
+                {/* Línea inferior animada */}
+                <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-primary transition-all duration-500 group-hover:w-full" />
+              </motion.div>
             );
           })}
         </div>

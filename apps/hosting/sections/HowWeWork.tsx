@@ -2,6 +2,7 @@
 
 import { ContentWidth } from "@/components/ContentWidth";
 import { BadgeCheck, ClipboardList, Timer, Wrench } from "lucide-react";
+import { motion } from "framer-motion";
 
 const steps = [
   {
@@ -28,54 +29,54 @@ const steps = [
 
 export function HowWeWork() {
   return (
-    <section id="proceso" className="py-24 bg-[#050505]">
+    <section id="proceso" className="py-24 bg-black border-t border-white/5">
       <ContentWidth>
-        <div className="mb-20 text-center md:text-left">
-          <h2 className="text-4xl md:text-5xl font-bold text-white">
-            ¿Cómo trabajamos?
-          </h2>
-          <p className="mt-4 text-white/40 max-w-md">
-            Un proceso simple y transparente diseñado para tu seguridad en cada
-            etapa.
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+          <div className="text-left">
+            <span className="text-primary text-[10px] font-bold tracking-[0.3em] uppercase">
+              Proceso
+            </span>
+            <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight mt-2">
+              ¿Cómo trabajamos? {/* Título todo blanco: más elegante */}
+            </h2>
+          </div>
+          <p className="text-white/40 max-w-xs text-sm md:text-right leading-relaxed font-normal">
+            Metodología técnica diseñada para garantizar la integridad de tu
+            infraestructura.
           </p>
         </div>
 
-        <div className="relative">
-          <div className="hidden lg:block absolute top-12 left-0 w-full h-[1px] bg-white/5" />
-
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {steps.map((s, idx) => {
-              const Icon = s.icon;
-              return (
-                <div key={s.title} className="group relative flex flex-col">
-                  <div className="relative z-10 mb-8 flex items-center justify-between lg:justify-start lg:gap-6">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-md bg-[#0D0D0D] border border-white/10 text-white transition-all duration-500 group-hover:border-[#FFD200]/50 group-hover:text-[#FFD200]">
-                      <Icon className="h-7 w-7" />
-                    </div>
-
-                    <span className="text-7xl font-black text-white/[0.02] leading-none transition-colors duration-500 group-hover:text-white/[0.05] select-none">
-                      {idx + 1}
-                    </span>
+        <div className="grid gap-px bg-white/10 md:grid-cols-2 lg:grid-cols-4 border border-white/10 rounded-sm overflow-hidden">
+          {steps.map((s, idx) => {
+            const Icon = s.icon;
+            return (
+              <motion.div
+                key={s.title}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                className="group relative bg-black p-8 transition-colors duration-300 hover:bg-neutral-950"
+              >
+                <div className="flex items-center gap-3 mb-8">
+                  <div className="flex h-10 w-10 items-center justify-center border border-white/10 rounded-sm text-white/40 transition-all duration-300 group-hover:border-primary group-hover:text-primary">
+                    <Icon className="h-5 w-5" strokeWidth={1.5} />
                   </div>
-
-                  <div className="relative flex flex-col flex-1 p-8 rounded-md border border-white/5 bg-[#0A0A0A] transition-all duration-500 group-hover:border-white/10">
-                    <h3 className="text-xl font-bold text-white mb-4">
-                      {s.title}
-                    </h3>
-
-                    <p className="text-sm leading-relaxed text-white/40 group-hover:text-white/70 transition-colors font-medium">
-                      {s.desc}
-                    </p>
-
-                    {/* Barra de progreso inferior tecnológica */}
-                    <div className="mt-10 h-[2px] w-full bg-white/5 relative overflow-hidden">
-                      <div className="absolute inset-0 bg-[#FFD200] translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-700 ease-in-out" />
-                    </div>
-                  </div>
+                  <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.2em]">
+                    Paso 0{idx + 1}
+                  </span>
                 </div>
-              );
-            })}
-          </div>
+
+                <h3 className="text-lg font-bold text-white tracking-tight mb-3">
+                  {s.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-white/40 font-normal">
+                  {s.desc}
+                </p>
+
+                <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-primary transition-all duration-500 group-hover:w-full" />
+              </motion.div>
+            );
+          })}
         </div>
       </ContentWidth>
     </section>
