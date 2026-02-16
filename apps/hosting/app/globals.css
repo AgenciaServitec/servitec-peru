@@ -155,15 +155,17 @@
     @apply bg-background text-foreground;
   }
 
-  .btn-primary {
-    @apply rounded-lg bg-primary text-black hover:bg-primary/90 active:scale-95;
-  }
-  .btn-ghost-dark {
-    @apply rounded-lg bg-white/5 text-white border border-white/10 hover:bg-white/10;
-  }
-  .card-surface {
-    @apply rounded-xl bg-white/5 border border-white/10;
-  }
+    .btn-primary {
+        @apply rounded-sm bg-primary text-black hover:bg-primary/90 active:scale-95 transition-all uppercase text-[12px] font-bold tracking-wider;
+    }
+
+    .btn-ghost-dark {
+        @apply rounded-sm bg-white/5 text-white border border-white/10 hover:bg-white/10 active:scale-95 transition-all uppercase text-[12px] font-bold tracking-wider;
+    }
+
+    .card-surface {
+        @apply rounded-sm bg-white/5 border border-white/10;
+    }
 }
 
 @layer components {
