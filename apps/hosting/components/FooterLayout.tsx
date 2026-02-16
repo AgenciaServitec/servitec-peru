@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ContentWidth } from "../components/ContentWidth";
+import { ContentWidth } from "@/components/ContentWidth";
 import {
   ArrowUpRight,
   Clock,
@@ -39,7 +39,6 @@ export const FooterLayout = () => {
     <footer className="bg-[#050505] border-t border-white/5 pt-20 pb-10 font-sans">
       <ContentWidth>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-20">
-          {/* COLUMNA 1: BRANDING */}
           <div className="lg:col-span-4 space-y-8">
             <div className="space-y-6">
               <Image
@@ -98,7 +97,6 @@ export const FooterLayout = () => {
             </div>
           </div>
 
-          {/* COLUMNA 2: SERVICIOS CORE */}
           <div className="lg:col-span-2 space-y-6">
             <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-primary">
               Servicios
@@ -124,7 +122,6 @@ export const FooterLayout = () => {
             </ul>
           </div>
 
-          {/* COLUMNA 3: SOPORTE Y CONTACTO */}
           <div className="lg:col-span-3 space-y-6 border-l border-white/5 pl-0 lg:pl-8">
             <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-white">
               Centro de Soporte
@@ -176,7 +173,6 @@ export const FooterLayout = () => {
             </ul>
           </div>
 
-          {/* COLUMNA 4: FISCAL Y RECLAMACIONES + FORMAS DE PAGO */}
           <div className="lg:col-span-3 space-y-6">
             <div className="p-5 border border-white/10 bg-white/[0.02] rounded-sm space-y-4">
               <h3 className="text-[11px] font-bold uppercase tracking-[0.1em] text-white/80 flex items-center gap-2">
@@ -199,7 +195,6 @@ export const FooterLayout = () => {
               </div>
             </div>
 
-            {/* LIBRO DE RECLAMACIONES ENMARCADO */}
             <Link
               href="/reclamaciones"
               className="group flex items-center gap-4 p-4 border border-white/10 bg-white/[0.03] rounded-sm hover:border-primary/40 transition-all"
@@ -220,7 +215,6 @@ export const FooterLayout = () => {
               </div>
             </Link>
 
-            {/* SECCIÓN DE FORMAS DE PAGO (ESTILO TARJETITAS) */}
             <div className="space-y-3 pt-2">
               <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30">
                 Métodos de Pago
@@ -239,7 +233,6 @@ export const FooterLayout = () => {
           </div>
         </div>
 
-        {/* BARRA INFERIOR FINAL */}
         <div className="pt-8 border-t border-white/5">
           <div className="flex flex-col lg:flex-row justify-between items-center gap-6 text-[10px] uppercase tracking-[0.15em] text-white/20">
             <div className="flex flex-wrap justify-center gap-8">
@@ -263,7 +256,7 @@ export const FooterLayout = () => {
               </Link>
             </div>
             <p className="font-normal">
-              © 2026 Servitec Perú • Todos los derechos reservados
+              © 2018 - 2026 Servitec Perú • Todos los derechos reservados
             </p>
           </div>
         </div>
