@@ -4,8 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="refactored tsconfig">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="added new components ui">
+      <change afterPath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/app/especialidades/[slug]/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/app/especialidades/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/app/nosotros/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/app/not-found.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/app/politica-cookies/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/app/politicas-privacidad/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/app/reclamaciones/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/app/servicios/[type]/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/app/servicios/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/app/terminos-condiciones/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/components/CookieBanner.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/components/SpecialtyDetailLayout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/data-list/services.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/complaints-book.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/placa-madre.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/about/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/contact/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/services/[subtype]/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/services/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/components/FooterLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/FooterLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/components/HeaderLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/HeaderLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/data-list/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/data-list/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/data-list/services.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/HowWeWork.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/HowWeWork.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/ServicesSection.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/Specialties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/Specialties.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,6 +49,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
       </list>
     </option>
@@ -22,7 +57,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="refactor_specialties_section" />
+        <entry key="$PROJECT_DIR$" value="new_version_website" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -80,8 +115,8 @@
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\specialties" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public" />
+      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\specialties" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -117,7 +152,7 @@
       <workItem from="1770612707824" duration="1755000" />
       <workItem from="1770815692427" duration="6306000" />
       <workItem from="1770898924359" duration="2488000" />
-      <workItem from="1771195136784" duration="3770000" />
+      <workItem from="1771195136784" duration="35757000" />
     </task>
     <task id="LOCAL-00002" summary="updated the version of react and nextjs">
       <option name="closed" value="true" />
@@ -287,7 +322,23 @@
       <option name="project" value="LOCAL" />
       <updated>1771219944674</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="udpated workspace">
+      <option name="closed" value="true" />
+      <created>1771220013317</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1771220013317</updated>
+    </task>
+    <task id="LOCAL-00024" summary="added new components ui">
+      <option name="closed" value="true" />
+      <created>1771274878104</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1771274878104</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -326,6 +377,8 @@
     <MESSAGE value="fixed errors" />
     <MESSAGE value="removed embla carousel, BrandsSection and carousel components" />
     <MESSAGE value="refactored tsconfig" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored tsconfig" />
+    <MESSAGE value="udpated workspace" />
+    <MESSAGE value="added new components ui" />
+    <option name="LAST_COMMIT_MESSAGE" value="added new components ui" />
   </component>
 </project>

@@ -1,164 +1,225 @@
 "use client";
 
-import Image from "next/image";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import React, { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 import { ContentWidth } from "@/components/ContentWidth";
-import { Headset } from "lucide-react";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import { ArrowRight, HardHat, Menu, ShoppingCart } from "lucide-react";
+
+// Importamos la data maestra actualizada
+import { SPECIALTIES_DATA } from "@/data-list/specialties";
+import { SERVICES_DATA } from "@/data-list/services";
 
 export const HeaderLayout = () => {
-  const [scrolled, setScrolled] = React.useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  React.useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <header
-      className={[
-        "fixed top-0 left-0 right-0 z-50",
-        "transition-all duration-300",
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
         scrolled
-          ? "bg-black/80 backdrop-blur-md border-b border-white/10 py-2"
-          : "bg-transparent py-4",
-      ].join(" ")}
+          ? "bg-black/80 backdrop-blur-xl border-b border-white/10 py-2"
+          : "bg-transparent py-6"
+      )}
     >
       <ContentWidth>
         <div className="flex items-center justify-between">
-          <Link
-            href="/"
-            className="flex items-center gap-3 hover:opacity-90 transition"
-          >
-            <Image
+          <Link href="/" className="group flex flex-col leading-none">
+            <img
+              className="w-32" // Ajusté un poco el tamaño
               src="/logo-servitec.png"
               alt="Logo de Servitec Perú"
-              width={160}
-              height={34}
-              priority
-              className="w-auto h-8 md:h-9"
             />
           </Link>
 
-          <button className="lg:hidden ui-radius-md ui-surface ui-surface-hover p-2 text-white transition active:scale-95">
-            <svg
-              className="h-6 w-6"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 640 640"
-              fill="currentColor"
-            >
-              <path d="M96 160C96 142.3 110.3 128 128 128L512 128C529.7 128 544 142.3 544 160C544 177.7 529.7 192 512 192L128 192C110.3 192 96 177.7 96 160zM96 320C96 302.3 110.3 288 128 288L512 288C529.7 288 544 302.3 544 320C544 337.7 529.7 352 512 352L128 352C110.3 352 96 337.7 96 320zM544 480C544 497.7 529.7 512 512 512L128 512C110.3 512 96 497.7 96 480C96 462.3 110.3 448 128 448L512 448C529.7 448 544 462.3 544 480z" />
-            </svg>
-          </button>
+          <nav className="hidden lg:flex items-center gap-4">
+            <NavigationMenu>
+              <NavigationMenuList className="gap-1">
+                {/* Especialidades Dinámicas */}
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="bg-transparent text-white/80 hover:text-white transition-colors">
+                    Especialidades
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent className="border-none shadow-2xl">
+                    <div className="bg-neutral-950/95 backdrop-blur-md p-2 rounded-sm w-[600px]">
+                      <ul className="grid gap-1 md:grid-cols-2 mb-2">
+                        {SPECIALTIES_DATA.slice(0, 10).map((spec) => (
+                          <ListItem
+                            key={spec.slug}
+                            title={spec.title}
+                            href={`/especialidades/${spec.slug}`}
+                            icon={
+                              spec.icon && <spec.icon className="w-4 h-4" />
+                            }
+                          >
+                            {spec.description}
+                          </ListItem>
+                        ))}
+                      </ul>
+                      <div className="p-1 border-t border-white/5 mt-1">
+                        <NavigationMenuLink asChild>
+                          <Link
+                            href="/especialidades"
+                            className="flex items-center justify-between w-full p-3 rounded-sm bg-white/[0.03] hover:bg-primary/10 group transition-all"
+                          >
+                            <span className="text-[11px] font-black uppercase tracking-widest text-white/70 group-hover:text-primary">
+                              Explorar todas las especialidades
+                            </span>
+                            <ArrowRight className="w-4 h-4 text-white/20 group-hover:text-primary transition-transform group-hover:translate-x-1" />
+                          </Link>
+                        </NavigationMenuLink>
+                      </div>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
 
-          <nav className="hidden lg:flex items-center gap-6">
-            <ul className="flex items-center gap-1">
-              <NavItem href="/" label="Inicio">
-                <svg
-                  className="h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 512 512"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M277.8 8.6c-12.3-11.4-31.3-11.4-43.5 0l-224 208c-9.6 9-12.8 22.9-8 35.1S18.8 272 32 272h16v176c0 35.3 28.7 64 64 64h288c35.3 0 64-28.7 64-64V272h16c13.2 0 25-8.1 29.8-20.3s1.6-26.2-8-35.1zM240 320h32c26.5 0 48 21.5 48 48v96H192v-96c0-26.5 21.5-48 48-48"
-                  />
-                </svg>
-              </NavItem>
+                {/* Servicios Dinámicos (Actualizado) */}
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="bg-transparent text-primary hover:text-primary/80 transition-colors font-bold">
+                    Servicios
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent className="border-none shadow-2xl">
+                    <div className="bg-neutral-950/95 backdrop-blur-md p-2 rounded-sm w-[650px]">
+                      <ul className="grid gap-1 md:grid-cols-2 mb-2">
+                        {/* Tomamos los servicios más relevantes o los primeros 8 */}
+                        {SERVICES_DATA.slice(0, 8).map((service) => (
+                          <ListItem
+                            key={service.slug}
+                            title={service.title}
+                            href={`/servicios/${service.slug}`}
+                            // Aquí usamos el icono directo del objeto
+                            icon={
+                              service.icon && (
+                                <service.icon className="w-4 h-4" />
+                              )
+                            }
+                          >
+                            {service.description}
+                          </ListItem>
+                        ))}
+                      </ul>
+                      <div className="p-1 border-t border-white/5 mt-1">
+                        <NavigationMenuLink asChild>
+                          <Link
+                            href="/servicios"
+                            className="flex items-center justify-between w-full p-3 rounded-sm bg-white/[0.03] hover:bg-primary/10 group transition-all"
+                          >
+                            <span className="text-[11px] font-black uppercase tracking-widest text-white/70 group-hover:text-primary">
+                              Ver catálogo completo de servicios
+                            </span>
+                            <ArrowRight className="w-4 h-4 text-white/20 group-hover:text-primary transition-transform group-hover:translate-x-1" />
+                          </Link>
+                        </NavigationMenuLink>
+                      </div>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
 
-              <NavItem href="/services" label="Servicios">
-                <svg
-                  className="h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M14 15h-4v-2H2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6h-8zm6-9h-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v4h20V8a2 2 0 0 0-2-2m-4 0H8V4h8z"
-                  />
-                </svg>
-              </NavItem>
+                {/* Enlaces Simples */}
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    asChild
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      "bg-transparent text-white/80"
+                    )}
+                  >
+                    <Link href="/nosotros">Nosotros</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
 
-              <NavItem href="/about" label="Nosotros">
-                <svg
-                  className="h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M24 14.6c0 .6-1.2 1-2.6 1.2c-.9-1.7-2.7-3-4.8-3.9c.2-.3.4-.5.6-.8h.8c3.1-.1 6 1.8 6 3.5M6.8 11H6c-3.1 0-6 1.9-6 3.6c0 .6 1.2 1 2.6 1.2c.9-1.7 2.7-3 4.8-3.9zm5.2 1c2.2 0 4-1.8 4-4s-1.8-4-4-4s-4 1.8-4 4s1.8 4 4 4m0 1c-4.1 0-8 2.6-8 5c0 2 8 2 8 2s8 0 8-2c0-2.4-3.9-5-8-5"
-                  />
-                </svg>
-              </NavItem>
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    asChild
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      "bg-transparent text-white/80"
+                    )}
+                  >
+                    <Link href="/contacto">Contacto</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
 
-              <NavItem href="/contact" label="Contacto">
-                <Headset className="w-4" />
-              </NavItem>
-            </ul>
-
-            {/*<div className="flex items-center gap-3 pl-4 border-l border-white/10">*/}
-            {/*  <CtaPill href="/work" variant="work">*/}
-            {/*    <HardHat className="w-4" />*/}
-            {/*    <span>Servitec Work</span>*/}
-            {/*  </CtaPill>*/}
-
-            {/*  <CtaPill href="/tienda" variant="shop">*/}
-            {/*    <Store className="w-4" />*/}
-            {/*    <span>Tienda</span>*/}
-            {/*  </CtaPill>*/}
-            {/*</div>*/}
+            <div className="flex items-center gap-3 ml-4">
+              <Link
+                href="https://servitecwork.servitecperu.com"
+                className="btn-ghost-dark px-4 py-2 text-[12px] font-bold flex items-center gap-2 transition-all"
+              >
+                <HardHat className="w-3.5 h-3.5 text-primary" />
+                Servitec Work
+              </Link>
+              <Link
+                href="https://tienda.servitecperu.com"
+                className="btn-primary px-4 py-2 text-[12px] font-bold flex items-center gap-2"
+              >
+                <ShoppingCart className="w-3.5 h-3.5" />
+                Tienda
+              </Link>
+            </div>
           </nav>
+
+          <button className="lg:hidden p-2 text-white/70">
+            <Menu className="w-6 h-6" />
+          </button>
         </div>
       </ContentWidth>
     </header>
   );
 };
 
-function NavItem({
-  href,
-  label,
-  children,
-}: {
-  href: string;
-  label: string;
-  children: ReactNode;
-}) {
+// Componente ListItem (Sin cambios en estructura, pero optimizado)
+const ListItem = React.forwardRef<
+  HTMLAnchorElement,
+  React.ComponentPropsWithoutRef<"a"> & {
+    icon?: React.ReactNode;
+    title: string;
+    href: string;
+  }
+>(({ className, title, children, icon, href, ...props }, ref) => {
   return (
     <li>
-      <Link
-        href={href}
-        className="flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 transition-all"
-      >
-        <span className="opacity-70 group-hover:opacity-100">{children}</span>
-        <span>{label}</span>
-      </Link>
+      <NavigationMenuLink asChild>
+        <Link
+          href={href}
+          className={cn(
+            "group block select-none space-y-1 rounded-sm p-3 leading-none no-underline outline-none transition-all hover:bg-white/5",
+            className
+          )}
+          {...props}
+        >
+          <div className="flex items-start gap-3">
+            <div className="mt-1 text-white/20 group-hover:text-primary transition-colors shrink-0">
+              {icon}
+            </div>
+            <div>
+              <div className="text-[11px] font-bold leading-none text-white/90 group-hover:text-primary uppercase tracking-tight">
+                {title}
+              </div>
+              <p className="line-clamp-1 text-[10px] leading-snug text-muted-foreground mt-1.5 group-hover:text-white/60">
+                {children}
+              </p>
+            </div>
+          </div>
+        </Link>
+      </NavigationMenuLink>
     </li>
   );
-}
-
-function CtaPill({
-  href,
-  variant,
-  children,
-}: {
-  href: string;
-  variant: "work" | "shop";
-  children: ReactNode;
-}) {
-  const base =
-    "inline-flex items-center gap-2 rounded-md px-5 py-2.5 text-xs font-bold uppercase tracking-wide transition-all active:scale-95";
-
-  const styles =
-    variant === "work"
-      ? "bg-black border border-white/20 text-white hover:bg-neutral-900 hover:border-white/40"
-      : "bg-primary text-black border border-primary hover:bg-primary/90";
-
-  return (
-    <Link href={href} className={`${base} ${styles}`}>
-      {children}
-    </Link>
-  );
-}
+});
+ListItem.displayName = "ListItem";

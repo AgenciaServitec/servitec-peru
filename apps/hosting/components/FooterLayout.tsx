@@ -1,181 +1,271 @@
+"use client";
+
 import Image from "next/image";
 import { ContentWidth } from "../components/ContentWidth";
 import {
-  BadgeCheck,
-  Building2,
+  ArrowUpRight,
   Clock,
   Facebook,
+  Instagram,
+  Linkedin,
   Mail,
   MapPin,
-  Phone,
+  ShieldCheck,
+  Smartphone,
   Youtube,
 } from "lucide-react";
+import Link from "next/link";
+
+const TikTokIcon = ({ size = 18 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
 
 export const FooterLayout = () => {
   const razonSocial = "Servitec Perú Group E.I.R.L.";
   const ruc = "20604141240";
 
   return (
-    <footer className="bg-[#0A0D12] border-t border-white/10">
+    <footer className="bg-[#050505] border-t border-white/5 pt-20 pb-10 font-sans">
       <ContentWidth>
-        <div className="py-10 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex items-center justify-center lg:justify-start">
-            <Image
-              src="/logo-servitec.png"
-              alt="Logo de Servitec Perú"
-              width={180}
-              height={38}
-              priority
-            />
-          </div>
-
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-            <p className="text-base sm:text-lg font-semibold text-white text-center">
-              Conéctate Socialmente con Servitec
-            </p>
-
-            <div className="mt-5 flex flex-wrap justify-center gap-8">
-              <a
-                href="https://www.facebook.com/Servitec.chorrillos/?locale=es_LA"
-                target="_blank"
-                rel="noreferrer"
-                className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 hover:bg-white/[0.05] transition"
-              >
-                <span className="text-white/90 group-hover:text-white">
-                  <Facebook />
-                </span>
-                <span className="text-sm text-white/80 group-hover:text-white">
-                  Visítanos en Facebook
-                </span>
-              </a>
-
-              <a
-                href="https://www.youtube.com/channel/UC0fs7G_IrQ9nBPOpKsaDTJg"
-                target="_blank"
-                rel="noreferrer"
-                className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 hover:bg-white/[0.05] transition"
-              >
-                <span className="text-white/90 group-hover:text-white">
-                  <Youtube />
-                </span>
-                <span className="text-sm text-white/80 group-hover:text-white">
-                  Visítanos en YouTube
-                </span>
-              </a>
-
-              <a
-                href="https://wa.me/51941801827"
-                target="_blank"
-                rel="noreferrer"
-                className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 hover:bg-white/[0.05] transition"
-              >
-                <span className="text-white/90 group-hover:text-white">
-                  <Facebook />
-                </span>
-                <span className="text-sm text-white/80 group-hover:text-white">
-                  Escríbenos en WhatsApp
-                </span>
-              </a>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-20">
+          {/* COLUMNA 1: BRANDING */}
+          <div className="lg:col-span-4 space-y-8">
+            <div className="space-y-6">
+              <Image
+                src="/logo-servitec.png"
+                alt="Logo de Servitec Perú"
+                width={160}
+                height={34}
+                className="opacity-90 grayscale hover:grayscale-0 transition-all duration-500"
+              />
+              <p className="text-sm leading-relaxed text-white/40 max-w-sm">
+                Líderes en ingeniería de hardware y recuperación de sistemas
+                críticos. Soporte técnico de alta precisión en Lima con más de
+                10 años de trayectoria.
+              </p>
             </div>
-          </div>
-        </div>
 
-        <div className="h-px w-full bg-white/10" />
-
-        <div className="py-10 grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
-          <div>
-            <h3 className="text-white font-semibold text-base mb-3">
-              Sobre nosotros
-            </h3>
-            <p className="text-sm leading-relaxed text-white/70">
-              Somos una empresa que brinda servicios informáticos de forma
-              integral en la asesoría y consultoría en hardware y software,
-              tanto para usuarios domésticos, negocios y empresas corporativas.
-            </p>
-
-            <div className="mt-4 rounded-xl border border-white/10 bg-white/[0.04] p-4 space-y-3">
-              <div className="flex items-start gap-3">
-                <Building2 className="h-5 w-5 text-primary mt-0.5" />
-                <div>
-                  <p className="text-xs uppercase tracking-wide text-white/50">
-                    Razón social
-                  </p>
-                  <p className="text-sm font-semibold text-white">
-                    {razonSocial}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <BadgeCheck className="h-5 w-5 text-primary mt-0.5" />
-                <div>
-                  <p className="text-xs uppercase tracking-wide text-white/50">
-                    RUC
-                  </p>
-                  <p className="text-sm font-semibold text-white tracking-wider">
-                    {ruc}
-                  </p>
-                </div>
+            <div className="space-y-4">
+              <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30">
+                Nuestras Redes
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  {
+                    icon: <Facebook size={18} />,
+                    href: "#",
+                    label: "Facebook",
+                  },
+                  {
+                    icon: <Instagram size={18} />,
+                    href: "#",
+                    label: "Instagram",
+                  },
+                  {
+                    icon: <TikTokIcon size={18} />,
+                    href: "#",
+                    label: "TikTok",
+                  },
+                  { icon: <Youtube size={18} />, href: "#", label: "YouTube" },
+                  {
+                    icon: <Linkedin size={18} />,
+                    href: "#",
+                    label: "LinkedIn",
+                  },
+                ].map((social, i) => (
+                  <a
+                    key={i}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 border border-white/5 rounded-sm text-white/30 hover:text-primary hover:border-primary/40 transition-all bg-white/[0.02]"
+                  >
+                    {social.icon}
+                  </a>
+                ))}
               </div>
             </div>
           </div>
 
-          <div>
-            <h3 className="text-white font-semibold text-base mb-3">
-              Horario de atención
+          {/* COLUMNA 2: SERVICIOS CORE */}
+          <div className="lg:col-span-2 space-y-6">
+            <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-primary">
+              Servicios
             </h3>
-            <div className="flex items-start gap-2 text-sm text-white/70">
-              <Clock className="mt-0.5 h-4 w-4 text-primary" />
-              <span>9:00 am a 6:00 pm</span>
-            </div>
+            <ul className="space-y-3">
+              {[
+                "Reparación de Laptops",
+                "Soporte de Servidores",
+                "Cámaras de Seguridad",
+                "Recuperación de Datos",
+                "Mantenimiento PC",
+                "Proyectores",
+              ].map((item) => (
+                <li key={item}>
+                  <Link
+                    href="/servicios"
+                    className="text-sm text-white/40 hover:text-white transition-colors"
+                  >
+                    {item}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <div>
-            <h3 className="text-white font-semibold text-base mb-3">
-              Dirección
+          {/* COLUMNA 3: SOPORTE Y CONTACTO */}
+          <div className="lg:col-span-3 space-y-6 border-l border-white/5 pl-0 lg:pl-8">
+            <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-white">
+              Centro de Soporte
             </h3>
-            <div className="flex items-start gap-2 text-sm text-white/70">
-              <MapPin className="mt-0.5 h-4 w-4 text-primary" />
-              <span>Néstor Bermúdez 113, Chorrillos, Lima, Perú</span>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-white font-semibold text-base mb-3">
-              Contacto
-            </h3>
-            <ul className="space-y-3 text-sm text-white/70">
-              <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-primary" />
-                <span>941 801 827</span>
+            <ul className="space-y-5">
+              <li className="flex gap-4 text-sm text-white/50">
+                <MapPin size={20} className="text-primary shrink-0" />
+                <div className="flex flex-col gap-1">
+                  <span className="text-white/80">Sede Chorrillos</span>
+                  <span className="text-xs">Néstor Bermúdez 113, Lima</span>
+                  <a
+                    href="#"
+                    className="text-primary text-[10px] uppercase font-bold hover:underline flex items-center gap-1"
+                  >
+                    Google Maps <ArrowUpRight size={12} />
+                  </a>
+                </div>
               </li>
-              <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-primary" />
-                <span>972 252 744</span>
+              <li className="flex gap-4 text-sm text-white/50">
+                <Clock size={20} className="text-primary shrink-0" />
+                <div className="flex flex-col gap-1">
+                  <span className="text-white/80">Laboratorio</span>
+                  <span className="text-xs">Lun – Vie: 9am – 7pm</span>
+                </div>
               </li>
-              <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-primary" />
-                <span>contactos@servitec-peru.com</span>
+              <li className="flex gap-4 text-sm text-white/50">
+                <Smartphone size={20} className="text-primary shrink-0" />
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-white/80 font-bold">941 801 827</span>
+                    <span className="text-[9px] border border-white/10 px-1 text-white/30 uppercase">
+                      Principal
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-white/80 font-bold">972 252 744</span>
+                    <span className="text-[9px] border border-white/10 px-1 text-white/30 uppercase">
+                      Soporte
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li className="flex gap-4 text-sm text-white/50">
+                <Mail size={20} className="text-primary shrink-0" />
+                <span className="text-xs truncate">
+                  contactos@servitec-peru.com
+                </span>
               </li>
             </ul>
           </div>
+
+          {/* COLUMNA 4: FISCAL Y RECLAMACIONES + FORMAS DE PAGO */}
+          <div className="lg:col-span-3 space-y-6">
+            <div className="p-5 border border-white/10 bg-white/[0.02] rounded-sm space-y-4">
+              <h3 className="text-[11px] font-bold uppercase tracking-[0.1em] text-white/80 flex items-center gap-2">
+                <ShieldCheck size={14} className="text-primary" /> Datos
+                Fiscales
+              </h3>
+              <div className="space-y-3 text-xs text-white/70">
+                <div className="space-y-1">
+                  <p className="text-[9px] text-white/30 uppercase tracking-widest">
+                    Razón Social
+                  </p>
+                  <p className="font-medium leading-tight">{razonSocial}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-[9px] text-white/30 uppercase tracking-widest">
+                    RUC
+                  </p>
+                  <p className="font-mono tracking-widest">{ruc}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* LIBRO DE RECLAMACIONES ENMARCADO */}
+            <Link
+              href="/reclamaciones"
+              className="group flex items-center gap-4 p-4 border border-white/10 bg-white/[0.03] rounded-sm hover:border-primary/40 transition-all"
+            >
+              <Image
+                src="/complaints-book.jpg"
+                width={40}
+                height={24}
+                alt="Libro de Reclamaciones"
+              />
+              <div className="text-left leading-tight">
+                <p className="text-[10px] font-bold text-white uppercase tracking-tight">
+                  Libro de Reclamaciones
+                </p>
+                <p className="text-[9px] text-white/30 font-normal">
+                  Atención de quejas y reclamos
+                </p>
+              </div>
+            </Link>
+
+            {/* SECCIÓN DE FORMAS DE PAGO (ESTILO TARJETITAS) */}
+            <div className="space-y-3 pt-2">
+              <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30">
+                Métodos de Pago
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {["Visa", "Yape", "Plin", "Efectivo"].map((pago) => (
+                  <div
+                    key={pago}
+                    className="px-3 py-1.5 border border-white/5 bg-white/[0.02] rounded-sm text-[9px] font-bold text-white/40 uppercase tracking-widest hover:border-primary/30 hover:text-primary transition-all cursor-default"
+                  >
+                    {pago}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className="h-px w-full bg-white/10" />
-
-        <div className="py-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div className="space-y-2">
-            <p className="text-sm text-white/60">
-              Copyright © 2026 - Todos los derechos reservados
+        {/* BARRA INFERIOR FINAL */}
+        <div className="pt-8 border-t border-white/5">
+          <div className="flex flex-col lg:flex-row justify-between items-center gap-6 text-[10px] uppercase tracking-[0.15em] text-white/20">
+            <div className="flex flex-wrap justify-center gap-8">
+              <Link
+                href="/politicas-privacidad"
+                className="hover:text-white transition-colors"
+              >
+                Políticas de Privacidad
+              </Link>
+              <Link
+                href="/terminos-condiciones"
+                className="hover:text-white transition-colors"
+              >
+                Términos y Condiciones
+              </Link>
+              <Link
+                href="/politica-cookies"
+                className="hover:text-white transition-colors"
+              >
+                Política de Cookies
+              </Link>
+            </div>
+            <p className="font-normal">
+              © 2026 Servitec Perú • Todos los derechos reservados
             </p>
           </div>
-
-          <a
-            href="https://drive.google.com/file/d/1zEqBvWZsx0zsnixUNf1Ag_xrlqOfGIK4/view?pli=1"
-            className="text-sm text-white/60 hover:text-white transition"
-          >
-            Terminos y condiciones
-          </a>
         </div>
       </ContentWidth>
     </footer>
