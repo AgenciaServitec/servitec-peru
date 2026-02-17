@@ -110,56 +110,76 @@ const brands = [
 
 export function TrustBar() {
   return (
-    <section className="py-8 border-y border-white/5 bg-black/20 backdrop-blur-sm overflow-hidden">
+    <section className="py-12 border-y border-white/5 bg-black overflow-hidden relative">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,rgba(234,179,8,0.05),transparent_70%)] pointer-events-none" />
+
       <ContentWidth>
-        <div className="flex items-center justify-between gap-6 md:gap-12">
-          <div className="shrink-0 flex flex-col gap-1 text-left z-10 pr-4 md:pr-8">
-            <span className="font-bold text-xl md:text-3xl tracking-tighter">
-              +5 Años
-            </span>
-            <span className="text-white/40 text-[9px] md:text-[10px] uppercase tracking-[0.15em] font-medium whitespace-nowrap">
-              Líderes en soporte
-            </span>
-          </div>
-          <div
-            className="relative flex-1 overflow-hidden pointer-events-none"
-            style={{
-              maskImage:
-                "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
-              WebkitMaskImage:
-                "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
-            }}
-          >
-            <motion.div
-              className="flex items-center gap-12 md:gap-20"
-              animate={{ x: [0, -1500] }}
-              transition={{
-                duration: 40,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            >
-              {[...brands, ...brands, ...brands, ...brands].map(
-                (brand, idx) => (
-                  <div
-                    key={idx}
-                    className="h-5 md:h-24 shrink-0 text-white/30 hover:text-white transition-colors duration-500"
-                  >
-                    {brand.svg}
-                  </div>
-                )
-              )}
-            </motion.div>
+        <div className="flex flex-col gap-10">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
+            <div className="shrink-0 flex flex-col items-center lg:items-start gap-1 z-10">
+              <span className="font-bold text-3xl md:text-4xl tracking-tighter text-white">
+                +5 Años
+              </span>
+              <span className="text-[10px] uppercase tracking-[0.2em] font-bold">
+                Líderes en soporte
+              </span>
+            </div>
+
+            <div className="flex-1 w-full flex flex-col overflow-hidden">
+              <span className="text-white/40 text-center font-medium">
+                Marcas compatibles que atendemos:
+              </span>
+
+              <div
+                className="relative flex overflow-hidden group"
+                style={{
+                  maskImage:
+                    "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+                  WebkitMaskImage:
+                    "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+                }}
+              >
+                <motion.div
+                  className="flex flex-nowrap shrink-0 items-center gap-12 min-w-full"
+                  animate={{ x: [0, "-50%"] }}
+                  transition={{
+                    duration: 30,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                >
+                  {[...brands, ...brands, ...brands, ...brands].map(
+                    (brand, idx) => (
+                      <div
+                        key={idx}
+                        className="w-[120px] md:w-[150px] shrink-0 flex justify-center"
+                      >
+                        <div className="h-32 md:h-40 w-full flex items-center justify-center text-white/20 hover:text-white transition-all duration-500 grayscale hover:grayscale-0">
+                          {brand.svg}
+                        </div>
+                      </div>
+                    )
+                  )}
+                </motion.div>
+              </div>
+            </div>
+
+            <div className="shrink-0 flex flex-col items-center lg:items-end gap-1 z-10">
+              <span className="text-white font-bold text-lg md:text-xl tracking-tight whitespace-nowrap text-center lg:text-right">
+                Hardware & Software
+              </span>
+              <span className="text-center lg:text-right text-white/40 text-[10px] uppercase tracking-[0.15em] font-medium whitespace-nowrap">
+                Especialistas con <br /> experiencia comprobada
+              </span>
+            </div>
           </div>
 
-          <div className="shrink-0 flex flex-col gap-1 text-right z-10 pl-4 md:pl-8">
-            <span className="text-white font-medium text-base md:text-xl tracking-tight whitespace-nowrap">
-              Hardware & Software
-            </span>
-            <span className="text-white/40 text-[9px] md:text-[10px] uppercase tracking-[0.15em] font-medium whitespace-nowrap">
-              Especialistas Certificados
-            </span>
-          </div>
+          <p className="max-w-4xl mx-auto text-[10px] text-white/20 text-center uppercase tracking-[0.15em] font-light mt-4 leading-relaxed opacity-70">
+            Servitec ofrece servicios de soporte técnico de manera
+            independiente. Los logotipos y marcas pertenecen a sus respectivos
+            dueños y se utilizan solo para informar sobre la compatibilidad de
+            nuestras soluciones.
+          </p>
         </div>
       </ContentWidth>
     </section>

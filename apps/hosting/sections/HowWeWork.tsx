@@ -31,18 +31,18 @@ export function HowWeWork() {
   return (
     <section id="proceso" className="py-24 bg-black border-t border-white/5">
       <ContentWidth>
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+        <div className="flex flex-col md:flex-row justify-between md:items-end mb-20 gap-8">
           <div className="text-left">
             <span className="text-primary text-[10px] font-bold tracking-[0.3em] uppercase">
-              Proceso
+              Metodología
             </span>
-            <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight mt-2">
-              ¿Cómo trabajamos? {/* Título todo blanco: más elegante */}
+            <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter mt-3">
+              ¿Cómo trabajamos?
             </h2>
           </div>
-          <p className="text-white/40 max-w-xs text-sm md:text-right leading-relaxed font-normal">
-            Metodología técnica diseñada para garantizar la integridad de tu
-            infraestructura.
+          <p className="text-white/40 max-w-sm text-sm md:text-right leading-relaxed font-normal">
+            "Metodología técnica diseñada para garantizar la integridad de tu
+            infraestructura."
           </p>
         </div>
 
@@ -55,18 +55,18 @@ export function HowWeWork() {
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                className="group relative bg-black p-8 transition-colors duration-300 hover:bg-neutral-950"
+                className="group relative bg-black p-10 transition-colors duration-300 hover:bg-neutral-950"
               >
-                <div className="flex items-center gap-3 mb-8">
-                  <div className="flex h-10 w-10 items-center justify-center border border-white/10 rounded-sm text-white/40 transition-all duration-300 group-hover:border-primary group-hover:text-primary">
+                <div className="flex items-center justify-between mb-10">
+                  <div className="flex h-11 w-11 items-center justify-center border border-white/10 rounded-sm bg-white/[0.02] text-white/40 transition-all duration-300 group-hover:border-primary group-hover:text-primary">
                     <Icon className="h-5 w-5" strokeWidth={1.5} />
                   </div>
-                  <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.2em]">
+                  <span className="text-[11px] font-bold text-white/10 uppercase tracking-[0.2em]">
                     Paso 0{idx + 1}
                   </span>
                 </div>
 
-                <h3 className="text-lg font-bold text-white tracking-tight mb-3">
+                <h3 className="text-xl font-bold text-white tracking-tight mb-4">
                   {s.title}
                 </h3>
                 <p className="text-sm leading-relaxed text-white/40 font-normal">

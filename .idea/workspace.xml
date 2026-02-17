@@ -4,9 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="cleaning project">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="updated the year in footer">
+      <change afterPath="$PROJECT_DIR$/apps/hosting/sections/DigitalBanner.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/sections/FeaturesBar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/components/FooterLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/FooterLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/data-list/specialties.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/data-list/specialties.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/back.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/banner-business.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/banner1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/file.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/globe.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/icon-servitec.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/icon-servitec.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/magen-test.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/placa-madre.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/preventive-maintenance.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/projector-lamp-replacement.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/Hero.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/Hero.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/HowWeWork.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/HowWeWork.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/Specialties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/Specialties.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/TrustBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/TrustBar.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +66,9 @@
     &quot;accountId&quot;: &quot;e345968d-7d21-452d-8db2-36d5945ef979&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 5
@@ -119,7 +140,7 @@
       <workItem from="1770612707824" duration="1755000" />
       <workItem from="1770815692427" duration="6306000" />
       <workItem from="1770898924359" duration="2488000" />
-      <workItem from="1771195136784" duration="37455000" />
+      <workItem from="1771195136784" duration="55869000" />
     </task>
     <task id="LOCAL-00002" summary="updated the version of react and nextjs">
       <option name="closed" value="true" />
@@ -337,7 +358,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771275556181</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="updated the year in footer">
+      <option name="closed" value="true" />
+      <created>1771286191009</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1771286191009</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -355,7 +384,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added new components CTA, Hero, HowWeWork, Location and Specialties" />
     <MESSAGE value="added video hero" />
     <MESSAGE value="added quotation form" />
     <MESSAGE value="added export new components" />
@@ -380,6 +408,7 @@
     <MESSAGE value="udpated global.css" />
     <MESSAGE value="refactored pages" />
     <MESSAGE value="cleaning project" />
-    <option name="LAST_COMMIT_MESSAGE" value="cleaning project" />
+    <MESSAGE value="updated the year in footer" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated the year in footer" />
   </component>
 </project>
