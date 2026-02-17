@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ContentWidth } from "@/components/ContentWidth";
 import {
   ArrowUpRight,
+  Banknote,
   Clock,
   Facebook,
   Instagram,
@@ -35,6 +36,17 @@ export const FooterLayout = () => {
   const razonSocial = "Servitec Perú Group E.I.R.L.";
   const ruc = "20604141240";
 
+  const paymentMethods = [
+    { name: "BCP", src: "/payment-methods/bcp.png", isImage: true },
+    { name: "Yape", src: "/payment-methods/yape.png", isImage: true },
+    { name: "Plin", src: "/payment-methods/plin.webp", isImage: true },
+    {
+      name: "Efectivo",
+      icon: <Banknote size={30} className="text-green-900" />,
+      isImage: false,
+    },
+  ];
+
   return (
     <footer className="bg-[#050505] border-t border-white/5 pt-20 pb-10 font-sans">
       <ContentWidth>
@@ -56,14 +68,14 @@ export const FooterLayout = () => {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30">
+              <h3 className="text-[10px] font-bold uppercase text-white/30">
                 Nuestras Redes
               </h3>
               <div className="flex flex-wrap gap-2">
                 {[
                   {
                     icon: <Facebook size={18} />,
-                    href: "#",
+                    href: "https://www.facebook.com/Servitec.chorrillos/",
                     label: "Facebook",
                   },
                   {
@@ -73,10 +85,14 @@ export const FooterLayout = () => {
                   },
                   {
                     icon: <TikTokIcon size={18} />,
-                    href: "#",
+                    href: "https://www.tiktok.com/@servitec_peru_group?is_from_webapp=1&sender_device=pc",
                     label: "TikTok",
                   },
-                  { icon: <Youtube size={18} />, href: "#", label: "YouTube" },
+                  {
+                    icon: <Youtube size={18} />,
+                    href: "https://youtube.com/@servitecperugroupeirl?si=KxiXQcoBzJ9vJ6BY",
+                    label: "YouTube",
+                  },
                   {
                     icon: <Linkedin size={18} />,
                     href: "#",
@@ -98,7 +114,7 @@ export const FooterLayout = () => {
           </div>
 
           <div className="lg:col-span-2 space-y-6">
-            <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-primary">
+            <h3 className="text-[11px] font-bold uppercase text-primary">
               Servicios
             </h3>
             <ul className="space-y-3">
@@ -123,12 +139,12 @@ export const FooterLayout = () => {
           </div>
 
           <div className="lg:col-span-3 space-y-6 border-l border-white/5 pl-0 lg:pl-8">
-            <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-white">
+            <h3 className="text-[11px] font-bold uppercase text-white">
               Centro de Soporte
             </h3>
             <ul className="space-y-5">
               <li className="flex gap-4 text-sm text-white/50">
-                <MapPin size={20} className="text-primary shrink-0" />
+                <MapPin size={20} className="text-white shrink-0" />
                 <div className="flex flex-col gap-1">
                   <span className="text-white/80">Sede Chorrillos</span>
                   <span className="text-xs">Néstor Bermúdez 113, Lima</span>
@@ -141,14 +157,14 @@ export const FooterLayout = () => {
                 </div>
               </li>
               <li className="flex gap-4 text-sm text-white/50">
-                <Clock size={20} className="text-primary shrink-0" />
+                <Clock size={20} className="text-white shrink-0" />
                 <div className="flex flex-col gap-1">
                   <span className="text-white/80">Laboratorio</span>
                   <span className="text-xs">Lun – Vie: 9am – 7pm</span>
                 </div>
               </li>
               <li className="flex gap-4 text-sm text-white/50">
-                <Smartphone size={20} className="text-primary shrink-0" />
+                <Smartphone size={20} className="text-white shrink-0" />
                 <div className="flex flex-col gap-2">
                   <div className="flex items-center gap-2">
                     <span className="text-white/80 font-bold">941 801 827</span>
@@ -165,7 +181,7 @@ export const FooterLayout = () => {
                 </div>
               </li>
               <li className="flex gap-4 text-sm text-white/50">
-                <Mail size={20} className="text-primary shrink-0" />
+                <Mail size={20} className="text-white shrink-0" />
                 <span className="text-xs truncate">
                   contactos@servitec-peru.com
                 </span>
@@ -175,7 +191,7 @@ export const FooterLayout = () => {
 
           <div className="lg:col-span-3 space-y-6">
             <div className="p-5 border border-white/10 bg-white/[0.02] rounded-sm space-y-4">
-              <h3 className="text-[11px] font-bold uppercase tracking-[0.1em] text-white/80 flex items-center gap-2">
+              <h3 className="text-[11px] font-bold uppercase text-white/80 flex items-center gap-2">
                 <ShieldCheck size={14} className="text-primary" /> Datos
                 Fiscales
               </h3>
@@ -195,37 +211,45 @@ export const FooterLayout = () => {
               </div>
             </div>
 
-            <Link
-              href="/reclamaciones"
-              className="group flex items-center gap-4 p-4 border border-white/10 bg-white/[0.03] rounded-sm hover:border-primary/40 transition-all"
-            >
+            <Link href="/reclamaciones" className="flex items-center gap-4">
               <Image
                 src="/complaints-book.jpg"
-                width={40}
+                width={60}
                 height={24}
                 alt="Libro de Reclamaciones"
               />
-              <div className="text-left leading-tight">
-                <p className="text-[10px] font-bold text-white uppercase tracking-tight">
+              <div className="text-left">
+                <p className="text-[12px] font-bold text-white uppercase">
                   Libro de Reclamaciones
                 </p>
-                <p className="text-[9px] text-white/30 font-normal">
+                <p className="text-[10px] text-white/30 font-normal">
                   Atención de quejas y reclamos
                 </p>
               </div>
             </Link>
 
             <div className="space-y-3 pt-2">
-              <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30">
+              <h3 className="text-[10px] font-bold uppercase text-white/30">
                 Métodos de Pago
               </h3>
               <div className="flex flex-wrap gap-2">
-                {["Visa", "Yape", "Plin", "Efectivo"].map((pago) => (
+                {paymentMethods.map((pago) => (
                   <div
-                    key={pago}
-                    className="px-3 py-1.5 border border-white/5 bg-white/[0.02] rounded-sm text-[9px] font-bold text-white/40 uppercase tracking-widest hover:border-primary/30 hover:text-primary transition-all cursor-default"
+                    key={pago.name}
+                    className="h-8 p-2 flex items-center justify-center border border-white/5 bg-white rounded-sm"
                   >
-                    {pago}
+                    {pago.isImage ? (
+                      <Image
+                        src={pago.src!}
+                        alt={pago.name}
+                        width={30}
+                        height={20}
+                      />
+                    ) : (
+                      <div className="flex items-center gap-1.5 text-white/40">
+                        {pago.icon}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -254,8 +278,14 @@ export const FooterLayout = () => {
               >
                 Política de Cookies
               </Link>
+              <Link
+                href="/politica-servicio"
+                className="hover:text-white transition-colors"
+              >
+                Política de Servicio
+              </Link>
             </div>
-            <p className="font-normal">
+            <p className="text-center font-normal">
               © 2018 - 2026 Servitec Perú • Todos los derechos reservados
             </p>
           </div>

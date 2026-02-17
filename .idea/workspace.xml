@@ -5,26 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="updated the year in footer">
-      <change afterPath="$PROJECT_DIR$/apps/hosting/sections/DigitalBanner.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/hosting/sections/FeaturesBar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/app/politica-servicio/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/assets/images/about/ecran.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/assets/images/about/lamps-and-projectors.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/assets/images/about/preventive-maintenance-2.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/assets/images/about/preventive-maintenance.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/assets/images/about/projectors-2.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/assets/images/about/projectors.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/assets/videos/hero.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/payment-methods/bcp.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/payment-methods/plin.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/payment-methods/yape.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/sections/TaxData.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/sections/Ubication.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/data-list/specialties.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/data-list/specialties.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/back.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/banner-business.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/banner1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/file.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/globe.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/icon-servitec.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/icon-servitec.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/magen-test.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/placa-madre.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/preventive-maintenance.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/projector-lamp-replacement.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/nosotros/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/nosotros/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/components/FooterLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/FooterLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/brands/logo-asus.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/brands/logo-lenovo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/brands/logo-samsung.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/brands/logo-sony.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/content_about/nosotros4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/formcontact_and_contactdetails/contacto.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/sections/Hero.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/Hero.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/HowWeWork.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/HowWeWork.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/Specialties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/Specialties.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/TrustBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/TrustBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +40,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="TypeScript File" />
+        <option value="tsconfig.json" />
         <option value="TypeScript JSX File" />
       </list>
     </option>
@@ -60,12 +66,12 @@
       </list>
     </option>
   </component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/AgenciaServitec/servitec-peru.git&quot;,
-    &quot;accountId&quot;: &quot;e345968d-7d21-452d-8db2-36d5945ef979&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/AgenciaServitec/servitec-peru.git",
+    "accountId": "eed1d776-978f-4f57-88e8-2aa6e801d3a7"
   }
-}</component>
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -78,31 +84,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Angel/WebstormProjects/servitec-peru/apps/hosting/public&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "C:/Users/Angel/WebstormProjects/servitec-peru/apps/hosting/public/payment-methods",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "pnpm",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "to.speed.mode.migration.done": "true",
+    "ts.external.directory.path": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\payment-methods" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\payment-methods" />
+      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets\videos" />
+      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets\images\about" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\specialties" />
     </key>
@@ -110,7 +120,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-e03c56caf84a-JavaScript-WS-252.23892.411" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-WS-243.22562.112" />
       </set>
     </attachedChunks>
   </component>
