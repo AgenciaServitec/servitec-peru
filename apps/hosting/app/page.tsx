@@ -12,7 +12,7 @@ export default function Home() {
       <HowWeWork />
       <Specialties />
       <TrustBar />
-      <DigitalBanner />
+      {/*<DigitalBanner />*/}
     </main>
   );
 }
