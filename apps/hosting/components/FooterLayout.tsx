@@ -209,7 +209,7 @@ export const FooterLayout = () => {
                 </div>
                 <div className="space-y-1">
                   <p className="text-[9px] text-white/30">RUC</p>
-                  <p className="font-mono">{ruc}</p>
+                  <p>{ruc}</p>
                 </div>
               </div>
             </div>
