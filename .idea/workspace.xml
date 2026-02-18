@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="added whatsapp button">
-      <change afterPath="$PROJECT_DIR$/apps/hosting/public/og-image.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/layout.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="updated metadata and added og-image" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -402,7 +398,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771454936653</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="updated metadata and added og-image">
+      <option name="closed" value="true" />
+      <created>1771455486191</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1771455486191</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -420,7 +424,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="updated components in home page" />
     <MESSAGE value="added card and textarea of shadcn" />
     <MESSAGE value="updated design" />
     <MESSAGE value="removed files" />
@@ -445,6 +448,7 @@
     <MESSAGE value="refactored components" />
     <MESSAGE value="updated workspace" />
     <MESSAGE value="added whatsapp button" />
-    <option name="LAST_COMMIT_MESSAGE" value="added whatsapp button" />
+    <MESSAGE value="updated metadata and added og-image" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated metadata and added og-image" />
   </component>
 </project>

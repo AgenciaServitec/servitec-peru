@@ -11,6 +11,8 @@ const MESSAGES = [
 ];
 
 export const WhatsAppButton = () => {
+  // Estado para controlar la hidratación
+  const [isMounted, setIsMounted] = useState(false);
   const [step, setStep] = useState<"idle" | "typing" | "message" | "closed">(
     "idle"
   );
@@ -22,7 +24,12 @@ export const WhatsAppButton = () => {
     "Hola Servitec, deseo realizar una consulta sobre sus servicios.";
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
+  // 1. Solución al error de hidratación:
+  // Solo se activa cuando el componente se monta en el cliente
   useEffect(() => {
+    setIsMounted(true);
+
+    // Iniciamos la secuencia de mensajes solo después de montar
     const typingTimer = setTimeout(() => setStep("typing"), 2000);
     const messageTimer = setTimeout(() => setStep("message"), 3500);
 
@@ -32,6 +39,7 @@ export const WhatsAppButton = () => {
     };
   }, []);
 
+  // 2. Lógica del carrusel (Solo si ya estamos montados y en el paso de mensaje)
   useEffect(() => {
     if (step === "message") {
       const interval = setInterval(() => {
@@ -40,9 +48,7 @@ export const WhatsAppButton = () => {
             return prev + 1;
           } else {
             clearInterval(interval);
-
             setTimeout(() => setStep("closed"), 5000);
-
             return prev;
           }
         });
@@ -51,6 +57,9 @@ export const WhatsAppButton = () => {
       return () => clearInterval(interval);
     }
   }, [step]);
+
+  // Si no está montado (SSR), no renderizamos nada
+  if (!isMounted) return null;
 
   return (
     <div className="fixed bottom-8 right-8 z-50 flex flex-col items-end gap-3">
