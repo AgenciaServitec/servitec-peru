@@ -20,7 +20,8 @@ const SEDES = [
     horario: "Lun – Vie: 9AM – 7PM",
     mapEmbedUrl:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3899.1121820641666!2d-77.0261971!3d-12.1729627!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105b9b8b8b8b8b7%3A0x8b8b8b8b8b8b8b8b!2sCalle%20N%C3%A9stor%20Berm%C3%BAdez%20113%2C%20Chorrillos%2015063!5e0!3m2!1ses-419!2spe!4v1700000000000!5m2!1ses-419!2spe",
-    googleMapsUrl: "https://maps.app.goo.gl/o1H5iG9yDBy7Z9iX8",
+    googleMapsUrl:
+      "https://www.google.com/maps/dir/?api=1&destination=Calle+Néstor+Bermúdez+113+Chorrillos+Lima",
   },
   {
     id: "kiwi",
@@ -30,7 +31,8 @@ const SEDES = [
     horario: "Lun – Vie: 9AM – 7PM",
     mapEmbedUrl:
       "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2810.030137913503!2d-77.019816949955!3d-12.175218244832372!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105b7788f078293%3A0xeec5e7a15ec3f73b!2sServitec%20%E2%80%94%20Taller%20T%C3%A9cnico!5e0!3m2!1ses!2spe!4v1771366463842!5m2!1ses!2spe",
-    googleMapsUrl: "https://maps.app.goo.gl/wAoq1VgTq3uZW4P48",
+    googleMapsUrl:
+      "https://www.google.com/maps/dir/?api=1&destination=Justo+Pastor+Davila+117+Chorrillos+15064",
   },
 ];
 
@@ -65,7 +67,7 @@ export default function Ubicacion() {
                   <TabsTrigger
                     key={sede.id}
                     value={sede.id}
-                    className="px-10 data-[state=active]:bg-primary data-[state=active]:text-black uppercase rounded-sm transition-all"
+                    className="px-10 data-[state=active]:bg-primary data-[state=active]:text-black rounded-sm transition-all"
                   >
                     {sede.id === "oficina" ? <Building /> : <Wrench />}
                     {sede.name}
@@ -81,7 +83,7 @@ export default function Ubicacion() {
                 <MapPin className="w-5 h-5 text-white" />
               </div>
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 mb-1">
+                <p className="text-[10px] font-bold text-white/30 mb-1">
                   Dirección Exacta
                 </p>
                 <p className="text-sm text-white/90 font-medium">
@@ -95,7 +97,7 @@ export default function Ubicacion() {
                 <Clock className="w-5 h-5 text-white" />
               </div>
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 mb-1">
+                <p className="text-[10px] font-bold text-white/30 mb-1">
                   Horario Laboral
                 </p>
                 <p className="text-sm text-white/90 font-medium">
@@ -111,7 +113,7 @@ export default function Ubicacion() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <PhoneCall className="mr-2 w-4 h-4" />
+                  <PhoneCall className="w-4 h-4" />
                   <span>Contactar</span>
                 </a>
               </Button>

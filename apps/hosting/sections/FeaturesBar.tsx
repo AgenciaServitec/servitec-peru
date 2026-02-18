@@ -13,7 +13,7 @@ const features = [
   {
     icon: <Monitor className="w-5 h-5" />,
     title: "Componentes de Fábrica",
-    description: "Repuestos certificados y stock",
+    description: "Repuestos compatibles y stock",
   },
   {
     icon: <HardDrive className="w-5 h-5" />,
@@ -41,10 +41,10 @@ export function FeaturesBar() {
               </div>
 
               <div className="flex flex-col">
-                <span className="text-white font-semibold text-base tracking-tight">
+                <span className="text-white font-semibold text-base">
                   {feature.title}
                 </span>
-                <span className="text-white/40 text-[11px] md:text-xs uppercase tracking-wider font-medium">
+                <span className="text-white/40 text-[11px] md:text-xs font-medium">
                   {feature.description}
                 </span>
               </div>

@@ -12,10 +12,10 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
+  NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
-import { ArrowRight, HardHat, Menu, ShoppingCart } from "lucide-react";
+import { ArrowRight, Menu } from "lucide-react";
 
-// Importamos la data maestra actualizada
 import { SPECIALTIES_DATA } from "@/data-list/specialties";
 import { SERVICES_DATA } from "@/data-list/services";
 
@@ -41,22 +41,22 @@ export const HeaderLayout = () => {
         <div className="flex items-center justify-between">
           <Link href="/" className="group flex flex-col leading-none">
             <img
-              className="w-32" // Ajusté un poco el tamaño
+              className="w-32"
               src="/logo-servitec.png"
               alt="Logo de Servitec Perú"
             />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-4">
-            <NavigationMenu>
+            <NavigationMenu className="relative">
               <NavigationMenuList className="gap-1">
-                {/* Especialidades Dinámicas */}
+                {/* 1. ESPECIALIDADES */}
                 <NavigationMenuItem>
                   <NavigationMenuTrigger className="bg-transparent text-white/80 hover:text-white transition-colors">
                     Especialidades
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent className="border-none shadow-2xl">
-                    <div className="bg-neutral-950/95 backdrop-blur-md p-2 rounded-sm w-[600px]">
+                  <NavigationMenuContent className="border-none">
+                    <div className="bg-neutral-950/95 backdrop-blur-md p-2 rounded-sm w-[600px] shadow-2xl">
                       <ul className="grid gap-1 md:grid-cols-2 mb-2">
                         {SPECIALTIES_DATA.slice(0, 10).map((spec) => (
                           <ListItem
@@ -77,7 +77,7 @@ export const HeaderLayout = () => {
                             href="/especialidades"
                             className="flex items-center justify-between w-full p-3 rounded-sm bg-white/[0.03] hover:bg-primary/10 group transition-all"
                           >
-                            <span className="text-[11px] font-black uppercase tracking-widest text-white/70 group-hover:text-primary">
+                            <span className="text-[11px] font-black text-white/70 group-hover:text-primary">
                               Explorar todas las especialidades
                             </span>
                             <ArrowRight className="w-4 h-4 text-white/20 group-hover:text-primary transition-transform group-hover:translate-x-1" />
@@ -88,21 +88,19 @@ export const HeaderLayout = () => {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
 
-                {/* Servicios Dinámicos (Actualizado) */}
+                {/* 2. SERVICIOS */}
                 <NavigationMenuItem>
                   <NavigationMenuTrigger className="bg-transparent text-primary hover:text-primary/80 transition-colors font-bold">
                     Servicios
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent className="border-none shadow-2xl">
-                    <div className="bg-neutral-950/95 backdrop-blur-md p-2 rounded-sm w-[650px]">
+                  <NavigationMenuContent className="border-none">
+                    <div className="bg-neutral-950/95 backdrop-blur-md p-2 rounded-sm w-[650px] shadow-2xl">
                       <ul className="grid gap-1 md:grid-cols-2 mb-2">
-                        {/* Tomamos los servicios más relevantes o los primeros 8 */}
                         {SERVICES_DATA.slice(0, 8).map((service) => (
                           <ListItem
                             key={service.slug}
                             title={service.title}
                             href={`/servicios/${service.slug}`}
-                            // Aquí usamos el icono directo del objeto
                             icon={
                               service.icon && (
                                 <service.icon className="w-4 h-4" />
@@ -119,7 +117,7 @@ export const HeaderLayout = () => {
                             href="/servicios"
                             className="flex items-center justify-between w-full p-3 rounded-sm bg-white/[0.03] hover:bg-primary/10 group transition-all"
                           >
-                            <span className="text-[11px] font-black uppercase tracking-widest text-white/70 group-hover:text-primary">
+                            <span className="text-[11px] font-black text-white/70 group-hover:text-primary">
                               Ver catálogo completo de servicios
                             </span>
                             <ArrowRight className="w-4 h-4 text-white/20 group-hover:text-primary transition-transform group-hover:translate-x-1" />
@@ -130,7 +128,6 @@ export const HeaderLayout = () => {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
 
-                {/* Enlaces Simples */}
                 <NavigationMenuItem>
                   <NavigationMenuLink
                     asChild
@@ -155,24 +152,12 @@ export const HeaderLayout = () => {
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               </NavigationMenuList>
-            </NavigationMenu>
 
-            <div className="flex items-center gap-3 ml-4">
-              <Link
-                href="https://servitecwork.servitecperu.com"
-                className="btn-ghost-dark px-4 py-2 text-[12px] font-bold flex items-center gap-2 transition-all"
-              >
-                <HardHat className="w-3.5 h-3.5 text-primary" />
-                Servitec Work
-              </Link>
-              <Link
-                href="https://tienda.servitecperu.com"
-                className="btn-primary px-4 py-2 text-[12px] font-bold flex items-center gap-2"
-              >
-                <ShoppingCart className="w-3.5 h-3.5" />
-                Tienda
-              </Link>
-            </div>
+              {/* EL FIX: Forzamos el Viewport a alinearse a la derecha del contenedor del Nav */}
+              <div className="absolute right-0 top-full flex justify-end">
+                <NavigationMenuViewport className="origin-top-right" />
+              </div>
+            </NavigationMenu>
           </nav>
 
           <button className="lg:hidden p-2 text-white/70">
@@ -184,7 +169,6 @@ export const HeaderLayout = () => {
   );
 };
 
-// Componente ListItem (Sin cambios en estructura, pero optimizado)
 const ListItem = React.forwardRef<
   HTMLAnchorElement,
   React.ComponentPropsWithoutRef<"a"> & {
@@ -209,7 +193,7 @@ const ListItem = React.forwardRef<
               {icon}
             </div>
             <div>
-              <div className="text-[11px] font-bold leading-none text-white/90 group-hover:text-primary uppercase tracking-tight">
+              <div className="text-[11px] font-bold leading-none text-white/90 group-hover:text-primary">
                 {title}
               </div>
               <p className="line-clamp-1 text-[10px] leading-snug text-muted-foreground mt-1.5 group-hover:text-white/60">

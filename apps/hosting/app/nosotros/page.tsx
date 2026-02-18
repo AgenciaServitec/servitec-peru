@@ -43,7 +43,7 @@ export default function About() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-6xl md:text-8xl font-bold tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70 drop-shadow-2xl"
+              className="text-6xl md:text-8xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70 drop-shadow-2xl"
             >
               Nosotros
             </motion.h1>
@@ -127,7 +127,7 @@ export default function About() {
 
             <div className="space-y-8">
               <div className="space-y-4">
-                <h2 className="text-5xl md:text-6xl font-bold tracking-tight text-white leading-[1.1]">
+                <h2 className="text-5xl md:text-6xl font-bold text-white leading-[1.1]">
                   Nuestra Historia
                 </h2>
                 <div className="space-y-4">
@@ -154,7 +154,7 @@ export default function About() {
                   },
                   {
                     title: "Soporte Institucional",
-                    desc: "Aliados técnicos certificados para el Ejército del Perú.",
+                    desc: "Aliados técnicos especializados para el Ejército del Perú.",
                   },
                   {
                     title: "Experiencia Comprobada",
@@ -168,7 +168,7 @@ export default function About() {
                   <div key={i} className="flex items-start gap-4">
                     <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0" />
                     <div>
-                      <h5 className="text-white font-bold text-sm tracking-wide">
+                      <h5 className="text-white font-bold text-sm">
                         {item.title}
                       </h5>
                       <p className="text-white/30 text-xs mt-1">{item.desc}</p>

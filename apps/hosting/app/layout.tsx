@@ -34,7 +34,7 @@ export default function RootLayout({
         <HeaderLayout />
 
         <div className="relative">
-          <div className="absolute inset-0 bg-black/20" />
+          <div className="absolute inset-0 bg-[#050505]" />
           <main className="relative">{children}</main>
         </div>
 

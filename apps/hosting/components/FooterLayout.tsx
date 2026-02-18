@@ -7,8 +7,6 @@ import {
   Banknote,
   Clock,
   Facebook,
-  Instagram,
-  Linkedin,
   Mail,
   MapPin,
   ShieldCheck,
@@ -61,14 +59,14 @@ export const FooterLayout = () => {
                 className="opacity-90 grayscale hover:grayscale-0 transition-all duration-500"
               />
               <p className="text-sm leading-relaxed text-white/40 max-w-sm">
-                Líderes en ingeniería de hardware y recuperación de sistemas
+                Expertos en reparación de hardware y recuperación de sistemas
                 críticos. Soporte técnico de alta precisión en Lima con más de
                 10 años de trayectoria.
               </p>
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-[10px] font-bold uppercase text-white/30">
+              <h3 className="text-[10px] font-bold text-white/30">
                 Nuestras Redes
               </h3>
               <div className="flex flex-wrap gap-2">
@@ -79,11 +77,6 @@ export const FooterLayout = () => {
                     label: "Facebook",
                   },
                   {
-                    icon: <Instagram size={18} />,
-                    href: "#",
-                    label: "Instagram",
-                  },
-                  {
                     icon: <TikTokIcon size={18} />,
                     href: "https://www.tiktok.com/@servitec_peru_group?is_from_webapp=1&sender_device=pc",
                     label: "TikTok",
@@ -92,11 +85,6 @@ export const FooterLayout = () => {
                     icon: <Youtube size={18} />,
                     href: "https://youtube.com/@servitecperugroupeirl?si=KxiXQcoBzJ9vJ6BY",
                     label: "YouTube",
-                  },
-                  {
-                    icon: <Linkedin size={18} />,
-                    href: "#",
-                    label: "LinkedIn",
                   },
                 ].map((social, i) => (
                   <a
@@ -114,9 +102,7 @@ export const FooterLayout = () => {
           </div>
 
           <div className="lg:col-span-2 space-y-6">
-            <h3 className="text-[11px] font-bold uppercase text-primary">
-              Servicios
-            </h3>
+            <h3 className="text-[11px] font-bold text-primary">Servicios</h3>
             <ul className="space-y-3">
               {[
                 "Reparación de Laptops",
@@ -139,21 +125,37 @@ export const FooterLayout = () => {
           </div>
 
           <div className="lg:col-span-3 space-y-6 border-l border-white/5 pl-0 lg:pl-8">
-            <h3 className="text-[11px] font-bold uppercase text-white">
+            <h3 className="text-[11px] font-bold text-white">
               Centro de Soporte
             </h3>
             <ul className="space-y-5">
               <li className="flex gap-4 text-sm text-white/50">
                 <MapPin size={20} className="text-white shrink-0" />
-                <div className="flex flex-col gap-1">
-                  <span className="text-white/80">Sede Chorrillos</span>
-                  <span className="text-xs">Néstor Bermúdez 113, Lima</span>
-                  <a
-                    href="#"
-                    className="text-primary text-[10px] uppercase font-bold hover:underline flex items-center gap-1"
-                  >
-                    Google Maps <ArrowUpRight size={12} />
-                  </a>
+                <div className="flex flex-col gap-3">
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-white/80">Sede Oficina</span>
+                    <span className="text-xs">Néstor Bermúdez 113, Lima</span>
+                    <a
+                      href="https://www.google.com/maps/dir/?api=1&destination=Calle+Néstor+Bermúdez+113+Chorrillos+Lima"
+                      target="_blank"
+                      className="text-primary text-[10px] font-bold hover:underline flex items-center gap-1"
+                    >
+                      Google Maps <ArrowUpRight size={12} />
+                    </a>
+                  </div>
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-white/80">Sede Taller Kiwi</span>
+                    <span className="text-xs">
+                      Justo Pastor Davila 117, Lima
+                    </span>
+                    <a
+                      href="https://www.google.com/maps/dir/?api=1&destination=Justo+Pastor+Davila+117+Chorrillos+15064"
+                      target="_blank"
+                      className="text-primary text-[10px] font-bold hover:underline flex items-center gap-1"
+                    >
+                      Google Maps <ArrowUpRight size={12} />
+                    </a>
+                  </div>
                 </div>
               </li>
               <li className="flex gap-4 text-sm text-white/50">
@@ -168,13 +170,13 @@ export const FooterLayout = () => {
                 <div className="flex flex-col gap-2">
                   <div className="flex items-center gap-2">
                     <span className="text-white/80 font-bold">941 801 827</span>
-                    <span className="text-[9px] border border-white/10 px-1 text-white/30 uppercase">
+                    <span className="text-[9px] border border-white/10 px-1 text-white/30">
                       Principal
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-white/80 font-bold">972 252 744</span>
-                    <span className="text-[9px] border border-white/10 px-1 text-white/30 uppercase">
+                    <span className="text-[9px] border border-white/10 px-1 text-white/30">
                       Soporte
                     </span>
                   </div>
@@ -182,31 +184,32 @@ export const FooterLayout = () => {
               </li>
               <li className="flex gap-4 text-sm text-white/50">
                 <Mail size={20} className="text-white shrink-0" />
-                <span className="text-xs truncate">
-                  contactos@servitec-peru.com
-                </span>
+                <div className="flex flex-col gap-1">
+                  <span className="text-xs truncate">
+                    contactos@servitec-peru.com
+                  </span>
+                  <span className="text-xs truncate">
+                    contacto@servitecperu.com
+                  </span>
+                </div>
               </li>
             </ul>
           </div>
 
           <div className="lg:col-span-3 space-y-6">
             <div className="p-5 border border-white/10 bg-white/[0.02] rounded-sm space-y-4">
-              <h3 className="text-[11px] font-bold uppercase text-white/80 flex items-center gap-2">
+              <h3 className="text-[11px] font-bold text-white/80 flex items-center gap-2">
                 <ShieldCheck size={14} className="text-primary" /> Datos
                 Fiscales
               </h3>
               <div className="space-y-3 text-xs text-white/70">
                 <div className="space-y-1">
-                  <p className="text-[9px] text-white/30 uppercase tracking-widest">
-                    Razón Social
-                  </p>
+                  <p className="text-[9px] text-white/30">Razón Social</p>
                   <p className="font-medium leading-tight">{razonSocial}</p>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-[9px] text-white/30 uppercase tracking-widest">
-                    RUC
-                  </p>
-                  <p className="font-mono tracking-widest">{ruc}</p>
+                  <p className="text-[9px] text-white/30">RUC</p>
+                  <p className="font-mono">{ruc}</p>
                 </div>
               </div>
             </div>
@@ -219,7 +222,7 @@ export const FooterLayout = () => {
                 alt="Libro de Reclamaciones"
               />
               <div className="text-left">
-                <p className="text-[12px] font-bold text-white uppercase">
+                <p className="text-[12px] font-bold text-white">
                   Libro de Reclamaciones
                 </p>
                 <p className="text-[10px] text-white/30 font-normal">
@@ -229,7 +232,7 @@ export const FooterLayout = () => {
             </Link>
 
             <div className="space-y-3 pt-2">
-              <h3 className="text-[10px] font-bold uppercase text-white/30">
+              <h3 className="text-[10px] font-bold text-white/30">
                 Métodos de Pago
               </h3>
               <div className="flex flex-wrap gap-2">
@@ -258,7 +261,7 @@ export const FooterLayout = () => {
         </div>
 
         <div className="pt-8 border-t border-white/5">
-          <div className="flex flex-col lg:flex-row justify-between items-center gap-6 text-[10px] uppercase tracking-[0.15em] text-white/20">
+          <div className="flex flex-col lg:flex-row justify-between items-center gap-6 text-[10px] text-white/20">
             <div className="flex flex-wrap justify-center gap-8">
               <Link
                 href="/politicas-privacidad"

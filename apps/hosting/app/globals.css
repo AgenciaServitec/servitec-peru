@@ -156,11 +156,11 @@
   }
 
     .btn-primary {
-        @apply rounded-sm bg-primary text-black hover:bg-primary/90 active:scale-95 transition-all uppercase text-[12px] font-bold tracking-wider;
+        @apply rounded-sm bg-primary text-black hover:bg-primary/90 active:scale-95 transition-all uppercase text-[12px] font-bold tracking-wider cursor-pointer;
     }
 
     .btn-ghost-dark {
-        @apply rounded-sm bg-white/5 text-white border border-white/10 hover:bg-white/10 active:scale-95 transition-all uppercase text-[12px] font-bold tracking-wider;
+        @apply rounded-sm bg-white/5 text-white border border-white/10 hover:bg-white/10 active:scale-95 transition-all uppercase text-[12px] font-bold tracking-wider cursor-pointer;
     }
 
     .card-surface {

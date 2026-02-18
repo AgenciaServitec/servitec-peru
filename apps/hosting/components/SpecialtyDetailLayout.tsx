@@ -1,29 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ContentWidth } from "@/components/ContentWidth";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { AnimatePresence, motion } from "framer-motion";
-import {
-  ArrowUpRight,
-  CheckCircle2,
-  Cpu,
-  MapPin,
-  MessageSquare,
-  Send,
-} from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Clock, Info, Plus, ShieldCheck } from "lucide-react";
 import { SERVICES_DATA } from "@/data-list/services";
+import TaxData from "@/sections/TaxData";
+import Ubicacion from "@/sections/Ubication";
 
 export default function SpecialtyDetailLayout({
   specialtyName,
@@ -42,188 +28,289 @@ export default function SpecialtyDetailLayout({
   );
 
   return (
-    <div className="bg-black">
-      {/* SECCIÓN 01: FORMULARIO DE COTIZACIÓN */}
-      <section className="pt-32 pb-20">
+    <div className="bg-[#050505] text-white min-h-screen selection:bg-primary/30">
+      <section className="relative pt-32 pb-16 border-b border-white/5">
         <ContentWidth>
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-10">
-              <span className="text-primary text-[10px] font-bold tracking-[0.4em] uppercase block mb-3">
-                Asistencia Técnica
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
-                Cotiza tu reparación de{" "}
-                <span className="text-white/60">{specialtyName}</span>
-              </h2>
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70"
+            >
+              {specialtyName}
+            </motion.h1>
+            <p className="text-white/50 text-base md:text-lg max-w-2xl mx-auto">
+              Servicio técnico multimarca en lima por servitec perú group.
+              atención presencial en laboratorio especializado para diagnósticos
+              electrónicos.
+            </p>
+          </div>
+        </ContentWidth>
+      </section>
+
+      {/* 2. FORMULARIO DE SOLICITUD DE SERVICIO */}
+      {/*<section className="py-20 relative z-10">*/}
+      {/*  <ContentWidth>*/}
+      {/*    <div className="max-w-3xl mx-auto">*/}
+      {/*      /!* Indicador de Pasos Separado (Estilo Superior) *!/*/}
+      {/*      <div className="mb-12 pt-4 px-4">*/}
+      {/*        <div className="relative flex justify-between max-w-md mx-auto">*/}
+      {/*          /!* Línea de fondo *!/*/}
+      {/*          <div className="absolute top-5 left-0 w-full h-[2px] bg-white/5 z-0 rounded-full" />*/}
+
+      {/*          /!* Línea de progreso (verde esmeralda) *!/*/}
+      {/*          <div*/}
+      {/*            className="absolute top-5 left-0 h-[2px] bg-[#22C55E] transition-all duration-700 ease-in-out z-0 rounded-full shadow-[0_0_15px_rgba(34,197,94,0.3)]"*/}
+      {/*            style={{ width: `${(step - 1) * 50}%` }}*/}
+      {/*          />*/}
+
+      {/*          {[*/}
+      {/*            { id: 1, label: "Equipo", icon: Cpu },*/}
+      {/*            { id: 2, label: "Contacto", icon: MapPin },*/}
+      {/*            { id: 3, label: "Finalizar", icon: CheckCircle2 },*/}
+      {/*          ].map((s) => {*/}
+      {/*            const Icon = s.icon;*/}
+      {/*            const isActive = step >= s.id;*/}
+      {/*            const isCompleted = step > s.id;*/}
+
+      {/*            return (*/}
+      {/*              <div*/}
+      {/*                key={s.id}*/}
+      {/*                className="relative z-10 flex flex-col items-center gap-4"*/}
+      {/*              >*/}
+      {/*                <div*/}
+      {/*                  className={`h-10 w-10 rounded-full flex items-center justify-center border transition-all duration-500 ${*/}
+      {/*                    isActive*/}
+      {/*                      ? "bg-[#0A0A0A] border-[#22C55E] text-[#22C55E] shadow-[0_0_20px_rgba(34,197,94,0.15)]"*/}
+      {/*                      : "bg-[#0A0A0A] border-white/10 text-white/10"*/}
+      {/*                  }`}*/}
+      {/*                >*/}
+      {/*                  {isCompleted ? (*/}
+      {/*                    <CheckCircle2 className="h-5 w-5 animate-in zoom-in duration-300 text-[#22C55E]" />*/}
+      {/*                  ) : (*/}
+      {/*                    <Icon className="h-4 w-4" />*/}
+      {/*                  )}*/}
+      {/*                </div>*/}
+      {/*                <span*/}
+      {/*                  className={`text-[10px] lowercase font-medium transition-colors duration-300 ${*/}
+      {/*                    isActive ? "text-white" : "text-white/20"*/}
+      {/*                  }`}*/}
+      {/*                >*/}
+      {/*                  {s.label}*/}
+      {/*                </span>*/}
+      {/*              </div>*/}
+      {/*            );*/}
+      {/*          })}*/}
+      {/*        </div>*/}
+      {/*      </div>*/}
+
+      {/*      /!* Contenedor del Formulario *!/*/}
+      {/*      <div className="bg-[#0A0A0A] border border-white/10 rounded-sm overflow-hidden shadow-2xl">*/}
+      {/*        <div className="p-8 md:p-14">*/}
+      {/*          <AnimatePresence mode="wait">*/}
+      {/*            {step === 1 && (*/}
+      {/*              <motion.div*/}
+      {/*                key="s1"*/}
+      {/*                initial={{ opacity: 0, y: 10 }}*/}
+      {/*                animate={{ opacity: 1, y: 0 }}*/}
+      {/*                exit={{ opacity: 0, y: -10 }}*/}
+      {/*                className="space-y-8"*/}
+      {/*              >*/}
+      {/*                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">*/}
+      {/*                  <div className="space-y-3">*/}
+      {/*                    <label className="text-[12px] font-medium text-white/30 ml-1 lowercase">*/}
+      {/*                      Modelo del equipo*/}
+      {/*                    </label>*/}
+      {/*                    <Input*/}
+      {/*                      placeholder="ej: macbook pro m2, proyector epson..."*/}
+      {/*                      className="bg-white/[0.02] border-white/10 h-13 text-sm rounded-sm focus:border-[#22C55E]/40 transition-all placeholder:text-white/10"*/}
+      {/*                    />*/}
+      {/*                  </div>*/}
+      {/*                  <div className="space-y-3">*/}
+      {/*                    <label className="text-[12px] font-medium text-white/30 ml-1 lowercase">*/}
+      {/*                      Tipo de servicio*/}
+      {/*                    </label>*/}
+      {/*                    <Select>*/}
+      {/*                      <SelectTrigger className="bg-white/[0.02] border-white/10 h-13 text-sm rounded-sm text-white/50">*/}
+      {/*                        <SelectValue placeholder="seleccionar servicio" />*/}
+      {/*                      </SelectTrigger>*/}
+      {/*                      <SelectContent className="bg-neutral-900 border-white/10 text-white">*/}
+      {/*                        <SelectItem value="rep" className="lowercase">*/}
+      {/*                          Reparación técnica*/}
+      {/*                        </SelectItem>*/}
+      {/*                        <SelectItem value="man" className="lowercase">*/}
+      {/*                          Mantenimiento preventivo*/}
+      {/*                        </SelectItem>*/}
+      {/*                      </SelectContent>*/}
+      {/*                    </Select>*/}
+      {/*                  </div>*/}
+      {/*                </div>*/}
+      {/*                <div className="space-y-3">*/}
+      {/*                  <label className="text-[12px] font-medium text-white/30 ml-1 lowercase">*/}
+      {/*                    Descripción del problema*/}
+      {/*                  </label>*/}
+      {/*                  <Textarea*/}
+      {/*                    placeholder="cuéntanos qué síntomas presenta el equipo..."*/}
+      {/*                    className="bg-white/[0.02] border-white/10 min-h-[140px] text-sm rounded-sm resize-none focus:border-[#22C55E]/40 transition-all placeholder:text-white/10"*/}
+      {/*                  />*/}
+      {/*                </div>*/}
+      {/*                <div className="flex justify-end pt-4">*/}
+      {/*                  <Button onClick={nextStep} className="btn-primary">*/}
+      {/*                    <ArrowUpRight className="h-4 w-4" /> Siguiente*/}
+      {/*                  </Button>*/}
+      {/*                </div>*/}
+      {/*              </motion.div>*/}
+      {/*            )}*/}
+
+      {/*            {step === 2 && (*/}
+      {/*              <motion.div*/}
+      {/*                key="s2"*/}
+      {/*                initial={{ opacity: 0, y: 10 }}*/}
+      {/*                animate={{ opacity: 1, y: 0 }}*/}
+      {/*                exit={{ opacity: 0, y: -10 }}*/}
+      {/*                className="space-y-8"*/}
+      {/*              >*/}
+      {/*                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">*/}
+      {/*                  <div className="space-y-3">*/}
+      {/*                    <label className="text-[12px] font-medium text-white/30 ml-1 lowercase">*/}
+      {/*                      Nombre completo*/}
+      {/*                    </label>*/}
+      {/*                    <Input*/}
+      {/*                      placeholder="ej: juan pérez"*/}
+      {/*                      className="bg-white/[0.02] border-white/10 h-13 text-sm rounded-sm"*/}
+      {/*                    />*/}
+      {/*                  </div>*/}
+      {/*                  <div className="space-y-3">*/}
+      {/*                    <label className="text-[12px] font-medium text-white/30 ml-1 lowercase">*/}
+      {/*                      Whatsapp de contacto*/}
+      {/*                    </label>*/}
+      {/*                    <Input*/}
+      {/*                      placeholder="ej: 941 801 827"*/}
+      {/*                      className="bg-white/[0.02] border-white/10 h-13 text-sm rounded-sm"*/}
+      {/*                    />*/}
+      {/*                  </div>*/}
+      {/*                  <div className="space-y-3">*/}
+      {/*                    <label className="text-[12px] font-medium text-white/30 ml-1 lowercase">*/}
+      {/*                      Distrito*/}
+      {/*                    </label>*/}
+      {/*                    <Input*/}
+      {/*                      placeholder="ej: santiago de surco..."*/}
+      {/*                      className="bg-white/[0.02] border-white/10 h-13 text-sm rounded-sm"*/}
+      {/*                    />*/}
+      {/*                  </div>*/}
+      {/*                  <div className="space-y-3">*/}
+      {/*                    <label className="text-[12px] font-medium text-white/30 ml-1 lowercase">*/}
+      {/*                      Dirección (opcional)*/}
+      {/*                    </label>*/}
+      {/*                    <Input*/}
+      {/*                      placeholder="av. ejemplo 123"*/}
+      {/*                      className="bg-white/[0.02] border-white/10 h-13 text-sm rounded-sm"*/}
+      {/*                    />*/}
+      {/*                  </div>*/}
+      {/*                </div>*/}
+      {/*                <div className="flex justify-between items-center pt-6">*/}
+      {/*                  <Button*/}
+      {/*                    variant="outline"*/}
+      {/*                    onClick={prevStep}*/}
+      {/*                    className="btn-ghost-dark"*/}
+      {/*                  >*/}
+      {/*                    Volver*/}
+      {/*                  </Button>*/}
+      {/*                  <Button onClick={nextStep} className="btn-primary">*/}
+      {/*                    Continuar <ArrowUpRight className="ml-2 h-4 w-4" />*/}
+      {/*                  </Button>*/}
+      {/*                </div>*/}
+      {/*              </motion.div>*/}
+      {/*            )}*/}
+
+      {/*            {step === 3 && (*/}
+      {/*              <motion.div*/}
+      {/*                key="s3"*/}
+      {/*                initial={{ opacity: 0, scale: 0.98 }}*/}
+      {/*                animate={{ opacity: 1, scale: 1 }}*/}
+      {/*                className="text-center py-10"*/}
+      {/*              >*/}
+      {/*                <div className="h-24 w-24 bg-[#22C55E]/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-[#22C55E]/20">*/}
+      {/*                  <CheckCircle2*/}
+      {/*                    className="h-12 w-12 text-[#22C55E]"*/}
+      {/*                    strokeWidth={1}*/}
+      {/*                  />*/}
+      {/*                </div>*/}
+      {/*                <h3 className="text-2xl font-bold text-white mb-3 lowercase tracking-tight">*/}
+      {/*                  ¡Todo listo!*/}
+      {/*                </h3>*/}
+      {/*                <p className="text-sm text-white/40 mb-10 max-w-xs mx-auto leading-relaxed lowercase">*/}
+      {/*                  Tu solicitud ha sido generada. inicia el chat para*/}
+      {/*                  recibir atención inmediata de un especialista.*/}
+      {/*                </p>*/}
+      {/*                <Button className="btn-primary">*/}
+      {/*                  <MessageSquare className="h-5 w-5 fill-current" />{" "}*/}
+      {/*                  Iniciar chat whatsapp*/}
+      {/*                </Button>*/}
+      {/*              </motion.div>*/}
+      {/*            )}*/}
+      {/*          </AnimatePresence>*/}
+      {/*        </div>*/}
+      {/*      </div>*/}
+      {/*    </div>*/}
+      {/*  </ContentWidth>*/}
+      {/*</section>*/}
+
+      <section className="py-24 bg-white/[0.02] border-y border-white/5">
+        <ContentWidth>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <ShieldCheck className="h-5 w-5" />
+                <h4 className="font-bold text-sm">Qué incluye</h4>
+              </div>
+              <ul className="space-y-2 text-sm text-white/50">
+                <li className="flex items-start gap-2">
+                  • diagnóstico electrónico base
+                </li>
+                <li className="flex items-start gap-2">
+                  • informe técnico detallado
+                </li>
+                <li className="flex items-start gap-2">
+                  • garantía real por el trabajo
+                </li>
+              </ul>
             </div>
-
-            <div className="bg-[#0A0A0A] border border-white/5 rounded-md overflow-hidden shadow-2xl">
-              <div className="grid grid-cols-3 border-b border-white/5 bg-white/[0.01]">
-                {[
-                  { id: 1, label: "Equipo", icon: Cpu },
-                  { id: 2, label: "Ubicación", icon: MapPin },
-                  { id: 3, label: "Finalizar", icon: Send },
-                ].map((s) => (
-                  <div
-                    key={s.id}
-                    className={`py-4 flex items-center justify-center gap-2 border-r border-white/5 last:border-r-0 transition-colors ${
-                      step >= s.id ? "text-primary" : "text-white/10"
-                    }`}
-                  >
-                    <s.icon className="h-3.5 w-3.5" strokeWidth={2} />
-                    <span className="text-[9px] uppercase tracking-widest font-black hidden md:block">
-                      {s.label}
-                    </span>
-                  </div>
-                ))}
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <Clock className="h-5 w-5" />
+                <h4 className="font-bold text-sm">Tiempos estimados</h4>
               </div>
-
-              <div className="p-6 md:p-10">
-                <AnimatePresence mode="wait">
-                  {step === 1 && (
-                    <motion.div
-                      key="s1"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="space-y-6"
-                    >
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        <div className="space-y-2">
-                          <label className="text-[10px] font-bold text-white/30 uppercase tracking-tighter ml-1">
-                            Modelo del equipo
-                          </label>
-                          <Input
-                            placeholder="Ej: MacBook Pro M2..."
-                            className="bg-white/[0.02] border-white/10 h-11 text-sm focus-visible:ring-primary rounded-md"
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <label className="text-[10px] font-bold text-white/30 uppercase tracking-tighter ml-1">
-                            Servicio requerido
-                          </label>
-                          <Select>
-                            <SelectTrigger className="bg-white/[0.02] border-white/10 h-11 text-sm rounded-md text-white/50">
-                              <SelectValue placeholder="Seleccionar" />
-                            </SelectTrigger>
-                            <SelectContent className="bg-neutral-900 border-white/10 text-white">
-                              <SelectItem value="rep">
-                                Reparación Técnica
-                              </SelectItem>
-                              <SelectItem value="man">Mantenimiento</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-bold text-white/30 uppercase tracking-tighter ml-1">
-                          Describe el problema
-                        </label>
-                        <Textarea
-                          placeholder="Cuéntanos qué síntomas presenta..."
-                          className="bg-white/[0.02] border-white/10 min-h-[100px] text-sm rounded-md resize-none"
-                        />
-                      </div>
-                      <div className="flex justify-end border-t border-white/5 pt-6">
-                        <Button
-                          onClick={nextStep}
-                          className="bg-primary text-black font-black rounded-md px-8 h-12 uppercase text-[10px] tracking-widest hover:bg-primary/80"
-                        >
-                          Siguiente
-                        </Button>
-                      </div>
-                    </motion.div>
-                  )}
-
-                  {step === 2 && (
-                    <motion.div
-                      key="s2"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="space-y-6"
-                    >
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        <Input
-                          placeholder="Nombre completo"
-                          className="bg-white/[0.02] border-white/10 h-11 text-sm rounded-md"
-                        />
-                        <Input
-                          placeholder="WhatsApp"
-                          className="bg-white/[0.02] border-white/10 h-11 text-sm rounded-md"
-                        />
-                        <Input
-                          placeholder="Distrito"
-                          className="bg-white/[0.02] border-white/10 h-11 text-sm rounded-md"
-                        />
-                        <Input
-                          placeholder="Dirección"
-                          className="bg-white/[0.02] border-white/10 h-11 text-sm rounded-md"
-                        />
-                      </div>
-                      <div className="flex justify-between border-t border-white/5 pt-6">
-                        <Button
-                          variant="ghost"
-                          onClick={prevStep}
-                          className="text-white/40 hover:text-white uppercase text-[10px] tracking-widest rounded-md"
-                        >
-                          Volver
-                        </Button>
-                        <Button
-                          onClick={nextStep}
-                          className="bg-primary text-black font-black rounded-md px-8 h-12 uppercase text-[10px] tracking-widest"
-                        >
-                          Continuar
-                        </Button>
-                      </div>
-                    </motion.div>
-                  )}
-
-                  {step === 3 && (
-                    <motion.div
-                      key="s3"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="text-center py-6"
-                    >
-                      <div className="h-16 w-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-primary/20">
-                        <CheckCircle2
-                          className="h-8 w-8 text-primary"
-                          strokeWidth={1.5}
-                        />
-                      </div>
-                      <h3 className="text-xl font-bold text-white mb-2">
-                        Datos verificados
-                      </h3>
-                      <p className="text-xs text-white/40 mb-8">
-                        Click en el botón para contactar a un técnico en vivo.
-                      </p>
-                      <Button className="bg-primary text-black font-black rounded-md w-full max-w-xs h-14 uppercase text-[11px] tracking-widest shadow-xl shadow-primary/10 transition-transform active:scale-95">
-                        <MessageSquare className="mr-2 h-4 w-4 fill-current" />{" "}
-                        Iniciar Chat WhatsApp
-                      </Button>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+              <p className="text-sm text-white/50 leading-relaxed">
+                El diagnóstico inicial se realiza en un periodo de 24 a 48
+                horas. reparaciones menores pueden concluirse el mismo día según
+                disponibilidad de componentes.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <Info className="h-5 w-5" />
+                <h4 className="font-bold text-sm">Aviso importante</h4>
               </div>
+              <p className="text-sm text-white/40 leading-relaxed">
+                Servitec perú group es un centro de soporte independiente. no
+                somos servicio oficial de fabricantes. el servicio no incluye
+                repuestos no detallados en el presupuesto.
+              </p>
             </div>
           </div>
         </ContentWidth>
       </section>
 
-      {/* SECCIÓN 02: GRILLA TÉCNICA APEGADA (Estilo Especialidades) */}
-      <section className="pb-32 border-t border-white/5 pt-20">
+      <section className="py-24">
         <ContentWidth>
-          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-            <div className="max-w-xl">
-              <span className="text-primary text-[10px] font-bold tracking-[0.4em] uppercase block mb-3">
-                Módulos de Servicio
-              </span>
-              <h2 className="text-3xl font-bold text-white leading-tight">
-                Fallas frecuentes en <br />{" "}
-                <span className="text-white/40">{specialtyName}</span>
-              </h2>
-            </div>
+          <div className="space-y-4 mb-10">
+            <h2 className="text-5xl md:text-6xl font-bold tracking-tighter text-white">
+              Módulos de servicio
+            </h2>
+            <p className="text-white/40 max-w-xl text-sm leading-relaxed">
+              Fallas frecuentes en {specialtyName}
+            </p>
           </div>
 
           <div className="grid gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-3 border border-white/10 rounded-sm overflow-hidden">
@@ -233,9 +320,8 @@ export default function SpecialtyDetailLayout({
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                className="group relative bg-black overflow-hidden flex flex-col min-h-[340px]"
+                className="group relative bg-black min-h-[340px] flex flex-col overflow-hidden transition-all duration-500"
               >
-                {/* Imagen de fondo con Zoom */}
                 <div className="absolute inset-0 z-0 transition-all duration-700">
                   <Image
                     src={item.image}
@@ -246,37 +332,49 @@ export default function SpecialtyDetailLayout({
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
                 </div>
 
-                {/* Contenido */}
-                <div className="relative z-10 p-8 flex flex-col h-full">
+                <div className="relative z-10 p-8 flex flex-col h-full flex-grow">
                   <div className="flex justify-end items-start mb-8">
                     <ArrowUpRight className="h-4 w-4 text-white/20 group-hover:text-primary transition-colors" />
                   </div>
 
                   <div className="mt-auto">
-                    <h3 className="text-xl font-bold text-white tracking-tight mb-3">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm leading-relaxed text-white/40 font-normal line-clamp-2 mb-8">
+                    <Link
+                      href={`/servicios/${item.slug}`}
+                      className="inline-block"
+                    >
+                      <h3 className="text-xl font-bold mb-3 text-white group-hover:text-primary transition-colors">
+                        {item.title}
+                      </h3>
+                    </Link>
+                    <p className="text-white/40 text-sm leading-relaxed mb-8 line-clamp-2">
                       {item.description}
                     </p>
 
-                    <div className="flex items-center gap-6">
+                    <div className="flex items-center">
                       <Button
+                        size="lg"
+                        variant="outline"
+                        className="btn-ghost-dark text-[10px] h-10 px-6"
                         asChild
-                        className="h-10 px-6 bg-primary text-black font-bold text-xs hover:bg-white transition-colors rounded-md"
                       >
-                        <Link href={`/servicios/${item.slug}`}>Detalles</Link>
+                        <Link href={`/servicios/${item.slug}`}>
+                          <Plus className="h-3 w-3" />
+                          <span>ver detalles</span>
+                        </Link>
                       </Button>
                     </div>
                   </div>
                 </div>
 
-                <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-primary transition-all duration-500 group-hover:w-full" />
+                <div className="absolute bottom-0 left-0 h-[1px] w-0 bg-primary group-hover:w-full transition-all duration-500" />
               </motion.div>
             ))}
           </div>
         </ContentWidth>
       </section>
+
+      <Ubicacion />
+      <TaxData />
     </div>
   );
 }

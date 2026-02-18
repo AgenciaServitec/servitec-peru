@@ -120,14 +120,12 @@ export function TrustBar() {
               <span className="font-bold text-3xl md:text-4xl tracking-tighter text-white">
                 +5 Años
               </span>
-              <span className="text-[10px] uppercase tracking-[0.2em] font-bold">
-                Líderes en soporte
-              </span>
+              <span className="text-[10px] font-bold">Líderes en soporte</span>
             </div>
 
             <div className="flex-1 w-full flex flex-col overflow-hidden">
               <span className="text-white/40 text-center font-medium">
-                Marcas compatibles que atendemos:
+                Marcas compatibles que atendemos
               </span>
 
               <div
@@ -168,13 +166,13 @@ export function TrustBar() {
               <span className="text-white font-bold text-lg md:text-xl tracking-tight whitespace-nowrap text-center lg:text-right">
                 Hardware & Software
               </span>
-              <span className="text-center lg:text-right text-white/40 text-[10px] uppercase tracking-[0.15em] font-medium whitespace-nowrap">
+              <span className="text-center lg:text-right text-white/40 text-[10px] font-medium whitespace-nowrap">
                 Especialistas con <br /> experiencia comprobada
               </span>
             </div>
           </div>
 
-          <p className="max-w-4xl mx-auto text-[10px] text-white/20 text-center uppercase tracking-[0.15em] font-light mt-4 leading-relaxed opacity-70">
+          <p className="max-w-4xl mx-auto text-[10px] text-white/20 text-center font-light mt-4 leading-relaxed opacity-70">
             Servitec ofrece servicios de soporte técnico de manera
             independiente. Los logotipos y marcas pertenecen a sus respectivos
             dueños y se utilizan solo para informar sobre la compatibilidad de

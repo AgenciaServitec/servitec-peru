@@ -56,7 +56,7 @@ export default function Contact() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-6xl md:text-8xl font-bold tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70"
+              className="text-6xl md:text-8xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70"
             >
               Contacto
             </motion.h1>
@@ -115,7 +115,7 @@ export default function Contact() {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 items-start">
             <div className="lg:col-span-2 space-y-10">
               <div className="space-y-4">
-                <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white leading-[1.1]">
+                <h2 className="text-4xl md:text-5xl font-bold text-white leading-[1.1]">
                   Soporte Especializado
                 </h2>
                 <p className="text-white/40 text-sm leading-relaxed">
@@ -147,7 +147,7 @@ export default function Contact() {
                 className="grid grid-cols-1 sm:grid-cols-2 gap-8"
               >
                 <div className="space-y-2">
-                  <label className="text-[11px] font-bold uppercase text-white/30">
+                  <label className="text-[11px] font-bold text-white/30">
                     Nombre Completo
                   </label>
                   <Input
@@ -160,7 +160,7 @@ export default function Contact() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[11px] font-bold uppercase text-white/30">
+                  <label className="text-[11px] font-bold text-white/30">
                     DNI / RUC
                   </label>
                   <Input
@@ -173,7 +173,7 @@ export default function Contact() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[11px] font-bold uppercase text-white/30">
+                  <label className="text-[11px] font-bold text-white/30">
                     WhatsApp
                   </label>
                   <Input
@@ -187,7 +187,7 @@ export default function Contact() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[11px] font-bold uppercase text-white/30">
+                  <label className="text-[11px] font-bold text-white/30">
                     Correo
                   </label>
                   <Input
@@ -202,7 +202,7 @@ export default function Contact() {
                 </div>
 
                 <div className="sm:col-span-2 space-y-2">
-                  <label className="text-[11px] font-bold uppercase text-white/30">
+                  <label className="text-[11px] font-bold text-white/30">
                     Servicio Requerido
                   </label>
                   <Input
@@ -216,7 +216,7 @@ export default function Contact() {
                 </div>
 
                 <div className="sm:col-span-2 space-y-2">
-                  <label className="text-[11px] font-bold uppercase text-white/30">
+                  <label className="text-[11px] font-bold text-white/30">
                     Mensaje Técnico
                   </label>
                   <Textarea
@@ -237,13 +237,13 @@ export default function Contact() {
                   <div className="flex items-center justify-center gap-8 mt-8 opacity-20">
                     <div className="flex items-center gap-2">
                       <Lock className="w-3 h-3" />
-                      <span className="text-[9px] font-bold uppercase">
+                      <span className="text-[9px] font-bold">
                         Privacidad Protegida
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <ShieldCheck className="w-3 h-3" />
-                      <span className="text-[9px] font-bold uppercase">
+                      <span className="text-[9px] font-bold">
                         Soporte Técnico
                       </span>
                     </div>
