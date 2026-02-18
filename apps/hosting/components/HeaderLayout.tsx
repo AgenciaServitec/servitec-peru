@@ -12,7 +12,6 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-  NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import { ArrowRight, Menu } from "lucide-react";
 
@@ -21,12 +20,16 @@ import { SERVICES_DATA } from "@/data-list/services";
 
 export const HeaderLayout = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  if (!isMounted) return null;
 
   return (
     <header
@@ -48,15 +51,14 @@ export const HeaderLayout = () => {
           </Link>
 
           <nav className="hidden lg:flex items-center gap-4">
-            <NavigationMenu className="relative">
+            <NavigationMenu>
               <NavigationMenuList className="gap-1">
-                {/* 1. ESPECIALIDADES */}
                 <NavigationMenuItem>
                   <NavigationMenuTrigger className="bg-transparent text-white/80 hover:text-white transition-colors">
                     Especialidades
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent className="border-none">
-                    <div className="bg-neutral-950/95 backdrop-blur-md p-2 rounded-sm w-[600px] shadow-2xl">
+                  <NavigationMenuContent>
+                    <div className="bg-neutral-950/95 backdrop-blur-md p-2 rounded-sm w-[600px] shadow-2xl border border-white/5">
                       <ul className="grid gap-1 md:grid-cols-2 mb-2">
                         {SPECIALTIES_DATA.slice(0, 10).map((spec) => (
                           <ListItem
@@ -88,13 +90,12 @@ export const HeaderLayout = () => {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
 
-                {/* 2. SERVICIOS */}
                 <NavigationMenuItem>
                   <NavigationMenuTrigger className="bg-transparent text-primary hover:text-primary/80 transition-colors font-bold">
                     Servicios
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent className="border-none">
-                    <div className="bg-neutral-950/95 backdrop-blur-md p-2 rounded-sm w-[650px] shadow-2xl">
+                  <NavigationMenuContent>
+                    <div className="bg-neutral-950/95 backdrop-blur-md p-2 rounded-sm w-[650px] shadow-2xl border border-white/5">
                       <ul className="grid gap-1 md:grid-cols-2 mb-2">
                         {SERVICES_DATA.slice(0, 8).map((service) => (
                           <ListItem
@@ -152,11 +153,6 @@ export const HeaderLayout = () => {
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               </NavigationMenuList>
-
-              {/* EL FIX: Forzamos el Viewport a alinearse a la derecha del contenedor del Nav */}
-              <div className="absolute right-0 top-full flex justify-end">
-                <NavigationMenuViewport className="origin-top-right" />
-              </div>
             </NavigationMenu>
           </nav>
 
