@@ -5,7 +5,6 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ContentWidth } from "@/components/ContentWidth";
 import { FileText, Info, MessageSquare, Send, User } from "lucide-react";
 
-// Shadcn UI Components (Asumiendo que están en la ruta estándar)
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -36,7 +35,6 @@ export default function ReclamacionesPage() {
       onMouseMove={handleMouseMove}
       className="relative isolate bg-[#050505] min-h-screen pt-32 pb-20 overflow-hidden"
     >
-      {/* BACKGROUND EFFECTS (Consistente con Hero) */}
       <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
         <motion.div
           className="absolute inset-0 opacity-[0.12]"

@@ -469,7 +469,7 @@ export const SERVICES_DATA = [
       "Limpieza contactos",
       "Ajuste presión original",
     ],
-    technicalData: "Repuestos certificados alta durabilidad.",
+    technicalData: "Repuestos originales alta durabilidad.",
   },
   {
     type: "battery-replacement",
@@ -716,7 +716,7 @@ export const SERVICES_DATA = [
     icon: MonitorDot,
     description: "Solución a errores críticos, lentitud y bloqueos constantes.",
     longDescription:
-      "Diagnóstico de RAM, sectores de disco y optimización de drivers certificados.",
+      "Diagnóstico de RAM, sectores de disco y optimización de drivers compatibles.",
     image: "/specialties/pantalla-azul-aio.jpg",
     includes: [
       "Diagnóstico de Logs",
@@ -935,7 +935,7 @@ export const SERVICES_DATA = [
       "Sustitución de Pick-up Rollers y lubricación de engranajes internos.",
     image: "/specialties/mecanismo-impresora.jpg",
     includes: ["Gomas de arrastre", "Fajas transferencia", "Lubricación"],
-    technicalData: "Lubricantes de alta temperatura certificados.",
+    technicalData: "Lubricantes de alta temperatura.",
   },
   {
     type: "laser-unit-repair",
