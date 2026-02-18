@@ -91,7 +91,6 @@ export default function ServicesPage() {
                 className="bg-white/[0.03] border-white/5 pl-12 h-12 text-sm focus:ring-primary rounded-sm transition-all"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                size="lg"
               />
             </div>
 
