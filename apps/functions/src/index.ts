@@ -1,5 +1,4 @@
 import { HttpsOptions, onRequest } from "firebase-functions/v2/https";
-
 import { app } from "./api";
 
 const httpsOptions = (httpsOptions?: Partial<HttpsOptions>): HttpsOptions => ({
@@ -10,3 +9,5 @@ const httpsOptions = (httpsOptions?: Partial<HttpsOptions>): HttpsOptions => ({
 });
 
 exports.api = onRequest(httpsOptions(), app);
+
+export * from "./triggers";

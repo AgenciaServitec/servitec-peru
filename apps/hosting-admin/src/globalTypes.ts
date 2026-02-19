@@ -98,5 +98,8 @@ export interface ServiceRequest extends DefaultFirestoreProps {
   };
   problemDescription: string;
   device: string;
+  serviceType: string;
+  estimatedPrice: number;
+  userId: string;
   assignment?: string | null;
 }
