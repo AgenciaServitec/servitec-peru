@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/apps/hosting/components/GoogleAnalyticsTracker.tsx" afterDir="false" />
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="Added config google analytics and install third-parties">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/terminos-condiciones/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/terminos-condiciones/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/components/FooterLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/FooterLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/TrustBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/TrustBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/Ubication.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/Ubication.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -454,7 +454,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771470796467</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Added config google analytics and install third-parties">
+      <option name="closed" value="true" />
+      <created>1771529211676</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1771529211676</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -472,7 +480,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="updated specialities and services" />
     <MESSAGE value="refactor specialties" />
     <MESSAGE value="fixed errors" />
     <MESSAGE value="removed embla carousel, BrandsSection and carousel components" />
@@ -497,6 +504,7 @@
     <MESSAGE value="updated ruc in footer" />
     <MESSAGE value="updated footer" />
     <MESSAGE value="added sheet component" />
-    <option name="LAST_COMMIT_MESSAGE" value="added sheet component" />
+    <MESSAGE value="Added config google analytics and install third-parties" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added config google analytics and install third-parties" />
   </component>
 </project>

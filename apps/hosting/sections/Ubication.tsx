@@ -19,9 +19,9 @@ const SEDES = [
     address: "Calle Néstor Bermúdez 113, Chorrillos, Lima",
     horario: "Lun – Vie: 9AM – 7PM",
     mapEmbedUrl:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3899.1121820641666!2d-77.0261971!3d-12.1729627!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105b9b8b8b8b8b7%3A0x8b8b8b8b8b8b8b8b!2sCalle%20N%C3%A9stor%20Berm%C3%BAdez%20113%2C%20Chorrillos%2015063!5e0!3m2!1ses-419!2spe!4v1700000000000!5m2!1ses-419!2spe",
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.1350304609246!2d-77.0188392!3d-12.1712089!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105b7788f5f5189%3A0x70a366f7a0e80cd0!2sServitec%20Per%C3%BA%20Group%20EIRL%20%E2%80%94%20Oficina%20Administrativa!5e0!3m2!1ses-419!2spe!4v1771539804756!5m2!1ses-419!2spe",
     googleMapsUrl:
-      "https://www.google.com/maps/dir/?api=1&destination=Calle+Néstor+Bermúdez+113+Chorrillos+Lima",
+      "https://www.google.com/maps/dir/?api=1&destination=Servitec+Per%C3%BA+Group+EIRL+Oficina+Administrativa+-12.1712089,-77.0188392",
   },
   {
     id: "kiwi",
@@ -30,9 +30,9 @@ const SEDES = [
     address: "Justo Pastor Davil 117, Chorrillos 15064",
     horario: "Lun – Vie: 9AM – 7PM",
     mapEmbedUrl:
-      "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2810.030137913503!2d-77.019816949955!3d-12.175218244832372!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105b7788f078293%3A0xeec5e7a15ec3f73b!2sServitec%20%E2%80%94%20Taller%20T%C3%A9cnico!5e0!3m2!1ses!2spe!4v1771366463842!5m2!1ses!2spe",
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.074325530455!2d-77.0184858!3d-12.175343!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105b7788f078293%3A0xeec5e7a15ec3f73b!2sServitec%20Per%C3%BA%20Group%20EIRL%20%E2%80%94%20Taller%20T%C3%A9cnico!5e0!3m2!1ses-419!2spe!4v1771539819520!5m2!1ses-419!2spe",
     googleMapsUrl:
-      "https://www.google.com/maps/dir/?api=1&destination=Justo+Pastor+Davila+117+Chorrillos+15064",
+      "https://www.google.com/maps/dir/?api=1&origin=current+location&destination=-12.175343,-77.0184858",
   },
 ];
 

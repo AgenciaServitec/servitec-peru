@@ -7,6 +7,7 @@ import {
   Banknote,
   Clock,
   Facebook,
+  Linkedin,
   Mail,
   MapPin,
   ShieldCheck,
@@ -66,7 +67,7 @@ export const FooterLayout = () => {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-[10px] font-bold text-white/30">
+              <h3 className="text-[12px] font-bold text-white/30">
                 Nuestras Redes
               </h3>
               <div className="flex flex-wrap gap-2">
@@ -85,6 +86,11 @@ export const FooterLayout = () => {
                     icon: <Youtube size={18} />,
                     href: "https://youtube.com/@servitecperugroupeirl?si=KxiXQcoBzJ9vJ6BY",
                     label: "YouTube",
+                  },
+                  {
+                    icon: <Linkedin size={18} />,
+                    href: "https://www.linkedin.com/in/servitec-per%C3%BA-group-eirl-0208ab2b3/",
+                    label: "LinkedIn",
                   },
                 ].map((social, i) => (
                   <a
@@ -136,9 +142,9 @@ export const FooterLayout = () => {
                     <span className="text-white/80">Sede Oficina</span>
                     <span className="text-xs">Néstor Bermúdez 113, Lima</span>
                     <a
-                      href="https://www.google.com/maps/dir/?api=1&destination=Calle+Néstor+Bermúdez+113+Chorrillos+Lima"
+                      href="https://maps.app.goo.gl/e42NrfST8MbG67pr7"
                       target="_blank"
-                      className="text-primary text-[10px] font-bold hover:underline flex items-center gap-1"
+                      className="text-primary text-[12px] font-bold hover:underline flex items-center gap-1"
                     >
                       Google Maps <ArrowUpRight size={12} />
                     </a>
@@ -149,9 +155,9 @@ export const FooterLayout = () => {
                       Justo Pastor Davila 117, Lima
                     </span>
                     <a
-                      href="https://www.google.com/maps/dir/?api=1&destination=Justo+Pastor+Davila+117+Chorrillos+15064"
+                      href="https://maps.app.goo.gl/MjiQNwEjCp1mae4eA"
                       target="_blank"
-                      className="text-primary text-[10px] font-bold hover:underline flex items-center gap-1"
+                      className="text-primary text-[12px] font-bold hover:underline flex items-center gap-1"
                     >
                       Google Maps <ArrowUpRight size={12} />
                     </a>
@@ -185,12 +191,13 @@ export const FooterLayout = () => {
               <li className="flex gap-4 text-sm text-white/50">
                 <Mail size={20} className="text-white shrink-0" />
                 <div className="flex flex-col gap-1">
-                  <span className="text-xs truncate">
-                    contactos@servitec-peru.com
-                  </span>
-                  <span className="text-xs truncate">
+                  <a
+                    href="mailto:contacto@servitecperu.com"
+                    target="_blank"
+                    className="text-xs truncate"
+                  >
                     contacto@servitecperu.com
-                  </span>
+                  </a>
                 </div>
               </li>
             </ul>
@@ -225,14 +232,14 @@ export const FooterLayout = () => {
                 <p className="text-[12px] font-bold text-white">
                   Libro de Reclamaciones
                 </p>
-                <p className="text-[10px] text-white/30 font-normal">
+                <p className="text-[12px] text-white/30 font-normal">
                   Atención de quejas y reclamos
                 </p>
               </div>
             </Link>
 
             <div className="space-y-3 pt-2">
-              <h3 className="text-[10px] font-bold text-white/30">
+              <h3 className="text-[12px] font-bold text-white/30">
                 Método de Pago
               </h3>
               <div className="flex flex-wrap gap-2">
@@ -261,32 +268,12 @@ export const FooterLayout = () => {
         </div>
 
         <div className="pt-8 border-t border-white/5">
-          <div className="flex flex-col lg:flex-row justify-between items-center gap-6 text-[10px] text-white/20">
+          <div className="flex flex-col lg:flex-row justify-between items-center gap-6 text-[12px]">
             <div className="flex flex-wrap justify-center gap-8">
-              <Link
-                href="/politicas-privacidad"
-                className="hover:text-white transition-colors"
-              >
-                Políticas de Privacidad
-              </Link>
-              <Link
-                href="/terminos-condiciones"
-                className="hover:text-white transition-colors"
-              >
-                Términos y Condiciones
-              </Link>
-              <Link
-                href="/politica-cookies"
-                className="hover:text-white transition-colors"
-              >
-                Política de Cookies
-              </Link>
-              <Link
-                href="/politica-servicio"
-                className="hover:text-white transition-colors"
-              >
-                Política de Servicio
-              </Link>
+              <Link href="/politicas-privacidad">Políticas de Privacidad</Link>
+              <Link href="/terminos-condiciones">Términos y Condiciones</Link>
+              <Link href="/politica-cookies">Política de Cookies</Link>
+              <Link href="/politica-servicio">Política de Servicio</Link>
             </div>
             <p className="text-center font-normal">
               © 2018 - 2026 Servitec Perú • Todos los derechos reservados
