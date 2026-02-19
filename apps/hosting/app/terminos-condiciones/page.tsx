@@ -125,7 +125,10 @@ export default function TerminosCondiciones() {
                   de garantía específico que será indicado en su comprobante o
                   guía de servicio. La garantía cubre defectos de mano de obra y
                   repuestos instalados por nosotros, pero queda anulada por
-                  golpes, humedad o manipulación de terceros.
+                  golpes, humedad o manipulación de terceros. La garantía
+                  ofrecida es responsabilidad exclusiva de Servitec Perú Group
+                  E.I.R.L. y no vincula a los fabricantes de las marcas
+                  mencionadas.
                 </p>
               </section>
 
