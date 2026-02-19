@@ -17,7 +17,6 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
 
-// Data sources
 import { SPECIALTIES_DATA } from "@/data-list/specialties";
 import { SERVICES_DATA } from "@/data-list/services";
 
@@ -55,7 +54,6 @@ export default function ServicesPage() {
 
   return (
     <div className="bg-[#050505] text-white min-h-screen pt-20 font-sans selection:bg-primary/30">
-      {/* HERO SECTION - Estilo Nosotros */}
       <section className="relative h-[50vh] flex items-center justify-center overflow-hidden border-b border-white/5">
         <ContentWidth>
           <div className="relative z-10 max-w-4xl mx-auto text-center">
@@ -63,7 +61,7 @@ export default function ServicesPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-6xl md:text-8xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70 drop-shadow-2xl"
+              className="text-5xl md:text-8xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70 drop-shadow-2xl"
             >
               Nuestros Servicios
             </motion.h1>
@@ -81,7 +79,6 @@ export default function ServicesPage() {
       </section>
 
       <ContentWidth>
-        {/* BARRA DE HERRAMIENTAS - Limpia */}
         <div className="sticky top-20 z-30 bg-[#050505]/80 backdrop-blur-md py-8 mb-12">
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
             <div className="relative w-full md:max-w-md">
@@ -116,7 +113,6 @@ export default function ServicesPage() {
           </div>
         </div>
 
-        {/* GRILLA DE SERVICIOS - Estilo Home Specialties */}
         <div className="grid gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-3 border border-white/10 rounded-sm overflow-hidden mb-20">
           {isLoading ? (
             Array.from({ length: 6 }).map((_, i) => (
@@ -140,7 +136,6 @@ export default function ServicesPage() {
                   exit={{ opacity: 0 }}
                   className="group relative bg-black min-h-[340px] flex flex-col overflow-hidden transition-all duration-500"
                 >
-                  {/* Imagen de fondo */}
                   <div className="absolute inset-0 z-0 transition-all duration-700">
                     <Image
                       src={service.image}
@@ -151,7 +146,6 @@ export default function ServicesPage() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
                   </div>
 
-                  {/* Contenido */}
                   <div className="relative z-10 p-8 flex flex-col h-full flex-grow">
                     <div className="flex justify-end items-start mb-8">
                       <ArrowUpRight className="h-4 w-4 text-white/20 group-hover:text-primary transition-colors" />
@@ -186,7 +180,6 @@ export default function ServicesPage() {
                     </div>
                   </div>
 
-                  {/* Borde inferior animado */}
                   <div className="absolute bottom-0 left-0 h-[1px] w-0 bg-primary group-hover:w-full transition-all duration-500" />
                 </motion.div>
               ))}
@@ -194,7 +187,6 @@ export default function ServicesPage() {
           )}
         </div>
 
-        {/* BOTÓN CARGAR MÁS */}
         {!isLoading && filteredServices.length > visibleCount && (
           <div className="pb-24 flex justify-center">
             <Button
@@ -207,7 +199,6 @@ export default function ServicesPage() {
           </div>
         )}
 
-        {/* ESTADO VACÍO */}
         {!isLoading && filteredServices.length === 0 && (
           <div className="py-24 text-center border border-dashed border-white/5 rounded-sm">
             <Search className="h-10 w-10 text-white/10 mx-auto mb-4" />

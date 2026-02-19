@@ -10,7 +10,6 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
 
-// Data sources
 import { SPECIALTIES_DATA } from "@/data-list/specialties";
 
 export default function SpecialtiesPage() {
@@ -43,7 +42,6 @@ export default function SpecialtiesPage() {
 
   return (
     <div className="bg-[#050505] text-white min-h-screen pt-20 font-sans selection:bg-primary/30">
-      {/* HERO SECTION - Estilo Nosotros */}
       <section className="relative h-[50vh] flex items-center justify-center overflow-hidden border-b border-white/5">
         <ContentWidth>
           <div className="relative z-10 max-w-4xl mx-auto text-center">
@@ -51,9 +49,9 @@ export default function SpecialtiesPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-6xl md:text-8xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70 drop-shadow-2xl"
+              className="text-5xl md:text-8xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70 drop-shadow-2xl"
             >
-              Especialidades
+              Nuestras Especialidades
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -69,7 +67,6 @@ export default function SpecialtiesPage() {
       </section>
 
       <ContentWidth>
-        {/* BARRA DE HERRAMIENTAS - Limpia */}
         <div className="sticky top-20 z-30 bg-[#050505]/80 backdrop-blur-md py-8 mb-12">
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
             <div className="relative w-full md:max-w-md">
@@ -84,7 +81,6 @@ export default function SpecialtiesPage() {
           </div>
         </div>
 
-        {/* GRILLA DE ESPECIALIDADES - Estilo Home Specialties */}
         <div className="grid gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-3 border border-white/10 rounded-sm overflow-hidden mb-20">
           {isLoading ? (
             Array.from({ length: 6 }).map((_, i) => (
@@ -162,7 +158,6 @@ export default function SpecialtiesPage() {
           )}
         </div>
 
-        {/* BOTÓN CARGAR MÁS */}
         {!isLoading && filteredSpecialties.length > visibleCount && (
           <div className="pb-24 flex justify-center">
             <Button
@@ -175,7 +170,6 @@ export default function SpecialtiesPage() {
           </div>
         )}
 
-        {/* ESTADO VACÍO */}
         {!isLoading && filteredSpecialties.length === 0 && (
           <div className="py-24 text-center border border-dashed border-white/5 rounded-sm">
             <Search className="h-10 w-10 text-white/10 mx-auto mb-4" />

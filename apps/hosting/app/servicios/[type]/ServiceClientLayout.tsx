@@ -51,7 +51,6 @@ export default function ServiceClientLayout({
     <div className="bg-[#050505] text-white min-h-screen pt-32 pb-20 font-sans selection:bg-white/10">
       <ContentWidth>
         <div className="flex flex-col lg:flex-row gap-0">
-          {/* SIDEBAR IZQUIERDO */}
           <aside className="hidden lg:block w-72 flex-shrink-0 pr-8 border-r border-white/5 bg-white/[0.015]">
             <div className="sticky top-32 flex flex-col h-[calc(100vh-12rem)] py-4 pl-6">
               <div className="space-y-4">
@@ -98,7 +97,6 @@ export default function ServiceClientLayout({
             </div>
           </aside>
 
-          {/* CONTENIDO PRINCIPAL */}
           <main className="flex-grow lg:px-16 py-4">
             <div className="max-w-3xl">
               <header className="mb-12 border-b border-white/5 pb-12">
@@ -129,7 +127,6 @@ export default function ServiceClientLayout({
             </div>
           </main>
 
-          {/* SIDEBAR DERECHO */}
           <aside className="hidden xl:block w-80 flex-shrink-0 pl-8 border-l border-white/5 bg-white/[0.015]">
             <div className="sticky top-32 space-y-12 py-4">
               <div>
