@@ -5,17 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/apps/hosting/components/GoogleAnalyticsTracker.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/especialidades/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/especialidades/[slug]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/especialidades/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/especialidades/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/nosotros/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/nosotros/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/reclamaciones/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/reclamaciones/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/servicios/[type]/ServiceClientLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/servicios/[type]/ServiceClientLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/servicios/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/servicios/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/components/SpecialtyDetailLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/SpecialtyDetailLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/components/ui/input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/ui/input.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/next.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,12 +46,12 @@
       </list>
     </option>
   </component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/AgenciaServitec/servitec-peru.git",
-    "accountId": "e345968d-7d21-452d-8db2-36d5945ef979"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AgenciaServitec/servitec-peru.git&quot;,
+    &quot;accountId&quot;: &quot;e345968d-7d21-452d-8db2-36d5945ef979&quot;
   }
-}]]></component>
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>

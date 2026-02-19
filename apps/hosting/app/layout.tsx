@@ -1,3 +1,4 @@
+import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -54,6 +55,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -87,9 +90,13 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="es" className="dark">
+    <html
+      lang="es"
+      className="dark bg-[#050505]"
+      style={{ colorScheme: "dark" }}
+    >
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased relative text-white bg-[#050505] selection:bg-primary/30 min-h-screen flex flex-col`}
       >
         <script
           type="application/ld+json"
@@ -98,15 +105,14 @@ export default function RootLayout({
 
         <HeaderLayout />
 
-        <div className="relative">
-          <div className="absolute inset-0 bg-[#050505]" />
-          <main className="relative">{children}</main>
-        </div>
+        <main className="flex-1">{children}</main>
 
         <CookieBanner />
         <FooterLayout />
 
         <WhatsAppButton />
+
+        {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
       </body>
     </html>
   );
