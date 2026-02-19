@@ -124,7 +124,7 @@ export function TrustBar() {
             </div>
 
             <div className="flex-1 w-full flex flex-col overflow-hidden">
-              <span className="text-white/40 text-center font-medium">
+              <span className="text-center font-medium">
                 Marcas compatibles que atendemos
               </span>
 
@@ -172,7 +172,7 @@ export function TrustBar() {
             </div>
           </div>
 
-          <p className="max-w-4xl mx-auto text-[10px] text-white/20 text-center font-light mt-4 leading-relaxed opacity-70">
+          <p className="max-w-4xl mx-auto text-center font-light mt-4 leading-relaxed opacity-70">
             Servitec ofrece servicios de soporte técnico de manera
             independiente. Los logotipos y marcas pertenecen a sus respectivos
             dueños y se utilizan solo para informar sobre la compatibilidad de
