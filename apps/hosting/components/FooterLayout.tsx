@@ -233,7 +233,7 @@ export const FooterLayout = () => {
 
             <div className="space-y-3 pt-2">
               <h3 className="text-[10px] font-bold text-white/30">
-                Métodos de Pago
+                Método de Pago
               </h3>
               <div className="flex flex-wrap gap-2">
                 {paymentMethods.map((pago) => (
