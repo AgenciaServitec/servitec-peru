@@ -4,11 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="updated footer">
-      <change afterPath="$PROJECT_DIR$/apps/hosting/public/assets/images/clients/entities/gilda.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/hosting/public/assets/images/clients/entities/libertador.png" afterDir="false" />
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/components/HeaderLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/HeaderLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/especialidades/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/especialidades/[slug]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/especialidades/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/especialidades/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/nosotros/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/nosotros/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/reclamaciones/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/reclamaciones/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/servicios/[type]/ServiceClientLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/servicios/[type]/ServiceClientLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/servicios/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/servicios/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/components/SpecialtyDetailLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/SpecialtyDetailLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/components/ui/input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/ui/input.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/next.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,12 +52,12 @@
       </list>
     </option>
   </component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/AgenciaServitec/servitec-peru.git&quot;,
-    &quot;accountId&quot;: &quot;eed1d776-978f-4f57-88e8-2aa6e801d3a7&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/AgenciaServitec/servitec-peru.git",
+    "accountId": "e345968d-7d21-452d-8db2-36d5945ef979"
   }
-}</component>
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -63,26 +70,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/Angel/WebstormProjects/servitec-peru/apps/hosting/public/assets/images/clients/entities",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "pnpm",
-    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "to.speed.mode.migration.done": "true",
-    "ts.external.directory.path": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Angel/WebstormProjects/servitec-peru/apps/hosting/public/assets/images/clients/entities&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets\images\clients\entities" />
@@ -131,6 +138,7 @@
       <workItem from="1770815692427" duration="6306000" />
       <workItem from="1770898924359" duration="2488000" />
       <workItem from="1771195136784" duration="55869000" />
+      <workItem from="1771511640688" duration="84000" />
     </task>
     <task id="LOCAL-00002" summary="updated the version of react and nextjs">
       <option name="closed" value="true" />
@@ -444,7 +452,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771460316509</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="added sheet component">
+      <option name="closed" value="true" />
+      <created>1771470796467</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1771470796467</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -462,7 +478,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactor design" />
     <MESSAGE value="updated specialities and services" />
     <MESSAGE value="refactor specialties" />
     <MESSAGE value="fixed errors" />
@@ -487,6 +502,7 @@
     <MESSAGE value="refactored input component" />
     <MESSAGE value="updated ruc in footer" />
     <MESSAGE value="updated footer" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated footer" />
+    <MESSAGE value="added sheet component" />
+    <option name="LAST_COMMIT_MESSAGE" value="added sheet component" />
   </component>
 </project>
