@@ -67,7 +67,7 @@ export const SERVICES_DATA = [
       "Limpieza ultrasónica y reparación de circuitos afectados por humedad.",
     longDescription:
       "Brindamos un servicio avanzado de rescate para laptops afectadas por líquidos. Utilizamos cubas de ultrasonido con soluciones químicas dieléctricas para remover la sulfatación bajo los chips BGA.",
-    image: "/services/derrame-de-liquido.jpg",
+    image: "/assets/images/services/liquid-spill.png",
     includes: [
       "Desoxidación por ultrasonido",
       "Secado térmico controlado",
@@ -85,7 +85,7 @@ export const SERVICES_DATA = [
     description: "Detección y eliminación de malware, troyanos y spyware.",
     longDescription:
       "Realizamos un escaneo profundo de bajo nivel para eliminar virus, troyanos y spyware que causan corrupción de datos.",
-    image: "/services/problema-virus.jpg",
+    image: "/assets/images/services/virus-malware-issues.png",
     includes: [
       "Escaneo heurístico de seguridad",
       "Eliminación de Malware",
@@ -103,7 +103,7 @@ export const SERVICES_DATA = [
       "Diagnóstico para equipos que encienden pero no muestran imagen.",
     longDescription:
       "Analizamos el Power Sequence, verificamos voltajes en bobinas y realizamos reprogramación de BIOS/SMC.",
-    image: "/services/solo-led.jpg",
+    image: "/assets/images/services/only-leds-on.png",
     includes: [
       "Diagnóstico Nivel 3",
       "Reprogramación BIOS/EEPROM",
@@ -121,7 +121,7 @@ export const SERVICES_DATA = [
       "Mantenimiento preventivo para evitar daños por exceso de calor.",
     longDescription:
       "Sustituimos pasta térmica seca por compuestos de alta conductividad y renovamos thermal pads.",
-    image: "/services/sobrecalentamiento.jpg",
+    image: "/assets/images/services/overheating.png",
     includes: [
       "Limpieza de ventiladores",
       "Cambio de pasta térmica (>8.5 W/mK)",
@@ -138,7 +138,7 @@ export const SERVICES_DATA = [
     description: "Solución a pantallas azules y bloqueos de Windows o MacOS.",
     longDescription:
       "Corregimos problemas críticos del software, desde BSOD hasta bucles de reinicio.",
-    image: "/services/fallas-sistema.jpg",
+    image: "assets/images/services/operating-system-failure.png",
     includes: [
       "Reparación de arranque",
       "Instalación de drivers",
@@ -155,7 +155,7 @@ export const SERVICES_DATA = [
     description: "Reconstrucción y cambio de bisagras y carcasas dañadas.",
     longDescription:
       "Reconstrucción de anclajes mediante resinas epóxicas de grado industrial.",
-    image: "/services/bisagras.jpg",
+    image: "/assets/images/services/broken-hinges.png",
     includes: [
       "Reconstrucción de soportes",
       "Cambio de bisagras metálicas",
@@ -172,7 +172,7 @@ export const SERVICES_DATA = [
     description: "Sustitución inmediata de pantallas LED/LCD todas las marcas.",
     longDescription:
       "Cambio de pantallas dañadas siguiendo protocolos de seguridad antiestática.",
-    image: "/services/pantalla-quebrada.jpg",
+    image: "/assets/images/services/broken-screen.png",
     includes: [
       "Repuestos originales OEM",
       "Instalación antiestática",
@@ -190,7 +190,7 @@ export const SERVICES_DATA = [
       "Reparación y cambio de teclados para laptops de todas las gamas.",
     longDescription:
       "Trabajamos con teclados remachados, retroiluminados y mecánicos.",
-    image: "/services/teclado.jpg",
+    image: "/assets/images/services/keyboard-failure.png",
     includes: [
       "Cambio de teclado",
       "Limpieza de membrana",
@@ -207,7 +207,7 @@ export const SERVICES_DATA = [
     description: "Reparación de puertos USB, HDMI y conectores de carga.",
     longDescription:
       "Reparamos soldaduras frías y pines fracturados en USB-C y DC Jacks.",
-    image: "/services/puertos-fallan.jpg",
+    image: "/assets/images/services/port-failure.png",
     includes: [
       "Micro-soldadura SMD",
       "Cambio de Jack de carga",
@@ -225,7 +225,7 @@ export const SERVICES_DATA = [
       "Reparación de problemas de audio y micrófonos en iPhone/Galaxy.",
     longDescription:
       "Cambio de módulos de micrófono y reparación de códecs de audio en placa.",
-    image: "/services/falla-audio.jpg",
+    image: "/assets/images/services/audio-microphone-failure.png",
     includes: [
       "Cambio de micrófono",
       "Reparación de Codec Audio",
@@ -242,7 +242,7 @@ export const SERVICES_DATA = [
     description: "Diagnóstico para equipos que calientan de forma anormal.",
     longDescription:
       "Uso de cámaras térmicas para localizar componentes en corto en la placa base.",
-    image: "/services/sobrecalentamiento-smartphone.jpg",
+    image: "/assets/images/services/smartphone-overheating.png",
     includes: ["Cámara térmica", "Consumo de batería", "Detección de fugas"],
     technicalData: "Análisis de consumo en mA en tiempo real.",
   },
@@ -255,7 +255,7 @@ export const SERVICES_DATA = [
     description: "Reparación de botones de inicio que no responden.",
     longDescription:
       "Cambio de membrana táctil o flex de conexión para recuperar la sensibilidad.",
-    image: "/services/boton-home.jpg",
+    image: "/assets/images/services/broken-home-button.png",
     includes: [
       "Reemplazo de flex",
       "Ajuste de presión",
@@ -272,7 +272,7 @@ export const SERVICES_DATA = [
     description: "Sustitución de cristal táctil para equipos con cristal roto.",
     longDescription:
       "Laminación al vacío (OCA) para adherir el nuevo cristal al LCD original.",
-    image: "/services/touch-quebrado.jpg",
+    image: "/assets/images/services/broken-touch-lcd.png",
     includes: [
       "Cambio de cristal",
       "Laminación OCA",
@@ -289,7 +289,7 @@ export const SERVICES_DATA = [
     description: "Reparación de puertos que no cargan o no sincronizan.",
     longDescription:
       "Cambio técnico del flex de carga compatible con carga rápida.",
-    image: "/services/puerto-carga.jpg",
+    image: "/assets/images/services/charging-port-failure.png",
     includes: [
       "Cambio de flex de carga",
       "Limpieza de puerto",
@@ -306,7 +306,7 @@ export const SERVICES_DATA = [
     description: "Tratamiento de deshumidificación para equipos mojados.",
     longDescription:
       "Limpieza ultrasónica y deshumidificación al vacío para detener la corrosión.",
-    image: "/services/contacto-liquidos.jpg",
+    image: "/assets/images/services/liquid-contact.png",
     includes: [
       "Limpieza ultrasónica",
       "Deshumidificación",
@@ -323,7 +323,7 @@ export const SERVICES_DATA = [
     description: "Cambio de baterías que duran poco o no cargan.",
     longDescription:
       "Instalación de celdas de alta densidad para autonomía original.",
-    image: "/services/problema-bateria.jpg",
+    image: "/assets/images/services/battery-issues.png",
     includes: [
       "Sustitución Li-ion",
       "Pruebas de ciclos",
@@ -340,7 +340,7 @@ export const SERVICES_DATA = [
     description: "Reparación de cámaras pixeleadas o que no abren.",
     longDescription:
       "Cambio del módulo óptico original para restaurar enfoque y nitidez.",
-    image: "/services/problema-camara.jpg",
+    image: "/assets/images/services/camera-failure.png",
     includes: ["Módulo OEM", "Limpieza de lente", "Pruebas de OIS"],
     technicalData: "Soporte para estabilización óptica.",
   },
@@ -353,7 +353,7 @@ export const SERVICES_DATA = [
     description: "Solución a problemas de pérdida de cobertura inalámbrica.",
     longDescription:
       "Micro-soldadura en el sector de radiofrecuencia (Baseband/Antenas).",
-    image: "/services/falla-wifi.jpg",
+    image: "/assets/images/services/wifi-connectivity-failure.png",
     includes: [
       "Reparación de antena",
       "Soldadura chip WiFi",
@@ -370,7 +370,7 @@ export const SERVICES_DATA = [
     description: "Sustitución de pantalla interna para equipos sin imagen.",
     longDescription:
       "Cambio de módulo OLED/LCD grado original para brillo y resolución nativa.",
-    image: "/services/lcd-quebrado.jpg",
+    image: "/assets/images/services/broken-lcd.png",
     includes: [
       "Cambio Display completo",
       "Calibración True Tone",
@@ -387,7 +387,7 @@ export const SERVICES_DATA = [
     description: "Diagnóstico de equipos pegados en el logo.",
     longDescription:
       "Restauración de firmware y diagnóstico de hardware en memoria flash.",
-    image: "/services/reinicio-loop.jpg",
+    image: "/assets/images/services/reboot-loop-issue.png",
     includes: ["Restauración DFU", "Diagnóstico NAND", "Análisis de Logs"],
     technicalData: "Especialistas en errores 4013 y 9.",
   },
@@ -400,7 +400,7 @@ export const SERVICES_DATA = [
     description: "Reemplazo del cristal exterior para iPad o Galaxy Tab.",
     longDescription:
       "Cambio de digitalizador con adhesivos estructurales originales.",
-    image: "/services/touch-quebrado-tablet.jpg",
+    image: "/assets/images/services/broken-touch-screen.png",
     includes: ["Cambio digitalizador", "Limpieza interna", "Pruebas Stylus"],
     technicalData: "Cristal templado de alta resistencia.",
   },
@@ -413,7 +413,7 @@ export const SERVICES_DATA = [
     description: "Sustitución de visualizador y táctil completo.",
     longDescription:
       "Sustitución integral del módulo laminado para evitar entrada de polvo.",
-    image: "/services/touch-lcd-tablet.jpg",
+    image: "/assets/images/services/touch-lcd-damage.png",
     includes: [
       "Reemplazo módulo completo",
       "Sellado perimetral",
@@ -430,7 +430,7 @@ export const SERVICES_DATA = [
     description: "Reparación de pantallas que se congelan o no responden.",
     longDescription:
       "Diagnóstico de Touch IC en placa base o flexores dañados.",
-    image: "/services/falla-touch-tablet.jpg",
+    image: "/assets/images/services/touch-malfunction.png",
     includes: [
       "Diagnóstico Touch IC",
       "Revisión de flexores",
@@ -447,7 +447,7 @@ export const SERVICES_DATA = [
     description: "Tratamiento de emergencia para tablets sumergidas.",
     longDescription:
       "Apertura inmediata y limpieza química para evitar corrosión de batería.",
-    image: "/services/liquidos-tablet.jpg",
+    image: "/assets/images/services/liquid-accident.png",
     includes: [
       "Secado gran formato",
       "Limpieza ultrasónica",
@@ -463,7 +463,7 @@ export const SERVICES_DATA = [
     icon: Circle,
     description: "Corrección de botones de inicio atascados.",
     longDescription: "Reparación de membrana de presión para respuesta fluida.",
-    image: "/services/boton-home-tablet.jpg",
+    image: "/assets/images/services/home-button-repair.png",
     includes: [
       "Sustitución flex Home",
       "Limpieza contactos",
@@ -480,7 +480,7 @@ export const SERVICES_DATA = [
     description: "Sustitución de baterías agotadas o infladas.",
     longDescription:
       "Verificación de IC de carga (Tristar/U2) para asegurar ciclos sanos.",
-    image: "/services/bateria-tablet.jpg",
+    image: "/assets/images/services/battery-replacement.png",
     includes: [
       "Sustitución batería",
       "Diagnóstico IC Carga",
@@ -497,7 +497,7 @@ export const SERVICES_DATA = [
     description: "Solución para iPads que se quedan en pantalla negra.",
     longDescription:
       "Reparación de arranque (Boot Repair) y restauración de firmware.",
-    image: "/services/reinicio-tablet.jpg",
+    image: "/assets/images/services/auto-reboot-issue.png",
     includes: ["Restauración firmware", "Boot Repair", "Estabilidad sistema"],
     technicalData: "Soporte iPadOS y Android.",
   },
@@ -510,7 +510,7 @@ export const SERVICES_DATA = [
     description: "Reparación de equipos deformados por batería hinchada.",
     longDescription:
       "Extracción segura de batería y alineación técnica de chasis de aluminio.",
-    image: "/services/deformacion-tablet.jpg",
+    image: "/assets/images/services/deformation-swollen-battery.png",
     includes: [
       "Extracción segura",
       "Alineación de chasis",
@@ -528,7 +528,7 @@ export const SERVICES_DATA = [
       "Servicio técnico para recuperar el acceso a equipos bloqueados.",
     longDescription:
       "Realizamos procesos de restauración técnica para devolverte el control de tu dispositivo bajo protocolos de seguridad.",
-    image: "/services/desbloqueo-tablet.jpg",
+    image: "/assets/images/services/unlocking-service.png",
     includes: [
       "Restablecimiento de OS",
       "Remoción de códigos",
@@ -545,7 +545,7 @@ export const SERVICES_DATA = [
     description: "Reparación de cámaras que toman fotos borrosas o no abren.",
     longDescription:
       "Cambio del módulo de cámara frontal o trasera, asegurando nitidez y calidad HD original.",
-    image: "/services/camara-tablet.jpg",
+    image: "/assets/images/services/camera-issues.png",
     includes: [
       "Sustitución de módulo",
       "Limpieza de lente",
@@ -562,7 +562,7 @@ export const SERVICES_DATA = [
     description: "Reparación o sustitución de puertos de carga y Jacks.",
     longDescription:
       "Sustitución de conectores Lightning o USB-C mediante micro-soldadura reforzada.",
-    image: "/services/puertos-tablet.jpg",
+    image: "/assets/images/services/port-connector-failure.png",
     includes: [
       "Cambio conector carga",
       "Reparación Jack 3.5mm",
@@ -579,7 +579,7 @@ export const SERVICES_DATA = [
     description: "Corrección de imágenes deformadas o colores alterados.",
     longDescription:
       "Calibramos la convergencia óptica y reparamos la rueda de color o paneles LCD internos.",
-    image: "/services/distorsion-video-proyector.jpg",
+    image: "/assets/images/services/video-distortion.png",
     includes: [
       "Calibración óptica",
       "Limpieza rueda color",
@@ -596,7 +596,7 @@ export const SERVICES_DATA = [
     description: "Limpieza y ajuste de lentes para recuperar la nitidez.",
     longDescription:
       "Limpieza profunda del bloque óptico sellado y ajuste del mecanismo de enfoque/zoom.",
-    image: "/services/imagen-borrosa-proyector.jpg",
+    image: "/assets/images/services/blurry-image.png",
     includes: [
       "Limpieza de prismas",
       "Ajuste espejos dicroicos",
@@ -614,7 +614,7 @@ export const SERVICES_DATA = [
       "Reparación de fallas de píxeles o puntos blancos (Efecto Galaxia).",
     longDescription:
       "Reemplazo del chip DMD dañado y renovación del sistema de disipación térmica.",
-    image: "/services/puntos-imagen-proyector.jpg",
+    image: "/assets/images/services/dotted-image.png",
     includes: [
       "Sustitución Chip DMD",
       "Cambio pasta térmica",
@@ -631,7 +631,7 @@ export const SERVICES_DATA = [
     description: "Solución a problemas de conectividad en puertos HDMI o VGA.",
     longDescription:
       "Reparamos puertos fracturados o chips controladores de video dañados en la Mainboard.",
-    image: "/services/sin-senal-proyector.jpg",
+    image: "/assets/images/services/no-signal-message.png",
     includes: [
       "Reparación HDMI/VGA",
       "Diagnóstico chip escalador",
@@ -648,7 +648,7 @@ export const SERVICES_DATA = [
     description: "Diagnóstico de fallas eléctricas y sensores de temperatura.",
     longDescription:
       "Revisamos la fuente de poder (Ballast) y el sistema de ventiladores de enfriamiento.",
-    image: "/services/reinicio-proyector.jpg",
+    image: "/assets/images/services/auto-shutdown-reboot.png",
     includes: [
       "Revisión fuente poder",
       "Limpieza ventiladores",
@@ -665,7 +665,7 @@ export const SERVICES_DATA = [
     description: "Cambio de lámparas originales y reseteo de contadores.",
     longDescription:
       "Instalamos lámparas originales de alta luminosidad (UHP/Mercurio) con garantía de brillo.",
-    image: "/services/falla-lampara.jpg",
+    image: "/assets/images/services/lamp-failure.png",
     includes: [
       "Lámpara certificada OEM",
       "Reseteo de horas",
@@ -683,7 +683,7 @@ export const SERVICES_DATA = [
       "Servicio de enfriamiento para evitar que los componentes se fundan.",
     longDescription:
       "Limpieza química de filtros y lubricación de turbinas para optimizar el flujo de aire (CFM).",
-    image: "/services/sobrecalentamiento-proyector.jpg",
+    image: "/assets/images/services/projector-overheating.png",
     includes: [
       "Limpieza profunda",
       "Lubricación de turbinas",
@@ -700,7 +700,7 @@ export const SERVICES_DATA = [
     description: "Acceso a tu All-in-One bloqueada por credenciales.",
     longDescription:
       "Recuperamos acceso a OS o BIOS mediante herramientas de bajo nivel sin formatear.",
-    image: "/services/contrasena-bloqueada-aio.jpg",
+    image: "/assets/images/services/forgotten-password.png",
     includes: [
       "Reset Windows/Mac",
       "Desbloqueo BIOS/UEFI",
@@ -717,7 +717,7 @@ export const SERVICES_DATA = [
     description: "Solución a errores críticos, lentitud y bloqueos constantes.",
     longDescription:
       "Diagnóstico de RAM, sectores de disco y optimización de drivers compatibles.",
-    image: "/services/pantalla-azul-aio.jpg",
+    image: "/assets/images/services/blue-screen-error.png",
     includes: [
       "Diagnóstico de Logs",
       "Optimización de OS",
@@ -735,7 +735,7 @@ export const SERVICES_DATA = [
       "Micro-soldadura avanzada para fallas complejas en la motherboard.",
     longDescription:
       "Reemplazo de condensadores sólidos y MOSFETs de la etapa de potencia.",
-    image: "/services/reparacion-placa-aio.jpg",
+    image: "/assets/images/services/motherboard-repair.png",
     includes: [
       "Micro-soldadura SMD",
       "Diagnóstico precisión",
@@ -752,7 +752,7 @@ export const SERVICES_DATA = [
     description: "Diagnóstico de equipos que encienden pero no muestran video.",
     longDescription:
       "Revisión de chip gráfico (GPU), cable flex y etapa de retroiluminación (Backlight).",
-    image: "/services/sin-imagen-aio.jpg",
+    image: "/assets/images/services/no-video-output.png",
     includes: [
       "Revisión GPU",
       "Pruebas pantalla interna",
@@ -769,7 +769,7 @@ export const SERVICES_DATA = [
     description: "Sustitución de paneles LED/LCD para computadoras All-in-One.",
     longDescription:
       "Importación directa de paneles para asegurar acabado original y sellado perimetral.",
-    image: "/services/pantalla-quebrada-aio.jpg",
+    image: "/assets/images/services/damaged-aio-screen.png",
     includes: [
       "Repuestos originales",
       "Instalación precisión",
@@ -787,7 +787,7 @@ export const SERVICES_DATA = [
       "Reparación de fallas en fuente de poder o saturación térmica.",
     longDescription:
       "Diagnóstico profundo de la etapa de carga y sistema de ventilación forzada.",
-    image: "/services/reinicio-solo-aio.jpg",
+    image: "/assets/images/services/auto-power-off.png",
     includes: [
       "Revisión fuente interna",
       "Mantenimiento térmico",
@@ -804,7 +804,7 @@ export const SERVICES_DATA = [
     description: "Eliminación de amenazas sin perder archivos personales.",
     longDescription:
       "Limpieza de malware y troyanos incluso en el sector de arranque (Boot).",
-    image: "/services/virus-aio.jpg",
+    image: "/assets/images/services/virus-cleaning-aio.png",
     includes: [
       "Eliminación Malware",
       "Respaldo preventivo",
@@ -821,7 +821,7 @@ export const SERVICES_DATA = [
     description: "Limpieza interna y cambio de pasta térmica premium.",
     longDescription:
       "Bajamos la temperatura operativa hasta 20°C mediante compuestos de plata.",
-    image: "/services/calentamiento-aio.jpg",
+    image: "/assets/images/services/aio-overheating.png",
     includes: [
       "Limpieza disipadores",
       "Pasta térmica premium",
@@ -839,7 +839,7 @@ export const SERVICES_DATA = [
       "Reparación de equipos con cortocircuitos o sin signos de vida.",
     longDescription:
       "Detección de fallas en integrados de 3V/5V y fuentes secundarias.",
-    image: "/services/no-prende-aio.jpg",
+    image: "/assets/images/services/dead-pc-repair.png",
     includes: ["Detección cortos", "Diagnóstico carga", "Sustitución quemados"],
     technicalData: "Uso de fuentes de laboratorio reguladas.",
   },
@@ -852,7 +852,7 @@ export const SERVICES_DATA = [
     description: "Rescate de información en HDD y SSD con fallas físicas.",
     longDescription:
       "Clonación forense de sectores dañados y reconstrucción de particiones.",
-    image: "/services/recuperacion-datos.jpg",
+    image: "/assets/images/services/hard-drive-data-recovery.png",
     includes: [
       "Clonación sectores",
       "Recuperación borrados",
@@ -869,7 +869,7 @@ export const SERVICES_DATA = [
     description: "Soporte técnico para infraestructuras corporativas.",
     longDescription:
       "Mantenimiento de hardware, arreglos RAID y gestión de redes VLAN.",
-    image: "/services/servidores-redes.jpg",
+    image: "/assets/images/services/server-and-network-maintenance.png",
     includes: [
       "Mantenimiento Servidores",
       "Configuración RAID",
@@ -886,7 +886,7 @@ export const SERVICES_DATA = [
     description: "Solución definitiva para fallas de video o encendido.",
     longDescription:
       "Sustitución de esferas de soldadura BGA mediante estaciones infrarrojas.",
-    image: "/services/reballing-service.jpg",
+    image: "/assets/images/services/chipset-reballing.png",
     includes: [
       "Extracción chip BGA",
       "Sustitución esferas",
@@ -903,7 +903,7 @@ export const SERVICES_DATA = [
     description: "Instalación y monitoreo de videovigilancia HD e IP.",
     longDescription:
       "Configuración de monitoreo remoto y optimización de grabación en DVR/NVR.",
-    image: "/services/camaras-seguridad.jpg",
+    image: "/assets/images/services/cctv-installation-maintenance.png",
     includes: [
       "Instalación cámaras IP",
       "Monitoreo remoto",
@@ -920,7 +920,7 @@ export const SERVICES_DATA = [
     description: "Instalación de videoporteros y citófonos digitales.",
     longDescription:
       "Instalación de frentes de calle y cerraduras eléctricas con audio claro.",
-    image: "/services/intercom-installation.jpg",
+    image: "/assets/images/services/intercom-system-installation.png",
     includes: ["Frentes de calle", "Videoporteros", "Cerraduras eléctricas"],
     technicalData: "Sistemas digitales de alta fidelidad.",
   },
@@ -933,7 +933,7 @@ export const SERVICES_DATA = [
     description: "Reparación de sistemas de tracción y ruidos mecánicos.",
     longDescription:
       "Sustitución de Pick-up Rollers y lubricación de engranajes internos.",
-    image: "/services/mecanismo-impresora.jpg",
+    image: "/assets/images/services/mechanical-components-repair.png",
     includes: ["Gomas de arrastre", "Fajas transferencia", "Lubricación"],
     technicalData: "Lubricantes de alta temperatura.",
   },
@@ -946,7 +946,7 @@ export const SERVICES_DATA = [
     description: "Diagnóstico de impresiones borrosas o errores ópticos.",
     longDescription:
       "Limpieza de espejos poligonales y calibración de unidad de exposición.",
-    image: "/services/unidad-laser.jpg",
+    image: "/assets/images/services/laser-unit-repair.png",
     includes: ["Limpieza espejos", "Calibración láser", "Motores poligonales"],
     technicalData: "Ajuste de densidad DPI nativa.",
   },
@@ -959,7 +959,7 @@ export const SERVICES_DATA = [
     description: "Reparación de circuitos y puertos USB/Red.",
     longDescription:
       "Diagnóstico de componentes por sobretensión y actualización de firmware.",
-    image: "/services/placa-impresora.jpg",
+    image: "/assets/images/services/logic-board-printer-repair.png",
     includes: ["Reparación USB/Red", "Diagnóstico SMD", "Update Firmware"],
     technicalData: "Reparación electrónica Nivel Componente.",
   },
@@ -972,7 +972,7 @@ export const SERVICES_DATA = [
     description: "Adaptación de sistemas de tinta de alto rendimiento.",
     longDescription:
       "Instalación de tanques externos y dampers para evitar retroceso de tinta.",
-    image: "/services/sistema-continuo.jpg",
+    image: "/assets/images/services/continuous-ink-installation.png",
     includes: ["Montaje tanques", "Purga por vacío", "Instalación dampers"],
     technicalData: "Uso de tintas de alta pigmentación.",
   },

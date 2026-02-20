@@ -138,7 +138,7 @@ export default function ServicesPage() {
                 >
                   <div className="absolute inset-0 z-0 transition-all duration-700">
                     <Image
-                      src={service.image}
+                      src={service?.image}
                       alt={service.title}
                       fill
                       className="object-cover opacity-20 grayscale group-hover:grayscale-0 group-hover:opacity-40 group-hover:scale-105 transition-all duration-700"
