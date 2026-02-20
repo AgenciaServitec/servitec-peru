@@ -1,4 +1,4 @@
 export {
-  onServiceRequestCreatedTrigger as onServiceRequestCreated,
-  onServiceRequestUpdatedTrigger as onServiceRequestUpdated,
+  onTriggerServiceRequestCreated,
+  onTriggerServiceRequestUpdated,
 } from "./serviceRequests.triggers";

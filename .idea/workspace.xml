@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/triggers/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/triggers/serviceRequests.triggers.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/globalTypes.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/globalTypes.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/functions/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/globalTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/globalTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/triggers/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/triggers/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/triggers/serviceRequests.triggers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/triggers/serviceRequests.triggers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +74,7 @@
     "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Owner\\Desktop\\servitec-projects\\servitec-peru\\node_modules\\prettier",
     "settings.editor.selected.configurable": "preferences.lookFeel",
     "to.speed.mode.migration.done": "true",
-    "ts.external.directory.path": "C:\\Users\\Owner\\Desktop\\servitec-projects\\servitec-peru\\node_modules\\typescript\\lib",
+    "ts.external.directory.path": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
