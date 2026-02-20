@@ -24,10 +24,7 @@ export const QuotationDocumentSheet = ({
         <Header>
           <div className="logo-section">
             <LogoPlaceholder>
-              <img
-                src="https://www.servitecperu.com/web/assets/images/logo-servitec2.png"
-                alt="Logo"
-              />
+              <img src="/logo-servitec-2.png" alt="Logo" />
             </LogoPlaceholder>
           </div>
           <div className="title-section">
@@ -433,7 +430,9 @@ const Table = styled.table`
 
   tbody {
     tr {
-      border-bottom: 1px solid #ecf0f1;
+      div {
+        border-bottom: 1px solid #ecf0f1;
+      }
 
       &:hover {
         background: #f8f9fa;
@@ -445,6 +444,7 @@ const Table = styled.table`
     }
 
     td {
+      border-bottom: 1px solid #ecf0f1;
       padding: 0.7em;
       color: #000000;
 
