@@ -15,6 +15,7 @@ import {
   Youtube,
 } from "lucide-react";
 import Link from "next/link";
+import { SPECIALTIES_DATA } from "@/data-list/specialties";
 
 const TikTokIcon = ({ size = 18 }) => (
   <svg
@@ -50,26 +51,24 @@ export const FooterLayout = () => {
     <footer className="bg-[#050505] border-t border-white/5 pt-20 pb-10 font-sans">
       <ContentWidth>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-20">
-          <div className="lg:col-span-4 space-y-8">
+          <div className="lg:col-span-3 space-y-8">
             <div className="space-y-6">
               <Image
                 src="/logo-servitec.png"
                 alt="Logo de Servitec Perú"
                 width={160}
                 height={34}
-                className="opacity-90 grayscale hover:grayscale-0 transition-all duration-500"
               />
-              <p className="text-sm leading-relaxed text-white/40 max-w-sm">
-                Expertos en reparación de hardware y recuperación de sistemas
-                críticos. Soporte técnico de alta precisión en Lima con más de
-                10 años de trayectoria.
+              <p className="text-sm leading-relaxed max-w-sm">
+                {razonSocial} (RUC {ruc}) es un soporte técnico independiente.
+                No somos servicio oficial ni estamos afiliados a las marcas
+                mostradas. Logos y marcas pertenecen a sus dueños y se usan solo
+                por compatibilidad.
               </p>
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-[12px] font-bold text-white/30">
-                Nuestras Redes
-              </h3>
+              <h3 className="text-[12px] font-bold">Nuestras Redes</h3>
               <div className="flex flex-wrap gap-2">
                 {[
                   {
@@ -79,12 +78,12 @@ export const FooterLayout = () => {
                   },
                   {
                     icon: <TikTokIcon size={18} />,
-                    href: "https://www.tiktok.com/@servitec_peru_group?is_from_webapp=1&sender_device=pc",
+                    href: "https://www.tiktok.com/@servitec_peru_group",
                     label: "TikTok",
                   },
                   {
                     icon: <Youtube size={18} />,
-                    href: "https://youtube.com/@servitecperugroupeirl?si=KxiXQcoBzJ9vJ6BY",
+                    href: "https://youtube.com/@servitecperugroupeirl",
                     label: "YouTube",
                   },
                   {
@@ -108,30 +107,78 @@ export const FooterLayout = () => {
           </div>
 
           <div className="lg:col-span-2 space-y-6">
-            <h3 className="text-[11px] font-bold text-primary">Servicios</h3>
+            <h3 className="text-[12px] font-bold text-primary">
+              Especialidades
+            </h3>
             <ul className="space-y-3">
-              {[
-                "Reparación de Laptops",
-                "Soporte de Servidores",
-                "Cámaras de Seguridad",
-                "Recuperación de Datos",
-                "Mantenimiento PC",
-                "Proyectores",
-              ].map((item) => (
-                <li key={item}>
+              {SPECIALTIES_DATA.slice(0, 8).map((item) => (
+                <li key={item.title}>
                   <Link
-                    href="/servicios"
+                    href={`/especialidades/${item.slug}`}
                     className="text-sm text-white/40 hover:text-white transition-colors"
                   >
-                    {item}
+                    {item.title}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="lg:col-span-3 space-y-6 border-l border-white/5 pl-0 lg:pl-8">
-            <h3 className="text-[11px] font-bold text-white">
+          <div className="lg:col-span-2 space-y-6">
+            <h3 className="text-[12px] font-bold text-white">Páginas</h3>
+            <ul className="space-y-3">
+              {[
+                { name: "Especialidades", href: "/especialidades" },
+                { name: "Servicios", href: "/servicios" },
+                { name: "Nosotros", href: "/nosotros" },
+                { name: "Contacto", href: "/contacto" },
+              ].map((page) => (
+                <li key={page.name}>
+                  <Link
+                    href={page.href}
+                    className="text-sm text-white/40 hover:text-white transition-colors"
+                  >
+                    {page.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            {/*<div className="pt-4 space-y-3 border-t border-white/5">*/}
+            {/*  <h3 className="text-[12px] font-bold text-white/50">*/}
+            {/*    Herramientas*/}
+            {/*  </h3>*/}
+            {/*  <ul className="space-y-3">*/}
+            {/*    <li>*/}
+            {/*      <Link*/}
+            {/*        href="/generador-qr"*/}
+            {/*        className="text-sm text-white/40 hover:text-primary transition-colors flex items-center gap-2"*/}
+            {/*      >*/}
+            {/*        Generador QR Gratis <ArrowUpRight size={12} />*/}
+            {/*      </Link>*/}
+            {/*    </li>*/}
+            {/*    <li>*/}
+            {/*      <Link*/}
+            {/*        href="/test-teclado"*/}
+            {/*        className="text-sm text-white/40 hover:text-primary transition-colors flex items-center gap-2"*/}
+            {/*      >*/}
+            {/*        Test de Teclado Online <ArrowUpRight size={12} />*/}
+            {/*      </Link>*/}
+            {/*    </li>*/}
+            {/*    <li>*/}
+            {/*      <Link*/}
+            {/*        href="/estado-reparacion"*/}
+            {/*        className="text-sm text-white/40 hover:text-primary transition-colors flex items-center gap-2"*/}
+            {/*      >*/}
+            {/*        Estado de Equipo <ArrowUpRight size={12} />*/}
+            {/*      </Link>*/}
+            {/*    </li>*/}
+            {/*  </ul>*/}
+            {/*</div>*/}
+          </div>
+
+          <div className="lg:col-span-2 space-y-6">
+            <h3 className="text-[12px] font-bold text-white">
               Centro de Soporte
             </h3>
             <ul className="space-y-5">
@@ -205,43 +252,32 @@ export const FooterLayout = () => {
 
           <div className="lg:col-span-3 space-y-6">
             <div className="p-5 border border-white/10 bg-white/[0.02] rounded-sm space-y-4">
-              <h3 className="text-[11px] font-bold text-white/80 flex items-center gap-2">
+              <h3 className="text-[12px] font-bold text-white/80 flex items-center gap-2">
                 <ShieldCheck size={14} className="text-primary" /> Datos
                 Fiscales
               </h3>
-              <div className="space-y-3 text-xs text-white/70">
+              <div className="space-y-3 text-sm text-white/70">
                 <div className="space-y-1">
-                  <p className="text-[9px] text-white/30">Razón Social</p>
+                  <p className="text-[10px] text-white/30">Razón Social</p>
                   <p className="font-medium leading-tight">{razonSocial}</p>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-[9px] text-white/30">RUC</p>
+                  <p className="text-[10px] text-white/30">RUC</p>
                   <p>{ruc}</p>
+                </div>
+                <div className="pt-2 border-t border-white/5">
+                  <Link
+                    href="/empresa"
+                    className="text-primary hover:text-white transition-colors flex items-center gap-2 font-bold text-[11px]"
+                  >
+                    Ver perfil empresarial <ArrowUpRight size={14} />
+                  </Link>
                 </div>
               </div>
             </div>
 
-            <Link href="/reclamaciones" className="flex items-center gap-4">
-              <Image
-                src="/complaints-book.jpg"
-                width={60}
-                height={24}
-                alt="Libro de Reclamaciones"
-              />
-              <div className="text-left">
-                <p className="text-[12px] font-bold text-white">
-                  Libro de Reclamaciones
-                </p>
-                <p className="text-[12px] text-white/30 font-normal">
-                  Atención de quejas y reclamos
-                </p>
-              </div>
-            </Link>
-
             <div className="space-y-3 pt-2">
-              <h3 className="text-[12px] font-bold text-white/30">
-                Método de Pago
-              </h3>
+              <h3 className="text-[12px] font-bold">Método de Pago</h3>
               <div className="flex flex-wrap gap-2">
                 {paymentMethods.map((pago) => (
                   <div
@@ -270,12 +306,32 @@ export const FooterLayout = () => {
         <div className="pt-8 border-t border-white/5">
           <div className="flex flex-col lg:flex-row justify-between items-center gap-6 text-[12px]">
             <div className="flex flex-wrap justify-center gap-8">
-              <Link href="/politicas-privacidad">Políticas de Privacidad</Link>
-              <Link href="/terminos-condiciones">Términos y Condiciones</Link>
-              <Link href="/politica-cookies">Política de Cookies</Link>
-              <Link href="/politica-servicio">Política de Servicio</Link>
+              <Link
+                href="/politicas-privacidad"
+                className="hover:text-primary transition-colors"
+              >
+                Políticas de Privacidad
+              </Link>
+              <Link
+                href="/terminos-condiciones"
+                className="hover:text-primary transition-colors"
+              >
+                Términos y Condiciones
+              </Link>
+              <Link
+                href="/politica-cookies"
+                className="hover:text-primary transition-colors"
+              >
+                Política de Cookies
+              </Link>
+              <Link
+                href="/politica-servicio"
+                className="hover:text-primary transition-colors"
+              >
+                Política de Servicio
+              </Link>
             </div>
-            <p className="text-center font-normal">
+            <p className="text-center">
               © 2018 - 2026 Servitec Perú • Todos los derechos reservados
             </p>
           </div>

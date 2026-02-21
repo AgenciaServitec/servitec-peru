@@ -5,66 +5,63 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="refactored line in form">
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/assets/images/our-facilities/1.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/assets/images/our-facilities/2.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/assets/images/our-facilities/3.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/assets/images/our-facilities/4.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/assets/images/our-facilities/5.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/assets/images/our-facilities/6.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/empty-image.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/empresa/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/empresa/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/especialidades/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/especialidades/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/nosotros/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/nosotros/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/not-found.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/not-found.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/politica-cookies/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/politica-cookies/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/politica-servicio/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/politica-servicio/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/politicas-privacidad/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/politicas-privacidad/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/reclamaciones/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/reclamaciones/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/app/servicios/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/servicios/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/terminos-condiciones/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/terminos-condiciones/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/components/CookieBanner.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/CookieBanner.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/components/FooterLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/FooterLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/components/HeaderLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/HeaderLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/components/SpecialtyDetailLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/SpecialtyDetailLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/components/WhatsAppButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/WhatsAppButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/components/ui/alert.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/ui/alert.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/data-list/services.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/data-list/services.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/allInOne-repair-images/allInOne-blue-screen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/allInOne-repair-images/allInOne-damaged-screen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/allInOne-repair-images/allInOne-no-turn-on.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/allInOne-repair-images/allInOne-not-image.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/allInOne-repair-images/allInOne-overheating.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/allInOne-repair-images/allInOne-password.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/allInOne-repair-images/allInOne-plate.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/allInOne-repair-images/allInOne-turns-off.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/allInOne-repair-images/allInOne-virus.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/apps-development-images/apps-development.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/camera-installation-images/video-surveillance-cameras.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/data-recovery-images/data-recovery.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/intercoms-installation-images/intercoms-installation.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/ipad-and-tablet-repair-images/accidente-liquido.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/ipad-and-tablet-repair-images/cambio-bateria.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/ipad-and-tablet-repair-images/deformacion-ipad.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/ipad-and-tablet-repair-images/desbloqueo-tablet.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/ipad-and-tablet-repair-images/lcd-quebrado.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/ipad-and-tablet-repair-images/reinicia-sola.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/ipad-and-tablet-repair-images/reparacion-boton-home.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/ipad-and-tablet-repair-images/tablet-camera-problema.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/ipad-and-tablet-repair-images/tablet-ports.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/ipad-and-tablet-repair-images/tablet-touchscreen-quebrada.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/ipad-and-tablet-repair-images/touch-lcd-quebrado.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/ipad-and-tablet-repair-images/touch-no-funciona.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/laptop-repair-images/bisagras-quebradas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/laptop-repair-images/derrame-de-liquido.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/laptop-repair-images/no-funciona-teclado.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/laptop-repair-images/pantalla-quebrada.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/laptop-repair-images/problemas-virus.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/laptop-repair-images/puertos-no-funcionan.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/laptop-repair-images/sistema-operativo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/laptop-repair-images/sobrecalentamiento.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/laptop-repair-images/solo-enciende-led.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/boton-home.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/cambio-touch.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/contacto-liquido.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/lcd.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/microfono.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/microfono.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/problemas-batera.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/problemas-batera.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/problemas-camara.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/problemas-camara.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/problemas-jack.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/problemas-jack.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/reinicia.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/reinicia.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/sobrecalentamiento.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/sobrecalentamiento.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/touch-quebrado.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/touch-quebrado.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/wifi.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/wifi.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/photocopier-printer-images/photocopier-printer.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/services-images/photocopier-printer-images/photocopier-printer.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/projector-repair-images/projector-apaga.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/services-images/projector-repair-images/projector-apaga.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/projector-repair-images/projector-distorsion.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/services-images/projector-repair-images/projector-distorsion.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/projector-repair-images/projector-imagen-borrosa.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/services-images/projector-repair-images/projector-imagen-borrosa.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/projector-repair-images/projector-lampara.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/services-images/projector-repair-images/projector-lampara.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/projector-repair-images/projector-puntos.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/services-images/projector-repair-images/projector-puntos.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/projector-repair-images/projector-recalienta.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/services-images/projector-repair-images/projector-recalienta.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/projector-repair-images/projector-señal.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/services-images/projector-repair-images/projector-señal.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/reballing-images/reballing-service.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/services-images/reballing-images/reballing-service.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/server-network-images/server-network-maintenance.png" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/services-images/server-network-images/server-network-maintenance.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/system-development-images/system-development.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/public/services-images/system-development-images/system-development.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/data-list/specialties.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/data-list/specialties.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/microfono.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/problemas-batera.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/problemas-camara.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/problemas-jack.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/reinicia.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/sobrecalentamiento.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/touch-quebrado.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/phone-repair-images/wifi.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/photocopier-printer-images/photocopier-printer.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/projector-repair-images/projector-apaga.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/projector-repair-images/projector-distorsion.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/projector-repair-images/projector-imagen-borrosa.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/projector-repair-images/projector-lampara.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/projector-repair-images/projector-puntos.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/projector-repair-images/projector-recalienta.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/projector-repair-images/projector-señal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/reballing-images/reballing-service.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/reparacion-laptop/contraportada.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/server-network-images/server-network-maintenance.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/public/services-images/web-development-images/web-development.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/DigitalBanner.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/DigitalBanner.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/Hero.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/Hero.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/HowWeWork.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/HowWeWork.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/Specialties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/Specialties.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/TaxData.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/TaxData.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/TrustBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/TrustBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/Ubication.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/Ubication.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +80,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="add-servicesRqeuests-trigger" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -119,39 +116,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Angel/WebstormProjects/servitec-peru/apps/hosting-admin/public&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "C:/Users/Angel/WebstormProjects/servitec-peru/apps/hosting/public/assets/images/our-facilities",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "pnpm",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "to.speed.mode.migration.done": "true",
+    "ts.external.directory.path": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting-admin\public" />
+      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets\images\our-facilities" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public" />
+      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting-admin\public" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets\images\clients\entities" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\payment-methods" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets\images\our-facilities" />
+      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets\images" />
+      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting-admin\public" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets\images\clients\entities" />
-      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets\images" />
-      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\content\servicios" />
-      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting" />
     </key>
   </component>
   <component name="SharedIndexes">

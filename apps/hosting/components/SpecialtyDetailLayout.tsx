@@ -236,7 +236,7 @@ export default function SpecialtyDetailLayout({
       {/*                    strokeWidth={1}*/}
       {/*                  />*/}
       {/*                </div>*/}
-      {/*                <h3 className="text-2xl font-bold text-white mb-3 lowercase tracking-tight">*/}
+      {/*                <h3 className="text-2xl font-bold text-white mb-3 lowercase">*/}
       {/*                  ¡Todo listo!*/}
       {/*                </h3>*/}
       {/*                <p className="text-sm text-white/40 mb-10 max-w-xs mx-auto leading-relaxed lowercase">*/}
@@ -305,7 +305,7 @@ export default function SpecialtyDetailLayout({
       <section className="py-24">
         <ContentWidth>
           <div className="space-y-4 mb-10">
-            <h2 className="text-5xl md:text-6xl font-bold tracking-tighter text-white">
+            <h2 className="text-5xl md:text-6xl font-bold text-white">
               Módulos de servicio
             </h2>
             <p className="text-white/40 max-w-xl text-sm leading-relaxed">

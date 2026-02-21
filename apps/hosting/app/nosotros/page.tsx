@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, useMotionValue } from "framer-motion";
-import { CheckCircle2 } from "lucide-react";
+import { Building, CheckCircle2 } from "lucide-react";
 import { ContentWidth } from "@/components/ContentWidth";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -177,7 +177,7 @@ export default function About() {
                 ))}
               </div>
 
-              <div className="pt-6">
+              <div className="flex flex-col md:flex-row gap-2 pt-6">
                 <Button size="lg" className="btn-primary" asChild>
                   <Link href="/especialidades">
                     <span className="flex items-center gap-2">
@@ -192,6 +192,19 @@ export default function About() {
                         />
                       </svg>
                       Nuestras Especialidades
+                    </span>
+                  </Link>
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="btn-ghost-dark"
+                  asChild
+                >
+                  <Link href="/empresa">
+                    <span className="flex items-center gap-2">
+                      <Building />
+                      Nuestra empresa
                     </span>
                   </Link>
                 </Button>

@@ -7,7 +7,7 @@ export default function TaxData() {
       <ContentWidth>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="space-y-4">
-            <h3 className="text-5xl md:text-6xl font-bold tracking-tighter text-white">
+            <h3 className="text-5xl md:text-6xl font-bold text-white">
               Datos Legales
             </h3>
             <p className="text-white/40 text-sm leading-relaxed max-w-md">

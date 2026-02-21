@@ -110,14 +110,12 @@ const brands = [
 
 export function TrustBar() {
   return (
-    <section className="py-12 border-y border-white/5 bg-black overflow-hidden relative">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,rgba(234,179,8,0.05),transparent_70%)] pointer-events-none" />
-
+    <section className="py-12 border-y border-white/5 overflow-hidden relative">
       <ContentWidth>
         <div className="flex flex-col gap-10">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
             <div className="shrink-0 flex flex-col items-center lg:items-start gap-1 z-10">
-              <span className="font-bold text-3xl md:text-4xl tracking-tighter text-white">
+              <span className="font-bold text-3xl md:text-4xl text-white">
                 +5 Años
               </span>
               <span className="text-[10px] font-bold">Líderes en soporte</span>
@@ -163,20 +161,20 @@ export function TrustBar() {
             </div>
 
             <div className="shrink-0 flex flex-col items-center lg:items-end gap-1 z-10">
-              <span className="text-white font-bold text-lg md:text-xl tracking-tight whitespace-nowrap text-center lg:text-right">
+              <span className="text-white font-bold text-lg md:text-xl whitespace-nowrap text-center lg:text-right">
                 Hardware & Software
               </span>
-              <span className="text-center lg:text-right text-white/40 text-[10px] font-medium whitespace-nowrap">
+              <span className="text-center lg:text-right text-[10px] font-medium whitespace-nowrap">
                 Especialistas con <br /> experiencia comprobada
               </span>
             </div>
           </div>
 
           <p className="max-w-4xl mx-auto text-center font-light mt-4 leading-relaxed opacity-70">
-            Servitec ofrece servicios de soporte técnico de manera
-            independiente. Los logotipos y marcas pertenecen a sus respectivos
-            dueños y se utilizan solo para informar sobre la compatibilidad de
-            nuestras soluciones.
+            Servitec Perú Group E.I.R.L. (RUC 20604141240) es un soporte técnico
+            independiente. No somos servicio oficial ni estamos afiliados a las
+            marcas mostradas. Logos y marcas pertenecen a sus dueños y se usan
+            solo por compatibilidad.
           </p>
         </div>
       </ContentWidth>

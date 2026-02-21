@@ -176,9 +176,10 @@ export const SPECIALTIES_DATA = [
   },
   {
     type: "custom-consultation",
-    slug: "consulta-especializada",
+    slug: "contacto",
     title: "¿No encuentras tu equipo?",
-    description: "Brindamos soporte técnico avanzado para dispositivos tecnológicos especiales y proyectos personalizados.",
+    description:
+      "Brindamos soporte técnico avanzado para dispositivos tecnológicos especiales y proyectos personalizados.",
     image: "",
     includes: [
       "Evaluación de casos especiales",
@@ -188,5 +189,5 @@ export const SPECIALTIES_DATA = [
     services: [],
     icon: PhoneCall,
     isCustom: true,
-  }
+  },
 ];

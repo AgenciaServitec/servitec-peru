@@ -71,7 +71,7 @@ export function DigitalBanner() {
       {/*            </motion.div>*/}
       {/*          </motion.div>*/}
 
-      {/*          <span className="text-[8px] text-white/20 mt-4 tracking-[0.4em] font-black uppercase">*/}
+      {/*          <span className="text-[8px] text-white/20 mt-4 font-black uppercase">*/}
       {/*            Servitec Lab*/}
       {/*          </span>*/}
       {/*        </div>*/}
@@ -86,7 +86,7 @@ export function DigitalBanner() {
       {/*        transition={{ duration: 0.6 }}*/}
       {/*        className="max-w-xl"*/}
       {/*      >*/}
-      {/*        <h2 className="text-3xl md:text-5xl font-black text-white leading-[0.95] mb-4 tracking-tighter uppercase">*/}
+      {/*        <h2 className="text-3xl md:text-5xl font-black text-white leading-[0.95] mb-4 uppercase">*/}
       {/*          DESARROLLO WEB <br />*/}
       {/*          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">*/}
       {/*            & ESCALABILIDAD*/}
@@ -117,7 +117,7 @@ export function DigitalBanner() {
       {/*              className="flex items-center gap-2 group cursor-default"*/}
       {/*            >*/}
       {/*              <s.icon className="text-blue-500/60 w-3.5 h-3.5" />*/}
-      {/*              <span className="text-[9px] text-white/40 uppercase font-black tracking-widest group-hover:text-blue-400 transition-colors">*/}
+      {/*              <span className="text-[9px] text-white/40 uppercase font-black group-hover:text-blue-400 transition-colors">*/}
       {/*                {s.label}*/}
       {/*              </span>*/}
       {/*            </div>*/}

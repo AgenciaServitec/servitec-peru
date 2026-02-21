@@ -65,7 +65,6 @@ export default function ReclamacionesPage() {
           className="max-w-3xl mx-auto"
         >
           <form className="space-y-12 bg-neutral-900/30 border border-white/5 p-6 md:p-12 rounded-sm shadow-2xl">
-            {/* SECCIÓN 1: CONSUMIDOR */}
             <section className="space-y-8">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
@@ -137,7 +136,6 @@ export default function ReclamacionesPage() {
               </div>
             </section>
 
-            {/* SECCIÓN 2: BIEN CONTRATADO */}
             <section className="space-y-8">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
@@ -192,7 +190,6 @@ export default function ReclamacionesPage() {
               </div>
             </section>
 
-            {/* SECCIÓN 3: RECLAMACIÓN */}
             <section className="space-y-8">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
@@ -216,9 +213,7 @@ export default function ReclamacionesPage() {
                         : "bg-white/[0.02] border-white/10 text-white/40 hover:border-white/20"
                     )}
                   >
-                    <div className="font-bold text-sm tracking-tight">
-                      {type}
-                    </div>
+                    <div className="font-bold text-sm">{type}</div>
                     <div
                       className={cn(
                         "text-[10px]",
@@ -254,7 +249,6 @@ export default function ReclamacionesPage() {
                   />
                 </div>
 
-                {/* CAMPO ADJUNTO OPCIONAL */}
                 <div className="space-y-2">
                   <Label className="text-white/50 text-xs ml-1">
                     Adjuntar evidencia (Opcional)

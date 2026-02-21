@@ -56,6 +56,7 @@ export default function Company() {
             transform: translateX(-50%);
           }
         }
+
         @keyframes marquee-reverse {
           0% {
             transform: translateX(-50%);
@@ -64,16 +65,19 @@ export default function Company() {
             transform: translateX(0);
           }
         }
+
         .animate-marquee {
           display: flex;
           width: max-content;
           animation: marquee 60s linear infinite;
         }
+
         .animate-marquee-reverse {
           display: flex;
           width: max-content;
           animation: marquee-reverse 60s linear infinite;
         }
+
         .marquee-group:hover .animate-marquee,
         .marquee-group:hover .animate-marquee-reverse {
           animation-play-state: paused;
@@ -190,36 +194,37 @@ export default function Company() {
         </ContentWidth>
       </section>
 
-      <section className="py-24 bg-white/[0.01] border-y border-white/5 overflow-hidden marquee-group">
+      <section className="py-24 bg-white/[0.01] border-y border-white/5 overflow-hidden">
         <ContentWidth>
           <h2 className="text-5xl md:text-6xl font-bold mb-16 text-center text-white">
-            Nuestras instalaciones
+            Nuestra instalación
           </h2>
         </ContentWidth>
         <div className="space-y-4">
           <div className="animate-marquee">
             {[1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6].map((img, i) => (
-              <div key={i} className="px-2">
-                <div className="relative w-[300px] md:w-[480px] aspect-video rounded-sm overflow-hidden border border-white/10 group">
+              <div key={i} className="px-2 photo-card">
+                <div className="relative w-[300px] md:w-[480px] aspect-video rounded-sm overflow-hidden border border-white/10 group cursor-pointer">
                   <Image
-                    src={`/galeria/empresa-${img}.jpg`}
+                    src={`/assets/images/our-facilities/${img}.jpeg`}
                     alt="Instalaciones"
                     fill
-                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                    className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                   />
                 </div>
               </div>
             ))}
           </div>
+
           <div className="animate-marquee-reverse">
             {[6, 5, 4, 3, 2, 1, 6, 5, 4, 3, 2, 1].map((img, i) => (
-              <div key={i} className="px-2">
-                <div className="relative w-[300px] md:w-[480px] aspect-video rounded-sm overflow-hidden border border-white/10 group">
+              <div key={i} className="px-2 photo-card">
+                <div className="relative w-[300px] md:w-[480px] aspect-video rounded-sm overflow-hidden border border-white/10 group cursor-pointer">
                   <Image
-                    src={`/galeria/empresa-${img}.jpg`}
+                    src={`/assets/images/our-facilities/${img}.jpeg`}
                     alt="Laboratorio"
                     fill
-                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                    className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                   />
                 </div>
               </div>

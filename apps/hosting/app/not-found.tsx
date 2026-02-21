@@ -10,7 +10,6 @@ import { AlertTriangle, Home, Settings } from "lucide-react";
 export default function NotFound() {
   return (
     <main className="relative isolate min-h-screen flex items-center justify-center overflow-hidden bg-[#050505]">
-      {/* Fondo con Grid (Igual que el Hero) */}
       <div className="absolute inset-0 -z-10">
         <div
           className="absolute inset-0 opacity-[0.08]"
@@ -24,7 +23,6 @@ export default function NotFound() {
 
       <ContentWidth>
         <div className="flex flex-col items-center text-center space-y-8">
-          {/* Icono animado */}
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -35,13 +33,12 @@ export default function NotFound() {
             <AlertTriangle className="w-10 h-10 text-primary absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
           </motion.div>
 
-          {/* Texto de error */}
           <div className="space-y-4">
             <motion.h1
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-7xl md:text-9xl font-black tracking-tighter text-white/10"
+              className="text-7xl md:text-9xl font-black text-white/10"
             >
               404
             </motion.h1>
@@ -52,7 +49,7 @@ export default function NotFound() {
               transition={{ delay: 0.3 }}
               className="space-y-2"
             >
-              <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
+              <h2 className="text-2xl md:text-3xl font-bold text-white">
                 Sistema fuera de <span className="text-primary">alcance</span>
               </h2>
               <p className="text-white/40 text-sm md:text-base max-w-md mx-auto">
@@ -62,7 +59,6 @@ export default function NotFound() {
             </motion.div>
           </div>
 
-          {/* Botones de acción */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}

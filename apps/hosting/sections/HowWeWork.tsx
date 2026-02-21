@@ -33,10 +33,8 @@ export function HowWeWork() {
       <ContentWidth>
         <div className="flex flex-col md:flex-row justify-between md:items-end mb-20 gap-8">
           <div className="text-left">
-            <span className="text-primary text-[10px] font-bold tracking-[0.3em] uppercase">
-              Metodología
-            </span>
-            <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter mt-3">
+            <span className="text-primary font-bold">Metodología</span>
+            <h2 className="text-4xl md:text-6xl font-bold text-white mt-3">
               ¿Cómo trabajamos?
             </h2>
           </div>
@@ -61,14 +59,12 @@ export function HowWeWork() {
                   <div className="flex h-11 w-11 items-center justify-center border border-white/10 rounded-sm bg-white/[0.02] text-white/40 transition-all duration-300 group-hover:border-primary group-hover:text-primary">
                     <Icon className="h-5 w-5" strokeWidth={1.5} />
                   </div>
-                  <span className="text-[11px] font-bold text-white/10 uppercase tracking-[0.2em]">
+                  <span className="text-[11px] font-bold text-white/10 uppercase">
                     Paso 0{idx + 1}
                   </span>
                 </div>
 
-                <h3 className="text-xl font-bold text-white tracking-tight mb-4">
-                  {s.title}
-                </h3>
+                <h3 className="text-xl font-bold text-white mb-4">{s.title}</h3>
                 <p className="text-sm leading-relaxed text-white/40 font-normal">
                   {s.desc}
                 </p>

@@ -187,7 +187,7 @@ export function Hero() {
       <ContentWidth>
         <div className="relative z-10 flex flex-col items-center text-center">
           <div className="min-h-[110px] sm:min-h-[140px] md:min-h-[160px] flex flex-col items-center justify-center">
-            <h1 className="text-3xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl max-w-5xl leading-[1.1]">
+            <h1 className="text-3xl font-semibold text-white sm:text-5xl md:text-6xl max-w-5xl leading-[1.1]">
               Expertos en <br />
               <span className="text-primary inline-flex items-center">
                 {words[index].substring(0, subIndex)}
@@ -269,7 +269,7 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-16 mb-10 flex flex-wrap justify-center gap-x-10 gap-y-5 text-[13px] uppercase tracking-wider text-white/50"
+            className="mt-16 mb-10 flex flex-wrap justify-center gap-x-10 gap-y-5 text-[13px] uppercase text-white/50"
           >
             <div className="flex items-center gap-2">
               <MapPin className="w-4 text-white" />

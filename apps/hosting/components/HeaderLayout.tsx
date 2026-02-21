@@ -13,7 +13,6 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-// Importamos los componentes del Sheet
 import {
   Sheet,
   SheetContent,
@@ -30,7 +29,7 @@ import { Button } from "@/components/ui/button";
 export const HeaderLayout = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const [open, setOpen] = useState(false); // Estado para cerrar el drawer al hacer click
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
@@ -60,7 +59,6 @@ export const HeaderLayout = () => {
             />
           </Link>
 
-          {/* NAVEGACIÓN DESKTOP */}
           <nav className="hidden lg:flex items-center gap-4">
             <NavigationMenu>
               <NavigationMenuList className="gap-1">
@@ -91,7 +89,7 @@ export const HeaderLayout = () => {
                             className="flex items-center justify-between w-full p-3 rounded-sm bg-white/[0.03] hover:bg-primary/10 group transition-all"
                           >
                             <span className="text-[11px] font-black text-white/70 group-hover:text-primary">
-                              Explorar todas las especialidades
+                              Ver todas las especialidades
                             </span>
                             <ArrowRight className="w-4 h-4 text-white/20 group-hover:text-primary transition-transform group-hover:translate-x-1" />
                           </Link>
@@ -123,6 +121,19 @@ export const HeaderLayout = () => {
                           </ListItem>
                         ))}
                       </ul>
+                      <div className="p-1 border-t border-white/5 mt-1">
+                        <NavigationMenuLink asChild>
+                          <Link
+                            href="/servicios"
+                            className="flex items-center justify-between w-full p-3 rounded-sm bg-white/[0.03] hover:bg-primary/10 group transition-all"
+                          >
+                            <span className="text-[11px] font-black text-white/70 group-hover:text-primary">
+                              Ver todos los servicios
+                            </span>
+                            <ArrowRight className="w-4 h-4 text-white/20 group-hover:text-primary transition-transform group-hover:translate-x-1" />
+                          </Link>
+                        </NavigationMenuLink>
+                      </div>
                     </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -154,7 +165,6 @@ export const HeaderLayout = () => {
             </NavigationMenu>
           </nav>
 
-          {/* NAVEGACIÓN MÓVIL (DRAWER) */}
           <div className="lg:hidden">
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
@@ -176,11 +186,9 @@ export const HeaderLayout = () => {
                   </SheetTitle>
                 </SheetHeader>
 
-                {/* Contenedor con Scroll */}
                 <div className="flex-grow overflow-y-auto custom-scrollbar">
                   <div className="flex flex-col gap-2 p-6">
-                    {/* SECCIÓN: MENÚ PRINCIPAL */}
-                    <span className="text-white/30 px-2 mb-2">Páginas</span>
+                    <span className="text-white/50 px-2 mb-2">Páginas</span>
                     <MobileNavItem
                       href="/"
                       label="Inicio"
@@ -197,8 +205,7 @@ export const HeaderLayout = () => {
                       onClick={() => setOpen(false)}
                     />
 
-                    {/* SECCIÓN: ESPECIALIDADES */}
-                    <span className="text-white/30 px-2 mt-8 mb-2">
+                    <span className="text-white/50 px-2 mt-8 mb-2">
                       Especialidades
                     </span>
                     <div className="grid grid-cols-1 gap-1">
@@ -219,8 +226,7 @@ export const HeaderLayout = () => {
                       ))}
                     </div>
 
-                    {/* SECCIÓN: SERVICIOS DESTACADOS */}
-                    <span className="text-white/30 px-2 mt-8 mb-2">
+                    <span className="text-white/50 px-2 mt-8 mb-2">
                       Servicios Populares
                     </span>
                     <div className="grid grid-cols-1 gap-1">
@@ -243,8 +249,7 @@ export const HeaderLayout = () => {
                       ))}
                     </div>
 
-                    {/* SECCIÓN: CLIENTES / MARCAS */}
-                    <span className="text-white/30 px-2 mt-10 mb-4">
+                    <span className="text-white/50 px-2 mt-10 mb-4">
                       Clientes que confían en nosotros
                     </span>
                     <div className="grid grid-cols-2 gap-3 px-2 hover:grayscale-0 transition-all duration-500">
@@ -292,7 +297,6 @@ export const HeaderLayout = () => {
                   </div>
                 </div>
 
-                {/* FOOTER DEL DRAWER CON BOTONES DE ACCIÓN */}
                 <div className="p-6 border-t border-white/5 bg-black/50 flex flex-col gap-3">
                   <Button variant="outline" className="btn-ghost-dark" asChild>
                     <Link href="/especialidades" onClick={() => setOpen(false)}>
@@ -335,7 +339,6 @@ export const HeaderLayout = () => {
   );
 };
 
-// Componente auxiliar para items del menú móvil
 const MobileNavItem = ({
   href,
   label,

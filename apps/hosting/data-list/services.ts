@@ -138,7 +138,7 @@ export const SERVICES_DATA = [
     description: "Solución a pantallas azules y bloqueos de Windows o MacOS.",
     longDescription:
       "Corregimos problemas críticos del software, desde BSOD hasta bucles de reinicio.",
-    image: "assets/images/services/operating-system-failure.png",
+    image: "/assets/images/services/operating-system-failure.png",
     includes: [
       "Reparación de arranque",
       "Instalación de drivers",
@@ -933,7 +933,7 @@ export const SERVICES_DATA = [
     description: "Reparación de sistemas de tracción y ruidos mecánicos.",
     longDescription:
       "Sustitución de Pick-up Rollers y lubricación de engranajes internos.",
-    image: "/assets/images/services/mechanical-components-repair.png",
+    image: "/assets/images/services/printer-and-copier-repair.png",
     includes: ["Gomas de arrastre", "Fajas transferencia", "Lubricación"],
     technicalData: "Lubricantes de alta temperatura.",
   },
@@ -946,7 +946,7 @@ export const SERVICES_DATA = [
     description: "Diagnóstico de impresiones borrosas o errores ópticos.",
     longDescription:
       "Limpieza de espejos poligonales y calibración de unidad de exposición.",
-    image: "/assets/images/services/laser-unit-repair.png",
+    image: "/assets/images/services/printer-and-copier-repair.png",
     includes: ["Limpieza espejos", "Calibración láser", "Motores poligonales"],
     technicalData: "Ajuste de densidad DPI nativa.",
   },
@@ -959,7 +959,7 @@ export const SERVICES_DATA = [
     description: "Reparación de circuitos y puertos USB/Red.",
     longDescription:
       "Diagnóstico de componentes por sobretensión y actualización de firmware.",
-    image: "/assets/images/services/logic-board-printer-repair.png",
+    image: "/assets/images/services/printer-and-copier-repair.png",
     includes: ["Reparación USB/Red", "Diagnóstico SMD", "Update Firmware"],
     technicalData: "Reparación electrónica Nivel Componente.",
   },
@@ -972,7 +972,7 @@ export const SERVICES_DATA = [
     description: "Adaptación de sistemas de tinta de alto rendimiento.",
     longDescription:
       "Instalación de tanques externos y dampers para evitar retroceso de tinta.",
-    image: "/assets/images/services/continuous-ink-installation.png",
+    image: "/assets/images/services/printer-and-copier-repair.png",
     includes: ["Montaje tanques", "Purga por vacío", "Instalación dampers"],
     technicalData: "Uso de tintas de alta pigmentación.",
   },

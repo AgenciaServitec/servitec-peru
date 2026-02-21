@@ -15,9 +15,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Ubicacion from "@/sections/Ubication";
+import { Checkbox } from "@/components/ui/checkbox";
+import Link from "next/link";
 
 export default function Contact() {
   const [isMounted, setIsMounted] = useState(false);
+  const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
   const [formData, setFormData] = useState({
     nombre: "",
     telefono: "",
@@ -35,6 +38,12 @@ export default function Contact() {
 
   const handleWhatsAppSend = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!acceptedPrivacy) {
+      alert("Por favor, acepta las políticas de privacidad para continuar.");
+      return;
+    }
+
     const numeroWA = "51941801827";
     const texto =
       `*SOLICITUD DE SOPORTE*%0A` +
@@ -147,7 +156,7 @@ export default function Contact() {
                 className="grid grid-cols-1 sm:grid-cols-2 gap-8"
               >
                 <div className="space-y-2">
-                  <label className="text-[11px] font-bold text-white/30">
+                  <label className="text-[11px] font-bold">
                     Nombre Completo
                   </label>
                   <Input
@@ -160,9 +169,7 @@ export default function Contact() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[11px] font-bold text-white/30">
-                    DNI / RUC
-                  </label>
+                  <label className="text-[11px] font-bold">DNI / RUC</label>
                   <Input
                     required
                     placeholder="Número de documento"
@@ -173,9 +180,7 @@ export default function Contact() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[11px] font-bold text-white/30">
-                    WhatsApp
-                  </label>
+                  <label className="text-[11px] font-bold">WhatsApp</label>
                   <Input
                     required
                     type="tel"
@@ -187,9 +192,7 @@ export default function Contact() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[11px] font-bold text-white/30">
-                    Correo
-                  </label>
+                  <label className="text-[11px] font-bold">Correo</label>
                   <Input
                     required
                     type="email"
@@ -202,7 +205,7 @@ export default function Contact() {
                 </div>
 
                 <div className="sm:col-span-2 space-y-2">
-                  <label className="text-[11px] font-bold text-white/30">
+                  <label className="text-[11px] font-bold">
                     Servicio Requerido
                   </label>
                   <Input
@@ -216,7 +219,7 @@ export default function Contact() {
                 </div>
 
                 <div className="sm:col-span-2 space-y-2">
-                  <label className="text-[11px] font-bold text-white/30">
+                  <label className="text-[11px] font-bold">
                     Mensaje Técnico
                   </label>
                   <Textarea
@@ -226,6 +229,33 @@ export default function Contact() {
                       setFormData({ ...formData, mensaje: e.target.value })
                     }
                   />
+                </div>
+
+                <div className="sm:col-span-2 flex items-center space-x-3 pt-2">
+                  <Checkbox
+                    id="privacy"
+                    checked={acceptedPrivacy}
+                    onCheckedChange={(checked) =>
+                      setAcceptedPrivacy(checked as boolean)
+                    }
+                    className="border-white/20 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                  />
+                  <div className="grid gap-1.5">
+                    <label
+                      htmlFor="privacy"
+                      className="text-[11px] font-medium text-white/50 cursor-pointer select-none"
+                    >
+                      Acepto las{" "}
+                      <Link
+                        href="/politicas-privacidad"
+                        className="text-primary hover:underline"
+                      >
+                        políticas de privacidad
+                      </Link>{" "}
+                      y el tratamiento de mis datos para fines de soporte
+                      técnico.
+                    </label>
+                  </div>
                 </div>
 
                 <div className="sm:col-span-2 pt-4">

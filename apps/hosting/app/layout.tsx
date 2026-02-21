@@ -59,34 +59,53 @@ export default function RootLayout({
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "Servitec Perú",
-    image: "https://www.servitecperu.com/icon-servitec.png",
-    "@id": "https://www.servitecperu.com",
-    url: "https://www.servitecperu.com",
-    telephone: "+51941801827",
+    "@type": ["LocalBusiness", "ComputerRepair"],
+    name: "Servitec Perú Group E.I.R.L.",
+    alternateName: "Servitec Perú",
+    url: "https://servitecperu.com",
+    logo: "https://servitecperu.com/logo.png",
+    image: "https://servitecperu.com/logo.png",
+    telephone: ["+51972252744", "+51941801827"],
+    priceRange: "$$",
+    taxID: "20604141240",
+    description:
+      "Servicio técnico independiente en Lima especializado en diagnóstico, mantenimiento y reparación de proyectores, laptops y equipos informáticos. Empresa formal con RUC 20604141240.",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Ca. Coronel Bermudez 113, Lima 15064",
-      addressLocality: "Lima",
+      streetAddress: "Calle Néstor Bermúdez 113",
+      addressLocality: "Chorrillos",
       addressRegion: "Lima",
+      postalCode: "15064",
       addressCountry: "PE",
     },
-    description:
-      "Empresa líder en servicios informáticos, reparación de proyectores, laptops y cámaras de seguridad.",
-    openingHoursSpecification: {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-      ],
-      opens: "09:00",
-      closes: "18:00",
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: -12.193026,
+      longitude: -77.012351,
     },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "09:00",
+        closes: "19:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Saturday"],
+        opens: "09:00",
+        closes: "13:00",
+      },
+    ],
+    areaServed: {
+      "@type": "Place",
+      name: "Lima Metropolitana",
+    },
+    sameAs: [
+      "https://www.facebook.com/Servitec.chorrillos",
+      "https://www.youtube.com/@SERVITECPERUGROUPEIRL",
+      "https://www.tiktok.com/@servitec_peru_group",
+    ],
   };
 
   return (

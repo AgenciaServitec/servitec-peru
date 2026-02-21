@@ -45,7 +45,7 @@ export default function Ubicacion() {
         <div className="mb-12 space-y-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
             <div className="space-y-4">
-              <h2 className="text-5xl md:text-6xl font-bold tracking-tighter text-white">
+              <h2 className="text-5xl md:text-6xl font-bold text-white">
                 Nuestras Sedes
               </h2>
               <p className="text-white/40 max-w-xl text-sm leading-relaxed">
