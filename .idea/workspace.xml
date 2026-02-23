@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="refactored line in form">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="updated information footer and TrustBar">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/components/FooterLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/FooterLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/TrustBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/TrustBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/servicios/[type]/ServiceClientLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/servicios/[type]/ServiceClientLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-sistema-operativo.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-sistema-operativo.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/TaxData.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/TaxData.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +140,7 @@
       <workItem from="1771546161815" duration="17000" />
       <workItem from="1771604732653" duration="9664000" />
       <workItem from="1771740241014" duration="33000" />
-      <workItem from="1771859323537" duration="982000" />
+      <workItem from="1771859323537" duration="1962000" />
     </task>
     <task id="LOCAL-00002" summary="updated the version of react and nextjs">
       <option name="closed" value="true" />
@@ -510,7 +510,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771545788016</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="updated information footer and TrustBar">
+      <option name="closed" value="true" />
+      <created>1771860401593</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1771860401595</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -528,7 +536,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added new components ui" />
     <MESSAGE value="added and updated new sections" />
     <MESSAGE value="udpated global.css" />
     <MESSAGE value="refactored pages" />
@@ -553,6 +560,7 @@
     <MESSAGE value="updated address" />
     <MESSAGE value="updated image of service" />
     <MESSAGE value="refactored line in form" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored line in form" />
+    <MESSAGE value="updated information footer and TrustBar" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated information footer and TrustBar" />
   </component>
 </project>

@@ -47,11 +47,19 @@ export default function ServiceClientLayout({
     { id: "resultados", label: "Resultados" },
   ];
 
+  const users = ["Juan", "María", "Carlos", "Ana"];
+  const colors = [
+    "bg-blue-500",
+    "bg-green-500",
+    "bg-purple-500",
+    "bg-orange-500",
+  ];
+
   return (
     <div className="bg-[#050505] text-white min-h-screen pt-32 pb-20 font-sans selection:bg-white/10">
       <ContentWidth>
         <div className="flex flex-col lg:flex-row gap-0">
-          <aside className="hidden lg:block w-72 flex-shrink-0 pr-8 border-r border-white/5 bg-white/[0.015]">
+          <aside className="hidden lg:block w-72 shrink-0 pr-8 border-r border-white/5 bg-white/1.5">
             <div className="sticky top-32 flex flex-col h-[calc(100vh-12rem)] py-4 pl-6">
               <div className="space-y-4">
                 <CollapsibleSection
@@ -97,7 +105,7 @@ export default function ServiceClientLayout({
             </div>
           </aside>
 
-          <main className="flex-grow lg:px-16 py-4">
+          <main className="grow lg:px-16 py-4">
             <div className="max-w-3xl">
               <header className="mb-12 border-b border-white/5 pb-12">
                 <p className="text-white/40 mb-4">{frontmatter.category}</p>
@@ -114,9 +122,9 @@ export default function ServiceClientLayout({
                 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:mb-8 [&_h2]:text-white [&_h2]:mt-24 [&_h2]:scroll-mt-32
                 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:mb-4 [&_h3]:text-white/80 [&_h3]:mt-12
                 [&_p]:text-white/60 [&_p]:leading-relaxed [&_p]:mb-8 [&_p]:text-[16px]
-                [&_p_strong]:text-white [&_p_strong]:min-w-[220px] [&_p_strong]:font-bold
+                [&_p_strong]:text-white [&_p_strong]:min-w-55 [&_p_strong]:font-bold
                 [&_table]:w-full [&_table]:my-10 [&_table]:border-collapse [&_table]:text-sm
-                [&_th]:bg-white/[0.03] [&_th]:text-white/80 [&_th]:p-3 [&_th]:text-left [&_th]:border [&_th]:border-white/10
+                [&_th]:bg-white/3 [&_th]:text-white/80 [&_th]:p-3 [&_th]:text-left [&_th]:border [&_th]:border-white/10
                 [&_td]:p-3 [&_td]:border [&_td]:border-white/10 [&_td]:text-white/40
                 [&_ul]:grid [&_ul]:grid-cols-1 [&_ul]:md:grid-cols-2 [&_ul]:gap-x-8 [&_ul]:gap-y-4 [&_ul]:mb-12 [&_ul]:list-none [&_ul]:p-0
                 [&_li]:flex [&_li]:items-start [&_li]:gap-3 [&_li]:text-sm [&_li]:text-white/50
@@ -127,7 +135,7 @@ export default function ServiceClientLayout({
             </div>
           </main>
 
-          <aside className="hidden xl:block w-80 flex-shrink-0 pl-8 border-l border-white/5 bg-white/[0.015]">
+          <aside className="hidden xl:block w-80 shrink-0 pl-8 border-l border-white/5 bg-white/1.5">
             <div className="sticky top-32 space-y-12 py-4">
               <div>
                 <p className="text-white/40 mb-6">Guía de contenido</p>
@@ -136,7 +144,7 @@ export default function ServiceClientLayout({
                     <a
                       key={item.id}
                       href={`#${item.id}`}
-                      className={`block text-[13px] transition-all border-l-2 pl-4 -ml-[2px] ${
+                      className={`block text-[13px] transition-all border-l-2 pl-4 -ml-0.5 ${
                         activeId === item.id
                           ? "text-white border-white font-bold"
                           : "text-white/20 border-transparent hover:text-white/50"
@@ -148,32 +156,32 @@ export default function ServiceClientLayout({
                 </nav>
               </div>
 
-              <div className="p-6 border border-white/10 bg-white/[0.02] rounded-sm space-y-6">
+              <div className="p-6 border border-white/10 bg-white/2 rounded-sm space-y-6">
                 <div className="flex flex-col items-center text-center">
                   <div className="flex -space-x-3 mb-4">
-                    {[1, 2, 3, 4].map((i) => (
+                    {users.map((name, i) => (
                       <div
                         key={i}
-                        className="w-10 h-10 rounded-full border-2 border-[#050505] bg-neutral-800 flex items-center justify-center overflow-hidden"
+                        className={`w-10 h-10 rounded-full border-2 border-[#050505] flex items-center justify-center text-white font-semibold text-sm ${colors[i % colors.length]}`}
                       >
-                        <img
-                          src={`https://i.pravatar.cc/100?img=${i + 10}`}
-                          alt="cliente"
-                          className="w-full h-full object-cover"
-                        />
+                        {name.charAt(0).toUpperCase()}
                       </div>
                     ))}
+
                     <div className="w-10 h-10 rounded-full border-2 border-[#050505] bg-neutral-900 flex items-center justify-center text-[10px] font-bold text-white/50">
                       +5k
                     </div>
                   </div>
+
                   <p className="text-[13px] font-bold text-white mb-1 text-balance">
                     Más de 5,000 clientes confían en nosotros
                   </p>
+
                   <p className="text-[11px] text-white/40 leading-relaxed mb-6">
                     Visita nuestra comunidad en facebook y conoce la experiencia
                     de otros usuarios.
                   </p>
+
                   <Button
                     size="lg"
                     className="w-full btn-primary bg-[#1877F2] hover:bg-[#166fe5] text-white"
