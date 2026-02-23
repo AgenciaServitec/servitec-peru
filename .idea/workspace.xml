@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="chore: align node 20 and pnpm 10">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="updated ld-json">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/layout.tsx" afterDir="false" />
     </list>
@@ -130,15 +130,7 @@
       <workItem from="1771546161815" duration="17000" />
       <workItem from="1771604732653" duration="9664000" />
       <workItem from="1771740241014" duration="33000" />
-      <workItem from="1771859323537" duration="3781000" />
-    </task>
-    <task id="LOCAL-00005" summary="added quotation form">
-      <option name="closed" value="true" />
-      <created>1769644566253</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1769644566253</updated>
+      <workItem from="1771859323537" duration="4948000" />
     </task>
     <task id="LOCAL-00006" summary="added export new components">
       <option name="closed" value="true" />
@@ -524,7 +516,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771862951589</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="updated ld-json">
+      <option name="closed" value="true" />
+      <created>1771863410527</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1771863410531</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -542,7 +542,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="updated the year in footer" />
     <MESSAGE value="added new component" />
     <MESSAGE value="refactored about and contact page" />
     <MESSAGE value="added new content services in mdx file" />
@@ -567,6 +566,7 @@
     <MESSAGE value="updated warranty" />
     <MESSAGE value="updated workspace" />
     <MESSAGE value="chore: align node 20 and pnpm 10" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: align node 20 and pnpm 10" />
+    <MESSAGE value="updated ld-json" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated ld-json" />
   </component>
 </project>

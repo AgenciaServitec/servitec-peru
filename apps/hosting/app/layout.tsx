@@ -1,6 +1,7 @@
-import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Geist, Geist_Mono } from "next/font/google";
+
 import "./globals.css";
 import { CookieBanner } from "@/components/CookieBanner";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -17,7 +18,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SITE_URL = "https://www.servitecperu.com";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  alternates: {
+    canonical: "/",
+  },
   title: "Servitec Perú | Soporte Técnico e Informático Especializado",
   description:
     "Líderes en reparación de laptops, proyectores y servidores en Lima. Soporte técnico profesional con garantía para empresas y hogares. ¡Contáctanos ahora!",
@@ -32,7 +39,7 @@ export const metadata: Metadata = {
     title: "Servitec Perú | Expertos en Soporte Técnico e Informática",
     description:
       "Reparación garantizada de laptops, proyectores y cámaras. Soluciones tecnológicas integrales en Lima. ¡Tu equipo en manos de expertos!",
-    url: "https://www.servitecperu.com",
+    url: SITE_URL,
     siteName: "Servitec Perú",
     images: [
       {
@@ -50,63 +57,64 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "ComputerRepair"],
+  "@id": `${SITE_URL}/#localbusiness`,
+  name: "Servitec Perú Group E.I.R.L.",
+  alternateName: "Servitec Perú",
+  url: `${SITE_URL}/`,
+  logo: `${SITE_URL}/logo-servitec.png`,
+  image: `${SITE_URL}/og-image.png`,
+  telephone: ["+51972252744", "+51941801827"],
+  priceRange: "$$",
+  taxID: "20604141240",
+  description:
+    "Servicio técnico independiente en Lima especializado en diagnóstico, mantenimiento y reparación de proyectores, laptops y equipos informáticos. Empresa formal con RUC 20604141240.",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Calle Néstor Bermúdez 113",
+    addressLocality: "Chorrillos",
+    addressRegion: "Lima",
+    postalCode: "15064",
+    addressCountry: "PE",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: -12.193026,
+    longitude: -77.012351,
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "19:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Saturday"],
+      opens: "09:00",
+      closes: "13:00",
+    },
+  ],
+  areaServed: {
+    "@type": "Place",
+    name: "Lima Metropolitana",
+  },
+  sameAs: [
+    "https://www.facebook.com/Servitec.chorrillos",
+    "https://www.youtube.com/@SERVITECPERUGROUPEIRL",
+    "https://www.tiktok.com/@servitec_peru_group",
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
-
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "ComputerRepair"],
-    name: "Servitec Perú Group E.I.R.L.",
-    alternateName: "Servitec Perú",
-    url: "https://servitecperu.com",
-    logo: "https://servitecperu.com/logo-servitec.png",
-    image: "https://servitecperu.com/og-image.png",
-    telephone: ["+51972252744", "+51941801827"],
-    priceRange: "$$",
-    taxID: "20604141240",
-    description:
-      "Servicio técnico independiente en Lima especializado en diagnóstico, mantenimiento y reparación de proyectores, laptops y equipos informáticos. Empresa formal con RUC 20604141240.",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Calle Néstor Bermúdez 113",
-      addressLocality: "Chorrillos",
-      addressRegion: "Lima",
-      postalCode: "15064",
-      addressCountry: "PE",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: -12.193026,
-      longitude: -77.012351,
-    },
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        opens: "09:00",
-        closes: "19:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Saturday"],
-        opens: "09:00",
-        closes: "13:00",
-      },
-    ],
-    areaServed: {
-      "@type": "Place",
-      name: "Lima Metropolitana",
-    },
-    sameAs: [
-      "https://www.facebook.com/Servitec.chorrillos",
-      "https://www.youtube.com/@SERVITECPERUGROUPEIRL",
-      "https://www.tiktok.com/@servitec_peru_group",
-    ],
-  };
 
   return (
     <html
@@ -131,7 +139,7 @@ export default function RootLayout({
 
         <WhatsAppButton />
 
-        {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
+        {GA_ID ? <GoogleAnalytics gaId={GA_ID} /> : null}
       </body>
     </html>
   );
