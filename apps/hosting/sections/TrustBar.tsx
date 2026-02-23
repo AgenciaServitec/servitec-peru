@@ -170,8 +170,8 @@ export function TrustBar() {
             </div>
           </div>
 
-          <p className="max-w-4xl mx-auto text-center font-light mt-4 leading-relaxed opacity-70">
-            Servitec Perú Group E.I.R.L. (RUC 20604141240) es un soporte técnico
+          <p className="max-w-4xl mx-auto text-center font-light mt-4 leading-relaxed">
+            Servitec Perú Group E.I.R.L. RUC 20604141240 es un soporte técnico
             independiente. No somos servicio oficial ni estamos afiliados a las
             marcas mostradas. Logos y marcas pertenecen a sus dueños y se usan
             solo por compatibilidad.

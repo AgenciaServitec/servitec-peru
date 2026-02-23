@@ -60,8 +60,8 @@ export const FooterLayout = () => {
                 height={34}
               />
               <p className="text-sm leading-relaxed max-w-sm">
-                {razonSocial} (RUC {ruc}) es un soporte técnico independiente.
-                No somos servicio oficial ni estamos afiliados a las marcas
+                {razonSocial} RUC {ruc} es un soporte técnico independiente. No
+                somos servicio oficial ni estamos afiliados a las marcas
                 mostradas. Logos y marcas pertenecen a sus dueños y se usan solo
                 por compatibilidad.
               </p>
