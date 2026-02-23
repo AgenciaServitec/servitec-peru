@@ -38,7 +38,7 @@ export default function TaxData() {
                     Número de RUC
                   </span>
                 </div>
-                <p className="text-sm font-bold text-primary">20604113241</p>
+                <p className="text-sm font-bold text-primary">20604141240</p>
               </div>
 
               <div className="sm:col-span-2 pt-6 border-t border-white/5 flex items-center justify-between">
