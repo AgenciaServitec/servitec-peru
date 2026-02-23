@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="updated information footer and TrustBar">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="updated warranty">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/servicios/[type]/ServiceClientLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/servicios/[type]/ServiceClientLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-sistema-operativo.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-sistema-operativo.mdx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/TaxData.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/TaxData.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,14 +108,6 @@
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task id="LOCAL-00001" summary="add accept service request">
-      <option name="closed" value="true" />
-      <created>1768595723516</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1768595723516</updated>
-    </task>
     <task active="true" id="Default" summary="Default task">
       <changelist id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="add accept service request" />
       <created>1769541529136</created>
@@ -140,15 +129,7 @@
       <workItem from="1771546161815" duration="17000" />
       <workItem from="1771604732653" duration="9664000" />
       <workItem from="1771740241014" duration="33000" />
-      <workItem from="1771859323537" duration="1962000" />
-    </task>
-    <task id="LOCAL-00002" summary="updated the version of react and nextjs">
-      <option name="closed" value="true" />
-      <created>1769644259644</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1769644259644</updated>
+      <workItem from="1771859323537" duration="3095000" />
     </task>
     <task id="LOCAL-00003" summary="Added new components CTA, Hero, HowWeWork, Location and Specialties">
       <option name="closed" value="true" />
@@ -518,7 +499,31 @@
       <option name="project" value="LOCAL" />
       <updated>1771860401595</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049">
+      <option name="closed" value="true" />
+      <created>1771861458902</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1771861458902</updated>
+    </task>
+    <task id="LOCAL-00050" summary="changed avatars to letters">
+      <option name="closed" value="true" />
+      <created>1771861506255</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1771861506255</updated>
+    </task>
+    <task id="LOCAL-00051" summary="updated warranty">
+      <option name="closed" value="true" />
+      <created>1771861528223</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1771861528223</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -536,9 +541,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added and updated new sections" />
-    <MESSAGE value="udpated global.css" />
-    <MESSAGE value="refactored pages" />
     <MESSAGE value="cleaning project" />
     <MESSAGE value="updated the year in footer" />
     <MESSAGE value="added new component" />
@@ -561,6 +563,9 @@
     <MESSAGE value="updated image of service" />
     <MESSAGE value="refactored line in form" />
     <MESSAGE value="updated information footer and TrustBar" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated information footer and TrustBar" />
+    <MESSAGE value="updated ruc" />
+    <MESSAGE value="changed avatars to letters" />
+    <MESSAGE value="updated warranty" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated warranty" />
   </component>
 </project>
