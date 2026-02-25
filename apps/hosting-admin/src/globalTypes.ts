@@ -103,3 +103,31 @@ export interface ServiceRequest extends DefaultFirestoreProps {
   userId: string;
   assignment?: string | null;
 }
+
+export interface Supplier extends DefaultFirestoreProps {
+  id: string;
+  fullName: string;
+  email?: string;
+  phone?: {
+    type: "mobile" | "landline";
+    prefix: "+51";
+    number: string;
+  };
+  whatsapp?: {
+    prefix: string;
+    number: string;
+  };
+  document?: {
+    type: "dni" | "ruc";
+    number: string;
+  };
+  company: {
+    ruc: string;
+    legalName: string;
+    address: string;
+    district?: string;
+  };
+  specialties: string[];
+  status: "active" | "inactive" | "blocked";
+  searchData: string[];
+}
