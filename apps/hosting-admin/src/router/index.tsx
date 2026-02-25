@@ -71,6 +71,22 @@ export function Router() {
           }
         />
         <Route
+          path="suppliers"
+          element={
+            <AdminLayout>
+              <A.SuppliersIntegration />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="suppliers/:supplierId"
+          element={
+            <AdminLayout>
+              <A.SupplierIntegration />
+            </AdminLayout>
+          }
+        />
+        <Route
           path="assistances"
           element={
             <AdminLayout>

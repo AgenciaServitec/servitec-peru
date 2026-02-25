@@ -1,0 +1,20 @@
+[
+  { "label": "Desarrollo de software", "value": "desarrollo_de_software" },
+  { "label": "Venta de equipos de cómputo", "value": "venta_de_equipos_de_computo" },
+  { "label": "Recarga de Tóner", "value": "recarga_de_toner" },
+  { "label": "Impresoras", "value": "impresoras" },
+  { "label": "Cámaras digitales", "value": "camaras_digitales" },
+  { "label": "Repuestos de laptop", "value": "repuestos_de_laptop" },
+  { "label": "Proyectores", "value": "proyectores" },
+  { "label": "Repuestos de celulares", "value": "repuestos_de_celulares" },
+  { "label": "Pantalla de TV, Reparación", "value": "pantalla_tv_reparacion" },
+  { "label": "Software, programas", "value": "software_programas" },
+  { "label": "iPhones, MAC", "value": "iphones_mac" },
+  { "label": "Servidores", "value": "servidores" },
+  { "label": "Componentes electrónicos", "value": "componentes_electronicos" },
+  { "label": "All in One", "value": "all_in_one" },
+  { "label": "Luminarias LED", "value": "luminarias_led" },
+  { "label": "Videojuegos", "value": "videojuegos" },
+  { "label": "PC de stock (DELL, HP, LENOVO, etc)", "value": "pc_stock" },
+  { "label": "Pantalla de celulares", "value": "pantalla_de_celulares" }
+]

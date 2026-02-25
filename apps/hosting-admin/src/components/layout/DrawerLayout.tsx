@@ -101,6 +101,25 @@ export const DrawerLayout = ({
       ],
     },
     {
+      label: "Proveedores",
+      key: "suppliers",
+      icon: <FontAwesomeIcon icon={faWrench} size="lg" />,
+      children: [
+        {
+          label: "Crear Proveedor",
+          key: "supplier-new",
+          icon: <FontAwesomeIcon icon={faSquarePlus} size="lg" />,
+          onClick: () => onClickMenu("/suppliers/new"),
+        },
+        {
+          label: "Lista de Proveedores",
+          key: "suppliers-list",
+          icon: <FontAwesomeIcon icon={faList} size="lg" />,
+          onClick: () => onClickMenu("/suppliers"),
+        },
+      ],
+    },
+    {
       label: "Asistencias",
       key: "assistances-group",
       icon: <FontAwesomeIcon icon={faClipboardUser} size="lg" />,
