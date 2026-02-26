@@ -12,3 +12,5 @@ export * from "./quotations/_quotationId";
 export * from "./quotations/sheets";
 export * from "./services-requests";
 export * from "./services-requests/_services-requests";
+export * from "./suppliers";
+export * from "./suppliers/_supplierId";

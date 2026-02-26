@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { Drawer, Menu } from "../ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faBoxesPacking,
   faClipboardUser,
   faFileLines,
   faGears,
@@ -97,6 +98,25 @@ export const DrawerLayout = ({
           key: "services-requests-list",
           icon: <FontAwesomeIcon icon={faList} size="lg" />,
           onClick: () => onClickMenu("/services-requests"),
+        },
+      ],
+    },
+    {
+      label: "Proveedores",
+      key: "suppliers",
+      icon: <FontAwesomeIcon icon={faBoxesPacking} size="lg" />,
+      children: [
+        {
+          label: "Crear Proveedor",
+          key: "supplier-new",
+          icon: <FontAwesomeIcon icon={faSquarePlus} size="lg" />,
+          onClick: () => onClickMenu("/suppliers/new"),
+        },
+        {
+          label: "Lista de Proveedores",
+          key: "suppliers-list",
+          icon: <FontAwesomeIcon icon={faList} size="lg" />,
+          onClick: () => onClickMenu("/suppliers"),
         },
       ],
     },
