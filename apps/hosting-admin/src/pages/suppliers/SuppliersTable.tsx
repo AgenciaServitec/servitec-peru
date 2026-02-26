@@ -218,7 +218,7 @@ export const SuppliersTable: React.FC<SuppliersTableProps> = ({
               onClick={() => navigateTo(`/suppliers/${supplier.id}`)}
             />
             <IconAction
-              tooltipTitle="Eliminar"
+              tooltipTitle="Eliminar Proveedor"
               icon={faTrash}
               iconStyles={{ color: () => theme.colors.error }}
               onClick={() => {}}
