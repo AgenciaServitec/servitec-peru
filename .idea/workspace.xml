@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="added sitemap.ts">
-      <change afterPath="$PROJECT_DIR$/apps/hosting/app/robots.ts" afterDir="false" />
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="added robots.ts">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/not-found.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/not-found.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/components/FormContact.tsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,15 +132,7 @@
       <workItem from="1771604732653" duration="9664000" />
       <workItem from="1771740241014" duration="33000" />
       <workItem from="1771859323537" duration="4948000" />
-      <workItem from="1772123282445" duration="12668000" />
-    </task>
-    <task id="LOCAL-00008">
-      <option name="closed" value="true" />
-      <created>1769644686962</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1769644686962</updated>
+      <workItem from="1772123282445" duration="15934000" />
     </task>
     <task id="LOCAL-00009" summary="updated layout design">
       <option name="closed" value="true" />
@@ -525,7 +518,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772136524445</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="added robots.ts">
+      <option name="closed" value="true" />
+      <created>1772137627229</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1772137627229</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -543,7 +544,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added new content services in mdx file" />
     <MESSAGE value="added images entities clients" />
     <MESSAGE value="refactored components" />
     <MESSAGE value="added whatsapp button" />
@@ -568,6 +568,7 @@
     <MESSAGE value="updated ld-json" />
     <MESSAGE value="updated content" />
     <MESSAGE value="added sitemap.ts" />
-    <option name="LAST_COMMIT_MESSAGE" value="added sitemap.ts" />
+    <MESSAGE value="added robots.ts" />
+    <option name="LAST_COMMIT_MESSAGE" value="added robots.ts" />
   </component>
 </project>
