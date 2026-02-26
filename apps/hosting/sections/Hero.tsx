@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { BadgeCheck, Clock, MapPin } from "lucide-react";
 import { ContentWidth } from "@/components/ContentWidth";
@@ -9,31 +9,15 @@ import Link from "next/link";
 
 export function Hero() {
   const words = [
-    "Reparación de Laptops",
+    "Reparación de Proyectores",
     "Soporte Técnico",
+    "Reparación de Laptops",
     "Desarrollo de Software",
     "Cámaras de Seguridad",
-    "Reparación de Proyectores",
   ];
   const [index, setIndex] = React.useState(0);
   const [subIndex, setSubIndex] = React.useState(0);
   const [reverse, setReverse] = React.useState(false);
-
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
-  const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
-
-  function handleMouseMove({
-    clientX,
-    clientY,
-    currentTarget,
-  }: React.MouseEvent) {
-    const { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
 
   React.useEffect(() => {
     if (subIndex === words[index].length + 1 && !reverse) {
@@ -55,139 +39,26 @@ export function Hero() {
   }, [subIndex, index, reverse, words]);
 
   return (
-    <section
-      onMouseMove={handleMouseMove}
-      className="relative isolate min-h-[65vh] md:min-h-[75vh] flex items-center overflow-hidden bg-[#050505] pt-20"
-    >
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <motion.div
-          className="absolute inset-0 opacity-[0.12]"
-          style={{
-            backgroundImage: `radial-gradient(circle, #ffffff 1px, transparent 1px)`,
-            backgroundSize: "40px 40px",
-            x: useTransform(springX, (v) => v * -0.015),
-            y: useTransform(springY, (v) => v * -0.015),
-          }}
-        />
-
-        <svg
-          className="absolute inset-0 h-full w-full"
-          viewBox="0 0 1000 1000"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          <defs>
-            <linearGradient id="cometWhite" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stopColor="white" stopOpacity="0" />
-              <stop offset="50%" stopColor="white" stopOpacity="0.2" />
-              <stop offset="100%" stopColor="white" stopOpacity="0.5" />
-            </linearGradient>
-
-            <linearGradient id="cometYellow" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stopColor="#eab308" stopOpacity="0" />
-              <stop offset="50%" stopColor="#eab308" stopOpacity="0.1" />
-              <stop offset="100%" stopColor="#eab308" stopOpacity="0.4" />
-            </linearGradient>
-
-            <filter id="cometGlow" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="2" result="blur" />
-              <feComposite in="SourceGraphic" in2="blur" operator="over" />
-            </filter>
-          </defs>
-
-          <motion.path
-            d="M -100 250 L 300 180 L 500 420 L 800 150 L 1100 250"
-            stroke="url(#cometWhite)"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            fill="none"
-            filter="url(#cometGlow)"
-            initial={{ pathLength: 0.15, pathOffset: -0.15, opacity: 0 }}
-            animate={{
-              pathOffset: [0, 1.15],
-              opacity: [0, 0.4, 0.4, 0],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              repeatDelay: 3,
-              ease: "linear",
-            }}
-          />
-
-          <motion.path
-            d="M 1100 100 L 700 200 L 400 50 L -100 150"
-            stroke="url(#cometWhite)"
-            strokeWidth="1"
-            strokeLinecap="round"
-            fill="none"
-            filter="url(#cometGlow)"
-            initial={{ pathLength: 0.1, pathOffset: -0.1, opacity: 0 }}
-            animate={{
-              pathOffset: [0, 1.1],
-              opacity: [0, 0.3, 0.3, 0],
-            }}
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              repeatDelay: 4,
-              delay: 1,
-              ease: "linear",
-            }}
-          />
-
-          <motion.path
-            d="M 1100 750 L 700 820 L 500 620 L 200 880 L -100 720"
-            stroke="url(#cometYellow)"
-            strokeWidth="1.2"
-            strokeLinecap="round"
-            fill="none"
-            filter="url(#cometGlow)"
-            initial={{ pathLength: 0.15, pathOffset: -0.15, opacity: 0 }}
-            animate={{
-              pathOffset: [0, 1.15],
-              opacity: [0, 0.3, 0.3, 0],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              repeatDelay: 5,
-              delay: 2,
-              ease: "linear",
-            }}
-          />
-
-          <motion.path
-            d="M -100 600 L 200 500 L 600 700 L 1100 550"
-            stroke="url(#cometYellow)"
-            strokeWidth="1"
-            strokeLinecap="round"
-            fill="none"
-            filter="url(#cometGlow)"
-            initial={{ pathLength: 0.1, pathOffset: -0.1, opacity: 0 }}
-            animate={{
-              pathOffset: [0, 1.1],
-              opacity: [0, 0.2, 0.2, 0],
-            }}
-            transition={{
-              duration: 7,
-              repeat: Infinity,
-              repeatDelay: 6,
-              delay: 4,
-              ease: "linear",
-            }}
-          />
-        </svg>
-
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] rounded-full bg-primary/[0.015] blur-[120px]" />
-
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#050505]" />
-      </div>
-
+    <section className="relative isolate overflow-hidden bg-[#050505] mb-10">
       <ContentWidth>
-        <div className="relative z-10 flex flex-col items-center text-center">
-          <div className="min-h-[110px] sm:min-h-[140px] md:min-h-[160px] flex flex-col items-center justify-center">
-            <h1 className="text-3xl font-semibold text-white sm:text-5xl md:text-6xl max-w-5xl leading-[1.1]">
+        <div className="relative overflow-hidden md:rounded-3xl md:border border-white/10">
+          <video
+            className="h-[90vh] xl:h-[75vh] w-full object-cover"
+            src="/video-hero.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+          />
+
+          <div className="absolute w-full h-full inset-0 bg-black/90" />
+        </div>
+
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 flex flex-col items-center text-center px-4 sm:px-8">
+          <div className="min-h-27.5 sm:min-h-35 md:min-h-40 flex flex-col items-center justify-center">
+            <h1 className="text-3xl font-semibold text-white sm:text-5xl max-w-5xl leading-[1.1]">
               Expertos en <br />
               <span className="text-primary inline-flex items-center">
                 {words[index].substring(0, subIndex)}
@@ -198,7 +69,7 @@ export function Hero() {
                     repeat: Infinity,
                     ease: "linear",
                   }}
-                  className="inline-block w-[4px] md:w-[8px] h-[0.9em] bg-primary ml-2"
+                  className="inline-block w-1 md:w-2 h-[0.9em] bg-primary ml-2"
                 />
               </span>
             </h1>
@@ -269,7 +140,7 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-16 mb-10 flex flex-wrap justify-center gap-x-10 gap-y-5 text-[13px] uppercase text-white/50"
+            className="mt-16 flex flex-wrap justify-center gap-x-10 gap-y-5 text-[13px] uppercase text-white/50"
           >
             <div className="flex items-center gap-2">
               <MapPin className="w-4 text-white" />

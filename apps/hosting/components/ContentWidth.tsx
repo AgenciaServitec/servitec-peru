@@ -7,7 +7,7 @@ interface ContentWidthProps {
 
 export const ContentWidth = ({ children, className }: ContentWidthProps) => {
   return (
-    <div className={`mx-auto max-w-[1400px] px-4 ${className || ""}`}>
+    <div className={`mx-auto max-w-350 px-4 ${className || ""}`}>
       {children}
     </div>
   );

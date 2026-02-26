@@ -43,10 +43,11 @@ export const HeaderLayout = () => {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+        "sticky top-0 z-50 transition-all duration-500",
+        "py-6",
         scrolled
-          ? "bg-black/80 backdrop-blur-xl border-b border-white/10 py-2"
-          : "bg-transparent py-6"
+          ? "bg-black/80 backdrop-blur-xl border-b border-white/10"
+          : "bg-transparent border-b border-transparent"
       )}
     >
       <ContentWidth>

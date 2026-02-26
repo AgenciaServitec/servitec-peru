@@ -56,10 +56,10 @@ export function HowWeWork() {
                 className="group relative bg-black p-10 transition-colors duration-300 hover:bg-neutral-950"
               >
                 <div className="flex items-center justify-between mb-10">
-                  <div className="flex h-11 w-11 items-center justify-center border border-white/10 rounded-sm bg-white/[0.02] text-white/40 transition-all duration-300 group-hover:border-primary group-hover:text-primary">
+                  <div className="flex h-11 w-11 items-center justify-center border border-white/10 rounded-sm bg-white/2 text-white/40 transition-all duration-300 group-hover:border-primary group-hover:text-primary">
                     <Icon className="h-5 w-5" strokeWidth={1.5} />
                   </div>
-                  <span className="text-[11px] font-bold text-white/10 uppercase">
+                  <span className="text-[11px] font-bold text-white/10">
                     Paso 0{idx + 1}
                   </span>
                 </div>
@@ -69,7 +69,7 @@ export function HowWeWork() {
                   {s.desc}
                 </p>
 
-                <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-primary transition-all duration-500 group-hover:w-full" />
+                <div className="absolute bottom-0 left-0 w-0 h-px bg-primary transition-all duration-500 group-hover:w-full" />
               </motion.div>
             );
           })}

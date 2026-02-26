@@ -5,14 +5,13 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/web/servicios.php",
-        has: [
-          {
-            type: "query",
-            key: "s",
-            value: "4",
-          },
-        ],
+        has: [{ type: "query", key: "s", value: "4" }],
         destination: "/especialidades/reparacion-de-proyectores",
+        permanent: true,
+      },
+      {
+        source: "/web/servicios.php",
+        destination: "/especialidades",
         permanent: true,
       },
     ];
