@@ -19,6 +19,7 @@ import {
   Input,
   Select,
   Button,
+  ComponentContainer,
 } from "../../../components";
 import { capitalize } from "lodash";
 import { SpecialtyOptions } from "../../../data-list";
@@ -144,7 +145,7 @@ export function SupplierIntegration() {
   );
 }
 
-const Supplier = ({
+export const Supplier = ({
   supplier,
   loading,
   isNew,
@@ -154,10 +155,15 @@ const Supplier = ({
   getDataByDniOrRuc,
 }: any) => {
   const schema = yup.object({
+    company: yup.object({
+      ruc: yup.string(),
+      legalName: yup.string(),
+      address: yup.string(),
+      district: yup.string(),
+    }),
     document: yup
       .object({
-        type: yup.string().required("El tipo de documento es requerido"),
-        number: yup.string().required("El número de documento es requerido"),
+        number: yup.string(),
       })
       .optional(),
     fullName: yup.string(),
@@ -173,12 +179,6 @@ const Supplier = ({
         number: yup.string().optional(),
       })
       .optional(),
-    company: yup.object({
-      ruc: yup.string(),
-      legalName: yup.string(),
-      address: yup.string(),
-      district: yup.string(),
-    }),
     specialties: yup.array().of(yup.string()),
   });
 
@@ -195,58 +195,63 @@ const Supplier = ({
 
   const { required, error } = useFormUtils({ errors, schema });
 
-  const docType = watch("document.type") || "ruc";
-  const documentNumber = watch("document.number") || "";
+  const rucValue = watch("company.ruc") || "";
+  const dniValue = watch("document.number") || "";
 
   useEffect(() => {
-    setDocumentType(docType);
-  }, [docType, setDocumentType]);
-
-  useEffect(() => {
-    const isValidLength =
-      (docType === "dni" && documentNumber.length === 8) ||
-      (docType === "ruc" && documentNumber.length === 11);
-
-    if (isValidLength && isNew) {
+    if (rucValue.length === 11 && isNew) {
       (async () => {
         try {
-          const data = await getDataByDniOrRuc(documentNumber);
+          const data = await getDataByDniOrRuc(rucValue);
           if (!data) return;
 
-          if (docType === "dni") {
-            const fullNameString =
-              `${data.firstName || ""} ${data.paternalSurname || ""} ${data.maternalSurname || ""}`.trim();
-            setValue("fullName", capitalize(fullNameString), {
-              shouldValidate: true,
-            });
-          } else if (docType === "ruc") {
-            setValue("company.ruc", documentNumber, { shouldValidate: true });
-            setValue("company.legalName", capitalize(data.companyName || ""), {
-              shouldValidate: true,
-            });
-            setValue("company.address", capitalize(data.address || ""), {
-              shouldValidate: true,
-            });
-
-            if (!watch("fullName")) {
-              setValue("fullName", capitalize(data.companyName || ""), {
-                shouldValidate: true,
-              });
-            }
-          }
+          setValue("company.legalName", capitalize(data.companyName || ""), {
+            shouldValidate: true,
+          });
+          setValue("company.address", capitalize(data.address || ""), {
+            shouldValidate: true,
+          });
         } catch (err) {
-          console.error("Error consultando API:", err);
+          console.error("Error consultando RUC:", err);
         }
       })();
     }
-  }, [documentNumber, docType, isNew]);
+  }, [rucValue, isNew]);
+
+  useEffect(() => {
+    if (dniValue.length === 8 && isNew) {
+      (async () => {
+        try {
+          const data = await getDataByDniOrRuc(dniValue);
+          if (!data) return;
+
+          const fullNameString =
+            `${data.firstName || ""} ${data.paternalSurname || ""} ${data.maternalSurname || ""}`.trim();
+
+          setValue("fullName", capitalize(fullNameString), {
+            shouldValidate: true,
+          });
+        } catch (err) {
+          console.error("Error consultando DNI:", err);
+        }
+      })();
+    }
+  }, [dniValue, isNew]);
 
   const resetForm = () => {
     if (!supplier) return;
     reset({
+      company: {
+        ruc: supplier.company?.ruc || "",
+        legalName: supplier.company?.legalName || "",
+        address: supplier.company?.address || "",
+        district: supplier.company?.district || "",
+      },
+      document: {
+        number: supplier.document?.number || "",
+      },
       fullName: supplier.fullName || "",
       email: supplier.email || "",
-
       phone: {
         type: supplier.phone?.type || "mobile",
         number: supplier.phone?.number || "",
@@ -254,17 +259,6 @@ const Supplier = ({
       whatsapp: {
         number: supplier.whatsapp?.number || "",
       },
-      document: {
-        type: supplier.document?.type || "ruc",
-        number: supplier.document?.number || "",
-      },
-      company: {
-        ruc: supplier.company?.ruc || "",
-        legalName: supplier.company?.legalName || "",
-        address: supplier.company?.address || "",
-        district: supplier.company?.district || "",
-      },
-
       specialties: supplier.specialties?.length ? supplier.specialties : [],
     });
   };
@@ -281,241 +275,251 @@ const Supplier = ({
       <Col span={24}>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Row gutter={[16, 16]}>
-            <Col span={24} md={8}>
-              <Controller
-                name="document.type"
-                control={control}
-                render={({ field: { onChange, value, name } }) => (
-                  <Select
-                    label="Tipo de Documento"
-                    name={name}
-                    value={value}
-                    onChange={(val) => {
-                      onChange(val);
-                      setValue("document.number", "");
-                    }}
-                    error={error(name)}
-                    required={required(name)}
-                    options={[
-                      { label: "RUC", value: "ruc" },
-                      { label: "DNI", value: "dni" },
-                    ]}
-                  />
-                )}
-              />
-            </Col>
-            <Col span={24} md={16}>
-              <Controller
-                name="document.number"
-                control={control}
-                render={({ field: { onChange, value, name } }) => (
-                  <Input
-                    label="Número de Documento"
-                    name={name}
-                    value={value}
-                    onChange={onChange}
-                    error={error(name)}
-                    required={required(name)}
-                    maxLength={docType === "dni" ? 8 : 11}
-                  />
-                )}
-              />
-            </Col>
+            <Col span={24}>
+              <ComponentContainer.group label="Datos de la Empresa">
+                <Row gutter={[16, 16]}>
+                  <Col span={24}>
+                    <Controller
+                      name="company.ruc"
+                      control={control}
+                      render={({ field: { onChange, value, name } }) => (
+                        <Input
+                          label="Número de RUC"
+                          name={name}
+                          value={value}
+                          onChange={(e: any) => {
+                            onChange(e);
+                            // Le avisamos a la API que estamos buscando un RUC
+                            setDocumentType("ruc");
+                          }}
+                          error={error(name)}
+                          required={required(name)}
+                          maxLength={11}
+                        />
+                      )}
+                    />
+                  </Col>
 
-            {docType === "ruc" && (
-              <>
-                <Col span={24} md={8}>
-                  <Controller
-                    name="company.ruc"
-                    control={control}
-                    render={({ field: { onChange, value, name } }) => (
-                      <Input
-                        label="RUC de la Empresa"
-                        name={name}
-                        value={value}
-                        onChange={onChange}
-                        error={error(name)}
-                        required={required(name)}
-                      />
-                    )}
-                  />
-                </Col>
-                <Col span={24} md={16}>
-                  <Controller
-                    name="company.legalName"
-                    control={control}
-                    render={({ field: { onChange, value, name } }) => (
-                      <Input
-                        label="Razón Social"
-                        name={name}
-                        value={value}
-                        onChange={onChange}
-                        error={error(name)}
-                        required={required(name)}
-                      />
-                    )}
-                  />
-                </Col>
-                <Col span={24} md={12}>
-                  <Controller
-                    name="company.address"
-                    control={control}
-                    render={({ field: { onChange, value, name } }) => (
-                      <Input
-                        label="Dirección"
-                        name={name}
-                        value={value}
-                        onChange={onChange}
-                        error={error(name)}
-                        required={required(name)}
-                      />
-                    )}
-                  />
-                </Col>
-                <Col span={24} md={12}>
-                  <Controller
-                    name="company.district"
-                    control={control}
-                    render={({ field: { onChange, value, name } }) => (
-                      <Input
-                        label="Distrito"
-                        name={name}
-                        value={value}
-                        onChange={onChange}
-                        error={error(name)}
-                        required={required(name)}
-                      />
-                    )}
-                  />
-                </Col>
-              </>
-            )}
+                  <Col span={24}>
+                    <Controller
+                      name="company.legalName"
+                      control={control}
+                      render={({ field: { onChange, value, name } }) => (
+                        <Input
+                          label="Razón Social"
+                          name={name}
+                          value={value}
+                          onChange={onChange}
+                          error={error(name)}
+                          required={required(name)}
+                        />
+                      )}
+                    />
+                  </Col>
 
-            <Col span={24} md={12}>
-              <Controller
-                name="fullName"
-                control={control}
-                render={({ field: { onChange, value, name } }) => (
-                  <Input
-                    label={
-                      docType === "dni"
-                        ? "Nombre Completo"
-                        : "Nombre del Contacto"
-                    }
-                    name={name}
-                    value={value}
-                    onChange={onChange}
-                    error={error(name)}
-                    required={required(name)}
-                  />
-                )}
-              />
-            </Col>
+                  <Col span={24}>
+                    <Controller
+                      name="company.address"
+                      control={control}
+                      render={({ field: { onChange, value, name } }) => (
+                        <Input
+                          label="Dirección"
+                          name={name}
+                          value={value}
+                          onChange={onChange}
+                          error={error(name)}
+                          required={required(name)}
+                        />
+                      )}
+                    />
+                  </Col>
 
-            <Col span={24} md={12}>
-              <Controller
-                name="email"
-                control={control}
-                render={({ field: { onChange, value, name } }) => (
-                  <Input
-                    label="Correo Electrónico"
-                    type="email"
-                    name={name}
-                    value={value}
-                    onChange={onChange}
-                    error={error(name)}
-                    required={required(name)}
-                  />
-                )}
-              />
-            </Col>
-
-            <Col span={24} md={6}>
-              <Controller
-                name="phone.type"
-                control={control}
-                render={({ field: { onChange, value, name } }) => (
-                  <Select
-                    label="Tipo de Teléfono"
-                    name={name}
-                    value={value}
-                    onChange={onChange}
-                    error={error(name)}
-                    required={required(name)}
-                    options={[
-                      { label: "Móvil", value: "mobile" },
-                      { label: "Fijo", value: "landline" },
-                    ]}
-                  />
-                )}
-              />
-            </Col>
-            <Col span={24} md={9}>
-              <Controller
-                name="phone.number"
-                control={control}
-                render={({ field: { onChange, value, name } }) => (
-                  <Input
-                    label="Número de Teléfono"
-                    name={name}
-                    value={value}
-                    onChange={onChange}
-                    error={error(name)}
-                    required={required(name)}
-                  />
-                )}
-              />
-            </Col>
-            <Col span={24} md={9}>
-              <Controller
-                name="whatsapp.number"
-                control={control}
-                render={({ field: { onChange, value, name } }) => (
-                  <Input
-                    label="Número de WhatsApp"
-                    name={name}
-                    value={value}
-                    onChange={onChange}
-                    error={error(name)}
-                    required={required(name)}
-                  />
-                )}
-              />
+                  <Col span={24}>
+                    <Controller
+                      name="company.district"
+                      control={control}
+                      render={({ field: { onChange, value, name } }) => (
+                        <Input
+                          label="Distrito"
+                          name={name}
+                          value={value}
+                          onChange={onChange}
+                          error={error(name)}
+                          required={required(name)}
+                        />
+                      )}
+                    />
+                  </Col>
+                </Row>
+              </ComponentContainer.group>
             </Col>
             <Col span={24}>
-              <Controller
-                name="specialties"
-                control={control}
-                render={({ field: { onChange, value, name } }) => (
-                  <Select
-                    label="Especialidades"
-                    name={name}
-                    value={value || []}
-                    onChange={onChange}
-                    error={error(name)}
-                    required={required(name)}
-                    options={SpecialtyOptions}
-                    mode="multiple"
-                    placeholder="Seleccione las especialidades..."
-                  />
-                )}
-              />
+              <ComponentContainer.group label="Datos del Encargado">
+                <Row gutter={[16, 16]}>
+                  <Col span={24}>
+                    <Controller
+                      name="document.number"
+                      control={control}
+                      render={({ field: { onChange, value, name } }) => (
+                        <Input
+                          label="DNI del Encargado"
+                          name={name}
+                          value={value}
+                          onChange={(e: any) => {
+                            onChange(e);
+                            // Le avisamos a la API que estamos buscando un DNI
+                            setDocumentType("dni");
+                          }}
+                          error={error(name)}
+                          required={required(name)}
+                          maxLength={8}
+                        />
+                      )}
+                    />
+                  </Col>
+
+                  <Col span={24}>
+                    <Controller
+                      name="fullName"
+                      control={control}
+                      render={({ field: { onChange, value, name } }) => (
+                        <Input
+                          label="Nombre Completo"
+                          name={name}
+                          value={value}
+                          onChange={onChange}
+                          error={error(name)}
+                          required={required(name)}
+                        />
+                      )}
+                    />
+                  </Col>
+
+                  <Col span={24}>
+                    <Controller
+                      name="email"
+                      control={control}
+                      render={({ field: { onChange, value, name } }) => (
+                        <Input
+                          label="Correo Electrónico"
+                          type="email"
+                          name={name}
+                          value={value}
+                          onChange={onChange}
+                          error={error(name)}
+                          required={required(name)}
+                        />
+                      )}
+                    />
+                  </Col>
+
+                  <Col span={24}>
+                    <Controller
+                      name="phone.type"
+                      control={control}
+                      render={({ field: { onChange, value, name } }) => (
+                        <Select
+                          label="Tipo de Teléfono"
+                          name={name}
+                          value={value}
+                          onChange={onChange}
+                          error={error(name)}
+                          required={required(name)}
+                          options={[
+                            { label: "Móvil", value: "mobile" },
+                            { label: "Fijo", value: "landline" },
+                          ]}
+                        />
+                      )}
+                    />
+                  </Col>
+
+                  <Col span={24}>
+                    <Controller
+                      name="phone.number"
+                      control={control}
+                      render={({ field: { onChange, value, name } }) => (
+                        <Input
+                          label="Número de Teléfono"
+                          name={name}
+                          value={value}
+                          onChange={onChange}
+                          error={error(name)}
+                          required={required(name)}
+                        />
+                      )}
+                    />
+                  </Col>
+
+                  <Col span={24}>
+                    <Controller
+                      name="whatsapp.number"
+                      control={control}
+                      render={({ field: { onChange, value, name } }) => (
+                        <Input
+                          label="Número de WhatsApp"
+                          name={name}
+                          value={value}
+                          onChange={onChange}
+                          error={error(name)}
+                          required={required(name)}
+                        />
+                      )}
+                    />
+                  </Col>
+                </Row>
+              </ComponentContainer.group>
             </Col>
-            <Col
-              span={24}
-              style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                gap: "16px",
-                marginTop: "16px",
-              }}
-            >
-              <Button type="default" onClick={onGoBack} disabled={loading}>
-                Cancelar
-              </Button>
-              <Button type="primary" htmlType="submit" loading={loading}>
-                {isNew ? "Crear Proveedor" : "Guardar Cambios"}
-              </Button>
+            <Col span={24}>
+              <ComponentContainer.group label="Áreas de Especialidad">
+                <Row gutter={[16, 16]}>
+                  <Col span={24}>
+                    <Controller
+                      name="specialties"
+                      control={control}
+                      render={({ field: { onChange, value, name } }) => (
+                        <Select
+                          label="Especialidades"
+                          name={name}
+                          value={value || []}
+                          onChange={onChange}
+                          error={error(name)}
+                          required={required(name)}
+                          options={SpecialtyOptions}
+                          mode="multiple"
+                          placeholder="Seleccione las especialidades..."
+                        />
+                      )}
+                    />
+                  </Col>
+                </Row>
+              </ComponentContainer.group>
+            </Col>
+            <Col span={24}>
+              <Row justify="end" gutter={[16, 16]}>
+                <Col xs={24} sm={6} md={4}>
+                  <Button
+                    type="default"
+                    size="large"
+                    block
+                    onClick={onGoBack}
+                    disabled={loading}
+                  >
+                    Cancelar
+                  </Button>
+                </Col>
+                <Col xs={24} sm={6} md={4}>
+                  <Button
+                    type="primary"
+                    size="large"
+                    block
+                    htmlType="submit"
+                    loading={loading}
+                  >
+                    {isNew ? "Crear" : "Guardar"}
+                  </Button>
+                </Col>
+              </Row>
             </Col>
           </Row>
         </Form>
