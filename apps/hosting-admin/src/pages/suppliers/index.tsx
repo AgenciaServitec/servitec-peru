@@ -26,7 +26,7 @@ export function SuppliersIntegration() {
   }
 
   return (
-    <Quotations
+    <Suppliers
       suppliers={suppliers as Supplier[]}
       navigate={navigate}
       suppliersLoading={suppliersLoading}
@@ -34,14 +34,10 @@ export function SuppliersIntegration() {
   );
 }
 
-function Quotations({
-  navigate,
-  suppliers,
-  suppliersLoading,
-}: QuotationsProps) {
+function Suppliers({ navigate, suppliers, suppliersLoading }: QuotationsProps) {
   return (
-    <Row>
-      <Col>
+    <Row gutter={[16, 16]}>
+      <Col span={24}>
         <Button
           type="primary"
           size="large"

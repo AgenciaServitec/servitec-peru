@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { Drawer, Menu } from "../ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faBoxesPacking,
   faClipboardUser,
   faFileLines,
   faGears,
@@ -103,7 +104,7 @@ export const DrawerLayout = ({
     {
       label: "Proveedores",
       key: "suppliers",
-      icon: <FontAwesomeIcon icon={faWrench} size="lg" />,
+      icon: <FontAwesomeIcon icon={faBoxesPacking} size="lg" />,
       children: [
         {
           label: "Crear Proveedor",
