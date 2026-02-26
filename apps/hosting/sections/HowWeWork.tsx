@@ -22,7 +22,7 @@ const steps = [
   },
   {
     title: "Entrega con garantía",
-    desc: "Recibes tu equipo operativo con garantía real por el servicio realizado.",
+    desc: "Recibes tu equipo operativo con garantía por el servicio realizado.",
     icon: BadgeCheck,
   },
 ];

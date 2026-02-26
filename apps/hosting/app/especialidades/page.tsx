@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { useEffect, useMemo, useState } from "react";
 import { ContentWidth } from "@/components/ContentWidth";
 import { Input } from "@/components/ui/input";
@@ -50,7 +49,7 @@ export default function SpecialtiesPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-5xl md:text-8xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70 drop-shadow-2xl"
+              className="text-5xl md:text-8xl font-bold mb-6 bg-clip-text text-transparent bg-linear-to-b from-white to-white/70 drop-shadow-2xl"
             >
               Nuestras Especialidades
             </motion.h1>
@@ -74,7 +73,7 @@ export default function SpecialtiesPage() {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/20" />
               <Input
                 placeholder="Buscar especialidad (ej: laptop, apple, servidores...)"
-                className="bg-white/[0.03] border-white/5 pl-12 h-12 text-sm focus:ring-primary rounded-sm transition-all"
+                className="bg-white/3 border-white/5 pl-12 h-12 text-sm focus:ring-primary rounded-sm transition-all"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -87,7 +86,7 @@ export default function SpecialtiesPage() {
             Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="bg-black p-8 min-h-[340px] flex flex-col justify-end"
+                className="bg-black p-8 min-h-85 flex flex-col justify-end"
               >
                 <Skeleton className="h-8 w-3/4 bg-white/10 mb-4" />
                 <Skeleton className="h-4 w-full bg-white/5 mb-8" />
@@ -107,7 +106,7 @@ export default function SpecialtiesPage() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className={`group relative overflow-hidden flex flex-col min-h-[340px] transition-all duration-500 ${
+                    className={`group relative overflow-hidden flex flex-col min-h-85 transition-all duration-500 ${
                       isCustom ? "bg-[#111111]" : "bg-black"
                     }`}
                   >
@@ -121,21 +120,21 @@ export default function SpecialtiesPage() {
                           src={spec.image || "/images/placeholder-spec.jpg"}
                           alt={spec.title}
                           fill
-                          className="object-cover opacity-20 grayscale group-hover:grayscale-0 group-hover:opacity-40 group-hover:scale-105 transition-all duration-700"
+                          className="object-cover opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-50 group-hover:scale-105 transition-all duration-700"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
+                        <div className="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent" />
                       </div>
                     )}
 
                     {isCustom && (
                       <>
-                        <div className="absolute top-0 left-0 w-full h-[1px] bg-primary shadow-[0_0_20px_rgba(234,179,8,0.8)] z-20" />
-                        <div className="absolute top-0 left-0 w-[1px] h-full bg-primary shadow-[0_0_20px_rgba(234,179,8,0.8)] z-20" />
-                        <div className="absolute top-0 right-0 w-[1px] h-full bg-primary shadow-[0_0_20px_rgba(234,179,8,0.8)] z-20" />
+                        <div className="absolute top-0 left-0 w-full h-px bg-primary shadow-[0_0_20px_rgba(234,179,8,0.8)] z-20" />
+                        <div className="absolute top-0 left-0 w-px h-full bg-primary shadow-[0_0_20px_rgba(234,179,8,0.8)] z-20" />
+                        <div className="absolute top-0 right-0 w-px h-full bg-primary shadow-[0_0_20px_rgba(234,179,8,0.8)] z-20" />
                       </>
                     )}
 
-                    <div className="relative z-10 p-8 flex flex-col h-full flex-grow">
+                    <div className="relative z-10 p-8 flex flex-col h-full grow">
                       <div className="flex justify-end items-start mb-8">
                         <ArrowUpRight
                           className={`h-4 w-4 transition-colors ${
@@ -155,7 +154,7 @@ export default function SpecialtiesPage() {
                             className={`text-xl font-bold mb-3 transition-colors ${
                               isCustom
                                 ? "text-primary"
-                                : "text-white group-hover/link:text-primary"
+                                : "text-white hover:underline"
                             }`}
                           >
                             {spec.title}
@@ -207,7 +206,7 @@ export default function SpecialtiesPage() {
                     </div>
 
                     <div
-                      className={`absolute bottom-0 left-0 h-[1px] transition-all duration-500 ${
+                      className={`absolute bottom-0 left-0 h-px transition-all duration-500 ${
                         isCustom
                           ? "w-full bg-primary"
                           : "w-0 bg-primary group-hover:w-full"

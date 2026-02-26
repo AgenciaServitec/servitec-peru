@@ -4,9 +4,78 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="updated ld-json">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/especialidades/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/especialidades/[slug]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/especialidades/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/especialidades/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/nosotros/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/nosotros/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/servicios/[type]/ServiceClientLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/servicios/[type]/ServiceClientLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/servicios/[type]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/servicios/[type]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/servicios/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/servicios/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/components/SpecialtyDetailLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/SpecialtyDetailLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/accidente-liquidos-tablet.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/accidente-liquidos-tablet.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/boton-home-danado.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/boton-home-danado.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/cambio-bateria-tablet.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/cambio-bateria-tablet.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/cambio-de-pantalla-laptop.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/cambio-de-pantalla-laptop.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/cambio-pantalla-dañada-aio.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/cambio-pantalla-dañada-aio.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/contacto-con-liquidos-smartphone.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/contacto-con-liquidos-smartphone.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/deformacion-ipad-tablet.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/deformacion-ipad-tablet.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/desbloqueo-ipad-tablet.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/desbloqueo-ipad-tablet.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/distorsion-de-video-proyector.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/distorsion-de-video-proyector.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/eliminacion-de-virus-y-malware.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/eliminacion-de-virus-y-malware.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/falla-imagen-video-aio.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/falla-imagen-video-aio.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/falla-lampara-proyector.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/falla-lampara-proyector.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/falla-microfono-audio-smartphone.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/falla-microfono-audio-smartphone.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/falla-touch-ipad-tablet.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/falla-touch-ipad-tablet.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/imagen-borrosa-proyector.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/imagen-borrosa-proyector.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/imagen-con-puntos-proyector.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/imagen-con-puntos-proyector.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/instalacion-mantenimiento-camaras-seguridad.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/instalacion-mantenimiento-camaras-seguridad.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/instalacion-sistema-tinta-continua.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/instalacion-sistema-tinta-continua.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/instalacion-y-reparacion-de-intercomunicadores.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/instalacion-y-reparacion-de-intercomunicadores.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/lcd-quebrado-smartphone.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/lcd-quebrado-smartphone.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/limpieza-virus-malware-aio.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/limpieza-virus-malware-aio.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/mantenimiento-de-servidores-y-redes.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/mantenimiento-de-servidores-y-redes.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/mantenimiento-por-sobrecalentamiento.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/mantenimiento-por-sobrecalentamiento.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/mensaje-sin-senal-proyector.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/mensaje-sin-senal-proyector.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/pantalla-touch-quebrada-tablet.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/pantalla-touch-quebrada-tablet.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/pc-aio-no-enciende.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/pc-aio-no-enciende.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/pc-all-in-one-se-apaga.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/pc-all-in-one-se-apaga.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/problemas-bateria-smartphone.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/problemas-bateria-smartphone.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/problemas-camara-smartphone.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/problemas-camara-smartphone.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/problemas-camara-tablet.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/problemas-camara-tablet.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/problemas-jack-puerto-carga.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/problemas-jack-puerto-carga.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/problemas-puertos-tablet.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/problemas-puertos-tablet.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/problemas-wifi-cobertura.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/problemas-wifi-cobertura.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/proyector-se-apaga-o-reinicia.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/proyector-se-apaga-o-reinicia.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/recuperacion-contrasena-pc-all-in-one.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/recuperacion-contrasena-pc-all-in-one.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/recuperacion-de-datos-disco-duro.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/recuperacion-de-datos-disco-duro.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-boton-home-tablet.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-boton-home-tablet.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-componentes-mecanicos-impresora.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-componentes-mecanicos-impresora.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-de-laptops.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-de-laptops.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-de-teclado.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-de-teclado.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-encendido-led.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-encendido-led.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-pantalla-azul-aio.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-pantalla-azul-aio.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-placa-logica-impresora.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-placa-logica-impresora.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-placa-madre-aio.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-placa-madre-aio.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-por-derrame-de-liquido.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-por-derrame-de-liquido.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-puertos-usb-carga.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-puertos-usb-carga.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-sistema-operativo.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-sistema-operativo.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-unidad-laser-copiadora.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/reparacion-unidad-laser-copiadora.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/se-reinicia-sola-tablet.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/se-reinicia-sola-tablet.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/servicio-de-reballing-profesional.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/servicio-de-reballing-profesional.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/smartphone-se-reinicia.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/smartphone-se-reinicia.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/sobrecalentamiento-pc-aio.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/sobrecalentamiento-pc-aio.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/sobrecalentamiento-proyector.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/sobrecalentamiento-proyector.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/sobrecalentamiento-smartphone.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/sobrecalentamiento-smartphone.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/touch-lcd-quebrado-ipad.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/touch-lcd-quebrado-ipad.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/content/servicios/touch-quebrado-iphone-galaxy.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/content/servicios/touch-quebrado-iphone-galaxy.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/data-list/services.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/data-list/services.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/data-list/specialties.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/data-list/specialties.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/HowWeWork.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/HowWeWork.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/Specialties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/Specialties.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/Ubication.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/Ubication.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +94,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="add-servicesRqeuests-trigger" />
+        <entry key="$PROJECT_DIR$" value="updated_firestore_version" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -46,7 +115,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/AgenciaServitec/servitec-peru.git&quot;,
-    &quot;accountId&quot;: &quot;7742b01c-50a6-4787-8a77-cf1e74e25354&quot;
+    &quot;accountId&quot;: &quot;eed1d776-978f-4f57-88e8-2aa6e801d3a7&quot;
   }
 }</component>
   <component name="ProblemsViewState">
@@ -61,29 +130,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "javascript.preferred.runtime.type.id": "node",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/Angel/WebstormProjects/servitec-peru/apps/hosting/public/assets/images/our-facilities",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "pnpm",
-    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "to.speed.mode.migration.done": "true",
-    "ts.external.directory.path": "C:\\Users\\angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Angel/WebstormProjects/servitec-peru/apps/hosting/public/assets/images/our-facilities&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets\images\our-facilities" />
@@ -131,6 +200,7 @@
       <workItem from="1771604732653" duration="9664000" />
       <workItem from="1771740241014" duration="33000" />
       <workItem from="1771859323537" duration="4948000" />
+      <workItem from="1772123282445" duration="10643000" />
     </task>
     <task id="LOCAL-00006" summary="added export new components">
       <option name="closed" value="true" />

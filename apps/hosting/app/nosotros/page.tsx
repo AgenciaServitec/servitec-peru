@@ -141,7 +141,7 @@ export default function About() {
                     gracias a la confianza de nuestros clientes, permitiéndonos
                     brindar soluciones de hardware a entidades como el Ejército
                     del Perú y diversas empresas que buscan diagnósticos
-                    precisos y garantía real en cada trabajo.
+                    precisos y garantía en cada trabajo.
                   </p>
                 </div>
               </div>

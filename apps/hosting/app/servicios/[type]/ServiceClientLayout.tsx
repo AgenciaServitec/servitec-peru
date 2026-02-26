@@ -4,12 +4,14 @@ import React, { useEffect, useState } from "react";
 import { ContentWidth } from "@/components/ContentWidth";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronRight, ExternalLink } from "lucide-react";
 
 export default function ServiceClientLayout({
   frontmatter,
   content,
   allServices = [],
+  slug,
 }: any) {
   const [activeId, setActiveId] = useState("");
 
@@ -38,6 +40,24 @@ export default function ServiceClientLayout({
     return () => observer.disconnect();
   }, [content]);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "RepairService",
+    name: frontmatter.title,
+    description: frontmatter.description,
+    image: `https://www.servitecperu.com${frontmatter.image}`,
+    areaServed: "PE",
+    provider: {
+      "@type": "LocalBusiness",
+      name: "Servitec Perú",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Lima",
+        addressCountry: "PE",
+      },
+    },
+  };
+
   const toc = [
     { id: "definicion", label: "Definición" },
     { id: "procedimiento", label: "Procedimiento" },
@@ -57,6 +77,11 @@ export default function ServiceClientLayout({
 
   return (
     <div className="bg-[#050505] text-white min-h-screen pt-32 pb-20 font-sans selection:bg-white/10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <ContentWidth>
         <div className="flex flex-col lg:flex-row gap-0">
           <aside className="hidden lg:block w-72 shrink-0 pr-8 border-r border-white/5 bg-white/1.5">
@@ -68,7 +93,7 @@ export default function ServiceClientLayout({
                 >
                   <nav className="flex flex-col gap-1 ml-2 border-l border-white/5 pl-4">
                     {allServices.slice(0, 10).map((item: any) => {
-                      const isactive = frontmatter.slug === item.slug;
+                      const isactive = slug === item.slug;
                       return (
                         <Link
                           key={item.slug}
@@ -86,7 +111,6 @@ export default function ServiceClientLayout({
                   </nav>
                 </CollapsibleSection>
               </div>
-
               <div className="pt-12">
                 <p className="text-white/40 mb-6">Clientes que confían</p>
                 <div className="grid grid-cols-2 gap-x-6 gap-y-8">
@@ -116,6 +140,18 @@ export default function ServiceClientLayout({
                   {frontmatter.description}
                 </p>
               </header>
+
+              {frontmatter.image && (
+                <div className="mb-16 overflow-hidden rounded-sm border border-white/10 bg-white/5 aspect-video relative">
+                  <Image
+                    src={frontmatter.image}
+                    alt={frontmatter.title}
+                    fill
+                    priority
+                    className="object-cover"
+                  />
+                </div>
+              )}
 
               <div
                 className="prose prose-invert max-w-none
@@ -167,21 +203,17 @@ export default function ServiceClientLayout({
                         {name.charAt(0).toUpperCase()}
                       </div>
                     ))}
-
                     <div className="w-10 h-10 rounded-full border-2 border-[#050505] bg-neutral-900 flex items-center justify-center text-[10px] font-bold text-white/50">
                       +5k
                     </div>
                   </div>
-
                   <p className="text-[13px] font-bold text-white mb-1 text-balance">
                     Más de 5,000 clientes confían en nosotros
                   </p>
-
                   <p className="text-[11px] text-white/40 leading-relaxed mb-6">
                     Visita nuestra comunidad en facebook y conoce la experiencia
                     de otros usuarios.
                   </p>
-
                   <Button
                     size="lg"
                     className="w-full btn-primary bg-[#1877F2] hover:bg-[#166fe5] text-white"
@@ -208,7 +240,6 @@ export default function ServiceClientLayout({
 
 function CollapsibleSection({ title, children, isOpenDefault = false }: any) {
   const [isopen, setisopen] = useState(isOpenDefault);
-
   return (
     <div className="space-y-2">
       <button
@@ -223,7 +254,6 @@ function CollapsibleSection({ title, children, isOpenDefault = false }: any) {
           className={`text-white/20 transition-transform duration-200 ${isopen ? "rotate-90" : ""}`}
         />
       </button>
-
       {isopen && (
         <div className="animate-in fade-in slide-in-from-top-1 duration-200">
           {children}

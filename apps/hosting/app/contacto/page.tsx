@@ -140,7 +140,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-white">
-                      Garantía Real
+                      Diagnóstico especializado
                     </h4>
                     <p className="text-xs text-white/30">
                       Respaldo técnico en cada trabajo.

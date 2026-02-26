@@ -7,7 +7,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import * as React from "react";
 
 export function Specialties() {
   return (
@@ -40,7 +39,7 @@ export function Specialties() {
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                className={`group relative overflow-hidden flex flex-col min-h-[340px] transition-all duration-500 ${
+                className={`group relative overflow-hidden flex flex-col min-h-85 transition-all duration-500 ${
                   isCustom ? "bg-[#111111]" : "bg-black"
                 }`}
               >
@@ -54,17 +53,17 @@ export function Specialties() {
                       src={s.image}
                       alt={s.title}
                       fill
-                      className="object-cover opacity-20 grayscale group-hover:grayscale-0 group-hover:opacity-40 group-hover:scale-105 transition-all duration-700"
+                      className="object-cover opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-50 group-hover:scale-105 transition-all duration-700"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent" />
                   </div>
                 )}
 
                 {isCustom && (
                   <>
-                    <div className="absolute top-0 left-0 w-full h-[1px] bg-primary shadow-[0_0_20px_rgba(234,179,8,0.8)] z-20" />
-                    <div className="absolute top-0 left-0 w-[1px] h-full bg-primary shadow-[0_0_20px_rgba(234,179,8,0.8)] z-20" />
-                    <div className="absolute top-0 right-0 w-[1px] h-full bg-primary shadow-[0_0_20px_rgba(234,179,8,0.8)] z-20" />
+                    <div className="absolute top-0 left-0 w-full h-px bg-primary shadow-[0_0_20px_rgba(234,179,8,0.8)] z-20" />
+                    <div className="absolute top-0 left-0 w-px h-full bg-primary shadow-[0_0_20px_rgba(234,179,8,0.8)] z-20" />
+                    <div className="absolute top-0 right-0 w-px h-full bg-primary shadow-[0_0_20px_rgba(234,179,8,0.8)] z-20" />
                   </>
                 )}
 
@@ -88,7 +87,7 @@ export function Specialties() {
                         className={`text-xl font-bold mb-3 transition-colors ${
                           isCustom
                             ? "text-primary"
-                            : "text-white group-hover/link:text-primary"
+                            : "text-white hover:underline"
                         }`}
                       >
                         {s.title}
@@ -140,7 +139,7 @@ export function Specialties() {
                 </div>
 
                 <div
-                  className={`absolute bottom-0 left-0 h-[1px] transition-all duration-500 ${
+                  className={`absolute bottom-0 left-0 h-px transition-all duration-500 ${
                     isCustom
                       ? "w-full bg-primary"
                       : "w-0 bg-primary group-hover:w-full"

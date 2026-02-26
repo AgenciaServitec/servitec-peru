@@ -534,7 +534,8 @@ export const SERVICES_DATA = [
       "Remoción de códigos",
       "Actualización de versión",
     ],
-    technicalData: "Proceso mediante software de servicio oficial.",
+    technicalData:
+      "Proceso mediante software de servicio técnico especializado.",
   },
   {
     type: "camera-issues",
@@ -671,7 +672,7 @@ export const SERVICES_DATA = [
       "Reseteo de horas",
       "Limpieza de filtros",
     ],
-    technicalData: "Lámparas con garantía oficial de durabilidad.",
+    technicalData: "Lámparas con garantía de durabilidad.",
   },
   {
     type: "projector-overheating",
@@ -883,7 +884,7 @@ export const SERVICES_DATA = [
     slug: "servicio-de-reballing-profesional",
     title: "Servicio Reballing",
     icon: Microchip,
-    description: "Solución definitiva para fallas de video o encendido.",
+    description: "Diagnóstico especializado para fallas de video o encendido.",
     longDescription:
       "Sustitución de esferas de soldadura BGA mediante estaciones infrarrojas.",
     image: "/assets/images/services/chipset-reballing.png",

@@ -256,7 +256,7 @@ export default function SpecialtyDetailLayout({
       {/*  </ContentWidth>*/}
       {/*</section>*/}
 
-      <section className="py-24 bg-white/[0.02] border-y border-white/5">
+      <section className="py-24 bg-white/2 border-y border-white/5">
         <ContentWidth>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="space-y-4">
@@ -266,13 +266,13 @@ export default function SpecialtyDetailLayout({
               </div>
               <ul className="space-y-2 text-sm text-white/50">
                 <li className="flex items-start gap-2">
-                  • diagnóstico electrónico base
+                  • Diagnóstico electrónico base
                 </li>
                 <li className="flex items-start gap-2">
-                  • informe técnico detallado
+                  • Informe técnico detallado
                 </li>
                 <li className="flex items-start gap-2">
-                  • garantía real por el trabajo
+                  • Garantía por el trabajo
                 </li>
               </ul>
             </div>
@@ -320,19 +320,19 @@ export default function SpecialtyDetailLayout({
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                className="group relative bg-black min-h-[340px] flex flex-col overflow-hidden transition-all duration-500"
+                className="group relative bg-black min-h-85 flex flex-col overflow-hidden transition-all duration-500"
               >
                 <div className="absolute inset-0 z-0 transition-all duration-700">
                   <Image
                     src={item.image}
                     alt={item.title}
                     fill
-                    className="object-cover opacity-20 grayscale group-hover:grayscale-0 group-hover:opacity-40 group-hover:scale-105 transition-all duration-700"
+                    className="object-cover opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-50 group-hover:scale-105 transition-all duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent" />
                 </div>
 
-                <div className="relative z-10 p-8 flex flex-col h-full flex-grow">
+                <div className="relative z-10 p-8 flex flex-col h-full grow">
                   <div className="flex justify-end items-start mb-8">
                     <ArrowUpRight className="h-4 w-4 text-white/20 group-hover:text-primary transition-colors" />
                   </div>
@@ -342,7 +342,7 @@ export default function SpecialtyDetailLayout({
                       href={`/servicios/${item.slug}`}
                       className="inline-block"
                     >
-                      <h3 className="text-xl font-bold mb-3 text-white group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-bold mb-3 text-white hover:underline">
                         {item.title}
                       </h3>
                     </Link>

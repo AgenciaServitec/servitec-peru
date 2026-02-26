@@ -134,20 +134,20 @@ export default function ServicesPage() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="group relative bg-black min-h-[340px] flex flex-col overflow-hidden transition-all duration-500"
+                  className="group relative bg-black min-h-85 flex flex-col overflow-hidden transition-all duration-500"
                 >
                   <div className="absolute inset-0 z-0 transition-all duration-700">
                     <Image
                       src={service.image || "/empty-image.png"}
                       alt={service.title}
                       fill
-                      className="object-cover opacity-20 grayscale group-hover:grayscale-0 group-hover:opacity-40 group-hover:scale-105 transition-all duration-700"
+                      className="object-cover opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-50 group-hover:scale-105 transition-all duration-700"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent" />
                   </div>
 
-                  <div className="relative z-10 p-8 flex flex-col h-full flex-grow">
+                  <div className="relative z-10 p-8 flex flex-col h-full grow">
                     <div className="flex justify-end items-start mb-8">
                       <ArrowUpRight className="h-4 w-4 text-white/20 group-hover:text-primary transition-colors" />
                     </div>
@@ -157,7 +157,7 @@ export default function ServicesPage() {
                         href={`/servicios/${service.slug}`}
                         className="inline-block"
                       >
-                        <h3 className="text-xl font-bold mb-3 text-white group-hover:text-primary transition-colors">
+                        <h3 className="text-xl font-bold mb-3 text-white hover:underline transition-colors">
                           {service.title}
                         </h3>
                       </Link>

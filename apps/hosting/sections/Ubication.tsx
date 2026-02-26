@@ -67,7 +67,7 @@ export default function Ubicacion() {
                   <TabsTrigger
                     key={sede.id}
                     value={sede.id}
-                    className="px-10 data-[state=active]:bg-primary data-[state=active]:text-black rounded-sm transition-all"
+                    className="px-10 data-[state=active]:bg-primary data-[state=active]:text-black rounded-sm transition-all uppercase"
                   >
                     {sede.id === "oficina" ? <Building /> : <Wrench />}
                     {sede.name}
