@@ -65,20 +65,11 @@ export default function NotFound() {
             transition={{ delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 pt-4"
           >
-            <Button size="lg" className="btn-primary px-8" asChild>
+            <Button size="lg" className="btn-primary" asChild>
               <Link href="/">
-                <Home className="mr-2 h-4 w-4" />
+                <Home className="h-4 w-4" />
                 Volver al Inicio
               </Link>
-            </Button>
-
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white/10 text-white/60 hover:text-white"
-              asChild
-            >
-              <Link href="/reclamaciones">Soporte Técnico</Link>
             </Button>
           </motion.div>
         </div>
