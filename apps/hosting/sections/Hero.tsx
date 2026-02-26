@@ -41,9 +41,9 @@ export function Hero() {
   return (
     <section className="relative isolate overflow-hidden bg-[#050505] mb-10">
       <ContentWidth>
-        <div className="relative overflow-hidden md:rounded-3xl md:border border-white/10">
+        <div className="relative h-[90vh] xl:h-[75vh] overflow-hidden md:rounded-3xl md:border border-white/10">
           <video
-            className="h-[90vh] xl:h-[75vh] w-full object-cover"
+            className="h-full w-full object-cover hidden md:flex"
             src="/video-hero.mp4"
             autoPlay
             muted
@@ -53,7 +53,7 @@ export function Hero() {
             aria-hidden="true"
           />
 
-          <div className="absolute w-full h-full inset-0 bg-black/90" />
+          <div className="hidden md:flex absolute w-full h-full inset-0 bg-black/90" />
         </div>
 
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 flex flex-col items-center text-center px-4 sm:px-8">

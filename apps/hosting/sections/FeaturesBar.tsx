@@ -24,7 +24,7 @@ const features = [
 
 export function FeaturesBar() {
   return (
-    <section className="py-12 border-y border-white/5 bg-black/20 backdrop-blur-sm">
+    <section className="py-12 border-y border-white/5 bg-[#050505] backdrop-blur-sm">
       <ContentWidth>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-y-10 md:gap-x-4">
           {features.map((feature, idx) => (
