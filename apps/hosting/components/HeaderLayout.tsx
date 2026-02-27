@@ -45,18 +45,12 @@ export const HeaderLayout = () => {
 
   if (!isMounted) return null;
 
-  // @ts-ignore
   return (
     <header
-      className={cn(
-        "sticky top-0 z-50 transition-all duration-500",
-        "py-6",
-        scrolled
-          ? "bg-black/80 backdrop-blur-xl border-b border-white/10 py-2"
-          : "bg-transparent py-6"
-            ? "bg-black/80 backdrop-blur-xl border-b border-white/10"
-            : "bg-transparent border-b border-transparent"
-      )}
+      className={cn("sticky top-0 z-50 transition-all duration-500", {
+        "bg-black/80 backdrop-blur-xl border-b border-white/10 py-2": scrolled,
+        "bg-transparent border-b border-transparent py-6": !scrolled,
+      })}
     >
       <ContentWidth>
         <div className="flex items-center justify-between">
