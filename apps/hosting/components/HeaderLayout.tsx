@@ -33,7 +33,12 @@ export const HeaderLayout = () => {
 
   useEffect(() => {
     setIsMounted(true);
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      // Aparece solo después de hacer scroll 100px hacia abajo
+      setScrolled(window.scrollY > 100);
+    };
+
+    handleScroll(); // Revisar posición inicial
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -43,16 +48,18 @@ export const HeaderLayout = () => {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 transition-all duration-500",
-        "py-6",
+        "fixed w-full top-0 z-50 transition-all duration-700 ease-in-out py-6",
         scrolled
-          ? "bg-black/80 backdrop-blur-xl border-b border-white/10"
-          : "bg-transparent border-b border-transparent"
+          ? "translate-y-0 opacity-100 bg-black/80 backdrop-blur-xl border-b border-white/10 shadow-2xl"
+          : "-translate-y-full opacity-0 bg-transparent border-transparent pointer-events-none"
       )}
     >
       <ContentWidth>
         <div className="flex items-center justify-between">
-          <Link href="/" className="group flex flex-col leading-none">
+          <Link
+            href="/"
+            className="group flex flex-col leading-none pointer-events-auto"
+          >
             <img
               className="w-28 md:w-32"
               src="/logo-servitec.png"
@@ -60,7 +67,7 @@ export const HeaderLayout = () => {
             />
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-4">
+          <nav className="hidden lg:flex items-center gap-4 pointer-events-auto">
             <NavigationMenu>
               <NavigationMenuList className="gap-1">
                 <NavigationMenuItem>
@@ -144,7 +151,7 @@ export const HeaderLayout = () => {
                     asChild
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      "bg-transparent text-white/80"
+                      "bg-transparent text-white/80 hover:text-white"
                     )}
                   >
                     <Link href="/nosotros">Nosotros</Link>
@@ -156,7 +163,7 @@ export const HeaderLayout = () => {
                     asChild
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      "bg-transparent text-white/80"
+                      "bg-transparent text-white/80 hover:text-white"
                     )}
                   >
                     <Link href="/contacto">Contacto</Link>
@@ -166,7 +173,7 @@ export const HeaderLayout = () => {
             </NavigationMenu>
           </nav>
 
-          <div className="lg:hidden">
+          <div className="lg:hidden pointer-events-auto">
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
                 <button className="p-2 text-white/70 hover:text-primary transition-colors">
@@ -290,7 +297,7 @@ export const HeaderLayout = () => {
                           alt="Cliente 4"
                           className="h-6 w-auto object-contain"
                         />
-                        <span className="text-[10px]">
+                        <span className="text-[10px] text-center">
                           Grupo Educativo Libertador
                         </span>
                       </div>
