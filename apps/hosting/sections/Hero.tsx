@@ -92,7 +92,7 @@ export function Hero() {
               key={currentIndex}
               className="flex flex-col items-center overflow-hidden pb-4"
             >
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-semibold text-white tracking-tighter drop-shadow-2xl flex flex-wrap justify-center gap-x-3 sm:gap-x-5 overflow-hidden max-w-4xl leading-[1.05]">
+              <h1 className="text-5xl md:text-7xl lg:text-9xl font-semibold text-white tracking-tighter drop-shadow-2xl flex flex-wrap justify-center gap-x-3 sm:gap-x-5 overflow-hidden max-w-4xl leading-[1.05]">
                 {carruselItems[currentIndex].title
                   .split(" ")
                   .map((word, idx) => (
