@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/triggers/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/triggers/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/triggers/serviceRequests.triggers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/triggers/serviceRequests.triggers.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/components/HeaderLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/HeaderLayout.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +36,13 @@
     &quot;assignee&quot;: &quot;Joaquin-Huaranga&quot;
   }
 }</component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="main" />
+      </list>
+    </option>
+  </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/AgenciaServitec/servitec-peru.git&quot;,
@@ -64,7 +67,8 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "add-servicesRqeuests-trigger",
+    "git-widget-placeholder": "main",
+    "javascript.preferred.runtime.type.id": "node",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "C:/Users/Angel/WebstormProjects/servitec-peru/apps/hosting/public/assets/images/clients/entities",
     "node.js.detected.package.eslint": "true",
@@ -74,7 +78,7 @@
     "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Owner\\Desktop\\servitec-projects\\servitec-peru\\node_modules\\prettier",
     "settings.editor.selected.configurable": "preferences.lookFeel",
     "to.speed.mode.migration.done": "true",
-    "ts.external.directory.path": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib",
+    "ts.external.directory.path": "C:\\Users\\angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
