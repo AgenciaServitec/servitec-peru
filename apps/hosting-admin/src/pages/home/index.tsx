@@ -12,6 +12,7 @@ import {
   faListUl,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuthentication } from "../../providers";
+import { AssistanceMonitor } from "../../components/layout/AssistanceMonitor.tsx";
 
 export function Home() {
   const navigate = useNavigate();
@@ -108,6 +109,7 @@ export function Home() {
           ))}
         </Row>
       </GridWrapper>
+      <AssistanceMonitor />
     </HomeContainer>
   );
 }
