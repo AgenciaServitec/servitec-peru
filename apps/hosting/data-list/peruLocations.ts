@@ -1,0 +1,36 @@
+export const PERU_LOCATIONS = {
+  Lima: {
+    provincias: {
+      Lima: [
+        "Cercado de Lima",
+        "Ate",
+        "Barranco",
+        "Breña",
+        "Comas",
+        "Chorrillos",
+        "El Agustino",
+        "Jesús María",
+        "La Molina",
+        "La Victoria",
+        "Lince",
+        "Magdalena del Mar",
+        "Miraflores",
+        "Pueblo Libre",
+        "Puente Piedra",
+        "Rimac",
+        "San Isidro",
+        "San Juan de Lurigancho",
+        "San Juan de Miraflores",
+        "San Luis",
+        "San Martín de Porres",
+        "San Miguel",
+        "Santa Anita",
+        "Santiago de Surco",
+        "Surquillo",
+        "Villa El Salvador",
+        "Villa María del Triunfo",
+      ],
+      // Puedes agregar más provincias como "Cañete" o "Huaral" aquí
+    },
+  },
+};
