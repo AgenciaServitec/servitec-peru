@@ -32,6 +32,20 @@ export const fetchTodayAssistancesByUserId = async (
   );
 };
 
+export const fetchTodayAllAssistances = async (): Promise<
+  Assistance[] | undefined
+> => {
+  const todayStart = moment().tz("America/Lima").startOf("day").toDate();
+  const todayEnd = moment().tz("America/Lima").endOf("day").toDate();
+
+  return fetchCollection<Assistance>(
+    assistancesRef
+      .where("entry.dateTimestamp", ">=", Timestamp.fromDate(todayStart))
+      .where("entry.dateTimestamp", "<=", Timestamp.fromDate(todayEnd))
+      .where("isDeleted", "==", false)
+  );
+};
+
 export const addAssistance = async (assistance: Assistance) =>
   assistancesRef.doc(assistance.id).set(assistance);
 
