@@ -1,12 +1,9 @@
 import { Change, FirestoreEvent } from "firebase-functions/v2/firestore";
 import * as admin from "firebase-admin";
 import { firestore } from "firebase-admin";
-import { Expo } from "expo-server-sdk";
 import { ServiceRequest } from "../globalTypes";
 import DocumentSnapshot = firestore.DocumentSnapshot;
 import QueryDocumentSnapshot = firestore.QueryDocumentSnapshot;
-
-const expo = new Expo();
 
 export type OnDocumentUpdated = (
   event: FirestoreEvent<Change<DocumentSnapshot> | undefined>
@@ -60,6 +57,9 @@ export const onTriggerServiceRequestCreated: OnDocumentCreated = async (
   event
 ) => {
   if (!event.data) return;
+
+  const { Expo } = await import("expo-server-sdk");
+  const expo = new Expo();
 
   const requestData = event.data.data() as ServiceRequest;
 
@@ -123,6 +123,8 @@ export const onTriggerServiceRequestUpdated: OnDocumentUpdated = async (
   event
 ) => {
   if (!event.data) return;
+  const { Expo } = await import("expo-server-sdk");
+  const expo = new Expo();
 
   const beforeData = event.data.before.data() as ServiceRequest;
   const afterData = event.data.after.data() as ServiceRequest;

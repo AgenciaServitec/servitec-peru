@@ -4,19 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7ec65362-07f8-4a86-94a3-e632e991d272" name="Changes" comment="add AssistanceMonitor.tsx">
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/webServicesRequests.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/web-service-request/controllers/getWebServiceRequest.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/web-service-request/controllers/getWebServicesRequests.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/web-service-request/controllers/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/web-service-request/controllers/postWebServiceRequest.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/web-service-request/controllers/putWebServiceRequest.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/web-service-request/routes/webServicesRequests.routes.ts" afterDir="false" />
+    <list default="true" id="7ec65362-07f8-4a86-94a3-e632e991d272" name="Changes" comment="refactor code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/globalTypes.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/globalTypes.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/especialidades/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/especialidades/[slug]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/triggers/serviceRequests.triggers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/triggers/serviceRequests.triggers.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +46,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "add-service-request-form",
+    "javascript.preferred.runtime.type.id": "node",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "C:/Users/Owner/Desktop/servitec-projects/servitec-peru/apps/functions/src/api/web-service-request",
     "node.js.detected.package.eslint": "true",
@@ -63,7 +54,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "pnpm",
     "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Owner\\Desktop\\servitec-projects\\servitec-peru\\node_modules\\prettier",
-    "ts.external.directory.path": "C:\\Users\\Owner\\Desktop\\servitec-projects\\servitec-peru\\node_modules\\typescript\\lib",
+    "ts.external.directory.path": "C:\\Users\\angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
