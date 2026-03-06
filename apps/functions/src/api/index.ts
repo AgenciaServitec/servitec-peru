@@ -11,6 +11,7 @@ import quotationsRoutes from "./quotations/routes/quotations.routes";
 import usersRoutes from "./users/routes/users.routes";
 import identitiesRoutes from "./identities/routes/identities.routes";
 import servicesRequestsRoutes from "./service-request/routes/servicesRequests.routes";
+import webServicesRequestsRoutes from "./web-service-request/routes/webServicesRequests.routes";
 
 const app: express.Application = express();
 
@@ -24,6 +25,7 @@ app.use("/assistances", assistancesRoutes);
 app.use("/quotations", quotationsRoutes);
 app.use("/services-requests", servicesRequestsRoutes);
 app.use("/identities", identitiesRoutes);
+app.use("/web-services-requests", webServicesRequestsRoutes);
 
 app.put("/users/:dni/fingerprint", putUserFingerprintTemplate);
 app.put("/fingerprint/assistances/:dni", putBiometricAssistanceByDni);
