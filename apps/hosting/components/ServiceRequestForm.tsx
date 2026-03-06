@@ -312,7 +312,7 @@ export default function ServiceRequestForm({
                   </div>
                   <div className="space-y-2">
                     <label className="text-[11px] text-white/30 uppercase">
-                      Falla
+                      Problema que presenta
                     </label>
                     <Textarea
                       {...register("issueDescription", { required: true })}
