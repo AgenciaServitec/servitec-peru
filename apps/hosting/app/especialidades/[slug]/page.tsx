@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { notFound, redirect } from "next/navigation"; // Importamos redirect
+import { notFound, redirect } from "next/navigation";
 import SpecialtyDetailLayout from "@/components/SpecialtyDetailLayout";
 import { SPECIALTIES_DATA } from "@/data-list/specialties";
 
