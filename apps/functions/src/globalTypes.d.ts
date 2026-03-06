@@ -130,3 +130,24 @@ export interface ServiceRequest extends DefaultFirestoreProps {
   userId: string;
   assignment?: string | null;
 }
+
+export interface WebServiceRequest extends DefaultFirestoreProps {
+  id: string;
+  documentType: "DNI" | "RUC" | "CE";
+  documentNumber: string;
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  deviceCategory: string;
+  deviceBrand: string;
+  deviceModel: string;
+  serialNumber?: string;
+  issueDescription: string;
+  serviceMode: "technical-visit" | "store-visit";
+  department: string;
+  province: string;
+  district: string;
+  exactAddress?: string;
+  apartmentNumber?: string;
+  reference?: string;
+}
