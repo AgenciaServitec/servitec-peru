@@ -13,28 +13,40 @@ import {
 import { ContentWidth } from "@/components/ContentWidth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import Ubicacion from "@/sections/Ubication";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
+import { CustomInput } from "@/components/CustomInput";
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const schema = z.object({
+  fullName: z.string(),
+  documentType: z.string(),
+  documentNumber: z.string(),
+  phoneNumber: z.number().min(9).max(9),
+  email: z.email(),
+  serviceRequested: z.string(),
+  technicalMessage: z.string(),
+});
 
 export default function Contact() {
   const [isMounted, setIsMounted] = useState(false);
   const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
-  const [formData, setFormData] = useState({
-    nombre: "",
-    telefono: "",
-    correo: "",
-    documento: "",
-    servicio: "",
-    mensaje: "",
-  });
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
   if (!isMounted) return <div className="bg-[#050505] min-h-screen" />;
+
+  const {
+    register,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
 
   const handleWhatsAppSend = (e: React.FormEvent) => {
     e.preventDefault();
@@ -155,80 +167,27 @@ export default function Contact() {
                 onSubmit={handleWhatsAppSend}
                 className="grid grid-cols-1 sm:grid-cols-2 gap-8"
               >
-                <div className="space-y-2">
-                  <label className="text-[11px] font-bold">
-                    Nombre Completo
-                  </label>
-                  <Input
-                    required
-                    placeholder="Ej. Juan Pérez"
-                    className="bg-black/40 border-white/10 h-12 rounded-sm"
-                    onChange={(e) =>
-                      setFormData({ ...formData, nombre: e.target.value })
-                    }
-                  />
+                <div className="sm:col-span-2">
+                  <CustomInput id="fullName" label="Nombre Completo" />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-[11px] font-bold">DNI / RUC</label>
-                  <Input
-                    required
-                    placeholder="Número de documento"
-                    className="bg-black/40 border-white/10 h-12 rounded-sm"
-                    onChange={(e) =>
-                      setFormData({ ...formData, documento: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[11px] font-bold">WhatsApp</label>
-                  <Input
-                    required
-                    type="tel"
-                    placeholder="999 999 999"
-                    className="bg-black/40 border-white/10 h-12 rounded-sm"
-                    onChange={(e) =>
-                      setFormData({ ...formData, telefono: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[11px] font-bold">Correo</label>
-                  <Input
-                    required
-                    type="email"
-                    placeholder="correo@ejemplo.com"
-                    className="bg-black/40 border-white/10 h-12 rounded-sm"
-                    onChange={(e) =>
-                      setFormData({ ...formData, correo: e.target.value })
-                    }
+
+                <CustomInput id="documentType" label="Tipo de Documento" />
+
+                <CustomInput id="documentNumber" label="N° de Documento" />
+
+                <CustomInput id="phoneNumber" label="Celular" />
+
+                <CustomInput id="email" label="Correo" />
+
+                <div className="sm:col-span-2">
+                  <CustomInput
+                    id="serviceRequested"
+                    label="Servicio Requerido"
                   />
                 </div>
 
-                <div className="sm:col-span-2 space-y-2">
-                  <label className="text-[11px] font-bold">
-                    Servicio Requerido
-                  </label>
-                  <Input
-                    required
-                    placeholder="¿En qué podemos ayudarte?"
-                    className="bg-black/40 border-white/10 h-12 rounded-sm"
-                    onChange={(e) =>
-                      setFormData({ ...formData, servicio: e.target.value })
-                    }
-                  />
-                </div>
-
-                <div className="sm:col-span-2 space-y-2">
-                  <label className="text-[11px] font-bold">
-                    Mensaje Técnico
-                  </label>
-                  <Textarea
-                    placeholder="Describe brevemente el problema de tu equipo..."
-                    className="bg-black/40 border-white/10 min-h-[120px] rounded-sm resize-none"
-                    onChange={(e) =>
-                      setFormData({ ...formData, mensaje: e.target.value })
-                    }
-                  />
+                <div className="sm:col-span-2">
+                  <CustomInput id="technicalMessage" label="Mensaje Técnico" />
                 </div>
 
                 <div className="sm:col-span-2 flex items-center space-x-3 pt-2">
@@ -284,7 +243,6 @@ export default function Contact() {
           </div>
         </ContentWidth>
       </section>
-
       <Ubicacion />
     </div>
   );
