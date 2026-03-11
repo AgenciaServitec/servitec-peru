@@ -4,38 +4,43 @@ import React from "react";
 import { motion } from "framer-motion";
 import {
   FileText,
-  Lock,
+  IdCard,
   Mail,
   MessageSquare,
   Phone,
   Send,
   ShieldCheck,
   User,
+  Wrench,
 } from "lucide-react";
 import { ContentWidth } from "@/components/ContentWidth";
 import { Button } from "@/components/ui/button";
 import Ubicacion from "@/sections/Ubication";
 import { Input2 as CustomInput } from "@/components/CustomInput";
 import * as z from "zod";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-const schema = z.object({
-  fullName: z.string(),
-  documentType: z.string(),
-  documentNumber: z.string().min(9).max(9),
-  phoneNumber: z.string(),
-  email: z.string(),
-  serviceRequested: z.string(),
-  technicalMessage: z.string(),
-});
+import { CustomSelect } from "@/components/CustomSelect";
+import { Textarea2 } from "@/components/CustomTextarea";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 
 export default function Contact() {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const schema = z.object({
+    fullName: z.string().min(3, "Mínimo 3 caracteres"),
+    documentType: z.enum(["dni", "ruc", "pasaporte"]),
+    documentNumber: z
+      .string()
+      .min(8, "Mínimo 8 dígitos")
+      .max(11, "Máximo 11 dígitos"),
+    phoneNumber: z.string().length(9, "Debe tener 9 dígitos"),
+    email: z.string().email("Correo electrónico inválido"),
+    serviceRequested: z.string().min(1, "Este campo es obligatorio"),
+    technicalMessage: z.string().min(10, "Mínimo 10 caracteres").max(500),
+  });
+
+  type ContactFormData = z.infer<typeof schema>;
+
+  const form = useForm<ContactFormData>({
     resolver: zodResolver(schema),
     defaultValues: {
       fullName: "",
@@ -48,9 +53,7 @@ export default function Contact() {
     },
   });
 
-  console.log("errors: ", errors);
-
-  const onSendContact = (formData) => {
+  const onSendContact = (formData: ContactFormData) => {
     try {
       console.log("formData: ", formData);
     } catch (e) {
@@ -153,129 +156,152 @@ export default function Contact() {
             </div>
 
             <div className="lg:col-span-3 p-8 md:p-12 rounded-sm border border-white/5 bg-neutral-900/40">
-              <form
-                onSubmit={handleSubmit(onSendContact)}
-                className="grid grid-cols-1 sm:grid-cols-2 gap-8"
-              >
-                <div className="sm:col-span-2">
-                  <Controller
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSendContact)}
+                  className="grid grid-cols-1 sm:grid-cols-2 gap-8"
+                >
+                  <FormField
+                    control={form.control}
                     name="fullName"
-                    control={control}
                     render={({ field }) => (
-                      <CustomInput
-                        {...field}
-                        label="Nombre Completo"
-                        error={errors.fullName?.message}
-                        icon={User}
-                      />
+                      <FormItem className="sm:col-span-2">
+                        <FormControl>
+                          <CustomInput
+                            {...field}
+                            label="Nombres y Apellidos"
+                            error={form.formState.errors.fullName?.message}
+                            icon={User}
+                          />
+                        </FormControl>
+                      </FormItem>
                     )}
                   />
-                </div>
 
-                <Controller
-                  name="documentType"
-                  control={control}
-                  render={({ field }) => (
-                    <CustomInput
-                      {...field}
-                      label="Tipo de Documento"
-                      error={errors.documentType?.message}
-                      icon={User}
-                    />
-                  )}
-                />
+                  <FormField
+                    control={form.control}
+                    name="documentType"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <CustomSelect
+                            {...field}
+                            label="Tipo de Documento"
+                            icon={IdCard}
+                            error={form.formState.errors.documentType?.message}
+                            options={[
+                              { value: "dni", label: "DNI" },
+                              { value: "ruc", label: "RUC" },
+                            ]}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
 
-                <Controller
-                  name="documentNumber"
-                  control={control}
-                  render={({ field }) => (
-                    <CustomInput
-                      {...field}
-                      label="N° de Documento"
-                      error={errors.documentNumber?.message}
-                      icon={FileText}
-                    />
-                  )}
-                />
+                  <FormField
+                    control={form.control}
+                    name="documentNumber"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <CustomInput
+                            {...field}
+                            label="N° de Documento"
+                            error={
+                              form.formState.errors.documentNumber?.message
+                            }
+                            icon={FileText}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
 
-                <Controller
-                  name="phoneNumber"
-                  control={control}
-                  render={({ field }) => (
-                    <CustomInput
-                      {...field}
-                      label="Celular"
-                      error={errors.phoneNumber?.message}
-                      icon={Phone}
-                    />
-                  )}
-                />
+                  <FormField
+                    control={form.control}
+                    name="phoneNumber"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <CustomInput
+                            {...field}
+                            label="Celular"
+                            error={form.formState.errors.phoneNumber?.message}
+                            icon={Phone}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
 
-                <Controller
-                  name="email"
-                  control={control}
-                  render={({ field }) => (
-                    <CustomInput
-                      {...field}
-                      label="Correo"
-                      error={errors.email?.message}
-                      icon={Mail}
-                    />
-                  )}
-                />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <CustomInput
+                            {...field}
+                            label="Correo"
+                            error={form.formState.errors.email?.message}
+                            icon={Mail}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
 
-                <div className="sm:col-span-2">
-                  <Controller
+                  <FormField
+                    control={form.control}
                     name="serviceRequested"
-                    control={control}
                     render={({ field }) => (
-                      <CustomInput
-                        {...field}
-                        label="Servicio Requerido"
-                        error={errors.serviceRequested?.message}
-                        icon={Phone}
-                      />
+                      <FormItem className="sm:col-span-2">
+                        <FormControl>
+                          <CustomInput
+                            {...field}
+                            label="Servicio Requerido"
+                            error={
+                              form.formState.errors.serviceRequested?.message
+                            }
+                            icon={Wrench}
+                          />
+                        </FormControl>
+                      </FormItem>
                     )}
                   />
-                </div>
 
-                <div className="sm:col-span-2">
-                  <Controller
+                  <FormField
+                    control={form.control}
                     name="technicalMessage"
-                    control={control}
                     render={({ field }) => (
-                      <CustomInput
-                        {...field}
-                        label="Mensaje Técnico"
-                        error={errors.technicalMessage?.message}
-                        icon={Phone}
-                      />
+                      <FormItem className="sm:col-span-2">
+                        <FormControl>
+                          <Textarea2
+                            {...field}
+                            label="Mensaje Técnico"
+                            placeholder="Describa brevemente la falla de su equipo..."
+                            error={
+                              form.formState.errors.technicalMessage?.message
+                            }
+                          />
+                        </FormControl>
+                      </FormItem>
                     )}
                   />
-                </div>
 
-                <div className="sm:col-span-2 pt-4">
-                  <Button type="submit" className="btn-primary w-full h-14">
-                    <Send className="w-4 h-4" />
-                    <span>Enviar Solicitud</span>
-                  </Button>
-
-                  <div className="flex items-center justify-center gap-8 mt-8 opacity-20">
-                    <div className="flex items-center gap-2">
-                      <Lock className="w-3 h-3" />
-                      <span className="text-[9px] font-bold">
-                        Privacidad Protegida
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <ShieldCheck className="w-3 h-3" />
-                      <span className="text-[9px] font-bold">
-                        Soporte Técnico
-                      </span>
-                    </div>
+                  <div className="sm:col-span-2">
+                    <Button
+                      type="submit"
+                      icon={Send}
+                      className="w-full"
+                      loading={form.formState.isSubmitting}
+                    >
+                      Enviar Solicitud
+                    </Button>
                   </div>
-                </div>
-              </form>
+                </form>
+              </Form>
             </div>
           </div>
         </ContentWidth>

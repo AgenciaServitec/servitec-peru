@@ -107,23 +107,26 @@ export default function Ubicacion() {
             </div>
 
             <div className="flex items-center gap-3 md:justify-end">
-              <Button variant="outline" className="btn-ghost-dark" asChild>
+              <Button
+                icon={PhoneCall}
+                variant="outline"
+                className="btn-ghost-dark"
+                asChild
+              >
                 <a
                   href="https://wa.me/51941801827"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <PhoneCall className="w-4 h-4" />
                   <span>Contactar</span>
                 </a>
               </Button>
-              <Button className="btn-primary" asChild>
+              <Button icon={Navigation} className="btn-primary" asChild>
                 <a
                   href={activeSede.googleMapsUrl}
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <Navigation className="w-4 h-4" />
                   <span>Cómo llegar</span>
                 </a>
               </Button>
