@@ -1,71 +1,61 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import {
+  FileText,
   Lock,
   Mail,
   MessageSquare,
   Phone,
   Send,
   ShieldCheck,
+  User,
 } from "lucide-react";
 import { ContentWidth } from "@/components/ContentWidth";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import Ubicacion from "@/sections/Ubication";
-import { Checkbox } from "@/components/ui/checkbox";
-import Link from "next/link";
-import { CustomInput } from "@/components/CustomInput";
+import { Input2 as CustomInput } from "@/components/CustomInput";
 import * as z from "zod";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({
   fullName: z.string(),
   documentType: z.string(),
-  documentNumber: z.string(),
-  phoneNumber: z.number().min(9).max(9),
-  email: z.email(),
+  documentNumber: z.string().min(9).max(9),
+  phoneNumber: z.string(),
+  email: z.string(),
   serviceRequested: z.string(),
   technicalMessage: z.string(),
 });
 
 export default function Contact() {
-  const [isMounted, setIsMounted] = useState(false);
-  const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) return <div className="bg-[#050505] min-h-screen" />;
-
   const {
-    register,
+    control,
+    handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
+    defaultValues: {
+      fullName: "",
+      documentType: "dni",
+      documentNumber: "",
+      phoneNumber: "",
+      email: "",
+      serviceRequested: "",
+      technicalMessage: "",
+    },
   });
 
-  const handleWhatsAppSend = (e: React.FormEvent) => {
-    e.preventDefault();
+  console.log("errors: ", errors);
 
-    if (!acceptedPrivacy) {
-      alert("Por favor, acepta las políticas de privacidad para continuar.");
-      return;
+  const onSendContact = (formData) => {
+    try {
+      console.log("formData: ", formData);
+    } catch (e) {
+      console.error(e);
     }
-
-    const numeroWA = "51941801827";
-    const texto =
-      `*SOLICITUD DE SOPORTE*%0A` +
-      `*Nombre:* ${formData.nombre}%0A` +
-      `*DNI/RUC:* ${formData.documento}%0A` +
-      `*WhatsApp:* ${formData.telefono}%0A` +
-      `*Servicio:* ${formData.servicio}%0A` +
-      `*Mensaje:* ${formData.mensaje}`;
-
-    window.open(`https://wa.me/${numeroWA}?text=${texto}`, "_blank");
   };
 
   return (
@@ -77,7 +67,7 @@ export default function Contact() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-5xl md:text-8xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70"
+              className="text-5xl md:text-8xl font-bold mb-6 bg-clip-text text-transparent bg-linear-to-b from-white to-white/70"
             >
               Contacto
             </motion.h1>
@@ -164,57 +154,104 @@ export default function Contact() {
 
             <div className="lg:col-span-3 p-8 md:p-12 rounded-sm border border-white/5 bg-neutral-900/40">
               <form
-                onSubmit={handleWhatsAppSend}
+                onSubmit={handleSubmit(onSendContact)}
                 className="grid grid-cols-1 sm:grid-cols-2 gap-8"
               >
                 <div className="sm:col-span-2">
-                  <CustomInput id="fullName" label="Nombre Completo" />
+                  <Controller
+                    name="fullName"
+                    control={control}
+                    render={({ field }) => (
+                      <CustomInput
+                        {...field}
+                        label="Nombre Completo"
+                        error={errors.fullName?.message}
+                        icon={User}
+                      />
+                    )}
+                  />
                 </div>
 
-                <CustomInput id="documentType" label="Tipo de Documento" />
+                <Controller
+                  name="documentType"
+                  control={control}
+                  render={({ field }) => (
+                    <CustomInput
+                      {...field}
+                      label="Tipo de Documento"
+                      error={errors.documentType?.message}
+                      icon={User}
+                    />
+                  )}
+                />
 
-                <CustomInput id="documentNumber" label="N° de Documento" />
+                <Controller
+                  name="documentNumber"
+                  control={control}
+                  render={({ field }) => (
+                    <CustomInput
+                      {...field}
+                      label="N° de Documento"
+                      error={errors.documentNumber?.message}
+                      icon={FileText}
+                    />
+                  )}
+                />
 
-                <CustomInput id="phoneNumber" label="Celular" />
+                <Controller
+                  name="phoneNumber"
+                  control={control}
+                  render={({ field }) => (
+                    <CustomInput
+                      {...field}
+                      label="Celular"
+                      error={errors.phoneNumber?.message}
+                      icon={Phone}
+                    />
+                  )}
+                />
 
-                <CustomInput id="email" label="Correo" />
+                <Controller
+                  name="email"
+                  control={control}
+                  render={({ field }) => (
+                    <CustomInput
+                      {...field}
+                      label="Correo"
+                      error={errors.email?.message}
+                      icon={Mail}
+                    />
+                  )}
+                />
 
                 <div className="sm:col-span-2">
-                  <CustomInput
-                    id="serviceRequested"
-                    label="Servicio Requerido"
+                  <Controller
+                    name="serviceRequested"
+                    control={control}
+                    render={({ field }) => (
+                      <CustomInput
+                        {...field}
+                        label="Servicio Requerido"
+                        error={errors.serviceRequested?.message}
+                        icon={Phone}
+                      />
+                    )}
                   />
                 </div>
 
                 <div className="sm:col-span-2">
-                  <CustomInput id="technicalMessage" label="Mensaje Técnico" />
-                </div>
-
-                <div className="sm:col-span-2 flex items-center space-x-3 pt-2">
-                  <Checkbox
-                    id="privacy"
-                    checked={acceptedPrivacy}
-                    onCheckedChange={(checked) =>
-                      setAcceptedPrivacy(checked as boolean)
-                    }
-                    className="border-white/20 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                  <Controller
+                    name="technicalMessage"
+                    control={control}
+                    render={({ field }) => (
+                      <CustomInput
+                        {...field}
+                        label="Mensaje Técnico"
+                        error={errors.technicalMessage?.message}
+                        icon={Phone}
+                      />
+                    )}
                   />
-                  <div className="grid gap-1.5">
-                    <label
-                      htmlFor="privacy"
-                      className="text-[11px] font-medium text-white/50 cursor-pointer select-none"
-                    >
-                      Acepto las{" "}
-                      <Link
-                        href="/politicas-privacidad"
-                        className="text-primary hover:underline"
-                      >
-                        políticas de privacidad
-                      </Link>{" "}
-                      y el tratamiento de mis datos para fines de soporte
-                      técnico.
-                    </label>
-                  </div>
                 </div>
 
                 <div className="sm:col-span-2 pt-4">
