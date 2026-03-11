@@ -59,7 +59,6 @@ const CustomInput = React.forwardRef<HTMLInputElement, ExtendedInputProps>(
               "border-input dark:bg-input/20 focus-visible:border-ring focus-visible:ring-ring/40 focus-visible:ring-[3px]",
               "aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40",
               "disabled:cursor-not-allowed disabled:opacity-50",
-              // Si hay icono, añadimos más padding a la izquierda
               Icon ? "pl-11 pr-4" : "px-4",
               className
             )}
@@ -68,7 +67,7 @@ const CustomInput = React.forwardRef<HTMLInputElement, ExtendedInputProps>(
         </div>
 
         {error && (
-          <p className="text-sm font-medium text-destructive animate-in fade-in slide-in-from-top-1">
+          <p className="text-xs font-medium text-destructive animate-in fade-in slide-in-from-top-1">
             {error}
           </p>
         )}
