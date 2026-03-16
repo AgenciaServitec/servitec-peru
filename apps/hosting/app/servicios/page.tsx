@@ -92,23 +92,23 @@ export default function ServicesPage() {
             </div>
 
             <div className="w-full md:w-72">
-              <Select value={activeFilter} onValueChange={setActiveFilter}>
-                <SelectTrigger className="w-full bg-white/[0.03] border-white/5 h-12 text-xs font-bold rounded-sm">
-                  <SelectValue placeholder="Todas las categorías" />
-                </SelectTrigger>
-                <SelectContent className="bg-[#0a0a0a] border-white/10 text-white">
-                  <SelectItem value="all">Todas las categorías</SelectItem>
-                  {SPECIALTIES_DATA.map((spec) => (
-                    <SelectItem
-                      key={spec.type}
-                      value={spec.type}
-                      className="text-xs"
-                    >
-                      {spec.title}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              {/*<Select value={activeFilter} onValueChange={setActiveFilter}>*/}
+              {/*  <SelectTrigger className="w-full bg-white/[0.03] border-white/5 h-12 text-xs font-bold rounded-sm">*/}
+              {/*    <SelectValue placeholder="Todas las categorías" />*/}
+              {/*  </SelectTrigger>*/}
+              {/*  <SelectContent className="bg-[#0a0a0a] border-white/10 text-white">*/}
+              {/*    <SelectItem value="all">Todas las categorías</SelectItem>*/}
+              {/*    {SPECIALTIES_DATA.map((spec) => (*/}
+              {/*      <SelectItem*/}
+              {/*        key={spec.type}*/}
+              {/*        value={spec.type}*/}
+              {/*        className="text-xs"*/}
+              {/*      >*/}
+              {/*        {spec.title}*/}
+              {/*      </SelectItem>*/}
+              {/*    ))}*/}
+              {/*  </SelectContent>*/}
+              {/*</Select>*/}
             </div>
           </div>
         </div>

@@ -16,13 +16,14 @@ import {
 import { ContentWidth } from "@/components/ContentWidth";
 import { Button } from "@/components/ui/button";
 import Ubicacion from "@/sections/Ubication";
-import { Input2 as CustomInput } from "@/components/CustomInput";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CustomSelect } from "@/components/CustomSelect";
-import { Textarea2 } from "@/components/CustomTextarea";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useFormHelpers } from "@/lib/hooks/useFormHelpers";
+import { Select } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function Contact() {
   const schema = z.object({
@@ -44,7 +45,7 @@ export default function Contact() {
     resolver: zodResolver(schema),
     defaultValues: {
       fullName: "",
-      documentType: "dni",
+      documentType: "",
       documentNumber: "",
       phoneNumber: "",
       email: "",
@@ -167,11 +168,12 @@ export default function Contact() {
                     render={({ field }) => (
                       <FormItem className="sm:col-span-2">
                         <FormControl>
-                          <CustomInput
+                          <Input
                             {...field}
+                            {...useFormHelpers("fullName")}
                             label="Nombres y Apellidos"
-                            error={form.formState.errors.fullName?.message}
                             icon={User}
+                            required
                           />
                         </FormControl>
                       </FormItem>
@@ -184,15 +186,18 @@ export default function Contact() {
                     render={({ field }) => (
                       <FormItem>
                         <FormControl>
-                          <CustomSelect
+                          <Select
                             {...field}
+                            {...useFormHelpers("documentType")}
                             label="Tipo de Documento"
+                            placeholder="Seleccionar"
                             icon={IdCard}
-                            error={form.formState.errors.documentType?.message}
                             options={[
                               { value: "dni", label: "DNI" },
                               { value: "ruc", label: "RUC" },
                             ]}
+                            required
+                            onValueChange={field.onChange}
                           />
                         </FormControl>
                       </FormItem>
@@ -205,13 +210,12 @@ export default function Contact() {
                     render={({ field }) => (
                       <FormItem>
                         <FormControl>
-                          <CustomInput
+                          <Input
                             {...field}
+                            {...useFormHelpers("documentNumber")}
                             label="N° de Documento"
-                            error={
-                              form.formState.errors.documentNumber?.message
-                            }
                             icon={FileText}
+                            required
                           />
                         </FormControl>
                       </FormItem>
@@ -224,11 +228,12 @@ export default function Contact() {
                     render={({ field }) => (
                       <FormItem>
                         <FormControl>
-                          <CustomInput
+                          <Input
                             {...field}
+                            {...useFormHelpers("phoneNumber")}
                             label="Celular"
-                            error={form.formState.errors.phoneNumber?.message}
                             icon={Phone}
+                            required
                           />
                         </FormControl>
                       </FormItem>
@@ -241,11 +246,12 @@ export default function Contact() {
                     render={({ field }) => (
                       <FormItem>
                         <FormControl>
-                          <CustomInput
+                          <Input
                             {...field}
+                            {...useFormHelpers("email")}
                             label="Correo"
-                            error={form.formState.errors.email?.message}
                             icon={Mail}
+                            required
                           />
                         </FormControl>
                       </FormItem>
@@ -256,15 +262,14 @@ export default function Contact() {
                     control={form.control}
                     name="serviceRequested"
                     render={({ field }) => (
-                      <FormItem className="sm:col-span-2">
+                      <FormItem>
                         <FormControl>
-                          <CustomInput
+                          <Input
                             {...field}
+                            {...useFormHelpers("serviceRequested")}
                             label="Servicio Requerido"
-                            error={
-                              form.formState.errors.serviceRequested?.message
-                            }
                             icon={Wrench}
+                            required
                           />
                         </FormControl>
                       </FormItem>
@@ -277,13 +282,10 @@ export default function Contact() {
                     render={({ field }) => (
                       <FormItem className="sm:col-span-2">
                         <FormControl>
-                          <Textarea2
+                          <Textarea
                             {...field}
                             label="Mensaje Técnico"
                             placeholder="Describa brevemente la falla de su equipo..."
-                            error={
-                              form.formState.errors.technicalMessage?.message
-                            }
                           />
                         </FormControl>
                       </FormItem>
