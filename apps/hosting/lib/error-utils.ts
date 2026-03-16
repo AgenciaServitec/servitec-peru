@@ -1,12 +1,29 @@
-export const errorMessages = {
-  es: {
-    invalid_type: "Dato inválido.",
-    invalid_email: "Dirección de correo inválida.",
-    required: "Este campo es obligatorio.",
-    too_small: (min: number, type: string) =>
-      min === 1 ? "Este campo es obligatorio." : `Mínimo ${min} caracteres.`,
-    too_big: (max: number, type: string) => `Máximo ${max} caracteres.`,
-    exact: (len: number) => `Debe tener exactamente ${len} caracteres.`,
-  },
+import errors from "./i18n/errors.json";
+
+type ErrorDoc = typeof errors;
+
+export const getErrorMessage = (
+  code: string,
+  params?: { min?: number | string; max?: number | string; field?: string }
+): string => {
+  const field = params?.field;
+
+  if (field && field in errors.fields) {
+    const fieldErrors = (errors.fields as any)[field];
+    if (code in fieldErrors) {
+      return parseMessage(fieldErrors[code], params);
+    }
+  }
+
+  const genericErrors = errors.generic as Record<string, string>;
+  const message = genericErrors[code] || genericErrors["invalid_format"];
+
+  return parseMessage(message, params);
 };
-export const msg = errorMessages.es;
+
+const parseMessage = (msg: string, params?: any): string => {
+  if (!params) return msg;
+  return msg
+    .replace("{{min}}", String(params.min ?? ""))
+    .replace("{{max}}", String(params.max ?? ""));
+};
