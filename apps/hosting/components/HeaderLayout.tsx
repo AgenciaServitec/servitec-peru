@@ -34,11 +34,10 @@ export const HeaderLayout = () => {
   useEffect(() => {
     setIsMounted(true);
     const handleScroll = () => {
-      // Aparece solo después de hacer scroll 100px hacia abajo
       setScrolled(window.scrollY > 100);
     };
 
-    handleScroll(); // Revisar posición inicial
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -66,51 +65,62 @@ export const HeaderLayout = () => {
           </Link>
 
           <nav className="hidden lg:flex items-center gap-4 pointer-events-auto">
-            <NavigationMenu>
-              <NavigationMenuList className="gap-1">
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent text-white/80 hover:text-white transition-colors">
+            <NavigationMenu className="static max-w-full">
+              <NavigationMenuList className="static">
+                <NavigationMenuItem className="static">
+                  {" "}
+                  <NavigationMenuTrigger className="text-white/80 hover:text-white transition-colors">
                     Especialidades
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="bg-neutral-950/95 backdrop-blur-md p-2 rounded-sm w-[600px] shadow-2xl border border-white/5">
-                      <ul className="grid gap-1 md:grid-cols-2 mb-2">
-                        {SPECIALTIES_DATA.slice(0, 10).map((spec) => (
-                          <ListItem
-                            key={spec.slug}
-                            title={spec.title}
-                            href={`/especialidades/${spec.slug}`}
-                            icon={
-                              spec.icon && <spec.icon className="w-4 h-4" />
-                            }
-                          >
-                            {spec.description}
-                          </ListItem>
-                        ))}
-                      </ul>
-                      <div className="p-1 border-t border-white/5 mt-1">
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/especialidades"
-                            className="flex items-center justify-between w-full p-3 rounded-sm bg-white/[0.03] hover:bg-primary/10 group transition-all"
-                          >
-                            <span className="text-[11px] font-black text-white/70 group-hover:text-primary">
-                              Ver todas las especialidades
-                            </span>
-                            <ArrowRight className="w-4 h-4 text-white/20 group-hover:text-primary transition-transform group-hover:translate-x-1" />
-                          </Link>
-                        </NavigationMenuLink>
-                      </div>
+                  <NavigationMenuContent className="left-0 top-0 w-screen border-none bg-transparent shadow-none">
+                    <div className="w-full flex justify-center">
+                      <ContentWidth className="py-12 flex gap-12">
+                        <div className="flex gap-10">
+                          <div className="w-1/4">
+                            <div className="w-12 h-1 bg-primary mb-6" />
+                            <h3 className="text-2xl font-bold text-white">
+                              Especialidades
+                            </h3>
+                            <p className="text-sm text-white/50 leading-relaxed">
+                              Explora nuestra gama completa de soluciones en
+                              hardware y software para el sector corporativo y
+                              doméstico.
+                            </p>
+                            <Button
+                              variant="link"
+                              className="text-primary p-0 mt-4 group"
+                            >
+                              Ver catálogo completo{" "}
+                              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </Button>
+                          </div>
+
+                          <ul className="w-3/4 grid grid-cols-3 gap-6">
+                            {SPECIALTIES_DATA.slice(0, 9).map((spec) => (
+                              <ListItem
+                                key={spec.slug}
+                                title={spec.title}
+                                href={`/especialidades/${spec.slug}`}
+                                icon={
+                                  spec.icon && <spec.icon className="w-5 h-5" />
+                                }
+                              >
+                                {spec.description}
+                              </ListItem>
+                            ))}
+                          </ul>
+                        </div>
+                      </ContentWidth>
                     </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent text-primary hover:text-primary/80 transition-colors font-bold">
+                  <NavigationMenuTrigger className="text-primary hover:text-primary/80 transition-colors font-bold">
                     Servicios
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="bg-neutral-950/95 backdrop-blur-md p-2 rounded-sm w-[650px] shadow-2xl border border-white/5">
+                    <div className="w-125 sm:w-150 shadow-2xl">
                       <ul className="grid gap-1 md:grid-cols-2 mb-2">
                         {SERVICES_DATA.slice(0, 8).map((service) => (
                           <ListItem
@@ -127,16 +137,16 @@ export const HeaderLayout = () => {
                           </ListItem>
                         ))}
                       </ul>
-                      <div className="p-1 border-t border-white/5 mt-1">
+                      <div className="p-2 border-t border-white/5 mt-1">
                         <NavigationMenuLink asChild>
                           <Link
                             href="/servicios"
-                            className="flex items-center justify-between w-full p-3 rounded-sm bg-white/[0.03] hover:bg-primary/10 group transition-all"
+                            className="flex flex-row items-center justify-center gap-2 w-full p-3 rounded-sm bg-white/3 hover:bg-white/5 group transition-all"
                           >
-                            <span className="text-[11px] font-black text-white/70 group-hover:text-primary">
+                            <span className="text-[11px] font-black text-white/70 group-hover:text-white">
                               Ver todos los servicios
                             </span>
-                            <ArrowRight className="w-4 h-4 text-white/20 group-hover:text-primary transition-transform group-hover:translate-x-1" />
+                            <ArrowRight className="w-4 h-4 text-white/20 group-hover:text-white transition-transform group-hover:translate-x-1" />
                           </Link>
                         </NavigationMenuLink>
                       </div>
@@ -149,7 +159,7 @@ export const HeaderLayout = () => {
                     asChild
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      "bg-transparent text-white/80 hover:text-white"
+                      "bg-transparent hover:bg-transparent text-white/80 hover:text-white"
                     )}
                   >
                     <Link href="/nosotros">Nosotros</Link>
@@ -161,7 +171,7 @@ export const HeaderLayout = () => {
                     asChild
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      "bg-transparent text-white/80 hover:text-white"
+                      "bg-transparent hover:bg-transparent text-white/80 hover:text-white"
                     )}
                   >
                     <Link href="/contacto">Contacto</Link>
@@ -192,7 +202,7 @@ export const HeaderLayout = () => {
                   </SheetTitle>
                 </SheetHeader>
 
-                <div className="flex-grow overflow-y-auto custom-scrollbar">
+                <div className="grow overflow-y-auto custom-scrollbar">
                   <div className="flex flex-col gap-2 p-6">
                     <span className="text-white/50 px-2 mb-2">Páginas</span>
                     <MobileNavItem
@@ -259,7 +269,7 @@ export const HeaderLayout = () => {
                       Clientes que confían en nosotros
                     </span>
                     <div className="grid grid-cols-2 gap-3 px-2 hover:grayscale-0 transition-all duration-500">
-                      <div className="flex flex-col gap-2 items-center justify-center p-4 border border-white/5 rounded-sm bg-white/[0.02]">
+                      <div className="flex flex-col gap-2 items-center justify-center p-4 border border-white/5 rounded-sm bg-white/2">
                         <img
                           src="/assets/images/clients/entities/untels.png"
                           alt="Cliente 1"
@@ -269,7 +279,7 @@ export const HeaderLayout = () => {
                           Universidad Nacional Tecnológica Lima Sur
                         </span>
                       </div>
-                      <div className="flex flex-col gap-2 items-center justify-center p-4 border border-white/5 rounded-sm bg-white/[0.02]">
+                      <div className="flex flex-col gap-2 items-center justify-center p-4 border border-white/5 rounded-sm bg-white/2">
                         <img
                           src="/assets/images/clients/entities/antenor-orrego.png"
                           alt="Cliente 2"
@@ -279,7 +289,7 @@ export const HeaderLayout = () => {
                           ISTP Antenor Orrego Espinoza
                         </span>
                       </div>
-                      <div className="flex flex-col gap-2 items-center justify-center p-4 border border-white/5 rounded-sm bg-white/[0.02]">
+                      <div className="flex flex-col gap-2 items-center justify-center p-4 border border-white/5 rounded-sm bg-white/2">
                         <img
                           src="/assets/images/clients/entities/gilda.png"
                           alt="Cliente 3"
@@ -289,7 +299,7 @@ export const HeaderLayout = () => {
                           IESTP Gilda Ballivian Rosado
                         </span>
                       </div>
-                      <div className="flex flex-col gap-2 items-center justify-center p-4 border border-white/5 rounded-sm bg-white/[0.02]">
+                      <div className="flex flex-col gap-2 items-center justify-center p-4 border border-white/5 rounded-sm bg-white/2">
                         <img
                           src="/assets/images/clients/entities/libertador.png"
                           alt="Cliente 4"
