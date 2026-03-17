@@ -51,10 +51,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         {label && (
           <label
             htmlFor={textareaId}
-            className={cn(
-              "text-sm font-medium leading-none flex items-center gap-1 transition-colors",
-              error ? "text-destructive" : "text-foreground"
-            )}
+            className="text-sm font-medium leading-none flex items-center gap-1 transition-colors"
           >
             {label}
             {required && <span className="text-destructive">*</span>}

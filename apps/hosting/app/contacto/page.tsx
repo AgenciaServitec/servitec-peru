@@ -284,8 +284,10 @@ export default function Contact() {
                         <FormControl>
                           <Textarea
                             {...field}
+                            {...useFormHelpers("technicalMessage")}
                             label="Mensaje Técnico"
                             placeholder="Describa brevemente la falla de su equipo..."
+                            required
                           />
                         </FormControl>
                       </FormItem>

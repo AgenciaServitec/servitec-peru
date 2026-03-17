@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="refactored code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/components/CustomTextarea.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/components/ui/select.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/ui/select.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/components/ui/textarea.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/ui/textarea.tsx" afterDir="false" />
     </list>
@@ -137,7 +137,7 @@
       <workItem from="1773088174767" duration="4057000" />
       <workItem from="1773168503025" duration="8784000" />
       <workItem from="1773264860943" duration="538000" />
-      <workItem from="1773762078761" duration="261000" />
+      <workItem from="1773762078761" duration="583000" />
     </task>
     <task id="LOCAL-00002" summary="updated the version of react and nextjs">
       <option name="closed" value="true" />
@@ -499,7 +499,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773702788690</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="refactored code">
+      <option name="closed" value="true" />
+      <created>1773762379729</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1773762379729</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -517,7 +525,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="udpated workspace" />
     <MESSAGE value="added new components ui" />
     <MESSAGE value="added and updated new sections" />
     <MESSAGE value="udpated global.css" />
@@ -542,6 +549,7 @@
     <MESSAGE value="feat(validations): implement custom zod error map and contact schema" />
     <MESSAGE value="feat(ui): add polished input, select and textarea with validation states" />
     <MESSAGE value="feat(forms): integrate useFormHelpers and update contact/services pages" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(forms): integrate useFormHelpers and update contact/services pages" />
+    <MESSAGE value="refactored code" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored code" />
   </component>
 </project>
