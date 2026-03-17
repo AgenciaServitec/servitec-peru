@@ -32,11 +32,10 @@ export default function SpecialtiesPage() {
 
   const filteredSpecialties = useMemo(() => {
     return SPECIALTIES_DATA.filter((spec) => {
-      const matchesSearch =
+      return (
         spec.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        spec.description.toLowerCase().includes(searchQuery.toLowerCase());
-
-      return matchesSearch;
+        spec.description.toLowerCase().includes(searchQuery.toLowerCase())
+      );
     });
   }, [searchQuery]);
 
