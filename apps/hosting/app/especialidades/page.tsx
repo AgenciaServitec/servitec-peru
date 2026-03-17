@@ -2,7 +2,6 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { ContentWidth } from "@/components/ContentWidth";
-import { Input } from "@/components/ui/input";
 import { ArrowUpRight, Plus, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -13,6 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { SPECIALTIES_DATA } from "@/data-list/specialties";
 import { IconBrandWhatsapp } from "@tabler/icons-react";
 import { ButtonLink } from "@/components/ui/button-link";
+import FilterBar from "@/components/ui/FilterBar";
 
 export default function SpecialtiesPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -68,21 +68,13 @@ export default function SpecialtiesPage() {
       </section>
 
       <ContentWidth>
-        <div className="sticky top-20 z-30 bg-[#050505]/80 backdrop-blur-md py-8 mb-12">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-            <div className="relative w-full md:max-w-md">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/20" />
-              <Input
-                placeholder="Buscar especialidad (ej: laptop, apple, servidores...)"
-                className="bg-white/3 border-white/5 pl-12 h-12 text-sm focus:ring-primary rounded-sm transition-all"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-          </div>
-        </div>
+        <FilterBar
+          searchPlaceholder="Busca por especialidad..."
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
 
-        <div className="grid gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-3 border border-white/10 rounded-sm overflow-hidden mb-20">
+        <div className="grid gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-3 rounded-sm overflow-hidden mb-20">
           {isLoading ? (
             Array.from({ length: 6 }).map((_, i) => (
               <div

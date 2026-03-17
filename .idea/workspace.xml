@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="refactor: replace old buttons with unified ButtonLink component across the app">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="refactored redundant">
+      <change afterPath="$PROJECT_DIR$/apps/hosting/components/ui/FilterBar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/app/especialidades/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/especialidades/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/servicios/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/servicios/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,15 +129,7 @@
       <workItem from="1773088174767" duration="4057000" />
       <workItem from="1773168503025" duration="8784000" />
       <workItem from="1773264860943" duration="538000" />
-      <workItem from="1773762078761" duration="18152000" />
-    </task>
-    <task id="LOCAL-00002" summary="updated the version of react and nextjs">
-      <option name="closed" value="true" />
-      <created>1769644259644</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1769644259644</updated>
+      <workItem from="1773762078761" duration="20341000" />
     </task>
     <task id="LOCAL-00003" summary="Added new components CTA, Hero, HowWeWork, Location and Specialties">
       <option name="closed" value="true" />
@@ -521,7 +515,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773782918151</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051">
+      <option name="closed" value="true" />
+      <created>1773782983119</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1773782983119</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -539,7 +541,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactored pages" />
     <MESSAGE value="cleaning project" />
     <MESSAGE value="updated the year in footer" />
     <MESSAGE value="added new component" />
@@ -564,6 +565,7 @@
     <MESSAGE value="removed class text-destructive of label" />
     <MESSAGE value="feat(ui): refactor form system and standardize button components" />
     <MESSAGE value="refactor: replace old buttons with unified ButtonLink component across the app" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: replace old buttons with unified ButtonLink component across the app" />
+    <MESSAGE value="refactored redundant" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored redundant" />
   </component>
 </project>

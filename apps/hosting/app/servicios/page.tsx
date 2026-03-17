@@ -2,7 +2,6 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { ContentWidth } from "@/components/ContentWidth";
-import { Input } from "@/components/ui/input";
 import { ArrowUpRight, Plus, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -11,8 +10,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SERVICES_DATA } from "@/data-list/services";
 import { ButtonLink } from "@/components/ui/button-link";
-import { Select } from "@/components/ui/select";
 import { SPECIALTIES_DATA } from "@/data-list/specialties";
+import FilterBar from "@/components/ui/FilterBar";
 
 export default function ServicesPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -73,34 +72,20 @@ export default function ServicesPage() {
       </section>
 
       <ContentWidth>
-        <div className="sticky top-20 z-30 bg-[#050505]/80 backdrop-blur-md py-8 mb-12">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-            <div className="relative w-full md:max-w-md">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/20" />
-              <Input
-                placeholder="¿Qué falla presenta tu equipo?"
-                className="bg-white/3 border-white/5 pl-12 h-12 text-sm focus:ring-primary rounded-sm transition-all"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-
-            <div className="w-full md:w-96">
-              <Select
-                placeholder="Seleccionar"
-                value={activeFilter}
-                options={[
-                  { label: "Todas las categorías", value: "all" },
-                  ...SPECIALTIES_DATA.map((spec) => ({
-                    label: spec.title,
-                    value: spec.type,
-                  })),
-                ]}
-                onValueChange={setActiveFilter}
-              />
-            </div>
-          </div>
-        </div>
+        <FilterBar
+          searchPlaceholder="¿Qué falla presenta tu equipo?"
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          activeFilter={activeFilter}
+          setActiveFilter={setActiveFilter}
+          options={[
+            { label: "Todas las categorías", value: "all" },
+            ...SPECIALTIES_DATA.map((spec) => ({
+              label: spec.title,
+              value: spec.type,
+            })),
+          ]}
+        />
 
         <div className="grid gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-3 border border-white/10 rounded-sm overflow-hidden mb-20">
           {isLoading ? (
@@ -172,7 +157,6 @@ export default function ServicesPage() {
             </AnimatePresence>
           )}
         </div>
-
         {!isLoading && filteredServices.length > visibleCount && (
           <div className="pb-24 flex justify-center">
             <Button
@@ -184,7 +168,6 @@ export default function ServicesPage() {
             </Button>
           </div>
         )}
-
         {!isLoading && filteredServices.length === 0 && (
           <div className="py-24 text-center border border-dashed border-white/5 rounded-sm">
             <Search className="h-10 w-10 text-white/10 mx-auto mb-4" />
