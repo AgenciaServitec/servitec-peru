@@ -7,9 +7,9 @@ import {
   PhoneCall,
   Wrench,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ContentWidth } from "@/components/ContentWidth";
+import { ButtonLink } from "@/components/ui/button-link";
 
 const SEDES = [
   {
@@ -107,35 +107,22 @@ export default function Location() {
             </div>
 
             <div className="flex items-center gap-3 md:justify-end">
-              <Button
+              <ButtonLink
+                href="https://wa.me/51941801827"
                 icon={PhoneCall}
                 variant="outline"
-                className="btn-ghost-dark"
-                asChild
               >
-                <a
-                  href="https://wa.me/51941801827"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <span>Contactar</span>
-                </a>
-              </Button>
-              <Button icon={Navigation} className="btn-primary" asChild>
-                <a
-                  href={activeSede.googleMapsUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <span>Cómo llegar</span>
-                </a>
-              </Button>
+                Contactar
+              </ButtonLink>
+              <ButtonLink href={activeSede.googleMapsUrl} icon={Navigation}>
+                Cómo llegar
+              </ButtonLink>
             </div>
           </div>
         </div>
       </ContentWidth>
 
-      <div className="relative w-full h-[400px] md:h-[500px]">
+      <div className="relative w-full h-100 md:h-125">
         <iframe
           src={activeSede.mapEmbedUrl}
           className="w-full h-full border-0"

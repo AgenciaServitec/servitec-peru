@@ -2,12 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, useMotionValue } from "framer-motion";
-import { Building, CheckCircle2 } from "lucide-react";
+import { Building, CheckCircle2, Wrench } from "lucide-react";
 import { ContentWidth } from "@/components/ContentWidth";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import Location from "@/sections/Location";
 import TaxData from "@/sections/TaxData";
+import { ButtonLink } from "@/components/ui/button-link";
 
 export default function About() {
   const [isMounted, setIsMounted] = useState(false);
@@ -178,36 +177,13 @@ export default function About() {
               </div>
 
               <div className="flex flex-col md:flex-row gap-2 pt-6">
-                <Button size="lg" className="btn-primary" asChild>
-                  <Link href="/especialidades">
-                    <span className="flex items-center gap-2">
-                      <svg
-                        className="h-4 w-4"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M14 15h-4v-2H2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6h-8zm6-9h-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v4h20V8a2 2 0 0 0-2-2m-4 0H8V4h8z"
-                        />
-                      </svg>
-                      Nuestras Especialidades
-                    </span>
-                  </Link>
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="btn-ghost-dark"
-                  asChild
-                >
-                  <Link href="/empresa">
-                    <span className="flex items-center gap-2">
-                      <Building />
-                      Nuestra empresa
-                    </span>
-                  </Link>
-                </Button>
+                <ButtonLink href="/especialidades" icon={Wrench}>
+                  Nuestras Especialidades
+                </ButtonLink>
+
+                <ButtonLink href="/empresa" icon={Building} variant="outline">
+                  Nuestra empresa
+                </ButtonLink>
               </div>
             </div>
           </div>

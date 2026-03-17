@@ -1,24 +1,18 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ContentWidth } from "@/components/ContentWidth";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { ArrowUpRight, Plus, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
-
-import { SPECIALTIES_DATA } from "@/data-list/specialties";
 import { SERVICES_DATA } from "@/data-list/services";
+import { ButtonLink } from "@/components/ui/button-link";
+import { Select } from "@/components/ui/select";
+import { SPECIALTIES_DATA } from "@/data-list/specialties";
 
 export default function ServicesPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -61,7 +55,7 @@ export default function ServicesPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-5xl md:text-8xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70 drop-shadow-2xl"
+              className="text-5xl md:text-8xl font-bold mb-6 bg-clip-text text-transparent bg-linear-to-b from-white to-white/70 drop-shadow-2xl"
             >
               Nuestros Servicios
             </motion.h1>
@@ -85,30 +79,25 @@ export default function ServicesPage() {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/20" />
               <Input
                 placeholder="¿Qué falla presenta tu equipo?"
-                className="bg-white/[0.03] border-white/5 pl-12 h-12 text-sm focus:ring-primary rounded-sm transition-all"
+                className="bg-white/3 border-white/5 pl-12 h-12 text-sm focus:ring-primary rounded-sm transition-all"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
 
-            <div className="w-full md:w-72">
-              {/*<Select value={activeFilter} onValueChange={setActiveFilter}>*/}
-              {/*  <SelectTrigger className="w-full bg-white/[0.03] border-white/5 h-12 text-xs font-bold rounded-sm">*/}
-              {/*    <SelectValue placeholder="Todas las categorías" />*/}
-              {/*  </SelectTrigger>*/}
-              {/*  <SelectContent className="bg-[#0a0a0a] border-white/10 text-white">*/}
-              {/*    <SelectItem value="all">Todas las categorías</SelectItem>*/}
-              {/*    {SPECIALTIES_DATA.map((spec) => (*/}
-              {/*      <SelectItem*/}
-              {/*        key={spec.type}*/}
-              {/*        value={spec.type}*/}
-              {/*        className="text-xs"*/}
-              {/*      >*/}
-              {/*        {spec.title}*/}
-              {/*      </SelectItem>*/}
-              {/*    ))}*/}
-              {/*  </SelectContent>*/}
-              {/*</Select>*/}
+            <div className="w-full md:w-96">
+              <Select
+                placeholder="Seleccionar"
+                value={activeFilter}
+                options={[
+                  { label: "Todas las categorías", value: "all" },
+                  ...SPECIALTIES_DATA.map((spec) => ({
+                    label: spec.title,
+                    value: spec.type,
+                  })),
+                ]}
+                onValueChange={setActiveFilter}
+              />
             </div>
           </div>
         </div>
@@ -118,7 +107,7 @@ export default function ServicesPage() {
             Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="bg-black p-8 min-h-[340px] flex flex-col justify-end"
+                className="bg-black p-8 min-h-85 flex flex-col justify-end"
               >
                 <Skeleton className="h-8 w-3/4 bg-white/10 mb-4" />
                 <Skeleton className="h-4 w-full bg-white/5 mb-8" />
@@ -165,22 +154,18 @@ export default function ServicesPage() {
                       </p>
 
                       <div className="flex items-center">
-                        <Button
-                          size="lg"
+                        <ButtonLink
+                          href={`/servicios/${service.slug}`}
+                          icon={Plus}
                           variant="outline"
-                          className="btn-ghost-dark text-[10px] h-10 px-6"
-                          asChild
                         >
-                          <Link href={`/servicios/${service.slug}`}>
-                            <Plus className="h-3 w-3" />
-                            <span>ver detalles</span>
-                          </Link>
-                        </Button>
+                          Ver Detalles
+                        </ButtonLink>
                       </div>
                     </div>
                   </div>
 
-                  <div className="absolute bottom-0 left-0 h-[1px] w-0 bg-primary group-hover:w-full transition-all duration-500" />
+                  <div className="absolute bottom-0 left-0 h-px w-0 bg-primary group-hover:w-full transition-all duration-500" />
                 </motion.div>
               ))}
             </AnimatePresence>
@@ -192,9 +177,9 @@ export default function ServicesPage() {
             <Button
               variant="outline"
               onClick={() => setVisibleCount((prev) => prev + ITEMS_PER_PAGE)}
-              className="btn-ghost-dark"
+              icon={Plus}
             >
-              <Plus className="h-4 w-4" /> Cargar más servicios
+              Cargar más categorías
             </Button>
           </div>
         )}
