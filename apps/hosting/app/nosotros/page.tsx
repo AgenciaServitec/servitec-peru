@@ -6,7 +6,7 @@ import { Building, CheckCircle2 } from "lucide-react";
 import { ContentWidth } from "@/components/ContentWidth";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import Ubicacion from "@/sections/Ubication";
+import Location from "@/sections/Location";
 import TaxData from "@/sections/TaxData";
 
 export default function About() {
@@ -214,7 +214,7 @@ export default function About() {
         </ContentWidth>
       </section>
 
-      <Ubicacion />
+      <Location />
 
       <TaxData />
     </div>

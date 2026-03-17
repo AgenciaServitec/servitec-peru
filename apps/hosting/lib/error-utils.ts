@@ -25,5 +25,6 @@ const parseMessage = (msg: string, params?: any): string => {
   if (!params) return msg;
   return msg
     .replace("{{min}}", String(params.min ?? ""))
-    .replace("{{max}}", String(params.max ?? ""));
+    .replace("{{max}}", String(params.max ?? ""))
+    .replace("{{field}}", String(params.field ?? ""));
 };

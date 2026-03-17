@@ -15,8 +15,7 @@ import {
 } from "lucide-react";
 import { ContentWidth } from "@/components/ContentWidth";
 import { Button } from "@/components/ui/button";
-import Ubicacion from "@/sections/Ubication";
-import * as z from "zod";
+import Location from "@/sections/Location";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
@@ -25,38 +24,41 @@ import { useFormHelpers } from "@/lib/hooks/useFormHelpers";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
-export default function Contact() {
-  const schema = z.object({
-    fullName: z.string().min(3, "Mínimo 3 caracteres"),
-    documentType: z.enum(["dni", "ruc", "pasaporte"]),
-    documentNumber: z
-      .string()
-      .min(8, "Mínimo 8 dígitos")
-      .max(11, "Máximo 11 dígitos"),
-    phoneNumber: z.string().length(9, "Debe tener 9 dígitos"),
-    email: z.string().email("Correo electrónico inválido"),
-    serviceRequested: z.string().min(1, "Este campo es obligatorio"),
-    technicalMessage: z.string().min(10, "Mínimo 10 caracteres").max(500),
-  });
+import { type ContactFormData, contactSchema } from "@/lib/validations/contact";
+import { useRouter } from "next/navigation";
 
-  type ContactFormData = z.infer<typeof schema>;
+export default function Contact() {
+  const router = useRouter();
 
   const form = useForm<ContactFormData>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(contactSchema),
     defaultValues: {
       fullName: "",
-      documentType: "",
-      documentNumber: "",
-      phoneNumber: "",
+      document: {
+        type: "dni",
+        number: "",
+      },
+      phone: {
+        prefix: "+51",
+        number: "",
+      },
       email: "",
       serviceRequested: "",
-      technicalMessage: "",
+      message: "",
     },
   });
 
-  const onSendContact = (formData: ContactFormData) => {
+  const { reset } = form;
+
+  const onSendContact = async (formData: ContactFormData) => {
     try {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
       console.log("formData: ", formData);
+
+      reset();
+
+      router.push("/gracias");
     } catch (e) {
       console.error(e);
     }
@@ -170,10 +172,10 @@ export default function Contact() {
                         <FormControl>
                           <Input
                             {...field}
-                            {...useFormHelpers("fullName")}
+                            {...useFormHelpers("fullName", contactSchema)}
                             label="Nombres y Apellidos"
+                            placeholder="Ej: Juan Perez Garcia"
                             icon={User}
-                            required
                           />
                         </FormControl>
                       </FormItem>
@@ -182,13 +184,13 @@ export default function Contact() {
 
                   <FormField
                     control={form.control}
-                    name="documentType"
+                    name="document.type"
                     render={({ field }) => (
                       <FormItem>
                         <FormControl>
                           <Select
                             {...field}
-                            {...useFormHelpers("documentType")}
+                            {...useFormHelpers("document.type", contactSchema)}
                             label="Tipo de Documento"
                             placeholder="Seleccionar"
                             icon={IdCard}
@@ -196,7 +198,6 @@ export default function Contact() {
                               { value: "dni", label: "DNI" },
                               { value: "ruc", label: "RUC" },
                             ]}
-                            required
                             onValueChange={field.onChange}
                           />
                         </FormControl>
@@ -206,16 +207,19 @@ export default function Contact() {
 
                   <FormField
                     control={form.control}
-                    name="documentNumber"
+                    name="document.number"
                     render={({ field }) => (
                       <FormItem>
                         <FormControl>
                           <Input
                             {...field}
-                            {...useFormHelpers("documentNumber")}
+                            {...useFormHelpers(
+                              "document.number",
+                              contactSchema
+                            )}
                             label="N° de Documento"
+                            placeholder="12345678"
                             icon={FileText}
-                            required
                           />
                         </FormControl>
                       </FormItem>
@@ -224,16 +228,16 @@ export default function Contact() {
 
                   <FormField
                     control={form.control}
-                    name="phoneNumber"
+                    name="phone.number"
                     render={({ field }) => (
                       <FormItem>
                         <FormControl>
                           <Input
                             {...field}
-                            {...useFormHelpers("phoneNumber")}
+                            {...useFormHelpers("phone.number", contactSchema)}
                             label="Celular"
+                            placeholder="987 654 321"
                             icon={Phone}
-                            required
                           />
                         </FormControl>
                       </FormItem>
@@ -248,46 +252,50 @@ export default function Contact() {
                         <FormControl>
                           <Input
                             {...field}
-                            {...useFormHelpers("email")}
+                            {...useFormHelpers("email", contactSchema)}
                             label="Correo"
+                            placeholder="usuario@servitecperu.com"
                             icon={Mail}
-                            required
                           />
                         </FormControl>
                       </FormItem>
                     )}
                   />
 
-                  <FormField
-                    control={form.control}
-                    name="serviceRequested"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            {...useFormHelpers("serviceRequested")}
-                            label="Servicio Requerido"
-                            icon={Wrench}
-                            required
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
+                  <div className="sm:col-span-2">
+                    <FormField
+                      control={form.control}
+                      name="serviceRequested"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              {...useFormHelpers(
+                                "serviceRequested",
+                                contactSchema
+                              )}
+                              label="Servicio Requerido"
+                              placeholder="Ej: Mantenimiento de Laptop, Reparación de Impresora..."
+                              icon={Wrench}
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
 
                   <FormField
                     control={form.control}
-                    name="technicalMessage"
+                    name="message"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-2">
                         <FormControl>
                           <Textarea
                             {...field}
-                            {...useFormHelpers("technicalMessage")}
+                            {...useFormHelpers("message", contactSchema)}
                             label="Mensaje Técnico"
                             placeholder="Describa brevemente la falla de su equipo..."
-                            required
                           />
                         </FormControl>
                       </FormItem>
@@ -310,7 +318,7 @@ export default function Contact() {
           </div>
         </ContentWidth>
       </section>
-      <Ubicacion />
+      <Location />
     </div>
   );
 }

@@ -8,8 +8,6 @@ import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { HeaderLayout } from "@/components/HeaderLayout";
 import { FooterLayout } from "@/components/FooterLayout";
 
-import "../lib/zod-error-map";
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
