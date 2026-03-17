@@ -123,7 +123,7 @@ export default function RootLayout({
       style={{ colorScheme: "dark" }}
     >
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased relative text-white bg-[#050505] selection:bg-primary/30 min-h-screen flex flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased relative text-white bg-[#050505] selection:bg-primary/30 min-h-screen flex flex-col overflow-x-hidden`}
       >
         <script
           type="application/ld+json"
