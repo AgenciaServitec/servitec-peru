@@ -4,24 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/apps/hosting/lib/validations/complaints.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/hosting/lib/validations/contact.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/hosting/lib/validations/service-request.ts" afterDir="false" />
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="feat(ui): refactor form system and standardize button components">
+      <change afterPath="$PROJECT_DIR$/apps/hosting/components/ui/button-link.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/especialidades/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/especialidades/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/app/nosotros/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/nosotros/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/components/SpecialtyDetailLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/SpecialtyDetailLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/components/ui/button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/ui/button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/lib/error-utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/lib/error-utils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/lib/hooks/useFormHelpers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/lib/hooks/useFormHelpers.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/lib/i18n/errors.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/lib/i18n/errors.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/lib/validations/contact-schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/lib/validations/common.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/lib/zod-error-map.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/lib/zod-error-map.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/servicios/[type]/ServiceClientLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/servicios/[type]/ServiceClientLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/servicios/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/servicios/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/Ubication.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/Location.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/Location.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/Location.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/Specialties.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/Specialties.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,8 +26,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="tsconfig.json" />
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -151,7 +144,7 @@
       <workItem from="1773088174767" duration="4057000" />
       <workItem from="1773168503025" duration="8784000" />
       <workItem from="1773264860943" duration="538000" />
-      <workItem from="1773762078761" duration="14507000" />
+      <workItem from="1773762078761" duration="18015000" />
     </task>
     <task id="LOCAL-00002" summary="updated the version of react and nextjs">
       <option name="closed" value="true" />
@@ -529,7 +522,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773762710630</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="feat(ui): refactor form system and standardize button components">
+      <option name="closed" value="true" />
+      <created>1773779549729</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1773779549729</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -547,7 +548,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added and updated new sections" />
     <MESSAGE value="udpated global.css" />
     <MESSAGE value="refactored pages" />
     <MESSAGE value="cleaning project" />
@@ -572,6 +572,7 @@
     <MESSAGE value="feat(forms): integrate useFormHelpers and update contact/services pages" />
     <MESSAGE value="refactored code" />
     <MESSAGE value="removed class text-destructive of label" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed class text-destructive of label" />
+    <MESSAGE value="feat(ui): refactor form system and standardize button components" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(ui): refactor form system and standardize button components" />
   </component>
 </project>

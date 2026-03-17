@@ -2,10 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import { ContentWidth } from "@/components/ContentWidth";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronRight, ExternalLink } from "lucide-react";
+import { ButtonLink } from "@/components/ui/button-link";
 
 export default function ServiceClientLayout({
   frontmatter,
@@ -214,20 +214,13 @@ export default function ServiceClientLayout({
                     Visita nuestra comunidad en facebook y conoce la experiencia
                     de otros usuarios.
                   </p>
-                  <Button
-                    size="lg"
+                  <ButtonLink
+                    href="https://www.facebook.com/Servitec.chorrillos/"
+                    icon={ExternalLink}
                     className="w-full btn-primary bg-[#1877F2] hover:bg-[#166fe5] text-white"
-                    asChild
                   >
-                    <a
-                      href="https://www.facebook.com/Servitec.chorrillos/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2"
-                    >
-                      Nuestra comunidad <ExternalLink size={14} />
-                    </a>
-                  </Button>
+                    Nuestra comunidad
+                  </ButtonLink>
                 </div>
               </div>
             </div>
