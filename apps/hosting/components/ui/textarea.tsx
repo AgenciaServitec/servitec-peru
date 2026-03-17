@@ -81,20 +81,17 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             aria-invalid={!!error}
             aria-describedby={error ? errorId : undefined}
             className={cn(
-              "flex min-h-[120px] w-full rounded-md border bg-transparent py-3 text-base shadow-sm transition-all outline-none",
+              "flex min-h-30 w-full rounded-md border bg-transparent py-3 text-base shadow-sm transition-all outline-none",
               "placeholder:text-muted-foreground/50",
-              // Estética unificada: dark:bg-input/10 y focus:ring-3
               "border-input dark:bg-input/10 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/20",
               "disabled:cursor-not-allowed disabled:opacity-50",
 
-              // Estados de validación
               error &&
                 "border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20",
               success &&
                 !error &&
                 "border-emerald-500/50 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20",
 
-              // Paddings dinámicos
               Icon ? "pl-10" : "pl-3",
               success && !error ? "pr-10" : "pr-3",
               className
@@ -102,7 +99,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             {...props}
           />
 
-          {/* Indicador de éxito alineado arriba con el icono */}
           {success && !error && (
             <div className="absolute right-3 top-3 pointer-events-none">
               <CheckCircle2
@@ -113,7 +109,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           )}
         </div>
 
-        {/* Lógica de mensajes: Error tiene prioridad sobre HelperText */}
         {error ? (
           <p
             id={errorId}
