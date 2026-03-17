@@ -36,7 +36,7 @@ const SEDES = [
   },
 ];
 
-export default function Ubicacion() {
+export default function Location() {
   const [activeSede, setActiveSede] = useState(SEDES[0]);
 
   return (
