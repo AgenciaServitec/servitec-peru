@@ -141,8 +141,7 @@ export default function ServicesPage() {
                       src={service.image || "/empty-image.png"}
                       alt={service.title}
                       fill
-                      className="object-cover opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-50 group-hover:scale-105 transition-all duration-700"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover opacity-70 group-hover:scale-105 transition-all duration-700"
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent" />
                   </div>
