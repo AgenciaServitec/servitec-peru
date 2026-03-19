@@ -24,7 +24,7 @@ import { ArrowRight, ChevronRight, Menu } from "lucide-react";
 
 import { SPECIALTIES_DATA } from "@/data-list/specialties";
 import { SERVICES_DATA } from "@/data-list/services";
-import { Button } from "@/components/ui/button";
+import { ButtonLink } from "@/components/ui/button-link";
 
 export const HeaderLayout = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -34,11 +34,10 @@ export const HeaderLayout = () => {
   useEffect(() => {
     setIsMounted(true);
     const handleScroll = () => {
-      // Aparece solo después de hacer scroll 100px hacia abajo
-      setScrolled(window.scrollY > 100);
+      setScrolled(window.scrollY > 50);
     };
 
-    handleScroll(); // Revisar posición inicial
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -47,99 +46,150 @@ export const HeaderLayout = () => {
 
   return (
     <header
-      className={cn("sticky top-0 z-50 transition-all duration-500", {
-        "bg-black/80 backdrop-blur-xl border-b border-white/10 py-2": scrolled,
-        "bg-transparent border-b border-transparent py-6": !scrolled,
-      })}
+      className={cn(
+        "sticky left-0 right-0 z-50 transition-all duration-500 ease-in-out px-4 top-4"
+      )}
     >
-      <ContentWidth>
+      <ContentWidth
+        className={cn(
+          "transition-all duration-500 ease-in-out border border-white/10 rounded-md shadow-2xl",
+          {
+            "bg-[#0a0a0a]/90 backdrop-blur-xl py-3": scrolled,
+            "bg-[#0a0a0a]/80 backdrop-blur-md py-4": !scrolled,
+          }
+        )}
+      >
         <div className="flex items-center justify-between">
           <Link
             href="/"
             className="group flex flex-col leading-none pointer-events-auto"
           >
             <img
-              className="w-28 md:w-32"
+              className={cn("transition-all duration-500", {
+                "w-24 md:w-26": scrolled,
+                "w-26 md:w-28": !scrolled,
+              })}
               src="/logo-servitec.png"
               alt="Logo de Servitec Perú"
             />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-4 pointer-events-auto">
-            <NavigationMenu>
-              <NavigationMenuList className="gap-1">
-                <NavigationMenuItem>
+            <NavigationMenu className="static max-w-full">
+              <NavigationMenuList className="static">
+                <NavigationMenuItem className="static">
                   <NavigationMenuTrigger className="bg-transparent text-white/80 hover:text-white transition-colors">
                     Especialidades
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="bg-neutral-950/95 backdrop-blur-md p-2 rounded-sm w-[600px] shadow-2xl border border-white/5">
-                      <ul className="grid gap-1 md:grid-cols-2 mb-2">
-                        {SPECIALTIES_DATA.slice(0, 10).map((spec) => (
-                          <ListItem
-                            key={spec.slug}
-                            title={spec.title}
-                            href={`/especialidades/${spec.slug}`}
-                            icon={
-                              spec.icon && <spec.icon className="w-4 h-4" />
-                            }
-                          >
-                            {spec.description}
-                          </ListItem>
-                        ))}
-                      </ul>
-                      <div className="p-1 border-t border-white/5 mt-1">
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/especialidades"
-                            className="flex items-center justify-between w-full p-3 rounded-sm bg-white/[0.03] hover:bg-primary/10 group transition-all"
-                          >
-                            <span className="text-[11px] font-black text-white/70 group-hover:text-primary">
-                              Ver todas las especialidades
-                            </span>
-                            <ArrowRight className="w-4 h-4 text-white/20 group-hover:text-primary transition-transform group-hover:translate-x-1" />
-                          </Link>
-                        </NavigationMenuLink>
-                      </div>
+
+                  <NavigationMenuContent className="fixed left-0! right-0! w-screen border-none bg-transparent shadow-none flex justify-center pt-6">
+                    <div className="w-full max-w-350 bg-[#0a0a0a] backdrop-blur-2xl border border-white/10 rounded-md flex justify-center shadow-2xl overflow-hidden">
+                      <ContentWidth className="py-12">
+                        <div className="w-full flex gap-12">
+                          <ul className="w-2/3 grid grid-cols-3 gap-x-6 gap-y-0 divide-y divide-dashed divide-white/5">
+                            {SPECIALTIES_DATA.slice(0, 9).map((spec) => (
+                              <ListItem
+                                key={spec.slug}
+                                title={spec.title}
+                                href={`/especialidades/${spec.slug}`}
+                                icon={
+                                  spec.icon && <spec.icon className="w-6 h-6" />
+                                }
+                                className="py-6"
+                              >
+                                {spec.description}
+                              </ListItem>
+                            ))}
+                          </ul>
+
+                          <div className="w-px border-l border-dashed border-white/10 self-stretch" />
+
+                          <div className="w-1/3 flex flex-col gap-6">
+                            <div className="relative aspect-video w-full overflow-hidden rounded-sm border border-white/10 bg-white/5">
+                              <img
+                                src="/assets/images/about/preventive-maintenance.jpeg"
+                                alt="Especialidades"
+                                className="object-cover w-full h-full opacity-80"
+                              />
+                            </div>
+                            <div className="flex flex-col">
+                              <h3 className="text-2xl font-bold text-white mb-3">
+                                Especialidades
+                              </h3>
+                              <p className="text-[14px] text-white/50 leading-relaxed mb-6">
+                                Soluciones integrales en tecnología para
+                                potenciar el rendimiento de tu infraestructura.
+                              </p>
+                              <ButtonLink
+                                href="/especialidades"
+                                variant="outline"
+                                icon={ArrowRight}
+                              >
+                                Ver todas las especialidades
+                              </ButtonLink>
+                            </div>
+                          </div>
+                        </div>
+                      </ContentWidth>
                     </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
 
-                <NavigationMenuItem>
+                <NavigationMenuItem className="static">
                   <NavigationMenuTrigger className="bg-transparent text-primary hover:text-primary/80 transition-colors font-bold">
                     Servicios
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="bg-neutral-950/95 backdrop-blur-md p-2 rounded-sm w-[650px] shadow-2xl border border-white/5">
-                      <ul className="grid gap-1 md:grid-cols-2 mb-2">
-                        {SERVICES_DATA.slice(0, 8).map((service) => (
-                          <ListItem
-                            key={service.slug}
-                            title={service.title}
-                            href={`/servicios/${service.slug}`}
-                            icon={
-                              service.icon && (
-                                <service.icon className="w-4 h-4" />
-                              )
-                            }
-                          >
-                            {service.description}
-                          </ListItem>
-                        ))}
-                      </ul>
-                      <div className="p-1 border-t border-white/5 mt-1">
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/servicios"
-                            className="flex items-center justify-between w-full p-3 rounded-sm bg-white/[0.03] hover:bg-primary/10 group transition-all"
-                          >
-                            <span className="text-[11px] font-black text-white/70 group-hover:text-primary">
-                              Ver todos los servicios
-                            </span>
-                            <ArrowRight className="w-4 h-4 text-white/20 group-hover:text-primary transition-transform group-hover:translate-x-1" />
-                          </Link>
-                        </NavigationMenuLink>
-                      </div>
+                  <NavigationMenuContent className="fixed left-0! right-0! w-screen border-none bg-transparent shadow-none flex justify-center pt-6">
+                    <div className="w-full max-w-350 bg-[#0a0a0a] backdrop-blur-2xl border border-white/10 rounded-md flex justify-center shadow-2xl overflow-hidden">
+                      <ContentWidth className="py-12">
+                        <div className="w-full flex gap-12">
+                          <ul className="w-2/3 grid grid-cols-3 gap-x-6 gap-y-0 divide-y divide-dashed divide-white/5">
+                            {SERVICES_DATA.slice(0, 9).map((service) => (
+                              <ListItem
+                                key={service.slug}
+                                title={service.title}
+                                href={`/servicios/${service.slug}`}
+                                icon={
+                                  service.icon && (
+                                    <service.icon className="w-6 h-6" />
+                                  )
+                                }
+                                className="py-6"
+                              >
+                                {service.description}
+                              </ListItem>
+                            ))}
+                          </ul>
+
+                          <div className="w-px border-l border-dashed border-white/10 self-stretch" />
+
+                          <div className="w-1/3 flex flex-col gap-6">
+                            <div className="relative aspect-video w-full overflow-hidden rounded-sm border border-white/10 bg-white/5">
+                              <img
+                                src="/assets/images/about/preventive-maintenance-2.jpeg"
+                                alt="Servicios"
+                                className="object-cover w-full h-full opacity-80"
+                              />
+                            </div>
+                            <div className="flex flex-col">
+                              <h3 className="text-2xl font-bold text-white mb-3 text-balance capitalize">
+                                Nuestros servicios
+                              </h3>
+                              <p className="text-[14px] text-white/50 leading-relaxed mb-6">
+                                Soporte técnico de alto nivel y mantenimiento
+                                preventivo para equipos corporativos.
+                              </p>
+                              <ButtonLink
+                                href="/servicios"
+                                variant="outline"
+                                icon={ArrowRight}
+                              >
+                                Ver todos los servicios
+                              </ButtonLink>
+                            </div>
+                          </div>
+                        </div>
+                      </ContentWidth>
                     </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -149,7 +199,7 @@ export const HeaderLayout = () => {
                     asChild
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      "bg-transparent text-white/80 hover:text-white"
+                      "bg-transparent hover:bg-transparent text-white/80 hover:text-white"
                     )}
                   >
                     <Link href="/nosotros">Nosotros</Link>
@@ -161,7 +211,7 @@ export const HeaderLayout = () => {
                     asChild
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      "bg-transparent text-white/80 hover:text-white"
+                      "bg-transparent hover:bg-transparent text-white/80 hover:text-white"
                     )}
                   >
                     <Link href="/contacto">Contacto</Link>
@@ -191,150 +241,22 @@ export const HeaderLayout = () => {
                     />
                   </SheetTitle>
                 </SheetHeader>
-
-                <div className="flex-grow overflow-y-auto custom-scrollbar">
-                  <div className="flex flex-col gap-2 p-6">
-                    <span className="text-white/50 px-2 mb-2">Páginas</span>
-                    <MobileNavItem
-                      href="/"
-                      label="Inicio"
-                      onClick={() => setOpen(false)}
-                    />
-                    <MobileNavItem
-                      href="/nosotros"
-                      label="Nosotros"
-                      onClick={() => setOpen(false)}
-                    />
-                    <MobileNavItem
-                      href="/contacto"
-                      label="Contacto"
-                      onClick={() => setOpen(false)}
-                    />
-
-                    <span className="text-white/50 px-2 mt-8 mb-2">
-                      Especialidades
-                    </span>
-                    <div className="grid grid-cols-1 gap-1">
-                      {SPECIALTIES_DATA.slice(0, 5).map((spec) => (
-                        <Link
-                          key={spec.slug}
-                          href={`/especialidades/${spec.slug}`}
-                          onClick={() => setOpen(false)}
-                          className="flex items-center gap-3 p-3 rounded-sm hover:bg-white/5 transition-colors group"
-                        >
-                          <div className="text-white/20 group-hover:text-primary transition-colors">
-                            {spec.icon && <spec.icon className="w-4 h-4" />}
-                          </div>
-                          <span className="text-sm font-medium text-white/80 group-hover:text-white">
-                            {spec.title}
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
-
-                    <span className="text-white/50 px-2 mt-8 mb-2">
-                      Servicios Populares
-                    </span>
-                    <div className="grid grid-cols-1 gap-1">
-                      {SERVICES_DATA.slice(0, 5).map((service) => (
-                        <Link
-                          key={service.slug}
-                          href={`/servicios/${service.slug}`}
-                          onClick={() => setOpen(false)}
-                          className="flex items-center gap-3 p-3 rounded-sm hover:bg-white/5 transition-colors group"
-                        >
-                          <div className="text-white/20 group-hover:text-primary transition-colors">
-                            {service.icon && (
-                              <service.icon className="w-4 h-4" />
-                            )}
-                          </div>
-                          <span className="text-sm font-medium text-white/80 group-hover:text-white">
-                            {service.title}
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
-
-                    <span className="text-white/50 px-2 mt-10 mb-4">
-                      Clientes que confían en nosotros
-                    </span>
-                    <div className="grid grid-cols-2 gap-3 px-2 hover:grayscale-0 transition-all duration-500">
-                      <div className="flex flex-col gap-2 items-center justify-center p-4 border border-white/5 rounded-sm bg-white/[0.02]">
-                        <img
-                          src="/assets/images/clients/entities/untels.png"
-                          alt="Cliente 1"
-                          className="h-6 w-auto object-contain"
-                        />
-                        <span className="text-[10px] text-center">
-                          Universidad Nacional Tecnológica Lima Sur
-                        </span>
-                      </div>
-                      <div className="flex flex-col gap-2 items-center justify-center p-4 border border-white/5 rounded-sm bg-white/[0.02]">
-                        <img
-                          src="/assets/images/clients/entities/antenor-orrego.png"
-                          alt="Cliente 2"
-                          className="h-6 w-auto object-contain"
-                        />
-                        <span className="text-[10px] text-center">
-                          ISTP Antenor Orrego Espinoza
-                        </span>
-                      </div>
-                      <div className="flex flex-col gap-2 items-center justify-center p-4 border border-white/5 rounded-sm bg-white/[0.02]">
-                        <img
-                          src="/assets/images/clients/entities/gilda.png"
-                          alt="Cliente 3"
-                          className="h-6 w-auto object-contain"
-                        />
-                        <span className="text-[10px] text-center">
-                          IESTP Gilda Ballivian Rosado
-                        </span>
-                      </div>
-                      <div className="flex flex-col gap-2 items-center justify-center p-4 border border-white/5 rounded-sm bg-white/[0.02]">
-                        <img
-                          src="/assets/images/clients/entities/libertador.png"
-                          alt="Cliente 4"
-                          className="h-6 w-auto object-contain"
-                        />
-                        <span className="text-[10px] text-center">
-                          Grupo Educativo Libertador
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-6 border-t border-white/5 bg-black/50 flex flex-col gap-3">
-                  <Button variant="outline" className="btn-ghost-dark" asChild>
-                    <Link href="/especialidades" onClick={() => setOpen(false)}>
-                      <svg
-                        className="h-4 w-4"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M14 15h-4v-2H2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6h-8zm6-9h-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v4h20V8a2 2 0 0 0-2-2m-4 0H8V4h8z"
-                        />
-                      </svg>
-                      <span>Ver todas las especialidades</span>
-                    </Link>
-                  </Button>
-
-                  <Button variant="outline" className="btn-ghost-dark" asChild>
-                    <Link href="/servicios" onClick={() => setOpen(false)}>
-                      <svg
-                        className="h-4 w-4"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 640 640"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M541.4 162.6C549 155 561.7 156.9 565.5 166.9C572.3 184.6 576 203.9 576 224C576 312.4 504.4 384 416 384C398.5 384 381.6 381.2 365.8 376L178.9 562.9C150.8 591 105.2 591 77.1 562.9C49 534.8 49 489.2 77.1 461.1L264 274.2C258.8 258.4 256 241.6 256 224C256 135.6 327.6 64 416 64C436.1 64 455.4 67.7 473.1 74.5C483.1 78.3 484.9 91 477.4 98.6L388.7 187.3C385.7 190.3 384 194.4 384 198.6L384 240C384 248.8 391.2 256 400 256L441.4 256C445.6 256 449.7 254.3 452.7 251.3L541.4 162.6z"
-                        />
-                      </svg>
-                      <span>Ver todos los servicios</span>
-                    </Link>
-                  </Button>
+                <div className="grow overflow-y-auto p-6 flex flex-col gap-4">
+                  <MobileNavItem
+                    href="/"
+                    label="Inicio"
+                    onClick={() => setOpen(false)}
+                  />
+                  <MobileNavItem
+                    href="/nosotros"
+                    label="Nosotros"
+                    onClick={() => setOpen(false)}
+                  />
+                  <MobileNavItem
+                    href="/contacto"
+                    label="Contacto"
+                    onClick={() => setOpen(false)}
+                  />
                 </div>
               </SheetContent>
             </Sheet>
@@ -344,6 +266,44 @@ export const HeaderLayout = () => {
     </header>
   );
 };
+
+const ListItem = React.forwardRef<
+  HTMLAnchorElement,
+  React.ComponentPropsWithoutRef<"a"> & {
+    icon?: React.ReactNode;
+    title: string;
+    href: string;
+  }
+>(({ className, title, children, icon, href, ...props }, ref) => {
+  return (
+    <li className={className}>
+      <NavigationMenuLink asChild>
+        <Link
+          href={href}
+          className={cn(
+            "group block select-none space-y-1 rounded-md p-4 leading-none no-underline outline-none transition-all hover:bg-white/4 border border-transparent hover:border-white/10"
+          )}
+          {...props}
+        >
+          <div className="flex items-start gap-4">
+            <div className="mt-1 text-white/30 group-hover:text-primary transition-colors shrink-0">
+              {icon}
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <div className="text-[14px] font-bold leading-none text-white group-hover:text-primary transition-colors tracking-tight">
+                {title}
+              </div>
+              <p className="line-clamp-2 text-[12px] text-white/40 group-hover:text-white/70 transition-colors leading-snug">
+                {children}
+              </p>
+            </div>
+          </div>
+        </Link>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = "ListItem";
 
 const MobileNavItem = ({
   href,
@@ -363,42 +323,3 @@ const MobileNavItem = ({
     <ChevronRight className="w-4 h-4 text-white/20 group-hover:text-primary" />
   </Link>
 );
-
-const ListItem = React.forwardRef<
-  HTMLAnchorElement,
-  React.ComponentPropsWithoutRef<"a"> & {
-    icon?: React.ReactNode;
-    title: string;
-    href: string;
-  }
->(({ className, title, children, icon, href, ...props }, ref) => {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <Link
-          href={href}
-          className={cn(
-            "group block select-none space-y-1 rounded-sm p-3 leading-none no-underline outline-none transition-all hover:bg-white/5",
-            className
-          )}
-          {...props}
-        >
-          <div className="flex items-start gap-3">
-            <div className="mt-1 text-white/20 group-hover:text-primary transition-colors shrink-0">
-              {icon}
-            </div>
-            <div>
-              <div className="text-[11px] font-bold leading-none text-white/90 group-hover:text-primary">
-                {title}
-              </div>
-              <p className="line-clamp-1 text-[10px] leading-snug text-muted-foreground mt-1.5 group-hover:text-white/60">
-                {children}
-              </p>
-            </div>
-          </div>
-        </Link>
-      </NavigationMenuLink>
-    </li>
-  );
-});
-ListItem.displayName = "ListItem";

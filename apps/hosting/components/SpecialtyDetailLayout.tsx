@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Clock, Info, Plus, ShieldCheck } from "lucide-react";
 import { SERVICES_DATA } from "@/data-list/services";
 import TaxData from "@/sections/TaxData";
-import Ubicacion from "@/sections/Ubication";
+import Location from "@/sections/Location";
 
 export default function SpecialtyDetailLayout({
   specialtyName,
@@ -373,7 +373,7 @@ export default function SpecialtyDetailLayout({
         </ContentWidth>
       </section>
 
-      <Ubicacion />
+      <Location />
       <TaxData />
     </div>
   );

@@ -1,0 +1,17 @@
+{
+  "generic": {
+    "required": "Este campo es obligatorio",
+    "invalid_string": "El formato de {{field}} no es válido",
+    "too_small": "Debe tener al menos {{min}} caracteres",
+    "too_big": "No puede superar los {{max}} caracteres",
+    "invalid_email": "El correo electrónico no es válido"
+  },
+  "fields": {
+    "documentNumber": {
+      "too_small": "El número de documento debe tener {{min}} dígitos"
+    },
+    "phoneNumber": {
+      "too_small": "El celular debe tener 9 dígitos"
+    }
+  }
+}

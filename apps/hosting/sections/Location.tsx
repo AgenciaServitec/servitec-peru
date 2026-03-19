@@ -7,9 +7,9 @@ import {
   PhoneCall,
   Wrench,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ContentWidth } from "@/components/ContentWidth";
+import { ButtonLink } from "@/components/ui/button-link";
 
 const SEDES = [
   {
@@ -36,7 +36,7 @@ const SEDES = [
   },
 ];
 
-export default function Ubicacion() {
+export default function Location() {
   const [activeSede, setActiveSede] = useState(SEDES[0]);
 
   return (
@@ -107,32 +107,22 @@ export default function Ubicacion() {
             </div>
 
             <div className="flex items-center gap-3 md:justify-end">
-              <Button variant="outline" className="btn-ghost-dark" asChild>
-                <a
-                  href="https://wa.me/51941801827"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <PhoneCall className="w-4 h-4" />
-                  <span>Contactar</span>
-                </a>
-              </Button>
-              <Button className="btn-primary" asChild>
-                <a
-                  href={activeSede.googleMapsUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <Navigation className="w-4 h-4" />
-                  <span>Cómo llegar</span>
-                </a>
-              </Button>
+              <ButtonLink
+                href="https://wa.me/51941801827"
+                icon={PhoneCall}
+                variant="outline"
+              >
+                Contactar
+              </ButtonLink>
+              <ButtonLink href={activeSede.googleMapsUrl} icon={Navigation}>
+                Cómo llegar
+              </ButtonLink>
             </div>
           </div>
         </div>
       </ContentWidth>
 
-      <div className="relative w-full h-[400px] md:h-[500px]">
+      <div className="relative w-full h-100 md:h-125">
         <iframe
           src={activeSede.mapEmbedUrl}
           className="w-full h-full border-0"

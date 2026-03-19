@@ -1,59 +1,75 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import {
-  Lock,
+  FileText,
+  IdCard,
   Mail,
   MessageSquare,
   Phone,
   Send,
   ShieldCheck,
+  User,
+  Wrench,
 } from "lucide-react";
 import { ContentWidth } from "@/components/ContentWidth";
 import { Button } from "@/components/ui/button";
+import Location from "@/sections/Location";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useFormHelpers } from "@/lib/hooks/useFormHelpers";
+import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import Ubicacion from "@/sections/Ubication";
-import { Checkbox } from "@/components/ui/checkbox";
-import Link from "next/link";
+
+import { type ContactFormData, contactSchema } from "@/lib/validations/contact";
+import { useRouter } from "next/navigation";
 
 export default function Contact() {
-  const [isMounted, setIsMounted] = useState(false);
-  const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
-  const [formData, setFormData] = useState({
-    nombre: "",
-    telefono: "",
-    correo: "",
-    documento: "",
-    servicio: "",
-    mensaje: "",
+  const router = useRouter();
+
+  const form = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      fullName: "",
+      document: {
+        type: "dni",
+        number: "",
+      },
+      phone: {
+        prefix: "+51",
+        number: "",
+      },
+      email: "",
+      serviceRequested: "",
+      message: "",
+    },
   });
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const { reset } = form;
 
-  if (!isMounted) return <div className="bg-[#050505] min-h-screen" />;
+  const onSendContact = async (formData: ContactFormData) => {
+    try {
+      const response = await fetch("/api/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-  const handleWhatsAppSend = (e: React.FormEvent) => {
-    e.preventDefault();
+      if (!response.ok) {
+        throw new Error("Error al enviar el mensaje");
+      }
 
-    if (!acceptedPrivacy) {
-      alert("Por favor, acepta las políticas de privacidad para continuar.");
-      return;
+      reset();
+      router.push("/gracias");
+    } catch (e) {
+      console.error("Error detallado:", e);
+      alert("Hubo un problema al enviar el mensaje. Inténtalo de nuevo.");
     }
-
-    const numeroWA = "51941801827";
-    const texto =
-      `*SOLICITUD DE SOPORTE*%0A` +
-      `*Nombre:* ${formData.nombre}%0A` +
-      `*DNI/RUC:* ${formData.documento}%0A` +
-      `*WhatsApp:* ${formData.telefono}%0A` +
-      `*Servicio:* ${formData.servicio}%0A` +
-      `*Mensaje:* ${formData.mensaje}`;
-
-    window.open(`https://wa.me/${numeroWA}?text=${texto}`, "_blank");
   };
 
   return (
@@ -65,7 +81,7 @@ export default function Contact() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-5xl md:text-8xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70"
+              className="text-5xl md:text-8xl font-bold mb-6 bg-clip-text text-transparent bg-linear-to-b from-white to-white/70"
             >
               Contacto
             </motion.h1>
@@ -151,141 +167,166 @@ export default function Contact() {
             </div>
 
             <div className="lg:col-span-3 p-8 md:p-12 rounded-sm border border-white/5 bg-neutral-900/40">
-              <form
-                onSubmit={handleWhatsAppSend}
-                className="grid grid-cols-1 sm:grid-cols-2 gap-8"
-              >
-                <div className="space-y-2">
-                  <label className="text-[11px] font-bold">
-                    Nombre Completo
-                  </label>
-                  <Input
-                    required
-                    placeholder="Ej. Juan Pérez"
-                    className="bg-black/40 border-white/10 h-12 rounded-sm"
-                    onChange={(e) =>
-                      setFormData({ ...formData, nombre: e.target.value })
-                    }
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSendContact)}
+                  className="grid grid-cols-1 sm:grid-cols-2 gap-8"
+                >
+                  <FormField
+                    control={form.control}
+                    name="fullName"
+                    render={({ field }) => (
+                      <FormItem className="sm:col-span-2">
+                        <FormControl>
+                          <Input
+                            {...field}
+                            {...useFormHelpers("fullName", contactSchema)}
+                            label="Nombres y Apellidos"
+                            placeholder="Ej: Juan Perez Garcia"
+                            icon={User}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
                   />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[11px] font-bold">DNI / RUC</label>
-                  <Input
-                    required
-                    placeholder="Número de documento"
-                    className="bg-black/40 border-white/10 h-12 rounded-sm"
-                    onChange={(e) =>
-                      setFormData({ ...formData, documento: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[11px] font-bold">WhatsApp</label>
-                  <Input
-                    required
-                    type="tel"
-                    placeholder="999 999 999"
-                    className="bg-black/40 border-white/10 h-12 rounded-sm"
-                    onChange={(e) =>
-                      setFormData({ ...formData, telefono: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[11px] font-bold">Correo</label>
-                  <Input
-                    required
-                    type="email"
-                    placeholder="correo@ejemplo.com"
-                    className="bg-black/40 border-white/10 h-12 rounded-sm"
-                    onChange={(e) =>
-                      setFormData({ ...formData, correo: e.target.value })
-                    }
-                  />
-                </div>
 
-                <div className="sm:col-span-2 space-y-2">
-                  <label className="text-[11px] font-bold">
-                    Servicio Requerido
-                  </label>
-                  <Input
-                    required
-                    placeholder="¿En qué podemos ayudarte?"
-                    className="bg-black/40 border-white/10 h-12 rounded-sm"
-                    onChange={(e) =>
-                      setFormData({ ...formData, servicio: e.target.value })
-                    }
+                  <FormField
+                    control={form.control}
+                    name="document.type"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Select
+                            {...field}
+                            {...useFormHelpers("document.type", contactSchema)}
+                            label="Tipo de Documento"
+                            placeholder="Seleccionar"
+                            icon={IdCard}
+                            options={[
+                              { value: "dni", label: "DNI" },
+                              { value: "ruc", label: "RUC" },
+                            ]}
+                            onValueChange={field.onChange}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
                   />
-                </div>
 
-                <div className="sm:col-span-2 space-y-2">
-                  <label className="text-[11px] font-bold">
-                    Mensaje Técnico
-                  </label>
-                  <Textarea
-                    placeholder="Describe brevemente el problema de tu equipo..."
-                    className="bg-black/40 border-white/10 min-h-[120px] rounded-sm resize-none"
-                    onChange={(e) =>
-                      setFormData({ ...formData, mensaje: e.target.value })
-                    }
+                  <FormField
+                    control={form.control}
+                    name="document.number"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            {...useFormHelpers(
+                              "document.number",
+                              contactSchema
+                            )}
+                            label="N° de Documento"
+                            placeholder="12345678"
+                            icon={FileText}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
                   />
-                </div>
 
-                <div className="sm:col-span-2 flex items-center space-x-3 pt-2">
-                  <Checkbox
-                    id="privacy"
-                    checked={acceptedPrivacy}
-                    onCheckedChange={(checked) =>
-                      setAcceptedPrivacy(checked as boolean)
-                    }
-                    className="border-white/20 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                  <FormField
+                    control={form.control}
+                    name="phone.number"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            {...useFormHelpers("phone.number", contactSchema)}
+                            label="Celular"
+                            placeholder="987 654 321"
+                            icon={Phone}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
                   />
-                  <div className="grid gap-1.5">
-                    <label
-                      htmlFor="privacy"
-                      className="text-[11px] font-medium text-white/50 cursor-pointer select-none"
+
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            {...useFormHelpers("email", contactSchema)}
+                            label="Correo"
+                            placeholder="usuario@servitecperu.com"
+                            icon={Mail}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+
+                  <div className="sm:col-span-2">
+                    <FormField
+                      control={form.control}
+                      name="serviceRequested"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              {...useFormHelpers(
+                                "serviceRequested",
+                                contactSchema
+                              )}
+                              label="Servicio Requerido"
+                              placeholder="Ej: Mantenimiento de Laptop, Reparación de Impresora..."
+                              icon={Wrench}
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                      <FormItem className="sm:col-span-2">
+                        <FormControl>
+                          <Textarea
+                            {...field}
+                            {...useFormHelpers("message", contactSchema)}
+                            label="Mensaje Técnico"
+                            placeholder="Describa brevemente la falla de su equipo..."
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+
+                  <div className="sm:col-span-2">
+                    <Button
+                      type="submit"
+                      icon={Send}
+                      className="w-full"
+                      loading={form.formState.isSubmitting}
                     >
-                      Acepto las{" "}
-                      <Link
-                        href="/politicas-privacidad"
-                        className="text-primary hover:underline"
-                      >
-                        políticas de privacidad
-                      </Link>{" "}
-                      y el tratamiento de mis datos para fines de soporte
-                      técnico.
-                    </label>
+                      Enviar Solicitud
+                    </Button>
                   </div>
-                </div>
-
-                <div className="sm:col-span-2 pt-4">
-                  <Button type="submit" className="btn-primary w-full h-14">
-                    <Send className="w-4 h-4" />
-                    <span>Enviar Solicitud</span>
-                  </Button>
-
-                  <div className="flex items-center justify-center gap-8 mt-8 opacity-20">
-                    <div className="flex items-center gap-2">
-                      <Lock className="w-3 h-3" />
-                      <span className="text-[9px] font-bold">
-                        Privacidad Protegida
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <ShieldCheck className="w-3 h-3" />
-                      <span className="text-[9px] font-bold">
-                        Soporte Técnico
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </form>
+                </form>
+              </Form>
             </div>
           </div>
         </ContentWidth>
       </section>
-
-      <Ubicacion />
+      <Location />
     </div>
   );
 }
