@@ -4,12 +4,12 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ContentWidth } from "@/components/ContentWidth";
-import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Clock, Info, Plus, ShieldCheck } from "lucide-react";
 import { SERVICES_DATA } from "@/data-list/services";
 import TaxData from "@/sections/TaxData";
 import Location from "@/sections/Location";
+import { ButtonLink } from "@/components/ui/button-link";
 
 export default function SpecialtyDetailLayout({
   specialtyName,
@@ -351,17 +351,13 @@ export default function SpecialtyDetailLayout({
                     </p>
 
                     <div className="flex items-center">
-                      <Button
-                        size="lg"
+                      <ButtonLink
+                        href={`/servicios/${item.slug}`}
+                        icon={Plus}
                         variant="outline"
-                        className="btn-ghost-dark text-[10px] h-10 px-6"
-                        asChild
                       >
-                        <Link href={`/servicios/${item.slug}`}>
-                          <Plus className="h-3 w-3" />
-                          <span>ver detalles</span>
-                        </Link>
-                      </Button>
+                        Ver Detalles
+                      </ButtonLink>
                     </div>
                   </div>
                 </div>
