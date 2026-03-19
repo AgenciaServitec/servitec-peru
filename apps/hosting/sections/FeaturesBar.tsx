@@ -24,7 +24,7 @@ const features = [
 
 export function FeaturesBar() {
   return (
-    <section className="py-12 border-y border-white/5 bg-[#050505] backdrop-blur-sm">
+    <section className="py-12 border-b border-white/5 bg-[#050505] backdrop-blur-sm">
       <ContentWidth>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-y-10 md:gap-x-4">
           {features.map((feature, idx) => (
@@ -36,7 +36,7 @@ export function FeaturesBar() {
               transition={{ delay: idx * 0.1 }}
               className="flex flex-col md:flex-row items-center justify-center gap-4 px-4 text-center md:text-left relative"
             >
-              <div className="flex-shrink-0 w-12 h-12 rounded-sm flex items-center justify-center border border-white/10 bg-white/[0.03] shadow-inner">
+              <div className="shrink-0 w-12 h-12 rounded-sm flex items-center justify-center border border-white/10 bg-white/3 shadow-inner">
                 {feature.icon}
               </div>
 
