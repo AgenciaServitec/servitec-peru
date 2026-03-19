@@ -52,15 +52,23 @@ export default function Contact() {
 
   const onSendContact = async (formData: ContactFormData) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const response = await fetch("/api/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-      console.log("formData: ", formData);
+      if (!response.ok) {
+        throw new Error("Error al enviar el mensaje");
+      }
 
       reset();
-
       router.push("/gracias");
     } catch (e) {
-      console.error(e);
+      console.error("Error detallado:", e);
+      alert("Hubo un problema al enviar el mensaje. Inténtalo de nuevo.");
     }
   };
 
