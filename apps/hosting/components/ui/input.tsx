@@ -1,15 +1,23 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import { CheckCircle2, Eye, EyeOff, LucideIcon, X } from "lucide-react";
+import {
+  CheckCircle2,
+  Eye,
+  EyeOff,
+  Loader2,
+  LucideIcon,
+  X,
+} from "lucide-react";
 
 interface InputProps extends React.ComponentProps<"input"> {
   label?: string;
   error?: string;
   success?: boolean;
   helperText?: string;
-  icon?: LucideIcon;
+  icon?: LucideIcon; // Regresamos a icon (siempre a la izquierda)
   required?: boolean;
-  isLoading?: boolean;
+  skeleton?: boolean; // Antes isLoading
+  loading?: boolean; // Antes isRightLoading
   showCounter?: boolean;
 }
 
@@ -24,7 +32,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       helperText,
       icon: Icon,
       required,
-      isLoading,
+      skeleton,
+      loading,
       showCounter,
       maxLength,
       ...props
@@ -51,7 +60,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       }
     };
 
-    if (isLoading) {
+    // Renderizado de Esqueleto (Estado inicial de carga)
+    if (skeleton) {
       return (
         <div className="w-full space-y-2 animate-pulse text-left">
           {label && <div className="h-4 w-24 bg-muted/20 rounded" />}
@@ -89,10 +99,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         </div>
 
         <div className="relative group">
+          {/* Icono Izquierdo */}
           {Icon && (
             <div
               className={cn(
-                "absolute left-3 top-1/2 -translate-y-1/2 transition-colors",
+                "absolute left-3 top-1/2 -translate-y-1/2 transition-colors z-10",
                 error
                   ? "text-destructive"
                   : "text-muted-foreground group-focus-within:text-primary"
@@ -110,7 +121,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             aria-invalid={!!error}
             aria-describedby={error ? errorId : undefined}
             className={cn(
-              "flex h-10 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-sm transition-all outline-none",
+              "flex h-10 w-full rounded-md border bg-transparent py-1 text-base shadow-sm transition-all outline-none",
               "placeholder:text-muted-foreground/50",
               "border-input dark:bg-input/10 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/20",
               "disabled:cursor-not-allowed disabled:opacity-50",
@@ -120,41 +131,53 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 !error &&
                 "border-emerald-500/50 focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20",
               Icon ? "pl-10" : "pl-3",
-              isPassword || hasValue || (success && !error) ? "pr-10" : "pr-3",
+              isPassword || hasValue || (success && !error) || loading
+                ? "pr-10"
+                : "pr-3",
               className
             )}
             {...props}
           />
 
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1.5 text-muted-foreground">
-            {success && !error && !isPassword && (
-              <CheckCircle2
-                size={16}
-                className="text-emerald-500 animate-in zoom-in"
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1.5 z-10">
+            {/* Lógica de carga derecha (Acción) */}
+            {loading ? (
+              <Loader2
+                size={18}
+                className="animate-spin text-inherit opacity-70"
               />
-            )}
-
-            {isPassword ? (
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="hover:text-foreground focus:outline-none transition-colors"
-                tabIndex={-1}
-              >
-                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-              </button>
             ) : (
-              hasValue &&
-              !props.disabled && (
-                <button
-                  type="button"
-                  onClick={handleClear}
-                  className="hover:text-destructive focus:outline-none transition-colors"
-                  tabIndex={-1}
-                >
-                  <X size={18} />
-                </button>
-              )
+              <div className="flex items-center gap-1.5 text-muted-foreground">
+                {success && !error && !isPassword && (
+                  <CheckCircle2
+                    size={16}
+                    className="text-emerald-500 animate-in zoom-in"
+                  />
+                )}
+
+                {isPassword && (
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="hover:text-foreground focus:outline-none transition-colors"
+                    tabIndex={-1}
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                )}
+
+                {/* Botón Clear: Solo si no es password y tiene valor */}
+                {hasValue && !isPassword && !props.disabled && (
+                  <button
+                    type="button"
+                    onClick={handleClear}
+                    className="hover:text-destructive focus:outline-none transition-colors"
+                    tabIndex={-1}
+                  >
+                    <X size={18} />
+                  </button>
+                )}
+              </div>
             )}
           </div>
         </div>
