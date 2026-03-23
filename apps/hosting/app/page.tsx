@@ -6,9 +6,9 @@ export default function Home() {
   return (
     <main>
       <Hero />
+      <Specialties />
       <FeaturesBar />
       <HowWeWork />
-      <Specialties />
     </main>
   );
 }

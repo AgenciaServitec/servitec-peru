@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="Comment Cooki Banner">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="updated design form contact">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/FeaturesBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/FeaturesBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/sections/Hero.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/sections/Hero.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,14 +129,6 @@
       <workItem from="1773088174767" duration="4057000" />
       <workItem from="1773419668506" duration="1352000" />
       <workItem from="1773440045045" duration="3993000" />
-    </task>
-    <task id="LOCAL-00006" summary="added export new components">
-      <option name="closed" value="true" />
-      <created>1769644585129</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1769644585129</updated>
     </task>
     <task id="LOCAL-00007" summary="udpated header and footer component">
       <option name="closed" value="true" />
@@ -520,7 +514,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773955004294</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="updated design form contact">
+      <option name="closed" value="true" />
+      <created>1774301859131</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1774301859131</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -538,7 +540,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactored about and contact page" />
     <MESSAGE value="added new content services in mdx file" />
     <MESSAGE value="added images entities clients" />
     <MESSAGE value="refactored components" />
@@ -563,6 +564,7 @@
     <MESSAGE value="fix(hosting): move Resend instance inside POST to ensure env var detection" />
     <MESSAGE value="chore: allow RESEND_API_KEY in Turborepo build env" />
     <MESSAGE value="Comment Cooki Banner" />
-    <option name="LAST_COMMIT_MESSAGE" value="Comment Cooki Banner" />
+    <MESSAGE value="updated design form contact" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated design form contact" />
   </component>
 </project>

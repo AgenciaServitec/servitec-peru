@@ -127,7 +127,7 @@ export function Hero() {
         >
           <path
             d="M0 40H1440V20C1440 20 1080 0 720 0C360 0 0 20 0 20V40Z"
-            fill="#050505"
+            fill="black"
           />
         </svg>
 

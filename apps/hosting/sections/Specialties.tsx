@@ -14,7 +14,7 @@ export function Specialties() {
   return (
     <section
       id="specialties"
-      className="py-24 bg-black border-t border-white/5"
+      className="py-24 bg-black border-b border-white/5"
     >
       <ContentWidth>
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
