@@ -34,7 +34,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative w-full h-screen min-h-150 bg-[#050505] overflow-hidden -mt-25">
+    <section className="relative w-full h-[60vh] md:h-screen bg-[#050505] overflow-hidden -mt-25">
       <div
         className="absolute inset-0 z-10 pointer-events-none mix-blend-overlay opacity-10"
         style={{
@@ -43,9 +43,6 @@ export function Hero() {
           backgroundSize: "32px 32px",
         }}
       />
-
-      <div className="absolute inset-0 z-10 pointer-events-none bg-linear-to-b from-black/70 via-transparent to-black/50" />
-
       <div className="absolute inset-0 z-0 bg-black">
         <AnimatePresence initial={false} mode="sync">
           <motion.div
@@ -123,7 +120,7 @@ export function Hero() {
           viewBox="0 0 1440 40"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-auto translate-y-0.5"
+          className="w-full h-auto translate-y-0.5 z-40"
         >
           <path
             d="M0 40H1440V20C1440 20 1080 0 720 0C360 0 0 20 0 20V40Z"
@@ -135,12 +132,12 @@ export function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.8, duration: 1 }}
-          className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center"
+          className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-50"
         >
           <motion.div
             animate={{ y: [0, 5, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center p-1.5 bg-[#050505]/50 backdrop-blur-sm"
+            className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center p-1.5 bg-[#050505]/50 backdrop-blur-sm z-50"
           >
             <motion.div
               animate={{ y: [0, 12, 0] }}
@@ -149,7 +146,7 @@ export function Hero() {
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="w-1 h-2 bg-primary rounded-full"
+              className="w-1 h-2 bg-primary rounded-full z-50"
             />
           </motion.div>
         </motion.div>
