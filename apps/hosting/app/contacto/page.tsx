@@ -170,7 +170,7 @@ export default function Contact() {
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSendContact)}
-                  className="grid grid-cols-1 sm:grid-cols-2 gap-8"
+                  className="grid grid-cols-1 sm:grid-cols-2 gap-6"
                 >
                   <FormField
                     control={form.control}
