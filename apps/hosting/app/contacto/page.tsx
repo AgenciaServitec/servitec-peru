@@ -26,6 +26,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 import { type ContactFormData, contactSchema } from "@/lib/validations/contact";
 import { useRouter } from "next/navigation";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function Contact() {
   const router = useRouter();
@@ -166,163 +167,169 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="lg:col-span-3 p-8 md:p-12 rounded-sm border border-white/5 bg-neutral-900/40">
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSendContact)}
-                  className="grid grid-cols-1 sm:grid-cols-2 gap-8"
-                >
-                  <FormField
-                    control={form.control}
-                    name="fullName"
-                    render={({ field }) => (
-                      <FormItem className="sm:col-span-2">
-                        <FormControl>
-                          <Input
-                            {...field}
-                            {...useFormHelpers("fullName", contactSchema)}
-                            label="Nombres y Apellidos"
-                            placeholder="Ej: Juan Perez Garcia"
-                            icon={User}
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="document.type"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormControl>
-                          <Select
-                            {...field}
-                            {...useFormHelpers("document.type", contactSchema)}
-                            label="Tipo de Documento"
-                            placeholder="Seleccionar"
-                            icon={IdCard}
-                            options={[
-                              { value: "dni", label: "DNI" },
-                              { value: "ruc", label: "RUC" },
-                            ]}
-                            onValueChange={field.onChange}
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="document.number"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            {...useFormHelpers(
-                              "document.number",
-                              contactSchema
-                            )}
-                            label="N° de Documento"
-                            placeholder="12345678"
-                            icon={FileText}
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="phone.number"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            {...useFormHelpers("phone.number", contactSchema)}
-                            label="Celular"
-                            placeholder="987 654 321"
-                            icon={Phone}
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            {...useFormHelpers("email", contactSchema)}
-                            label="Correo"
-                            placeholder="usuario@servitecperu.com"
-                            icon={Mail}
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-
-                  <div className="sm:col-span-2">
+            <Card className="lg:col-span-3 bg-transparent">
+              <CardContent>
+                <Form {...form}>
+                  <form
+                    onSubmit={form.handleSubmit(onSendContact)}
+                    className="grid grid-cols-1 sm:grid-cols-2 gap-8"
+                  >
                     <FormField
                       control={form.control}
-                      name="serviceRequested"
+                      name="fullName"
+                      render={({ field }) => (
+                        <FormItem className="sm:col-span-2">
+                          <FormControl>
+                            <Input
+                              {...field}
+                              {...useFormHelpers("fullName", contactSchema)}
+                              label="Nombres y Apellidos"
+                              placeholder="Ej: Juan Perez Garcia"
+                              icon={User}
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="document.type"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Select
+                              {...field}
+                              {...useFormHelpers(
+                                "document.type",
+                                contactSchema
+                              )}
+                              label="Tipo de Documento"
+                              placeholder="Seleccionar"
+                              icon={IdCard}
+                              options={[
+                                { value: "dni", label: "DNI" },
+                                { value: "ruc", label: "RUC" },
+                              ]}
+                              onValueChange={field.onChange}
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="document.number"
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
                             <Input
                               {...field}
                               {...useFormHelpers(
-                                "serviceRequested",
+                                "document.number",
                                 contactSchema
                               )}
-                              label="Servicio Requerido"
-                              placeholder="Ej: Mantenimiento de Laptop, Reparación de Impresora..."
-                              icon={Wrench}
+                              label="N° de Documento"
+                              placeholder="12345678"
+                              icon={FileText}
                             />
                           </FormControl>
                         </FormItem>
                       )}
                     />
-                  </div>
 
-                  <FormField
-                    control={form.control}
-                    name="message"
-                    render={({ field }) => (
-                      <FormItem className="sm:col-span-2">
-                        <FormControl>
-                          <Textarea
-                            {...field}
-                            {...useFormHelpers("message", contactSchema)}
-                            label="Mensaje Técnico"
-                            placeholder="Describa brevemente la falla de su equipo..."
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
+                    <FormField
+                      control={form.control}
+                      name="phone.number"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              {...useFormHelpers("phone.number", contactSchema)}
+                              label="Celular"
+                              placeholder="987 654 321"
+                              icon={Phone}
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
 
-                  <div className="sm:col-span-2">
-                    <Button
-                      type="submit"
-                      icon={Send}
-                      className="w-full"
-                      loading={form.formState.isSubmitting}
-                    >
-                      Enviar Solicitud
-                    </Button>
-                  </div>
-                </form>
-              </Form>
-            </div>
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              {...useFormHelpers("email", contactSchema)}
+                              label="Correo"
+                              placeholder="usuario@servitecperu.com"
+                              icon={Mail}
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+
+                    <div className="sm:col-span-2">
+                      <FormField
+                        control={form.control}
+                        name="serviceRequested"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Input
+                                {...field}
+                                {...useFormHelpers(
+                                  "serviceRequested",
+                                  contactSchema
+                                )}
+                                label="Servicio Requerido"
+                                placeholder="Ej: Mantenimiento de Laptop, Reparación de Impresora..."
+                                icon={Wrench}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem className="sm:col-span-2">
+                          <FormControl>
+                            <Textarea
+                              {...field}
+                              {...useFormHelpers("message", contactSchema)}
+                              label="Mensaje Técnico"
+                              placeholder="Describa brevemente la falla de su equipo..."
+                              className="resize-none"
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+
+                    <div className="sm:col-span-2">
+                      <Button
+                        type="submit"
+                        icon={Send}
+                        className="w-full"
+                        loading={form.formState.isSubmitting}
+                      >
+                        Enviar Solicitud
+                      </Button>
+                    </div>
+                  </form>
+                </Form>
+              </CardContent>
+            </Card>
           </div>
         </ContentWidth>
       </section>
