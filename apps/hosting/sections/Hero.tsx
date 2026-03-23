@@ -76,7 +76,7 @@ export function Hero() {
               <img
                 src={carruselItems[currentIndex].imageMobile}
                 alt={carruselItems[currentIndex].title}
-                className="w-full h-full object-cover brightness-[0.5]"
+                className="w-full h-full object-cover brightness-[0.7]"
               />
             </picture>
           </motion.div>
@@ -96,7 +96,7 @@ export function Hero() {
                   .map((word, idx) => (
                     <motion.span
                       key={idx}
-                      className="inline-block mr-[0.2em] last:mr-0"
+                      className="inline-block mr-[0.2em] last:mr-0 italic"
                       initial={{ y: 40, opacity: 0, filter: "blur(8px)" }}
                       animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
                       exit={{ y: -20, opacity: 0, filter: "blur(4px)" }}
