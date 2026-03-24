@@ -122,6 +122,7 @@ export function QuotationIntegration() {
     solutionAndRecommendations: formData.solutionAndRecommendations,
     quotationDetails: formData.quotationDetails.map((item) => ({
       ...item,
+      subTotal: item.subTotal.toFixed(2),
       description: item.description,
     })),
     contractNumber: dayjs().format("YYYYMMDDHHmmss"),

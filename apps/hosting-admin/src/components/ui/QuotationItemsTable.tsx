@@ -119,8 +119,6 @@ const QuotationItemRow: React.FC<QuotationItemRowProps> = ({
     defaultValue: 0,
   });
 
-  // Nota: aquí se sigue usando la mutación directa, como en tu código original.
-  // Si luego quieres, lo cambiamos a setValue pasando setValue como prop.
   useEffect(() => {
     const subTotal = (quantity || 0) * (unitPrice || 0);
     if (control?._formValues?.[name]?.[index]) {
