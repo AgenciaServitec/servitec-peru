@@ -1,14 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ContentWidth } from "@/components/ContentWidth";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Clock, Info, Plus, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, Plus } from "lucide-react";
 import { SERVICES_DATA } from "@/data-list/services";
 import TaxData from "@/sections/TaxData";
-import Location from "@/sections/Location";
 import { ButtonLink } from "@/components/ui/button-link";
 import ServiceRequestForm from "@/components/ServiceRequestForm";
 
@@ -25,8 +24,14 @@ export default function SpecialtyDetailLayout({
 
   return (
     <div className="bg-[#050505] text-white min-h-screen selection:bg-primary/30">
-      <section className="relative pt-32 pb-16 border-b border-white/5">
-        <ContentWidth>
+      <section className="relative pt-32 pb-16 border-b border-white/5 overflow-hidden">
+        <img
+          src="/assets/images/about/ecran.jpeg"
+          className="w-full h-full object-cover opacity-40 absolute left-0 top-0"
+          alt="Fondo de servicio técnico"
+        />
+
+        <ContentWidth className="relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -43,52 +48,54 @@ export default function SpecialtyDetailLayout({
           </div>
         </ContentWidth>
       </section>
+
       <ServiceRequestForm specialtyName={specialtyName} />
-      <section className="py-24 bg-white/2 border-y border-white/5">
-        <ContentWidth>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <ShieldCheck className="h-5 w-5" />
-                <h4 className="font-bold text-sm">Qué incluye</h4>
-              </div>
-              <ul className="space-y-2 text-sm text-white/50">
-                <li className="flex items-start gap-2">
-                  • Diagnóstico electrónico base
-                </li>
-                <li className="flex items-start gap-2">
-                  • Informe técnico detallado
-                </li>
-                <li className="flex items-start gap-2">
-                  • Garantía por el trabajo
-                </li>
-              </ul>
-            </div>
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <Clock className="h-5 w-5" />
-                <h4 className="font-bold text-sm">Tiempos estimados</h4>
-              </div>
-              <p className="text-sm text-white/50 leading-relaxed">
-                El diagnóstico inicial se realiza en un periodo de 24 a 48
-                horas. reparaciones menores pueden concluirse el mismo día según
-                disponibilidad de componentes.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <Info className="h-5 w-5" />
-                <h4 className="font-bold text-sm">Aviso importante</h4>
-              </div>
-              <p className="text-sm text-white/40 leading-relaxed">
-                Servitec perú group es un centro de soporte independiente. no
-                somos servicio oficial de fabricantes. el servicio no incluye
-                repuestos no detallados en el presupuesto.
-              </p>
-            </div>
-          </div>
-        </ContentWidth>
-      </section>
+
+      {/*<section className="py-24 bg-white/2 border-y border-white/5">*/}
+      {/*  <ContentWidth>*/}
+      {/*    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">*/}
+      {/*      <div className="space-y-4">*/}
+      {/*        <div className="flex items-center gap-3">*/}
+      {/*          <ShieldCheck className="h-5 w-5" />*/}
+      {/*          <h4 className="font-bold text-sm">Qué incluye</h4>*/}
+      {/*        </div>*/}
+      {/*        <ul className="space-y-2 text-sm text-white/50">*/}
+      {/*          <li className="flex items-start gap-2">*/}
+      {/*            • Diagnóstico electrónico base*/}
+      {/*          </li>*/}
+      {/*          <li className="flex items-start gap-2">*/}
+      {/*            • Informe técnico detallado*/}
+      {/*          </li>*/}
+      {/*          <li className="flex items-start gap-2">*/}
+      {/*            • Garantía por el trabajo*/}
+      {/*          </li>*/}
+      {/*        </ul>*/}
+      {/*      </div>*/}
+      {/*      <div className="space-y-4">*/}
+      {/*        <div className="flex items-center gap-3">*/}
+      {/*          <Clock className="h-5 w-5" />*/}
+      {/*          <h4 className="font-bold text-sm">Tiempos estimados</h4>*/}
+      {/*        </div>*/}
+      {/*        <p className="text-sm text-white/50 leading-relaxed">*/}
+      {/*          El diagnóstico inicial se realiza en un periodo de 24 a 48*/}
+      {/*          horas. reparaciones menores pueden concluirse el mismo día según*/}
+      {/*          disponibilidad de componentes.*/}
+      {/*        </p>*/}
+      {/*      </div>*/}
+      {/*      <div className="space-y-4">*/}
+      {/*        <div className="flex items-center gap-3">*/}
+      {/*          <Info className="h-5 w-5" />*/}
+      {/*          <h4 className="font-bold text-sm">Aviso importante</h4>*/}
+      {/*        </div>*/}
+      {/*        <p className="text-sm text-white/40 leading-relaxed">*/}
+      {/*          Servitec perú group es un centro de soporte independiente. no*/}
+      {/*          somos servicio oficial de fabricantes. el servicio no incluye*/}
+      {/*          repuestos no detallados en el presupuesto.*/}
+      {/*        </p>*/}
+      {/*      </div>*/}
+      {/*    </div>*/}
+      {/*  </ContentWidth>*/}
+      {/*</section>*/}
 
       <section className="py-24">
         <ContentWidth>
@@ -157,7 +164,6 @@ export default function SpecialtyDetailLayout({
         </ContentWidth>
       </section>
 
-      <Location />
       <TaxData />
     </div>
   );

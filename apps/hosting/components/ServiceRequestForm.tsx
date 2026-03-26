@@ -16,12 +16,13 @@ import {
   Locate,
   Mail,
   MapPin,
-  Navigation,
   Phone,
   Settings,
+  Store,
   Tag,
   Truck,
   User,
+  Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,6 +37,8 @@ import {
   type ServiceRequestFormData,
   serviceRequestSchema,
 } from "@/lib/validations/service-request";
+import { cn } from "@/lib/utils";
+import { DISTRICTS } from "@/data-list/districts";
 
 export default function ServiceRequestForm({
   specialtyName,
@@ -49,6 +52,9 @@ export default function ServiceRequestForm({
     resolver: zodResolver(serviceRequestSchema),
     defaultValues: {
       client: {
+        names: "",
+        paternalSurname: "",
+        maternalSurname: "",
         fullName: "",
         email: "",
         document: {
@@ -56,22 +62,28 @@ export default function ServiceRequestForm({
           number: "",
         },
         phone: {
-          prefix: "",
+          prefix: "+51",
           number: "",
         },
       },
       device: {
-        category: specialtyName,
+        category: specialtyName || "General",
         brand: "",
         model: "",
         serialNumber: "",
       },
-      issueDescription: "",
       serviceMode: "store-visit",
-      department: "Lima",
-      province: "Lima",
-      district: "",
-      exactAddress: "",
+      location: {
+        department: "Lima",
+        province: "Lima",
+        district: "",
+        exactAddress: "",
+        interior: "",
+        reference: "",
+      },
+      status: "pending",
+      priority: "low",
+      issueDescription: "",
     },
   });
 
@@ -105,20 +117,21 @@ export default function ServiceRequestForm({
   }, [docNumber, docType, getDataByDniOrRuc, setValue, trigger]);
 
   const nextStep = async () => {
-    const fieldsByStep: Record<number, any[]> = {
+    const fieldsByStep: Record<number, string[]> = {
       1: [
+        "client.document.type",
         "client.document.number",
         "client.fullName",
         "client.email",
         "client.phone.number",
       ],
-      2: ["device.brand", "device.model", "issueDescription"],
+      2: ["device.brand", "device.model", "issueDescription", "priority"],
       3: ["serviceMode"],
-      4: ["department", "province", "district"],
+      4: ["location.district"],
     };
 
-    if (step === 4 && serviceMode === "technical-visit") {
-      fieldsByStep[4].push("exactAddress");
+    if (step === 4 && serviceMode === "home-service") {
+      fieldsByStep[4].push("location.exactAddress", "location.reference");
     }
 
     const isValid = await trigger(fieldsByStep[step] as any);
@@ -138,6 +151,12 @@ export default function ServiceRequestForm({
           body: JSON.stringify(data),
         }
       );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("❌ Error del servidor:", errorData);
+      }
+
       if (response.ok) setStep(5);
     } catch (e) {
       console.error(e);
@@ -147,15 +166,23 @@ export default function ServiceRequestForm({
   };
 
   return (
-    <section className="py-20 relative z-10">
+    <section className="py-20 relative z-10 px-4">
       <div className="max-w-3xl mx-auto">
+        <h3 className="text-center text-2xl md:text-3xl font-bold text-white tracking-tight">
+          Solicitud de Servicio para {specialtyName}
+        </h3>
+
         <div className="mb-12 pt-4 px-4">
           <div className="relative flex justify-between max-w-lg mx-auto">
-            <div className="absolute top-5 left-2 w-full h-0.5 bg-white/5 z-0" />
-            <div
-              className="absolute top-5 left-2 h-0.5 bg-success transition-all duration-500 z-0"
-              style={{ width: `${((Math.min(step, 4) - 1) / 3) * 100}%` }}
-            />
+            <div className="absolute top-5 left-0 right-0 px-5 z-0">
+              <div className="w-full h-0.5 bg-white/5 relative">
+                <div
+                  className="absolute top-0 left-0 h-0.5 bg-success transition-all duration-500"
+                  style={{ width: `${((Math.min(step, 4) - 1) / 3) * 100}%` }}
+                />
+              </div>
+            </div>
+
             {[
               { id: 1, label: "Cliente", icon: User },
               { id: 2, label: "Equipo", icon: Cpu },
@@ -204,19 +231,6 @@ export default function ServiceRequestForm({
 
         <Card className="bg-transparent">
           <CardContent>
-            {step < 5 && (
-              <motion.div
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="mb-8 flex items-center gap-2"
-              >
-                <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-                <span className="text-[10px] uppercase text-primary/80 font-bold">
-                  Solicitud para: {specialtyName}
-                </span>
-              </motion.div>
-            )}
-
             <Form {...form}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <AnimatePresence mode="wait">
@@ -247,7 +261,6 @@ export default function ServiceRequestForm({
                                   options={[
                                     { value: "dni", label: "DNI" },
                                     { value: "ruc", label: "RUC" },
-                                    { value: "ce", label: "CE" },
                                   ]}
                                   onValueChange={field.onChange}
                                 />
@@ -273,9 +286,7 @@ export default function ServiceRequestForm({
                                     placeholder={
                                       docType === "ruc"
                                         ? "20123456789"
-                                        : docType === "ce"
-                                          ? "001234567"
-                                          : "45678912"
+                                        : "45678912"
                                     }
                                     icon={FileText}
                                   />
@@ -309,6 +320,28 @@ export default function ServiceRequestForm({
                         <div className="md:col-span-2">
                           <FormField
                             control={control}
+                            name="client.phone.number"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormControl>
+                                  <Input
+                                    {...field}
+                                    {...useFormHelpers(
+                                      "client.phone.number",
+                                      serviceRequestSchema
+                                    )}
+                                    label="WhatsApp"
+                                    placeholder="987 654 321"
+                                    icon={Phone}
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                        <div className="md:col-span-2">
+                          <FormField
+                            control={control}
                             name="client.email"
                             render={({ field }) => (
                               <FormItem>
@@ -329,35 +362,13 @@ export default function ServiceRequestForm({
                             )}
                           />
                         </div>
-                        <div className="md:col-span-2">
-                          <FormField
-                            control={control}
-                            name="client.phone.number"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormControl>
-                                  <Input
-                                    {...field}
-                                    {...useFormHelpers(
-                                      "client.phone.number",
-                                      serviceRequestSchema
-                                    )}
-                                    label="WhatsApp"
-                                    placeholder="987 654 321"
-                                    icon={Phone}
-                                  />
-                                </FormControl>
-                              </FormItem>
-                            )}
-                          />
-                        </div>
                       </div>
                       <Button
                         type="button"
                         onClick={nextStep}
                         className="w-full"
                       >
-                        Siguiente Paso
+                        Siguiente
                       </Button>
                     </motion.div>
                   )}
@@ -436,6 +447,33 @@ export default function ServiceRequestForm({
                         <div className="md:col-span-2">
                           <FormField
                             control={control}
+                            name="priority"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormControl>
+                                  <Select
+                                    {...field}
+                                    {...useFormHelpers(
+                                      "priority",
+                                      serviceRequestSchema
+                                    )}
+                                    label="Prioridad del servicio"
+                                    icon={Zap}
+                                    options={[
+                                      { value: "low", label: "Regular" },
+                                      { value: "medium", label: "Prioritaria" },
+                                      { value: "high", label: "Inmediata" },
+                                    ]}
+                                    onValueChange={field.onChange}
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                        <div className="md:col-span-2">
+                          <FormField
+                            control={control}
                             name="issueDescription"
                             render={({ field }) => (
                               <FormItem>
@@ -455,7 +493,7 @@ export default function ServiceRequestForm({
                           />
                         </div>
                       </div>
-                      <div className="flex gap-6">
+                      <div className="flex flex-col md:flex-row gap-6">
                         <Button
                           variant="outline"
                           onClick={prevStep}
@@ -473,90 +511,197 @@ export default function ServiceRequestForm({
                   {step === 3 && (
                     <motion.div
                       key="s3"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0 }}
-                      className="space-y-8 text-center"
+                      className="space-y-6"
                     >
-                      <h3 className="text-xl font-bold text-white">
-                        ¿Cómo deseas el servicio?
-                      </h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <Card
-                          onClick={() => setValue("serviceMode", "store-visit")}
-                          className={`cursor-pointer transition-all ${serviceMode === "store-visit" ? "border-primary bg-primary/5" : "border-white/10 hover:border-white/20"}`}
-                        >
-                          <CardContent className="p-6 text-center">
-                            <Settings
-                              className={`mx-auto mb-3 ${serviceMode === "store-visit" ? "text-primary" : "text-white/20"}`}
-                            />
-                            <p className="text-sm font-bold">
-                              Vendré al taller
-                            </p>
-                          </CardContent>
-                        </Card>
-                        <Card
-                          onClick={() =>
-                            setValue("serviceMode", "technical-visit")
-                          }
-                          className={`cursor-pointer transition-all ${serviceMode === "technical-visit" ? "border-primary bg-primary/5" : "border-white/10 hover:border-white/20"}`}
-                        >
-                          <CardContent className="p-6 text-center">
-                            <Truck
-                              className={`mx-auto mb-3 ${serviceMode === "technical-visit" ? "text-primary" : "text-white/20"}`}
-                            />
-                            <p className="text-sm font-bold">Visita Técnica</p>
-                          </CardContent>
-                        </Card>
+                      <div className="text-center space-y-2">
+                        <h3 className="text-xl font-semibold text-white">
+                          ¿Cómo prefieres el servicio?
+                        </h3>
+                        <p className="text-sm text-white/50">
+                          Selecciona la modalidad que mejor se te acomode.
+                        </p>
                       </div>
 
-                      {serviceMode === "store-visit" && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div
+                          onClick={() => setValue("serviceMode", "store-visit")}
+                          className={cn(
+                            "relative p-5 rounded-xl border-2 cursor-pointer transition-all duration-200 group",
+                            serviceMode === "store-visit"
+                              ? "border-success bg-success/10"
+                              : "border-white/5 bg-white/5 hover:border-white/20"
+                          )}
                         >
-                          <Card className="border-white/5 bg-white/2 text-left">
-                            <CardContent className="p-6 space-y-4">
-                              <div className="flex items-center gap-2 text-primary text-[10px] uppercase font-bold">
-                                <Clock className="h-3 w-3" /> Lun – Vie: 9am –
-                                7pm
+                          <div className="flex flex-col items-center text-center gap-3">
+                            <div
+                              className={cn(
+                                "p-3 rounded-full transition-colors",
+                                serviceMode === "store-visit"
+                                  ? "bg-success/20 text-success"
+                                  : "bg-white/5 text-white/20 group-hover:text-white/40"
+                              )}
+                            >
+                              <Store className="h-6 w-6" />
+                            </div>
+                            <div>
+                              <p className="font-semibold text-white">
+                                Dejar en taller
+                              </p>
+                              <p className="text-xs text-white/40 mt-1">
+                                Visítanos en nuestras sedes
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div
+                          onClick={() =>
+                            setValue("serviceMode", "home-service")
+                          }
+                          className={cn(
+                            "relative p-5 rounded-xl border-2 cursor-pointer transition-all duration-200 group",
+                            serviceMode === "home-service"
+                              ? "border-success bg-success/10"
+                              : "border-white/5 bg-white/5 hover:border-white/20"
+                          )}
+                        >
+                          <div className="flex flex-col items-center text-center gap-3">
+                            <div
+                              className={cn(
+                                "p-3 rounded-full transition-colors",
+                                serviceMode === "home-service"
+                                  ? "bg-success/20 text-success"
+                                  : "bg-white/5 text-white/20 group-hover:text-white/40"
+                              )}
+                            >
+                              <Truck className="h-6 w-6" />
+                            </div>
+                            <div>
+                              <p className="font-semibold text-white">
+                                Servicio a domicilio
+                              </p>
+                              <p className="text-xs text-white/40 mt-1">
+                                Técnico especializado a tu casa
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <AnimatePresence>
+                        {serviceMode === "store-visit" && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="bg-white/5 rounded-xl border border-white/10 p-5 space-y-4">
+                              <div className="flex items-center justify-between border-b border-white/5 pb-3">
+                                <span className="text-xs font-medium text-white/60">
+                                  Sedes disponibles en Chorrillos
+                                </span>
+                                <div className="flex items-center gap-1.5 text-[11px] text-info">
+                                  <Clock className="h-3.5 w-3.5" />
+                                  <span>Lun – Vie: 9am – 7pm</span>
+                                </div>
                               </div>
-                              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="space-y-1">
-                                  <h4 className="text-white font-bold text-xs uppercase">
-                                    Sede Oficina
-                                  </h4>
-                                  <p className="text-white/40 text-[11px]">
+
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div className="group/loc relative bg-white/[0.02] p-3 rounded-lg border border-white/5 hover:bg-white/[0.05] transition-colors">
+                                  <div className="flex justify-between items-start mb-1">
+                                    <h4 className="text-sm font-medium text-white">
+                                      Sede Oficina
+                                    </h4>
+                                    <span className="text-[9px] bg-info/10 text-info px-1.5 py-0.5 rounded border border-info/20">
+                                      CHORRILLOS
+                                    </span>
+                                  </div>
+                                  <p className="text-xs text-white/40 leading-relaxed mb-3">
                                     Néstor Bermúdez 113, Lima
                                   </p>
-                                  <a
-                                    href="#"
-                                    className="text-primary text-[10px] flex items-center gap-1 hover:underline"
-                                  >
-                                    <Navigation className="h-3 w-3" /> Ver mapa
-                                  </a>
+                                  <div className="flex items-center gap-3">
+                                    <a
+                                      href="https://www.google.com/maps/dir/?api=1&destination=Servitec+Per%C3%BA+Group+EIRL+Oficina+Administrativa+-12.1712089,-77.0188392"
+                                      target="_blank"
+                                      className="inline-flex items-center gap-1 text-[11px] text-info hover:underline"
+                                    >
+                                      <MapPin className="h-3 w-3" /> Cómo llegar
+                                    </a>
+                                    <button
+                                      onClick={() =>
+                                        navigator.clipboard.writeText(
+                                          "Calle Néstor Bermúdez 113, Chorrillos"
+                                        )
+                                      }
+                                      className="text-[10px] text-white/30 hover:text-white transition-colors"
+                                    >
+                                      Copiar
+                                    </button>
+                                  </div>
                                 </div>
-                                <div className="space-y-1">
-                                  <h4 className="text-white font-bold text-xs uppercase">
-                                    Sede Taller Kiwi
-                                  </h4>
-                                  <p className="text-white/40 text-[11px]">
-                                    Justo Pastor Davila 117, Lima
+
+                                <div className="group/loc relative bg-white/[0.02] p-3 rounded-lg border border-white/5 hover:bg-white/[0.05] transition-colors">
+                                  <div className="flex justify-between items-start mb-1">
+                                    <h4 className="text-sm font-medium text-white">
+                                      Sede Taller Kiwi
+                                    </h4>
+                                    <span className="text-[9px] bg-info/10 text-info px-1.5 py-0.5 rounded border border-info/20">
+                                      CHORRILLOS
+                                    </span>
+                                  </div>
+                                  <p className="text-xs text-white/40 leading-relaxed mb-3">
+                                    Justo Pastor Dávila 117, Lima
                                   </p>
-                                  <a
-                                    href="#"
-                                    className="text-primary text-[10px] flex items-center gap-1 hover:underline"
-                                  >
-                                    <Navigation className="h-3 w-3" /> Ver mapa
-                                  </a>
+                                  <div className="flex items-center gap-3">
+                                    <a
+                                      href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=-12.175343,-77.0184858"
+                                      target="_blank"
+                                      className="inline-flex items-center gap-1 text-[11px] text-info hover:underline"
+                                    >
+                                      <MapPin className="h-3 w-3" /> Cómo llegar
+                                    </a>
+                                    <button
+                                      onClick={() =>
+                                        navigator.clipboard.writeText(
+                                          "Justo Pastor Dávila 117, Chorrillos"
+                                        )
+                                      }
+                                      className="text-[10px] text-white/30 hover:text-white transition-colors"
+                                    >
+                                      Copiar
+                                    </button>
+                                  </div>
                                 </div>
                               </div>
-                            </CardContent>
-                          </Card>
-                        </motion.div>
-                      )}
+                            </div>
+                          </motion.div>
+                        )}
 
-                      <div className="flex gap-6 mt-6">
+                        {serviceMode === "home-service" && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="p-4 bg-info/5 border border-info/20 rounded-xl flex gap-3 items-start"
+                          >
+                            <Info className="h-5 w-5 text-info shrink-0 mt-0.5" />
+                            <p className="text-xs text-white/70 leading-relaxed">
+                              Un técnico se pondrá en contacto contigo para
+                              coordinar el horario.
+                              <span className="text-info font-medium">
+                                {" "}
+                                El costo de movilidad se calcula según tu
+                                distrito en el siguiente paso.
+                              </span>
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                      <div className="flex flex-col md:flex-row gap-6">
                         <Button
                           variant="outline"
                           onClick={prevStep}
@@ -564,7 +709,11 @@ export default function ServiceRequestForm({
                         >
                           Atrás
                         </Button>
-                        <Button onClick={nextStep} className="flex-1">
+                        <Button
+                          onClick={nextStep}
+                          disabled={!serviceMode}
+                          className="flex-1"
+                        >
                           Siguiente
                         </Button>
                       </div>
@@ -579,55 +728,70 @@ export default function ServiceRequestForm({
                       exit={{ opacity: 0 }}
                       className="space-y-6"
                     >
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <FormField
-                          control={control}
-                          name="department"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormControl>
-                                <Input
-                                  {...field}
-                                  label="Departamento"
-                                  placeholder="Ej: Lima"
-                                  icon={MapPin}
-                                />
-                              </FormControl>
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={control}
-                          name="province"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormControl>
-                                <Input
-                                  {...field}
-                                  label="Provincia"
-                                  placeholder="Ej: Lima"
-                                  icon={MapPin}
-                                />
-                              </FormControl>
-                            </FormItem>
-                          )}
-                        />
-                        <div className="md:col-span-2">
+                      {serviceMode === "home-service" && (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <FormField
                             control={control}
-                            name="district"
+                            name="location.department"
                             render={({ field }) => (
                               <FormItem>
                                 <FormControl>
                                   <Input
                                     {...field}
                                     {...useFormHelpers(
-                                      "district",
+                                      "location.department",
+                                      serviceRequestSchema
+                                    )}
+                                    label="Departamento"
+                                    placeholder="Ej: Lima"
+                                    icon={MapPin}
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={control}
+                            name="location.province"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormControl>
+                                  <Input
+                                    {...field}
+                                    {...useFormHelpers(
+                                      "location.province",
+                                      serviceRequestSchema
+                                    )}
+                                    label="Provincia"
+                                    placeholder="Ej: Lima"
+                                    icon={MapPin}
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      )}
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="md:col-span-2">
+                          <FormField
+                            control={control}
+                            name="location.district"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormControl>
+                                  <Select
+                                    {...field}
+                                    {...useFormHelpers(
+                                      "location.district",
                                       serviceRequestSchema
                                     )}
                                     label="Distrito"
-                                    placeholder="Ej: Santiago de Surco"
+                                    placeholder="Seleccionar"
                                     icon={Locate}
+                                    options={DISTRICTS}
+                                    onValueChange={field.onChange}
                                   />
                                 </FormControl>
                               </FormItem>
@@ -636,7 +800,7 @@ export default function ServiceRequestForm({
                         </div>
                       </div>
 
-                      {serviceMode === "technical-visit" && (
+                      {serviceMode === "home-service" && (
                         <motion.div
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
@@ -646,14 +810,14 @@ export default function ServiceRequestForm({
                             <div className="md:col-span-2">
                               <FormField
                                 control={control}
-                                name="exactAddress"
+                                name="location.exactAddress"
                                 render={({ field }) => (
                                   <FormItem>
                                     <FormControl>
                                       <Input
                                         {...field}
                                         {...useFormHelpers(
-                                          "exactAddress",
+                                          "location.exactAddress",
                                           serviceRequestSchema
                                         )}
                                         label="Dirección Exacta"
@@ -665,15 +829,47 @@ export default function ServiceRequestForm({
                                 )}
                               />
                             </div>
-                            <Input
-                              label="Interior"
-                              placeholder="Dpto, Of, Bloque"
-                              icon={DoorOpen}
+
+                            <FormField
+                              control={control}
+                              name="location.interior"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormControl>
+                                    <Input
+                                      {...field}
+                                      {...useFormHelpers(
+                                        "location.interior",
+                                        serviceRequestSchema
+                                      )}
+                                      label="Interior"
+                                      placeholder="Dpto, Of, Bloque"
+                                      icon={DoorOpen}
+                                    />
+                                  </FormControl>
+                                </FormItem>
+                              )}
                             />
-                            <Input
-                              label="Referencia"
-                              placeholder="Ej: Frente al parque..."
-                              icon={Info}
+
+                            <FormField
+                              control={control}
+                              name="location.reference"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormControl>
+                                    <Input
+                                      {...field}
+                                      {...useFormHelpers(
+                                        "location.reference",
+                                        serviceRequestSchema
+                                      )}
+                                      label="Referencia"
+                                      placeholder="Ej: Frente al parque..."
+                                      icon={Info}
+                                    />
+                                  </FormControl>
+                                </FormItem>
+                              )}
                             />
                           </div>
                         </motion.div>
@@ -705,9 +901,9 @@ export default function ServiceRequestForm({
                       animate={{ scale: 1, opacity: 1 }}
                       className="text-center py-12"
                     >
-                      <div className="h-24 w-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-primary/20">
+                      <div className="h-24 w-24 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-success/20">
                         <CheckCircle2
-                          className="h-12 w-12 text-primary"
+                          className="h-12 w-12 text-success"
                           strokeWidth={1.5}
                         />
                       </div>
