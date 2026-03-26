@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="fixed validations">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="updated next config">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/next.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/components/ServiceRequestForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/ServiceRequestForm.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,14 +127,6 @@
       <workItem from="1773088174767" duration="4057000" />
       <workItem from="1773419668506" duration="1352000" />
       <workItem from="1773440045045" duration="3993000" />
-    </task>
-    <task id="LOCAL-00011" summary="added card and textarea of shadcn">
-      <option name="closed" value="true" />
-      <created>1769644821905</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1769644821905</updated>
     </task>
     <task id="LOCAL-00012" summary="updated workspace">
       <option name="closed" value="true" />
@@ -520,7 +512,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774563964523</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="updated next config">
+      <option name="closed" value="true" />
+      <created>1774564045139</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1774564045139</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -538,7 +538,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added whatsapp button" />
     <MESSAGE value="updated metadata and added og-image" />
     <MESSAGE value="refactores WhatsAppButton.tsx" />
     <MESSAGE value="refactored input component" />
@@ -563,6 +562,7 @@
     <MESSAGE value="updated styles" />
     <MESSAGE value="refactored service request form" />
     <MESSAGE value="fixed validations" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed validations" />
+    <MESSAGE value="updated next config" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated next config" />
   </component>
 </project>

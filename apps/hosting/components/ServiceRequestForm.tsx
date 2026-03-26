@@ -49,7 +49,8 @@ export default function ServiceRequestForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<ServiceRequestFormData>({
-    resolver: zodResolver(serviceRequestSchema),
+    resolver: zodResolver(serviceRequestSchema) as any,
+    mode: "onChange",
     defaultValues: {
       client: {
         names: "",
