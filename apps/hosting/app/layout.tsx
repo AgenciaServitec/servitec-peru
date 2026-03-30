@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -115,6 +115,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+  const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
   return (
     <html
@@ -122,9 +123,22 @@ export default function RootLayout({
       className="dark bg-[#050505]"
       style={{ colorScheme: "dark" }}
     >
+      {GTM_ID && <GoogleTagManager gtmId={GTM_ID} />}
+
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased relative text-white bg-[#050505] selection:bg-primary/30 min-h-screen flex flex-col overflow-x-hidden`}
       >
+        {GTM_ID && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+            />
+          </noscript>
+        )}
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

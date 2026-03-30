@@ -4,23 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="feat(hosting): implementar validación de seguridad con Google reCAPTCHA v3">
       <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/SServiceRequestCard.tsx" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/ServiceDetailsDrawer.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/hosting/app/api/services/route.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/hosting/providers/CaptchaProvider.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/especialidades/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/especialidades/[slug]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/globals.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/components/ServiceRequestForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/ServiceRequestForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/lib/hooks/useFormHelpers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/lib/hooks/useFormHelpers.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/lib/validations/service-request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/lib/validations/service-request.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/next.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/turbo.json" beforeDir="false" afterPath="$PROJECT_DIR$/turbo.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,15 +133,7 @@
       <workItem from="1774744308333" duration="6000" />
       <workItem from="1774791775860" duration="2112000" />
       <workItem from="1774874620736" duration="6042000" />
-      <workItem from="1774897935652" duration="11017000" />
-    </task>
-    <task id="LOCAL-00012" summary="updated workspace">
-      <option name="closed" value="true" />
-      <created>1769644836773</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1769644836773</updated>
+      <workItem from="1774897935652" duration="11654000" />
     </task>
     <task id="LOCAL-00013" summary="updated design">
       <option name="closed" value="true" />
@@ -538,7 +519,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774564045139</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="feat(hosting): implementar validación de seguridad con Google reCAPTCHA v3">
+      <option name="closed" value="true" />
+      <created>1774909676247</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1774909676248</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -556,7 +545,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="updated metadata and added og-image" />
     <MESSAGE value="refactores WhatsAppButton.tsx" />
     <MESSAGE value="refactored input component" />
     <MESSAGE value="updated ruc in footer" />
@@ -581,6 +569,7 @@
     <MESSAGE value="refactored service request form" />
     <MESSAGE value="fixed validations" />
     <MESSAGE value="updated next config" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated next config" />
+    <MESSAGE value="feat(hosting): implementar validación de seguridad con Google reCAPTCHA v3" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(hosting): implementar validación de seguridad con Google reCAPTCHA v3" />
   </component>
 </project>
