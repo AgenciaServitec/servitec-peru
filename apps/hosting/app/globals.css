@@ -255,3 +255,9 @@
 .animate-marquee-reverse:has(.photo-card:hover) {
   animation-play-state: paused;
 }
+
+.grecaptcha-badge {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

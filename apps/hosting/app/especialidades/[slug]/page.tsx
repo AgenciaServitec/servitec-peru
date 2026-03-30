@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import SpecialtyDetailLayout from "@/components/SpecialtyDetailLayout";
 import { SPECIALTIES_DATA } from "@/data-list/specialties";
+import { CaptchaProvider } from "@/providers/CaptchaProvider";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -78,7 +79,7 @@ export default async function SpecialtiesTypes({ params }: PageProps) {
   };
 
   return (
-    <>
+    <CaptchaProvider>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -87,7 +88,7 @@ export default async function SpecialtiesTypes({ params }: PageProps) {
         specialtyName={specialty.title}
         specialtyType={specialty.type}
       />
-    </>
+    </CaptchaProvider>
   );
 }
 

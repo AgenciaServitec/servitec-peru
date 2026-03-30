@@ -9,99 +9,88 @@ const imageSchema = z.object({
   url: z.string().url("Debe ser una URL válida"),
 });
 
-const documentSchema = z
-  .object({
-    type: z.enum(["dni", "ruc"]),
-    number: z.string(),
-  })
-  .superRefine((data, ctx) => {
-    if (data.type === "dni" && data.number.length !== 8) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "El DNI debe tener exactamente 8 dígitos",
-        path: ["number"],
-      });
-    }
+const dniFields = {
+  fullName: z.string().min(1, "El nombre completo es obligatorio para DNI"),
+  names: z.string().optional(),
+  paternalSurname: z.string().optional(),
+  maternalSurname: z.string().optional(),
+};
 
-    if (data.type === "ruc" && data.number.length !== 11) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "El RUC debe tener exactamente 11 dígitos",
-        path: ["number"],
-      });
-    }
+const rucFields = {
+  companyName: z.string().min(1, "La razón social es obligatoria para RUC"),
+};
 
-    if (!/^\d+$/.test(data.number)) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "El número debe contener solo dígitos",
-        path: ["number"],
-      });
-    }
-  });
-
-export const serviceRequestSchema = z
-  .object({
-    client: z.object({
-      names: z.string().nullish().or(z.literal("")),
-      paternalSurname: z.string().nullish().or(z.literal("")),
-      maternalSurname: z.string().nullish().or(z.literal("")),
-      fullName: z.string().min(1, "El nombre es obligatorio"),
-      email: z.string().email("Email inválido"),
-      document: documentSchema,
-      phone: z.object({
-        prefix: z.string().default("+51"),
-        number: z.string().min(9, "Mínimo 9 dígitos"),
-      }),
+const clientSchema = z.union([
+  z.object({
+    document: z.object({
+      type: z.literal("dni"),
+      number: z
+        .string()
+        .length(8, "El DNI debe tener 8 dígitos")
+        .regex(/^\d+$/),
     }),
-    device: z.object({
-      category: z.string(),
-      brand: z.string().min(1, "Marca obligatoria"),
-      model: z.string().min(1, "Modelo obligatorio"),
-      serialNumber: z.string().nullish().or(z.literal("")),
+    ...dniFields,
+    email: z.string().email(),
+    phone: z.object({ prefix: z.string(), number: z.string().min(9) }),
+  }),
+
+  z.object({
+    document: z.object({
+      type: z.literal("ruc"),
+      number: z
+        .string()
+        .length(11, "El RUC debe tener 11 dígitos")
+        .regex(/^\d+$/),
     }),
-    serviceMode: z.string(),
+    ...rucFields,
+    email: z.string().email(),
+    phone: z.object({ prefix: z.string(), number: z.string().min(9) }),
+  }),
+]);
+
+export const baseSchema = z.object({
+  client: clientSchema,
+  device: z.object({
+    category: z.string().optional(),
+    brand: z.string().min(1),
+    model: z.string().min(1),
+    serialNumber: z.string().optional(),
+  }),
+  status: z.enum(["pending"]),
+  priority: z.enum(["low", "medium", "high"]),
+  issueDescription: z.string().min(10),
+});
+
+const serviceModeSchema = z.discriminatedUnion("serviceMode", [
+  z.object({
+    serviceMode: z.literal("store-visit"),
     location: z.object({
-      department: z.string().default("Lima"),
-      province: z.string().default("Lima"),
-      district: z.string().nullish().or(z.literal("")),
-      exactAddress: z.string().nullish().or(z.literal("")),
-      interior: z.string().nullish().or(z.literal("")),
-      reference: z.string().nullish().or(z.literal("")),
+      district: z
+        .string()
+        .min(1, "El distrito es obligatorio para visitas a tienda"),
+      department: z.string().optional().default("Lima"),
+      province: z.string().optional().default("Lima"),
+      exactAddress: z.string().optional().default(""),
+      interior: z.string().optional().default(""),
+      reference: z.string().optional().default(""),
     }),
-    priority: z.enum(["low", "medium", "high"]),
-    status: z.string().optional().default("pending"),
-    issueDescription: z
-      .string()
-      .min(10, "Describe mejor el problema (mín. 10 caracteres)"),
-  })
-  .superRefine((data, ctx) => {
-    if (data.serviceMode === "home-service") {
-      if (!data.location.district || data.location.district.length < 1) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Selecciona tu distrito",
-          path: ["location", "district"],
-        });
-      }
-      if (
-        !data.location.exactAddress ||
-        data.location.exactAddress.length < 5
-      ) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "La dirección es obligatoria para visitas a domicilio",
-          path: ["location", "exactAddress"],
-        });
-      }
-      if (!data.location.reference || data.location.reference.length < 3) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Ingresa una referencia para ayudar al técnico",
-          path: ["location", "reference"],
-        });
-      }
-    }
-  });
+  }),
 
+  z.object({
+    serviceMode: z.literal("home-service"),
+    location: z.object({
+      department: z.string().min(1, "El departamento es obligatorio"),
+      province: z.string().min(1, "La provincia es obligatoria"),
+      district: z.string().min(1, "El distrito es obligatorio"),
+      exactAddress: z.string().optional().default(""),
+      interior: z.string().optional().default(""),
+      reference: z.string().optional().default(""),
+    }),
+  }),
+]);
+
+export const serviceRequestSchema = z.intersection(
+  baseSchema,
+  serviceModeSchema
+);
 export type ServiceRequestFormData = z.infer<typeof serviceRequestSchema>;

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AnimatePresence, motion } from "framer-motion";
 import {
+  Building,
   CheckCircle2,
   Clock,
   Cpu,
@@ -39,6 +40,8 @@ import {
 } from "@/lib/validations/service-request";
 import { cn } from "@/lib/utils";
 import { DISTRICTS } from "@/data-list/districts";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import { toast } from "sonner";
 
 export default function ServiceRequestForm({
   specialtyName,
@@ -47,16 +50,17 @@ export default function ServiceRequestForm({
 }) {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const form = useForm<ServiceRequestFormData>({
     resolver: zodResolver(serviceRequestSchema) as any,
-    mode: "onChange",
     defaultValues: {
       client: {
         names: "",
         paternalSurname: "",
         maternalSurname: "",
         fullName: "",
+        companyName: "",
         email: "",
         document: {
           type: "dni",
@@ -75,8 +79,8 @@ export default function ServiceRequestForm({
       },
       serviceMode: "store-visit",
       location: {
-        department: "Lima",
-        province: "Lima",
+        department: "lima",
+        province: "lima",
         district: "",
         exactAddress: "",
         interior: "",
@@ -142,25 +146,39 @@ export default function ServiceRequestForm({
   const prevStep = () => setStep((s) => s - 1);
 
   const onSubmit = async (data: ServiceRequestFormData) => {
+    if (!executeRecaptcha) return;
+
     setIsSubmitting(true);
     try {
+      const token = await executeRecaptcha("service_request");
+      const payload = { ...data, captchaToken: token };
+
       const response = await fetch(
         "https://api-servitec-peru.web.app/web-services-requests",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
+          body: JSON.stringify(payload),
         }
       );
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("❌ Error del servidor:", errorData);
+      if (response.ok) {
+        setStep(5);
+        toast.success("Envío exitoso", {
+          description: "Tu registro se completó correctamente.",
+          duration: 3000,
+        });
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        toast.error("Error en el envío", {
+          description:
+            errorData.error || "Revisa los datos e intenta de nuevo.",
+        });
       }
-
-      if (response.ok) setStep(5);
     } catch (e) {
-      console.error(e);
+      toast.error("Error de conexión", {
+        description: "No se pudo conectar con el servidor de Servitec.",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -296,28 +314,53 @@ export default function ServiceRequestForm({
                             )}
                           />
                         </div>
-                        <div className="md:col-span-4">
-                          <FormField
-                            control={control}
-                            name="client.fullName"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormControl>
-                                  <Input
-                                    {...field}
-                                    {...useFormHelpers(
-                                      "client.fullName",
-                                      serviceRequestSchema
-                                    )}
-                                    label="Nombre Completo / Razón Social"
-                                    placeholder="Ej: Juan Perez o Servitec S.A.C."
-                                    icon={User}
-                                  />
-                                </FormControl>
-                              </FormItem>
-                            )}
-                          />
-                        </div>
+                        {docType === "dni" ? (
+                          <div className="md:col-span-4">
+                            <FormField
+                              control={control}
+                              name="client.fullName"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormControl>
+                                    <Input
+                                      {...field}
+                                      {...useFormHelpers(
+                                        "client.fullName",
+                                        serviceRequestSchema
+                                      )}
+                                      label="Nombre Completo"
+                                      placeholder="Ej: Juan Perez"
+                                      icon={User}
+                                    />
+                                  </FormControl>
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+                        ) : (
+                          <div className="md:col-span-4">
+                            <FormField
+                              control={control}
+                              name="client.companyName"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormControl>
+                                    <Input
+                                      {...field}
+                                      {...useFormHelpers(
+                                        "client.companyName",
+                                        serviceRequestSchema
+                                      )}
+                                      label="Razón Social"
+                                      placeholder="Ej: Servitec S.A.C."
+                                      icon={Building}
+                                    />
+                                  </FormControl>
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+                        )}
                         <div className="md:col-span-2">
                           <FormField
                             control={control}
@@ -788,7 +831,11 @@ export default function ServiceRequestForm({
                                       "location.district",
                                       serviceRequestSchema
                                     )}
-                                    label="Distrito"
+                                    label={
+                                      serviceMode === "store-visit"
+                                        ? "¿Desde dónde nos visitas?"
+                                        : "Distrito"
+                                    }
                                     placeholder="Seleccionar"
                                     icon={Locate}
                                     options={DISTRICTS}
@@ -930,6 +977,28 @@ export default function ServiceRequestForm({
                       </div>
                     </motion.div>
                   )}
+
+                  <p className="text-center mt-4 text-[10px] text-white/30 leading-tight">
+                    Este sitio está protegido por reCAPTCHA y se aplican la{" "}
+                    <a
+                      href="https://policies.google.com/privacy"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="underline hover:text-info transition-colors"
+                    >
+                      Política de privacidad
+                    </a>{" "}
+                    y los{" "}
+                    <a
+                      href="https://policies.google.com/terms"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="underline hover:text-info transition-colors"
+                    >
+                      Términos de servicio
+                    </a>{" "}
+                    de Google.
+                  </p>
                 </AnimatePresence>
               </form>
             </Form>

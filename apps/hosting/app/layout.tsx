@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
 
 import "./globals.css";
-import { CookieBanner } from "@/components/CookieBanner";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { HeaderLayout } from "@/components/HeaderLayout";
 import { FooterLayout } from "@/components/FooterLayout";
@@ -138,6 +138,8 @@ export default function RootLayout({
         <FooterLayout />
 
         <WhatsAppButton />
+
+        <Toaster position="bottom-left" richColors />
 
         {GA_ID ? <GoogleAnalytics gaId={GA_ID} /> : null}
       </body>

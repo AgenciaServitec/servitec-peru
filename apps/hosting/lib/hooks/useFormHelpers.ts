@@ -1,7 +1,8 @@
 import { useFormContext } from "react-hook-form";
 import * as z from "zod";
 
-export const useFormHelpers = (name: string, schema: z.ZodObject<any>) => {
+// 1. Cambiamos a z.ZodTypeAny para aceptar Uniones e Intersecciones
+export const useFormHelpers = (name: string, schema: z.ZodTypeAny) => {
   const {
     watch,
     formState: { errors, touchedFields },
@@ -15,29 +16,47 @@ export const useFormHelpers = (name: string, schema: z.ZodObject<any>) => {
 
   const errorEntry = getNestedValue(errors, name);
   const error = errorEntry?.message as string | undefined;
-
   const isTouched = !!getNestedValue(touchedFields, name);
-
   const hasValue =
     fieldValue !== undefined && fieldValue !== null && fieldValue !== "";
 
-  const getFieldSchema = (name: string, schema: z.ZodObject<any>) => {
-    const parts = name.split(".");
-    let currentSchema: any = schema;
+  // 2. Refactorizamos para que navegue por Uniones y Objetos
+  const getFieldSchema = (
+    path: string,
+    currentSchema: any
+  ): z.ZodTypeAny | undefined => {
+    const parts = path.split(".");
+    let target = currentSchema;
 
     for (const part of parts) {
-      const target = currentSchema._def?.schema || currentSchema;
-      if (target.shape && target.shape[part]) {
-        currentSchema = target.shape[part];
+      // Si es una Unión Discriminada, buscamos en sus opciones
+      if (target instanceof z.ZodDiscriminatedUnion) {
+        // Buscamos en la primera opción que tenga la propiedad (asumimos estructura similar)
+        target = target.options.find(
+          (opt: any) => opt.shape && opt.shape[part]
+        );
+      }
+
+      // Si es un objeto o el resultado de una unión, extraemos el campo
+      if (target && "shape" in target) {
+        target = target.shape[part];
+      } else if (target && "_def" in target && target._def.shape) {
+        target = target._def.shape[part];
+      } else {
+        return undefined;
       }
     }
-    return currentSchema;
+    return target;
   };
 
   const fieldSchema = getFieldSchema(name, schema);
 
+  // 3. Verificamos si es opcional de forma segura
   const isRequired = fieldSchema
-    ? !(fieldSchema instanceof z.ZodOptional)
+    ? !(
+        fieldSchema instanceof z.ZodOptional ||
+        fieldSchema instanceof z.ZodNullable
+      )
     : false;
 
   return {
