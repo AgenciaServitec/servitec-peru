@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="feat(hosting): implementar validación de seguridad con Google reCAPTCHA v3">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/home/ShortcutCard.tsx" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/SServiceRequestCard.tsx" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/ServiceDetailsDrawer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/AssistanceMonitor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/AssistanceMonitor.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/home/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/home/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/layout.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +22,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="tsconfig.json" />
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -133,15 +135,7 @@
       <workItem from="1774744308333" duration="6000" />
       <workItem from="1774791775860" duration="2112000" />
       <workItem from="1774874620736" duration="6042000" />
-      <workItem from="1774897935652" duration="11654000" />
-    </task>
-    <task id="LOCAL-00013" summary="updated design">
-      <option name="closed" value="true" />
-      <created>1769651352148</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1769651352148</updated>
+      <workItem from="1774897935652" duration="16225000" />
     </task>
     <task id="LOCAL-00014" summary="removed files">
       <option name="closed" value="true" />
@@ -527,7 +521,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774909676248</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="feat(hosting): integrar Google Tag Manager, Analytics y SEO estructurado">
+      <option name="closed" value="true" />
+      <created>1774910463983</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1774910463983</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -545,7 +547,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactores WhatsAppButton.tsx" />
     <MESSAGE value="refactored input component" />
     <MESSAGE value="updated ruc in footer" />
     <MESSAGE value="updated footer" />
@@ -570,6 +571,7 @@
     <MESSAGE value="fixed validations" />
     <MESSAGE value="updated next config" />
     <MESSAGE value="feat(hosting): implementar validación de seguridad con Google reCAPTCHA v3" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(hosting): implementar validación de seguridad con Google reCAPTCHA v3" />
+    <MESSAGE value="feat(hosting): integrar Google Tag Manager, Analytics y SEO estructurado" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(hosting): integrar Google Tag Manager, Analytics y SEO estructurado" />
   </component>
 </project>

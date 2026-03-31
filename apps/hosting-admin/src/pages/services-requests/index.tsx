@@ -1,7 +1,7 @@
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useNavigate } from "react-router-dom";
 import { servicesRequestsRef } from "../../firebase/collections";
-import { Button, Col, Row, Title, Tabs } from "../../components";
+import { Button, Col, Row, Tabs, Title } from "../../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { ServicesRequestsCards } from "./ServicesRequestsCards.tsx";
@@ -9,6 +9,7 @@ import { ModalProvider, useAuthentication, useModal } from "../../providers";
 import { useDevice } from "../../hooks";
 import { ServiceRequestDetail } from "./ServiceRequestDetail.tsx";
 import type { ServiceRequest } from "../../globalTypes.ts";
+import { ServiceRequestCard } from "./SServiceRequestCard.tsx";
 
 export const ServicesRequestsIntegrations = () => {
   const navigate = useNavigate();
@@ -110,8 +111,12 @@ const ServicesRequests = ({
         </Button>
       </Col>
 
+      {/*<Col span={24}>*/}
+      {/*  <Tabs defaultActiveKey="1" items={items} />*/}
+      {/*</Col>*/}
+
       <Col span={24}>
-        <Tabs defaultActiveKey="1" items={items} />
+        <ServiceRequestCard />
       </Col>
     </Row>
   );
