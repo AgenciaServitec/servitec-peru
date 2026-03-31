@@ -8,7 +8,9 @@ import {
 } from "../firestore";
 import type { ServiceRequest } from "../../globalTypes";
 
-export const servicesRequestsRef = firestore.collection("services-requests");
+export const servicesRequestsRef = firestore.collection(
+  "web-services-requests"
+);
 export const getServiceRequestId = (): string => servicesRequestsRef.doc().id;
 
 export const fetchServicesRequests = async (

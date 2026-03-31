@@ -1,19 +1,43 @@
 import React, { useMemo } from "react";
 import { orderBy } from "lodash";
-import { Row, Col, Card, Empty } from "../../components";
-import { ServicesRequestCard } from "./ServiceRequestCard";
+import styled from "styled-components";
+import { Card, Empty, Skeleton } from "antd";
+import { ServiceRequestCard } from "./ServiceRequestCard";
+
+const RequestsGrid = styled.section`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 345px);
+  gap: 24px;
+  width: 100%;
+  justify-content: center;
+
+  @media (max-width: 420px) {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+`;
+
+const LoadingCard = styled(Card)`
+  width: 345px;
+  border-radius: 12px;
+  background: ${({ theme }) => theme.colors.bgSecondary};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+
+  @media (max-width: 420px) {
+    width: 100%;
+  }
+`;
 
 interface Props {
   servicesRequests: any[];
   servicesRequestsLoading: boolean;
-  onShowServiceDetail: () => void;
+  onShowServiceDetail: (request: any) => void;
 }
 
 export const ServicesRequestsCards: React.FC<Props> = ({
   servicesRequests,
   servicesRequestsLoading,
   onShowServiceDetail,
-  navigate,
 }) => {
   const sortedRequests = useMemo(() => {
     return orderBy(
@@ -23,33 +47,42 @@ export const ServicesRequestsCards: React.FC<Props> = ({
     );
   }, [servicesRequests]);
 
-  if (servicesRequestsLoading) {
+  if (servicesRequestsLoading && sortedRequests.length === 0) {
     return (
-      <Row gutter={[24, 24]}>
-        {[1, 2, 3].map((i) => (
-          <Col xs={24} sm={12} xl={8} key={i}>
-            <Card loading={true} style={{ borderRadius: "28px" }} />
-          </Col>
+      <RequestsGrid>
+        {[1, 2, 3, 4].map((i) => (
+          <LoadingCard key={i}>
+            <Skeleton
+              active
+              avatar={{ size: "large" }}
+              paragraph={{ rows: 4 }}
+            />
+          </LoadingCard>
         ))}
-      </Row>
+      </RequestsGrid>
     );
   }
 
-  if (!sortedRequests.length) {
-    return <Empty description="No hay solicitudes" style={{ marginTop: 40 }} />;
+  if (sortedRequests.length === 0) {
+    return (
+      <Empty
+        description={
+          <span style={{ color: "#8c8c8c" }}>No hay solicitudes entrantes</span>
+        }
+        style={{ marginTop: 80 }}
+      />
+    );
   }
 
   return (
-    <Row gutter={[24, 24]}>
+    <RequestsGrid>
       {sortedRequests.map((request) => (
-        <Col xs={24} sm={12} xl={8} key={request.id}>
-          <ServicesRequestCard
-            request={request}
-            onShowServiceDetail={onShowServiceDetail}
-            navigate={navigate}
-          />
-        </Col>
+        <ServiceRequestCard
+          key={request.id}
+          data={request}
+          onOpenPage={() => onShowServiceDetail(request)}
+        />
       ))}
-    </Row>
+    </RequestsGrid>
   );
 };

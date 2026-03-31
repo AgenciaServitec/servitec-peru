@@ -2,301 +2,418 @@ import {
   Button,
   Divider,
   Drawer,
-  Image,
+  message,
   Space,
   Tag,
-  Timeline,
   Tooltip,
   Typography,
 } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCircleCheck,
   faCircleInfo,
-  faClock,
-  faFileInvoiceDollar,
+  faCopy,
+  faEnvelope,
   faHistory,
-  faImages,
+  faHouseSignal,
+  faIdCard,
+  faMapMarkerAlt,
   faMicrochip,
+  faPhone,
   faPrint,
   faShareNodes,
   faShieldHalved,
+  faStore,
+  faTriangleExclamation,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
+import { Title } from "../../components";
+import dayjs from "dayjs";
 
-const { Text, Title, Paragraph } = Typography;
+const { Text, Paragraph } = Typography;
 
 const SectionTitle = styled(Space)`
   margin-bottom: 16px;
   width: 100%;
-`;
 
-const CostCard = styled.div`
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 8px;
-  padding: 16px;
-  margin-top: 8px;
+  .ant-typography {
+    letter-spacing: 0.3px;
+  }
 `;
 
 const SpecItem = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 8px;
+  align-items: center;
+  margin-bottom: 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  padding-bottom: 4px;
+  padding-bottom: 8px;
+`;
+
+const ContactGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+`;
+
+const InfoBlock = styled.div<{ $variant?: "gold" | "blue" | "default" }>`
+  padding: 18px;
+  border-radius: 10px;
+  margin-bottom: 32px;
+
+  ${({ $variant }) => {
+    if ($variant === "gold")
+      return `
+        background: rgba(250, 173, 20, 0.03);
+        border: 1px solid rgba(250, 173, 20, 0.15);
+      `;
+    if ($variant === "blue")
+      return `
+        background: rgba(24, 144, 255, 0.03);
+        border: 1px solid rgba(24, 144, 255, 0.15);
+      `;
+    return `
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    `;
+  }}
 `;
 
 export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
   if (!data) return null;
+
+  const copyToClipboard = (text: string, label: string) => {
+    navigator.clipboard.writeText(text);
+    message.success(`${label} copiado`);
+  };
+
+  const priorityColor =
+    data.priority === "high"
+      ? "#ff4d4f"
+      : data.priority === "medium"
+        ? "#faad14"
+        : "#52c41a";
+
+  const formattedTime = data.createAt
+    ? dayjs(data.createAt.toDate()).format("hh:mm A")
+    : data.requestTime || "--:--";
+
+  const formattedDate = data.createAt
+    ? dayjs(data.createAt.toDate()).format("D [de] MMMM, YYYY")
+    : data.requestTime || "--:--";
 
   return (
     <Drawer
       title={
         <Space>
           <FontAwesomeIcon icon={faCircleInfo} style={{ color: "#faad14" }} />
-          <span>Detalles de Solicitud {data.id}</span>
+          <Text style={{ fontSize: 16, color: "#fff", fontWeight: 500 }}>
+            Solicitud {data.id}
+          </Text>
         </Space>
       }
       placement="right"
       onClose={onClose}
       open={open}
-      width={480}
+      width={520}
+      headerStyle={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}
+      bodyStyle={{ background: "#0a0a0a" }}
       extra={
         <Space>
           <Tooltip title="Imprimir Orden">
-            <Button type="text" icon={<FontAwesomeIcon icon={faPrint} />} />
+            <Button
+              type="text"
+              icon={
+                <FontAwesomeIcon icon={faPrint} style={{ color: "#8c8c8c" }} />
+              }
+            />
           </Tooltip>
           <Tooltip title="Compartir con Cliente">
             <Button
               type="text"
-              icon={<FontAwesomeIcon icon={faShareNodes} />}
+              icon={
+                <FontAwesomeIcon
+                  icon={faShareNodes}
+                  style={{ color: "#8c8c8c" }}
+                />
+              }
             />
           </Tooltip>
         </Space>
       }
     >
-      {/* 1. Resumen de Estado */}
-      <div style={{ marginBottom: 24 }}>
-        <Tag color="gold" style={{ margin: 0, fontWeight: 700 }}>
-          {data.status.toUpperCase()}
-        </Tag>
-        <Text type="secondary" style={{ marginLeft: 12, fontSize: 12 }}>
-          Registrado el 30 de Marzo, 2026
-        </Text>
+      {/* 1. Cabecera */}
+      <div
+        style={{
+          marginBottom: 32,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+        }}
+      >
+        <Space direction="vertical" size={8}>
+          <Space>
+            <Tag
+              style={{
+                margin: 0,
+                fontWeight: 600,
+                borderRadius: "4px",
+                fontSize: 11,
+                background: "transparent", // Quitamos fondo blanco
+                color: "#faad14",
+                borderColor: "#faad14",
+              }}
+            >
+              {data.status.toUpperCase()}
+            </Tag>
+            <Tag
+              icon={
+                <FontAwesomeIcon
+                  icon={faTriangleExclamation}
+                  style={{ fontSize: 9 }}
+                />
+              }
+              style={{
+                margin: 0,
+                fontWeight: 600,
+                borderRadius: "4px",
+                fontSize: 11,
+                background: "transparent", // Quitamos fondo blanco
+                color: priorityColor,
+                borderColor: priorityColor,
+              }}
+            >
+              {data.priority === "high"
+                ? "URGENTE"
+                : data.priority === "medium"
+                  ? "NORMAL"
+                  : "BAJA"}
+            </Tag>
+          </Space>
+          <Text type="secondary" style={{ fontSize: 11 }}>
+            Ingresado vía {data.source}
+          </Text>
+        </Space>
+
+        <div style={{ textAlign: "right" }}>
+          <Text
+            style={{
+              display: "block",
+              fontSize: 14,
+              color: "#fff",
+              fontWeight: 500,
+            }}
+          >
+            {formattedTime}
+          </Text>
+          <Text type="secondary" style={{ fontSize: 11 }}>
+            {formattedDate}
+          </Text>
+        </div>
       </div>
 
-      {/* NUEVA SECCIÓN: ESPECIFICACIONES TÉCNICAS */}
+      {/* 2. Información del Cliente */}
       <SectionTitle>
-        <FontAwesomeIcon icon={faMicrochip} style={{ color: "#8c8c8c" }} />
-        <Text strong>DATOS DEL DISPOSITIVO</Text>
+        <FontAwesomeIcon
+          icon={faUser}
+          style={{ color: "#faad14", fontSize: 13 }}
+        />
+        <Text style={{ fontSize: 13, color: "#fff", fontWeight: 500 }}>
+          Información del cliente
+        </Text>
       </SectionTitle>
-      <div style={{ marginBottom: 32 }}>
+
+      <InfoBlock $variant="gold">
+        <Title
+          level={5}
+          style={{ margin: "0 0 16px 0", color: "#fff", fontWeight: 500 }}
+        >
+          {data.client.fullName}
+        </Title>
+
+        <ContactGrid>
+          <Space direction="vertical" size={2}>
+            <Text type="secondary" style={{ fontSize: 11 }}>
+              <FontAwesomeIcon icon={faIdCard} style={{ marginRight: 6 }} />
+              {data.client.document.type.toUpperCase()}
+            </Text>
+            <Space size={4}>
+              <Text style={{ fontSize: 13, color: "#fff" }}>
+                {data.client.document.number}
+              </Text>
+              <Button
+                type="text"
+                size="small"
+                icon={
+                  <FontAwesomeIcon
+                    icon={faCopy}
+                    style={{ fontSize: 10, color: "#595959" }}
+                  />
+                }
+                onClick={() =>
+                  copyToClipboard(data.client.document.number, "DNI")
+                }
+              />
+            </Space>
+          </Space>
+
+          <Space direction="vertical" size={2}>
+            <Text type="secondary" style={{ fontSize: 11 }}>
+              <FontAwesomeIcon icon={faPhone} style={{ marginRight: 6 }} />{" "}
+              Teléfono
+            </Text>
+            <Text style={{ fontSize: 13, color: "#52c41a", fontWeight: 500 }}>
+              {data.client.phone.prefix} {data.client.phone.number}
+            </Text>
+          </Space>
+
+          <Space direction="vertical" size={2}>
+            <Text type="secondary" style={{ fontSize: 11 }}>
+              <FontAwesomeIcon icon={faEnvelope} style={{ marginRight: 6 }} />{" "}
+              Correo
+            </Text>
+            <Text
+              ellipsis={{ tooltip: data.client.email }}
+              style={{ fontSize: 13, color: "#fff" }}
+            >
+              {data.client.email}
+            </Text>
+          </Space>
+
+          <Space direction="vertical" size={2}>
+            <Text type="secondary" style={{ fontSize: 11 }}>
+              <FontAwesomeIcon
+                icon={
+                  data.serviceMode === "home-service" ? faHouseSignal : faStore
+                }
+                style={{ marginRight: 6 }}
+              />
+              Tipo de servicio
+            </Text>
+            <Tag
+              style={{
+                margin: 0,
+                fontSize: 10,
+                borderRadius: 3,
+                background: "transparent", // Quitamos fondo blanco
+                color:
+                  data.serviceMode === "home-service" ? "#1890ff" : "#b37feb",
+                borderColor:
+                  data.serviceMode === "home-service" ? "#1890ff" : "#b37feb",
+              }}
+            >
+              {data.serviceMode === "home-service"
+                ? "A DOMICILIO"
+                : "EN TIENDA"}
+            </Tag>
+          </Space>
+        </ContactGrid>
+
+        <Divider
+          style={{ margin: "12px 0", borderColor: "rgba(255,255,255,0.06)" }}
+        />
+
+        <Space align="start">
+          <FontAwesomeIcon
+            icon={faMapMarkerAlt}
+            style={{ color: "#ff4d4f", marginTop: 4, fontSize: 12 }}
+          />
+          <div>
+            <Text style={{ fontSize: 13, color: "#fff" }}>
+              {data.location.district}
+            </Text>
+            <br />
+            <Text type="secondary" style={{ fontSize: 12 }}>
+              {data.location.exactAddress}
+            </Text>
+          </div>
+        </Space>
+      </InfoBlock>
+
+      {/* 3. Datos del Equipo - AHORA CON VARIANT GOLD */}
+      <SectionTitle>
+        <FontAwesomeIcon
+          icon={faMicrochip}
+          style={{ color: "#8c8c8c", fontSize: 13 }}
+        />
+        <Text style={{ fontSize: 13, color: "#fff", fontWeight: 500 }}>
+          Datos del equipo
+        </Text>
+      </SectionTitle>
+
+      <InfoBlock $variant="gold">
         <SpecItem>
-          <Text type="secondary">Categoría</Text>
-          <Text>{data.device.category || "Smartphone"}</Text>
+          <Text type="secondary" style={{ fontSize: 13 }}>
+            Categoría
+          </Text>
+          <Text style={{ fontSize: 13, color: "#fff" }}>
+            {data.device.category}
+          </Text>
         </SpecItem>
         <SpecItem>
-          <Text type="secondary">Marca / Modelo</Text>
-          <Text>
+          <Text type="secondary" style={{ fontSize: 13 }}>
+            Marca / Modelo
+          </Text>
+          <Text style={{ fontSize: 13, color: "#fff" }}>
             {data.device.brand} {data.device.model}
           </Text>
         </SpecItem>
-        <SpecItem>
-          <Text type="secondary">Número de Serie / IMEI</Text>
-          <Text code>358492XXXXX4821</Text>
+        <SpecItem
+          style={{ borderBottom: "none", marginBottom: 0, paddingBottom: 0 }}
+        >
+          <Text type="secondary" style={{ fontSize: 13 }}>
+            IMEI / Serie
+          </Text>
+          <Text
+            code
+            style={{
+              border: "none",
+              color: "#d9d9d9",
+              fontSize: 13,
+            }}
+          >
+            358492XXXXX4821
+          </Text>
         </SpecItem>
-        <SpecItem>
-          <Text type="secondary">Garantía Servitec</Text>
-          <Tag color="blue" style={{ fontSize: "10px", margin: 0 }}>
-            ACTIVA
-          </Tag>
-        </SpecItem>
-      </div>
+      </InfoBlock>
 
-      {/* 2. Galería de Imágenes (Simulada) */}
-      <SectionTitle>
-        <FontAwesomeIcon icon={faImages} style={{ color: "#8c8c8c" }} />
-        <Text strong>EVIDENCIA FOTOGRÁFICA</Text>
-      </SectionTitle>
-
-      <div style={{ marginBottom: 32 }}>
-        <Image.PreviewGroup>
-          <Space size={8} wrap>
-            <Image
-              width={100}
-              height={100}
-              style={{ borderRadius: 8, objectFit: "cover" }}
-              src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?q=80&w=100"
-            />
-            <Image
-              width={100}
-              height={100}
-              style={{ borderRadius: 8, objectFit: "cover" }}
-              src="https://images.unsplash.com/photo-1556656793-062ff242b062?q=80&w=100"
-            />
-            <div
-              style={{
-                width: 100,
-                height: 100,
-                background: "rgba(255,255,255,0.02)",
-                border: "1px dashed #444",
-                borderRadius: 8,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Text type="secondary" style={{ fontSize: 10 }}>
-                +2 fotos
-              </Text>
-            </div>
-          </Space>
-        </Image.PreviewGroup>
-      </div>
-
-      <Divider />
-
-      {/* 3. Descripción Expandida */}
-      <SectionTitle>
-        <FontAwesomeIcon icon={faHistory} style={{ color: "#8c8c8c" }} />
-        <Text strong>HISTORIAL DE ACTIVIDAD</Text>
-      </SectionTitle>
-
-      <Timeline
-        items={[
-          {
-            color: "green",
-            children: (
-              <>
-                <Text strong style={{ fontSize: 13 }}>
-                  Solicitud Creada
-                </Text>
-                <br />
-                <Text type="secondary" style={{ fontSize: 12 }}>
-                  El cliente envió el formulario desde el Portal Web.
-                </Text>
-                <div style={{ marginTop: 4 }}>
-                  <Text type="secondary" style={{ fontSize: 10 }}>
-                    10:45 AM
-                  </Text>
-                </div>
-              </>
-            ),
-          },
-          {
-            color: "gray",
-            children: (
-              <>
-                <Text strong style={{ fontSize: 13 }}>
-                  Notificación Enviada
-                </Text>
-                <br />
-                <Text type="secondary" style={{ fontSize: 12 }}>
-                  Se notificó automáticamente al equipo administrativo.
-                </Text>
-                <div style={{ marginTop: 4 }}>
-                  <Text type="secondary" style={{ fontSize: 10 }}>
-                    10:46 AM
-                  </Text>
-                </div>
-              </>
-            ),
-          },
-          {
-            dot: (
-              <FontAwesomeIcon
-                icon={faClock}
-                style={{ fontSize: "12px", color: "#faad14" }}
-              />
-            ),
-            children: (
-              <>
-                <Text strong style={{ fontSize: 13 }}>
-                  Pendiente de Asignación
-                </Text>
-                <br />
-                <Text type="secondary" style={{ fontSize: 12 }}>
-                  Esperando que un administrador asigne un técnico.
-                </Text>
-              </>
-            ),
-          },
-        ]}
-      />
-
-      <Divider />
-
-      {/* NUEVA SECCIÓN: PRESUPUESTO ESTIMADO */}
+      {/* 4. Descripción del Fallo - AHORA CON VARIANT GOLD */}
       <SectionTitle>
         <FontAwesomeIcon
-          icon={faFileInvoiceDollar}
-          style={{ color: "#8c8c8c" }}
+          icon={faHistory}
+          style={{ color: "#8c8c8c", fontSize: 13 }}
         />
-        <Text strong>PRESUPUESTO PRELIMINAR</Text>
+        <Text style={{ fontSize: 13, color: "#fff", fontWeight: 500 }}>
+          Descripción del fallo
+        </Text>
       </SectionTitle>
-      <CostCard>
-        <div
+
+      <InfoBlock $variant="gold">
+        <Paragraph
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginBottom: 8,
+            color: "rgba(255,255,255,0.85)",
+            fontSize: 13,
+            lineHeight: "1.6",
+            margin: 0,
           }}
         >
-          <Text type="secondary">Mano de Obra Est.</Text>
-          <Text strong>S/ 45.00</Text>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginBottom: 8,
-          }}
-        >
-          <Text type="secondary">Repuestos (Pantalla OLED)</Text>
-          <Text strong>S/ 380.00</Text>
-        </div>
-        <Divider
-          style={{ margin: "8px 0", borderColor: "rgba(255,255,255,0.1)" }}
-        />
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <Text strong style={{ color: "#faad14" }}>
-            TOTAL ESTIMADO
-          </Text>
-          <Text strong style={{ color: "#faad14", fontSize: 16 }}>
-            S/ 425.00
-          </Text>
-        </div>
-      </CostCard>
+          {data.issueDescription}
+        </Paragraph>
+      </InfoBlock>
 
-      <Divider />
-
-      {/* 4. Notas Adicionales */}
-      <SectionTitle>
-        <FontAwesomeIcon icon={faCircleCheck} style={{ color: "#8c8c8c" }} />
-        <Text strong>REVISIÓN PREVIA</Text>
-      </SectionTitle>
-      <Paragraph style={{ color: "rgba(255,255,255,0.65)", fontSize: 13 }}>
-        El cliente indica que es un equipo corporativo. Priorizar repuestos
-        originales y tiempo de respuesta rápido. Requiere boleta electrónica.
-      </Paragraph>
-
-      <div
-        style={{
-          marginTop: 40,
-          padding: "16px",
-          background: "rgba(24, 144, 255, 0.05)",
-          borderRadius: "8px",
-          border: "1px solid rgba(24, 144, 255, 0.2)",
-        }}
-      >
+      {/* Footer Azul Sutil */}
+      <InfoBlock $variant="blue" style={{ marginTop: 40, marginBottom: 0 }}>
         <Space>
-          <FontAwesomeIcon icon={faShieldHalved} style={{ color: "#1890ff" }} />
+          <FontAwesomeIcon
+            icon={faShieldHalved}
+            style={{ color: "#1890ff", fontSize: 14 }}
+          />
           <Text style={{ fontSize: 12, color: "#1890ff" }}>
-            Esta solicitud cumple con las políticas de privacidad de Servitec.
+            Solicitud validada internamente. Listo para asignación técnica.
           </Text>
         </Space>
-      </div>
+      </InfoBlock>
     </Drawer>
   );
 };
