@@ -37,7 +37,6 @@ export function QuotationIntegration() {
   const [documentType, setDocumentType] = useState("ruc");
   const [quotation, setQuotation] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [serviceRequest, setServiceRequest] = useState(null);
 
   const {
     getDataByDniOrRuc,
@@ -84,8 +83,6 @@ export function QuotationIntegration() {
     })();
   }, [quotationId, isNew, requestId]);
 
-  console.log("quotation: ", quotation);
-
   const mapQuotation = (formData) => ({
     ...quotation,
     client: {
@@ -107,27 +104,13 @@ export function QuotationIntegration() {
       email: formData.client.email,
       address: formData.client.address,
     },
-    device: {
-      type: formData.device.type,
-      brand: formData.device.brand,
-      model: formData.device.model,
-      serialNumber: formData.device.serialNumber,
-      color: formData.device.color,
-      condition: formData.device.condition,
-      accessories: formData.device.accessories,
-      ram: formData.device.ram,
-      processor: formData.device.processor,
-      operationSystem: formData.device.operationSystem,
-    },
+    device: { ...formData.device },
     reportedIssue: formData.reportedIssue,
     analysis: formData.analysis,
     solutionAndRecommendations: formData.solutionAndRecommendations,
-    quotationDetails: formData.quotationDetails.map((item) => ({
-      ...item,
-      subTotal: item.subTotal,
-      description: item.description,
-    })),
-    contractNumber: dayjs().format("YYYYMMDDHHmmss"),
+    quotationDetails: formData.quotationDetails,
+    contractNumber:
+      quotation?.contractNumber || dayjs().format("YYYYMMDDHHmmss"),
   });
 
   const onSubmit = async (formData) => {
@@ -240,51 +223,74 @@ const Quotation = ({
       (docType === "dni" && docNumber.length === 8) ||
       (docType === "ruc" && docNumber.length === 11);
 
-    const isNameEmpty =
-      !watch("client.firstName") && !watch("client.companyName");
+    if (isValidLength && isNew) {
+      const currentName =
+        watch("client.firstName") || watch("client.companyName");
+      if (currentName) return;
 
-    if (isValidLength && isNew && isNameEmpty) {
       (async () => {
         try {
           const data = await getDataByDniOrRuc(docNumber);
           if (!data) return;
 
           if (docType === "dni") {
-            setValue("client.firstName", capitalize(data.firstName || ""));
+            setValue("client.firstName", capitalize(data.firstName || ""), {
+              shouldValidate: true,
+            });
             setValue(
               "client.paternalSurname",
-              capitalize(data.paternalSurname || "")
+              capitalize(data.paternalSurname || ""),
+              { shouldValidate: true }
             );
             setValue(
               "client.maternalSurname",
-              capitalize(data.maternalSurname || "")
+              capitalize(data.maternalSurname || ""),
+              { shouldValidate: true }
             );
           } else {
-            setValue("client.companyName", capitalize(data.companyName || ""));
-            setValue("client.address", capitalize(data.address || ""));
+            setValue("client.companyName", capitalize(data.companyName || ""), {
+              shouldValidate: true,
+            });
+            setValue("client.address", capitalize(data.address || ""), {
+              shouldValidate: true,
+            });
           }
         } catch (err) {
           console.error("Error consultando API:", err);
         }
       })();
     }
-  }, [documentNumber, isNew]);
+  }, [documentNumber, isNew, setValue]);
 
   const resetForm = () => {
+    if (!quotation) return;
+
     reset({
       client: {
-        documentType: quotation?.documentType || "",
-        documentNumber: quotation?.documentNumber || "",
-        companyName: quotation?.companyName || "",
-        firstName: quotation?.firstName || "",
-        paternalSurname: quotation?.paternalSurname || "",
-        maternalSurname: quotation?.maternalSurname || "",
-        phoneNumber: quotation?.phone?.number || "",
-        email: quotation?.email || "",
-        address: quotation?.address || "",
+        documentType:
+          quotation?.client?.document?.type || quotation?.documentType || "dni",
+        documentNumber:
+          quotation?.client?.document?.number ||
+          quotation?.documentNumber ||
+          "",
+        companyName:
+          quotation?.client?.companyName || quotation?.companyName || "",
+        firstName: quotation?.client?.firstName || quotation?.firstName || "",
+        paternalSurname:
+          quotation?.client?.paternalSurname ||
+          quotation?.paternalSurname ||
+          "",
+        maternalSurname:
+          quotation?.client?.maternalSurname ||
+          quotation?.maternalSurname ||
+          "",
+        phoneNumber:
+          quotation?.client?.phone?.number || quotation?.phoneNumber || "",
+        email: quotation?.client?.email || quotation?.email || "",
+        address: quotation?.client?.address || quotation?.address || "",
       },
       device: {
-        type: quotation?.device?.type || "",
+        type: quotation?.device?.type || quotation?.type || "",
         brand: quotation?.device?.brand || "",
         model: quotation?.device?.model || "",
         serialNumber: quotation?.device?.serialNumber || "",
@@ -301,6 +307,7 @@ const Quotation = ({
       quotationDetails: quotation?.quotationDetails || [],
     });
   };
+
   useEffect(() => {
     resetForm();
   }, [quotation]);

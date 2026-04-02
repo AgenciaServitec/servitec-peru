@@ -42,15 +42,34 @@ export function QuotationsIntegrations() {
     if (search) {
       result = result.filter((q: any) => {
         const client = q.client || {};
-        const searchableString = `
-          ${client.document?.number || ""} 
-          ${client.phone?.number || ""} 
-          ${client.companyName || ""} 
-          ${client.firstName || ""} 
-          ${client.paternalSurname || ""} 
-          ${client.maternalSurname || ""} 
-          ${q.contractNumber || ""}
-        `.toLowerCase();
+        const device = q.device || {};
+
+        const searchableString = [
+          client.documentNumber,
+          client.companyName,
+          client.firstName,
+          client.paternalSurname,
+          client.maternalSurname,
+          client.phoneNumber,
+          client.email,
+          client.address,
+          device.brand,
+          device.model,
+          device.serialNumber,
+          device.type,
+          device.color,
+          device.processor,
+          device.ram,
+          device.operationSystem,
+          q.contractNumber,
+          q.reportedIssue,
+          q.analysis,
+          q.solutionAndRecommendations,
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+
         return searchableString.includes(search);
       });
     }
@@ -75,7 +94,6 @@ export function QuotationsIntegrations() {
 
   return (
     <Row gutter={[16, 24]}>
-      {/* Estilos para forzar la visibilidad del placeholder si el tema falla */}
       <style>
         {`
           .custom-search-input ::placeholder,
@@ -99,14 +117,13 @@ export function QuotationsIntegrations() {
 
       <Col span={24}>
         <Flex gap="middle" align="flex-end" wrap="wrap">
-          {/* Input con clase personalizada y variante para mejor contraste */}
           <Flex vertical style={{ flex: 2, minWidth: "300px" }}>
             <Text strong style={{ marginBottom: 8, display: "block" }}>
               <FontAwesomeIcon icon={faSearch} /> Búsqueda general
             </Text>
             <Input
               className="custom-search-input"
-              placeholder="DNI, RUC, Celular, Cliente o Contrato..."
+              placeholder="Buscar por cliente, DNI, modelo, serie, diagnóstico..."
               onChange={(e) => handleSearch(e.target.value)}
               allowClear
               size="large"
