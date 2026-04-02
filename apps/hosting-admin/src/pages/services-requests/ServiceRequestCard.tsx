@@ -1,358 +1,426 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useState } from "react";
+import { Button, Card, Select, Space, Tag, Typography } from "antd";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCalendarAlt,
-  faTools,
-  faExternalLinkAlt,
-  faLocationArrow,
-  faCheck,
-  faX,
+  faCalendarCheck,
+  faChevronRight,
+  faEnvelope,
+  faEye,
+  faHouseSignal,
+  faLaptopMedical,
+  faMapLocationDot,
+  faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
-import { Card, Tag, Typography, Button } from "../../components";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { ServiceDetailsDrawer } from "./ServiceDetailsDrawer.tsx";
+import { IconAction } from "../../components";
+import { theme } from "../../styles";
 import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import "dayjs/locale/es";
-import { ServiceRequestsStatus } from "../../data-list";
-import { getDevice } from "../../utils";
-import type { ServiceRequest } from "../../globalTypes.ts";
-import { useAcceptService, useCancelService } from "./_utils";
+import { updateServiceRequest } from "../../firebase/collections";
+import { useDefaultFirestoreProps } from "../../hooks";
+import { SERVICE_REQUEST_STATUS } from "../../data-list/serviceRequestStatus.ts";
+import { PRIORITY_LEVELS } from "../../data-list/serviceRequestPriorityLevels.ts";
 import { useNavigate } from "react-router-dom";
-import { useAuthentication } from "../../providers";
 
-dayjs.extend(relativeTime);
-dayjs.locale("es");
-const { Text, Title } = Typography;
+const { Text, Title, Paragraph } = Typography;
 
-const COLORS = {
-  cardBg: "#0d0d0d",
-  innerBox: "#161616",
-  border: "#222222",
-  textPrimary: "#ffffff",
-  textSecondary: "#777777",
-  accent: "#fadb14",
-  success: "#52c41a",
-  cancel: "#ef0a0a",
+const TECHNICIANS = [
+  { label: "Carlos Mendoza", value: "T001", status: "Disponible" },
+  { label: "Ricardo Palma", value: "T002", status: "En servicio" },
+  { label: "Sofía Loli", value: "T003", status: "Disponible" },
+  { label: "Marcos Ruiz", value: "T004", status: "Fuera de turno" },
+];
+
+const MOCK_DATA = {
+  id: "SR-2026-0482",
+  requestTime: "12:35 PM",
+  source: "Web Portal",
+  client: {
+    fullName: "Dany Diana Da Silva",
+    email: "dany.dasilva@email.com",
+    document: { type: "dni", number: "74859612" },
+    phone: { prefix: "+51", number: "987654321" },
+  },
+  device: {
+    brand: "Samsung",
+    model: "Galaxy S23 Ultra",
+    category: "Smartphone",
+  },
+  status: "pending",
+  priority: "high",
+  issueDescription:
+    "El dispositivo sufrió una caída leve. Ahora la pantalla presenta parpadeos constantes y una línea verde vertical en el lado derecho. El táctil responde intermitentemente.",
+  serviceMode: "home-service",
+  location: {
+    district: "Chorrillos",
+    exactAddress: "Av. Fernando Terán 123",
+  },
 };
 
-const StyledCard = styled(Card)`
-  background: ${COLORS.cardBg} !important;
-  border-radius: 28px !important;
-  border: 1px solid ${COLORS.border} !important;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6) !important;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-
-  &:hover {
-    transform: translateY(-8px);
-    border-color: ${COLORS.accent}66 !important;
-  }
+const MapContainer = styled.div`
+  height: 115px;
+  background-color: #141414;
+  position: relative;
+  //background-image:
+  //  linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)),
+  //  url("https://www.google.com/maps/about/images/mymaps/mymaps-desktop-16x9.png");
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)),
+    url("/maps-default.png");
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-position: center;
 `;
 
-const AcceptFloatingButton = styled.button`
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  z-index: 10;
-  background: ${COLORS.success};
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 12px;
-  font-weight: 800;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
+const Content = styled.div`
+  padding: 16px;
+`;
+
+const CompactGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 8px;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(82, 196, 26, 0.4);
-  transition: all 0.2s ease;
-
-  &:hover {
-    transform: scale(1.05);
-    background: #73d13d;
-    box-shadow: 0 6px 20px rgba(82, 196, 26, 0.6);
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
+  background: rgba(255, 255, 255, 0.02);
+  padding: 10px;
+  border-radius: 8px;
+  margin: 12px 0;
+  border: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
-const CancelFloatingButton = styled.button`
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  z-index: 10;
-  background: ${COLORS.success};
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 12px;
-  font-weight: 800;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(154, 0, 0, 0.4);
-  transition: all 0.2s ease;
+const DataItem = ({ label, value, icon }: any) => (
+  <Space direction="vertical" size={0}>
+    <Text
+      type="secondary"
+      style={{ fontSize: "9px", fontWeight: 700, letterSpacing: "0.3px" }}
+    >
+      {label.toUpperCase()}
+    </Text>
+    <Space size={4}>
+      {icon && (
+        <FontAwesomeIcon
+          icon={icon}
+          style={{ fontSize: "10px", color: "#8c8c8c" }}
+        />
+      )}
+      <Text strong style={{ fontSize: "11.5px" }}>
+        {value}
+      </Text>
+    </Space>
+  </Space>
+);
 
-  &:hover {
-    transform: scale(1.05);
-    background: #ff4949;
-    box-shadow: 0 6px 20px rgba(151, 13, 13, 0.6);
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
-`;
-
-const GlassTag = styled.div`
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(8px);
-  padding: 6px 14px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: ${COLORS.accent};
-  font-size: 10px;
-  font-weight: 700;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-`;
-
-const ClientBox = styled.div`
-  background: ${COLORS.innerBox};
-  border-radius: 18px;
-  padding: 14px;
-  margin-bottom: 20px;
-  border: 1px solid ${COLORS.border};
-  display: flex;
-  align-items: center;
-  gap: 12px;
-`;
-
-const Avatar = styled.div`
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, ${COLORS.accent} 0%, #f1c40f 100%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #000;
-  font-weight: 900;
-  flex-shrink: 0;
-`;
-
-const QuoteButton = styled(Button)`
-  flex: 1;
-  border-radius: 14px !important;
-  height: 48px !important;
-  font-weight: 800 !important;
-  background: ${COLORS.accent} !important;
-  color: #000 !important;
-  border: none !important;
-  font-size: 14px !important;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-
-  &:hover {
-    background: #fff !important;
-    box-shadow: 0 0 20px ${COLORS.accent}44 !important;
-  }
-`;
-
-const DetailIconBtn = styled(Button)`
-  width: 48px !important;
-  height: 48px !important;
-  border-radius: 14px !important;
-  background: ${COLORS.innerBox} !important;
-  border: 1px solid ${COLORS.border} !important;
-  color: ${COLORS.textSecondary} !important;
-
-  &:hover {
-    color: ${COLORS.accent} !important;
-    border-color: ${COLORS.accent} !important;
-  }
-`;
-
-interface ServiceRequestCardProps {
-  request: ServiceRequest;
-  onShowServiceDetail: (request: ServiceRequest) => void;
-}
-
-export const ServicesRequestCard: React.FC<ServiceRequestCardProps> = ({
-  request,
-  onShowServiceDetail,
+export const ServiceRequestCard: React.FC<any> = ({
+  user,
+  data = MOCK_DATA,
+  onOpenPage,
 }) => {
   const navigate = useNavigate();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [selectedTech, setSelectedTech] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  const { authUser } = useAuthentication();
+  const { assignUpdateProps } = useDefaultFirestoreProps();
 
-  const { acceptRequest, isAccepting } = useAcceptService();
-  const { cancelRequest, isCanceling } = useCancelService();
+  const isHigh = data.priority === "high";
+  const waLink = `https://wa.me/${data.client.phone.prefix.replace("+", "")}${data.client.phone.number}`;
+  const techName = TECHNICIANS.find((t) => t.value === selectedTech)?.label;
 
-  const handleAcceptClick = async (e: React.MouseEvent) => {
-    e.stopPropagation();
-    await acceptRequest(request.id, authUser.id);
+  const formattedTime = data.createAt
+    ? dayjs(data.createAt.toDate()).format("hh:mm A DD/MM/YYYY")
+    : data.requestTime || "--:--";
+
+  const onServiceRequestAccepted = async (serviceRequest) => {
+    try {
+      setLoading(true);
+
+      const finalTechId = selectedTech || user.id;
+
+      if (!finalTechId) {
+        console.error("No hay un ID de técnico o usuario disponible");
+        return;
+      }
+
+      await updateServiceRequest(
+        serviceRequest.id,
+        assignUpdateProps({
+          technicalId: finalTechId,
+        })
+      );
+
+      setSelectedTech(null);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
   };
-  const handleCancelClick = async (e: React.MouseEvent) => {
-    e.stopPropagation();
-    await cancelRequest(request.id);
+
+  const onRequestQuotation = (serviceRequest) =>
+    navigate(`/quotations/new?serviceRequestId=${serviceRequest.id}`);
+
+  const getStatusInfo = (statusValue: string) => {
+    return (
+      SERVICE_REQUEST_STATUS.find((s) => s.value === statusValue) ||
+      SERVICE_REQUEST_STATUS[0]
+    );
   };
 
-  const handleNavigateQuote = useCallback(() => {
-    navigate(`/quotations/new`, { state: { serviceRequest: request } });
-  }, [navigate, request]);
+  const getPriorityInfo = (priorityValue: string) => {
+    return (
+      PRIORITY_LEVELS.find((p) => p.value === priorityValue) ||
+      PRIORITY_LEVELS[1]
+    );
+  };
 
-  const clientInfo = useMemo(() => {
-    const isRuc = request.client?.document?.type === "ruc";
-    return {
-      name: isRuc
-        ? request.client?.companyName
-        : `${request.client?.firstName} ${request.client?.paternalSurname}`,
-      initials:
-        (isRuc
-          ? request.client?.companyName?.charAt(0)
-          : `${request.client?.firstName?.charAt(0)}${request.client?.paternalSurname?.charAt(0)}`) ||
-        "S",
-      date: request.createAt?.toDate
-        ? request.createAt.toDate()
-        : request.createAt,
-    };
-  }, [request]);
+  const statusInfo = getStatusInfo(data.status);
 
-  const statusConfig =
-    ServiceRequestsStatus[
-      request.status as keyof typeof ServiceRequestsStatus
-    ] || ServiceRequestsStatus.pending;
+  const priorityInfo = getPriorityInfo(data.priority);
 
   return (
-    <StyledCard
-      bodyStyle={{ padding: "20px" }}
-      cover={
-        <div style={{ position: "relative", height: "180px" }}>
-          <img
-            alt="location"
-            src={`https://static-maps.yandex.ru/1.x/?lang=es_PE&ll=${request.location?.geoPoint?.lng},${request.location?.geoPoint?.lat}&z=14&l=map&size=450,250&pt=${request.location?.geoPoint?.lng},${request.location?.geoPoint?.lat},pm2rdm`}
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
+    <>
+      <Card
+        style={{
+          width: 345,
+          padding: 0,
+          overflow: "hidden",
+        }}
+        bodyStyle={{ padding: 0 }}
+      >
+        <MapContainer>
           <div
             style={{
               position: "absolute",
-              inset: 0,
-              background:
-                "linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(13,13,13,1))",
+              top: 10,
+              left: 10,
+              display: "flex",
+              gap: 6,
             }}
-          />
-
-          {request.status === "pending" ? (
-            <AcceptFloatingButton
-              onClick={handleAcceptClick}
-              disabled={isAccepting}
-              style={{
-                background: isAccepting ? COLORS.border : COLORS.success,
-                cursor: isAccepting ? "not-allowed" : "pointer",
-              }}
-            >
-              <FontAwesomeIcon icon={faCheck} spin={isAccepting} />
-              {isAccepting ? "ACEPTANDO..." : "ACEPTAR"}
-            </AcceptFloatingButton>
-          ) : (
-            <CancelFloatingButton
-              onClick={handleCancelClick}
-              disabled={isAccepting}
-              style={{
-                background: isAccepting ? COLORS.border : COLORS.cancel,
-                cursor: isAccepting ? "not-allowed" : "pointer",
-              }}
-            >
-              <FontAwesomeIcon icon={faX} spin={isCanceling} />
-              {isCanceling ? "CANCELANDO..." : "CANCELAR"}
-            </CancelFloatingButton>
-          )}
-
-          <div style={{ position: "absolute", top: "15px", left: "15px" }}>
+          >
             <Tag
-              color={statusConfig.color}
               style={{
-                borderRadius: "6px",
-                fontWeight: 800,
-                border: "none",
-                color: "#000",
+                border: `1px solid ${statusInfo.color}`,
+                fontSize: 10,
+                display: "flex",
+                alignItems: "center",
               }}
             >
-              {statusConfig.text.toUpperCase()}
+              <FontAwesomeIcon
+                icon={statusInfo.icon}
+                style={{
+                  fontSize: 9,
+                  marginRight: 5,
+                  color: statusInfo.color === "gold" ? "#faad14" : "#1890ff",
+                }}
+              />
+              {statusInfo.label.toUpperCase()}
+            </Tag>
+            <Tag
+              style={{
+                fontSize: 10,
+                display: "flex",
+                alignItems: "center",
+                border: `1px solid ${priorityInfo.color}`,
+              }}
+            >
+              <FontAwesomeIcon
+                icon={priorityInfo.icon}
+                style={{
+                  fontSize: 9,
+                  marginRight: 5,
+                  color: priorityInfo.color,
+                }}
+              />
+              {priorityInfo.label.toUpperCase()}
             </Tag>
           </div>
 
-          <div style={{ position: "absolute", bottom: "10px", left: "15px" }}>
-            <GlassTag>
-              <FontAwesomeIcon icon={faLocationArrow} />
-              <span>UBICACIÓN</span>
-            </GlassTag>
-          </div>
-        </div>
-      }
-    >
-      <div style={{ marginBottom: "16px" }}>
-        <Title level={5} style={{ color: "white", margin: 0, fontWeight: 800 }}>
-          <FontAwesomeIcon
-            icon={faTools}
-            style={{ color: COLORS.accent, marginRight: "10px" }}
-          />
-          {getDevice(request?.device)}
-        </Title>
-        <Text
-          style={{
-            fontSize: "11px",
-            color: COLORS.textSecondary,
-            textTransform: "uppercase",
-          }}
-        >
-          <FontAwesomeIcon
-            icon={faCalendarAlt}
-            style={{ marginRight: "6px" }}
-          />
-          {dayjs(clientInfo.date).fromNow()}
-        </Text>
-      </div>
-
-      <ClientBox>
-        <Avatar>{clientInfo.initials.toUpperCase()}</Avatar>
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <Text
-            strong
-            style={{ color: "white", fontSize: "14px", display: "block" }}
-            ellipsis
-          >
-            {clientInfo.name}
-          </Text>
-          <Text
+          <Button
+            type="primary"
+            size="small"
+            icon={<FontAwesomeIcon icon={faMapLocationDot} />}
             style={{
-              color: COLORS.textSecondary,
-              fontSize: "11px",
-              display: "block",
+              position: "absolute",
+              bottom: 10,
+              right: 10,
+              width: 34,
+              height: 34,
+              borderRadius: "8px",
             }}
-            ellipsis
+          />
+        </MapContainer>
+
+        <Content>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-start",
+            }}
           >
-            {request.location?.address}
-          </Text>
-        </div>
-      </ClientBox>
+            <Space direction="vertical" size={0}>
+              <Title
+                level={5}
+                style={{ margin: 0, fontSize: 16, letterSpacing: "-0.3px" }}
+              >
+                {data.client.fullName}
+              </Title>
+              <Text
+                strong
+                style={{ fontSize: 12, color: theme.colors.success }}
+              >
+                {data.client.phone.number}
+              </Text>
+            </Space>
 
-      <div style={{ display: "flex", gap: "10px" }}>
-        <DetailIconBtn onClick={() => onShowServiceDetail(request)}>
-          <FontAwesomeIcon icon={faExternalLinkAlt} />
-        </DetailIconBtn>
+            <Space size={4}>
+              <IconAction
+                tooltipTitle="Vista rápida"
+                onClick={() => setIsDrawerOpen(true)}
+                size={24}
+                icon={faEye}
+                iconStyles={{ color: () => theme.colors.info }}
+              />
+              <IconAction
+                tooltipTitle="WhatsApp"
+                onClick={() => window.open(waLink, "_blank")}
+                size={24}
+                icon={faWhatsapp}
+                iconStyles={{ color: () => theme.colors.success }}
+              />
+              <IconAction
+                tooltipTitle="Email"
+                onClick={() => ""}
+                size={24}
+                icon={faEnvelope}
+                iconStyles={{ color: () => theme.colors.warning }}
+              />
+              {/*<IconAction*/}
+              {/*  tooltipTitle="Nueva Página"*/}
+              {/*  onClick={onOpenPage}*/}
+              {/*  size={24}*/}
+              {/*  icon={faArrowUpRightFromSquare}*/}
+              {/*  iconStyles={{ color: () => theme.colors.error }}*/}
+              {/*/>*/}
+            </Space>
+          </div>
 
-        <QuoteButton onClick={handleNavigateQuote}>
-          Cotizar Servicio
-        </QuoteButton>
-      </div>
-    </StyledCard>
+          <CompactGrid>
+            <DataItem label="Equipo" value={data.device.model} />
+            <DataItem
+              label="Distrito"
+              value={data.location.district}
+              icon={faHouseSignal}
+            />
+            <DataItem label="Prioridad" value={isHigh ? "ALTA" : "NORMAL"} />
+          </CompactGrid>
+
+          <div style={{ marginBottom: 16 }}>
+            <Space size={6} style={{ marginBottom: 4 }}>
+              <FontAwesomeIcon
+                icon={faTriangleExclamation}
+                style={{ color: "#faad14", fontSize: 10 }}
+              />
+              <Text strong style={{ fontSize: 10, color: "#8c8c8c" }}>
+                SÍNTOMAS REPORTADOS
+              </Text>
+            </Space>
+            <Paragraph
+              ellipsis={{ rows: 1 }}
+              style={{
+                margin: 0,
+                fontSize: 12,
+                color: "rgba(255,255,255,0.85)",
+              }}
+            >
+              {data.issueDescription}
+            </Paragraph>
+          </div>
+
+          <Space direction="vertical" style={{ width: "100%" }} size={10}>
+            {!data?.technicalId && (
+              <Select
+                placeholder="Asignar técnico encargado"
+                style={{ width: "100%" }}
+                size="middle"
+                onChange={(val) => setSelectedTech(val)}
+                options={TECHNICIANS.map((t) => ({
+                  label: t.label,
+                  value: t.value,
+                }))}
+              />
+            )}
+            {!data?.technicalId ? (
+              <Button
+                type="primary"
+                block
+                danger={!!selectedTech}
+                icon={
+                  <FontAwesomeIcon
+                    icon={selectedTech ? faLaptopMedical : faChevronRight}
+                  />
+                }
+                style={{
+                  height: 38,
+                  fontWeight: 700,
+                  borderRadius: "6px",
+                  backgroundColor: selectedTech ? "#52c41a" : "",
+                  borderColor: selectedTech ? "#52c41a" : "",
+                }}
+                onClick={() => onServiceRequestAccepted(data)}
+                loading={loading}
+              >
+                {selectedTech
+                  ? `ASIGNAR A ${techName?.split(" ")[0].toUpperCase()}`
+                  : "ACEPTAR SOLICITUD"}
+              </Button>
+            ) : (
+              <Button
+                type="primary"
+                block
+                icon={
+                  <FontAwesomeIcon
+                    icon={selectedTech ? faLaptopMedical : faChevronRight}
+                  />
+                }
+                style={{ height: 38, fontWeight: 700, borderRadius: "6px" }}
+                onClick={() => onRequestQuotation(data)}
+              >
+                COTIZAR
+              </Button>
+            )}
+          </Space>
+
+          <div
+            style={{
+              marginTop: 14,
+              textAlign: "center",
+              borderTop: `1px solid rgba(255,255,255,0.05)`,
+              paddingTop: 10,
+            }}
+          >
+            <Text
+              type="secondary"
+              style={{
+                fontSize: 9,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 4,
+              }}
+            >
+              <FontAwesomeIcon icon={faCalendarCheck} style={{ fontSize: 8 }} />
+              SOLICITUD RECIBIDA A LAS {formattedTime}
+            </Text>
+          </div>
+        </Content>
+      </Card>
+
+      <ServiceDetailsDrawer
+        open={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        data={data}
+      />
+    </>
   );
 };

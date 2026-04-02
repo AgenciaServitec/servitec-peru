@@ -1,19 +1,35 @@
 import React, { useMemo } from "react";
 import { orderBy } from "lodash";
-import { Row, Col, Card, Empty } from "../../components";
-import { ServicesRequestCard } from "./ServiceRequestCard";
+import styled from "styled-components";
+import { Empty } from "antd";
+import { ServiceRequestCard } from "./ServiceRequestCard";
+import { ServicesRequestsTable } from "./ServicesRequestsTable";
+
+const RequestsGrid = styled.section`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 345px);
+  gap: 24px;
+  width: 100%;
+  justify-content: center;
+  @media (max-width: 420px) {
+    grid-template-columns: 1fr;
+  }
+`;
 
 interface Props {
+  user: any;
   servicesRequests: any[];
   servicesRequestsLoading: boolean;
-  onShowServiceDetail: () => void;
+  onShowServiceDetail: (request: any) => void;
+  viewType: "grid" | "list";
 }
 
 export const ServicesRequestsCards: React.FC<Props> = ({
+  user,
   servicesRequests,
   servicesRequestsLoading,
   onShowServiceDetail,
-  navigate,
+  viewType,
 }) => {
   const sortedRequests = useMemo(() => {
     return orderBy(
@@ -23,33 +39,43 @@ export const ServicesRequestsCards: React.FC<Props> = ({
     );
   }, [servicesRequests]);
 
-  if (servicesRequestsLoading) {
+  // // 1. Estado Cargando
+  // if (servicesRequestsLoading && sortedRequests.length === 0) {
+  //   return <LoadingSkeletonGrid />;
+  // }
+
+  // 2. Estado Vacío
+  if (sortedRequests.length === 0) {
     return (
-      <Row gutter={[24, 24]}>
-        {[1, 2, 3].map((i) => (
-          <Col xs={24} sm={12} xl={8} key={i}>
-            <Card loading={true} style={{ borderRadius: "28px" }} />
-          </Col>
-        ))}
-      </Row>
+      <Empty
+        description={
+          <span style={{ color: "#8c8c8c" }}>No hay solicitudes</span>
+        }
+      />
     );
   }
 
-  if (!sortedRequests.length) {
-    return <Empty description="No hay solicitudes" style={{ marginTop: 40 }} />;
-  }
-
   return (
-    <Row gutter={[24, 24]}>
-      {sortedRequests.map((request) => (
-        <Col xs={24} sm={12} xl={8} key={request.id}>
-          <ServicesRequestCard
-            request={request}
-            onShowServiceDetail={onShowServiceDetail}
-            navigate={navigate}
-          />
-        </Col>
-      ))}
-    </Row>
+    <>
+      {viewType === "grid" ? (
+        <RequestsGrid>
+          {sortedRequests.map((request) => (
+            <ServiceRequestCard
+              key={request.id}
+              user={user}
+              data={request}
+              onOpenPage={() => onShowServiceDetail(request)}
+            />
+          ))}
+        </RequestsGrid>
+      ) : (
+        <ServicesRequestsTable
+          requests={sortedRequests}
+          loading={servicesRequestsLoading}
+          onShowDetail={onShowServiceDetail}
+          user={user}
+        />
+      )}
+    </>
   );
 };

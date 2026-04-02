@@ -1,117 +1,106 @@
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { useNavigate } from "react-router-dom";
 import { servicesRequestsRef } from "../../firebase/collections";
-import { Button, Col, Row, Title, Tabs } from "../../components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { Col, Row } from "../../components";
 import { ServicesRequestsCards } from "./ServicesRequestsCards.tsx";
-import { ModalProvider, useAuthentication, useModal } from "../../providers";
-import { useDevice } from "../../hooks";
-import { ServiceRequestDetail } from "./ServiceRequestDetail.tsx";
-import type { ServiceRequest } from "../../globalTypes.ts";
+import { ModalProvider, useAuthentication } from "../../providers";
+import { RequestToolbar } from "./RequestToolbar.tsx";
+import { useMemo, useState } from "react";
 
 export const ServicesRequestsIntegrations = () => {
-  const navigate = useNavigate();
   const { authUser } = useAuthentication();
 
-  const [
-    servicesRequests = [],
-    servicesRequestsLoading,
-    servicesRequestsError,
-  ] = useCollectionData(servicesRequestsRef.where("isDeleted", "==", false));
+  const [servicesRequests, servicesRequestsLoading, servicesRequestsError] =
+    useCollectionData(
+      servicesRequestsRef
+        .where("isDeleted", "==", false)
+        .orderBy("createAt", "desc")
+    );
 
-  const generalRequests = servicesRequests.filter(
-    (req) => req.status === "pending" && !req.assignment
-  );
+  if (servicesRequestsError) {
+    console.error("Error en Firebase:", servicesRequestsError);
+  }
 
-  const myRequests = servicesRequests.filter(
-    (req) => req.assignment === authUser?.id
-  );
+  const generalRequests = useMemo(() => {
+    if (!servicesRequests) return [];
+    return servicesRequests.filter(
+      (req) => req.status === "pending" && !req.assignment
+    );
+  }, [servicesRequests]);
 
   return (
     <ModalProvider>
       <ServicesRequests
-        navigate={navigate}
-        generalRequests={generalRequests}
-        myRequests={myRequests}
-        servicesRequestsLoading={servicesRequestsLoading}
         user={authUser}
+        generalRequests={generalRequests}
+        servicesRequestsLoading={servicesRequestsLoading}
       />
     </ModalProvider>
   );
 };
 
-const ServicesRequests = ({
-  navigate,
+interface ServicesRequestsProps {
+  user: any;
+  generalRequests: any[];
+  servicesRequestsLoading: boolean;
+}
+
+const ServicesRequests: React.FC<ServicesRequestsProps> = ({
+  user,
   generalRequests,
-  myRequests,
   servicesRequestsLoading,
 }) => {
-  const { isTablet } = useDevice();
-  const { onShowModal, onCloseModal } = useModal();
+  const [search, setSearch] = useState("");
+  const [district, setDistrict] = useState("all");
+  const [priority, setPriority] = useState("all");
+  const [viewType, setViewType] = useState<"grid" | "list">("grid");
 
-  const onShowServiceDetail = (serviceRequest: ServiceRequest) => {
-    onShowModal({
-      title: "Detalle del Servicio",
-      width: `${isTablet ? "90%" : "50%"}`,
-      onRenderBody: () => (
-        <ServiceRequestDetail
-          serviceRequest={serviceRequest}
-          onCloseModal={onCloseModal}
-        />
-      ),
+  const onViewChange = (val) => setViewType(val);
+
+  console.log("viewType: ", viewType);
+
+  const filteredData = useMemo(() => {
+    return (generalRequests || []).filter((req) => {
+      const matchesSearch = req.client?.fullName
+        ?.toLowerCase()
+        .includes(search.toLowerCase());
+      const matchesDistrict =
+        district === "all" ||
+        req.location?.district?.toLowerCase() === district.toLowerCase();
+      const matchesPriority = priority === "all" || req.priority === priority;
+      return matchesSearch && matchesDistrict && matchesPriority;
     });
-  };
-
-  const items = [
-    {
-      key: "1",
-      label: `Generales (${generalRequests.length})`,
-      children: (
-        <ServicesRequestsCards
-          servicesRequests={generalRequests}
-          servicesRequestsLoading={servicesRequestsLoading}
-          onShowServiceDetail={onShowServiceDetail}
-          navigate={navigate}
-        />
-      ),
-    },
-    {
-      key: "2",
-      label: `Mis Servicios (${myRequests.length})`,
-      children: (
-        <ServicesRequestsCards
-          servicesRequests={myRequests}
-          servicesRequestsLoading={servicesRequestsLoading}
-          onShowServiceDetail={onShowServiceDetail}
-          navigate={navigate}
-        />
-      ),
-    },
-  ];
+  }, [generalRequests, search, district, priority]);
 
   return (
     <Row gutter={[16, 16]}>
-      <Col
-        span={24}
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Title level={2}>Solicitudes de Servicio</Title>
-        <Button
-          type="primary"
-          onClick={() => navigate("/services-requests/new")}
-        >
-          <FontAwesomeIcon icon={faPlus} />
-          Nuevo Servicio
-        </Button>
+      <Col span={24}>
+        <RequestToolbar
+          totalCount={filteredData.length}
+          searchTextValue={search}
+          districtValue={district}
+          priorityValue={priority}
+          onSearch={setSearch}
+          onFilterChange={(type, value) => {
+            if (type === "district") setDistrict(value);
+            if (type === "priority") setPriority(value);
+          }}
+          onClear={() => {
+            setSearch("");
+            setDistrict("all");
+            setPriority("all");
+          }}
+          onViewChange={onViewChange}
+        />
       </Col>
 
       <Col span={24}>
-        <Tabs defaultActiveKey="1" items={items} />
+        <ServicesRequestsCards
+          viewType={viewType}
+          user={user}
+          servicesRequests={filteredData}
+          servicesRequestsLoading={servicesRequestsLoading}
+          onShowServiceDetail={(req) => console.log(req)}
+        />
       </Col>
     </Row>
   );

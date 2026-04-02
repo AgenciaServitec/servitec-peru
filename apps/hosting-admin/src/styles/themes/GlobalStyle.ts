@@ -98,6 +98,31 @@ const global = css<ThemeProps>`
     }
   }
 
+  /* En tu archivo de estilos globales */
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    /* Esto reemplaza el fondo azul de Chrome por el fondo de tu input */
+    -webkit-box-shadow: 0 0 0 1000px #141414 inset !important;
+
+    /* Esto cambia el color del texto que Chrome pone en negro */
+    -webkit-text-fill-color: #ffffff !important;
+
+    /* Mantiene la transición suave */
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  /* Para el icono de autocompletado si aparece */
+  input::-webkit-contacts-auto-fill-button {
+    visibility: hidden;
+    display: none !important;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+  }
+
   .d-flex {
     display: flex;
   }
@@ -149,6 +174,30 @@ const global = css<ThemeProps>`
       color: ${({ theme }) => theme.colors.fontDisabled} !important;
       cursor: not-allowed;
     }
+  }
+
+  .ant-select-selection-placeholder {
+    color: rgba(255, 255, 255, 0.45) !important;
+  }
+
+  .ant-input::placeholder {
+    color: rgba(255, 255, 255, 0.45) !important;
+  }
+
+  /* Color para el texto "Desde" y "Hasta" cuando están vacíos */
+  .ant-picker-input > input::placeholder {
+    color: rgba(255, 255, 255, 0.45) !important;
+  }
+
+  /* Color para los iconos (calendario y flecha separadora) */
+  .ant-picker-suffix,
+  .ant-picker-separator {
+    color: rgba(255, 255, 255, 0.45) !important;
+  }
+
+  /* Color del texto una vez seleccionada la fecha */
+  .ant-picker-input > input {
+    color: #ffffff !important;
   }
 
   .ant-input-textarea {

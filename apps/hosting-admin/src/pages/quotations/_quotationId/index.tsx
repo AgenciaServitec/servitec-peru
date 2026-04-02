@@ -2,7 +2,7 @@ import * as yup from "yup";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDefaultFirestoreProps, useFormUtils } from "../../../hooks";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   Col,
@@ -18,6 +18,7 @@ import {
 import {
   addQuotation,
   fetchQuotation,
+  fetchServiceRequest,
   getQuotationId,
   updateQuotation,
 } from "../../../firebase/collections";
@@ -29,13 +30,14 @@ import dayjs from "dayjs";
 
 export function QuotationIntegration() {
   const navigate = useNavigate();
-  const location = useLocation();
   const { quotationId } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { assignCreateProps, assignUpdateProps } = useDefaultFirestoreProps();
 
   const [documentType, setDocumentType] = useState("ruc");
   const [quotation, setQuotation] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [serviceRequest, setServiceRequest] = useState(null);
 
   const {
     getDataByDniOrRuc,
@@ -46,43 +48,43 @@ export function QuotationIntegration() {
   const isNew = quotationId === "new";
   const onGoBack = () => navigate(-1);
 
+  const requestId = searchParams.get("serviceRequestId");
+
+  console.log(requestId);
+
+  const updateFilter = () => {
+    setSearchParams({ serviceRequest: requestId, step: "2" });
+  };
+
   useEffect(() => {
     (async () => {
       if (isNew) {
-        const preloadedServiceRequest = location.state?.serviceRequest;
+        const _serviceRequest = await fetchServiceRequest(requestId);
 
-        if (preloadedServiceRequest) {
-          setQuotation({
-            id: getQuotationId(),
-            serviceRequestId: preloadedServiceRequest.id,
-            client: {
-              document: preloadedServiceRequest.client.document,
-              firstName: preloadedServiceRequest.client.firstName,
-              paternalSurname: preloadedServiceRequest.client.paternalSurname,
-              maternalSurname: preloadedServiceRequest.client.maternalSurname,
-              companyName: preloadedServiceRequest.client.companyName,
-              phone: preloadedServiceRequest.client.phone,
-              email: preloadedServiceRequest.client.email,
-              address: preloadedServiceRequest.location.address,
-            },
-            device: {
-              type: preloadedServiceRequest.device,
-            },
-            reportedIssue: preloadedServiceRequest.problemDescription,
-            analysis: "",
-            solutionAndRecommendations: "",
-            quotationDetails: [],
-          });
-        } else {
-          setQuotation({ id: getQuotationId() });
-        }
+        setQuotation({
+          id: getQuotationId(),
+          serviceRequestId: _serviceRequest?.id,
+          documentType: _serviceRequest?.client.document.type,
+          documentNumber: _serviceRequest?.client.document.number,
+          companyName: _serviceRequest?.client.companyName,
+          firstName: _serviceRequest?.client.names,
+          paternalSurname: _serviceRequest?.client.paternalSurname,
+          maternalSurname: _serviceRequest?.client.maternalSurname,
+          phoneNumber: _serviceRequest?.client.phone.number,
+          email: _serviceRequest?.client.email,
+          address: _serviceRequest?.location.address,
+          type: _serviceRequest?.device.type,
+          reportedIssue: _serviceRequest?.issueDescription,
+        });
       } else {
         const _quotation = await fetchQuotation(quotationId);
         if (!_quotation) return navigate(-1);
         setQuotation(_quotation);
       }
     })();
-  }, [quotationId, isNew, location.state]);
+  }, [quotationId, isNew, requestId]);
+
+  console.log("quotation: ", quotation);
 
   const mapQuotation = (formData) => ({
     ...quotation,
@@ -271,15 +273,15 @@ const Quotation = ({
   const resetForm = () => {
     reset({
       client: {
-        documentType: quotation?.client?.document?.type || "ruc",
-        documentNumber: quotation?.client?.document?.number || "",
-        companyName: quotation?.client?.companyName || "",
-        firstName: quotation?.client?.firstName || "",
-        paternalSurname: quotation?.client?.paternalSurname || "",
-        maternalSurname: quotation?.client?.maternalSurname || "",
-        phoneNumber: quotation?.client?.phone?.number || "",
-        email: quotation?.client?.email || "",
-        address: quotation?.client?.address || "",
+        documentType: quotation?.documentType || "",
+        documentNumber: quotation?.documentNumber || "",
+        companyName: quotation?.companyName || "",
+        firstName: quotation?.firstName || "",
+        paternalSurname: quotation?.paternalSurname || "",
+        maternalSurname: quotation?.maternalSurname || "",
+        phoneNumber: quotation?.phone?.number || "",
+        email: quotation?.email || "",
+        address: quotation?.address || "",
       },
       device: {
         type: quotation?.device?.type || "",
