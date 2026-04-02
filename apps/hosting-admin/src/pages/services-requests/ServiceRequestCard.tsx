@@ -32,45 +32,17 @@ const TECHNICIANS = [
   { label: "Marcos Ruiz", value: "T004", status: "Fuera de turno" },
 ];
 
-const MOCK_DATA = {
-  id: "SR-2026-0482",
-  requestTime: "12:35 PM",
-  source: "Web Portal",
-  client: {
-    fullName: "Dany Diana Da Silva",
-    email: "dany.dasilva@email.com",
-    document: { type: "dni", number: "74859612" },
-    phone: { prefix: "+51", number: "987654321" },
-  },
-  device: {
-    brand: "Samsung",
-    model: "Galaxy S23 Ultra",
-    category: "Smartphone",
-  },
-  status: "pending",
-  priority: "high",
-  issueDescription:
-    "El dispositivo sufrió una caída leve. Ahora la pantalla presenta parpadeos constantes y una línea verde vertical en el lado derecho. El táctil responde intermitentemente.",
-  serviceMode: "home-service",
-  location: {
-    district: "Chorrillos",
-    exactAddress: "Av. Fernando Terán 123",
-  },
-};
-
-const MapContainer = styled.div`
+const MapContainer = styled.div<{ $bgImage: string }>`
   height: 115px;
   background-color: #141414;
   position: relative;
-  //background-image:
-  //  linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)),
-  //  url("https://www.google.com/maps/about/images/mymaps/mymaps-desktop-16x9.png");
   background-image:
     linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)),
-    url("/maps-default.png");
-  background-size: auto;
+    url(${(props) => props.$bgImage});
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  transition: background-image 0.3s ease;
 `;
 
 const Content = styled.div`
@@ -110,11 +82,7 @@ const DataItem = ({ label, value, icon }: any) => (
   </Space>
 );
 
-export const ServiceRequestCard: React.FC<any> = ({
-  user,
-  data = MOCK_DATA,
-  onOpenPage,
-}) => {
+export const ServiceRequestCard: React.FC<any> = ({ user, data }) => {
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedTech, setSelectedTech] = useState<string | null>(null);
@@ -124,6 +92,7 @@ export const ServiceRequestCard: React.FC<any> = ({
 
   const isHigh = data.priority === "high";
   const waLink = `https://wa.me/${data.client.phone.prefix.replace("+", "")}${data.client.phone.number}`;
+  const mailto = `mailto:${data.client.email}`;
   const techName = TECHNICIANS.find((t) => t.value === selectedTech)?.label;
 
   const formattedTime = data.createAt
@@ -177,6 +146,14 @@ export const ServiceRequestCard: React.FC<any> = ({
 
   const priorityInfo = getPriorityInfo(data.priority);
 
+  const { lat, lng } = data.location || {};
+  const googleApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
+  const mapUrl =
+    lat && lng
+      ? `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=15&size=400x150&markers=color:red%7C${lat},${lng}&key=${googleApiKey}`
+      : "https://placehold.co/400x150/141414/8c8c8c?text=Ubicación+no+disponible";
+
   return (
     <>
       <Card
@@ -187,7 +164,7 @@ export const ServiceRequestCard: React.FC<any> = ({
         }}
         bodyStyle={{ padding: 0 }}
       >
-        <MapContainer>
+        <MapContainer $bgImage={mapUrl}>
           <div
             style={{
               position: "absolute",
@@ -239,6 +216,17 @@ export const ServiceRequestCard: React.FC<any> = ({
             type="primary"
             size="small"
             icon={<FontAwesomeIcon icon={faMapLocationDot} />}
+            onClick={() => {
+              const destination =
+                lat && lng
+                  ? `${lat},${lng}`
+                  : encodeURIComponent(
+                      `${data.location.exactAddress}, ${data.location.district}, Lima, Peru`
+                    );
+              const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+
+              window.open(url, "_blank");
+            }}
             style={{
               position: "absolute",
               bottom: 10,
@@ -246,6 +234,8 @@ export const ServiceRequestCard: React.FC<any> = ({
               width: 34,
               height: 34,
               borderRadius: "8px",
+              backgroundColor: lat && lng ? theme.colors.info : "#595959",
+              borderColor: lat && lng ? theme.colors.info : "#595959",
             }}
           />
         </MapContainer>
@@ -295,7 +285,7 @@ export const ServiceRequestCard: React.FC<any> = ({
               />
               <IconAction
                 tooltipTitle="Email"
-                onClick={() => ""}
+                onClick={() => (window.location.href = mailto)}
                 size={24}
                 icon={faEnvelope}
                 iconStyles={{ color: () => theme.colors.warning }}

@@ -20,7 +20,6 @@ interface Props {
   user: any;
   servicesRequests: any[];
   servicesRequestsLoading: boolean;
-  onShowServiceDetail: (request: any) => void;
   viewType: "grid" | "list";
 }
 
@@ -28,7 +27,6 @@ export const ServicesRequestsCards: React.FC<Props> = ({
   user,
   servicesRequests,
   servicesRequestsLoading,
-  onShowServiceDetail,
   viewType,
 }) => {
   const sortedRequests = useMemo(() => {
@@ -39,12 +37,10 @@ export const ServicesRequestsCards: React.FC<Props> = ({
     );
   }, [servicesRequests]);
 
-  // // 1. Estado Cargando
   // if (servicesRequestsLoading && sortedRequests.length === 0) {
   //   return <LoadingSkeletonGrid />;
   // }
 
-  // 2. Estado Vacío
   if (sortedRequests.length === 0) {
     return (
       <Empty
@@ -60,19 +56,13 @@ export const ServicesRequestsCards: React.FC<Props> = ({
       {viewType === "grid" ? (
         <RequestsGrid>
           {sortedRequests.map((request) => (
-            <ServiceRequestCard
-              key={request.id}
-              user={user}
-              data={request}
-              onOpenPage={() => onShowServiceDetail(request)}
-            />
+            <ServiceRequestCard key={request.id} user={user} data={request} />
           ))}
         </RequestsGrid>
       ) : (
         <ServicesRequestsTable
           requests={sortedRequests}
           loading={servicesRequestsLoading}
-          onShowDetail={onShowServiceDetail}
           user={user}
         />
       )}

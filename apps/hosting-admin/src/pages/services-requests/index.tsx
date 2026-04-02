@@ -56,8 +56,6 @@ const ServicesRequests: React.FC<ServicesRequestsProps> = ({
 
   const onViewChange = (val) => setViewType(val);
 
-  console.log("viewType: ", viewType);
-
   const filteredData = useMemo(() => {
     return (generalRequests || []).filter((req) => {
       const searchTerm = search.toLowerCase();
@@ -104,7 +102,6 @@ const ServicesRequests: React.FC<ServicesRequestsProps> = ({
           user={user}
           servicesRequests={filteredData}
           servicesRequestsLoading={servicesRequestsLoading}
-          onShowServiceDetail={(req) => console.log(req)}
         />
       </Col>
     </Row>

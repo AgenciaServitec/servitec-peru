@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="added peru ubigeo">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="feat(location): add google maps geocoding and coordinates capture">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/ServiceRequestCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/ServiceRequestCard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/ServicesRequestsCards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/ServicesRequestsCards.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/components/ServiceRequestForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/ServiceRequestForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/components/SpecialtyDetailLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/SpecialtyDetailLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/lib/validations/service-request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/lib/validations/service-request.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +73,7 @@
     "git-widget-placeholder": "main",
     "javascript.preferred.runtime.type.id": "node",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/Angel/WebstormProjects/servitec-peru/apps/hosting-admin/public",
+    "last_opened_file_path": "C:/Users/Angel/WebstormProjects/servitec-peru/apps/hosting-admin",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -90,6 +87,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting-admin" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting-admin\public" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets\images\clients\entities" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\payment-methods" />
@@ -137,14 +135,6 @@
       <workItem from="1774791775860" duration="2112000" />
       <workItem from="1774874620736" duration="6042000" />
       <workItem from="1774897935652" duration="16225000" />
-    </task>
-    <task id="LOCAL-00018" summary="refactor specialties">
-      <option name="closed" value="true" />
-      <created>1770934722574</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1770934722574</updated>
     </task>
     <task id="LOCAL-00019" summary="refactored tsconfig">
       <option name="closed" value="true" />
@@ -530,7 +520,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775158558738</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="feat(location): add google maps geocoding and coordinates capture">
+      <option name="closed" value="true" />
+      <created>1775163618779</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1775163618779</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -548,7 +546,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactor code" />
     <MESSAGE value="added CustomSelect, CustomTexarea and custom message errors" />
     <MESSAGE value="added filter in quotation page" />
     <MESSAGE value="updated the image styles of the cards" />
@@ -573,6 +570,7 @@
     <MESSAGE value="feat(forms): add manual entry fallback and field locking for client data" />
     <MESSAGE value="feat(admin): expand search filter to include companyName in service requests" />
     <MESSAGE value="added peru ubigeo" />
-    <option name="LAST_COMMIT_MESSAGE" value="added peru ubigeo" />
+    <MESSAGE value="feat(location): add google maps geocoding and coordinates capture" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(location): add google maps geocoding and coordinates capture" />
   </component>
 </project>
