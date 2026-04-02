@@ -23,12 +23,13 @@ import {
   faShareNodes,
   faShieldHalved,
   faStore,
-  faTriangleExclamation,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { Title } from "../../components";
 import dayjs from "dayjs";
+import { SERVICE_REQUEST_STATUS } from "../../data-list/serviceRequestStatus.ts";
+import { PRIORITY_LEVELS } from "../../data-list/serviceRequestPriorityLevels.ts";
 
 const { Text, Paragraph } = Typography;
 
@@ -88,13 +89,6 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
     message.success(`${label} copiado`);
   };
 
-  const priorityColor =
-    data.priority === "high"
-      ? "#ff4d4f"
-      : data.priority === "medium"
-        ? "#faad14"
-        : "#52c41a";
-
   const formattedTime = data.createAt
     ? dayjs(data.createAt.toDate()).format("hh:mm A")
     : data.requestTime || "--:--";
@@ -102,6 +96,14 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
   const formattedDate = data.createAt
     ? dayjs(data.createAt.toDate()).format("D [de] MMMM, YYYY")
     : data.requestTime || "--:--";
+
+  const statusInfo =
+    SERVICE_REQUEST_STATUS.find((s) => s.value === data.status) ||
+    SERVICE_REQUEST_STATUS[0];
+
+  const priorityInfo =
+    PRIORITY_LEVELS.find((p) => p.value === data.priority) ||
+    PRIORITY_LEVELS[0];
 
   return (
     <Drawer
@@ -143,7 +145,6 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
         </Space>
       }
     >
-      {/* 1. Cabecera */}
       <div
         style={{
           marginBottom: 32,
@@ -155,44 +156,43 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
         <Space direction="vertical" size={8}>
           <Space>
             <Tag
-              style={{
-                margin: 0,
-                fontWeight: 600,
-                borderRadius: "4px",
-                fontSize: 11,
-                background: "transparent", // Quitamos fondo blanco
-                color: "#faad14",
-                borderColor: "#faad14",
-              }}
-            >
-              {data.status.toUpperCase()}
-            </Tag>
-            <Tag
+              color={statusInfo.color}
               icon={
                 <FontAwesomeIcon
-                  icon={faTriangleExclamation}
-                  style={{ fontSize: 9 }}
+                  icon={statusInfo.icon}
+                  style={{ fontSize: 9, color: statusInfo.color }}
                 />
               }
               style={{
                 margin: 0,
-                fontWeight: 600,
-                borderRadius: "4px",
                 fontSize: 11,
-                background: "transparent", // Quitamos fondo blanco
-                color: priorityColor,
-                borderColor: priorityColor,
+                background: "transparent",
+                color: "white",
+                borderColor: statusInfo.color,
               }}
             >
-              {data.priority === "high"
-                ? "URGENTE"
-                : data.priority === "medium"
-                  ? "NORMAL"
-                  : "BAJA"}
+              {statusInfo.label.toUpperCase()}
+            </Tag>
+            <Tag
+              color={priorityInfo.color}
+              icon={
+                <FontAwesomeIcon
+                  icon={priorityInfo.icon}
+                  style={{ fontSize: 9, color: priorityInfo.color }}
+                />
+              }
+              style={{
+                margin: 0,
+                fontSize: 11,
+                background: "transparent",
+                borderColor: priorityInfo.color,
+              }}
+            >
+              {priorityInfo.label.toUpperCase()}
             </Tag>
           </Space>
           <Text type="secondary" style={{ fontSize: 11 }}>
-            Ingresado vía {data.source}
+            Ingresado vía servitecperu.com
           </Text>
         </Space>
 
@@ -213,7 +213,6 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
         </div>
       </div>
 
-      {/* 2. Información del Cliente */}
       <SectionTitle>
         <FontAwesomeIcon
           icon={faUser}
@@ -296,7 +295,7 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
                 margin: 0,
                 fontSize: 10,
                 borderRadius: 3,
-                background: "transparent", // Quitamos fondo blanco
+                background: "transparent",
                 color:
                   data.serviceMode === "home-service" ? "#1890ff" : "#b37feb",
                 borderColor:
@@ -331,7 +330,6 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
         </Space>
       </InfoBlock>
 
-      {/* 3. Datos del Equipo - AHORA CON VARIANT GOLD */}
       <SectionTitle>
         <FontAwesomeIcon
           icon={faMicrochip}
@@ -378,7 +376,6 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
         </SpecItem>
       </InfoBlock>
 
-      {/* 4. Descripción del Fallo - AHORA CON VARIANT GOLD */}
       <SectionTitle>
         <FontAwesomeIcon
           icon={faHistory}
@@ -402,7 +399,6 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
         </Paragraph>
       </InfoBlock>
 
-      {/* Footer Azul Sutil */}
       <InfoBlock $variant="blue" style={{ marginTop: 40, marginBottom: 0 }}>
         <Space>
           <FontAwesomeIcon

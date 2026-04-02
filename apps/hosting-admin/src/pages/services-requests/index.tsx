@@ -2,11 +2,13 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import { servicesRequestsRef } from "../../firebase/collections";
 import { Col, Row } from "../../components";
 import { ServicesRequestsCards } from "./ServicesRequestsCards.tsx";
-import { ModalProvider } from "../../providers";
+import { ModalProvider, useAuthentication } from "../../providers";
 import { RequestToolbar } from "./RequestToolbar.tsx";
 import { useMemo, useState } from "react";
 
 export const ServicesRequestsIntegrations = () => {
+  const { authUser } = useAuthentication();
+
   const [servicesRequests, servicesRequestsLoading, servicesRequestsError] =
     useCollectionData(
       servicesRequestsRef
@@ -28,6 +30,7 @@ export const ServicesRequestsIntegrations = () => {
   return (
     <ModalProvider>
       <ServicesRequests
+        user={authUser}
         generalRequests={generalRequests}
         servicesRequestsLoading={servicesRequestsLoading}
       />
@@ -36,17 +39,24 @@ export const ServicesRequestsIntegrations = () => {
 };
 
 interface ServicesRequestsProps {
+  user: any;
   generalRequests: any[];
   servicesRequestsLoading: boolean;
 }
 
 const ServicesRequests: React.FC<ServicesRequestsProps> = ({
+  user,
   generalRequests,
   servicesRequestsLoading,
 }) => {
   const [search, setSearch] = useState("");
   const [district, setDistrict] = useState("all");
   const [priority, setPriority] = useState("all");
+  const [viewType, setViewType] = useState<"grid" | "list">("grid");
+
+  const onViewChange = (val) => setViewType(val);
+
+  console.log("viewType: ", viewType);
 
   const filteredData = useMemo(() => {
     return (generalRequests || []).filter((req) => {
@@ -79,11 +89,14 @@ const ServicesRequests: React.FC<ServicesRequestsProps> = ({
             setDistrict("all");
             setPriority("all");
           }}
+          onViewChange={onViewChange}
         />
       </Col>
 
       <Col span={24}>
         <ServicesRequestsCards
+          viewType={viewType}
+          user={user}
           servicesRequests={filteredData}
           servicesRequestsLoading={servicesRequestsLoading}
           onShowServiceDetail={(req) => console.log(req)}

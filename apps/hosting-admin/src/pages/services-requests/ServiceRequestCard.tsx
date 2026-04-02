@@ -3,10 +3,8 @@ import { Button, Card, Select, Space, Tag, Typography } from "antd";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBolt,
   faCalendarCheck,
   faChevronRight,
-  faClock,
   faEnvelope,
   faEye,
   faHouseSignal,
@@ -19,6 +17,11 @@ import { ServiceDetailsDrawer } from "./ServiceDetailsDrawer.tsx";
 import { IconAction } from "../../components";
 import { theme } from "../../styles";
 import dayjs from "dayjs";
+import { updateServiceRequest } from "../../firebase/collections";
+import { useDefaultFirestoreProps } from "../../hooks";
+import { SERVICE_REQUEST_STATUS } from "../../data-list/serviceRequestStatus.ts";
+import { PRIORITY_LEVELS } from "../../data-list/serviceRequestPriorityLevels.ts";
+import { useNavigate } from "react-router-dom";
 
 const { Text, Title, Paragraph } = Typography;
 
@@ -59,10 +62,13 @@ const MapContainer = styled.div`
   height: 115px;
   background-color: #141414;
   position: relative;
+  //background-image:
+  //  linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)),
+  //  url("https://www.google.com/maps/about/images/mymaps/mymaps-desktop-16x9.png");
   background-image:
     linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)),
-    url("https://www.google.com/maps/about/images/mymaps/mymaps-desktop-16x9.png");
-  background-size: cover;
+    url("/maps-default.png");
+  background-size: auto;
   background-repeat: no-repeat;
   background-position: center;
 `;
@@ -105,19 +111,71 @@ const DataItem = ({ label, value, icon }: any) => (
 );
 
 export const ServiceRequestCard: React.FC<any> = ({
+  user,
   data = MOCK_DATA,
   onOpenPage,
 }) => {
+  const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedTech, setSelectedTech] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const { assignUpdateProps } = useDefaultFirestoreProps();
 
   const isHigh = data.priority === "high";
   const waLink = `https://wa.me/${data.client.phone.prefix.replace("+", "")}${data.client.phone.number}`;
   const techName = TECHNICIANS.find((t) => t.value === selectedTech)?.label;
 
   const formattedTime = data.createAt
-    ? dayjs(data.createAt.toDate()).format("hh:mm A")
+    ? dayjs(data.createAt.toDate()).format("hh:mm A DD/MM/YYYY")
     : data.requestTime || "--:--";
+
+  const onServiceRequestAccepted = async (serviceRequest) => {
+    try {
+      setLoading(true);
+
+      const finalTechId = selectedTech || user.id;
+
+      if (!finalTechId) {
+        console.error("No hay un ID de técnico o usuario disponible");
+        return;
+      }
+
+      await updateServiceRequest(
+        serviceRequest.id,
+        assignUpdateProps({
+          technicalId: finalTechId,
+        })
+      );
+
+      setSelectedTech(null);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onRequestQuotation = (serviceRequest) =>
+    navigate(`/quotations/new?serviceRequestId=${serviceRequest.id}`);
+
+  const getStatusInfo = (statusValue: string) => {
+    return (
+      SERVICE_REQUEST_STATUS.find((s) => s.value === statusValue) ||
+      SERVICE_REQUEST_STATUS[0]
+    );
+  };
+
+  const getPriorityInfo = (priorityValue: string) => {
+    return (
+      PRIORITY_LEVELS.find((p) => p.value === priorityValue) ||
+      PRIORITY_LEVELS[1]
+    );
+  };
+
+  const statusInfo = getStatusInfo(data.status);
+
+  const priorityInfo = getPriorityInfo(data.priority);
 
   return (
     <>
@@ -140,40 +198,41 @@ export const ServiceRequestCard: React.FC<any> = ({
             }}
           >
             <Tag
-              color="default"
               style={{
-                background: "rgba(0,0,0,0.8)",
-                color: "#fff",
-                border: "1px solid rgba(255,255,255,0.2)",
+                border: `1px solid ${statusInfo.color}`,
                 fontSize: 10,
                 display: "flex",
                 alignItems: "center",
               }}
             >
               <FontAwesomeIcon
-                icon={faClock}
-                style={{ fontSize: 9, marginRight: 5, color: "#faad14" }}
-              />
-              PENDIENTE
-            </Tag>
-            {isHigh && (
-              <Tag
-                color="error"
+                icon={statusInfo.icon}
                 style={{
-                  fontWeight: 700,
-                  fontSize: 10,
-                  display: "flex",
-                  alignItems: "center",
-                  boxShadow: "0 2px 4px rgba(0,0,0,0.3)",
+                  fontSize: 9,
+                  marginRight: 5,
+                  color: statusInfo.color === "gold" ? "#faad14" : "#1890ff",
                 }}
-              >
-                <FontAwesomeIcon
-                  icon={faBolt}
-                  style={{ fontSize: 9, marginRight: 5 }}
-                />
-                URGENTE
-              </Tag>
-            )}
+              />
+              {statusInfo.label.toUpperCase()}
+            </Tag>
+            <Tag
+              style={{
+                fontSize: 10,
+                display: "flex",
+                alignItems: "center",
+                border: `1px solid ${priorityInfo.color}`,
+              }}
+            >
+              <FontAwesomeIcon
+                icon={priorityInfo.icon}
+                style={{
+                  fontSize: 9,
+                  marginRight: 5,
+                  color: priorityInfo.color,
+                }}
+              />
+              {priorityInfo.label.toUpperCase()}
+            </Tag>
           </div>
 
           <Button
@@ -279,30 +338,57 @@ export const ServiceRequestCard: React.FC<any> = ({
           </div>
 
           <Space direction="vertical" style={{ width: "100%" }} size={10}>
-            <Select
-              placeholder="Asignar técnico encargado"
-              style={{ width: "100%" }}
-              size="middle"
-              onChange={(val) => setSelectedTech(val)}
-              options={TECHNICIANS.map((t) => ({
-                label: t.label,
-                value: t.value,
-              }))}
-            />
-            <Button
-              type="primary"
-              block
-              icon={
-                <FontAwesomeIcon
-                  icon={selectedTech ? faLaptopMedical : faChevronRight}
-                />
-              }
-              style={{ height: 38, fontWeight: 700, borderRadius: "6px" }}
-            >
-              {selectedTech
-                ? `ASIGNAR A ${techName?.split(" ")[0].toUpperCase()}`
-                : "ACEPTAR SOLICITUD"}
-            </Button>
+            {!data?.technicalId && (
+              <Select
+                placeholder="Asignar técnico encargado"
+                style={{ width: "100%" }}
+                size="middle"
+                onChange={(val) => setSelectedTech(val)}
+                options={TECHNICIANS.map((t) => ({
+                  label: t.label,
+                  value: t.value,
+                }))}
+              />
+            )}
+            {!data?.technicalId ? (
+              <Button
+                type="primary"
+                block
+                danger={!!selectedTech}
+                icon={
+                  <FontAwesomeIcon
+                    icon={selectedTech ? faLaptopMedical : faChevronRight}
+                  />
+                }
+                style={{
+                  height: 38,
+                  fontWeight: 700,
+                  borderRadius: "6px",
+                  backgroundColor: selectedTech ? "#52c41a" : "",
+                  borderColor: selectedTech ? "#52c41a" : "",
+                }}
+                onClick={() => onServiceRequestAccepted(data)}
+                loading={loading}
+              >
+                {selectedTech
+                  ? `ASIGNAR A ${techName?.split(" ")[0].toUpperCase()}`
+                  : "ACEPTAR SOLICITUD"}
+              </Button>
+            ) : (
+              <Button
+                type="primary"
+                block
+                icon={
+                  <FontAwesomeIcon
+                    icon={selectedTech ? faLaptopMedical : faChevronRight}
+                  />
+                }
+                style={{ height: 38, fontWeight: 700, borderRadius: "6px" }}
+                onClick={() => onRequestQuotation(data)}
+              >
+                COTIZAR
+              </Button>
+            )}
           </Space>
 
           <div
