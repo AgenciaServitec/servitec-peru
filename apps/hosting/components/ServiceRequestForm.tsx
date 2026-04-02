@@ -54,42 +54,43 @@ export default function ServiceRequestForm({
 
   const form = useForm<ServiceRequestFormData>({
     resolver: zodResolver(serviceRequestSchema) as any,
-    defaultValues: {
-      client: {
-        names: "",
-        paternalSurname: "",
-        maternalSurname: "",
-        fullName: "",
-        companyName: "",
-        email: "",
-        document: {
-          type: "dni",
-          number: "",
+    defaultValues: (() => {
+      const baseDefaults = {
+        client: {
+          names: "",
+          paternalSurname: "",
+          maternalSurname: "",
+          fullName: "",
+          companyName: "",
+          email: "",
+          document: { type: "dni", number: "" },
+          phone: { prefix: "+51", number: "" },
         },
-        phone: {
-          prefix: "+51",
-          number: "",
+        device: {
+          category: specialtyName || "General",
+          brand: "",
+          model: "",
+          serialNumber: "",
         },
-      },
-      device: {
-        category: specialtyName || "General",
-        brand: "",
-        model: "",
-        serialNumber: "",
-      },
-      serviceMode: "store-visit",
-      location: {
-        department: "lima",
-        province: "lima",
-        district: "",
-        exactAddress: "",
-        interior: "",
-        reference: "",
-      },
-      status: "pending",
-      priority: "low",
-      issueDescription: "",
-    },
+        serviceMode: "store-visit",
+        location: {
+          department: "lima",
+          province: "lima",
+          district: "",
+          exactAddress: "",
+          interior: "",
+          reference: "",
+        },
+        status: "pending",
+        priority: "medium",
+        issueDescription: "",
+      };
+      if (typeof window !== "undefined") {
+        const saved = sessionStorage.getItem("service_request_draft");
+        if (saved) return JSON.parse(saved);
+      }
+      return baseDefaults;
+    })(),
   });
 
   const { handleSubmit, setValue, watch, trigger, control } = form;
@@ -97,6 +98,20 @@ export default function ServiceRequestForm({
   const serviceMode = watch("serviceMode");
   const docType = watch("client.document.type");
   const docNumber = watch("client.document.number");
+  const allFields = watch();
+
+  useEffect(() => {
+    console.log("Errores actuales:", form.formState.errors);
+  }, [form.formState.errors]);
+
+  useEffect(() => {
+    if (step < 5) {
+      sessionStorage.setItem(
+        "service_request_draft",
+        JSON.stringify(allFields)
+      );
+    }
+  }, [allFields, step]);
 
   const { getDataByDniOrRuc, getDataByDniOrRucLoading } =
     useApiDataByDniOrRucGet(docType);
@@ -112,8 +127,16 @@ export default function ServiceRequestForm({
             data.fullName ||
             `${data.firstName || ""} ${data.paternalSurname || ""} ${data.maternalSurname || ""}`.trim();
           if (name) {
-            setValue("client.fullName", name.toLowerCase());
-            trigger("client.fullName");
+            if (name) {
+              const targetField =
+                docType === "dni" ? "client.fullName" : "client.companyName";
+              setValue(targetField, name.toLowerCase());
+              trigger(targetField);
+
+              const otherField =
+                docType === "dni" ? "client.companyName" : "client.fullName";
+              setValue(otherField, "");
+            }
           }
         }
       }
@@ -123,20 +146,24 @@ export default function ServiceRequestForm({
 
   const nextStep = async () => {
     const fieldsByStep: Record<number, string[]> = {
-      1: [
+      1: ["device.brand", "device.model", "issueDescription", "priority"],
+      2: ["serviceMode"],
+      3: ["location.district"],
+      4: [
         "client.document.type",
         "client.document.number",
         "client.fullName",
         "client.email",
         "client.phone.number",
       ],
-      2: ["device.brand", "device.model", "issueDescription", "priority"],
-      3: ["serviceMode"],
-      4: ["location.district"],
     };
 
-    if (step === 4 && serviceMode === "home-service") {
-      fieldsByStep[4].push("location.exactAddress", "location.reference");
+    if (step === 3 && serviceMode === "home-service") {
+      fieldsByStep[3].push("location.exactAddress", "location.reference");
+    }
+
+    if (step === 4 && docType === "ruc") {
+      fieldsByStep[4].push("client.companyName");
     }
 
     const isValid = await trigger(fieldsByStep[step] as any);
@@ -163,7 +190,20 @@ export default function ServiceRequestForm({
       );
 
       if (response.ok) {
+        sessionStorage.removeItem("service_request_draft");
+        form.reset({
+          client: {
+            document: { type: "dni", number: "" },
+            fullName: "",
+            email: "",
+            phone: { prefix: "+51", number: "" },
+          },
+          device: { brand: "", model: "" },
+          issueDescription: "",
+        });
+
         setStep(5);
+
         toast.success("Envío exitoso", {
           description: "Tu registro se completó correctamente.",
           duration: 3000,
@@ -191,6 +231,13 @@ export default function ServiceRequestForm({
           Solicitud de Servicio para {specialtyName}
         </h3>
 
+        <div className="mt-4 flex items-center justify-center gap-2 text-[10px] md:text-[11px] text-info bg-info/10 py-1.5 px-4 rounded-full w-fit mx-auto border border-info/20 shadow-[0_0_15px_rgba(var(--info-rgb),0.1)]">
+          <Clock className="h-3 w-3 animate-pulse" />
+          <span className="font-medium tracking-wide">
+            Progreso guardado: tus datos se mantendrán en esta pestaña.
+          </span>
+        </div>
+
         <div className="mb-12 pt-4 px-4">
           <div className="relative flex justify-between max-w-lg mx-auto">
             <div className="absolute top-5 left-0 right-0 px-5 z-0">
@@ -203,10 +250,10 @@ export default function ServiceRequestForm({
             </div>
 
             {[
-              { id: 1, label: "Cliente", icon: User },
-              { id: 2, label: "Equipo", icon: Cpu },
-              { id: 3, label: "Servicio", icon: Settings },
-              { id: 4, label: "Ubicación", icon: MapPin },
+              { id: 1, label: "Equipo", icon: Cpu },
+              { id: 2, label: "Servicio", icon: Settings },
+              { id: 3, label: "Ubicación", icon: MapPin },
+              { id: 4, label: "Cliente", icon: User },
             ].map((s) => {
               const isCompleted = step > s.id;
               const isActive = step === s.id;
@@ -253,6 +300,7 @@ export default function ServiceRequestForm({
             <Form {...form}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <AnimatePresence mode="wait">
+                  {/* PASO 1: EQUIPO */}
                   {step === 1 && (
                     <motion.div
                       key="s1"
@@ -261,6 +309,554 @@ export default function ServiceRequestForm({
                       exit={{ opacity: 0 }}
                       className="space-y-6"
                     >
+                      <div className="text-center space-y-2">
+                        <h3 className="text-xl font-semibold text-white">
+                          Información del Equipo
+                        </h3>
+                        <p className="text-sm text-white/50">
+                          Cuéntanos sobre el dispositivo que deseas reparar.
+                        </p>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="md:col-span-2">
+                          <FormField
+                            control={control}
+                            name="device.brand"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormControl>
+                                  <Input
+                                    {...field}
+                                    {...useFormHelpers(
+                                      "device.brand",
+                                      serviceRequestSchema
+                                    )}
+                                    label="Marca"
+                                    placeholder="Ej: HP, Apple, Epson..."
+                                    icon={Tag}
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                        <FormField
+                          control={control}
+                          name="device.model"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormControl>
+                                <Input
+                                  {...field}
+                                  {...useFormHelpers(
+                                    "device.model",
+                                    serviceRequestSchema
+                                  )}
+                                  label="Modelo"
+                                  placeholder="Ej: LaserJet Pro M404dn"
+                                  icon={Cpu}
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={control}
+                          name="device.serialNumber"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormControl>
+                                <Input
+                                  {...field}
+                                  {...useFormHelpers(
+                                    "device.serialNumber",
+                                    serviceRequestSchema
+                                  )}
+                                  label="Nro de Serie (Opcional)"
+                                  placeholder="SN: ABC123456789"
+                                  icon={Hash}
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                        <div className="md:col-span-2">
+                          <FormField
+                            control={control}
+                            name="priority"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormControl>
+                                  <Select
+                                    {...field}
+                                    {...useFormHelpers(
+                                      "priority",
+                                      serviceRequestSchema
+                                    )}
+                                    label="Prioridad del servicio"
+                                    icon={Zap}
+                                    options={[
+                                      { value: "low", label: "Baja" },
+                                      { value: "medium", label: "Normal" },
+                                      { value: "high", label: "Urgente" },
+                                    ]}
+                                    onValueChange={field.onChange}
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                        <div className="md:col-span-2">
+                          <FormField
+                            control={control}
+                            name="issueDescription"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormControl>
+                                  <Textarea
+                                    {...field}
+                                    {...useFormHelpers(
+                                      "issueDescription",
+                                      serviceRequestSchema
+                                    )}
+                                    label="Problema que presenta"
+                                    placeholder="Describa detalladamente la falla o los síntomas de su equipo..."
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                      <Button
+                        type="button"
+                        onClick={nextStep}
+                        className="w-full"
+                      >
+                        Siguiente
+                      </Button>
+                    </motion.div>
+                  )}
+
+                  {step === 2 && (
+                    <motion.div
+                      key="s2"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      className="space-y-6"
+                    >
+                      <div className="text-center space-y-2">
+                        <h3 className="text-xl font-semibold text-white">
+                          ¿Cómo prefieres el servicio?
+                        </h3>
+                        <p className="text-sm text-white/50">
+                          Selecciona la modalidad que mejor se te acomode.
+                        </p>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div
+                          onClick={() => setValue("serviceMode", "store-visit")}
+                          className={cn(
+                            "relative p-5 rounded-xl border-2 cursor-pointer transition-all duration-200 group",
+                            serviceMode === "store-visit"
+                              ? "border-success bg-success/10"
+                              : "border-white/5 bg-white/5 hover:border-white/20"
+                          )}
+                        >
+                          <div className="flex flex-col items-center text-center gap-3">
+                            <div
+                              className={cn(
+                                "p-3 rounded-full transition-colors",
+                                serviceMode === "store-visit"
+                                  ? "bg-success/20 text-success"
+                                  : "bg-white/5 text-white/20 group-hover:text-white/40"
+                              )}
+                            >
+                              <Store className="h-6 w-6" />
+                            </div>
+                            <div>
+                              <p className="font-semibold text-white">
+                                Dejar en taller
+                              </p>
+                              <p className="text-xs text-white/40 mt-1">
+                                Visítanos en nuestras sedes
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div
+                          onClick={() =>
+                            setValue("serviceMode", "home-service")
+                          }
+                          className={cn(
+                            "relative p-5 rounded-xl border-2 cursor-pointer transition-all duration-200 group",
+                            serviceMode === "home-service"
+                              ? "border-success bg-success/10"
+                              : "border-white/5 bg-white/5 hover:border-white/20"
+                          )}
+                        >
+                          <div className="flex flex-col items-center text-center gap-3">
+                            <div
+                              className={cn(
+                                "p-3 rounded-full transition-colors",
+                                serviceMode === "home-service"
+                                  ? "bg-success/20 text-success"
+                                  : "bg-white/5 text-white/20 group-hover:text-white/40"
+                              )}
+                            >
+                              <Truck className="h-6 w-6" />
+                            </div>
+                            <div>
+                              <p className="font-semibold text-white">
+                                Servicio a domicilio
+                              </p>
+                              <p className="text-xs text-white/40 mt-1">
+                                Técnico especializado a tu casa
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <AnimatePresence>
+                        {serviceMode === "store-visit" && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="bg-white/5 rounded-xl border border-white/10 p-5 space-y-4">
+                              <div className="flex items-center justify-between border-b border-white/5 pb-3">
+                                <span className="text-xs font-medium text-white/60">
+                                  Sedes disponibles en Chorrillos
+                                </span>
+                                <div className="flex items-center gap-1.5 text-[11px] text-info">
+                                  <Clock className="h-3.5 w-3.5" />
+                                  <span>Lun – Vie: 9am – 7pm</span>
+                                </div>
+                              </div>
+
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div className="group/loc relative bg-white/[0.02] p-3 rounded-lg border border-white/5 hover:bg-white/[0.05] transition-colors">
+                                  <div className="flex justify-between items-start mb-1">
+                                    <h4 className="text-sm font-medium text-white">
+                                      Sede Oficina
+                                    </h4>
+                                    <span className="text-[9px] bg-info/10 text-info px-1.5 py-0.5 rounded border border-info/20">
+                                      CHORRILLOS
+                                    </span>
+                                  </div>
+                                  <p className="text-xs text-white/40 leading-relaxed mb-3">
+                                    Néstor Bermúdez 113, Lima
+                                  </p>
+                                  <div className="flex items-center gap-3">
+                                    <a
+                                      href="https://www.google.com/maps/dir/?api=1&destination=Servitec+Per%C3%BA+Group+EIRL+Oficina+Administrativa+-12.1712089,-77.0188392"
+                                      target="_blank"
+                                      className="inline-flex items-center gap-1 text-[11px] text-info hover:underline"
+                                    >
+                                      <MapPin className="h-3 w-3" /> Cómo llegar
+                                    </a>
+                                    <button
+                                      type="button"
+                                      onClick={() =>
+                                        navigator.clipboard.writeText(
+                                          "Calle Néstor Bermúdez 113, Chorrillos"
+                                        )
+                                      }
+                                      className="text-[10px] text-white/30 hover:text-white transition-colors"
+                                    >
+                                      Copiar
+                                    </button>
+                                  </div>
+                                </div>
+
+                                <div className="group/loc relative bg-white/[0.02] p-3 rounded-lg border border-white/5 hover:bg-white/[0.05] transition-colors">
+                                  <div className="flex justify-between items-start mb-1">
+                                    <h4 className="text-sm font-medium text-white">
+                                      Sede Taller Kiwi
+                                    </h4>
+                                    <span className="text-[9px] bg-info/10 text-info px-1.5 py-0.5 rounded border border-info/20">
+                                      CHORRILLOS
+                                    </span>
+                                  </div>
+                                  <p className="text-xs text-white/40 leading-relaxed mb-3">
+                                    Justo Pastor Dávila 117, Lima
+                                  </p>
+                                  <div className="flex items-center gap-3">
+                                    <a
+                                      href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=-12.175343,-77.0184858"
+                                      target="_blank"
+                                      className="inline-flex items-center gap-1 text-[11px] text-info hover:underline"
+                                    >
+                                      <MapPin className="h-3 w-3" /> Cómo llegar
+                                    </a>
+                                    <button
+                                      type="button"
+                                      onClick={() =>
+                                        navigator.clipboard.writeText(
+                                          "Justo Pastor Dávila 117, Chorrillos"
+                                        )
+                                      }
+                                      className="text-[10px] text-white/30 hover:text-white transition-colors"
+                                    >
+                                      Copiar
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+
+                        {serviceMode === "home-service" && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="p-4 bg-info/5 border border-info/20 rounded-xl flex gap-3 items-start"
+                          >
+                            <Info className="h-5 w-5 text-info shrink-0 mt-0.5" />
+                            <p className="text-xs text-white/70 leading-relaxed">
+                              Un técnico se pondrá en contacto contigo para
+                              coordinar el horario.
+                              <span className="text-info font-medium">
+                                {" "}
+                                El costo de movilidad se calcula según tu
+                                distrito en el siguiente paso.
+                              </span>
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                      <div className="flex flex-col md:flex-row gap-6">
+                        <Button
+                          variant="outline"
+                          onClick={prevStep}
+                          className="flex-1"
+                        >
+                          Atrás
+                        </Button>
+                        <Button
+                          type="button"
+                          onClick={nextStep}
+                          disabled={!serviceMode}
+                          className="flex-1"
+                        >
+                          Siguiente
+                        </Button>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {/* PASO 3: UBICACION */}
+                  {step === 3 && (
+                    <motion.div
+                      key="s3"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="space-y-6"
+                    >
+                      <div className="text-center space-y-2">
+                        <h3 className="text-xl font-semibold text-white">
+                          {serviceMode === "home-service"
+                            ? "Ubicación del Servicio"
+                            : "Punto de Origen"}
+                        </h3>
+                        <p className="text-sm text-white/50">
+                          {serviceMode === "home-service"
+                            ? "Ayúdanos a saber dónde se realizará la atención."
+                            : "¿Desde qué distrito nos estarías visitando?"}
+                        </p>
+                      </div>
+                      {serviceMode === "home-service" && (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <FormField
+                            control={control}
+                            name="location.department"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormControl>
+                                  <Input
+                                    {...field}
+                                    {...useFormHelpers(
+                                      "location.department",
+                                      serviceRequestSchema
+                                    )}
+                                    label="Departamento"
+                                    placeholder="Ej: Lima"
+                                    icon={MapPin}
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={control}
+                            name="location.province"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormControl>
+                                  <Input
+                                    {...field}
+                                    {...useFormHelpers(
+                                      "location.province",
+                                      serviceRequestSchema
+                                    )}
+                                    label="Provincia"
+                                    placeholder="Ej: Lima"
+                                    icon={MapPin}
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      )}
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="md:col-span-2">
+                          <FormField
+                            control={control}
+                            name="location.district"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormControl>
+                                  <Select
+                                    {...field}
+                                    {...useFormHelpers(
+                                      "location.district",
+                                      serviceRequestSchema
+                                    )}
+                                    label="Distrito"
+                                    placeholder="Seleccionar"
+                                    icon={Locate}
+                                    options={DISTRICTS}
+                                    onValueChange={field.onChange}
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+
+                      {serviceMode === "home-service" && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          className="space-y-4 overflow-hidden border-t border-white/5 pt-6"
+                        >
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="md:col-span-2">
+                              <FormField
+                                control={control}
+                                name="location.exactAddress"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormControl>
+                                      <Input
+                                        {...field}
+                                        {...useFormHelpers(
+                                          "location.exactAddress",
+                                          serviceRequestSchema
+                                        )}
+                                        label="Dirección Exacta"
+                                        placeholder="Calle / Av / Jr. y número"
+                                        icon={Home}
+                                      />
+                                    </FormControl>
+                                  </FormItem>
+                                )}
+                              />
+                            </div>
+
+                            <FormField
+                              control={control}
+                              name="location.interior"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormControl>
+                                    <Input
+                                      {...field}
+                                      {...useFormHelpers(
+                                        "location.interior",
+                                        serviceRequestSchema
+                                      )}
+                                      label="Interior"
+                                      placeholder="Dpto, Of, Bloque"
+                                      icon={DoorOpen}
+                                    />
+                                  </FormControl>
+                                </FormItem>
+                              )}
+                            />
+
+                            <FormField
+                              control={control}
+                              name="location.reference"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormControl>
+                                    <Input
+                                      {...field}
+                                      {...useFormHelpers(
+                                        "location.reference",
+                                        serviceRequestSchema
+                                      )}
+                                      label="Referencia"
+                                      placeholder="Ej: Frente al parque..."
+                                      icon={Info}
+                                    />
+                                  </FormControl>
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+                        </motion.div>
+                      )}
+
+                      <div className="flex flex-col md:flex-row gap-6">
+                        <Button
+                          variant="outline"
+                          onClick={prevStep}
+                          className="flex-1"
+                        >
+                          Atrás
+                        </Button>
+                        <Button
+                          type="button"
+                          onClick={nextStep}
+                          className="flex-1"
+                        >
+                          Siguiente
+                        </Button>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {step === 4 && (
+                    <motion.div
+                      key="s4"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="space-y-6"
+                    >
+                      <div className="text-center space-y-2">
+                        <h3 className="text-xl font-semibold text-white">
+                          Datos de Contacto
+                        </h3>
+                        <p className="text-sm text-white/50">
+                          Completa tu información para comunicarnos contigo.
+                        </p>
+                      </div>
                       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                         <FormField
                           control={control}
@@ -407,522 +1003,6 @@ export default function ServiceRequestForm({
                           />
                         </div>
                       </div>
-                      <Button
-                        type="button"
-                        onClick={nextStep}
-                        className="w-full"
-                      >
-                        Siguiente
-                      </Button>
-                    </motion.div>
-                  )}
-
-                  {step === 2 && (
-                    <motion.div
-                      key="s2"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="space-y-6"
-                    >
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="md:col-span-2">
-                          <FormField
-                            control={control}
-                            name="device.brand"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormControl>
-                                  <Input
-                                    {...field}
-                                    {...useFormHelpers(
-                                      "device.brand",
-                                      serviceRequestSchema
-                                    )}
-                                    label="Marca"
-                                    placeholder="Ej: HP, Apple, Epson..."
-                                    icon={Tag}
-                                  />
-                                </FormControl>
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-                        <FormField
-                          control={control}
-                          name="device.model"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormControl>
-                                <Input
-                                  {...field}
-                                  {...useFormHelpers(
-                                    "device.model",
-                                    serviceRequestSchema
-                                  )}
-                                  label="Modelo"
-                                  placeholder="Ej: LaserJet Pro M404dn"
-                                  icon={Cpu}
-                                />
-                              </FormControl>
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={control}
-                          name="device.serialNumber"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormControl>
-                                <Input
-                                  {...field}
-                                  {...useFormHelpers(
-                                    "device.serialNumber",
-                                    serviceRequestSchema
-                                  )}
-                                  label="Nro de Serie (Opcional)"
-                                  placeholder="SN: ABC123456789"
-                                  icon={Hash}
-                                />
-                              </FormControl>
-                            </FormItem>
-                          )}
-                        />
-                        <div className="md:col-span-2">
-                          <FormField
-                            control={control}
-                            name="priority"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormControl>
-                                  <Select
-                                    {...field}
-                                    {...useFormHelpers(
-                                      "priority",
-                                      serviceRequestSchema
-                                    )}
-                                    label="Prioridad del servicio"
-                                    icon={Zap}
-                                    options={[
-                                      { value: "low", label: "Regular" },
-                                      { value: "medium", label: "Prioritaria" },
-                                      { value: "high", label: "Inmediata" },
-                                    ]}
-                                    onValueChange={field.onChange}
-                                  />
-                                </FormControl>
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-                        <div className="md:col-span-2">
-                          <FormField
-                            control={control}
-                            name="issueDescription"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormControl>
-                                  <Textarea
-                                    {...field}
-                                    {...useFormHelpers(
-                                      "issueDescription",
-                                      serviceRequestSchema
-                                    )}
-                                    label="Problema que presenta"
-                                    placeholder="Describa detalladamente la falla o los síntomas de su equipo..."
-                                  />
-                                </FormControl>
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-                      </div>
-                      <div className="flex flex-col md:flex-row gap-6">
-                        <Button
-                          variant="outline"
-                          onClick={prevStep}
-                          className="flex-1"
-                        >
-                          Atrás
-                        </Button>
-                        <Button onClick={nextStep} className="flex-1">
-                          Siguiente
-                        </Button>
-                      </div>
-                    </motion.div>
-                  )}
-
-                  {step === 3 && (
-                    <motion.div
-                      key="s3"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0 }}
-                      className="space-y-6"
-                    >
-                      <div className="text-center space-y-2">
-                        <h3 className="text-xl font-semibold text-white">
-                          ¿Cómo prefieres el servicio?
-                        </h3>
-                        <p className="text-sm text-white/50">
-                          Selecciona la modalidad que mejor se te acomode.
-                        </p>
-                      </div>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div
-                          onClick={() => setValue("serviceMode", "store-visit")}
-                          className={cn(
-                            "relative p-5 rounded-xl border-2 cursor-pointer transition-all duration-200 group",
-                            serviceMode === "store-visit"
-                              ? "border-success bg-success/10"
-                              : "border-white/5 bg-white/5 hover:border-white/20"
-                          )}
-                        >
-                          <div className="flex flex-col items-center text-center gap-3">
-                            <div
-                              className={cn(
-                                "p-3 rounded-full transition-colors",
-                                serviceMode === "store-visit"
-                                  ? "bg-success/20 text-success"
-                                  : "bg-white/5 text-white/20 group-hover:text-white/40"
-                              )}
-                            >
-                              <Store className="h-6 w-6" />
-                            </div>
-                            <div>
-                              <p className="font-semibold text-white">
-                                Dejar en taller
-                              </p>
-                              <p className="text-xs text-white/40 mt-1">
-                                Visítanos en nuestras sedes
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div
-                          onClick={() =>
-                            setValue("serviceMode", "home-service")
-                          }
-                          className={cn(
-                            "relative p-5 rounded-xl border-2 cursor-pointer transition-all duration-200 group",
-                            serviceMode === "home-service"
-                              ? "border-success bg-success/10"
-                              : "border-white/5 bg-white/5 hover:border-white/20"
-                          )}
-                        >
-                          <div className="flex flex-col items-center text-center gap-3">
-                            <div
-                              className={cn(
-                                "p-3 rounded-full transition-colors",
-                                serviceMode === "home-service"
-                                  ? "bg-success/20 text-success"
-                                  : "bg-white/5 text-white/20 group-hover:text-white/40"
-                              )}
-                            >
-                              <Truck className="h-6 w-6" />
-                            </div>
-                            <div>
-                              <p className="font-semibold text-white">
-                                Servicio a domicilio
-                              </p>
-                              <p className="text-xs text-white/40 mt-1">
-                                Técnico especializado a tu casa
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <AnimatePresence>
-                        {serviceMode === "store-visit" && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="overflow-hidden"
-                          >
-                            <div className="bg-white/5 rounded-xl border border-white/10 p-5 space-y-4">
-                              <div className="flex items-center justify-between border-b border-white/5 pb-3">
-                                <span className="text-xs font-medium text-white/60">
-                                  Sedes disponibles en Chorrillos
-                                </span>
-                                <div className="flex items-center gap-1.5 text-[11px] text-info">
-                                  <Clock className="h-3.5 w-3.5" />
-                                  <span>Lun – Vie: 9am – 7pm</span>
-                                </div>
-                              </div>
-
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                <div className="group/loc relative bg-white/[0.02] p-3 rounded-lg border border-white/5 hover:bg-white/[0.05] transition-colors">
-                                  <div className="flex justify-between items-start mb-1">
-                                    <h4 className="text-sm font-medium text-white">
-                                      Sede Oficina
-                                    </h4>
-                                    <span className="text-[9px] bg-info/10 text-info px-1.5 py-0.5 rounded border border-info/20">
-                                      CHORRILLOS
-                                    </span>
-                                  </div>
-                                  <p className="text-xs text-white/40 leading-relaxed mb-3">
-                                    Néstor Bermúdez 113, Lima
-                                  </p>
-                                  <div className="flex items-center gap-3">
-                                    <a
-                                      href="https://www.google.com/maps/dir/?api=1&destination=Servitec+Per%C3%BA+Group+EIRL+Oficina+Administrativa+-12.1712089,-77.0188392"
-                                      target="_blank"
-                                      className="inline-flex items-center gap-1 text-[11px] text-info hover:underline"
-                                    >
-                                      <MapPin className="h-3 w-3" /> Cómo llegar
-                                    </a>
-                                    <button
-                                      onClick={() =>
-                                        navigator.clipboard.writeText(
-                                          "Calle Néstor Bermúdez 113, Chorrillos"
-                                        )
-                                      }
-                                      className="text-[10px] text-white/30 hover:text-white transition-colors"
-                                    >
-                                      Copiar
-                                    </button>
-                                  </div>
-                                </div>
-
-                                <div className="group/loc relative bg-white/[0.02] p-3 rounded-lg border border-white/5 hover:bg-white/[0.05] transition-colors">
-                                  <div className="flex justify-between items-start mb-1">
-                                    <h4 className="text-sm font-medium text-white">
-                                      Sede Taller Kiwi
-                                    </h4>
-                                    <span className="text-[9px] bg-info/10 text-info px-1.5 py-0.5 rounded border border-info/20">
-                                      CHORRILLOS
-                                    </span>
-                                  </div>
-                                  <p className="text-xs text-white/40 leading-relaxed mb-3">
-                                    Justo Pastor Dávila 117, Lima
-                                  </p>
-                                  <div className="flex items-center gap-3">
-                                    <a
-                                      href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=-12.175343,-77.0184858"
-                                      target="_blank"
-                                      className="inline-flex items-center gap-1 text-[11px] text-info hover:underline"
-                                    >
-                                      <MapPin className="h-3 w-3" /> Cómo llegar
-                                    </a>
-                                    <button
-                                      onClick={() =>
-                                        navigator.clipboard.writeText(
-                                          "Justo Pastor Dávila 117, Chorrillos"
-                                        )
-                                      }
-                                      className="text-[10px] text-white/30 hover:text-white transition-colors"
-                                    >
-                                      Copiar
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </motion.div>
-                        )}
-
-                        {serviceMode === "home-service" && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="p-4 bg-info/5 border border-info/20 rounded-xl flex gap-3 items-start"
-                          >
-                            <Info className="h-5 w-5 text-info shrink-0 mt-0.5" />
-                            <p className="text-xs text-white/70 leading-relaxed">
-                              Un técnico se pondrá en contacto contigo para
-                              coordinar el horario.
-                              <span className="text-info font-medium">
-                                {" "}
-                                El costo de movilidad se calcula según tu
-                                distrito en el siguiente paso.
-                              </span>
-                            </p>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                      <div className="flex flex-col md:flex-row gap-6">
-                        <Button
-                          variant="outline"
-                          onClick={prevStep}
-                          className="flex-1"
-                        >
-                          Atrás
-                        </Button>
-                        <Button
-                          onClick={nextStep}
-                          disabled={!serviceMode}
-                          className="flex-1"
-                        >
-                          Siguiente
-                        </Button>
-                      </div>
-                    </motion.div>
-                  )}
-
-                  {step === 4 && (
-                    <motion.div
-                      key="s4"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="space-y-6"
-                    >
-                      {serviceMode === "home-service" && (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <FormField
-                            control={control}
-                            name="location.department"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormControl>
-                                  <Input
-                                    {...field}
-                                    {...useFormHelpers(
-                                      "location.department",
-                                      serviceRequestSchema
-                                    )}
-                                    label="Departamento"
-                                    placeholder="Ej: Lima"
-                                    icon={MapPin}
-                                  />
-                                </FormControl>
-                              </FormItem>
-                            )}
-                          />
-                          <FormField
-                            control={control}
-                            name="location.province"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormControl>
-                                  <Input
-                                    {...field}
-                                    {...useFormHelpers(
-                                      "location.province",
-                                      serviceRequestSchema
-                                    )}
-                                    label="Provincia"
-                                    placeholder="Ej: Lima"
-                                    icon={MapPin}
-                                  />
-                                </FormControl>
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-                      )}
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="md:col-span-2">
-                          <FormField
-                            control={control}
-                            name="location.district"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormControl>
-                                  <Select
-                                    {...field}
-                                    {...useFormHelpers(
-                                      "location.district",
-                                      serviceRequestSchema
-                                    )}
-                                    label={
-                                      serviceMode === "store-visit"
-                                        ? "¿Desde dónde nos visitas?"
-                                        : "Distrito"
-                                    }
-                                    placeholder="Seleccionar"
-                                    icon={Locate}
-                                    options={DISTRICTS}
-                                    onValueChange={field.onChange}
-                                  />
-                                </FormControl>
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-                      </div>
-
-                      {serviceMode === "home-service" && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          className="space-y-4 overflow-hidden border-t border-white/5 pt-6"
-                        >
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="md:col-span-2">
-                              <FormField
-                                control={control}
-                                name="location.exactAddress"
-                                render={({ field }) => (
-                                  <FormItem>
-                                    <FormControl>
-                                      <Input
-                                        {...field}
-                                        {...useFormHelpers(
-                                          "location.exactAddress",
-                                          serviceRequestSchema
-                                        )}
-                                        label="Dirección Exacta"
-                                        placeholder="Calle / Av / Jr. y número"
-                                        icon={Home}
-                                      />
-                                    </FormControl>
-                                  </FormItem>
-                                )}
-                              />
-                            </div>
-
-                            <FormField
-                              control={control}
-                              name="location.interior"
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormControl>
-                                    <Input
-                                      {...field}
-                                      {...useFormHelpers(
-                                        "location.interior",
-                                        serviceRequestSchema
-                                      )}
-                                      label="Interior"
-                                      placeholder="Dpto, Of, Bloque"
-                                      icon={DoorOpen}
-                                    />
-                                  </FormControl>
-                                </FormItem>
-                              )}
-                            />
-
-                            <FormField
-                              control={control}
-                              name="location.reference"
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormControl>
-                                    <Input
-                                      {...field}
-                                      {...useFormHelpers(
-                                        "location.reference",
-                                        serviceRequestSchema
-                                      )}
-                                      label="Referencia"
-                                      placeholder="Ej: Frente al parque..."
-                                      icon={Info}
-                                    />
-                                  </FormControl>
-                                </FormItem>
-                              )}
-                            />
-                          </div>
-                        </motion.div>
-                      )}
-
                       <div className="flex flex-col md:flex-row gap-6">
                         <Button
                           variant="outline"

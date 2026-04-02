@@ -30,8 +30,11 @@ const clientSchema = z.union([
         .regex(/^\d+$/),
     }),
     ...dniFields,
-    email: z.string().email(),
-    phone: z.object({ prefix: z.string(), number: z.string().min(9) }),
+    email: z.string().email("Email inválido"),
+    phone: z.object({
+      prefix: z.string(),
+      number: z.string().min(9, "Mínimo 9 dígitos"),
+    }),
   }),
 
   z.object({
@@ -43,8 +46,11 @@ const clientSchema = z.union([
         .regex(/^\d+$/),
     }),
     ...rucFields,
-    email: z.string().email(),
-    phone: z.object({ prefix: z.string(), number: z.string().min(9) }),
+    email: z.string().email("Email inválido"),
+    phone: z.object({
+      prefix: z.string(),
+      number: z.string().min(9, "Mínimo 9 dígitos"),
+    }),
   }),
 ]);
 
@@ -52,13 +58,13 @@ export const baseSchema = z.object({
   client: clientSchema,
   device: z.object({
     category: z.string().optional(),
-    brand: z.string().min(1),
-    model: z.string().min(1),
+    brand: z.string().min(1, "Marca obligatoria"),
+    model: z.string().min(1, "Modelo obligatorio"),
     serialNumber: z.string().optional(),
   }),
   status: z.enum(["pending"]),
   priority: z.enum(["low", "medium", "high"]),
-  issueDescription: z.string().min(10),
+  issueDescription: z.string().min(10, "Describe mejor el problema"),
 });
 
 const serviceModeSchema = z.discriminatedUnion("serviceMode", [
@@ -82,7 +88,9 @@ const serviceModeSchema = z.discriminatedUnion("serviceMode", [
       department: z.string().min(1, "El departamento es obligatorio"),
       province: z.string().min(1, "La provincia es obligatoria"),
       district: z.string().min(1, "El distrito es obligatorio"),
-      exactAddress: z.string().optional().default(""),
+      exactAddress: z
+        .string()
+        .min(5, "La dirección es obligatoria para visitas a domicilio"),
       interior: z.string().optional().default(""),
       reference: z.string().optional().default(""),
     }),
@@ -93,4 +101,5 @@ export const serviceRequestSchema = z.intersection(
   baseSchema,
   serviceModeSchema
 );
+
 export type ServiceRequestFormData = z.infer<typeof serviceRequestSchema>;
