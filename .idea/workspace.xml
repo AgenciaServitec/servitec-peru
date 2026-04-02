@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="feat: reorder steps, add dynamic headers and fix session storage persistence">
       <change afterPath="$PROJECT_DIR$/apps/hosting/data-list/peru-ubigeo.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/api/services/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/api/services/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/especialidades/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/especialidades/[slug]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/RequestToolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/RequestToolbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/ServiceDetailsDrawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/ServiceDetailsDrawer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/ServiceRequestCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/ServiceRequestCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting/components/ServiceRequestForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/ServiceRequestForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/lib/validations/service-request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/lib/validations/service-request.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,14 +137,6 @@
       <workItem from="1774791775860" duration="2112000" />
       <workItem from="1774874620736" duration="6042000" />
       <workItem from="1774897935652" duration="16225000" />
-    </task>
-    <task id="LOCAL-00014" summary="removed files">
-      <option name="closed" value="true" />
-      <created>1769818483939</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1769818483939</updated>
     </task>
     <task id="LOCAL-00015" summary="added specialties images">
       <option name="closed" value="true" />
@@ -529,7 +522,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774910463983</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="feat: reorder steps, add dynamic headers and fix session storage persistence">
+      <option name="closed" value="true" />
+      <created>1775155632897</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1775155632898</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -547,7 +548,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactored input component" />
     <MESSAGE value="updated ruc in footer" />
     <MESSAGE value="updated footer" />
     <MESSAGE value="added sheet component" />
@@ -572,6 +572,7 @@
     <MESSAGE value="updated next config" />
     <MESSAGE value="feat(hosting): implementar validación de seguridad con Google reCAPTCHA v3" />
     <MESSAGE value="feat(hosting): integrar Google Tag Manager, Analytics y SEO estructurado" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(hosting): integrar Google Tag Manager, Analytics y SEO estructurado" />
+    <MESSAGE value="feat: reorder steps, add dynamic headers and fix session storage persistence" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: reorder steps, add dynamic headers and fix session storage persistence" />
   </component>
 </project>

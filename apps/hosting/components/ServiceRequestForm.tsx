@@ -50,6 +50,7 @@ export default function ServiceRequestForm({
 }) {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isManualEntry, setIsManualEntry] = useState(false);
   const { executeRecaptcha } = useGoogleReCaptcha();
 
   const form = useForm<ServiceRequestFormData>({
@@ -119,25 +120,44 @@ export default function ServiceRequestForm({
   useEffect(() => {
     const searchIdentity = async () => {
       const requiredLength = docType === "ruc" ? 11 : 8;
+
+      if ((docNumber?.length || 0) < requiredLength) {
+        setIsManualEntry(false);
+        return;
+      }
+
       if (docNumber?.length === requiredLength) {
         const data = await getDataByDniOrRuc(docNumber);
-        if (data) {
-          const name =
-            data.razonSocial ||
-            data.fullName ||
-            `${data.firstName || ""} ${data.paternalSurname || ""} ${data.maternalSurname || ""}`.trim();
-          if (name) {
-            if (name) {
-              const targetField =
-                docType === "dni" ? "client.fullName" : "client.companyName";
-              setValue(targetField, name.toLowerCase());
-              trigger(targetField);
 
-              const otherField =
-                docType === "dni" ? "client.companyName" : "client.fullName";
-              setValue(otherField, "");
-            }
+        if (data) {
+          setIsManualEntry(false);
+
+          if (docType === "dni") {
+            setValue("client.names", data.firstName || "");
+            setValue("client.paternalSurname", data.paternalSurname || "");
+            setValue("client.maternalSurname", data.maternalSurname || "");
+
+            const full =
+              `${data.firstName || ""} ${data.paternalSurname || ""} ${data.maternalSurname || ""}`
+                .trim()
+                .toLowerCase();
+            setValue("client.fullName", full);
+            trigger("client.fullName");
+          } else {
+            setValue(
+              "client.companyName",
+              (data.companyName || "").toLowerCase()
+            );
+            trigger("client.companyName");
           }
+        } else {
+          if (docType === "dni") {
+            setIsManualEntry(true);
+            setValue("client.fullName", "");
+          }
+          toast.info(
+            "No se encontraron datos. Por favor, ingrese sus nombres manualmente."
+          );
         }
       }
     };
@@ -232,7 +252,6 @@ export default function ServiceRequestForm({
         </h3>
 
         <div className="mt-4 flex items-center justify-center gap-2 text-[10px] md:text-[11px] text-info bg-info/10 py-1.5 px-4 rounded-full w-fit mx-auto border border-info/20 shadow-[0_0_15px_rgba(var(--info-rgb),0.1)]">
-          <Clock className="h-3 w-3 animate-pulse" />
           <span className="font-medium tracking-wide">
             Progreso guardado: tus datos se mantendrán en esta pestaña.
           </span>
@@ -300,7 +319,6 @@ export default function ServiceRequestForm({
             <Form {...form}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <AnimatePresence mode="wait">
-                  {/* PASO 1: EQUIPO */}
                   {step === 1 && (
                     <motion.div
                       key="s1"
@@ -654,7 +672,6 @@ export default function ServiceRequestForm({
                     </motion.div>
                   )}
 
-                  {/* PASO 3: UBICACION */}
                   {step === 3 && (
                     <motion.div
                       key="s3"
@@ -912,26 +929,83 @@ export default function ServiceRequestForm({
                         </div>
                         {docType === "dni" ? (
                           <div className="md:col-span-4">
-                            <FormField
-                              control={control}
-                              name="client.fullName"
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormControl>
-                                    <Input
-                                      {...field}
-                                      {...useFormHelpers(
-                                        "client.fullName",
-                                        serviceRequestSchema
-                                      )}
-                                      label="Nombre Completo"
-                                      placeholder="Ej: Juan Perez"
-                                      icon={User}
-                                    />
-                                  </FormControl>
-                                </FormItem>
-                              )}
-                            />
+                            {!isManualEntry ? (
+                              <FormField
+                                control={control}
+                                name="client.fullName"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormControl>
+                                      <Input
+                                        {...field}
+                                        {...useFormHelpers(
+                                          "client.fullName",
+                                          serviceRequestSchema
+                                        )}
+                                        label="Nombre Completo"
+                                        icon={User}
+                                        disabled={true}
+                                      />
+                                    </FormControl>
+                                  </FormItem>
+                                )}
+                              />
+                            ) : (
+                              <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="grid grid-cols-1 md:grid-cols-3 gap-6"
+                              >
+                                <FormField
+                                  control={control}
+                                  name="client.names"
+                                  render={({ field }) => (
+                                    <FormItem>
+                                      <FormControl>
+                                        <Input
+                                          {...field}
+                                          label="Nombres"
+                                          icon={User}
+                                          placeholder="Ej: Juan"
+                                        />
+                                      </FormControl>
+                                    </FormItem>
+                                  )}
+                                />
+                                <FormField
+                                  control={control}
+                                  name="client.paternalSurname"
+                                  render={({ field }) => (
+                                    <FormItem>
+                                      <FormControl>
+                                        <Input
+                                          {...field}
+                                          label="Apellido Paterno"
+                                          icon={User}
+                                          placeholder="Ej: Perez"
+                                        />
+                                      </FormControl>
+                                    </FormItem>
+                                  )}
+                                />
+                                <FormField
+                                  control={control}
+                                  name="client.maternalSurname"
+                                  render={({ field }) => (
+                                    <FormItem>
+                                      <FormControl>
+                                        <Input
+                                          {...field}
+                                          label="Apellido Materno"
+                                          icon={User}
+                                          placeholder="Ej: Soto"
+                                        />
+                                      </FormControl>
+                                    </FormItem>
+                                  )}
+                                />
+                              </motion.div>
+                            )}
                           </div>
                         ) : (
                           <div className="md:col-span-4">
@@ -948,8 +1022,8 @@ export default function ServiceRequestForm({
                                         serviceRequestSchema
                                       )}
                                       label="Razón Social"
-                                      placeholder="Ej: Servitec S.A.C."
                                       icon={Building}
+                                      disabled={true}
                                     />
                                   </FormControl>
                                 </FormItem>
@@ -1057,29 +1131,28 @@ export default function ServiceRequestForm({
                       </div>
                     </motion.div>
                   )}
-
-                  <p className="text-center mt-4 text-[10px] text-white/30 leading-tight">
-                    Este sitio está protegido por reCAPTCHA y se aplican la{" "}
-                    <a
-                      href="https://policies.google.com/privacy"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="underline hover:text-info transition-colors"
-                    >
-                      Política de privacidad
-                    </a>{" "}
-                    y los{" "}
-                    <a
-                      href="https://policies.google.com/terms"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="underline hover:text-info transition-colors"
-                    >
-                      Términos de servicio
-                    </a>{" "}
-                    de Google.
-                  </p>
                 </AnimatePresence>
+                <p className="text-center mt-4 text-[10px] text-white/30 leading-tight">
+                  Este sitio está protegido por reCAPTCHA y se aplican la{" "}
+                  <a
+                    href="https://policies.google.com/privacy"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline hover:text-info transition-colors"
+                  >
+                    Política de privacidad
+                  </a>{" "}
+                  y los{" "}
+                  <a
+                    href="https://policies.google.com/terms"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline hover:text-info transition-colors"
+                  >
+                    Términos de servicio
+                  </a>{" "}
+                  de Google.
+                </p>
               </form>
             </Form>
           </CardContent>
