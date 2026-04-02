@@ -261,9 +261,14 @@ export const ServiceRequestCard: React.FC<any> = ({
             <Space direction="vertical" size={0}>
               <Title
                 level={5}
-                style={{ margin: 0, fontSize: 16, letterSpacing: "-0.3px" }}
+                style={{
+                  margin: 0,
+                  fontSize: 16,
+                  letterSpacing: "-0.3px",
+                  textTransform: "capitalize",
+                }}
               >
-                {data.client.fullName}
+                {data.client.fullName || data.client.companyName}
               </Title>
               <Text
                 strong

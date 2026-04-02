@@ -226,9 +226,14 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
       <InfoBlock $variant="gold">
         <Title
           level={5}
-          style={{ margin: "0 0 16px 0", color: "#fff", fontWeight: 500 }}
+          style={{
+            margin: "0 0 16px 0",
+            color: "#fff",
+            fontWeight: 500,
+            textTransform: "capitalize",
+          }}
         >
-          {data.client.fullName}
+          {data.client.fullName || data.client.companyName}
         </Title>
 
         <ContactGrid>

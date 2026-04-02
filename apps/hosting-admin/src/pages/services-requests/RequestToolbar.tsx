@@ -79,7 +79,6 @@ const ViewActionsRow = styled.div`
   gap: 12px;
 `;
 
-// --- Opciones ---
 const TECHNICIAN_OPTIONS = [
   { label: "Todos los técnicos", value: "all" },
   { label: "Carlos Mendoza", value: "T001" },
@@ -123,13 +122,12 @@ interface RequestToolbarProps {
   technicianValue: string;
   serviceModeValue: string;
   categoryValue: string;
-  viewTypeValue: "grid" | "list"; // Nueva prop para el estado de la vista
+  viewTypeValue: "grid" | "list";
   dateRangeValue: [dayjs.Dayjs | null, dayjs.Dayjs | null] | null;
   onSearch: (value: string) => void;
   onFilterChange: (type: string, value: any) => void;
-  onViewChange: (value: "grid" | "list") => void; // Nueva función para cambiar vista
+  onViewChange: (value: "grid" | "list") => void;
   onClear: () => void;
-  onExport?: () => void;
 }
 
 export const RequestToolbar: React.FC<RequestToolbarProps> = ({
@@ -161,7 +159,6 @@ export const RequestToolbar: React.FC<RequestToolbarProps> = ({
   return (
     <ToolbarWrapper>
       <MainBar>
-        {/* Fila 1: Buscador y Fecha */}
         <TopRow>
           <Input
             placeholder="Buscar cliente, equipo o imei..."
@@ -272,7 +269,6 @@ export const RequestToolbar: React.FC<RequestToolbarProps> = ({
           )}
         </FilterGrid>
 
-        {/* Fila 3: Tags (Izquierda) y Cambio de Vista (Derecha) */}
         <ViewActionsRow>
           <Space size={8} wrap>
             <Text style={{ fontSize: 13, color: "#8c8c8c", marginRight: 8 }}>

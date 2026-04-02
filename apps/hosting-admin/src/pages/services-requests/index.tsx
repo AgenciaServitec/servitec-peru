@@ -60,13 +60,17 @@ const ServicesRequests: React.FC<ServicesRequestsProps> = ({
 
   const filteredData = useMemo(() => {
     return (generalRequests || []).filter((req) => {
-      const matchesSearch = req.client?.fullName
-        ?.toLowerCase()
-        .includes(search.toLowerCase());
+      const searchTerm = search.toLowerCase();
+
+      const matchesSearch =
+        req.client?.fullName?.toLowerCase().includes(searchTerm) ||
+        req.client?.companyName?.toLowerCase().includes(searchTerm);
+
       const matchesDistrict =
         district === "all" ||
         req.location?.district?.toLowerCase() === district.toLowerCase();
       const matchesPriority = priority === "all" || req.priority === priority;
+
       return matchesSearch && matchesDistrict && matchesPriority;
     });
   }, [generalRequests, search, district, priority]);
@@ -84,6 +88,7 @@ const ServicesRequests: React.FC<ServicesRequestsProps> = ({
             if (type === "district") setDistrict(value);
             if (type === "priority") setPriority(value);
           }}
+          viewTypeValue={viewType}
           onClear={() => {
             setSearch("");
             setDistrict("all");
