@@ -93,6 +93,8 @@ const serviceModeSchema = z.discriminatedUnion("serviceMode", [
         .min(5, "La dirección es obligatoria para visitas a domicilio"),
       interior: z.string().optional().default(""),
       reference: z.string().optional().default(""),
+      lat: z.number().nullable().optional(),
+      lng: z.number().nullable().optional(),
     }),
   }),
 ]);

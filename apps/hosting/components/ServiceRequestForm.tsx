@@ -51,7 +51,52 @@ export default function ServiceRequestForm({
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isManualEntry, setIsManualEntry] = useState(false);
+  const [isLocating, setIsLocating] = useState(false);
   const { executeRecaptcha } = useGoogleReCaptcha();
+
+  const handleGetCurrentLocation = () => {
+    if (!navigator.geolocation) {
+      toast.error("Tu navegador no soporta geolocalización.");
+      return;
+    }
+
+    setIsLocating(true);
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+
+        try {
+          const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+          const response = await fetch(
+            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`
+          );
+          const data = await response.json();
+
+          if (data.status === "OK") {
+            const address = data.results[0].formatted_address;
+            setValue("location.exactAddress", address);
+            setValue("location.lat", latitude);
+            setValue("location.lng", longitude);
+
+            toast.success("Ubicación detectada correctamente.");
+            trigger("location.exactAddress");
+          } else {
+            toast.error("No se pudo obtener la dirección exacta.");
+          }
+        } catch (error) {
+          toast.error("Error al conectar con Google Maps.");
+        } finally {
+          setIsLocating(false);
+        }
+      },
+      (error) => {
+        setIsLocating(false);
+        toast.error("Permiso de ubicación denegado.");
+      },
+      { enableHighAccuracy: true }
+    );
+  };
 
   const form = useForm<ServiceRequestFormData>({
     resolver: zodResolver(serviceRequestSchema) as any,
@@ -81,6 +126,8 @@ export default function ServiceRequestForm({
           exactAddress: "",
           interior: "",
           reference: "",
+          lat: null,
+          lng: null,
         },
         status: "pending",
         priority: "medium",
@@ -100,10 +147,6 @@ export default function ServiceRequestForm({
   const docType = watch("client.document.type");
   const docNumber = watch("client.document.number");
   const allFields = watch();
-
-  useEffect(() => {
-    console.log("Errores actuales:", form.formState.errors);
-  }, [form.formState.errors]);
 
   useEffect(() => {
     if (step < 5) {
@@ -777,6 +820,28 @@ export default function ServiceRequestForm({
                                 name="location.exactAddress"
                                 render={({ field }) => (
                                   <FormItem>
+                                    <div className="flex items-center gap-2 mb-2 justify-center">
+                                      <Button
+                                        type="button"
+                                        onClick={handleGetCurrentLocation}
+                                        loading={isLocating}
+                                        className={cn(
+                                          "h-7 text-[10px] px-3 rounded-md transition-all duration-200",
+                                          "bg-info text-zinc-950 hover:bg-info/90 border-none",
+                                          "flex items-center gap-1.5 font-bold uppercase tracking-wider"
+                                        )}
+                                      >
+                                        <Locate
+                                          className={cn(
+                                            "h-3.5 w-3.5",
+                                            isLocating
+                                              ? "animate-spin"
+                                              : "animate-pulse"
+                                          )}
+                                        />
+                                        Usar mi ubicación actual
+                                      </Button>
+                                    </div>
                                     <FormControl>
                                       <Input
                                         {...field}

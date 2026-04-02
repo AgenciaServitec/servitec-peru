@@ -51,52 +51,6 @@ export default function SpecialtyDetailLayout({
 
       <ServiceRequestForm specialtyName={specialtyName} />
 
-      {/*<section className="py-24 bg-white/2 border-y border-white/5">*/}
-      {/*  <ContentWidth>*/}
-      {/*    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">*/}
-      {/*      <div className="space-y-4">*/}
-      {/*        <div className="flex items-center gap-3">*/}
-      {/*          <ShieldCheck className="h-5 w-5" />*/}
-      {/*          <h4 className="font-bold text-sm">Qué incluye</h4>*/}
-      {/*        </div>*/}
-      {/*        <ul className="space-y-2 text-sm text-white/50">*/}
-      {/*          <li className="flex items-start gap-2">*/}
-      {/*            • Diagnóstico electrónico base*/}
-      {/*          </li>*/}
-      {/*          <li className="flex items-start gap-2">*/}
-      {/*            • Informe técnico detallado*/}
-      {/*          </li>*/}
-      {/*          <li className="flex items-start gap-2">*/}
-      {/*            • Garantía por el trabajo*/}
-      {/*          </li>*/}
-      {/*        </ul>*/}
-      {/*      </div>*/}
-      {/*      <div className="space-y-4">*/}
-      {/*        <div className="flex items-center gap-3">*/}
-      {/*          <Clock className="h-5 w-5" />*/}
-      {/*          <h4 className="font-bold text-sm">Tiempos estimados</h4>*/}
-      {/*        </div>*/}
-      {/*        <p className="text-sm text-white/50 leading-relaxed">*/}
-      {/*          El diagnóstico inicial se realiza en un periodo de 24 a 48*/}
-      {/*          horas. reparaciones menores pueden concluirse el mismo día según*/}
-      {/*          disponibilidad de componentes.*/}
-      {/*        </p>*/}
-      {/*      </div>*/}
-      {/*      <div className="space-y-4">*/}
-      {/*        <div className="flex items-center gap-3">*/}
-      {/*          <Info className="h-5 w-5" />*/}
-      {/*          <h4 className="font-bold text-sm">Aviso importante</h4>*/}
-      {/*        </div>*/}
-      {/*        <p className="text-sm text-white/40 leading-relaxed">*/}
-      {/*          Servitec perú group es un centro de soporte independiente. no*/}
-      {/*          somos servicio oficial de fabricantes. el servicio no incluye*/}
-      {/*          repuestos no detallados en el presupuesto.*/}
-      {/*        </p>*/}
-      {/*      </div>*/}
-      {/*    </div>*/}
-      {/*  </ContentWidth>*/}
-      {/*</section>*/}
-
       <section className="py-24">
         <ContentWidth>
           <div className="space-y-4 mb-10">
