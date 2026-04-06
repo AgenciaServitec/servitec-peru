@@ -18,7 +18,6 @@ import {
 import { assign, isEmpty } from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import styled, { css } from "styled-components";
 import { Timestamp } from "firebase/firestore";
 import { assistancesRef } from "../../firebase/collections";
 import { UserAssistancesTable } from "./UserAssistancesTable.tsx";
@@ -143,50 +142,41 @@ export const Users: React.FC = () => {
   };
 
   return (
-    <Container>
-      <Row gutter={[16, 16]}>
-        <Col span={24}>
-          <Title level={2}>Usuarios ({usersView.length})</Title>
-        </Col>
-        <Col span={24}>
-          <Input
-            label="Búsqueda de usuarios"
-            value={userSearch}
-            onChange={handleUserSearch}
-            name="userSearch"
-            suffix={
-              <FontAwesomeIcon
-                icon={faSearch}
-                // style={{ color: ({ theme }) => theme.colors.fontPrimary }}
-              />
-            }
-          />
-        </Col>
-        <Col span={24}>
-          <UsersTable
-            users={usersView}
-            onEditUser={onEditUser}
-            onRemoveUser={onConfirmRemoveUser}
-            onViewAssistances={onViewAssistances}
-          />
-        </Col>
-        <Col span={24}>
-          {selectedUser && (
-            <UserAssistancesTable
-              selectedUser={selectedUser}
-              loadingAssistances={loadingAssistances}
-              userAssistances={userAssistances ?? []}
+    <Row gutter={[16, 16]}>
+      <Col span={24}>
+        <Title level={2}>Usuarios ({usersView.length})</Title>
+      </Col>
+      <Col span={24}>
+        <Input
+          label="Búsqueda de usuarios"
+          value={userSearch}
+          onChange={handleUserSearch}
+          name="userSearch"
+          suffix={
+            <FontAwesomeIcon
+              icon={faSearch}
+              // style={{ color: ({ theme }) => theme.colors.fontPrimary }}
             />
-          )}
-        </Col>
-      </Row>
-    </Container>
+          }
+        />
+      </Col>
+      <Col span={24}>
+        <UsersTable
+          users={usersView}
+          onEditUser={onEditUser}
+          onRemoveUser={onConfirmRemoveUser}
+          onViewAssistances={onViewAssistances}
+        />
+      </Col>
+      <Col span={24}>
+        {selectedUser && (
+          <UserAssistancesTable
+            selectedUser={selectedUser}
+            loadingAssistances={loadingAssistances}
+            userAssistances={userAssistances ?? []}
+          />
+        )}
+      </Col>
+    </Row>
   );
 };
-
-const Container = styled.div`
-  ${({ theme }) => css`
-    padding: ${theme.paddings.large};
-    min-height: 100vh;
-  `}
-`;

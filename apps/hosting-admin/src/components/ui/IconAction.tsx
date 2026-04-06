@@ -2,12 +2,14 @@ import React, { type MouseEvent } from "react";
 import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import { transparentize } from "polished";
 import Tooltip from "antd/lib/tooltip";
 import type { Theme } from "../../styles";
+import { rgba } from "polished";
 
-export interface IconActionProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "onClick"> {
+export interface IconActionProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "onClick"
+> {
   icon: IconDefinition;
   tooltipTitle?: string;
   size?: number;
@@ -66,9 +68,10 @@ export const IconAction: React.FC<IconActionProps> = ({
   );
 };
 
+// Helper para resolver colores dinámicos
 const resolveColor = (
   theme: Theme,
-  value: IconStyles["color"],
+  value: IconStyles["color"] | IconStyles["backgroundColor"],
   fallback: string
 ): string => {
   if (typeof value === "function") return value(theme);
@@ -88,7 +91,7 @@ const IconWrapper = styled.div<IconWrapperProps>`
     const hoverColor = resolveColor(
       typedTheme,
       $iconStyles.hoverColor,
-      baseColor
+      typedTheme.colors.primary // Por defecto el hover es tu color corporativo
     );
     const bgColor = resolveColor(
       typedTheme,
@@ -100,14 +103,14 @@ const IconWrapper = styled.div<IconWrapperProps>`
       display: flex;
       justify-content: center;
       align-items: center;
-      border-radius: ${typedTheme.border_radius.percentage_medium};
+      /* Reemplazado percentage_medium por md */
+      border-radius: ${typedTheme.border_radius.md};
       height: ${$size}px;
       width: ${$size}px;
-      color: ${$disabled ? typedTheme.colors.fontSecondary : baseColor};
+      color: ${$disabled ? typedTheme.colors.fontDisabled : baseColor};
       background: ${bgColor};
-      transition: all 0.2s ease;
+      transition: all ${typedTheme.transitions.fast};
       position: relative;
-      opacity: ${$disabled ? 0.5 : 1};
       cursor: ${$disabled
         ? "not-allowed"
         : $hasOnClick
@@ -118,23 +121,23 @@ const IconWrapper = styled.div<IconWrapperProps>`
       !$disabled &&
       css`
         &:hover {
-          border-radius: ${typedTheme.border_radius.percentage_full};
+          /* Efecto circular al hover (Vercel style) */
+          border-radius: ${typedTheme.border_radius.full};
           background: ${bgColor !== "transparent"
-            ? transparentize(0.9, bgColor)
-            : transparentize(0.85, hoverColor)};
-          color: ${hoverColor};
-          transform: scale(1.1);
+            ? bgColor
+            : rgba(baseColor, 0.15)};
+          transform: translateY(-1px);
         }
 
         &:active {
-          transform: scale(0.95);
+          transform: translateY(0) scale(0.95);
         }
       `}
 
-      .svg-inline--fa {
-        height: ${$hasOnClick ? $size * 0.55 : $size}px;
-        width: ${$hasOnClick ? $size * 0.55 : $size}px;
-        transition: all 0.2s ease;
+      /* Tamaño del icono interno */
+      svg {
+        font-size: ${$size * 0.45}px;
+        transition: color ${typedTheme.transitions.fast};
       }
     `;
   }}

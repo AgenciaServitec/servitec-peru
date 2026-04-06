@@ -32,7 +32,7 @@ export const HeaderLayout = ({
   const menuItems = [
     {
       label: (
-        <Link to="/profile">
+        <Link to="/profile" style={{ textDecoration: "none" }}>
           <MenuItemContent>
             <FontAwesomeIcon icon={faUser} />
             <span>Perfil</span>
@@ -59,13 +59,11 @@ export const HeaderLayout = ({
     <HeaderContainer>
       <div className="left-item">
         <Space align="center" className="items-wrapper">
-          <div
-            style={{ fontSize: "1.7em", display: "flex", alignItems: "center" }}
+          <MenuToggleButton
             onClick={() => onSetIsVisibleDrawer(!isVisibleDrawer)}
           >
-            {/*<FontAwesomeIcon icon={faBars} className="icon-item" />*/}
             <FontAwesomeIcon icon={faBarsStaggered} className="icon-item" />
-          </div>
+          </MenuToggleButton>
         </Space>
       </div>
       <div className="user-items">
@@ -79,11 +77,13 @@ export const HeaderLayout = ({
           <UserProfile>
             <div className="user-info">
               <h4>{capitalize(userFullName(authUser) || "")}</h4>
+              <p>Técnico Senior</p>{" "}
+              {/* Ejemplo de subtitulo para rellenar el diseño */}
             </div>
             {authUser && (
-              <img
+              <UserAvatar
                 src={authUser?.profilePhoto?.thumbUrl || PhotoNoFound}
-                alt="user"
+                alt="user profile"
               />
             )}
           </UserProfile>
@@ -97,43 +97,44 @@ const HeaderContainer = styled(Header)`
   ${({ theme }) => css`
     background: ${theme.colors.bgSecondary} !important;
     position: sticky;
-    top: 1px;
+    top: 0;
     z-index: 1000;
     display: flex;
     justify-content: space-between;
-    box-shadow: 0 2px 8px ${theme.colors.black}80;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    overflow: hidden;
-    padding: 0 ${theme.paddings.large};
+    align-items: center;
+    line-height: 1; /* Reset antd line-height */
+    height: 64px;
+    border-bottom: 1px solid ${theme.colors.border};
+    padding: 0 ${theme.spacing.md};
 
     .left-item {
       display: flex;
       align-items: center;
-
-      .items-wrapper {
-        display: flex;
-        justify-content: space-between;
-
-        .icon-item {
-          cursor: pointer;
-          color: ${theme.colors.fontPrimary};
-          transition: color 0.2s ease;
-
-          &:hover {
-            color: ${theme.colors.primary};
-          }
-        }
-        .icon-item {
-          margin-right: 1em;
-        }
-      }
     }
 
     .user-items {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
-      gap: ${theme.paddings.small};
+      gap: ${theme.spacing.sm};
+    }
+  `}
+`;
+
+const MenuToggleButton = styled.div`
+  ${({ theme }) => css`
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: ${theme.colors.fontPrimary};
+    transition: all ${theme.transitions.fast};
+    padding: ${theme.spacing.xs};
+    border-radius: ${theme.border_radius.sm};
+
+    &:hover {
+      color: ${theme.colors.primary};
+      background: ${theme.colors.bgHover};
     }
   `}
 `;
@@ -142,14 +143,14 @@ const UserProfile = styled.div`
   ${({ theme }) => css`
     display: flex;
     align-items: center;
-    gap: ${theme.paddings.medium};
+    gap: ${theme.spacing.sm};
     cursor: pointer;
-    padding: ${theme.paddings.x_small} ${theme.paddings.small};
-    border-radius: ${theme.border_radius.medium};
-    transition: all 0.2s ease;
+    padding: ${theme.spacing.xs} ${theme.spacing.sm};
+    border-radius: ${theme.border_radius.md};
+    transition: all ${theme.transitions.fast};
 
     &:hover {
-      background: ${theme.colors.primary}20;
+      background: ${theme.colors.bgHover};
     }
 
     .user-info {
@@ -162,37 +163,31 @@ const UserProfile = styled.div`
 
       h4 {
         margin: 0;
-        font-size: ${theme.font_sizes.small};
+        font-size: ${theme.font_sizes.sm};
         color: ${theme.colors.fontPrimary};
         font-weight: ${theme.font_weight.medium};
-        line-height: 1.2;
       }
 
       p {
         margin: 0;
-        font-size: ${theme.font_sizes.x_small};
-        color: ${theme.colors.fontSecondary};
-        line-height: 1.2;
+        font-size: ${theme.font_sizes.xs};
+        color: ${theme.colors.fontTertiary};
       }
     }
+  `}
+`;
 
-    img {
-      width: 2.5em;
-      height: 2.5em;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid ${theme.colors.primary}40;
-      transition: all 0.2s ease;
+const UserAvatar = styled.img`
+  ${({ theme }) => css`
+    width: 36px;
+    height: 36px;
+    border-radius: ${theme.border_radius.full};
+    object-fit: cover;
+    border: 1.5px solid ${theme.colors.border};
+    transition: all ${theme.transitions.fast};
 
-      &:hover {
-        border-color: ${theme.colors.primary};
-        transform: scale(1.05);
-      }
-
-      ${mediaQuery.minTablet} {
-        width: 2.8em;
-        height: 2.8em;
-      }
+    ${UserProfile}:hover & {
+      border-color: ${theme.colors.primary};
     }
   `}
 `;
@@ -201,24 +196,26 @@ const MenuItemContent = styled.div<{ $danger?: boolean }>`
   ${({ theme, $danger }) => css`
     display: flex;
     align-items: center;
-    gap: ${theme.paddings.small};
-    padding: ${theme.paddings.small} ${theme.paddings.medium};
+    gap: ${theme.spacing.sm};
     color: ${$danger ? theme.colors.error : theme.colors.fontPrimary};
-    transition: all 0.2s ease;
+    transition: all ${theme.transitions.fast};
 
     svg {
-      font-size: ${theme.font_sizes.small};
-      color: ${$danger ? theme.colors.error : theme.colors.primary};
+      font-size: 1rem;
+      width: 16px;
+      color: ${$danger ? theme.colors.error : theme.colors.fontTertiary};
     }
 
     span {
-      font-size: ${theme.font_sizes.small};
-      font-weight: ${theme.font_weight.medium};
+      font-size: ${theme.font_sizes.sm};
     }
 
     &:hover {
       color: ${$danger ? theme.colors.error : theme.colors.primary};
-      background: ${$danger ? theme.colors.error : theme.colors.primary}20;
+
+      svg {
+        color: ${$danger ? theme.colors.error : theme.colors.primary};
+      }
     }
   `}
 `;

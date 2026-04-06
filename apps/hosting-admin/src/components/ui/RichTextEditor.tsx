@@ -41,14 +41,12 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
   onChange,
   error,
   required,
-  height = "400px",
+  height = "300px",
 }) => {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
-        heading: {
-          levels: [1, 2, 3],
-        },
+        heading: { levels: [1, 2, 3] },
       }),
       Underline,
       Highlight,
@@ -84,21 +82,21 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
 
   if (!editor) return null;
 
-  const headingLevels = [1, 2, 3];
+  const headingLevels = [1, 2, 3] as const;
 
   return (
     <Container>
-      {label && <Label htmlFor={name}>{label}</Label>}
+      {label && (
+        <Label htmlFor={name}>
+          {label} {required && <span className="required">*</span>}
+        </Label>
+      )}
 
       <EditorWrapper $height={height} $hasError={!!error}>
         <Toolbar>
           <ToolbarGroup>
             {headingLevels.map((lvl) => (
-              <Tooltip
-                key={`h-${lvl}`}
-                title={`Encabezado ${lvl}`}
-                placement="bottom"
-              >
+              <Tooltip key={`h-${lvl}`} title={`H${lvl}`} placement="bottom">
                 <ToolbarButton
                   type="button"
                   $active={editor.isActive("heading", { level: lvl })}
@@ -107,7 +105,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
                   }
                 >
                   <FontAwesomeIcon icon={faHeading} />
-                  <span style={{ marginLeft: 4 }}>{lvl}</span>
+                  <span className="lvl-tag">{lvl}</span>
                 </ToolbarButton>
               </Tooltip>
             ))}
@@ -123,7 +121,6 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
                 <FontAwesomeIcon icon={faBold} />
               </ToolbarButton>
             </Tooltip>
-
             <Tooltip title="Cursiva" placement="bottom">
               <ToolbarButton
                 type="button"
@@ -133,7 +130,6 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
                 <FontAwesomeIcon icon={faItalic} />
               </ToolbarButton>
             </Tooltip>
-
             <Tooltip title="Subrayado" placement="bottom">
               <ToolbarButton
                 type="button"
@@ -143,7 +139,6 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
                 <FontAwesomeIcon icon={faUnderline} />
               </ToolbarButton>
             </Tooltip>
-
             <Tooltip title="Tachado" placement="bottom">
               <ToolbarButton
                 type="button"
@@ -153,8 +148,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
                 <FontAwesomeIcon icon={faStrikethrough} />
               </ToolbarButton>
             </Tooltip>
-
-            <Tooltip title="Resaltar texto" placement="bottom">
+            <Tooltip title="Resaltar" placement="bottom">
               <ToolbarButton
                 type="button"
                 $active={editor.isActive("highlight")}
@@ -166,7 +160,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
           </ToolbarGroup>
 
           <ToolbarGroup>
-            <Tooltip title="Lista con viñetas" placement="bottom">
+            <Tooltip title="Lista" placement="bottom">
               <ToolbarButton
                 type="button"
                 $active={editor.isActive("bulletList")}
@@ -175,8 +169,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
                 <FontAwesomeIcon icon={faListUl} />
               </ToolbarButton>
             </Tooltip>
-
-            <Tooltip title="Lista numerada" placement="bottom">
+            <Tooltip title="Numeración" placement="bottom">
               <ToolbarButton
                 type="button"
                 $active={editor.isActive("orderedList")}
@@ -188,41 +181,29 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
           </ToolbarGroup>
 
           <ToolbarGroup>
-            <Tooltip title="Alinear a la izquierda" placement="bottom">
-              <ToolbarButton
-                type="button"
-                $active={editor.isActive({ textAlign: "left" })}
-                onClick={() =>
-                  editor.chain().focus().setTextAlign("left").run()
-                }
-              >
-                <FontAwesomeIcon icon={faAlignLeft} />
-              </ToolbarButton>
-            </Tooltip>
-
-            <Tooltip title="Alinear al centro" placement="bottom">
-              <ToolbarButton
-                type="button"
-                $active={editor.isActive({ textAlign: "center" })}
-                onClick={() =>
-                  editor.chain().focus().setTextAlign("center").run()
-                }
-              >
-                <FontAwesomeIcon icon={faAlignCenter} />
-              </ToolbarButton>
-            </Tooltip>
-
-            <Tooltip title="Alinear a la derecha" placement="bottom">
-              <ToolbarButton
-                type="button"
-                $active={editor.isActive({ textAlign: "right" })}
-                onClick={() =>
-                  editor.chain().focus().setTextAlign("right").run()
-                }
-              >
-                <FontAwesomeIcon icon={faAlignRight} />
-              </ToolbarButton>
-            </Tooltip>
+            <ToolbarButton
+              type="button"
+              $active={editor.isActive({ textAlign: "left" })}
+              onClick={() => editor.chain().focus().setTextAlign("left").run()}
+            >
+              <FontAwesomeIcon icon={faAlignLeft} />
+            </ToolbarButton>
+            <ToolbarButton
+              type="button"
+              $active={editor.isActive({ textAlign: "center" })}
+              onClick={() =>
+                editor.chain().focus().setTextAlign("center").run()
+              }
+            >
+              <FontAwesomeIcon icon={faAlignCenter} />
+            </ToolbarButton>
+            <ToolbarButton
+              type="button"
+              $active={editor.isActive({ textAlign: "right" })}
+              onClick={() => editor.chain().focus().setTextAlign("right").run()}
+            >
+              <FontAwesomeIcon icon={faAlignRight} />
+            </ToolbarButton>
           </ToolbarGroup>
         </Toolbar>
 
@@ -238,32 +219,46 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
 
 const Container = styled.div`
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: ${({ theme }) => theme.spacing.md};
 `;
 
 const Label = styled.label`
-  display: inline-flex;
-  align-items: center;
-  margin-bottom: 8px;
-  font-weight: ${({ theme }) => theme.font_weight.medium};
-  color: ${({ theme }) => theme.colors.fontSecondary};
-  font-size: ${({ theme }) => theme.font_sizes.x_small};
-  background-color: ${({ theme }) => theme.colors.bgSecondary};
-  padding: 2px 8px;
-  border-radius: ${({ theme }) => theme.border_radius.x_small};
+  ${({ theme }) => css`
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: ${theme.spacing.xs};
+    font-weight: ${theme.font_weight.medium};
+    color: ${theme.colors.fontSecondary};
+    font-size: ${theme.font_sizes.xs};
+    padding: 0 ${theme.spacing.xs};
+
+    .required {
+      color: ${theme.colors.error};
+      margin-left: 4px;
+    }
+  `}
 `;
 
 const EditorWrapper = styled.div<{ $height: string; $hasError: boolean }>`
   ${({ theme, $height, $hasError }) => css`
-    border-radius: ${theme.border_radius.small};
+    border-radius: ${theme.border_radius.md};
     border: 1px solid ${$hasError ? theme.colors.error : theme.colors.border};
     background: ${theme.colors.bgSecondary};
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    transition: all ${theme.transitions.fast};
+
+    &:focus-within {
+      border-color: ${$hasError ? theme.colors.error : theme.colors.primary};
+      box-shadow: 0 0 0 2px
+        ${$hasError ? `${theme.colors.error}26` : theme.colors.primaryAlpha};
+    }
 
     .tiptap-editor-content {
       min-height: ${$height};
+      padding: ${theme.spacing.md};
+      outline: none;
     }
   `}
 `;
@@ -272,34 +267,57 @@ const Toolbar = styled.div`
   ${({ theme }) => css`
     display: flex;
     flex-wrap: wrap;
-    gap: ${theme.paddings.x_small};
-    padding: ${theme.paddings.x_small} ${theme.paddings.small};
+    gap: ${theme.spacing.xs};
+    padding: ${theme.spacing.xs} ${theme.spacing.sm};
     border-bottom: 1px solid ${theme.colors.border};
     background: ${theme.colors.bgTertiary};
   `}
 `;
 
 const ToolbarGroup = styled.div`
-  display: inline-flex;
-  gap: 4px;
-  margin-right: 8px;
+  ${({ theme }) => css`
+    display: inline-flex;
+    gap: 2px;
+    padding-right: ${theme.spacing.xs};
+    border-right: 1px solid ${theme.colors.border};
+
+    &:last-child {
+      border-right: none;
+    }
+  `}
 `;
 
 const ToolbarButton = styled.button<{ $active?: boolean }>`
   ${({ theme, $active }) => css`
     border: none;
-    padding: 4px 8px;
-    border-radius: ${theme.border_radius.xx_small};
-    font-size: ${theme.font_sizes.small};
+    padding: 6px 10px;
+    border-radius: ${theme.border_radius.xs};
+    font-size: ${theme.font_sizes.sm};
     background: ${$active ? theme.colors.primaryAlpha : "transparent"};
     color: ${$active ? theme.colors.primary : theme.colors.fontSecondary};
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: all ${theme.transitions.fast};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .lvl-tag {
+      font-size: 10px;
+      margin-left: 2px;
+      font-weight: ${theme.font_weight.large};
+    }
 
     &:hover {
-      background: ${theme.colors.primaryAlpha};
+      background: ${theme.colors.bgHover};
       color: ${theme.colors.primary};
     }
+
+    ${$active &&
+    css`
+      &:hover {
+        background: ${theme.colors.primaryAlpha};
+      }
+    `}
   `}
 `;
 
@@ -307,34 +325,39 @@ const EditorContainer = styled.div`
   ${({ theme }) => css`
     background: ${theme.colors.bgSecondary};
     color: ${theme.colors.fontPrimary};
-    padding: ${theme.paddings.small};
+    flex: 1;
 
     .tiptap-editor-content {
-      outline: none;
+      font-size: ${theme.font_sizes.sm};
+      line-height: 1.6;
 
-      p {
-        margin: 0 0 0.5em;
+      p.is-editor-empty:first-child::before {
+        color: ${theme.colors.fontTertiary};
+        content: attr(data-placeholder);
+        float: left;
+        height: 0;
+        pointer-events: none;
       }
 
-      a {
-        color: ${theme.colors.fontLink};
-        text-decoration: underline;
-
-        &:hover {
-          color: ${theme.colors.fontLinkHover};
-        }
+      h1,
+      h2,
+      h3 {
+        margin: ${theme.spacing.md} 0 ${theme.spacing.xs};
+        color: ${theme.colors.fontPrimary};
+        line-height: 1.2;
       }
 
       ul,
       ol {
-        padding-left: 1.5em;
+        padding-left: ${theme.spacing.lg};
+        margin-bottom: ${theme.spacing.sm};
       }
 
-      blockquote {
-        border-left: 3px solid ${theme.colors.border};
-        margin: 0.5em 0;
-        padding-left: 0.75em;
-        color: ${theme.colors.fontSecondary};
+      mark {
+        background-color: ${theme.colors.primary}40;
+        color: inherit;
+        border-radius: 2px;
+        padding: 0 2px;
       }
     }
   `}
@@ -343,8 +366,9 @@ const EditorContainer = styled.div`
 const ErrorText = styled.span`
   ${({ theme }) => css`
     display: block;
-    margin-top: 4px;
+    margin-top: ${theme.spacing.xs};
     color: ${theme.colors.error};
-    font-size: ${theme.font_sizes.xxx_small};
+    font-size: ${theme.font_sizes.xs};
+    padding-left: ${theme.spacing.xs};
   `}
 `;

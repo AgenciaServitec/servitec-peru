@@ -1,10 +1,9 @@
+import type { ReactNode } from "react";
 import styled, { css } from "styled-components";
 import { capitalize, startCase } from "lodash";
 import { keyframes } from "../../../styles";
 import Typography from "antd/lib/typography";
 import SpaceAntd from "antd/lib/space";
-import { lighten } from "polished";
-import type { ReactNode } from "react";
 
 const { Text } = Typography;
 
@@ -31,8 +30,8 @@ export const Group = ({
   children,
 }: GroupProps) => (
   <>
-    <Container error={error}>
-      <Legend required={required} error={error}>
+    <Container $error={error}>
+      <Legend $required={required} $error={error}>
         {label}
       </Legend>
       <SpaceStyled size="middle" direction="vertical">
@@ -40,41 +39,50 @@ export const Group = ({
       </SpaceStyled>
     </Container>
     {helperText && (
-      <Error error={error}>{capitalize(startCase(helperText))}</Error>
+      <Error $error={error}>{capitalize(startCase(helperText))}</Error>
     )}
   </>
 );
 
-const Container = styled.fieldset<Pick<GroupProps, "error">>`
-  border-radius: ${({ theme }) => theme.border_radius.x_small};
-  border: solid 1px
-    ${({ theme, error }) =>
-      error ? theme.colors.error : lighten(0.1, theme.colors.bgSecondary)};
-  padding: 0.5em 1em;
-  margin-top: -7px;
-  background: ${({ theme }) => lighten(0.02, theme.colors.bgSecondary)};
+const Container = styled.fieldset<{ $error?: boolean }>`
+  ${({ theme, $error }) => css`
+    border-radius: ${theme.border_radius
+      .md}; /* De 8px para consistencia con inputs */
+    border: 1px solid ${$error ? theme.colors.error : theme.colors.border};
+    padding: ${theme.spacing.sm} ${theme.spacing.md} ${theme.spacing.md};
+    margin-top: ${theme.spacing.xs};
+    background: ${theme.colors.bgSecondary};
+    transition: border-color ${theme.transitions.fast};
+
+    &:hover {
+      border-color: ${$error ? theme.colors.error : theme.colors.borderHover};
+    }
+  `}
 `;
 
-const Legend = styled.legend<Pick<GroupProps, "required" | "error">>`
-  ${({ theme, error, required }) => css`
+const Legend = styled.legend<{ $required?: boolean; $error?: boolean }>`
+  ${({ theme, $error, $required }) => css`
+    /* El fondo debe ser el mismo que el del contenedor para el efecto de 'corte' */
     background: ${theme.colors.bgSecondary};
-    color: ${error ? theme.colors.error : theme.colors.fontPrimary};
-    border-radius: ${theme.border_radius.x_small};
-    font-size: 0.9em;
-    font-weight: 600;
-    padding: 0.1rem 0.5rem;
+    color: ${$error ? theme.colors.error : theme.colors.fontPrimary};
+    border-radius: ${theme.border_radius.xs};
+    font-size: ${theme.font_sizes.sm};
+    font-weight: ${theme.font_weight.medium};
+    padding: 0 ${theme.spacing.sm};
     width: auto;
-    margin: 0.6em 0;
+    margin-bottom: 0; /* Evitamos márgenes extra que rompan la simetría */
+    float: none; /* Reset para comportamiento estándar de legend */
+    transition: color ${theme.transitions.fast};
 
-    ${required &&
+    ${$required &&
     css`
-      ::after {
-        display: inline-block;
-        margin-left: 0.2rem;
-        color: ${error ? theme.colors.error : theme.colors.primary};
-        font-size: ${theme.font_sizes.small};
-        line-height: 1;
+      &::after {
         content: "*";
+        display: inline-block;
+        margin-left: ${theme.spacing.xs};
+        color: ${$error ? theme.colors.error : theme.colors.primary};
+        font-size: ${theme.font_sizes.sm};
+        line-height: 1;
       }
     `}
   `}
@@ -84,12 +92,15 @@ const SpaceStyled = styled(SpaceAntd)`
   width: 100%;
 `;
 
-const Error = styled(Text)<Pick<GroupProps, "error">>`
-  color: ${({ theme }) => theme.colors.error};
-  font-size: ${({ theme }) => theme.font_sizes.x_small};
-  ${({ error }) =>
-    error &&
+const Error = styled(Text)<{ $error?: boolean }>`
+  ${({ theme, $error }) => css`
+    display: block;
+    color: ${theme.colors.error};
+    font-size: ${theme.font_sizes.xs};
+    margin-top: ${theme.spacing.xs};
+    ${$error &&
     css`
       animation: ${keyframes.shake} 340ms;
     `};
+  `}
 `;

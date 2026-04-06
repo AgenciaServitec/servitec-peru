@@ -10,8 +10,10 @@ export interface RadioOption {
   disabled?: boolean;
 }
 
-export interface RadioGroupProps
-  extends Omit<AntdRadioGroupProps, "options" | "onChange"> {
+export interface RadioGroupProps extends Omit<
+  AntdRadioGroupProps,
+  "options" | "onChange"
+> {
   name?: string;
   value?: any;
   required?: boolean;
@@ -46,6 +48,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
       label={label}
       animation={animation}
       helperText={helperText}
+      disabled={disabled}
     >
       <RadioGroupStyled
         onChange={(e) => onChange?.(e.target.value)}
@@ -59,96 +62,94 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
 
 const RadioGroupStyled = styled(RadioAntd.Group)`
   ${({ theme }) => css`
-    padding: ${theme.paddings.medium};
+    padding: ${theme.spacing.sm} ${theme.spacing.md};
+    display: flex;
+    flex-wrap: wrap;
+    gap: ${theme.spacing.md};
 
+    /* Estilo para Radio Circular Estándar */
     .ant-radio-wrapper {
       color: ${theme.colors.fontPrimary};
-      font-size: ${theme.font_sizes.small};
-      margin-right: ${theme.paddings.large};
-      transition: all 0.2s ease;
+      font-size: ${theme.font_sizes.sm};
+      margin-right: 0; /* Controlado por el gap del padre */
+      transition: all ${theme.transitions.fast};
 
-      &:hover {
+      .ant-radio-inner {
+        background-color: ${theme.colors.bgTertiary};
+        border-color: ${theme.colors.border};
+        width: 18px;
+        height: 18px;
+
+        &::after {
+          /* El punto central cuando está seleccionado */
+          background-color: #000000 !important;
+          width: 10px;
+          height: 10px;
+          margin-top: -5px;
+          margin-left: -5px;
+        }
+      }
+
+      /* Estado Seleccionado */
+      .ant-radio-checked {
         .ant-radio-inner {
+          background-color: ${theme.colors.primary};
           border-color: ${theme.colors.primary};
         }
       }
 
-      .ant-radio {
-        .ant-radio-inner {
-          background-color: ${theme.colors.bgSecondary};
-          border-color: ${theme.colors.fontSecondary};
-          transition: all 0.2s ease;
-
-          &:after {
-            background-color: ${theme.colors.primary};
-          }
-        }
-
-        &.ant-radio-checked {
-          .ant-radio-inner {
-            background-color: ${theme.colors.primary};
-            border-color: ${theme.colors.primary};
-
-            &:after {
-              background-color: ${theme.colors.black};
-            }
-          }
-
-          &:after {
-            border-color: ${theme.colors.primary};
-          }
-        }
-
-        &:hover .ant-radio-inner {
-          border-color: ${theme.colors.primary};
-        }
+      /* Hover */
+      &:hover:not(.ant-radio-wrapper-disabled) .ant-radio-inner {
+        border-color: ${theme.colors.primary};
       }
 
+      /* Deshabilitado */
       &.ant-radio-wrapper-disabled {
-        opacity: 0.5;
+        color: ${theme.colors.fontDisabled};
         cursor: not-allowed;
+        opacity: 1;
 
         .ant-radio-inner {
-          background-color: ${theme.colors.black}40;
+          background-color: ${theme.colors.bgTertiary};
+          border-color: ${theme.colors.border};
         }
-      }
-
-      span:not(.ant-radio) {
-        padding-left: ${theme.paddings.x_small};
       }
     }
 
+    /* Estilo para Radio tipo Botón (Solid/Outline) */
     .ant-radio-button-wrapper {
-      background-color: ${theme.colors.bgSecondary};
-      border-color: ${theme.colors.fontSecondary}40;
-      color: ${theme.colors.fontPrimary};
-      transition: all 0.2s ease;
+      background-color: ${theme.colors.bgTertiary};
+      border-color: ${theme.colors.border};
+      color: ${theme.colors.fontSecondary};
+      height: 32px;
+      line-height: 30px;
+      transition: all ${theme.transitions.fast};
+
+      &:first-child {
+        border-radius: ${theme.border_radius.sm} 0 0 ${theme.border_radius.sm};
+      }
+      &:last-child {
+        border-radius: 0 ${theme.border_radius.sm} ${theme.border_radius.sm} 0;
+      }
 
       &:hover {
         color: ${theme.colors.primary};
-        border-color: ${theme.colors.primary};
       }
 
       &.ant-radio-button-wrapper-checked {
-        background-color: ${theme.colors.primary};
-        border-color: ${theme.colors.primary};
-        color: ${theme.colors.black};
+        background-color: ${theme.colors.primary} !important;
+        border-color: ${theme.colors.primary} !important;
+        color: #000000 !important; /* Texto negro sobre fondo amarillo */
 
-        &:hover {
-          background-color: ${theme.colors.primary};
-          border-color: ${theme.colors.primary};
-          color: ${theme.colors.black};
-        }
-
-        &:before {
-          background-color: ${theme.colors.primary};
+        &::before {
+          background-color: transparent !important;
         }
       }
 
       &.ant-radio-button-wrapper-disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-        background-color: ${theme.colors.black}40;
+        background-color: ${theme.colors.bgTertiary};
+        color: ${theme.colors.fontDisabled};
+        border-color: ${theme.colors.border};
       }
     }
   `}

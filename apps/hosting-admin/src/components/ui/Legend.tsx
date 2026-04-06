@@ -1,6 +1,5 @@
 import { type ReactNode } from "react";
 import styled, { css } from "styled-components";
-import { lighten } from "polished";
 
 interface LegendProps {
   title: string;
@@ -19,33 +18,39 @@ export const Legend = ({ title, children }: LegendProps) => {
 };
 
 const Container = styled.section`
-  padding-top: 7px;
+  padding-top: ${({ theme }) => theme.spacing.md};
 `;
 
 const Content = styled.div`
   ${({ theme }) => css`
-    border-radius: ${theme.border_radius.xx_small};
-    border: 1px solid ${lighten(0.1, theme.colors.bgSecondary)};
-    padding: ${theme.paddings.xxx_large} ${theme.paddings.medium}
-      ${theme.paddings.medium} ${theme.paddings.medium};
-    background: ${lighten(0.02, theme.colors.bgSecondary)};
+    border-radius: ${theme.border_radius.xs};
+    border: 1px solid ${theme.colors.border};
+    padding: ${theme.spacing.lg} ${theme.spacing.md} ${theme.spacing.md};
+    background: ${theme.colors.bgSecondary};
     position: relative;
-
+    transition: border-color ${theme.transitions.fast};
     .legend-title {
       position: absolute;
-      top: -16px;
-      z-index: 100;
+      top: -0.75rem;
+      left: ${theme.spacing.md};
+      z-index: 10;
       pointer-events: none;
-      display: flex;
-      background-color: ${theme.colors.bgSecondary};
-      color: ${theme.colors.fontPrimary};
-      font-weight: ${theme.font_weight.large};
-      font-size: ${theme.font_sizes.large};
-      padding: 0 ${theme.border_radius.xx_small};
+      display: inline-block;
+      background-color: ${theme.colors.bgPrimary};
+      color: ${theme.colors.primary};
+      font-weight: ${theme.font_weight.medium};
+      font-size: ${theme.font_sizes.sm};
+      padding: 0 ${theme.spacing.xs};
+      letter-spacing: 0.02em;
     }
 
     .legend-content {
       color: ${theme.colors.fontSecondary};
+      font-size: ${theme.font_sizes.sm};
+    }
+
+    &:hover {
+      border-color: ${theme.colors.borderHover};
     }
   `}
 `;

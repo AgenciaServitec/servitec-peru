@@ -34,10 +34,28 @@ const TitleStyled = styled(Typography.Title)<TitleStyledProps>`
     text-align: ${$align};
     color: ${$color || theme.colors.fontPrimary} !important;
     margin: ${$margin || 0} !important;
-    font-weight: ${theme.font_weight.large};
+    font-weight: ${theme.font_weight.large} !important;
+    letter-spacing: -0.02em;
 
     &.ant-typography {
-      margin-bottom: ${theme.paddings.medium};
+      margin-bottom: ${$margin ? "0" : theme.spacing.md};
+      transition: color ${theme.transitions.fast};
+    }
+
+    &.ant-typography-h1 {
+      font-size: ${theme.font_sizes.heading} !important;
+    }
+    &.ant-typography-h2 {
+      font-size: ${theme.font_sizes.xxl} !important;
+    }
+    &.ant-typography-h3 {
+      font-size: ${theme.font_sizes.xl} !important;
+    }
+    &.ant-typography-h4 {
+      font-size: ${theme.font_sizes.lg} !important;
+    }
+    &.ant-typography-h5 {
+      font-size: ${theme.font_sizes.md} !important;
     }
   `}
 `;
