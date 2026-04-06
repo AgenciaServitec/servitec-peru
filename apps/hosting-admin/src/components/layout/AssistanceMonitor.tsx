@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
-import { Card, Progress } from "antd";
+import styled, { css } from "styled-components";
+import { Card, Progress, Spin } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faClock,
@@ -26,7 +26,13 @@ export const AssistanceMonitor = () => {
   const total = assistances.length || 1;
   const percentActive = Math.round((workingNow.length / total) * 100);
 
-  if (loading) return <LoadingText>Cargando monitor...</LoadingText>;
+  if (loading) {
+    return (
+      <LoadingWrapper>
+        <Spin tip="Sincronizando personal..." />
+      </LoadingWrapper>
+    );
+  }
 
   return (
     <MonitorCard>
@@ -48,7 +54,7 @@ export const AssistanceMonitor = () => {
           <Progress
             percent={percentActive}
             showInfo={false}
-            strokeColor="#52c41a"
+            strokeColor="#10B981" // Tu color success del theme
             trailColor="rgba(255,255,255,0.05)"
             size="small"
           />
@@ -79,7 +85,7 @@ export const AssistanceMonitor = () => {
                 </UserCard>
               ))
             ) : (
-              <EmptyState>No hay personal en turno</EmptyState>
+              <EmptyState>No hay personal operativo actualmente</EmptyState>
             )}
           </div>
         </StatusColumn>
@@ -90,18 +96,22 @@ export const AssistanceMonitor = () => {
             <span className="count-badge">{finishedToday.length}</span>
           </div>
           <div className="user-list">
-            {finishedToday.map((a) => (
-              <UserCard key={a.id} className="finished">
-                <div className="avatar-mini gray">{a.user.firstName[0]}</div>
-                <div className="user-info">
-                  <p className="name">{a.user.firstName}</p>
-                  <span className="time">
-                    Salió: {a.outlet.date.split(" ")[1]}
-                  </span>
-                </div>
-                <FontAwesomeIcon icon={faSignOutAlt} className="out-icon" />
-              </UserCard>
-            ))}
+            {finishedToday.length > 0 ? (
+              finishedToday.map((a) => (
+                <UserCard key={a.id} className="finished">
+                  <div className="avatar-mini gray">{a.user.firstName[0]}</div>
+                  <div className="user-info">
+                    <p className="name">{a.user.firstName}</p>
+                    <span className="time">
+                      Salió: {a.outlet.date.split(" ")[1]}
+                    </span>
+                  </div>
+                  <FontAwesomeIcon icon={faSignOutAlt} className="out-icon" />
+                </UserCard>
+              ))
+            ) : (
+              <EmptyState>Nadie ha finalizado turno aún</EmptyState>
+            )}
           </div>
         </StatusColumn>
       </div>
@@ -110,185 +120,241 @@ export const AssistanceMonitor = () => {
 };
 
 const MonitorCard = styled(Card)`
-  margin-top: 32px;
-  background: #141414;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  .ant-card-body {
-    padding: 24px;
-  }
-  .status-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-  }
-  @media (max-width: 768px) {
-    .status-grid {
-      grid-template-columns: 1fr;
-      gap: 32px;
+  ${({ theme }) => css`
+    background: ${theme.colors.bgSecondary};
+    border: 1px solid ${theme.colors.border};
+    border-radius: ${theme.border_radius.lg};
+
+    .ant-card-body {
+      padding: ${theme.spacing.lg};
     }
-  }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr; /* Prioridad visual a los que están trabajando */
+      gap: ${theme.spacing.xl};
+    }
+
+    @media (max-width: 992px) {
+      .status-grid {
+        grid-template-columns: 1fr;
+        gap: ${theme.spacing.lg};
+      }
+    }
+  `}
 `;
 
 const HeaderGroup = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 32px;
-  .title-section {
-    .summary-info {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #595959;
-      font-size: 0.8rem;
-      margin-top: 4px;
-    }
-  }
-`;
-
-const ProgressContainer = styled.div`
-  width: 140px;
-  .progress-label {
+  ${({ theme }) => css`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 6px;
-    font-size: 0.7rem;
-    color: #595959;
-    .percent {
-      color: #52c41a;
-      font-weight: 600;
+    margin-bottom: ${theme.spacing.xl};
+    padding-bottom: ${theme.spacing.md};
+    border-bottom: 1px solid ${theme.colors.divider};
+
+    .title-section {
+      .summary-info {
+        display: flex;
+        align-items: center;
+        gap: ${theme.spacing.xs};
+        color: ${theme.colors.fontTertiary};
+        font-size: ${theme.font_sizes.xs};
+        margin-top: ${theme.spacing.xs};
+      }
     }
-  }
+  `}
+`;
+
+const ProgressContainer = styled.div`
+  ${({ theme }) => css`
+    width: 160px;
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: ${theme.spacing.xs};
+      font-size: 11px;
+      color: ${theme.colors.fontTertiary};
+      letter-spacing: 0.5px;
+
+      .percent {
+        color: ${theme.colors.success};
+        font-weight: ${theme.font_weight.large};
+      }
+    }
+  `}
 `;
 
 const SectionTitle = styled.h2`
-  color: #fafafa;
-  font-size: 1rem;
-  margin: 0;
-  font-weight: 500;
+  ${({ theme }) => css`
+    color: ${theme.colors.fontPrimary};
+    font-size: ${theme.font_sizes.md};
+    margin: 0;
+    font-weight: ${theme.font_weight.large};
+  `}
 `;
 
 const StatusColumn = styled.div`
-  .column-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-    h4 {
-      font-size: 0.85rem;
-      font-weight: 500;
-      margin: 0;
-      &.active {
-        color: #52c41a;
+  ${({ theme }) => css`
+    .column-header {
+      display: flex;
+      align-items: center;
+      gap: ${theme.spacing.sm};
+      margin-bottom: ${theme.spacing.md};
+
+      h4 {
+        font-size: ${theme.font_sizes.sm};
+        font-weight: ${theme.font_weight.medium};
+        margin: 0;
+        letter-spacing: 0.5px;
+
+        &.active {
+          color: ${theme.colors.success};
+        }
+        &.offline {
+          color: ${theme.colors.fontTertiary};
+        }
       }
-      &.offline {
-        color: #8c8c8c;
+
+      .count-badge {
+        font-size: 10px;
+        padding: 2px 8px;
+        border-radius: ${theme.border_radius.xs};
+        background: ${theme.colors.bgTertiary};
+        color: ${theme.colors.fontTertiary};
+
+        &.active {
+          background: ${theme.colors.success}15;
+          color: ${theme.colors.success};
+        }
       }
     }
-    .count-badge {
-      font-size: 0.7rem;
-      padding: 1px 6px;
-      border-radius: 4px;
-      background: rgba(255, 255, 255, 0.03);
-      color: #595959;
-      &.active {
-        background: rgba(82, 196, 26, 0.1);
-        color: #52c41a;
-      }
+
+    .user-list {
+      display: flex;
+      flex-direction: column;
+      gap: ${theme.spacing.sm};
     }
-  }
-  .user-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+  `}
 `;
 
 const UserCard = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 12px;
-  background: #1a1a1a;
-  border-radius: 8px;
-  gap: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.02);
-  transition: all 0.2s;
-
-  &:hover {
-    border-color: rgba(255, 255, 255, 0.1);
-    background: #1e1e1e;
-  }
-
-  &.finished {
-    background: transparent;
-    border-color: rgba(255, 255, 255, 0.04);
-    opacity: 0.5;
-  }
-
-  .avatar-mini {
-    width: 32px;
-    height: 32px;
-    background: #051b22;
-    border-radius: 50%;
+  ${({ theme }) => css`
     display: flex;
     align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 0.8rem;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-  }
+    padding: ${theme.spacing.md};
+    background: ${theme.colors.bgTertiary};
+    border-radius: ${theme.border_radius.md};
+    gap: ${theme.spacing.md};
+    border: 1px solid transparent;
+    transition: all ${theme.transitions.fast};
 
-  .user-info {
-    flex: 1;
-
-    .name {
-      color: #eeeeee;
-      font-size: 0.85rem;
-      margin: 0;
-      font-weight: 500;
+    &:hover {
+      border-color: ${theme.colors.borderHover};
+      background: ${theme.colors.bgHover};
+      transform: translateX(4px);
     }
 
-    .time-row {
+    &.finished {
+      background: transparent;
+      border: 1px dashed ${theme.colors.border};
+      opacity: 0.6;
+
+      &:hover {
+        transform: none;
+        border-color: ${theme.colors.fontTertiary};
+      }
+    }
+
+    .avatar-mini {
+      width: 36px;
+      height: 36px;
+      background: ${theme.colors.primaryAlpha};
+      color: ${theme.colors.primary};
+      border-radius: ${theme.border_radius.full};
       display: flex;
       align-items: center;
-      gap: 6px;
-      color: #595959;
-      font-size: 0.75rem;
-      margin-top: 2px;
+      justify-content: center;
+      font-size: ${theme.font_sizes.sm};
+      font-weight: ${theme.font_weight.large};
+      border: 1px solid ${theme.colors.primary}30;
+
+      &.gray {
+        background: ${theme.colors.bgHover};
+        color: ${theme.colors.fontTertiary};
+        border-color: ${theme.colors.border};
+      }
     }
 
-    .time {
-      color: #595959;
-      font-size: 0.75rem;
+    .user-info {
+      flex: 1;
+      .name {
+        color: ${theme.colors.fontPrimary};
+        font-size: ${theme.font_sizes.sm};
+        margin: 0;
+        font-weight: ${theme.font_weight.medium};
+      }
+      .time-row {
+        display: flex;
+        align-items: center;
+        gap: ${theme.spacing.xs};
+        color: ${theme.colors.fontTertiary};
+        font-size: ${theme.font_sizes.xs};
+        margin-top: 2px;
+      }
+      .time {
+        color: ${theme.colors.fontTertiary};
+        font-size: ${theme.font_sizes.xs};
+      }
     }
-  }
 
-  .out-icon {
-    font-size: 11px;
-    color: #434343;
-  }
+    .out-icon {
+      font-size: 12px;
+      color: ${theme.colors.fontDisabled};
+    }
+  `}
 `;
 
 const StatusDot = styled.div`
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #52c41a;
-  box-shadow: 0 0 10px rgba(82, 196, 26, 0.2);
+  ${({ theme }) => css`
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: ${theme.colors.success};
+    box-shadow: 0 0 10px ${theme.colors.success}40;
+    animation: pulse 2s infinite;
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  `}
 `;
 
-const LoadingText = styled.p`
-  color: #595959;
-  font-size: 0.85rem;
-  margin-top: 24px;
+const LoadingWrapper = styled.div`
+  padding: 100px 0;
+  text-align: center;
 `;
 
 const EmptyState = styled.div`
-  color: #434343;
-  font-size: 0.8rem;
-  border: 1px dashed rgba(255, 255, 255, 0.05);
-  padding: 16px;
-  border-radius: 8px;
-  text-align: center;
+  ${({ theme }) => css`
+    color: ${theme.colors.fontDisabled};
+    font-size: ${theme.font_sizes.xs};
+    border: 1px dashed ${theme.colors.border};
+    padding: ${theme.spacing.lg};
+    border-radius: ${theme.border_radius.md};
+    text-align: center;
+    background: ${theme.colors.bgPrimary}40;
+  `}
 `;

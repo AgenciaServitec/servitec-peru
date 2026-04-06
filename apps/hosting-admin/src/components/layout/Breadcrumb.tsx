@@ -2,68 +2,94 @@ import { capitalize } from "lodash";
 import { Breadcrumb } from "antd";
 import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { faChevronRight, faHome } from "@fortawesome/free-solid-svg-icons";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const BreadcrumbLayout = () => {
   const navigate = useNavigate();
-  const pathnames = window.location.pathname.split("/").filter((path) => path);
+  const location = useLocation(); // Mejor usar hook de react-router que window.location
+  const pathnames = location.pathname.split("/").filter((path) => path);
 
   const breadcrumbItems = [
     {
       title: <FontAwesomeIcon icon={faHome} />,
       onClick: () => navigate("/home"),
-      className: "breadcrumb-home",
+      className: "breadcrumb-link-active",
     },
     ...pathnames.map((path, index) => {
+      const isLast = index === pathnames.length - 1;
       const url = `/${pathnames.slice(0, index + 1).join("/")}`;
+
       return {
-        title: path === "entities" ? "Entidad (G.U)" : capitalize(path),
-        onClick: index < pathnames.length - 1 ? () => navigate(url) : undefined,
+        title:
+          path === "entities"
+            ? "Entidad (G.U)"
+            : capitalize(path.replace(/-/g, " ")),
+        onClick: !isLast ? () => navigate(url) : undefined,
+        className: !isLast ? "breadcrumb-link-active" : "breadcrumb-link-last",
       };
     }),
   ];
 
-  return <BreadcrumbContainer items={breadcrumbItems} />;
+  return (
+    <BreadcrumbContainer
+      items={breadcrumbItems}
+      separator={
+        <FontAwesomeIcon icon={faChevronRight} style={{ fontSize: "10px" }} />
+      }
+    />
+  );
 };
 
 const BreadcrumbContainer = styled(Breadcrumb)`
   ${({ theme }) => css`
-    margin: 16px 0;
-    padding: 0.8em 0;
+    margin: ${theme.spacing.sm} 0;
+    padding: ${theme.spacing.xs} 0;
     display: flex;
     align-items: center;
 
-    .ant-breadcrumb-link {
-      color: ${theme.colors.fontSecondary};
-      font-size: ${theme.font_sizes.small};
-      transition: color 0.2s ease;
+    /* Estilo para los links que NO son el último */
+    .breadcrumb-link-active {
+      color: ${theme.colors.fontSecondary} !important;
+      font-size: ${theme.font_sizes.sm};
+      cursor: pointer;
+      transition: color ${theme.transitions.fast};
 
       &:hover {
-        color: ${theme.colors.primary};
+        color: ${theme.colors.primary} !important;
+      }
+
+      .ant-breadcrumb-link {
+        display: flex;
+        align-items: center;
       }
     }
 
-    li:last-child .ant-breadcrumb-link {
-      color: ${theme.colors.fontPrimary};
-      font-weight: ${theme.font_weight.medium};
-      display: flex;
-      align-items: center;
+    /* Estilo para la página actual (último elemento) */
+    .breadcrumb-link-last {
+      .ant-breadcrumb-link {
+        color: ${theme.colors.fontPrimary} !important;
+        font-weight: ${theme.font_weight.medium};
+        font-size: ${theme.font_sizes.sm};
+        cursor: default;
+      }
     }
 
+    /* Separador */
     .ant-breadcrumb-separator {
-      color: ${theme.colors.fontDisabled};
-      margin: 0 0.5em;
-    }
-
-    li:first-child .ant-breadcrumb-link {
-      color: ${theme.colors.fontSecondary};
+      color: ${theme.colors.fontTertiary};
+      margin: 0 ${theme.spacing.sm};
       display: flex;
       align-items: center;
-
-      &:hover {
-        color: ${theme.colors.primary};
-      }
     }
-  `}}
+
+    /* Icono de Home específico */
+    svg {
+      transition: transform ${theme.transitions.fast};
+    }
+
+    .breadcrumb-link-active:hover svg {
+      transform: scale(1.1);
+    }
+  `}
 `;

@@ -1,6 +1,6 @@
 import { Col, Row, Title } from "../../components";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import {
   faBoxesPacking,
   faClipboardUser,
@@ -14,36 +14,37 @@ import ShortcutCard from "./ShortcutCard.tsx";
 
 export function Home() {
   const navigate = useNavigate();
-  const { authUser } = useAuthentication();
+  const { authUser } = useAuthentication(); // Asumiendo que obtienes el theme mode aquí
 
+  // Sugerencia: Mapear los colores a tus tokens del theme
   const shortcuts = [
     {
       title: "Cotizaciones",
       icon: faFileLines,
       path: "/quotations",
       newPath: "/quotations/new",
-      color: "#ffc107",
+      color: "#FFC107", // Primary
     },
     {
       title: "Solicitud de Servicios",
       icon: faWrench,
       path: "/services-requests",
       newPath: "/services-requests/new",
-      color: "#17a2b8",
+      color: "#0EA5E9", // Info
     },
     {
       title: "Asistencias",
       icon: faClipboardUser,
       path: "/assistances",
       newPath: "/assistances/assistance",
-      color: "#28a745",
+      color: "#10B981", // Success
     },
     {
       title: "Proveedores",
       icon: faBoxesPacking,
       path: "/suppliers",
       newPath: "/suppliers/new",
-      color: "#6f42c1",
+      color: "#8B5CF6", // Un púrpura que combine con tu dark mode
     },
   ];
 
@@ -52,28 +53,32 @@ export function Home() {
     "fRiTn5k6TP5TJvpXZeLS",
     "woc2g3M8EO4RYtXFap6n",
   ].includes(authUser?.id);
+
   if (isAdmin) {
     shortcuts.push({
       title: "Usuarios",
       icon: faUsers,
       path: "/users",
       newPath: "/users/new",
-      color: "#dc3545",
+      color: "#F43F5E", // Error / Red
     });
   }
 
   return (
-    <Row gutter={[16, 40]}>
+    <Row gutter={[16, 32]}>
       <Col span={24}>
         <SectionHeader>
-          <Title level={4} style={{ margin: 0, fontWeight: 500 }}>
+          <Title level={4} style={{ margin: 0 }}>
             Accesos directos
           </Title>
-          <p>Gestión de módulos y creación de registros</p>
+          <p className="description">
+            Gestión de módulos y creación de registros
+          </p>
         </SectionHeader>
+
         <Row gutter={[16, 16]}>
           {shortcuts.map((item, index) => (
-            <Col xs={24} md={12} lg={8} key={index}>
+            <Col xs={24} sm={12} lg={8} xl={6} key={index}>
               <ShortcutCard
                 item={item}
                 onList={() => navigate(item.path)}
@@ -85,11 +90,13 @@ export function Home() {
       </Col>
 
       <Col span={24}>
-        <SectionHeader>
-          <Title level={4} style={{ margin: 0, fontWeight: 500 }}>
+        <SectionHeader style={{ marginTop: "1rem" }}>
+          <Title level={4} style={{ margin: 0 }}>
             Monitoreo de actividad
           </Title>
-          <p>Estado del personal técnico en tiempo real</p>
+          <p className="description">
+            Estado del personal técnico en tiempo real
+          </p>
         </SectionHeader>
         <AssistanceMonitor />
       </Col>
@@ -98,10 +105,19 @@ export function Home() {
 }
 
 const SectionHeader = styled.div`
-  margin-bottom: 20px;
-  p {
-    color: #8c8c8c;
-    font-size: 0.85rem;
-    margin: 4px 0 0 0;
-  }
+  ${({ theme }) => css`
+    margin-bottom: ${theme.spacing.md};
+
+    h4 {
+      color: ${theme.colors.fontPrimary};
+      font-weight: ${theme.font_weight.large} !important;
+    }
+
+    .description {
+      color: ${theme.colors.fontSecondary};
+      font-size: ${theme.font_sizes.sm};
+      margin: ${theme.spacing.xs} 0 0 0;
+      opacity: 0.8;
+    }
+  `}
 `;

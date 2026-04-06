@@ -41,43 +41,48 @@ export const DrawerLayout = ({
     {
       label: "Inicio",
       key: "home",
-      icon: <FontAwesomeIcon icon={faHome} size="lg" />,
+      icon: <FontAwesomeIcon icon={faHome} />,
       onClick: () => onClickHome(),
     },
-    [
+    // Filtro de administrador corregido para evitar errores de renderizado
+    ...([
       "XfQXaMRZD7Gro2kPaIvU",
       "fRiTn5k6TP5TJvpXZeLS",
       "woc2g3M8EO4RYtXFap6n",
       "U0kKdzTPY0rVgWcCY8dV",
       "UXrpXFxJhVi5Tl1MTMu2",
-    ].includes(authUser?.id) && {
-      label: "Administración",
-      key: "manager",
-      icon: <FontAwesomeIcon icon={faGears} size="lg" />,
-      children: [
-        {
-          label: "Usuarios",
-          key: "users",
-          icon: <FontAwesomeIcon icon={faUsers} size="lg" />,
-          onClick: () => onClickMenu("/users"),
-        },
-      ],
-    },
+    ].includes(authUser?.id || "")
+      ? [
+          {
+            label: "Administración",
+            key: "manager",
+            icon: <FontAwesomeIcon icon={faGears} />,
+            children: [
+              {
+                label: "Usuarios",
+                key: "users",
+                icon: <FontAwesomeIcon icon={faUsers} />,
+                onClick: () => onClickMenu("/users"),
+              },
+            ],
+          },
+        ]
+      : []),
     {
       label: "Cotizaciones",
       key: "quotations-group",
-      icon: <FontAwesomeIcon icon={faFileLines} size="lg" />,
+      icon: <FontAwesomeIcon icon={faFileLines} />,
       children: [
         {
           label: "Crear Cotización",
           key: "quotation-new",
-          icon: <FontAwesomeIcon icon={faSquarePlus} size="lg" />,
+          icon: <FontAwesomeIcon icon={faSquarePlus} />,
           onClick: () => onClickMenu("/quotations/new"),
         },
         {
           label: "Lista de cotizaciones",
           key: "quotations-list",
-          icon: <FontAwesomeIcon icon={faList} size="lg" />,
+          icon: <FontAwesomeIcon icon={faList} />,
           onClick: () => onClickMenu("/quotations"),
         },
       ],
@@ -85,18 +90,18 @@ export const DrawerLayout = ({
     {
       label: "Solicitudes de Servicio",
       key: "services-requests-group",
-      icon: <FontAwesomeIcon icon={faWrench} size="lg" />,
+      icon: <FontAwesomeIcon icon={faWrench} />,
       children: [
         {
           label: "Crear Solictud de Servicio",
           key: "service-request-new",
-          icon: <FontAwesomeIcon icon={faSquarePlus} size="lg" />,
+          icon: <FontAwesomeIcon icon={faSquarePlus} />,
           onClick: () => onClickMenu("/services-requests/new"),
         },
         {
           label: "Lista de Solictudes de Servicio",
           key: "services-requests-list",
-          icon: <FontAwesomeIcon icon={faList} size="lg" />,
+          icon: <FontAwesomeIcon icon={faList} />,
           onClick: () => onClickMenu("/services-requests"),
         },
       ],
@@ -104,18 +109,18 @@ export const DrawerLayout = ({
     {
       label: "Proveedores",
       key: "suppliers",
-      icon: <FontAwesomeIcon icon={faBoxesPacking} size="lg" />,
+      icon: <FontAwesomeIcon icon={faBoxesPacking} />,
       children: [
         {
           label: "Crear Proveedor",
           key: "supplier-new",
-          icon: <FontAwesomeIcon icon={faSquarePlus} size="lg" />,
+          icon: <FontAwesomeIcon icon={faSquarePlus} />,
           onClick: () => onClickMenu("/suppliers/new"),
         },
         {
           label: "Lista de Proveedores",
           key: "suppliers-list",
-          icon: <FontAwesomeIcon icon={faList} size="lg" />,
+          icon: <FontAwesomeIcon icon={faList} />,
           onClick: () => onClickMenu("/suppliers"),
         },
       ],
@@ -123,18 +128,18 @@ export const DrawerLayout = ({
     {
       label: "Asistencias",
       key: "assistances-group",
-      icon: <FontAwesomeIcon icon={faClipboardUser} size="lg" />,
+      icon: <FontAwesomeIcon icon={faClipboardUser} />,
       children: [
         {
           label: "Marcar asistencia",
           key: "assistance-new",
-          icon: <FontAwesomeIcon icon={faSquarePlus} size="lg" />,
+          icon: <FontAwesomeIcon icon={faSquarePlus} />,
           onClick: () => onClickMenu("/assistances/assistance"),
         },
         {
           label: "Lista de asistencias",
           key: "assistances-list",
-          icon: <FontAwesomeIcon icon={faList} size="lg" />,
+          icon: <FontAwesomeIcon icon={faList} />,
           onClick: () => onClickMenu("/assistances"),
         },
       ],
@@ -143,7 +148,6 @@ export const DrawerLayout = ({
 
   return (
     <DrawerContainer
-      key="right"
       title={
         <HeaderTitle>
           <h3>Servitec Work</h3>
@@ -151,20 +155,17 @@ export const DrawerLayout = ({
         </HeaderTitle>
       }
       placement="left"
-      width={330}
+      width={300}
       closable={true}
-      onClose={() => onSetIsVisibleDrawer(!isVisibleDrawer)}
+      onClose={() => onSetIsVisibleDrawer(false)}
       open={isVisibleDrawer}
-      styles={{
-        body: { padding: 0 },
-      }}
     >
       <MenuContainer>
         <Menu
           defaultSelectedKeys={["home"]}
           mode="inline"
           items={items}
-          inlineIndent={20}
+          inlineIndent={16}
         />
       </MenuContainer>
     </DrawerContainer>
@@ -173,20 +174,23 @@ export const DrawerLayout = ({
 
 const DrawerContainer = styled(Drawer)`
   ${({ theme }) => css`
+    .ant-drawer-content {
+      background: ${theme.colors.bgSecondary} !important;
+    }
+
     .ant-drawer-header {
-      background: ${theme.colors.black};
-      border-bottom: 1px solid rgba(255, 193, 7, 0.2);
-      padding: 1.2em 1.5em;
+      background: ${theme.colors.bgPrimary};
+      border-bottom: 1px solid ${theme.colors.divider};
+      padding: ${theme.spacing.lg};
     }
 
     .ant-drawer-body {
-      background: ${theme.colors.bgSecondary};
       padding: 0;
+      background: ${theme.colors.bgSecondary};
     }
 
     .ant-drawer-close {
-      color: ${theme.colors.fontPrimary};
-
+      color: ${theme.colors.fontSecondary};
       &:hover {
         color: ${theme.colors.primary};
       }
@@ -198,38 +202,77 @@ const HeaderTitle = styled.div`
   ${({ theme }) => css`
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 100%;
+    gap: ${theme.spacing.sm};
 
     h3 {
       margin: 0;
       color: ${theme.colors.fontPrimary};
-      font-size: 1.2em;
+      font-size: ${theme.font_sizes.md};
       font-weight: ${theme.font_weight.large};
+      letter-spacing: -0.5px;
     }
   `}
 `;
 
 const VersionBadge = styled.span`
   ${({ theme }) => css`
-    background: ${theme.colors.primary};
-    color: ${theme.colors.black};
-    padding: 0.3em 0.7em;
-    border-radius: ${theme.border_radius.x_small};
-    font-size: 0.75em;
-    font-weight: ${theme.font_weight.medium};
+    background: ${theme.colors.primaryAlpha};
+    color: ${theme.colors.primary};
+    padding: 2px 8px;
+    border-radius: ${theme.border_radius.xs};
+    font-size: 10px;
+    font-weight: ${theme.font_weight.large};
+    border: 1px solid ${theme.colors.primary}40;
   `}
 `;
 
 const MenuContainer = styled.div`
-  padding: 0.5em 0;
+  ${({ theme }) => css`
+    padding: ${theme.spacing.sm} 0;
 
-  .ant-menu {
-    border-inline-end: none !important;
-  }
+    .ant-menu {
+      background: transparent !important;
+      border-inline-end: none !important;
 
-  .ant-menu-item-icon,
-  .ant-menu-submenu-title .anticon {
-    font-size: 1.1em;
-  }
+      /* Ítem base */
+      .ant-menu-item,
+      .ant-menu-submenu-title {
+        color: ${theme.colors.fontSecondary};
+        height: 44px;
+        margin-inline: ${theme.spacing.sm} !important;
+        width: calc(100% - ${theme.spacing.md});
+        border-radius: ${theme.border_radius.sm};
+
+        &:hover {
+          color: ${theme.colors.primary} !important;
+          background: ${theme.colors.bgHover} !important;
+        }
+      }
+
+      /* Ítem activo/seleccionado */
+      .ant-menu-item-selected {
+        background: ${theme.colors.primaryAlpha} !important;
+        color: ${theme.colors.primary} !important;
+        font-weight: ${theme.font_weight.medium};
+
+        &::after {
+          display: none; /* Quitamos la línea molesta de AntD */
+        }
+      }
+
+      /* Iconos */
+      .ant-menu-item-icon {
+        font-size: 16px !important;
+      }
+
+      /* Submenús */
+      .ant-menu-submenu-arrow {
+        color: ${theme.colors.fontTertiary};
+      }
+
+      .ant-menu-sub {
+        background: ${theme.colors.bgPrimary}40 !important;
+      }
+    }
+  `}
 `;
