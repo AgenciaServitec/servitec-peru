@@ -34,7 +34,6 @@ const TECHNICIANS = [
 
 const MapContainer = styled.div<{ $bgImage: string }>`
   height: 115px;
-  background-color: #141414;
   position: relative;
   background-image:
     linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)),

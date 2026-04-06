@@ -1,7 +1,6 @@
 import AntSelect from "antd/lib/select";
 import { ComponentContainer } from "./component-container";
-import { lighten } from "polished";
-import styled, { css } from "styled-components";
+import styled, { createGlobalStyle, css } from "styled-components";
 
 type Option = { code?: string; label?: string; value?: string };
 
@@ -57,18 +56,24 @@ export const Select = ({
       label={label}
       animation={animation}
     >
+      {/* Inyectamos estilos para el portal del dropdown */}
+      <DropdownStyles />
+
       {isMobile ? (
         <StyledSelectMobile
           key={value}
           disabled={disabled}
-          error={error}
+          $error={error}
           onChange={(event) => onChange && onChange(event.target.value)}
           value={value}
           defaultValue={value}
-          placeholder={placeholder}
         >
-          {placeholder && <option hidden>{placeholder}</option>}
-          {!value && <option hidden />}
+          {placeholder && (
+            <option value="" hidden>
+              {placeholder}
+            </option>
+          )}
+          {!value && <option value="" hidden />}
           {options.map((option) => (
             <option key={option.code} value={option.value}>
               {option.label}
@@ -76,7 +81,9 @@ export const Select = ({
           ))}
         </StyledSelectMobile>
       ) : (
-        <AntSelect
+        <StyledAntSelect
+          // Usamos una clase específica para no afectar otros selects si no queremos
+          popupClassName="servitec-select-popup"
           allowClear={disabled ? false : allowClear}
           variant="borderless"
           disabled={disabled}
@@ -97,44 +104,126 @@ export const Select = ({
   );
 };
 
-const StyledSelectMobile = styled.select<
-  Pick<SelectProps, "error" | "placeholder" | "value">
->`
-  ${({ theme, error, value, placeholder }) => css`
-    width: 100%;
-    height: 32px;
-    border: none;
-    margin: 0 11px 4px 11px;
-    font-size: 1rem;
-    background-color: ${error
-      ? lighten(0.4, theme.colors.error)
-      : theme.colors.bgSecondary};
-    cursor: pointer;
-    border-radius: ${theme.border_radius.xx_small};
-    color: ${placeholder
-      ? !value
-        ? theme.colors.fontSecondary
-        : theme.colors.fontPrimary
-      : theme.colors.fontPrimary};
-    font-weight: ${theme.font_weight.medium};
+/**
+ * ESTILOS GLOBALES PARA EL PORTAL
+ * Esto soluciona el fondo blanco y los textos invisibles en el dropdown
+ */
+const DropdownStyles = createGlobalStyle`
+  ${({ theme }) => css`
+    .servitec-select-popup {
+      background-color: ${theme.colors.bgSecondary} !important;
+      border: 1px solid ${theme.colors.border} !important;
+      border-radius: ${theme.border_radius.md} !important;
+      box-shadow: ${theme.shadows.lg} !important;
+      padding: 4px 0 !important;
 
+      .ant-select-item {
+        color: ${theme.colors.fontSecondary} !important;
+        margin: 2px 4px !important;
+        border-radius: ${theme.border_radius.sm} !important;
+        transition: all ${theme.transitions.fast};
+
+        &-option-content {
+          font-size: ${theme.font_sizes.sm} !important;
+        }
+
+        /* Hover */
+        &-option-active {
+          background-color: ${theme.colors.bgHover} !important;
+          color: ${theme.colors.primary} !important;
+        }
+
+        /* Seleccionado */
+        &-option-selected {
+          background-color: ${theme.colors.primaryAlpha} !important;
+          color: ${theme.colors.primary} !important;
+          font-weight: ${theme.font_weight.large} !important;
+        }
+      }
+
+      /* Scrollbar para el dropdown */
+      .rc-virtual-list-scrollbar-thumb {
+        background: ${theme.colors.border} !important;
+      }
+
+      /* Texto de 'No data' */
+      .ant-select-item-empty {
+        color: ${theme.colors.fontTertiary} !important;
+      }
+    }
+  `}
+`;
+
+/* Estilos para Desktop (AntDesign Select) */
+const StyledAntSelect = styled(AntSelect)`
+  ${({ theme }) => css`
+    width: 100%;
+
+    /* ESTO CORRIGE EL COLOR DEL TEXTO AL ESCRIBIR */
+    .ant-select-selection-search-input {
+      color: ${theme.colors.fontPrimary} !important;
+      font-size: ${theme.font_sizes.sm} !important;
+    }
+
+    .ant-select-selection-item,
+    .ant-select-selection-placeholder {
+      font-size: ${theme.font_sizes.sm} !important;
+      color: ${theme.colors.fontPrimary} !important;
+      font-weight: ${theme.font_weight.medium};
+    }
+
+    /* Color de la flecha de AntD */
+    .ant-select-arrow {
+      color: ${theme.colors.primary} !important;
+      font-size: 12px;
+    }
+
+    /* Estilo para el botón de limpiar */
+    .ant-select-clear {
+      background: transparent;
+      color: ${theme.colors.fontTertiary};
+      padding-right: 4px;
+      &:hover {
+        color: ${theme.colors.primary};
+      }
+    }
+  `}
+`;
+
+/* Estilos para Mobile (Native Select) */
+const StyledSelectMobile = styled.select<{ $error: boolean }>`
+  ${({ theme, value }) => css`
+    width: calc(100% - 22px);
+    height: 38px;
+    border: none;
+    margin: 0 11px;
+    font-size: ${theme.font_sizes.sm};
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: ${theme.border_radius.xs};
+    color: ${!value ? theme.colors.fontTertiary : theme.colors.fontPrimary};
+    font-weight: ${theme.font_weight.medium};
+    outline: none;
+
+    /* Reset de apariencia nativa */
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23FFC107'><polygon points='0,0 100,0 50,50'/></svg>");
+
+    /* Icono de flecha personalizado usando el color primary del theme */
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23FFC107'><polygon points='0,30 100,30 50,80'/></svg>");
     background-repeat: no-repeat;
     background-size: 10px;
-    background-position: right center;
+    background-position: right 4px center;
 
     option {
-      background: ${theme.colors.bgSecondary};
+      background: ${theme.colors.bgTertiary};
       color: ${theme.colors.fontPrimary};
     }
 
-    &:focus-within {
-      background: ${lighten(0.05, theme.colors.bgSecondary)};
-      outline: none;
-      border: 1px solid ${theme.colors.primary};
+    &:disabled {
+      cursor: not-allowed;
+      color: ${theme.colors.fontDisabled};
     }
   `}
 `;
