@@ -9,18 +9,18 @@ export const PRIORITY_LEVELS = [
     label: "Urgente",
     value: "high",
     icon: faTriangleExclamation,
-    color: "#ff4d4f",
+    color: "error",
   },
   {
     label: "Normal",
     value: "medium",
     icon: faCircleExclamation,
-    color: "#faad14",
+    color: "gold",
   },
   {
     label: "Baja",
     value: "low",
     icon: faArrowDown,
-    color: "#52c41a",
+    color: "success",
   },
 ];
