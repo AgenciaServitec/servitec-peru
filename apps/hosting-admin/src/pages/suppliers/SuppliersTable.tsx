@@ -53,7 +53,7 @@ export const SuppliersTable: React.FC<SuppliersTableProps> = ({
         render: (_, supplier) => (
           <Space align="start" direction="vertical" size={0}>
             <strong>{supplier.fullName || "-"}</strong>
-            <span style={{ fontSize: "12px", color: "#666" }}>
+            <span>
               DNI: <strong>{supplier.document?.number || "-"}</strong>
             </span>
           </Space>
@@ -68,7 +68,7 @@ export const SuppliersTable: React.FC<SuppliersTableProps> = ({
           return (
             <Space align="start" direction="vertical" size={0}>
               <strong>{supplier.company?.legalName || "-"}</strong>
-              <span style={{ fontSize: "12px", color: "#666" }}>
+              <span>
                 RUC: <strong>{supplier.company?.ruc || "-"}</strong>
               </span>
             </Space>
@@ -96,7 +96,7 @@ export const SuppliersTable: React.FC<SuppliersTableProps> = ({
                   icon={
                     supplier.phone.type === "mobile" ? faMobileScreen : faPhone
                   }
-                  size={18}
+                  size={30}
                   iconStyles={{ color: () => theme.colors.info }}
                   onClick={() =>
                     window.open(
@@ -115,7 +115,7 @@ export const SuppliersTable: React.FC<SuppliersTableProps> = ({
                 <IconAction
                   tooltipTitle="Whatsapp"
                   icon={faWhatsapp}
-                  size={20}
+                  size={30}
                   iconStyles={{ color: () => theme.colors.success }}
                   onClick={() =>
                     window.open(
@@ -172,7 +172,7 @@ export const SuppliersTable: React.FC<SuppliersTableProps> = ({
               >
                 <IconAction
                   icon={faMapMarkerAlt}
-                  size={14}
+                  size={30}
                   iconStyles={{ color: () => theme.colors.error }}
                 />
                 Cómo llegar
@@ -232,14 +232,12 @@ export const SuppliersTable: React.FC<SuppliersTableProps> = ({
 
   return (
     <Table
-      bordered
       rowKey="id"
       columns={columns}
       dataSource={sortedSuppliers}
       size="small"
-      scroll={{ x: 1000, y: 600 }}
+      scroll={{ x: 1000 }}
       loading={suppliersLoading}
-      pagination={false}
     />
   );
 };

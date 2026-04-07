@@ -140,7 +140,7 @@ const Container = styled.div<{
         &::after {
           content: "*";
           margin-left: ${theme.spacing.xs};
-          color: ${$error ? theme.colors.error : theme.colors.primary};
+          color: ${theme.colors.error};
         }
       `}
     }

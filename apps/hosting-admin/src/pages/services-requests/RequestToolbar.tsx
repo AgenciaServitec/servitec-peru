@@ -8,7 +8,7 @@ import {
   Space,
   Tag,
   Typography,
-} from "antd";
+} from "../../components";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -35,7 +35,6 @@ const ToolbarWrapper = styled.div`
   gap: 16px;
   padding: 12px 0 20px 0;
   margin-bottom: 12px;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
 `;
 
 const MainBar = styled.div`
@@ -154,8 +153,6 @@ export const RequestToolbar: React.FC<RequestToolbarProps> = ({
     categoryValue !== "all" ||
     dateRangeValue !== null;
 
-  const elementStyle = { borderRadius: "8px", height: 38, width: "100%" };
-
   return (
     <ToolbarWrapper>
       <MainBar>
@@ -163,13 +160,7 @@ export const RequestToolbar: React.FC<RequestToolbarProps> = ({
           <Input
             placeholder="Buscar cliente, equipo o imei..."
             value={searchTextValue}
-            prefix={
-              <FontAwesomeIcon
-                icon={faSearch}
-                style={{ color: "#8c8c8c", fontSize: 13 }}
-              />
-            }
-            style={elementStyle}
+            prefix={<FontAwesomeIcon icon={faSearch} />}
             onChange={(e) => onSearch(e.target.value)}
             allowClear
           />
@@ -177,13 +168,8 @@ export const RequestToolbar: React.FC<RequestToolbarProps> = ({
           <RangePicker
             value={dateRangeValue}
             placeholder={["Desde", "Hasta"]}
-            style={{ ...elementStyle, background: "transparent" }}
-            suffixIcon={
-              <FontAwesomeIcon
-                icon={faCalendarDays}
-                style={{ fontSize: 12, color: "#8c8c8c" }}
-              />
-            }
+            prefix={<FontAwesomeIcon icon={faCalendarDays} />}
+            suffixIcon={""}
             onChange={(dates) => onFilterChange("dateRange", dates)}
             allowClear
           />
@@ -193,10 +179,7 @@ export const RequestToolbar: React.FC<RequestToolbarProps> = ({
           <Select
             value={technicianValue === "all" ? undefined : technicianValue}
             placeholder="Técnico"
-            style={elementStyle}
-            suffixIcon={
-              <FontAwesomeIcon icon={faUserGear} style={{ fontSize: 11 }} />
-            }
+            prefix={<FontAwesomeIcon icon={faUserGear} />}
             onChange={(val) => onFilterChange("technician", val || "all")}
             options={TECHNICIAN_OPTIONS}
             allowClear
@@ -205,13 +188,7 @@ export const RequestToolbar: React.FC<RequestToolbarProps> = ({
           <Select
             value={categoryValue === "all" ? undefined : categoryValue}
             placeholder="Categoría"
-            style={elementStyle}
-            suffixIcon={
-              <FontAwesomeIcon
-                icon={faLaptopMedical}
-                style={{ fontSize: 11 }}
-              />
-            }
+            prefix={<FontAwesomeIcon icon={faLaptopMedical} />}
             onChange={(val) => onFilterChange("category", val || "all")}
             options={CATEGORY_OPTIONS}
             allowClear
@@ -220,10 +197,7 @@ export const RequestToolbar: React.FC<RequestToolbarProps> = ({
           <Select
             value={serviceModeValue === "all" ? undefined : serviceModeValue}
             placeholder="Tipo de servicio"
-            style={elementStyle}
-            suffixIcon={
-              <FontAwesomeIcon icon={faStore} style={{ fontSize: 11 }} />
-            }
+            prefix={<FontAwesomeIcon icon={faStore} />}
             onChange={(val) => onFilterChange("serviceMode", val || "all")}
             options={SERVICE_MODE_OPTIONS}
             allowClear
@@ -232,10 +206,7 @@ export const RequestToolbar: React.FC<RequestToolbarProps> = ({
           <Select
             value={districtValue === "all" ? undefined : districtValue}
             placeholder="Distrito"
-            style={elementStyle}
-            suffixIcon={
-              <FontAwesomeIcon icon={faLocationDot} style={{ fontSize: 10 }} />
-            }
+            prefix={<FontAwesomeIcon icon={faLocationDot} />}
             onChange={(val) => onFilterChange("district", val || "all")}
             options={DISTRICT_OPTIONS}
             allowClear
@@ -244,13 +215,7 @@ export const RequestToolbar: React.FC<RequestToolbarProps> = ({
           <Select
             value={priorityValue === "all" ? undefined : priorityValue}
             placeholder="Prioridad"
-            style={elementStyle}
-            suffixIcon={
-              <FontAwesomeIcon
-                icon={faTriangleExclamation}
-                style={{ fontSize: 10 }}
-              />
-            }
+            prefix={<FontAwesomeIcon icon={faTriangleExclamation} />}
             onChange={(val) => onFilterChange("priority", val || "all")}
             options={PRIORITY_OPTIONS}
             allowClear
@@ -262,7 +227,6 @@ export const RequestToolbar: React.FC<RequestToolbarProps> = ({
               danger
               onClick={onClear}
               icon={<FontAwesomeIcon icon={faEraser} />}
-              style={elementStyle}
             >
               Limpiar
             </Button>
@@ -293,7 +257,6 @@ export const RequestToolbar: React.FC<RequestToolbarProps> = ({
                   borderRadius: "4px",
                   background: "rgba(255,255,255,0.08)",
                   border: "1px solid #434343",
-                  color: "#fff",
                 }}
               >
                 periodo: {dateRangeValue[0]?.format("DD/MM/YY")} -{" "}
@@ -315,7 +278,6 @@ export const RequestToolbar: React.FC<RequestToolbarProps> = ({
                   borderRadius: "4px",
                   background: "rgba(24, 144, 255, 0.15)",
                   border: "1px solid #177ddc",
-                  color: "#fff",
                 }}
               >
                 técnico:{" "}
@@ -340,7 +302,6 @@ export const RequestToolbar: React.FC<RequestToolbarProps> = ({
                   borderRadius: "4px",
                   background: "rgba(250, 173, 20, 0.1)",
                   border: "1px solid #faad14",
-                  color: "#fff",
                 }}
               >
                 categoría:{" "}
@@ -362,7 +323,6 @@ export const RequestToolbar: React.FC<RequestToolbarProps> = ({
                   borderRadius: "4px",
                   background: "rgba(255, 255, 255, 0.05)",
                   border: "1px solid #434343",
-                  color: "#fff",
                 }}
               >
                 servicio:{" "}

@@ -210,12 +210,6 @@ const StyledSelectMobile = styled.select<{ $error: boolean }>`
     -moz-appearance: none;
     appearance: none;
 
-    /* Icono de flecha personalizado usando el color primary del theme */
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23FFC107'><polygon points='0,30 100,30 50,80'/></svg>");
-    background-repeat: no-repeat;
-    background-size: 10px;
-    background-position: right 4px center;
-
     option {
       background: ${theme.colors.bgTertiary};
       color: ${theme.colors.fontPrimary};

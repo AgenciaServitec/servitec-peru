@@ -126,13 +126,10 @@ export const UsersTable: React.FC<UsersTableProps> = ({
 
   return (
     <Table
-      bordered
-      virtual
       columns={columns}
       dataSource={dataSource}
       size="small"
       scroll={{ x: 1200 }}
-      pagination={false}
     />
   );
 };
