@@ -2,7 +2,7 @@ import * as yup from "yup";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDefaultFirestoreProps, useFormUtils } from "../../../hooks";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   Col,
@@ -18,7 +18,6 @@ import {
 import {
   addQuotation,
   fetchQuotation,
-  fetchServiceRequest,
   getQuotationId,
   updateQuotation,
 } from "../../../firebase/collections";
@@ -30,8 +29,8 @@ import dayjs from "dayjs";
 
 export function QuotationIntegration() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { quotationId } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
   const { assignCreateProps, assignUpdateProps } = useDefaultFirestoreProps();
 
   const [documentType, setDocumentType] = useState("ruc");
@@ -47,41 +46,43 @@ export function QuotationIntegration() {
   const isNew = quotationId === "new";
   const onGoBack = () => navigate(-1);
 
-  const requestId = searchParams.get("serviceRequestId");
-
-  console.log(requestId);
-
-  const updateFilter = () => {
-    setSearchParams({ serviceRequest: requestId, step: "2" });
-  };
-
   useEffect(() => {
     (async () => {
       if (isNew) {
-        const _serviceRequest = await fetchServiceRequest(requestId);
+        const preloadedServiceRequest = location.state?.serviceRequest;
 
-        setQuotation({
-          id: getQuotationId(),
-          serviceRequestId: _serviceRequest?.id,
-          documentType: _serviceRequest?.client.document.type,
-          documentNumber: _serviceRequest?.client.document.number,
-          companyName: _serviceRequest?.client.companyName,
-          firstName: _serviceRequest?.client.names,
-          paternalSurname: _serviceRequest?.client.paternalSurname,
-          maternalSurname: _serviceRequest?.client.maternalSurname,
-          phoneNumber: _serviceRequest?.client.phone.number,
-          email: _serviceRequest?.client.email,
-          address: _serviceRequest?.location.address,
-          type: _serviceRequest?.device.type,
-          reportedIssue: _serviceRequest?.issueDescription,
-        });
+        if (preloadedServiceRequest) {
+          setQuotation({
+            id: getQuotationId(),
+            serviceRequestId: preloadedServiceRequest.id,
+            client: {
+              document: preloadedServiceRequest.client.document,
+              firstName: preloadedServiceRequest.client.firstName,
+              paternalSurname: preloadedServiceRequest.client.paternalSurname,
+              maternalSurname: preloadedServiceRequest.client.maternalSurname,
+              companyName: preloadedServiceRequest.client.companyName,
+              phone: preloadedServiceRequest.client.phone,
+              email: preloadedServiceRequest.client.email,
+              address: preloadedServiceRequest.location.address,
+            },
+            device: {
+              type: preloadedServiceRequest.device,
+            },
+            reportedIssue: preloadedServiceRequest.problemDescription,
+            analysis: "",
+            solutionAndRecommendations: "",
+            quotationDetails: [],
+          });
+        } else {
+          setQuotation({ id: getQuotationId() });
+        }
       } else {
         const _quotation = await fetchQuotation(quotationId);
         if (!_quotation) return navigate(-1);
         setQuotation(_quotation);
       }
     })();
-  }, [quotationId, isNew, requestId]);
+  }, [quotationId, isNew, location.state]);
 
   const mapQuotation = (formData) => ({
     ...quotation,
@@ -104,13 +105,27 @@ export function QuotationIntegration() {
       email: formData.client.email,
       address: formData.client.address,
     },
-    device: { ...formData.device },
+    device: {
+      type: formData.device.type,
+      brand: formData.device.brand,
+      model: formData.device.model,
+      serialNumber: formData.device.serialNumber,
+      color: formData.device.color,
+      condition: formData.device.condition,
+      accessories: formData.device.accessories,
+      ram: formData.device.ram,
+      processor: formData.device.processor,
+      operationSystem: formData.device.operationSystem,
+    },
     reportedIssue: formData.reportedIssue,
     analysis: formData.analysis,
     solutionAndRecommendations: formData.solutionAndRecommendations,
-    quotationDetails: formData.quotationDetails,
-    contractNumber:
-      quotation?.contractNumber || dayjs().format("YYYYMMDDHHmmss"),
+    quotationDetails: formData.quotationDetails.map((item) => ({
+      ...item,
+      subTotal: item.subTotal,
+      description: item.description,
+    })),
+    contractNumber: dayjs().format("YYYYMMDDHHmmss"),
   });
 
   const onSubmit = async (formData) => {
@@ -223,74 +238,51 @@ const Quotation = ({
       (docType === "dni" && docNumber.length === 8) ||
       (docType === "ruc" && docNumber.length === 11);
 
-    if (isValidLength && isNew) {
-      const currentName =
-        watch("client.firstName") || watch("client.companyName");
-      if (currentName) return;
+    const isNameEmpty =
+      !watch("client.firstName") && !watch("client.companyName");
 
+    if (isValidLength && isNew && isNameEmpty) {
       (async () => {
         try {
           const data = await getDataByDniOrRuc(docNumber);
           if (!data) return;
 
           if (docType === "dni") {
-            setValue("client.firstName", capitalize(data.firstName || ""), {
-              shouldValidate: true,
-            });
+            setValue("client.firstName", capitalize(data.firstName || ""));
             setValue(
               "client.paternalSurname",
-              capitalize(data.paternalSurname || ""),
-              { shouldValidate: true }
+              capitalize(data.paternalSurname || "")
             );
             setValue(
               "client.maternalSurname",
-              capitalize(data.maternalSurname || ""),
-              { shouldValidate: true }
+              capitalize(data.maternalSurname || "")
             );
           } else {
-            setValue("client.companyName", capitalize(data.companyName || ""), {
-              shouldValidate: true,
-            });
-            setValue("client.address", capitalize(data.address || ""), {
-              shouldValidate: true,
-            });
+            setValue("client.companyName", capitalize(data.companyName || ""));
+            setValue("client.address", capitalize(data.address || ""));
           }
         } catch (err) {
           console.error("Error consultando API:", err);
         }
       })();
     }
-  }, [documentNumber, isNew, setValue]);
+  }, [documentNumber, isNew]);
 
   const resetForm = () => {
-    if (!quotation) return;
-
     reset({
       client: {
-        documentType:
-          quotation?.client?.document?.type || quotation?.documentType || "dni",
-        documentNumber:
-          quotation?.client?.document?.number ||
-          quotation?.documentNumber ||
-          "",
-        companyName:
-          quotation?.client?.companyName || quotation?.companyName || "",
-        firstName: quotation?.client?.firstName || quotation?.firstName || "",
-        paternalSurname:
-          quotation?.client?.paternalSurname ||
-          quotation?.paternalSurname ||
-          "",
-        maternalSurname:
-          quotation?.client?.maternalSurname ||
-          quotation?.maternalSurname ||
-          "",
-        phoneNumber:
-          quotation?.client?.phone?.number || quotation?.phoneNumber || "",
-        email: quotation?.client?.email || quotation?.email || "",
-        address: quotation?.client?.address || quotation?.address || "",
+        documentType: quotation?.client?.document?.type || "ruc",
+        documentNumber: quotation?.client?.document?.number || "",
+        companyName: quotation?.client?.companyName || "",
+        firstName: quotation?.client?.firstName || "",
+        paternalSurname: quotation?.client?.paternalSurname || "",
+        maternalSurname: quotation?.client?.maternalSurname || "",
+        phoneNumber: quotation?.client?.phone?.number || "",
+        email: quotation?.client?.email || "",
+        address: quotation?.client?.address || "",
       },
       device: {
-        type: quotation?.device?.type || quotation?.type || "",
+        type: quotation?.device?.type || "",
         brand: quotation?.device?.brand || "",
         model: quotation?.device?.model || "",
         serialNumber: quotation?.device?.serialNumber || "",
@@ -307,7 +299,6 @@ const Quotation = ({
       quotationDetails: quotation?.quotationDetails || [],
     });
   };
-
   useEffect(() => {
     resetForm();
   }, [quotation]);
