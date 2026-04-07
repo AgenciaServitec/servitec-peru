@@ -25,7 +25,7 @@ import {
   faStore,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Title } from "../../components";
 import dayjs from "dayjs";
 import { SERVICE_REQUEST_STATUS } from "../../data-list/serviceRequestStatus.ts";
@@ -34,21 +34,30 @@ import { PRIORITY_LEVELS } from "../../data-list/serviceRequestPriorityLevels.ts
 const { Text, Paragraph } = Typography;
 
 const SectionTitle = styled(Space)`
-  margin-bottom: 16px;
-  width: 100%;
+  ${({ theme }) => css`
+    margin-bottom: ${theme.spacing.md};
+    width: 100%;
 
-  .ant-typography {
-    letter-spacing: 0.3px;
-  }
+    .ant-typography {
+      letter-spacing: 0.3px;
+      color: ${theme.colors.fontPrimary} !important;
+    }
+  `}
 `;
 
 const SpecItem = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  padding-bottom: 8px;
+  ${({ theme }) => css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: ${theme.spacing.sm};
+    border-bottom: 1px solid ${theme.colors.divider};
+    padding-bottom: 8px;
+
+    .ant-typography:last-child {
+      color: ${theme.colors.fontPrimary} !important;
+    }
+  `}
 `;
 
 const ContactGrid = styled.div`
@@ -59,26 +68,48 @@ const ContactGrid = styled.div`
 `;
 
 const InfoBlock = styled.div<{ $variant?: "gold" | "blue" | "default" }>`
-  padding: 18px;
-  border-radius: 10px;
-  margin-bottom: 32px;
+  ${({ theme, $variant }) => css`
+    padding: 18px;
+    border-radius: ${theme.border_radius.md};
+    margin-bottom: 32px;
+    transition: all ${theme.transitions.fast};
 
-  ${({ $variant }) => {
-    if ($variant === "gold")
-      return `
-        background: rgba(250, 173, 20, 0.03);
-        border: 1px solid rgba(250, 173, 20, 0.15);
-      `;
-    if ($variant === "blue")
-      return `
-        background: rgba(24, 144, 255, 0.03);
-        border: 1px solid rgba(24, 144, 255, 0.15);
-      `;
-    return `
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-    `;
-  }}
+    ${$variant === "gold" &&
+    css`
+      background: ${theme.colors.primaryAlpha};
+      border: 1px solid ${theme.colors.primary}40;
+    `}
+
+    ${$variant === "blue" &&
+    css`
+      background: ${theme.colors.info}15;
+      border: 1px solid ${theme.colors.info}40;
+    `}
+
+    ${$variant === "default" &&
+    css`
+      background: ${theme.colors.bgTertiary};
+      border: 1px solid ${theme.colors.border};
+    `}
+  `}
+`;
+
+const StyledDrawer = styled(Drawer)`
+  ${({ theme }) => css`
+    .ant-drawer-content {
+      background: ${theme.colors.bgSecondary} !important;
+    }
+    .ant-drawer-header {
+      background: ${theme.colors.bgPrimary} !important;
+      border-bottom: 1px solid ${theme.colors.divider} !important;
+    }
+    .ant-drawer-title .ant-typography {
+      color: ${theme.colors.fontPrimary} !important;
+    }
+    .ant-drawer-close {
+      color: ${theme.colors.fontSecondary};
+    }
+  `}
 `;
 
 export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
@@ -106,11 +137,11 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
     PRIORITY_LEVELS[0];
 
   return (
-    <Drawer
+    <StyledDrawer
       title={
         <Space>
           <FontAwesomeIcon icon={faCircleInfo} style={{ color: "#faad14" }} />
-          <Text style={{ fontSize: 16, color: "#fff", fontWeight: 500 }}>
+          <Text style={{ fontSize: 16, fontWeight: 500 }}>
             Solicitud {data.id}
           </Text>
         </Space>
@@ -119,27 +150,15 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
       onClose={onClose}
       open={open}
       width={520}
-      headerStyle={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}
-      bodyStyle={{ background: "#0a0a0a" }}
       extra={
         <Space>
           <Tooltip title="Imprimir Orden">
-            <Button
-              type="text"
-              icon={
-                <FontAwesomeIcon icon={faPrint} style={{ color: "#8c8c8c" }} />
-              }
-            />
+            <Button type="text" icon={<FontAwesomeIcon icon={faPrint} />} />
           </Tooltip>
           <Tooltip title="Compartir con Cliente">
             <Button
               type="text"
-              icon={
-                <FontAwesomeIcon
-                  icon={faShareNodes}
-                  style={{ color: "#8c8c8c" }}
-                />
-              }
+              icon={<FontAwesomeIcon icon={faShareNodes} />}
             />
           </Tooltip>
         </Space>
@@ -155,40 +174,42 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
       >
         <Space direction="vertical" size={8}>
           <Space>
+            {/* TAGS CON ESTILO DINAMICO PARA CLARO/OSCURO */}
             <Tag
-              color={statusInfo.color}
               icon={
                 <FontAwesomeIcon
                   icon={statusInfo.icon}
-                  style={{ fontSize: 9, color: statusInfo.color }}
+                  style={{ fontSize: 9 }}
                 />
               }
               style={{
                 margin: 0,
                 fontSize: 11,
-                background: "transparent",
-                color: "white",
-                borderColor: statusInfo.color,
+                background: `${statusInfo.color}15`,
+                color: statusInfo.color,
+                borderColor: `${statusInfo.color}40`,
+                textTransform: "uppercase",
               }}
             >
-              {statusInfo.label.toUpperCase()}
+              {statusInfo.label}
             </Tag>
             <Tag
-              color={priorityInfo.color}
               icon={
                 <FontAwesomeIcon
                   icon={priorityInfo.icon}
-                  style={{ fontSize: 9, color: priorityInfo.color }}
+                  style={{ fontSize: 9 }}
                 />
               }
               style={{
                 margin: 0,
                 fontSize: 11,
-                background: "transparent",
-                borderColor: priorityInfo.color,
+                background: `${priorityInfo.color}15`,
+                color: priorityInfo.color,
+                borderColor: `${priorityInfo.color}40`,
+                textTransform: "uppercase",
               }}
             >
-              {priorityInfo.label.toUpperCase()}
+              {priorityInfo.label}
             </Tag>
           </Space>
           <Text type="secondary" style={{ fontSize: 11 }}>
@@ -197,14 +218,7 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
         </Space>
 
         <div style={{ textAlign: "right" }}>
-          <Text
-            style={{
-              display: "block",
-              fontSize: 14,
-              color: "#fff",
-              fontWeight: 500,
-            }}
-          >
+          <Text style={{ display: "block", fontSize: 14, fontWeight: 500 }}>
             {formattedTime}
           </Text>
           <Text type="secondary" style={{ fontSize: 11 }}>
@@ -218,7 +232,7 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
           icon={faUser}
           style={{ color: "#faad14", fontSize: 13 }}
         />
-        <Text style={{ fontSize: 13, color: "#fff", fontWeight: 500 }}>
+        <Text style={{ fontSize: 13, fontWeight: 500 }}>
           Información del cliente
         </Text>
       </SectionTitle>
@@ -228,7 +242,6 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
           level={5}
           style={{
             margin: "0 0 16px 0",
-            color: "#fff",
             fontWeight: 500,
             textTransform: "capitalize",
           }}
@@ -243,20 +256,17 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
               {data.client.document.type.toUpperCase()}
             </Text>
             <Space size={4}>
-              <Text style={{ fontSize: 13, color: "#fff" }}>
+              <Text style={{ fontSize: 13 }}>
                 {data.client.document.number}
               </Text>
               <Button
                 type="text"
                 size="small"
                 icon={
-                  <FontAwesomeIcon
-                    icon={faCopy}
-                    style={{ fontSize: 10, color: "#595959" }}
-                  />
+                  <FontAwesomeIcon icon={faCopy} style={{ fontSize: 10 }} />
                 }
                 onClick={() =>
-                  copyToClipboard(data.client.document.number, "DNI")
+                  copyToClipboard(data.client.document.number, "Documento")
                 }
               />
             </Space>
@@ -267,7 +277,7 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
               <FontAwesomeIcon icon={faPhone} style={{ marginRight: 6 }} />{" "}
               Teléfono
             </Text>
-            <Text style={{ fontSize: 13, color: "#52c41a", fontWeight: 500 }}>
+            <Text style={{ fontSize: 13, color: "#52c41a", fontWeight: 600 }}>
               {data.client.phone.prefix} {data.client.phone.number}
             </Text>
           </Space>
@@ -279,7 +289,7 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
             </Text>
             <Text
               ellipsis={{ tooltip: data.client.email }}
-              style={{ fontSize: 13, color: "#fff" }}
+              style={{ fontSize: 13 }}
             >
               {data.client.email}
             </Text>
@@ -300,11 +310,16 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
                 margin: 0,
                 fontSize: 10,
                 borderRadius: 3,
-                background: "transparent",
+                background:
+                  data.serviceMode === "home-service"
+                    ? "#1890ff15"
+                    : "#b37feb15",
                 color:
                   data.serviceMode === "home-service" ? "#1890ff" : "#b37feb",
                 borderColor:
-                  data.serviceMode === "home-service" ? "#1890ff" : "#b37feb",
+                  data.serviceMode === "home-service"
+                    ? "#1890ff40"
+                    : "#b37feb40",
               }}
             >
               {data.serviceMode === "home-service"
@@ -314,9 +329,7 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
           </Space>
         </ContactGrid>
 
-        <Divider
-          style={{ margin: "12px 0", borderColor: "rgba(255,255,255,0.06)" }}
-        />
+        <Divider style={{ margin: "12px 0" }} />
 
         <Space align="start">
           <FontAwesomeIcon
@@ -324,9 +337,7 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
             style={{ color: "#ff4d4f", marginTop: 4, fontSize: 12 }}
           />
           <div>
-            <Text style={{ fontSize: 13, color: "#fff" }}>
-              {data.location.district}
-            </Text>
+            <Text style={{ fontSize: 13 }}>{data.location.district}</Text>
             <br />
             <Text type="secondary" style={{ fontSize: 12 }}>
               {data.location.exactAddress}
@@ -340,25 +351,21 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
           icon={faMicrochip}
           style={{ color: "#8c8c8c", fontSize: 13 }}
         />
-        <Text style={{ fontSize: 13, color: "#fff", fontWeight: 500 }}>
-          Datos del equipo
-        </Text>
+        <Text style={{ fontSize: 13, fontWeight: 500 }}>Datos del equipo</Text>
       </SectionTitle>
 
-      <InfoBlock $variant="gold">
+      <InfoBlock $variant="default">
         <SpecItem>
           <Text type="secondary" style={{ fontSize: 13 }}>
             Categoría
           </Text>
-          <Text style={{ fontSize: 13, color: "#fff" }}>
-            {data.device.category}
-          </Text>
+          <Text style={{ fontSize: 13 }}>{data.device.category}</Text>
         </SpecItem>
         <SpecItem>
           <Text type="secondary" style={{ fontSize: 13 }}>
             Marca / Modelo
           </Text>
-          <Text style={{ fontSize: 13, color: "#fff" }}>
+          <Text style={{ fontSize: 13 }}>
             {data.device.brand} {data.device.model}
           </Text>
         </SpecItem>
@@ -368,14 +375,7 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
           <Text type="secondary" style={{ fontSize: 13 }}>
             IMEI / Serie
           </Text>
-          <Text
-            code
-            style={{
-              border: "none",
-              color: "#d9d9d9",
-              fontSize: 13,
-            }}
-          >
+          <Text code style={{ fontSize: 13 }}>
             358492XXXXX4821
           </Text>
         </SpecItem>
@@ -386,20 +386,13 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
           icon={faHistory}
           style={{ color: "#8c8c8c", fontSize: 13 }}
         />
-        <Text style={{ fontSize: 13, color: "#fff", fontWeight: 500 }}>
+        <Text style={{ fontSize: 13, fontWeight: 500 }}>
           Descripción del fallo
         </Text>
       </SectionTitle>
 
-      <InfoBlock $variant="gold">
-        <Paragraph
-          style={{
-            color: "rgba(255,255,255,0.85)",
-            fontSize: 13,
-            lineHeight: "1.6",
-            margin: 0,
-          }}
-        >
+      <InfoBlock $variant="default">
+        <Paragraph style={{ fontSize: 13, lineHeight: "1.6", margin: 0 }}>
           {data.issueDescription}
         </Paragraph>
       </InfoBlock>
@@ -410,11 +403,11 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
             icon={faShieldHalved}
             style={{ color: "#1890ff", fontSize: 14 }}
           />
-          <Text style={{ fontSize: 12, color: "#1890ff" }}>
+          <Text style={{ fontSize: 12, color: "#1890ff", fontWeight: 500 }}>
             Solicitud validada internamente. Listo para asignación técnica.
           </Text>
         </Space>
       </InfoBlock>
-    </Drawer>
+    </StyledDrawer>
   );
 };

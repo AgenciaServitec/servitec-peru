@@ -201,14 +201,11 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
 
   return (
     <Table
-      bordered
-      virtual
       columns={columns}
       dataSource={orderBy(quotations, "createAt", "desc")}
       size="small"
-      scroll={{ x: 1200, y: 600 }}
+      scroll={{ x: 1200 }}
       loading={quotationsLoading}
-      pagination={false}
     />
   );
 };

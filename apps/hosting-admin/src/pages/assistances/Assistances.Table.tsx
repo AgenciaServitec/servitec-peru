@@ -197,14 +197,11 @@ export const AssistancesTable = ({
 
   return (
     <Table
-      bordered
-      virtual
       loading={assistancesLoading}
       dataSource={dataSource}
       columns={columns}
       size="small"
       scroll={{ x: 1200 }}
-      pagination={false}
     />
   );
 };
