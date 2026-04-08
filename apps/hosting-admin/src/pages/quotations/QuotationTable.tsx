@@ -37,7 +37,7 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
         title: "N°",
         key: "correlative",
         dataIndex: "correlative",
-        width: 40,
+        width: 30,
         align: "center",
         render: (_, quotation) => quotation?.sequenceNumber || "-",
       },
@@ -53,7 +53,7 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
         title: "Cliente",
         key: "client",
         dataIndex: "client",
-        width: 120,
+        width: 100,
         align: "center",
         render: (_, quotation) =>
           quotation.client.document.type === "dni" ? (
@@ -79,7 +79,7 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
         title: "Contacto",
         key: "contact",
         dataIndex: "contact",
-        width: 120,
+        width: 100,
         align: "center",
         render: (_, quotation) => (
           <Space direction="vertical">
@@ -115,48 +115,27 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
       },
       {
         title: "Problema",
-        key: "reportedIssue",
-        dataIndex: "reportedIssue",
+        key: "reportedIssueText",
+        dataIndex: "reportedIssueText",
         width: 100,
         align: "center",
-        render: (_, quotation) => (
-          <span>
-            {truncate(convertHtmlToText(quotation?.reportedIssue), {
-              length: 50,
-            }) || "-"}
-          </span>
-        ),
+        render: (text) => <span>{truncate(text, { length: 50 }) || "-"}</span>,
       },
       {
         title: "Análisis",
-        key: "analysis",
-        dataIndex: "analysis",
+        key: "analysisText",
+        dataIndex: "analysisText",
         width: 100,
         align: "center",
-        render: (_, quotation) => (
-          <span>
-            {truncate(convertHtmlToText(quotation?.analysis), {
-              length: 50,
-            }) || "-"}
-          </span>
-        ),
+        render: (text) => <span>{truncate(text, { length: 50 }) || "-"}</span>,
       },
       {
         title: "Solución",
-        key: "solutionAndRecommendations",
-        dataIndex: "solutionAndRecommendations",
+        key: "solutionAndRecommendationsText",
+        dataIndex: "solutionAndRecommendationsText",
         width: 100,
         align: "center",
-        render: (_, quotation) => (
-          <span>
-            {truncate(
-              convertHtmlToText(quotation?.solutionAndRecommendations),
-              {
-                length: 50,
-              }
-            ) || "-"}
-          </span>
-        ),
+        render: (text) => <span>{truncate(text, { length: 50 }) || "-"}</span>,
       },
       {
         title: "Acciones",
@@ -197,14 +176,17 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
     [convertHtmlToText, navigateTo]
   );
 
-  const dataSource = orderBy(quotations, "createAt", "desc");
+  const sortedData = useMemo(() => {
+    return orderBy(quotations, "createAt", "desc");
+  }, [quotations]);
 
   return (
     <Table
+      rowKey="id"
       columns={columns}
-      dataSource={orderBy(quotations, "createAt", "desc")}
+      dataSource={sortedData}
       size="small"
-      scroll={{ x: 1200 }}
+      scroll={{ x: 800 }}
       loading={quotationsLoading}
     />
   );

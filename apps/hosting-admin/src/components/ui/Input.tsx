@@ -3,7 +3,6 @@ import type { InputProps as AntInputProps } from "antd";
 import { ComponentContainer } from "./component-container";
 import styled, { css } from "styled-components";
 
-// Corregimos el typo 'InputtProps' a 'InputProps'
 interface InputProps extends Omit<AntInputProps, "variant"> {
   required?: boolean;
   hidden?: boolean;
@@ -36,7 +35,7 @@ export const Input = ({
       hidden={hidden}
       error={error}
       label={label}
-      disabled={disabled} // IMPORTANTE: Asegúrate que ComponentContainer use esta prop para opacar el label y el borde
+      disabled={disabled}
       helperText={helperText}
       animation={animation}
     >
@@ -59,7 +58,6 @@ const StyledInput = styled(InputAntd)`
 
     input {
       color: ${theme.colors.fontPrimary} !important;
-      font-size: ${theme.font_sizes.sm} !important;
       font-weight: ${theme.font_weight.medium};
 
       &::placeholder {
@@ -79,20 +77,13 @@ const StyledInput = styled(InputAntd)`
       background-color: transparent !important;
       cursor: not-allowed;
 
-      /* Atacamos el input interno y su estado disabled */
       input,
       input:disabled,
       &.ant-input-disabled {
-        /* Usamos fontDisabled (#404040) */
         color: ${theme.colors.fontDisabled} !important;
 
-        /* 
-           IMPORTANTE: Los navegadores (Chrome/Safari) ignoran 'color' 
-           en inputs disabled. Hay que usar esta propiedad:
-        */
         -webkit-text-fill-color: ${theme.colors.fontDisabled} !important;
 
-        /* Quitamos cualquier sombra que le ponga AntD */
         text-shadow: none !important;
         cursor: not-allowed;
       }
@@ -100,7 +91,11 @@ const StyledInput = styled(InputAntd)`
 
     .ant-input-prefix,
     .ant-input-suffix {
-      color: ${theme.colors.fontTertiary};
+      color: ${theme.colors.fontPrimary};
+      opacity: 0.8;
+      svg {
+        color: ${theme.colors.fontPrimary};
+      }
     }
   `}
 `;

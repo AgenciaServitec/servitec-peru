@@ -642,57 +642,6 @@ const Quotation = ({
                       )}
                     />
                   </Col>
-                  {/*<Col span={24} md={8}>*/}
-                  {/*  <Controller*/}
-                  {/*    name="device.reportedIssue"*/}
-                  {/*    control={control}*/}
-                  {/*    render={({ field: { onChange, value, name } }) => (*/}
-                  {/*      <RichTextEditor*/}
-                  {/*        label="Problema que presenta"*/}
-                  {/*        name={name}*/}
-                  {/*        value={value}*/}
-                  {/*        onChange={onChange}*/}
-                  {/*        height="200px"*/}
-                  {/*        error={error(name)}*/}
-                  {/*        required={required(name)}*/}
-                  {/*      />*/}
-                  {/*    )}*/}
-                  {/*  />*/}
-                  {/*</Col>*/}
-                  {/*<Col span={24} md={8}>*/}
-                  {/*  <Controller*/}
-                  {/*    name="device.analysis"*/}
-                  {/*    control={control}*/}
-                  {/*    render={({ field: { onChange, value, name } }) => (*/}
-                  {/*      <RichTextEditor*/}
-                  {/*        label="Análisis"*/}
-                  {/*        name={name}*/}
-                  {/*        value={value}*/}
-                  {/*        onChange={onChange}*/}
-                  {/*        height="200px"*/}
-                  {/*        error={error(name)}*/}
-                  {/*        required={required(name)}*/}
-                  {/*      />*/}
-                  {/*    )}*/}
-                  {/*  />*/}
-                  {/*</Col>*/}
-                  {/*<Col span={24} md={8}>*/}
-                  {/*  <Controller*/}
-                  {/*    name="device.solutionAndRecommendations"*/}
-                  {/*    control={control}*/}
-                  {/*    render={({ field: { onChange, value, name } }) => (*/}
-                  {/*      <RichTextEditor*/}
-                  {/*        label="Soluciones y recomendaciones"*/}
-                  {/*        name={name}*/}
-                  {/*        value={value}*/}
-                  {/*        onChange={onChange}*/}
-                  {/*        height="200px"*/}
-                  {/*        error={error(name)}*/}
-                  {/*        required={required(name)}*/}
-                  {/*      />*/}
-                  {/*    )}*/}
-                  {/*  />*/}
-                  {/*</Col>*/}
                 </Row>
               </ComponentContainer.group>
             </Col>

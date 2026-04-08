@@ -16,9 +16,12 @@ import {
 } from "./styles";
 import { ThemeProvider } from "styled-components";
 import { BrowserRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 function App() {
-  const [mode, setMode] = useState<ThemeMode>("light");
+  const [mode, setMode] = useState<ThemeMode>("dark");
 
   const theme = useMemo(() => getTheme(mode), [mode]);
   const antdTheme = useMemo(() => getAntDesignTheme(mode), [mode]);
@@ -28,26 +31,28 @@ function App() {
   };
 
   return (
-    <ThemeContextProvider mode={mode} toggleTheme={toggleTheme}>
-      <ConfigProvider theme={antdTheme}>
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <AntdAppContainer>
-            <BrowserRouter>
-              <VersionProvider>
-                <ConfigsInitializer>
-                  <AuthenticationProvider>
-                    <GlobalDataProvider>
-                      <Router />
-                    </GlobalDataProvider>
-                  </AuthenticationProvider>
-                </ConfigsInitializer>
-              </VersionProvider>
-            </BrowserRouter>
-          </AntdAppContainer>
-        </ThemeProvider>
-      </ConfigProvider>
-    </ThemeContextProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeContextProvider mode={mode} toggleTheme={toggleTheme}>
+        <ConfigProvider theme={antdTheme}>
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            <AntdAppContainer>
+              <BrowserRouter>
+                <VersionProvider>
+                  <ConfigsInitializer>
+                    <AuthenticationProvider>
+                      <GlobalDataProvider>
+                        <Router />
+                      </GlobalDataProvider>
+                    </AuthenticationProvider>
+                  </ConfigsInitializer>
+                </VersionProvider>
+              </BrowserRouter>
+            </AntdAppContainer>
+          </ThemeProvider>
+        </ConfigProvider>
+      </ThemeContextProvider>
+    </QueryClientProvider>
   );
 }
 

@@ -1,13 +1,23 @@
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { servicesRequestsRef } from "../../firebase/collections";
-import { Col, Row } from "../../components";
+import { Col, Row, Select } from "../../components";
 import { ServicesRequestsCards } from "./ServicesRequestsCards.tsx";
 import { ModalProvider, useAuthentication } from "../../providers";
 import { RequestToolbar } from "./RequestToolbar.tsx";
 import { useMemo, useState } from "react";
+import { useDebounce, useFilters } from "../../hooks";
+import dayjs from "dayjs";
 
 export const ServicesRequestsIntegrations = () => {
   const { authUser } = useAuthentication();
+  const { filters, handleFilterChange, resetFilters } = useFilters({
+    search: "",
+    district: "all",
+    priority: "all",
+    dateRange: null,
+  });
+
+  const debouncedSearch = useDebounce(filters.search, 500);
 
   const [servicesRequests, servicesRequestsLoading, servicesRequestsError] =
     useCollectionData(
@@ -16,22 +26,37 @@ export const ServicesRequestsIntegrations = () => {
         .orderBy("createAt", "desc")
     );
 
-  if (servicesRequestsError) {
-    console.error("Error en Firebase:", servicesRequestsError);
-  }
+  const filteredData = useMemo(() => {
+    return (servicesRequests || []).filter((req) => {
+      const matchesSearch =
+        !debouncedSearch ||
+        req.client?.fullName
+          ?.toLowerCase()
+          .includes(debouncedSearch.toLowerCase());
 
-  const generalRequests = useMemo(() => {
-    if (!servicesRequests) return [];
-    return servicesRequests.filter(
-      (req) => req.status === "pending" && !req.assignment
-    );
-  }, [servicesRequests]);
+      let matchesDate = true;
+      if (filters.dateRange && filters.dateRange[0] && filters.dateRange[1]) {
+        const reqDate = dayjs(req.createAt?.toDate());
+        matchesDate =
+          reqDate.isAfter(filters.dateRange[0].startOf("day")) &&
+          reqDate.isBefore(filters.dateRange[1].endOf("day"));
+      }
+
+      const matchesDistrict =
+        filters.district === "all" || req.district === filters.district;
+
+      return matchesSearch && matchesDate && matchesDistrict;
+    });
+  }, [servicesRequests, debouncedSearch, filters]);
 
   return (
     <ModalProvider>
       <ServicesRequests
         user={authUser}
-        generalRequests={generalRequests}
+        filters={filters}
+        filteredData={filteredData}
+        handleFilterChange={handleFilterChange}
+        resetFilters={resetFilters}
         servicesRequestsLoading={servicesRequestsLoading}
       />
     </ModalProvider>
@@ -40,59 +65,44 @@ export const ServicesRequestsIntegrations = () => {
 
 interface ServicesRequestsProps {
   user: any;
-  generalRequests: any[];
+  filters: any;
+  filteredData: any[];
+  handleFilterChange: (val: any) => void;
+  resetFilters: () => void;
   servicesRequestsLoading: boolean;
 }
 
 const ServicesRequests: React.FC<ServicesRequestsProps> = ({
   user,
-  generalRequests,
+  filters,
+  filteredData,
+  handleFilterChange,
+  resetFilters,
   servicesRequestsLoading,
 }) => {
-  const [search, setSearch] = useState("");
-  const [district, setDistrict] = useState("all");
-  const [priority, setPriority] = useState("all");
   const [viewType, setViewType] = useState<"grid" | "list">("grid");
 
   const onViewChange = (val) => setViewType(val);
-
-  const filteredData = useMemo(() => {
-    return (generalRequests || []).filter((req) => {
-      const searchTerm = search.toLowerCase();
-
-      const matchesSearch =
-        req.client?.fullName?.toLowerCase().includes(searchTerm) ||
-        req.client?.companyName?.toLowerCase().includes(searchTerm);
-
-      const matchesDistrict =
-        district === "all" ||
-        req.location?.district?.toLowerCase() === district.toLowerCase();
-      const matchesPriority = priority === "all" || req.priority === priority;
-
-      return matchesSearch && matchesDistrict && matchesPriority;
-    });
-  }, [generalRequests, search, district, priority]);
 
   return (
     <Row gutter={[16, 16]}>
       <Col span={24}>
         <RequestToolbar
+          searchText={filters.search}
           totalCount={filteredData.length}
-          searchTextValue={search}
-          districtValue={district}
-          priorityValue={priority}
-          onSearch={setSearch}
-          onFilterChange={(type, value) => {
-            if (type === "district") setDistrict(value);
-            if (type === "priority") setPriority(value);
-          }}
+          dateRange={filters.dateRange}
+          onDateRangeChange={handleFilterChange}
           viewTypeValue={viewType}
-          onClear={() => {
-            setSearch("");
-            setDistrict("all");
-            setPriority("all");
-          }}
-          onViewChange={onViewChange}
+          onClear={resetFilters}
+          extraFilters={
+            <>
+              <Select
+                value={filters.district}
+                onChange={(v) => handleFilterChange("district", v)}
+                options={[]}
+              />
+            </>
+          }
         />
       </Col>
 
