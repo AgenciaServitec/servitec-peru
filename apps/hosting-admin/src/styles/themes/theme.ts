@@ -129,7 +129,6 @@ export const getAntDesignTheme = (mode: "dark" | "light" = "dark") => {
       fontSize: 14,
       borderRadius: 6,
     },
-    // Componentes específicos para evitar usar !important en el futuro
     components: {
       Button: {
         controlHeight: 36,

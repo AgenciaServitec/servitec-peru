@@ -19,6 +19,7 @@ import {
   addQuotation,
   fetchQuotation,
   fetchServiceRequest,
+  getNextQuotationSequence,
   getQuotationId,
   updateQuotation,
 } from "../../../firebase/collections";
@@ -27,6 +28,7 @@ import { deviceTypes, DocumentTypes } from "../../../data-list";
 import { capitalize } from "lodash";
 import { useApiDataByDniOrRucGet } from "../../../api";
 import dayjs from "dayjs";
+import { htmlToText } from "html-to-text";
 
 export function QuotationIntegration() {
   const navigate = useNavigate();
@@ -83,46 +85,74 @@ export function QuotationIntegration() {
     })();
   }, [quotationId, isNew, requestId]);
 
-  const mapQuotation = (formData) => ({
-    ...quotation,
-    client: {
-      document: {
-        type: formData.client.documentType,
-        number: formData.client.documentNumber,
+  const mapQuotation = (formData) => {
+    const options = { wordwrap: false };
+
+    return {
+      ...quotation,
+      client: {
+        document: {
+          type: formData.client.documentType,
+          number: formData.client.documentNumber,
+        },
+        ...(formData.client.documentType === "ruc"
+          ? { companyName: formData.client.companyName }
+          : {
+              firstName: formData.client.firstName,
+              paternalSurname: formData.client.paternalSurname,
+              maternalSurname: formData.client.maternalSurname,
+            }),
+        phone: {
+          prefix: "+51",
+          number: formData.client.phoneNumber,
+        },
+        email: formData.client.email,
+        address: formData.client.address,
       },
-      ...(formData.client.documentType === "ruc"
-        ? { companyName: formData.client.companyName }
-        : {
-            firstName: formData.client.firstName,
-            paternalSurname: formData.client.paternalSurname,
-            maternalSurname: formData.client.maternalSurname,
-          }),
-      phone: {
-        prefix: "+51",
-        number: formData.client.phoneNumber,
-      },
-      email: formData.client.email,
-      address: formData.client.address,
-    },
-    device: { ...formData.device },
-    reportedIssue: formData.reportedIssue,
-    analysis: formData.analysis,
-    solutionAndRecommendations: formData.solutionAndRecommendations,
-    quotationDetails: formData.quotationDetails,
-    contractNumber:
-      quotation?.contractNumber || dayjs().format("YYYYMMDDHHmmss"),
-  });
+      device: { ...formData.device },
+      reportedIssue: formData.reportedIssue,
+      analysis: formData.analysis,
+      solutionAndRecommendations: formData.solutionAndRecommendations,
+      reportedIssueText: formData.reportedIssue
+        ? htmlToText(formData.reportedIssue, options)
+        : "",
+      analysisText: formData.analysis
+        ? htmlToText(formData.analysis, options)
+        : "",
+      solutionAndRecommendationsText: formData.solutionAndRecommendations
+        ? htmlToText(formData.solutionAndRecommendations, options)
+        : "",
+      quotationDetails: (formData.quotationDetails || []).map((detail) => ({
+        ...detail,
+        descriptionText: detail.description
+          ? htmlToText(detail.description, options)
+          : "",
+      })),
+      contractNumber:
+        quotation?.contractNumber || dayjs().format("YYYYMMDDHHmmss"),
+    };
+  };
 
   const onSubmit = async (formData) => {
     try {
       setLoading(true);
 
-      isNew
-        ? await addQuotation(assignCreateProps(mapQuotation(formData)))
-        : updateQuotation(
-            quotationId,
-            assignUpdateProps(mapQuotation(formData))
-          );
+      if (isNew) {
+        const nextNumber = await getNextQuotationSequence();
+
+        const dataToSave = {
+          ...mapQuotation(formData),
+          sequenceNumber: nextNumber,
+          // contractNumber: `COT-${String(nextNumber).padStart(5, "0")}`, // Resulta en COT-02639
+        };
+
+        await addQuotation(assignCreateProps(dataToSave));
+      } else {
+        await updateQuotation(
+          quotationId,
+          assignUpdateProps(mapQuotation(formData))
+        );
+      }
 
       navigate("/quotations");
     } catch (e) {
@@ -651,57 +681,6 @@ const Quotation = ({
                       )}
                     />
                   </Col>
-                  {/*<Col span={24} md={8}>*/}
-                  {/*  <Controller*/}
-                  {/*    name="device.reportedIssue"*/}
-                  {/*    control={control}*/}
-                  {/*    render={({ field: { onChange, value, name } }) => (*/}
-                  {/*      <RichTextEditor*/}
-                  {/*        label="Problema que presenta"*/}
-                  {/*        name={name}*/}
-                  {/*        value={value}*/}
-                  {/*        onChange={onChange}*/}
-                  {/*        height="200px"*/}
-                  {/*        error={error(name)}*/}
-                  {/*        required={required(name)}*/}
-                  {/*      />*/}
-                  {/*    )}*/}
-                  {/*  />*/}
-                  {/*</Col>*/}
-                  {/*<Col span={24} md={8}>*/}
-                  {/*  <Controller*/}
-                  {/*    name="device.analysis"*/}
-                  {/*    control={control}*/}
-                  {/*    render={({ field: { onChange, value, name } }) => (*/}
-                  {/*      <RichTextEditor*/}
-                  {/*        label="Análisis"*/}
-                  {/*        name={name}*/}
-                  {/*        value={value}*/}
-                  {/*        onChange={onChange}*/}
-                  {/*        height="200px"*/}
-                  {/*        error={error(name)}*/}
-                  {/*        required={required(name)}*/}
-                  {/*      />*/}
-                  {/*    )}*/}
-                  {/*  />*/}
-                  {/*</Col>*/}
-                  {/*<Col span={24} md={8}>*/}
-                  {/*  <Controller*/}
-                  {/*    name="device.solutionAndRecommendations"*/}
-                  {/*    control={control}*/}
-                  {/*    render={({ field: { onChange, value, name } }) => (*/}
-                  {/*      <RichTextEditor*/}
-                  {/*        label="Soluciones y recomendaciones"*/}
-                  {/*        name={name}*/}
-                  {/*        value={value}*/}
-                  {/*        onChange={onChange}*/}
-                  {/*        height="200px"*/}
-                  {/*        error={error(name)}*/}
-                  {/*        required={required(name)}*/}
-                  {/*      />*/}
-                  {/*    )}*/}
-                  {/*  />*/}
-                  {/*</Col>*/}
                 </Row>
               </ComponentContainer.group>
             </Col>
