@@ -61,7 +61,7 @@ const StyledInput = styled(InputAntd)`
       font-weight: ${theme.font_weight.medium};
 
       &::placeholder {
-        color: ${theme.colors.fontTertiary};
+        color: ${theme.colors.fontPrimary};
       }
     }
 
@@ -92,7 +92,6 @@ const StyledInput = styled(InputAntd)`
     .ant-input-prefix,
     .ant-input-suffix {
       color: ${theme.colors.fontPrimary};
-      opacity: 0.8;
       svg {
         color: ${theme.colors.fontPrimary};
       }
