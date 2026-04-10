@@ -246,18 +246,18 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
             textTransform: "capitalize",
           }}
         >
-          {data.client.fullName || data.client.companyName}
+          {data.client?.fullName || data.client?.companyName}
         </Title>
 
         <ContactGrid>
           <Space direction="vertical" size={2}>
             <Text type="secondary" style={{ fontSize: 11 }}>
               <FontAwesomeIcon icon={faIdCard} style={{ marginRight: 6 }} />
-              {data.client.document.type.toUpperCase()}
+              {data.client?.document.type.toUpperCase()}
             </Text>
             <Space size={4}>
               <Text style={{ fontSize: 13 }}>
-                {data.client.document.number}
+                {data.client?.document.number}
               </Text>
               <Button
                 type="text"
@@ -266,7 +266,7 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
                   <FontAwesomeIcon icon={faCopy} style={{ fontSize: 10 }} />
                 }
                 onClick={() =>
-                  copyToClipboard(data.client.document.number, "Documento")
+                  copyToClipboard(data.client?.document.number, "Documento")
                 }
               />
             </Space>
@@ -278,7 +278,7 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
               Teléfono
             </Text>
             <Text style={{ fontSize: 13, color: "#52c41a", fontWeight: 600 }}>
-              {data.client.phone.prefix} {data.client.phone.number}
+              {data.client?.phone.prefix} {data.client?.phone.number}
             </Text>
           </Space>
 
@@ -288,10 +288,10 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
               Correo
             </Text>
             <Text
-              ellipsis={{ tooltip: data.client.email }}
+              ellipsis={{ tooltip: data.client?.email }}
               style={{ fontSize: 13 }}
             >
-              {data.client.email}
+              {data.client?.email}
             </Text>
           </Space>
 
@@ -337,10 +337,10 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
             style={{ color: "#ff4d4f", marginTop: 4, fontSize: 12 }}
           />
           <div>
-            <Text style={{ fontSize: 13 }}>{data.location.district}</Text>
+            <Text style={{ fontSize: 13 }}>{data.location?.district}</Text>
             <br />
             <Text type="secondary" style={{ fontSize: 12 }}>
-              {data.location.exactAddress}
+              {data.location?.exactAddress}
             </Text>
           </div>
         </Space>
@@ -359,14 +359,14 @@ export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
           <Text type="secondary" style={{ fontSize: 13 }}>
             Categoría
           </Text>
-          <Text style={{ fontSize: 13 }}>{data.device.category}</Text>
+          <Text style={{ fontSize: 13 }}>{data.device?.category}</Text>
         </SpecItem>
         <SpecItem>
           <Text type="secondary" style={{ fontSize: 13 }}>
             Marca / Modelo
           </Text>
           <Text style={{ fontSize: 13 }}>
-            {data.device.brand} {data.device.model}
+            {data.device?.brand} {data.device?.model}
           </Text>
         </SpecItem>
         <SpecItem
