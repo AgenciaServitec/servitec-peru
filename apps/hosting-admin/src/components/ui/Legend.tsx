@@ -4,12 +4,13 @@ import styled, { css } from "styled-components";
 interface LegendProps {
   title: string;
   children?: ReactNode;
+  error?: boolean;
 }
 
-export const Legend = ({ title, children }: LegendProps) => {
+export const Legend = ({ title, children, error }: LegendProps) => {
   return (
-    <Container>
-      <Content>
+    <Container $error={error}>
+      <Content $error={error}>
         <label className="legend-title">{title}</label>
         <div className="legend-content">{children}</div>
       </Content>
@@ -22,8 +23,8 @@ const Container = styled.section`
 `;
 
 const Content = styled.div`
-  ${({ theme }) => css`
-    border-radius: ${theme.border_radius.xs};
+  ${({ theme, $error }) => css`
+    border-radius: ${theme.border_radius.sm};
     border: 1px solid ${theme.colors.border};
     padding: ${theme.spacing.lg} ${theme.spacing.md} ${theme.spacing.md};
     background: ${theme.colors.bgSecondary};
@@ -36,8 +37,8 @@ const Content = styled.div`
       z-index: 10;
       pointer-events: none;
       display: inline-block;
-      background-color: ${theme.colors.bgPrimary};
-      color: ${theme.colors.primary};
+      background-color: ${theme.colors.bgSecondary};
+      color: ${$error ? theme.colors.error : theme.colors.fontPrimary};
       font-weight: ${theme.font_weight.medium};
       font-size: ${theme.font_sizes.sm};
       padding: 0 ${theme.spacing.xs};

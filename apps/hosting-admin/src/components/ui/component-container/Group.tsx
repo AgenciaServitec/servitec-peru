@@ -46,8 +46,7 @@ export const Group = ({
 
 const Container = styled.fieldset<{ $error?: boolean }>`
   ${({ theme, $error }) => css`
-    border-radius: ${theme.border_radius
-      .md}; /* De 8px para consistencia con inputs */
+    border-radius: ${theme.border_radius.md};
     border: 1px solid ${$error ? theme.colors.error : theme.colors.border};
     padding: ${theme.spacing.sm} ${theme.spacing.md} ${theme.spacing.md};
     margin-top: ${theme.spacing.xs};
@@ -62,7 +61,6 @@ const Container = styled.fieldset<{ $error?: boolean }>`
 
 const Legend = styled.legend<{ $required?: boolean; $error?: boolean }>`
   ${({ theme, $error, $required }) => css`
-    /* El fondo debe ser el mismo que el del contenedor para el efecto de 'corte' */
     background: ${theme.colors.bgSecondary};
     color: ${$error ? theme.colors.error : theme.colors.fontPrimary};
     border-radius: ${theme.border_radius.xs};
@@ -70,8 +68,8 @@ const Legend = styled.legend<{ $required?: boolean; $error?: boolean }>`
     font-weight: ${theme.font_weight.medium};
     padding: 0 ${theme.spacing.sm};
     width: auto;
-    margin-bottom: 0; /* Evitamos márgenes extra que rompan la simetría */
-    float: none; /* Reset para comportamiento estándar de legend */
+    margin-bottom: 0;
+    float: none;
     transition: color ${theme.transitions.fast};
 
     ${$required &&

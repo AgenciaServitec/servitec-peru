@@ -54,6 +54,7 @@ export * from "./RichTextEditor.tsx";
 export * from "./ThemeToggleButton.tsx";
 export * from "./LocationPicker.tsx";
 export * from "./AddressSearchInput.tsx";
+export * from "./Toolbar.tsx";
 
 export {
   Layout,

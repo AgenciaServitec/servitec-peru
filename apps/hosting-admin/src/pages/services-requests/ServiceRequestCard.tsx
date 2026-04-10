@@ -90,8 +90,8 @@ export const ServiceRequestCard: React.FC<any> = ({ user, data }) => {
   const { assignUpdateProps } = useDefaultFirestoreProps();
 
   const isHigh = data.priority === "high";
-  const waLink = `https://wa.me/${data.client.phone.prefix.replace("+", "")}${data.client.phone.number}`;
-  const mailto = `mailto:${data.client.email}`;
+  const waLink = `https://wa.me/${data.client?.phone.prefix.replace("+", "")}${data.client?.phone.number}`;
+  const mailto = `mailto:${data.client?.email}`;
   const techName = TECHNICIANS.find((t) => t.value === selectedTech)?.label;
 
   const formattedTime = data.createAt

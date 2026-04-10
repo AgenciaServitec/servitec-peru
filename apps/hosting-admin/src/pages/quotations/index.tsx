@@ -1,13 +1,12 @@
 import { useMemo, useState } from "react";
 import { Spin } from "antd";
 import { QuotationTable } from "./QuotationTable.tsx";
-import { Button, Col, Row, Title } from "../../components";
+import { Button, Col, Row, Title, Toolbar } from "../../components";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import { useDebounce, useFilters } from "../../hooks";
 import { useQuery } from "@tanstack/react-query";
 import Fuse from "fuse.js";
-import { RequestToolbar } from "../services-requests/RequestToolbar.tsx";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { firestore } from "../../firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -82,10 +81,6 @@ export function QuotationsIntegrations() {
   return (
     <Row gutter={[16, 16]}>
       <Col span={24}>
-        <Title level={2}>Módulo de Cotizaciones</Title>
-      </Col>
-
-      <Col span={24}>
         <Button
           type="primary"
           size="large"
@@ -97,7 +92,11 @@ export function QuotationsIntegrations() {
       </Col>
 
       <Col span={24}>
-        <RequestToolbar
+        <Title level={2}>Módulo de Cotizaciones</Title>
+      </Col>
+
+      <Col span={24}>
+        <Toolbar
           totalCount={filteredQuotations.length}
           searchText={filters.search}
           onSearchChange={(val) => handleFilterChange("search", val)}

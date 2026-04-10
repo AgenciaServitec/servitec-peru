@@ -85,7 +85,7 @@ interface RequestToolbarProps {
   extraTags?: React.ReactNode;
 }
 
-export const RequestToolbar: React.FC<RequestToolbarProps> = ({
+export const Toolbar: React.FC<RequestToolbarProps> = ({
   totalCount,
   viewTypeValue,
   searchText,
@@ -113,47 +113,51 @@ export const RequestToolbar: React.FC<RequestToolbarProps> = ({
     <ToolbarWrapper>
       <MainBar>
         <Legend title="Filtros">
-          <TopRow>
-            <Input
-              placeholder="Buscar cliente, equipo o imei..."
-              value={localValue}
-              prefix={<FontAwesomeIcon icon={faSearch} />}
-              size="large"
-              onChange={(e) => {
-                const val = e.target.value;
-                setLocalValue(val);
-                onSearchChange(val);
-              }}
-              allowClear
-            />
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "16px" }}
+          >
+            <TopRow>
+              <Input
+                placeholder="Buscar cliente, equipo o imei..."
+                value={localValue}
+                prefix={<FontAwesomeIcon icon={faSearch} />}
+                size="large"
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setLocalValue(val);
+                  onSearchChange(val);
+                }}
+                allowClear
+              />
 
-            <RangePicker
-              value={dateRange}
-              placeholder={["Desde", "Hasta"]}
-              prefix={<FontAwesomeIcon icon={faCalendarDays} />}
-              suffixIcon={""}
-              size="large"
-              onChange={onDateRangeChange}
-              allowClear
-              style={{ width: "100%" }}
-            />
-          </TopRow>
+              <RangePicker
+                value={dateRange}
+                placeholder={["Desde", "Hasta"]}
+                prefix={<FontAwesomeIcon icon={faCalendarDays} />}
+                suffixIcon={""}
+                size="large"
+                onChange={onDateRangeChange}
+                allowClear
+                style={{ width: "100%" }}
+              />
+            </TopRow>
 
-          {extraFilters && (
-            <FilterGrid>
-              {extraFilters}
-              {hasFilters && (
-                <Button
-                  type="primary"
-                  danger
-                  onClick={onClear}
-                  icon={<FontAwesomeIcon icon={faEraser} />}
-                >
-                  Limpiar
-                </Button>
-              )}
-            </FilterGrid>
-          )}
+            {extraFilters && (
+              <FilterGrid>
+                {extraFilters}
+                {hasFilters && (
+                  <Button
+                    type="primary"
+                    danger
+                    onClick={onClear}
+                    icon={<FontAwesomeIcon icon={faEraser} />}
+                  >
+                    Limpiar
+                  </Button>
+                )}
+              </FilterGrid>
+            )}
+          </div>
         </Legend>
 
         <ViewActionsRow>
