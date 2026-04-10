@@ -5,18 +5,23 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const carruselItems = [
   {
-    imageDesktop: "/carousel/laptop-repair.jpg",
-    imageMobile: "/carousel/laptop-repair-mobile.jpg",
+    imageDesktop: "/assets/images/hero/projector-repair.jpeg",
+    imageMobile: "/assets/images/hero/projector-repair.jpeg",
+    title: "Reparación de Proyectores",
+  },
+  {
+    imageDesktop: "/assets/images/hero/laptop-repair.jpeg",
+    imageMobile: "/assets/images/hero/laptop-repair.jpeg",
     title: "Reparación de Laptops",
   },
   {
-    imageDesktop: "/carousel/phone-repair.jpg",
-    imageMobile: "/carousel/phone-repair-mobile.jpg",
+    imageDesktop: "/assets/images/hero/phone-repair.jpeg",
+    imageMobile: "/assets/images/hero/phone-repair.jpeg",
     title: "Reparación de Celulares",
   },
   {
-    imageDesktop: "/carousel/tablet-repair.jpg",
-    imageMobile: "/carousel/tablet-repair-mobile.jpg",
+    imageDesktop: "/assets/images/hero/tablet-repair.jpeg",
+    imageMobile: "/assets/images/hero/tablet-repair.jpeg",
     title: "Reparación de Tablets",
   },
 ];
@@ -76,7 +81,7 @@ export function Hero() {
               <img
                 src={carruselItems[currentIndex].imageMobile}
                 alt={carruselItems[currentIndex].title}
-                className="w-full h-full object-cover brightness-[0.7]"
+                className="w-full h-full object-cover"
               />
             </picture>
           </motion.div>
@@ -96,7 +101,7 @@ export function Hero() {
                   .map((word, idx) => (
                     <motion.span
                       key={idx}
-                      className="inline-block mr-[0.2em] last:mr-0 italic"
+                      className="inline-block mr-[0.2em] last:mr-0 italic text-shadow-[4px_4px_4px_rgba(0,0,0,0.5)]"
                       initial={{ y: 40, opacity: 0, filter: "blur(8px)" }}
                       animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
                       exit={{ y: -20, opacity: 0, filter: "blur(4px)" }}
