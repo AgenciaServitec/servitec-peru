@@ -1,37 +1,35 @@
-import { theme as antdTheme } from "antd"; // Importante para los algoritmos
+import { theme as antdTheme } from "antd";
 
 const BASE_CONSTANTS = {
   font_weight: {
     small: "400",
     medium: "500",
-    large: "600", // Bajamos de 700 a 600 para un look más moderno/menos pesado
+    large: "600",
   },
   border_radius: {
     xs: "4px",
     sm: "6px",
-    md: "8px", // Ideal para botones e inputs
-    lg: "12px", // Para Cards
+    md: "8px",
+    lg: "12px",
     xl: "16px",
     full: "9999px",
   },
-  // Usamos una escala numérica para espaciados (más escalable)
   spacing: {
-    xs: "0.25rem", // 4px
-    sm: "0.5rem", // 8px
-    md: "1rem", // 16px
-    lg: "1.5rem", // 24px
-    xl: "2rem", // 32px
+    xs: "0.25rem",
+    sm: "0.5rem",
+    md: "1rem",
+    lg: "1.5rem",
+    xl: "2rem",
   },
   font_sizes: {
-    xs: "0.75rem", // 12px
-    sm: "0.875rem", // 14px (Base Antd)
-    md: "1rem", // 16px
-    lg: "1.125rem", // 18px
-    xl: "1.25rem", // 20px
-    xxl: "1.5rem", // 24px
-    heading: "1.875rem", // 30px
+    xs: "0.75rem",
+    sm: "0.875rem",
+    md: "1rem",
+    lg: "1.125rem",
+    xl: "1.25rem",
+    xxl: "1.5rem",
+    heading: "1.875rem",
   },
-  // Sombras sutiles (look profesional, no "IA")
   shadows: {
     none: "none",
     sm: "0 1px 2px rgba(0, 0, 0, 0.05)",
@@ -122,10 +120,10 @@ export const getAntDesignTheme = (mode: "dark" | "light" = "dark") => {
       colorTextSecondary: colors.fontSecondary,
       colorTextTertiary: colors.fontTertiary,
       colorTextDisabled: colors.fontDisabled,
-      colorTextPlaceholder: "rgba(255, 255, 255, 0.25)",
+      colorTextPlaceholder: `rgba(${colors.fontPrimary}, 0.25)`,
       colorBorder: colors.border,
       colorBorderSecondary: colors.divider,
-      fontFamily: "Urbanist, sans-serif",
+      fontFamily: "Geist Sans, sans-serif",
       fontSize: 14,
       borderRadius: 6,
     },
@@ -147,7 +145,7 @@ export const getAntDesignTheme = (mode: "dark" | "light" = "dark") => {
         colorBorder: colors.border,
         colorBgElevated: colors.bgSecondary,
         colorText: colors.fontPrimary,
-        colorTextPlaceholder: colors.fontTertiary,
+        colorTextPlaceholder: colors.fontPrimary,
         optionSelectedBg: colors.primaryAlpha,
         optionSelectedColor: colors.primary,
         optionActiveBg: colors.bgHover,

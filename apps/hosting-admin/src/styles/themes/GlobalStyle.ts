@@ -15,14 +15,13 @@ const baseStyles = css<ThemeProps>`
 
   html {
     scroll-behavior: smooth;
-    /* Establece 16px base para que 1rem = 16px */
     font-size: 16px;
   }
 
   body {
     background: ${({ theme }) => theme.colors.bgPrimary};
     color: ${({ theme }) => theme.colors.fontSecondary};
-    font-family: "Urbanist", sans-serif;
+    font-family: "Geist Sans", sans-serif;
     font-size: ${({ theme }) => theme.font_sizes.sm};
     line-height: 1.5;
     overflow-x: hidden;
@@ -33,7 +32,6 @@ const baseStyles = css<ThemeProps>`
       color 0.3s ease;
   }
 
-  /* Forzamos a Ant Design a usar tu nueva fuente en los componentes */
   .ant-input,
   .ant-btn,
   .ant-select,
@@ -42,7 +40,6 @@ const baseStyles = css<ThemeProps>`
     font-family: "Urbanist", sans-serif !important;
   }
 
-  /* Tipografía Dinámica */
   h1,
   h2,
   h3,
@@ -71,7 +68,6 @@ const baseStyles = css<ThemeProps>`
     font-size: ${({ theme }) => theme.font_sizes.md};
   }
 
-  /* Helpers Útiles */
   .pointer {
     cursor: pointer;
   }
@@ -85,7 +81,6 @@ const baseStyles = css<ThemeProps>`
     width: 100%;
   }
 
-  /* Chrome Autofill Fix - Look Profesional */
   input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 1000px ${({ theme }) => theme.colors.bgTertiary}
       inset !important;
@@ -116,13 +111,7 @@ const scrollbarStyles = css<ThemeProps>`
   }
 `;
 
-/*
-   Nota de experto: Eliminamos las sobrescrituras manuales de .ant-input, .ant-table, etc.
-   porque ahora el ConfigProvider se encarga de inyectar esos colores.
-   Solo dejamos ajustes de "ajuste fino".
-*/
 const antdOverrides = css<ThemeProps>`
-  /* Eliminar sombras genéricas de botones que dan look de "plantilla" */
   .ant-btn {
     box-shadow: none !important;
     &::after {
@@ -130,14 +119,12 @@ const antdOverrides = css<ThemeProps>`
     }
   }
 
-  /* Mejora de legibilidad en placeholders */
   .ant-input::placeholder,
   .ant-select-selection-placeholder {
     color: ${({ theme }) => theme.colors.fontTertiary} !important;
     opacity: 0.6;
   }
 
-  /* Estilo para las tablas para que no tengan bordes innecesarios */
   .ant-table-wrapper {
     .ant-table {
       background: transparent !important;
@@ -146,7 +133,6 @@ const antdOverrides = css<ThemeProps>`
     }
   }
 
-  /* Modales con look minimalista */
   .ant-modal-content {
     border: 1px solid ${({ theme }) => theme.colors.border};
     box-shadow: ${({ theme }) => theme.shadows.lg} !important;
@@ -154,7 +140,6 @@ const antdOverrides = css<ThemeProps>`
 
   .ant-table-thead > tr > th {
     border-bottom: 1px solid ${({ theme }) => theme.colors.border} !important;
-    /* Quitamos el divisor vertical entre cabeceras para un look más minimalista */
     &::before {
       display: none !important;
     }
@@ -164,7 +149,6 @@ const antdOverrides = css<ThemeProps>`
     border-bottom: 1px solid ${({ theme }) => theme.colors.divider} !important;
   }
 
-  /* Estilo para cuando no hay datos (Empty State) */
   .ant-empty-description {
     color: ${({ theme }) => theme.colors.fontTertiary};
   }

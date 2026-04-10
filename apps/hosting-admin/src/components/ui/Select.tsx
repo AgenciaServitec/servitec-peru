@@ -56,7 +56,6 @@ export const Select = ({
       label={label}
       animation={animation}
     >
-      {/* Inyectamos estilos para el portal del dropdown */}
       <DropdownStyles />
 
       {isMobile ? (
@@ -82,7 +81,6 @@ export const Select = ({
         </StyledSelectMobile>
       ) : (
         <StyledAntSelect
-          // Usamos una clase específica para no afectar otros selects si no queremos
           popupClassName="servitec-select-popup"
           allowClear={disabled ? false : allowClear}
           variant="borderless"
@@ -95,7 +93,7 @@ export const Select = ({
           }
           showSearch
           size="large"
-          placeholder=""
+          placeholder={placeholder}
           options={options}
           {...props}
         />
@@ -104,10 +102,6 @@ export const Select = ({
   );
 };
 
-/**
- * ESTILOS GLOBALES PARA EL PORTAL
- * Esto soluciona el fondo blanco y los textos invisibles en el dropdown
- */
 const DropdownStyles = createGlobalStyle`
   ${({ theme }) => css`
     .servitec-select-popup {
@@ -127,13 +121,11 @@ const DropdownStyles = createGlobalStyle`
           font-size: ${theme.font_sizes.sm} !important;
         }
 
-        /* Hover */
         &-option-active {
           background-color: ${theme.colors.bgHover} !important;
           color: ${theme.colors.primary} !important;
         }
 
-        /* Seleccionado */
         &-option-selected {
           background-color: ${theme.colors.primaryAlpha} !important;
           color: ${theme.colors.primary} !important;
@@ -141,12 +133,10 @@ const DropdownStyles = createGlobalStyle`
         }
       }
 
-      /* Scrollbar para el dropdown */
       .rc-virtual-list-scrollbar-thumb {
         background: ${theme.colors.border} !important;
       }
 
-      /* Texto de 'No data' */
       .ant-select-item-empty {
         color: ${theme.colors.fontTertiary} !important;
       }
@@ -154,12 +144,10 @@ const DropdownStyles = createGlobalStyle`
   `}
 `;
 
-/* Estilos para Desktop (AntDesign Select) */
 const StyledAntSelect = styled(AntSelect)`
   ${({ theme }) => css`
     width: 100%;
 
-    /* ESTO CORRIGE EL COLOR DEL TEXTO AL ESCRIBIR */
     .ant-select-selection-search-input {
       color: ${theme.colors.fontPrimary} !important;
       font-size: ${theme.font_sizes.sm} !important;
@@ -172,13 +160,11 @@ const StyledAntSelect = styled(AntSelect)`
       font-weight: ${theme.font_weight.medium};
     }
 
-    /* Color de la flecha de AntD */
     .ant-select-arrow {
       color: ${theme.colors.primary} !important;
       font-size: 12px;
     }
 
-    /* Estilo para el botón de limpiar */
     .ant-select-clear {
       background: transparent;
       color: ${theme.colors.fontTertiary};
@@ -187,10 +173,13 @@ const StyledAntSelect = styled(AntSelect)`
         color: ${theme.colors.primary};
       }
     }
+
+    .ant-select-prefix {
+      color: ${theme.colors.fontPrimary} !important;
+    }
   `}
 `;
 
-/* Estilos para Mobile (Native Select) */
 const StyledSelectMobile = styled.select<{ $error: boolean }>`
   ${({ theme, value }) => css`
     width: calc(100% - 22px);
@@ -205,7 +194,6 @@ const StyledSelectMobile = styled.select<{ $error: boolean }>`
     font-weight: ${theme.font_weight.medium};
     outline: none;
 
-    /* Reset de apariencia nativa */
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
