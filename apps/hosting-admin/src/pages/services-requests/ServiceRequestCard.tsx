@@ -257,13 +257,13 @@ export const ServiceRequestCard: React.FC<any> = ({ user, data }) => {
                   textTransform: "capitalize",
                 }}
               >
-                {data.client.fullName || data.client.companyName}
+                {data.client?.fullName || data.client?.companyName}
               </Title>
               <Text
                 strong
                 style={{ fontSize: 12, color: theme.colors.success }}
               >
-                {data.client.phone.number}
+                {data.client?.phone.number}
               </Text>
             </Space>
 
@@ -300,10 +300,10 @@ export const ServiceRequestCard: React.FC<any> = ({ user, data }) => {
           </div>
 
           <CompactGrid>
-            <DataItem label="Equipo" value={data.device.model} />
+            <DataItem label="Equipo" value={data.device?.model} />
             <DataItem
               label="Distrito"
-              value={data.location.district}
+              value={data.location?.district}
               icon={faHouseSignal}
             />
             <DataItem label="Prioridad" value={isHigh ? "ALTA" : "NORMAL"} />
