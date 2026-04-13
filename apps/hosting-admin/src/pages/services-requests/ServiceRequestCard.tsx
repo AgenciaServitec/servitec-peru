@@ -3,6 +3,7 @@ import { Button, Card, Select, Space, Tag, Typography } from "antd";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faArrowUpRightFromSquare,
   faCalendarCheck,
   faChevronRight,
   faEnvelope,
@@ -271,31 +272,32 @@ export const ServiceRequestCard: React.FC<any> = ({ user, data }) => {
               <IconAction
                 tooltipTitle="Vista rápida"
                 onClick={() => setIsDrawerOpen(true)}
-                size={24}
+                size={30}
                 icon={faEye}
                 iconStyles={{ color: () => theme.colors.info }}
               />
               <IconAction
+                tooltipTitle="Nueva Página"
+                // onClick={onOpenPage}
+                onClick={() => ""}
+                size={30}
+                icon={faArrowUpRightFromSquare}
+                iconStyles={{ color: () => theme.colors.error }}
+              />
+              <IconAction
                 tooltipTitle="WhatsApp"
                 onClick={() => window.open(waLink, "_blank")}
-                size={24}
+                size={30}
                 icon={faWhatsapp}
                 iconStyles={{ color: () => theme.colors.success }}
               />
               <IconAction
                 tooltipTitle="Email"
                 onClick={() => (window.location.href = mailto)}
-                size={24}
+                size={30}
                 icon={faEnvelope}
                 iconStyles={{ color: () => theme.colors.warning }}
               />
-              {/*<IconAction*/}
-              {/*  tooltipTitle="Nueva Página"*/}
-              {/*  onClick={onOpenPage}*/}
-              {/*  size={24}*/}
-              {/*  icon={faArrowUpRightFromSquare}*/}
-              {/*  iconStyles={{ color: () => theme.colors.error }}*/}
-              {/*/>*/}
             </Space>
           </div>
 
@@ -324,7 +326,6 @@ export const ServiceRequestCard: React.FC<any> = ({ user, data }) => {
               style={{
                 margin: 0,
                 fontSize: 12,
-                color: "rgba(255,255,255,0.85)",
               }}
             >
               {data.issueDescription}
