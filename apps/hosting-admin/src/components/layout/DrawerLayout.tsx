@@ -9,6 +9,7 @@ import {
   faHome,
   faList,
   faSquarePlus,
+  faUserLock,
   faUsers,
   faWrench,
 } from "@fortawesome/free-solid-svg-icons";
@@ -44,7 +45,6 @@ export const DrawerLayout = ({
       icon: <FontAwesomeIcon icon={faHome} />,
       onClick: () => onClickHome(),
     },
-    // Filtro de administrador corregido para evitar errores de renderizado
     ...([
       "XfQXaMRZD7Gro2kPaIvU",
       "fRiTn5k6TP5TJvpXZeLS",
@@ -63,6 +63,12 @@ export const DrawerLayout = ({
                 key: "users",
                 icon: <FontAwesomeIcon icon={faUsers} />,
                 onClick: () => onClickMenu("/users"),
+              },
+              {
+                label: "Roles y Permisos",
+                key: "rolesAndPermissions",
+                icon: <FontAwesomeIcon icon={faUserLock} />,
+                onClick: () => onClickMenu("/roles-and-permissions"),
               },
             ],
           },
