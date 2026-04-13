@@ -126,6 +126,22 @@ export function Router() {
             </AdminLayout>
           }
         />
+        <Route
+          path="roles-and-permissions"
+          element={
+            <AdminLayout>
+              <A.RolesList />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="roles-and-permissions/:rolAndPermissionId"
+          element={
+            <AdminLayout>
+              <A.RoleEditorPage />
+            </AdminLayout>
+          }
+        />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

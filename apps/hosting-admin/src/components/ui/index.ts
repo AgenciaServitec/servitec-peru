@@ -2,6 +2,7 @@ import {
   AutoComplete,
   Button,
   Card,
+  Checkbox,
   Col,
   DatePicker,
   Descriptions,
@@ -13,6 +14,7 @@ import {
   InputNumber,
   Layout,
   Menu,
+  message,
   Modal,
   Popconfirm,
   QRCode,
@@ -87,4 +89,6 @@ export {
   Card,
   Skeleton,
   Segmented,
+  Checkbox,
+  message,
 };
