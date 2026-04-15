@@ -42,12 +42,14 @@ import { cn } from "@/lib/utils";
 import { DISTRICTS } from "@/data-list/districts";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function ServiceRequestForm({
   specialtyName,
 }: {
   specialtyName: string;
 }) {
+  const router = useRouter();
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isManualEntry, setIsManualEntry] = useState(false);
@@ -271,6 +273,8 @@ export default function ServiceRequestForm({
           description: "Tu registro se completó correctamente.",
           duration: 3000,
         });
+
+        router.push("/gracias");
       } else {
         const errorData = await response.json().catch(() => ({}));
         toast.error("Error en el envío", {
