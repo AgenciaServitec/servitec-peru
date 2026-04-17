@@ -131,3 +131,13 @@ export interface Supplier extends DefaultFirestoreProps {
   status: "active" | "inactive" | "blocked";
   searchData: string[];
 }
+
+export type PermissionId = string;
+
+export interface Role extends DefaultFirestoreProps {
+  id: string;
+  name: string;
+  roleCode: string;
+  description: string;
+  permissions: PermissionId[];
+}
