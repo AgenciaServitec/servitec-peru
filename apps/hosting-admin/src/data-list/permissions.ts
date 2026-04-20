@@ -53,17 +53,9 @@ export const PERMISSION_LIST = {
     label: "Módulo de Proveedores",
     actions: [
       { id: "view_suppliers", label: "Ver lista" },
-      { id: "create_supplier", label: "Ver lista" },
+      { id: "create_supplier", label: "Crear nuevo" },
       { id: "edit_supplier", label: "Editar información" },
       { id: "delete_supplier", label: "Eliminar información" },
-    ],
-  },
-  advanced: {
-    label: "Configuración Avanzada",
-    actions: [
-      { id: "manage_roles", label: "Administrar Roles" },
-      { id: "view_logs", label: "Ver Logs del Sistema" },
-      { id: "system_settings", label: "Ajustes Globales" },
     ],
   },
 } as const;
