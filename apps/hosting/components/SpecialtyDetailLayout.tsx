@@ -13,9 +13,11 @@ import ServiceRequestForm from "@/components/ServiceRequestForm";
 
 export default function SpecialtyDetailLayout({
   specialtyName,
+  specialtyImage,
   specialtyType,
 }: {
   specialtyName: string;
+  specialtyImage: string;
   specialtyType: string;
 }) {
   const associatedServices = SERVICES_DATA.filter(
@@ -26,8 +28,8 @@ export default function SpecialtyDetailLayout({
     <div className="bg-[#050505] text-white min-h-screen selection:bg-primary/30">
       <section className="relative pt-32 pb-16 border-b border-white/5 overflow-hidden">
         <img
-          src="/assets/images/about/ecran.jpeg"
-          className="w-full h-full object-cover opacity-40 absolute left-0 top-0"
+          src={specialtyImage || ""}
+          className="w-full h-full object-cover opacity-70 absolute left-0 top-0"
           alt="Fondo de servicio técnico"
         />
 
@@ -36,11 +38,11 @@ export default function SpecialtyDetailLayout({
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-5xl md:text-8xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70"
+              className="text-5xl md:text-8xl font-bold mb-6 text-shadow-[4px_4px_4px_rgba(0,0,0,0.5)] uppercase italic"
             >
               {specialtyName}
             </motion.h1>
-            <p className="text-white/50 text-base md:text-lg max-w-2xl mx-auto">
+            <p className="text-white text-shadow-[4px_4px_4px_rgba(0,0,0,0.5)] text-base md:text-lg max-w-2xl mx-auto">
               Servicio técnico multimarca en lima por servitec perú group.
               atención presencial en laboratorio especializado para diagnósticos
               electrónicos.
@@ -76,7 +78,7 @@ export default function SpecialtyDetailLayout({
                     src={item.image}
                     alt={item.title}
                     fill
-                    className="object-cover opacity-70 group-hover:scale-105 transition-all duration-700"
+                    className="object-cover group-hover:scale-105 transition-all duration-700"
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent" />
                 </div>
@@ -91,11 +93,11 @@ export default function SpecialtyDetailLayout({
                       href={`/servicios/${item.slug}`}
                       className="inline-block"
                     >
-                      <h3 className="text-xl font-bold mb-3 text-white hover:underline">
+                      <h3 className="text-xl font-bold mb-3 text-white hover:underline text-shadow-[4px_4px_4px_rgba(0,0,0,0.5)]">
                         {item.title}
                       </h3>
                     </Link>
-                    <p className="text-white/40 text-sm leading-relaxed mb-8 line-clamp-2">
+                    <p className="text-white text-shadow-[4px_4px_4px_rgba(0,0,0,0.5)] text-sm leading-relaxed mb-8 line-clamp-2">
                       {item.description}
                     </p>
 

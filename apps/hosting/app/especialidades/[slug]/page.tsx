@@ -86,6 +86,7 @@ export default async function SpecialtiesTypes({ params }: PageProps) {
       />
       <SpecialtyDetailLayout
         specialtyName={specialty.title}
+        specialtyImage={specialty.image}
         specialtyType={specialty.type}
       />
     </CaptchaProvider>

@@ -101,7 +101,7 @@ export function Hero() {
                   .map((word, idx) => (
                     <motion.span
                       key={idx}
-                      className="inline-block mr-[0.2em] last:mr-0 italic text-shadow-[4px_4px_4px_rgba(0,0,0,0.5)]"
+                      className="inline-block mr-[0.2em] last:mr-0 italic text-shadow-[4px_4px_4px_rgba(0,0,0,0.5)] uppercase"
                       initial={{ y: 40, opacity: 0, filter: "blur(8px)" }}
                       animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
                       exit={{ y: -20, opacity: 0, filter: "blur(4px)" }}
