@@ -45,7 +45,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 export default function ServiceRequestForm({
-  specialtyName,
+  specialtyName = "",
 }: {
   specialtyName: string;
 }) {
