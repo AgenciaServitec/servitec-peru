@@ -64,7 +64,7 @@ export const baseSchema = z.object({
   }),
   status: z.enum(["pending"]),
   priority: z.enum(["low", "medium", "high"]),
-  issueDescription: z.string().min(10, "Describe mejor el problema"),
+  issueDescription: z.string().min(1, "Problema que presenta obligatorio"),
 });
 
 const serviceModeSchema = z.discriminatedUnion("serviceMode", [

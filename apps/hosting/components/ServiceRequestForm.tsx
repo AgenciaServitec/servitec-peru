@@ -376,10 +376,11 @@ export default function ServiceRequestForm({
                     >
                       <div className="text-center space-y-2">
                         <h3 className="text-xl font-semibold text-white">
-                          Información del Equipo
+                          Datos del Equipo a Reparar
                         </h3>
                         <p className="text-sm text-white/50">
-                          Cuéntanos sobre el dispositivo que deseas reparar.
+                          Indica la marca y modelo para brindarte una solución
+                          exacta.
                         </p>
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -514,10 +515,11 @@ export default function ServiceRequestForm({
                     >
                       <div className="text-center space-y-2">
                         <h3 className="text-xl font-semibold text-white">
-                          ¿Cómo prefieres el servicio?
+                          ¿Cómo deseas entregarnos tu equipo?
                         </h3>
                         <p className="text-sm text-white/50">
-                          Selecciona la modalidad que mejor se te acomode.
+                          Selecciona si prefieres venir al taller o que vayamos
+                          a tu domicilio.
                         </p>
                       </div>
 
@@ -730,13 +732,13 @@ export default function ServiceRequestForm({
                       <div className="text-center space-y-2">
                         <h3 className="text-xl font-semibold text-white">
                           {serviceMode === "home-service"
-                            ? "Ubicación del Servicio"
-                            : "Punto de Origen"}
+                            ? "Dirección de Atención"
+                            : "Tu Ubicación"}
                         </h3>
                         <p className="text-sm text-white/50">
                           {serviceMode === "home-service"
-                            ? "Ayúdanos a saber dónde se realizará la atención."
-                            : "¿Desde qué distrito nos estarías visitando?"}
+                            ? "Dinos dónde debe presentarse nuestro técnico especialista."
+                            : "¿Desde qué distrito nos visitarás para dejar tu equipo?"}
                         </p>
                       </div>
                       {serviceMode === "home-service" && (
@@ -937,10 +939,11 @@ export default function ServiceRequestForm({
                     >
                       <div className="text-center space-y-2">
                         <h3 className="text-xl font-semibold text-white">
-                          Datos de Contacto
+                          Información de Contacto
                         </h3>
                         <p className="text-sm text-white/50">
-                          Completa tu información para comunicarnos contigo.
+                          Déjanos tus datos para enviarte el presupuesto y
+                          coordinar la revisión.
                         </p>
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">

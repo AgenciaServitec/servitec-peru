@@ -89,7 +89,7 @@ export function Specialties() {
                         className={`text-xl font-bold mb-3 transition-colors ${
                           isCustom
                             ? "text-primary"
-                            : "text-white hover:underline"
+                            : "text-white hover:underline text-shadow-[4px_4px_4px_rgba(0,0,0,0.5)]"
                         }`}
                       >
                         {s.title}
@@ -97,7 +97,9 @@ export function Specialties() {
                     </Link>
                     <p
                       className={`text-sm leading-relaxed font-normal line-clamp-2 mb-8 ${
-                        isCustom ? "text-white/80" : "text-white/40"
+                        isCustom
+                          ? "text-white/80"
+                          : "text-white text-shadow-[4px_4px_4px_rgba(0,0,0,0.5)]"
                       }`}
                     >
                       {s.description ||
