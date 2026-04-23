@@ -3,8 +3,6 @@ import { ProfileDataForm } from "./ProfileDataForm";
 import { ProfileInformation } from "./ProfileInformation";
 import { useAuthentication } from "../../providers";
 import { useQueryString } from "../../hooks";
-import styled, { css } from "styled-components";
-import { theme } from "../../styles";
 
 const items = [
   {
@@ -28,39 +26,22 @@ export const Profile = () => {
   const [dataEdit] = useQueryString("dataEdit", "1");
 
   return (
-    <Container>
-      <Row gutter={[16, 16]}>
-        <Col span={24}>
-          <Title level={2}>Perfil</Title>
-        </Col>
-        <Col span={24}>
-          <Row gutter={[16, 16]}>
-            <Col span={24} lg={12}>
-              <Title level={4}>Datos del usuario</Title>
-              <ProfileInformation user={authUser} />
-            </Col>
-            <Col span={24} lg={12}>
-              <Title level={4}>Editar datos</Title>
-              <Tabs items={items} defaultActiveKey={dataEdit} />
-            </Col>
-          </Row>
-        </Col>
-      </Row>
-    </Container>
+    <Row gutter={[16, 16]}>
+      <Col span={24}>
+        <Title level={2}>Perfil</Title>
+      </Col>
+      <Col span={24}>
+        <Row gutter={[16, 16]}>
+          <Col span={24} lg={12}>
+            <Title level={4}>Datos del usuario</Title>
+            <ProfileInformation user={authUser} />
+          </Col>
+          <Col span={24} lg={12}>
+            <Title level={4}>Editar datos</Title>
+            <Tabs items={items} defaultActiveKey={dataEdit} />
+          </Col>
+        </Row>
+      </Col>
+    </Row>
   );
 };
-
-const Container = styled.div`
-  ${() => css`
-    padding: ${theme.paddings.large};
-    min-height: 100vh;
-  `}
-`;
-
-const Subtitle = styled.p`
-  ${() => css`
-    color: ${theme.colors.font2};
-    font-size: ${theme.font_sizes.medium};
-    margin: 0;
-  `}
-`;
