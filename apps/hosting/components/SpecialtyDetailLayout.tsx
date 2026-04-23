@@ -39,7 +39,7 @@ export default function SpecialtyDetailLayout({
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-5xl md:text-8xl font-bold mb-6 text-shadow-[4px_4px_4px_rgba(0,0,0,0.5)] uppercase italic"
+              className="text-4xl lg:text-7xl xl:text-8xl font-bold mb-6 text-shadow-[4px_4px_4px_rgba(0,0,0,0.5)] uppercase italic"
             >
               {specialtyName}
             </motion.h1>
@@ -49,14 +49,20 @@ export default function SpecialtyDetailLayout({
               electrónicos.
             </p>
           </div>
-          <div className="flex justify-center items-center gap-6">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-6">
             <ButtonLink
+              className="w-full md:w-auto"
               href="https://api.whatsapp.com/send/?phone=51941801827&text=Hola+Servitec%2C+deseo+un+diagnostico+para+mi+proyector&type=phone_number&app_absent=0"
               icon={IconBrandWhatsapp}
             >
               WhatsApp
             </ButtonLink>
-            <ButtonLink href="tel:941801827" icon={Phone} variant="secondary">
+            <ButtonLink
+              className="w-full md:w-auto"
+              href="tel:941801827"
+              icon={Phone}
+              variant="secondary"
+            >
               Hablemos
             </ButtonLink>
           </div>
