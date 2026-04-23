@@ -18,24 +18,13 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { useFormUtils } from "../../hooks";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { theme } from "../../styles";
 import { getLocalStorage } from "../../utils";
 import { useEffect } from "react";
 import { useApiUserPost } from "../../api";
 import { useNavigate } from "react-router-dom";
-
-type Gender = "male" | "female" | "other";
-
-interface UserRegister {
-  firstName: string;
-  paternalSurname: string;
-  maternalSurname: string;
-  email: string;
-  phonePrefix: string;
-  phoneNumber: string;
-  gender: Gender;
-}
+import type { UserRegister } from "../../globalTypes.ts";
 
 type PersonalInformationProps = {
   onBack: () => void;
@@ -69,12 +58,14 @@ export const PersonalInformation = ({
       .string()
       .required("El correo es obligatorio")
       .email("Correo electrónico inválido"),
-    phonePrefix: yup.string().required("Prefijo requerido"),
-    phoneNumber: yup
-      .string()
-      .required("El celular es obligatorio")
-      .matches(/^\d{9}$/, "El celular debe tener 9 dígitos"),
-    gender: yup.string().required("Selecciona tu género"),
+    phone: yup.object({
+      prefix: yup.string().required("Prefijo requerido"),
+      number: yup
+        .string()
+        .required("El celular es obligatorio")
+        .matches(/^\d{9}$/, "El celular debe tener 9 dígitos"),
+    }),
+    gender: yup.string().required("Selecciona tu género").default(""),
   });
 
   const {
@@ -83,15 +74,17 @@ export const PersonalInformation = ({
     reset,
     formState: { errors },
   } = useForm<UserRegister>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
     defaultValues: {
       firstName: "",
       paternalSurname: "",
       maternalSurname: "",
       email: "",
-      phonePrefix: "+51",
-      phoneNumber: "",
-      gender: undefined,
+      phone: {
+        prefix: "+51",
+        number: "",
+      },
+      gender: "",
     },
   });
 
@@ -108,30 +101,25 @@ export const PersonalInformation = ({
     });
   }, [currentStep]);
 
-  const onSubmit = async (user) => {
-    const fullData = {
-      ...step1Data!,
-      ...user,
-    };
+  const mapUser = (formData: UserRegister) => ({
+    firstName: formData.firstName,
+    paternalSurname: formData.paternalSurname,
+    maternalSurname: formData.maternalSurname,
+    email: formData.email,
+    document: {
+      type: formData.document.type,
+      number: formData.document.number,
+    },
+    phone: {
+      prefix: "+51",
+      number: formData.phone.number,
+    },
+    gender: formData.gender,
+  });
 
+  const onSubmit = async (formData: UserRegister) => {
     try {
-      const userData = {
-        firstName: fullData.firstName,
-        paternalSurname: fullData.paternalSurname,
-        maternalSurname: fullData.maternalSurname,
-        email: fullData.email,
-        document: {
-          type: fullData.document.documentType,
-          number: fullData.document.documentNumber,
-        },
-        phone: {
-          prefix: "+51",
-          number: fullData.phoneNumber,
-        },
-        gender: fullData.gender,
-      };
-
-      const response = await postUser(userData);
+      const response = await postUser(mapUser(formData));
 
       if (response && response.ok !== false) {
         notification({
@@ -269,7 +257,7 @@ export const PersonalInformation = ({
           </Col>
           <Col xs={8} sm={6}>
             <Controller
-              name="phonePrefix"
+              name="phone.prefix"
               control={control}
               render={({ field: { onChange, value, name } }) => (
                 <Input
@@ -292,7 +280,7 @@ export const PersonalInformation = ({
           </Col>
           <Col xs={16} sm={18}>
             <Controller
-              name="phoneNumber"
+              name="phone.number"
               control={control}
               render={({ field: { onChange, value, name } }) => (
                 <Input
@@ -396,50 +384,64 @@ const StepContainer = styled.div`
 
 const StepHeader = styled.div`
   text-align: center;
-  margin-bottom: 2em;
+  margin-bottom: ${theme.spacing.xl};
 `;
 
 const StepIconWrapper = styled.div`
-  width: 70px;
-  height: 70px;
-  margin: 0 auto 1.2em;
-  background: linear-gradient(135deg, ${theme.colors.primary} 0%, #f39c12 100%);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.8em;
-  color: ${theme.colors.black};
-  box-shadow: 0 4px 24px ${theme.colors.primary}50;
+  ${() => css`
+    width: 64px;
+    height: 64px;
+    margin: 0 auto ${theme.spacing.md};
+    background: linear-gradient(
+      135deg,
+      ${theme.colors.primary} 0%,
+      ${theme.colors.primaryDark} 100%
+    );
+    border-radius: ${theme.border_radius.full};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: ${theme.font_sizes.xxl};
+    color: ${theme.colors.bgPrimary};
+    box-shadow: 0 8px 24px ${theme.colors.primaryAlpha};
+  `}
 `;
 
 const StepTitle = styled.h3`
-  font-size: 1.7em;
-  font-weight: ${theme.font_weight.large};
-  color: ${theme.colors.font1};
-  margin: 0 0 0.4em;
+  ${() => css`
+    font-size: ${theme.font_sizes.heading};
+    font-weight: ${theme.font_weight.large};
+    color: ${theme.colors.fontPrimary};
+    margin: 0 0 ${theme.spacing.xs};
+    letter-spacing: -0.02em;
+  `}
 `;
 
 const StepSubtitle = styled.p`
-  color: ${theme.colors.font2};
-  margin: 0;
-  font-size: 1em;
-  line-height: 1.5;
+  ${() => css`
+    color: ${theme.colors.fontSecondary};
+    margin: 0;
+    font-size: ${theme.font_sizes.md};
+    line-height: 1.5;
+  `}
 `;
 
 const InfoBox = styled.div`
-  background: ${theme.colors.secondary};
-  border: 1px solid ${theme.colors.primary}30;
-  border-radius: ${theme.border_radius.small};
-  padding: 1em;
-  text-align: center;
-  color: ${theme.colors.font2};
-  font-size: 0.9em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${() => css`
+    background: ${theme.colors.bgSecondary};
+    border: 1px solid ${theme.colors.border};
+    border-radius: ${theme.border_radius.md};
+    padding: ${theme.spacing.md};
+    text-align: center;
+    color: ${theme.colors.fontTertiary};
+    font-size: ${theme.font_sizes.sm};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: ${theme.spacing.sm};
 
-  svg {
-    color: ${theme.colors.primary};
-  }
+    svg {
+      color: ${theme.colors.primary};
+    }
+  `}
 `;

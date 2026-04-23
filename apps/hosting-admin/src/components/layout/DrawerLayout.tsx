@@ -68,7 +68,20 @@ export const DrawerLayout = ({
                 label: "Roles y Permisos",
                 key: "rolesAndPermissions",
                 icon: <FontAwesomeIcon icon={faUserLock} />,
-                onClick: () => onClickMenu("/roles-and-permissions"),
+                children: [
+                  {
+                    label: "Crear Rol",
+                    key: "quotation-new",
+                    icon: <FontAwesomeIcon icon={faSquarePlus} />,
+                    onClick: () => onClickMenu("/roles-and-permissions/new"),
+                  },
+                  {
+                    label: "Lista de Roles",
+                    key: "quotations-list",
+                    icon: <FontAwesomeIcon icon={faList} />,
+                    onClick: () => onClickMenu("/roles-and-permissions"),
+                  },
+                ],
               },
             ],
           },

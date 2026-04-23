@@ -1,3 +1,4 @@
+import type { FC } from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuthentication } from "./AuthenticationProvider.tsx";
 import { fetchRole } from "../firebase/collections/rolesAndPermissons.ts";
@@ -7,7 +8,7 @@ const PermissionsContext = createContext({
   loading: false,
 });
 
-export const PermissionsProvider: React.FC = ({ children }) => {
+export const PermissionsProvider: FC = ({ children }) => {
   const { authUser } = useAuthentication();
   const [permissions, setPermissions] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
