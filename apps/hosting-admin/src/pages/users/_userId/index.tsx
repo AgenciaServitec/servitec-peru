@@ -59,6 +59,8 @@ export const UserIntegration = () => {
       prefix: "+51",
       number: formData.phoneNumber,
     },
+    payPerMinute: formData.payPerMinute,
+    accountNumber: formData.accountNumber,
     updateBy: `${authUser?.firstName} ${authUser?.paternalSurname} ${authUser?.maternalSurname}|${authUser?.document.number}`,
   });
 
@@ -113,6 +115,8 @@ const User = ({ user, onGoBack, onSubmit, loading }) => {
       .max(9)
       .required()
       .transform((value) => (value === null ? "" : value)),
+    payPerMinute: yup.number().required(),
+    accountNumber: yup.string().required(),
   });
 
   const {
@@ -137,6 +141,8 @@ const User = ({ user, onGoBack, onSubmit, loading }) => {
       email: user?.email || "",
       dni: user?.document?.number || "",
       phoneNumber: user?.phone?.number || "",
+      payPerMinute: user?.payPerMinute || "",
+      accountNumber: user?.accountNumber || "",
     });
   };
 
@@ -240,6 +246,38 @@ const User = ({ user, onGoBack, onSubmit, loading }) => {
                 render={({ field: { onChange, value, name } }) => (
                   <InputNumber
                     label="Ingrese teléfono"
+                    name={name}
+                    value={value}
+                    onChange={onChange}
+                    error={error(name)}
+                    required={required(name)}
+                  />
+                )}
+              />
+            </Col>
+            <Col span={24}>
+              <Controller
+                name="payPerMinute"
+                control={control}
+                render={({ field: { onChange, value, name } }) => (
+                  <InputNumber
+                    label="Pago por minuto"
+                    name={name}
+                    value={value}
+                    onChange={onChange}
+                    error={error(name)}
+                    required={required(name)}
+                  />
+                )}
+              />
+            </Col>
+            <Col span={24}>
+              <Controller
+                name="accountNumber"
+                control={control}
+                render={({ field: { onChange, value, name } }) => (
+                  <Input
+                    label="N° de Cuenta"
                     name={name}
                     value={value}
                     onChange={onChange}

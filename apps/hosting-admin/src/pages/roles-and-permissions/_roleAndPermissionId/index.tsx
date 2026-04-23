@@ -7,7 +7,6 @@ import {
   Form,
   Input,
   Legend,
-  message,
   Row,
   Tabs,
   TextArea,
@@ -19,12 +18,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useDefaultFirestoreProps, useFormUtils } from "../../../hooks";
 import { PERMISSION_LIST } from "../../../data-list/permissions.ts";
 import { addRole } from "../../../firebase/collections/rolesAndPermissons.ts";
-import type { Role } from "../../../globalTypes.ts";
+import type { RoleFormData } from "../../../globalTypes.ts";
+import { message } from "antd";
 
 const { Title } = Typography;
 
 export const RoleEditorPage: React.FC = () => {
-  const { id } = useParams();
+  const { roleAndPermissionId } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("1");
@@ -34,7 +34,7 @@ export const RoleEditorPage: React.FC = () => {
   const schema = yup.object({
     name: yup.string().required(),
     roleCode: yup.string().required(),
-    description: yup.string(),
+    description: yup.string().optional().default(""),
     permissions: yup.array().of(yup.string()),
   });
 
@@ -44,73 +44,86 @@ export const RoleEditorPage: React.FC = () => {
     control,
     setValue,
     watch,
-  } = useForm({
-    resolver: yupResolver(schema),
+    trigger,
+  } = useForm<RoleFormData>({
+    resolver: yupResolver(schema) as any,
+    defaultValues: {
+      permissions: [],
+      name: "",
+      roleCode: "",
+      description: "",
+    },
   });
 
   const { required, error } = useFormUtils({ errors, schema });
 
   const selectedPermissions = watch("permissions") || [];
 
-  const handleSave = async (formData: Role) => {
+  const mapPermissions = (formData: RoleFormData) => ({
+    id: formData.roleCode.toLowerCase().trim().replace(" ", "_"),
+    name: formData.name,
+    roleCode: formData.roleCode,
+    description: formData.description,
+    permissions: formData.permissions,
+  });
+
+  const onSaveRoleAndPermissions = async (formData: RoleFormData) => {
     try {
       setLoading(true);
 
-      await addRole(
-        assignCreateProps({
-          id: formData.roleCode.toLowerCase().trim().replace(" ", "_"),
-          name: formData.name,
-          roleCode: formData.roleCode,
-          description: formData.description,
-          permissions: formData.permissions,
-        })
-      );
+      await addRole(assignCreateProps(mapPermissions(formData)));
 
-      navigate("/roles");
+      message.success("Rol guardado exitosamente");
+      navigate("/roles-and-permissions");
     } catch (e) {
       console.error(e);
+      message.error("Hubo un error al guardar");
     } finally {
       setLoading(false);
     }
+  };
 
-    setTimeout(() => {
-      message.success("Configuración de rol guardada exitosamente");
-      setLoading(false);
-      navigate("/roles-and-permissions");
-    }, 1500);
+  const handleMainAction = async () => {
+    if (activeTab === "1") {
+      const isTabOneValid = await trigger(["name", "roleCode"]);
+      if (isTabOneValid) setActiveTab("2");
+    } else {
+      await handleSubmit(onSaveRoleAndPermissions)();
+    }
   };
 
   const togglePermission = (id: string) => {
     const current = [...selectedPermissions];
     const index = current.indexOf(id);
-
-    if (index > -1) {
-      current.splice(index, 1);
-    } else {
-      current.push(id);
-    }
-
+    index > -1 ? current.splice(index, 1) : current.push(id);
     setValue("permissions", current);
   };
 
-  const handleNextOrSave = () => {
-    if (activeTab === "1") {
-      setActiveTab("2");
+  const toggleCategoryPermissions = (actionIds: string[]) => {
+    const current = [...selectedPermissions];
+    const allSelected = actionIds.every((id) => current.includes(id));
+
+    if (allSelected) {
+      const filtered = current.filter((id) => !actionIds.includes(id));
+      setValue("permissions", filtered);
     } else {
-      handleSubmit(handleSave)();
+      const uniquePermissions = Array.from(new Set([...current, ...actionIds]));
+      setValue("permissions", uniquePermissions);
     }
   };
 
   return (
     <Row gutter={[24, 24]}>
       <Col span={24}>
-        <Title level={2}>{id ? "Editar Rol" : "Nuevo Rol"}</Title>
+        <Title level={2}>
+          {roleAndPermissionId ? "Editar Rol" : "Crear Nuevo Rol"}
+        </Title>
       </Col>
 
       <Col span={24}>
-        <Tabs activeKey={activeTab} onChange={setActiveTab}>
-          <Tabs.TabPane tab="Información General" key="1">
-            <Form onSubmit={handleSubmit(handleSave)}>
+        <Form onSubmit={(e) => e.preventDefault()}>
+          <Tabs activeKey={activeTab} onChange={setActiveTab}>
+            <Tabs.TabPane tab="Información General" key="1">
               <Row gutter={[16, 16]}>
                 <Col span={24}>
                   <Controller
@@ -137,7 +150,13 @@ export const RoleEditorPage: React.FC = () => {
                         label="Código del rol (En inglés)"
                         name={name}
                         value={value}
-                        onChange={onChange}
+                        onChange={(e) => {
+                          const rawValue = e.target.value;
+                          const formattedValue = rawValue
+                            .replace(/\s/g, "_")
+                            .toLowerCase();
+                          onChange(formattedValue);
+                        }}
                         error={error(name)}
                         required={required(name)}
                       />
@@ -161,32 +180,63 @@ export const RoleEditorPage: React.FC = () => {
                   />
                 </Col>
               </Row>
-            </Form>
-          </Tabs.TabPane>
+            </Tabs.TabPane>
+            <Tabs.TabPane tab="Permisos y Accesos" key="2">
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "2rem",
+                }}
+              >
+                {Object.entries(PERMISSION_LIST).map(([key, category]) => {
+                  const categoryActionIds = category.actions.map((a) => a.id);
+                  const isAllCategoryChecked = categoryActionIds.every((id) =>
+                    selectedPermissions.includes(id)
+                  );
 
-          <Tabs.TabPane tab="Permisos y Accesos" key="2">
-            <div
-              style={{ display: "flex", flexDirection: "column", gap: "2rem" }}
-            >
-              {Object.entries(PERMISSION_LIST).map(([key, category]) => (
-                <Legend key={key} title={category.label}>
-                  <Row gutter={[16, 16]}>
-                    {category.actions.map((action) => (
-                      <Col xs={24} sm={12} md={8} lg={6} key={action.id}>
-                        <Checkbox
-                          checked={selectedPermissions.includes(action.id)}
-                          onChange={() => togglePermission(action.id)}
-                        >
-                          {action.label}
-                        </Checkbox>
-                      </Col>
-                    ))}
-                  </Row>
-                </Legend>
-              ))}
-            </div>
-          </Tabs.TabPane>
-        </Tabs>
+                  return (
+                    <Legend key={key} title={category.label}>
+                      <Row gutter={[16, 16]}>
+                        <Col span={24} style={{ marginBottom: "8px" }}>
+                          <Checkbox
+                            checked={isAllCategoryChecked}
+                            onChange={() =>
+                              toggleCategoryPermissions(categoryActionIds)
+                            }
+                            style={{ fontWeight: "bold", color: "#1890ff" }}
+                          >
+                            {isAllCategoryChecked
+                              ? "Deseleccionar"
+                              : "Seleccionar"}{" "}
+                            todos los permisos de {category.label}
+                          </Checkbox>
+                          <hr
+                            style={{
+                              border: ".5px solid #303030",
+                              marginTop: "8px",
+                            }}
+                          />
+                        </Col>
+
+                        {category.actions.map((action) => (
+                          <Col xs={24} sm={12} md={8} lg={6} key={action.id}>
+                            <Checkbox
+                              checked={selectedPermissions.includes(action.id)}
+                              onChange={() => togglePermission(action.id)}
+                            >
+                              {action.label}
+                            </Checkbox>
+                          </Col>
+                        ))}
+                      </Row>
+                    </Legend>
+                  );
+                })}
+              </div>
+            </Tabs.TabPane>
+          </Tabs>
+        </Form>
       </Col>
 
       <Col span={24}>
@@ -196,7 +246,7 @@ export const RoleEditorPage: React.FC = () => {
               size="large"
               onClick={() => {
                 if (activeTab === "2") setActiveTab("1");
-                else navigate("/roles");
+                else navigate("/roles-and-permissions");
               }}
               disabled={loading}
             >
@@ -208,7 +258,7 @@ export const RoleEditorPage: React.FC = () => {
               type="primary"
               size="large"
               loading={loading}
-              onClick={handleNextOrSave}
+              onClick={handleMainAction}
             >
               {activeTab === "1" ? "Siguiente" : "Guardar Cambios"}
             </Button>

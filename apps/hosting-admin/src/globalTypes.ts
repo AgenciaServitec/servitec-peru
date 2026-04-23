@@ -9,7 +9,7 @@ interface DefaultFirestoreProps {
   isDeleted: boolean;
 }
 
-export type RoleCode = "super_admin" | "user";
+export type RoleCode = "super_admin" | "practicing";
 
 export interface _Image {
   createAt: Timestamp;
@@ -21,6 +21,42 @@ export interface _Image {
 }
 
 export type Image = Omit<_Image, "createAt"> & { createAt: Date };
+
+interface Document {
+  type: "dni" | "ruc" | "ce";
+  number: string;
+}
+
+interface Phone {
+  prefix: string;
+  number: string;
+}
+
+type Gender = "male" | "female" | "other" | "";
+
+export interface UserRegister {
+  firstName: string;
+  paternalSurname: string;
+  maternalSurname: string;
+  email: string;
+  document: Document;
+  phone: Phone;
+  gender: Gender;
+  role: string;
+}
+
+export interface User extends DefaultFirestoreProps {
+  id: string;
+  firstName: string;
+  paternalSurname: string;
+  maternalSurname: string;
+  email: string;
+  document: Document;
+  phone: Phone;
+  gender: Gender;
+  role: RoleCode;
+  extraPermissions?: string[];
+}
 
 interface Quotation extends DefaultFirestoreProps {
   id: string;
@@ -132,12 +168,13 @@ export interface Supplier extends DefaultFirestoreProps {
   searchData: string[];
 }
 
-export type PermissionId = string;
-
-export interface Role extends DefaultFirestoreProps {
-  id: string;
+export interface RoleFormData {
   name: string;
   roleCode: string;
-  description: string;
-  permissions: PermissionId[];
+  description?: string;
+  permissions: string[];
+}
+
+export interface Role extends RoleFormData, DefaultFirestoreProps {
+  id: string;
 }
