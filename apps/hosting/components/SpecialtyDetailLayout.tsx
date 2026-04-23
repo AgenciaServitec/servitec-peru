@@ -5,11 +5,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { ContentWidth } from "@/components/ContentWidth";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Plus } from "lucide-react";
+import { ArrowUpRight, Phone, Plus } from "lucide-react";
 import { SERVICES_DATA } from "@/data-list/services";
 import TaxData from "@/sections/TaxData";
 import { ButtonLink } from "@/components/ui/button-link";
 import ServiceRequestForm from "@/components/ServiceRequestForm";
+import { IconBrandWhatsapp } from "@tabler/icons-react";
 
 export default function SpecialtyDetailLayout({
   specialtyName,
@@ -33,7 +34,7 @@ export default function SpecialtyDetailLayout({
           alt="Fondo de servicio técnico"
         />
 
-        <ContentWidth className="relative z-10">
+        <ContentWidth className="relative z-10 space-y-6">
           <div className="max-w-4xl mx-auto text-center">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -47,6 +48,17 @@ export default function SpecialtyDetailLayout({
               atención presencial en laboratorio especializado para diagnósticos
               electrónicos.
             </p>
+          </div>
+          <div className="flex justify-center items-center gap-6">
+            <ButtonLink
+              href="https://api.whatsapp.com/send/?phone=51941801827&text=Hola+Servitec%2C+deseo+un+diagnostico+para+mi+proyector&type=phone_number&app_absent=0"
+              icon={IconBrandWhatsapp}
+            >
+              WhatsApp
+            </ButtonLink>
+            <ButtonLink href="tel:941801827" icon={Phone} variant="secondary">
+              Hablemos
+            </ButtonLink>
           </div>
         </ContentWidth>
       </section>
