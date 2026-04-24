@@ -1,5 +1,11 @@
-import { Space } from "antd";
-import { CanAccess, IconAction, Table } from "../../components";
+import {
+  CanAccess,
+  IconAction,
+  Space,
+  Table,
+  useModalConfirm,
+  useNotification,
+} from "../../components";
 import { useNavigate } from "react-router-dom";
 import {
   faEdit,
@@ -14,9 +20,15 @@ import type { ColumnsType } from "antd/es/table";
 import type { Assistance } from "../../globalTypes.ts";
 import { htmlToText } from "html-to-text";
 import { useCallback, useMemo } from "react";
+import { useDefaultFirestoreProps } from "../../hooks";
+import { deleteQuotation } from "../../firebase/collections";
 
 export const QuotationTable = ({ quotations, quotationsLoading }) => {
   const navigate = useNavigate();
+  const { assignDeleteProps } = useDefaultFirestoreProps();
+
+  const { modalConfirm } = useModalConfirm();
+  const { notification } = useNotification();
 
   const navigateTo = useCallback(
     (pathname: string) => navigate(pathname),
@@ -30,6 +42,28 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
       }),
     []
   );
+
+  const onDeleteQuoatation = async (quotation) => {
+    try {
+      await deleteQuotation(quotation.id, assignDeleteProps(quotation));
+
+      notification({
+        type: "success",
+        title: "¡Cotización eliminado exitosamente!",
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const onConfirmRemoveQuotation = (quotation): void => {
+    modalConfirm({
+      content: "La cotización se eliminará",
+      onOk: async () => {
+        await onDeleteQuoatation(quotation);
+      },
+    });
+  };
 
   const columns = useMemo<ColumnsType<Partial<Assistance>>>(
     () => [
@@ -173,8 +207,9 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
               <IconAction
                 tooltipTitle="Eliminar"
                 icon={faTrash}
+                onConfirmRemoveQuotation
                 iconStyles={{ color: () => theme.colors.error }}
-                onClick={() => navigateTo(`/quotations/${quotation.id}`)}
+                onClick={() => onConfirmRemoveQuotation(quotation)}
               />
             </CanAccess>
           </Space>

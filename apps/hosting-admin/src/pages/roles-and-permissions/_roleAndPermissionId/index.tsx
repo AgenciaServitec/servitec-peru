@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Button,
@@ -7,6 +7,7 @@ import {
   Form,
   Input,
   Legend,
+  message,
   Row,
   Tabs,
   TextArea,
@@ -17,47 +18,37 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDefaultFirestoreProps, useFormUtils } from "../../../hooks";
 import { PERMISSION_LIST } from "../../../data-list/permissions.ts";
-import { addRole } from "../../../firebase/collections/rolesAndPermissons.ts";
+import {
+  addRole,
+  fetchRole,
+  getRoleId,
+} from "../../../firebase/collections/rolesAndPermissons.ts";
 import type { RoleFormData } from "../../../globalTypes.ts";
-import { message } from "antd";
 
 const { Title } = Typography;
 
-export const RoleEditorPage: React.FC = () => {
+export const RoleIntegration: React.FC = () => {
   const { roleAndPermissionId } = useParams();
   const navigate = useNavigate();
+  const [role, setRole] = useState({});
   const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState("1");
 
   const { assignCreateProps } = useDefaultFirestoreProps();
 
-  const schema = yup.object({
-    name: yup.string().required(),
-    roleCode: yup.string().required(),
-    description: yup.string().optional().default(""),
-    permissions: yup.array().of(yup.string()),
-  });
+  const isNew = roleAndPermissionId === "new";
 
-  const {
-    formState: { errors },
-    handleSubmit,
-    control,
-    setValue,
-    watch,
-    trigger,
-  } = useForm<RoleFormData>({
-    resolver: yupResolver(schema) as any,
-    defaultValues: {
-      permissions: [],
-      name: "",
-      roleCode: "",
-      description: "",
-    },
-  });
+  useEffect(() => {
+    (async () => {
+      if (isNew) {
+        setRole({ id: getRoleId() });
+      } else {
+        const _role = await fetchRole(roleAndPermissionId);
+        setRole(_role);
+      }
+    })();
+  }, [roleAndPermissionId]);
 
-  const { required, error } = useFormUtils({ errors, schema });
-
-  const selectedPermissions = watch("permissions") || [];
+  console.log("role: ", role);
 
   const mapPermissions = (formData: RoleFormData) => ({
     id: formData.roleCode.toLowerCase().trim().replace(" ", "_"),
@@ -82,6 +73,49 @@ export const RoleEditorPage: React.FC = () => {
       setLoading(false);
     }
   };
+
+  return (
+    <Role
+      role={role}
+      onSaveRoleAndPermissions={onSaveRoleAndPermissions}
+      loading={loading}
+    />
+  );
+};
+
+const Role = ({ role, onSaveRoleAndPermissions, loading }) => {
+  const { roleAndPermissionId } = useParams();
+  const [activeTab, setActiveTab] = useState("1");
+  const navigate = useNavigate();
+
+  const schema = yup.object({
+    name: yup.string().required(),
+    roleCode: yup.string().required(),
+    description: yup.string().optional().default(""),
+    permissions: yup.array().of(yup.string()),
+  });
+
+  const {
+    formState: { errors },
+    handleSubmit,
+    control,
+    setValue,
+    watch,
+    trigger,
+    reset,
+  } = useForm<RoleFormData>({
+    resolver: yupResolver(schema) as any,
+    defaultValues: {
+      permissions: [],
+      name: "",
+      roleCode: "",
+      description: "",
+    },
+  });
+
+  const { required, error } = useFormUtils({ errors, schema });
+
+  const selectedPermissions = watch("permissions") || [];
 
   const handleMainAction = async () => {
     if (activeTab === "1") {
@@ -111,6 +145,21 @@ export const RoleEditorPage: React.FC = () => {
       setValue("permissions", uniquePermissions);
     }
   };
+
+  const resetForm = () => {
+    reset({
+      name: role?.name || "",
+      roleCode: role?.roleCode || "",
+      description: role?.description || "",
+      permissions: role?.permissions || [],
+    });
+  };
+
+  useEffect(() => {
+    if (role && Object.keys(role).length > 0) {
+      resetForm();
+    }
+  }, [role]);
 
   return (
     <Row gutter={[24, 24]}>

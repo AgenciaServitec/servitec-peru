@@ -1,5 +1,3 @@
-import type { User } from "./providers";
-
 export type Timestamp = FirebaseFirestore.Timestamp;
 
 interface DefaultFirestoreProps {
@@ -58,38 +56,48 @@ export interface User extends DefaultFirestoreProps {
   extraPermissions?: string[];
 }
 
-interface Quotation extends DefaultFirestoreProps {
+export interface QuotationDetail {
+  description: string;
+  quantity: number;
+  unitPrice: number;
+  subTotal: number;
+}
+
+export interface Quotation extends DefaultFirestoreProps {
   id: string;
-  sequenceNumber: number;
+  contractNumber: string;
+  reportedIssue: string;
+  analysis: string;
+  solutionAndRecommendations: string;
   client: {
+    document: Document;
     firstName?: string;
     paternalSurname?: string;
     maternalSurname?: string;
     companyName?: string;
-    document: {
-      type: string;
-      number: string;
-    };
-    phone: {
-      prefix: "+51";
-      number: string;
-    };
+    phone: Phone;
+    email: string;
+    address: string;
   };
   device: {
-    problemDescription: string;
     type: string;
     brand: string;
     model: string;
+    serialNumber: string;
     color: string;
+    condition: string;
+    accessories: string;
+    ram: string;
+    processor: string;
+    operationSystem: string;
   };
-  analysis: string;
-  solutions: string;
-  recommendations: string;
-  serialNumber: string;
-  description: string;
-  units: number;
-  unitPrices: number;
+  quotationDetails: QuotationDetail[];
 }
+
+export type QuotationFormData = Omit<
+  Quotation,
+  keyof DefaultFirestoreProps | "id" | "contractNumber"
+>;
 
 export interface Assistance extends DefaultFirestoreProps {
   id: string;

@@ -32,7 +32,7 @@ export const TextArea = ({
       disabled={disabled}
       error={error}
       label={label}
-      animation={false} // Desactivamos animación de label para que no choque con el texto largo
+      animation={false}
       helperText={helperText}
     >
       <StyledTextArea
@@ -40,7 +40,7 @@ export const TextArea = ({
         value={value}
         disabled={disabled}
         placeholder={placeholder}
-        autoSize={{ minRows: 3, maxRows: 6 }} // Recomendación pro para UI limpia
+        autoSize={{ minRows: 3, maxRows: 6 }}
         {...props}
       />
     </Container>
@@ -50,19 +50,18 @@ export const TextArea = ({
 const StyledTextArea = styled(InputAntd.TextArea)`
   ${({ theme }) => css`
     width: 100%;
-    padding: ${theme.spacing.sm} 0 !important;
+    padding: ${theme.spacing.sm} !important;
     color: ${theme.colors.fontPrimary} !important;
     font-size: ${theme.font_sizes.sm} !important;
     font-family: inherit;
     font-weight: ${theme.font_weight.medium};
     background: transparent !important;
-    resize: vertical; /* Solo permitir redimensionar verticalmente */
+    resize: vertical;
 
     &::placeholder {
       color: ${theme.colors.fontTertiary};
     }
 
-    /* Estilo para el scrollbar (Chrome/Safari) */
     &::-webkit-scrollbar {
       width: 6px;
     }
@@ -71,13 +70,11 @@ const StyledTextArea = styled(InputAntd.TextArea)`
       border-radius: ${theme.border_radius.full};
     }
 
-    /* Estilos cuando está deshabilitado */
     &:disabled {
       color: ${theme.colors.fontDisabled} !important;
       cursor: not-allowed;
     }
 
-    /* Ajuste para el tirador de redimensionamiento de AntD */
     & + .ant-input-textarea-show-count::after {
       color: ${theme.colors.fontTertiary};
     }

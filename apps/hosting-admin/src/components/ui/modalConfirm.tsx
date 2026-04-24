@@ -1,40 +1,22 @@
-import { Modal } from "../ui";
+import type { ModalFuncProps } from "antd";
+import { App } from "antd";
 
-type BaseButtonProps = {
-  type?: "primary" | "link" | "text" | "default" | "dashed" | undefined;
-  danger: boolean;
+export const useModalConfirm = () => {
+  const { modal } = App.useApp();
+
+  const modalConfirm = (props: ModalFuncProps) => {
+    return modal.confirm({
+      centered: true,
+      title: "¿Estás seguro de que quieres eliminar?",
+      okText: "SÍ",
+      cancelText: "NO",
+      okButtonProps: {
+        type: "primary",
+        danger: true,
+      },
+      ...props,
+    });
+  };
+
+  return { modalConfirm };
 };
-
-interface ModalConfirmProps {
-  centered?: boolean;
-  title?: string;
-  okText?: string;
-  cancelText?: string;
-  okButtonProps?: BaseButtonProps;
-  onOk?: () => void;
-  content?: string;
-}
-
-const { confirm } = Modal;
-
-export const modalConfirm = ({
-  centered = true,
-  title = "¿Estás seguro de que quieres eliminar?",
-  content = "",
-  okText = "SI",
-  cancelText = "NO",
-  okButtonProps = {
-    type: "primary",
-    danger: true,
-  },
-  ...props
-}: ModalConfirmProps) =>
-  confirm({
-    centered,
-    okText,
-    cancelText,
-    okButtonProps,
-    title,
-    content,
-    ...props,
-  });
