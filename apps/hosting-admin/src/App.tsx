@@ -17,6 +17,7 @@ import {
 import { ThemeProvider } from "styled-components";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { PermissionsProvider } from "./providers/PermissionsProvider.tsx";
 
 const queryClient = new QueryClient();
 
@@ -41,9 +42,11 @@ function App() {
                 <VersionProvider>
                   <ConfigsInitializer>
                     <AuthenticationProvider>
-                      <GlobalDataProvider>
-                        <Router />
-                      </GlobalDataProvider>
+                      <PermissionsProvider>
+                        <GlobalDataProvider>
+                          <Router />
+                        </GlobalDataProvider>
+                      </PermissionsProvider>
                     </AuthenticationProvider>
                   </ConfigsInitializer>
                 </VersionProvider>

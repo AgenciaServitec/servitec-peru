@@ -1,5 +1,5 @@
 import React from "react";
-import { IconAction, Space, Table } from "../../components";
+import { CanAccess, IconAction, Space, Table } from "../../components";
 import { faCalendar, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { capitalize, orderBy } from "lodash";
 import dayjs from "dayjs";
@@ -98,25 +98,31 @@ export const UsersTable: React.FC<UsersTableProps> = ({
       fixed: "right",
       render: (_, user) => (
         <Space size="small">
-          <IconAction
-            tooltipTitle="Ver asistencias"
-            icon={faCalendar}
-            onClick={() => onViewAssistances(user)}
-          />
-          <IconAction
-            tooltipTitle="Editar"
-            icon={faEdit}
-            onClick={() => onEditUser(user)}
-          />
-          <IconAction
-            tooltipTitle="Eliminar"
-            icon={faTrash}
-            iconStyles={{
-              color: (theme) => theme.colors.error,
-              hoverColor: (theme) => theme.colors.error,
-            }}
-            onClick={() => onRemoveUser(user)}
-          />
+          <CanAccess permission="users_view_attendance">
+            <IconAction
+              tooltipTitle="Ver asistencias"
+              icon={faCalendar}
+              onClick={() => onViewAssistances(user)}
+            />
+          </CanAccess>
+          <CanAccess permission="users_edit">
+            <IconAction
+              tooltipTitle="Editar"
+              icon={faEdit}
+              onClick={() => onEditUser(user)}
+            />
+          </CanAccess>
+          <CanAccess permission="users_delete">
+            <IconAction
+              tooltipTitle="Eliminar"
+              icon={faTrash}
+              iconStyles={{
+                color: (theme) => theme.colors.error,
+                hoverColor: (theme) => theme.colors.error,
+              }}
+              onClick={() => onRemoveUser(user)}
+            />
+          </CanAccess>
         </Space>
       ),
     },

@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { IconAction, Table, Tag } from "../../components";
+import { CanAccess, IconAction, Table, Tag } from "../../components";
 import type { Assistance } from "../../globalTypes.ts";
 import { useUpdateMinutesWorked } from "./_utils";
 import { useEffect } from "react";
@@ -85,39 +85,41 @@ export const AssistancesTable = ({
           assistance.orderLunch === true || assistance.orderLunch === false;
 
         return (
-          <span
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "0.4rem",
-            }}
-          >
-            {canApproveLunch && (
-              <IconAction
-                tooltipTitle="Calificar almuerzo"
-                icon={faBowlRice}
-                iconStyles={{
-                  color: () => theme.colors.info,
-                }}
-                onClick={() => onShowSubmitOrderLunch(assistance)}
-              />
-            )}
+          <CanAccess permission="assist_manage_lunch">
+            <span
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "0.4rem",
+              }}
+            >
+              {canApproveLunch && (
+                <IconAction
+                  tooltipTitle="Calificar almuerzo"
+                  icon={faBowlRice}
+                  iconStyles={{
+                    color: () => theme.colors.info,
+                  }}
+                  onClick={() => onShowSubmitOrderLunch(assistance)}
+                />
+              )}
 
-            {hasValue && (
-              <IconAction
-                tooltipTitle={assistance.orderLunch ? "Sí pidió" : "No pidió"}
-                icon={assistance.orderLunch ? faCheck : faXmark}
-                iconStyles={{
-                  color: () =>
-                    assistance.orderLunch
-                      ? theme.colors.success
-                      : theme.colors.error,
-                }}
-                onClick={() => {}}
-              />
-            )}
-          </span>
+              {hasValue && (
+                <IconAction
+                  tooltipTitle={assistance.orderLunch ? "Sí pidió" : "No pidió"}
+                  icon={assistance.orderLunch ? faCheck : faXmark}
+                  iconStyles={{
+                    color: () =>
+                      assistance.orderLunch
+                        ? theme.colors.success
+                        : theme.colors.error,
+                  }}
+                  onClick={() => {}}
+                />
+              )}
+            </span>
+          </CanAccess>
         );
       },
     },

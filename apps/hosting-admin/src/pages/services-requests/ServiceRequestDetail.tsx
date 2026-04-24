@@ -1,39 +1,32 @@
-import React, { useMemo, useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faTools,
-  faMapMarkerAlt,
-  faUser,
-  faPhoneAlt,
-  faEnvelope,
   faClipboardList,
   faClock,
+  faEnvelope,
   faIdCard,
+  faMapMarkerAlt,
+  faPhoneAlt,
   faRoute,
+  faTools,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import {
-  Typography,
-  Tag,
-  Row,
+  Button,
   Col,
   Divider,
+  Row,
   Space,
-  Button,
+  Tag,
+  Typography,
 } from "../../components";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  useMap,
-  // Polyline, // COMENTADO: No se usa sin el técnico
-} from "react-leaflet";
+import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
 import dayjs from "dayjs";
 import "leaflet/dist/leaflet.css";
 import { getDevice } from "../../utils";
 import { useAuthentication } from "../../providers";
-// import { useTrackTechnicianLocation } from "./_utils"; // COMENTADO: Rastreo del técnico
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -45,15 +38,6 @@ const DefaultIcon = L.icon({
   iconSize: [25, 41],
   iconAnchor: [12, 41],
 });
-
-// COMENTADO: Icono del técnico
-/*
-const TechIcon = L.icon({
-  iconUrl: "https://cdn-icons-png.flaticon.com/512/71/71222.png",
-  iconSize: [32, 32],
-  iconAnchor: [16, 32],
-});
-*/
 
 const RecenterMap = ({ coords }: { coords: [number, number] }) => {
   const map = useMap();
