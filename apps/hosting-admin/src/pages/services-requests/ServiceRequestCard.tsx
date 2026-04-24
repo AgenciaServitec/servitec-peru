@@ -3,6 +3,7 @@ import { Button, Card, Select, Space, Tag, Typography } from "antd";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faArrowUpRightFromSquare,
   faCalendarCheck,
   faChevronRight,
   faEnvelope,
@@ -14,7 +15,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { ServiceDetailsDrawer } from "./ServiceDetailsDrawer.tsx";
-import { IconAction } from "../../components";
+import { CanAccess, IconAction } from "../../components";
 import { theme } from "../../styles";
 import dayjs from "dayjs";
 import { updateServiceRequest } from "../../firebase/collections";
@@ -22,19 +23,12 @@ import { useDefaultFirestoreProps } from "../../hooks";
 import { SERVICE_REQUEST_STATUS } from "../../data-list/serviceRequestStatus.ts";
 import { PRIORITY_LEVELS } from "../../data-list/serviceRequestPriorityLevels.ts";
 import { useNavigate } from "react-router-dom";
+import { capitalize } from "lodash";
 
 const { Text, Title, Paragraph } = Typography;
 
-const TECHNICIANS = [
-  { label: "Carlos Mendoza", value: "T001", status: "Disponible" },
-  { label: "Ricardo Palma", value: "T002", status: "En servicio" },
-  { label: "Sofía Loli", value: "T003", status: "Disponible" },
-  { label: "Marcos Ruiz", value: "T004", status: "Fuera de turno" },
-];
-
 const MapContainer = styled.div<{ $bgImage: string }>`
   height: 115px;
-  background-color: #141414;
   position: relative;
   background-image:
     linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)),
@@ -82,7 +76,7 @@ const DataItem = ({ label, value, icon }: any) => (
   </Space>
 );
 
-export const ServiceRequestCard: React.FC<any> = ({ user, data }) => {
+export const ServiceRequestCard: React.FC<any> = ({ users, user, data }) => {
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedTech, setSelectedTech] = useState<string | null>(null);
@@ -90,10 +84,15 @@ export const ServiceRequestCard: React.FC<any> = ({ user, data }) => {
 
   const { assignUpdateProps } = useDefaultFirestoreProps();
 
+  const technicians = users?.map((user) => ({
+    label: `${capitalize(user.firstName)} ${capitalize(user.paternalSurname)} ${capitalize(user.maternalSurname)}`,
+    value: user.id,
+  }));
+
   const isHigh = data.priority === "high";
-  const waLink = `https://wa.me/${data.client.phone.prefix.replace("+", "")}${data.client.phone.number}`;
-  const mailto = `mailto:${data.client.email}`;
-  const techName = TECHNICIANS.find((t) => t.value === selectedTech)?.label;
+  const waLink = `https://wa.me/${data.client?.phone.prefix.replace("+", "")}${data.client?.phone.number}`;
+  const mailto = `mailto:${data.client?.email}`;
+  const techName = technicians.find((t) => t.value === selectedTech)?.label;
 
   const formattedTime = data.createAt
     ? dayjs(data.createAt.toDate()).format("hh:mm A DD/MM/YYYY")
@@ -258,53 +257,58 @@ export const ServiceRequestCard: React.FC<any> = ({ user, data }) => {
                   textTransform: "capitalize",
                 }}
               >
-                {data.client.fullName || data.client.companyName}
+                {data.client?.fullName || data.client?.companyName}
               </Title>
               <Text
                 strong
                 style={{ fontSize: 12, color: theme.colors.success }}
               >
-                {data.client.phone.number}
+                {data.client?.phone.number}
               </Text>
             </Space>
 
             <Space size={4}>
-              <IconAction
-                tooltipTitle="Vista rápida"
-                onClick={() => setIsDrawerOpen(true)}
-                size={24}
-                icon={faEye}
-                iconStyles={{ color: () => theme.colors.info }}
-              />
+              <CanAccess permission="service_quick_view">
+                <IconAction
+                  tooltipTitle="Vista rápida"
+                  onClick={() => setIsDrawerOpen(true)}
+                  size={30}
+                  icon={faEye}
+                  iconStyles={{ color: () => theme.colors.info }}
+                />
+              </CanAccess>
+              <CanAccess permission="service_view_details">
+                <IconAction
+                  tooltipTitle="Nueva Página"
+                  // onClick={onOpenPage}
+                  onClick={() => ""}
+                  size={30}
+                  icon={faArrowUpRightFromSquare}
+                  iconStyles={{ color: () => theme.colors.error }}
+                />
+              </CanAccess>
               <IconAction
                 tooltipTitle="WhatsApp"
                 onClick={() => window.open(waLink, "_blank")}
-                size={24}
+                size={30}
                 icon={faWhatsapp}
                 iconStyles={{ color: () => theme.colors.success }}
               />
               <IconAction
                 tooltipTitle="Email"
                 onClick={() => (window.location.href = mailto)}
-                size={24}
+                size={30}
                 icon={faEnvelope}
                 iconStyles={{ color: () => theme.colors.warning }}
               />
-              {/*<IconAction*/}
-              {/*  tooltipTitle="Nueva Página"*/}
-              {/*  onClick={onOpenPage}*/}
-              {/*  size={24}*/}
-              {/*  icon={faArrowUpRightFromSquare}*/}
-              {/*  iconStyles={{ color: () => theme.colors.error }}*/}
-              {/*/>*/}
             </Space>
           </div>
 
           <CompactGrid>
-            <DataItem label="Equipo" value={data.device.model} />
+            <DataItem label="Equipo" value={data.device?.model} />
             <DataItem
               label="Distrito"
-              value={data.location.district}
+              value={data.location?.district}
               icon={faHouseSignal}
             />
             <DataItem label="Prioridad" value={isHigh ? "ALTA" : "NORMAL"} />
@@ -325,7 +329,6 @@ export const ServiceRequestCard: React.FC<any> = ({ user, data }) => {
               style={{
                 margin: 0,
                 fontSize: 12,
-                color: "rgba(255,255,255,0.85)",
               }}
             >
               {data.issueDescription}
@@ -333,57 +336,58 @@ export const ServiceRequestCard: React.FC<any> = ({ user, data }) => {
           </div>
 
           <Space direction="vertical" style={{ width: "100%" }} size={10}>
-            {!data?.technicalId && (
-              <Select
-                placeholder="Asignar técnico encargado"
-                style={{ width: "100%" }}
-                size="middle"
-                onChange={(val) => setSelectedTech(val)}
-                options={TECHNICIANS.map((t) => ({
-                  label: t.label,
-                  value: t.value,
-                }))}
-              />
-            )}
-            {!data?.technicalId ? (
-              <Button
-                type="primary"
-                block
-                danger={!!selectedTech}
-                icon={
-                  <FontAwesomeIcon
-                    icon={selectedTech ? faLaptopMedical : faChevronRight}
-                  />
-                }
-                style={{
-                  height: 38,
-                  fontWeight: 700,
-                  borderRadius: "6px",
-                  backgroundColor: selectedTech ? "#52c41a" : "",
-                  borderColor: selectedTech ? "#52c41a" : "",
-                }}
-                onClick={() => onServiceRequestAccepted(data)}
-                loading={loading}
-              >
-                {selectedTech
-                  ? `ASIGNAR A ${techName?.split(" ")[0].toUpperCase()}`
-                  : "ACEPTAR SOLICITUD"}
-              </Button>
-            ) : (
-              <Button
-                type="primary"
-                block
-                icon={
-                  <FontAwesomeIcon
-                    icon={selectedTech ? faLaptopMedical : faChevronRight}
-                  />
-                }
-                style={{ height: 38, fontWeight: 700, borderRadius: "6px" }}
-                onClick={() => onRequestQuotation(data)}
-              >
-                COTIZAR
-              </Button>
-            )}
+            <CanAccess permission="service_assign_tech">
+              {!data?.technicalId && (
+                <Select
+                  placeholder="Asignar técnico encargado"
+                  style={{ width: "100%" }}
+                  size="middle"
+                  onChange={(val) => setSelectedTech(val)}
+                  options={technicians}
+                />
+              )}
+            </CanAccess>
+            <CanAccess permission="service_accept">
+              {!data?.technicalId ? (
+                <Button
+                  type="primary"
+                  block
+                  danger={!!selectedTech}
+                  icon={
+                    <FontAwesomeIcon
+                      icon={selectedTech ? faLaptopMedical : faChevronRight}
+                    />
+                  }
+                  style={{
+                    height: 38,
+                    fontWeight: 700,
+                    borderRadius: "6px",
+                    backgroundColor: selectedTech ? "#52c41a" : "",
+                    borderColor: selectedTech ? "#52c41a" : "",
+                  }}
+                  onClick={() => onServiceRequestAccepted(data)}
+                  loading={loading}
+                >
+                  {selectedTech
+                    ? `ASIGNAR A ${techName?.split(" ")[0].toUpperCase()}`
+                    : "ACEPTAR SOLICITUD"}
+                </Button>
+              ) : (
+                <Button
+                  type="primary"
+                  block
+                  icon={
+                    <FontAwesomeIcon
+                      icon={selectedTech ? faLaptopMedical : faChevronRight}
+                    />
+                  }
+                  style={{ height: 38, fontWeight: 700, borderRadius: "6px" }}
+                  onClick={() => onRequestQuotation(data)}
+                >
+                  COTIZAR
+                </Button>
+              )}
+            </CanAccess>
           </Space>
 
           <div

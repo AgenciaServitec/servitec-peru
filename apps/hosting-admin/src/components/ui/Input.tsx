@@ -1,8 +1,9 @@
 import InputAntd from "antd/lib/input";
 import type { InputProps as AntInputProps } from "antd";
 import { ComponentContainer } from "./component-container";
+import styled, { css } from "styled-components";
 
-interface InputtProps extends Omit<AntInputProps, "variant"> {
+interface InputProps extends Omit<AntInputProps, "variant"> {
   required?: boolean;
   hidden?: boolean;
   error?: boolean;
@@ -20,11 +21,11 @@ export const Input = ({
   error,
   label,
   variant = "filled",
-  disabled,
+  disabled = false,
   animation,
   helperText,
   ...props
-}: InputtProps) => {
+}: InputProps) => {
   const Container = ComponentContainer[variant];
 
   return (
@@ -38,16 +39,62 @@ export const Input = ({
       helperText={helperText}
       animation={animation}
     >
-      <InputAntd
+      <StyledInput
         variant="borderless"
         size="large"
         placeholder=""
         value={value}
         disabled={disabled}
         allowClear={!disabled}
-        style={{ width: "100%" }}
         {...props}
       />
     </Container>
   );
 };
+
+const StyledInput = styled(InputAntd)`
+  ${({ theme }) => css`
+    width: 100%;
+
+    input {
+      color: ${theme.colors.fontPrimary} !important;
+      font-weight: ${theme.font_weight.medium};
+
+      &::placeholder {
+        color: ${theme.colors.fontPrimary};
+      }
+    }
+
+    .ant-input-clear-icon {
+      color: ${theme.colors.fontTertiary};
+      &:hover {
+        color: ${theme.colors.primary};
+      }
+    }
+
+    &.ant-input-disabled,
+    &.ant-input-affix-wrapper-disabled {
+      background-color: transparent !important;
+      cursor: not-allowed;
+
+      input,
+      input:disabled,
+      &.ant-input-disabled {
+        color: ${theme.colors.fontDisabled} !important;
+
+        -webkit-text-fill-color: ${theme.colors.fontDisabled} !important;
+
+        text-shadow: none !important;
+        cursor: not-allowed;
+      }
+    }
+
+    .ant-input-prefix,
+    .ant-input-suffix {
+      color: ${theme.colors.fontPrimary};
+      svg {
+        color: ${theme.colors.fontPrimary};
+      }
+    }
+  `}
+`;

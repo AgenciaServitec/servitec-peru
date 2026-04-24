@@ -2,7 +2,7 @@ import * as yup from "yup";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDefaultFirestoreProps, useFormUtils } from "../../../hooks";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   Col,
@@ -26,15 +26,34 @@ import { deviceTypes, DocumentTypes } from "../../../data-list";
 import { capitalize } from "lodash";
 import { useApiDataByDniOrRucGet } from "../../../api";
 import dayjs from "dayjs";
+import type { Quotation, QuotationFormData } from "../../../globalTypes.ts";
+
+export interface IdentityResponse {
+  firstName?: string;
+  paternalSurname?: string;
+  maternalSurname?: string;
+  companyName?: string;
+  address?: string;
+}
+
+interface QuotationProps {
+  quotation: Partial<Quotation>;
+  loading: boolean;
+  isNew: boolean;
+  onSubmit: (formData: QuotationFormData) => void;
+  onGoBack: () => void;
+  setDocumentType: (docType: string) => void;
+  getDataByDniOrRuc: (documentNumber: string) => Promise<IdentityResponse>;
+  getDataByDniOrRucLoading: boolean;
+}
 
 export function QuotationIntegration() {
   const navigate = useNavigate();
-  const location = useLocation();
   const { quotationId } = useParams();
   const { assignCreateProps, assignUpdateProps } = useDefaultFirestoreProps();
 
   const [documentType, setDocumentType] = useState("ruc");
-  const [quotation, setQuotation] = useState(null);
+  const [quotation, setQuotation] = useState<Partial<Quotation>>({});
   const [loading, setLoading] = useState(false);
 
   const {
@@ -49,92 +68,81 @@ export function QuotationIntegration() {
   useEffect(() => {
     (async () => {
       if (isNew) {
-        const preloadedServiceRequest = location.state?.serviceRequest;
-
-        if (preloadedServiceRequest) {
-          setQuotation({
-            id: getQuotationId(),
-            serviceRequestId: preloadedServiceRequest.id,
-            client: {
-              document: preloadedServiceRequest.client.document,
-              firstName: preloadedServiceRequest.client.firstName,
-              paternalSurname: preloadedServiceRequest.client.paternalSurname,
-              maternalSurname: preloadedServiceRequest.client.maternalSurname,
-              companyName: preloadedServiceRequest.client.companyName,
-              phone: preloadedServiceRequest.client.phone,
-              email: preloadedServiceRequest.client.email,
-              address: preloadedServiceRequest.location.address,
-            },
-            device: {
-              type: preloadedServiceRequest.device,
-            },
-            reportedIssue: preloadedServiceRequest.problemDescription,
-            analysis: "",
-            solutionAndRecommendations: "",
-            quotationDetails: [],
-          });
-        } else {
-          setQuotation({ id: getQuotationId() });
-        }
-      } else {
-        const _quotation = await fetchQuotation(quotationId);
-        if (!_quotation) return navigate(-1);
-        setQuotation(_quotation);
+        setQuotation({ id: getQuotationId() });
+        return;
       }
+
+      if (!quotationId) return navigate(-1);
+
+      const _quotation = await fetchQuotation(quotationId);
+      if (!_quotation) return navigate(-1);
+      setQuotation(_quotation);
     })();
-  }, [quotationId, isNew, location.state]);
+  }, [quotationId, isNew]);
 
-  const mapQuotation = (formData) => ({
-    ...quotation,
-    client: {
-      document: {
-        type: formData.client.documentType,
-        number: formData.client.documentNumber,
-      },
-      ...(formData.client.documentType === "ruc"
-        ? { companyName: formData.client.companyName }
-        : {
-            firstName: formData.client.firstName,
-            paternalSurname: formData.client.paternalSurname,
-            maternalSurname: formData.client.maternalSurname,
-          }),
-      phone: {
-        prefix: "+51",
-        number: formData.client.phoneNumber,
-      },
-      email: formData.client.email,
-      address: formData.client.address,
-    },
-    device: {
-      type: formData.device.type,
-      brand: formData.device.brand,
-      model: formData.device.model,
-      serialNumber: formData.device.serialNumber,
-      color: formData.device.color,
-      condition: formData.device.condition,
-      accessories: formData.device.accessories,
-      ram: formData.device.ram,
-      processor: formData.device.processor,
-      operationSystem: formData.device.operationSystem,
-    },
-    reportedIssue: formData.reportedIssue,
-    analysis: formData.analysis,
-    solutionAndRecommendations: formData.solutionAndRecommendations,
-    quotationDetails: formData.quotationDetails.map((item) => ({
-      ...item,
-      subTotal: item.subTotal,
-      description: item.description,
-    })),
-    contractNumber: dayjs().format("YYYYMMDDHHmmss"),
-  });
+  const convertToText = (html: string) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent || "";
+  };
 
-  const onSubmit = async (formData) => {
+  const mapQuotation = (formData: QuotationFormData): Quotation =>
+    ({
+      ...(quotation || {}),
+      client: {
+        document: {
+          type: formData.client.document.type,
+          number: formData.client.document.number,
+        },
+        ...(formData.client.document.type === "ruc"
+          ? { companyName: formData.client.companyName }
+          : {
+              firstName: formData.client.firstName,
+              paternalSurname: formData.client.paternalSurname,
+              maternalSurname: formData.client.maternalSurname,
+            }),
+        phone: {
+          prefix: "+51",
+          number: formData.client.phone.number,
+        },
+        email: formData.client.email,
+        address: formData.client.address,
+      },
+      device: {
+        type: formData.device.type,
+        brand: formData.device.brand,
+        model: formData.device.model,
+        serialNumber: formData.device.serialNumber,
+        color: formData.device.color,
+        condition: formData.device.condition,
+        accessories: formData.device.accessories,
+        ram: formData.device.ram,
+        processor: formData.device.processor,
+        operationSystem: formData.device.operationSystem,
+      },
+      reportedIssue: formData.reportedIssue,
+      analysis: formData.analysis,
+      solutionAndRecommendations: formData.solutionAndRecommendations,
+      reportedIssueText: convertToText(formData.reportedIssue),
+      analysisText: convertToText(formData.analysis),
+      solutionAndRecommendationsText: convertToText(
+        formData.solutionAndRecommendations
+      ),
+      quotationDetails: formData.quotationDetails.map((item) => ({
+        ...item,
+        subTotal: item.subTotal,
+        description: item.description,
+        descriptionText: convertToText(item.description),
+      })),
+      contractNumber: dayjs().format("YYYYMMDDHHmmss"),
+    }) as Quotation;
+
+  const onSubmit = async (formData: QuotationFormData) => {
     try {
       setLoading(true);
 
       isNew
         ? await addQuotation(assignCreateProps(mapQuotation(formData)))
-        : updateQuotation(
+        : await updateQuotation(
             quotationId,
             assignUpdateProps(mapQuotation(formData))
           );
@@ -170,16 +178,23 @@ const Quotation = ({
   setDocumentType,
   getDataByDniOrRuc,
   getDataByDniOrRucLoading,
-}) => {
+}: QuotationProps) => {
+  const [isData, setIsData] = useState(true);
+
   const schema = yup.object({
     client: yup.object({
-      documentType: yup.string(),
-      documentNumber: yup.string(),
+      document: yup.object({
+        type: yup.string(),
+        number: yup.string(),
+      }),
       companyName: yup.string(),
       firstName: yup.string(),
       paternalSurname: yup.string(),
       maternalSurname: yup.string(),
-      phoneNumber: yup.string(),
+      phone: yup.object({
+        prefix: yup.string().default("+51"),
+        number: yup.string(),
+      }),
       email: yup.string().email(),
       address: yup.string(),
     }),
@@ -225,14 +240,14 @@ const Quotation = ({
   const { required, error } = useFormUtils({ errors, schema });
 
   useEffect(() => {
-    setDocumentType(watch("client.documentType"));
-  }, [watch("client.documentType")]);
+    setDocumentType(watch("client.document.type") || "");
+  }, [watch("client.document.type")]);
 
-  let documentNumber = watch("client.documentNumber") || "";
+  let documentNumber = watch("client.document.number") || "";
 
   useEffect(() => {
-    const docNumber = watch("client.documentNumber") || "";
-    const docType = watch("client.documentType");
+    const docNumber = watch("client.document.number") || "";
+    const docType = watch("client.document.type");
 
     const isValidLength =
       (docType === "dni" && docNumber.length === 8) ||
@@ -245,7 +260,7 @@ const Quotation = ({
       (async () => {
         try {
           const data = await getDataByDniOrRuc(docNumber);
-          if (!data) return;
+          if (!data) setIsData(false);
 
           if (docType === "dni") {
             setValue("client.firstName", capitalize(data.firstName || ""));
@@ -271,13 +286,17 @@ const Quotation = ({
   const resetForm = () => {
     reset({
       client: {
-        documentType: quotation?.client?.document?.type || "ruc",
-        documentNumber: quotation?.client?.document?.number || "",
+        document: {
+          type: quotation?.client?.document?.type || "ruc",
+          number: quotation?.client?.document?.number || "",
+        },
         companyName: quotation?.client?.companyName || "",
         firstName: quotation?.client?.firstName || "",
         paternalSurname: quotation?.client?.paternalSurname || "",
         maternalSurname: quotation?.client?.maternalSurname || "",
-        phoneNumber: quotation?.client?.phone?.number || "",
+        phone: {
+          number: quotation?.client?.phone?.number || "",
+        },
         email: quotation?.client?.email || "",
         address: quotation?.client?.address || "",
       },
@@ -299,6 +318,7 @@ const Quotation = ({
       quotationDetails: quotation?.quotationDetails || [],
     });
   };
+
   useEffect(() => {
     resetForm();
   }, [quotation]);
@@ -316,7 +336,7 @@ const Quotation = ({
                 <Row gutter={[16, 16]}>
                   <Col span={24}>
                     <Controller
-                      name="client.documentType"
+                      name="client.document.type"
                       control={control}
                       render={({ field: { onChange, value, name } }) => (
                         <Select
@@ -333,7 +353,7 @@ const Quotation = ({
                   </Col>
                   <Col span={24}>
                     <Controller
-                      name="client.documentNumber"
+                      name="client.document.number"
                       control={control}
                       render={({ field: { onChange, value, name } }) => (
                         <Input
@@ -352,7 +372,7 @@ const Quotation = ({
                       )}
                     />
                   </Col>
-                  {watch("client.documentType") === "ruc" ? (
+                  {watch("client.document.type") === "ruc" ? (
                     <Col span={24}>
                       <Controller
                         name="client.companyName"
@@ -362,7 +382,7 @@ const Quotation = ({
                             label="Razón Social"
                             name={name}
                             value={value}
-                            disabled={true}
+                            disabled={isData}
                             onChange={onChange}
                             error={error(name)}
                             required={required(name)}
@@ -382,7 +402,7 @@ const Quotation = ({
                                 label="Nombres"
                                 name={name}
                                 value={value}
-                                disabled={true}
+                                disabled={isData}
                                 onChange={onChange}
                                 error={error(name)}
                                 required={required(name)}
@@ -399,7 +419,7 @@ const Quotation = ({
                                 label="Apellido Paterno"
                                 name={name}
                                 value={value}
-                                disabled={true}
+                                disabled={isData}
                                 onChange={onChange}
                                 error={error(name)}
                                 required={required(name)}
@@ -416,7 +436,7 @@ const Quotation = ({
                                 label="Apellido Materno"
                                 name={name}
                                 value={value}
-                                disabled={true}
+                                disabled={isData}
                                 onChange={onChange}
                                 error={error(name)}
                                 required={required(name)}
@@ -429,7 +449,7 @@ const Quotation = ({
                   )}
                   <Col span={24}>
                     <Controller
-                      name="client.phoneNumber"
+                      name="client.phone.number"
                       control={control}
                       render={({ field: { onChange, value, name } }) => (
                         <Input
@@ -642,57 +662,6 @@ const Quotation = ({
                       )}
                     />
                   </Col>
-                  {/*<Col span={24} md={8}>*/}
-                  {/*  <Controller*/}
-                  {/*    name="device.reportedIssue"*/}
-                  {/*    control={control}*/}
-                  {/*    render={({ field: { onChange, value, name } }) => (*/}
-                  {/*      <RichTextEditor*/}
-                  {/*        label="Problema que presenta"*/}
-                  {/*        name={name}*/}
-                  {/*        value={value}*/}
-                  {/*        onChange={onChange}*/}
-                  {/*        height="200px"*/}
-                  {/*        error={error(name)}*/}
-                  {/*        required={required(name)}*/}
-                  {/*      />*/}
-                  {/*    )}*/}
-                  {/*  />*/}
-                  {/*</Col>*/}
-                  {/*<Col span={24} md={8}>*/}
-                  {/*  <Controller*/}
-                  {/*    name="device.analysis"*/}
-                  {/*    control={control}*/}
-                  {/*    render={({ field: { onChange, value, name } }) => (*/}
-                  {/*      <RichTextEditor*/}
-                  {/*        label="Análisis"*/}
-                  {/*        name={name}*/}
-                  {/*        value={value}*/}
-                  {/*        onChange={onChange}*/}
-                  {/*        height="200px"*/}
-                  {/*        error={error(name)}*/}
-                  {/*        required={required(name)}*/}
-                  {/*      />*/}
-                  {/*    )}*/}
-                  {/*  />*/}
-                  {/*</Col>*/}
-                  {/*<Col span={24} md={8}>*/}
-                  {/*  <Controller*/}
-                  {/*    name="device.solutionAndRecommendations"*/}
-                  {/*    control={control}*/}
-                  {/*    render={({ field: { onChange, value, name } }) => (*/}
-                  {/*      <RichTextEditor*/}
-                  {/*        label="Soluciones y recomendaciones"*/}
-                  {/*        name={name}*/}
-                  {/*        value={value}*/}
-                  {/*        onChange={onChange}*/}
-                  {/*        height="200px"*/}
-                  {/*        error={error(name)}*/}
-                  {/*        required={required(name)}*/}
-                  {/*      />*/}
-                  {/*    )}*/}
-                  {/*  />*/}
-                  {/*</Col>*/}
                 </Row>
               </ComponentContainer.group>
             </Col>

@@ -24,11 +24,6 @@ import { capitalize } from "lodash";
 
 type DocumentType = "dni" | "ruc" | "ce";
 
-// interface Document {
-//   documentType: DocumentType;
-//   documentNumber: string;
-// }
-
 export const AccessData = ({ onNext }: { onNext: () => void }) => {
   const [documentType, setDocumentType] = useState<DocumentType>("dni");
   const [loading, setLoading] = useState(false);
@@ -73,7 +68,7 @@ export const AccessData = ({ onNext }: { onNext: () => void }) => {
     control,
     formState: { errors },
     watch,
-  } = useForm<IdentityDocument>({
+  } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       documentType: "dni",

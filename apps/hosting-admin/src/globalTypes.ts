@@ -1,5 +1,3 @@
-import type { User } from "./providers";
-
 export type Timestamp = FirebaseFirestore.Timestamp;
 
 interface DefaultFirestoreProps {
@@ -9,7 +7,7 @@ interface DefaultFirestoreProps {
   isDeleted: boolean;
 }
 
-export type RoleCode = "super_admin" | "user";
+export type RoleCode = "super_admin" | "practicing";
 
 export interface _Image {
   createAt: Timestamp;
@@ -22,38 +20,84 @@ export interface _Image {
 
 export type Image = Omit<_Image, "createAt"> & { createAt: Date };
 
-interface Quotation extends DefaultFirestoreProps {
+interface Document {
+  type: "dni" | "ruc" | "ce";
+  number: string;
+}
+
+interface Phone {
+  prefix: string;
+  number: string;
+}
+
+type Gender = "male" | "female" | "other" | "";
+
+export interface UserRegister {
+  firstName: string;
+  paternalSurname: string;
+  maternalSurname: string;
+  email: string;
+  document: Document;
+  phone: Phone;
+  gender: Gender;
+  role: string;
+}
+
+export interface User extends DefaultFirestoreProps {
   id: string;
-  sequenceNumber: number;
+  firstName: string;
+  paternalSurname: string;
+  maternalSurname: string;
+  email: string;
+  document: Document;
+  phone: Phone;
+  gender: Gender;
+  role: RoleCode;
+  extraPermissions?: string[];
+}
+
+export interface QuotationDetail {
+  description: string;
+  quantity: number;
+  unitPrice: number;
+  subTotal: number;
+}
+
+export interface Quotation extends DefaultFirestoreProps {
+  id: string;
+  contractNumber: string;
+  reportedIssue: string;
+  analysis: string;
+  solutionAndRecommendations: string;
   client: {
+    document: Document;
     firstName?: string;
     paternalSurname?: string;
     maternalSurname?: string;
     companyName?: string;
-    document: {
-      type: string;
-      number: string;
-    };
-    phone: {
-      prefix: "+51";
-      number: string;
-    };
+    phone: Phone;
+    email: string;
+    address: string;
   };
   device: {
-    problemDescription: string;
     type: string;
     brand: string;
     model: string;
+    serialNumber: string;
     color: string;
+    condition: string;
+    accessories: string;
+    ram: string;
+    processor: string;
+    operationSystem: string;
   };
-  analysis: string;
-  solutions: string;
-  recommendations: string;
-  serialNumber: string;
-  description: string;
-  units: number;
-  unitPrices: number;
+  quotationDetails: QuotationDetail[];
 }
+
+export type QuotationFormData = Omit<
+  Quotation,
+  keyof DefaultFirestoreProps | "id" | "contractNumber"
+>;
 
 export interface Assistance extends DefaultFirestoreProps {
   id: string;
@@ -130,4 +174,15 @@ export interface Supplier extends DefaultFirestoreProps {
   specialties: string[];
   status: "active" | "inactive" | "blocked";
   searchData: string[];
+}
+
+export interface RoleFormData {
+  name: string;
+  roleCode: string;
+  description?: string;
+  permissions: string[];
+}
+
+export interface Role extends RoleFormData, DefaultFirestoreProps {
+  id: string;
 }

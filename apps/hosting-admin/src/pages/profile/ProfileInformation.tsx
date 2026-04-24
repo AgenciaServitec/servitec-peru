@@ -6,7 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
   faIdCard,
-  faM, faN,
+  faM,
+  faN,
   faP,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
@@ -129,13 +130,8 @@ const Container = styled.div`
 
 const AvatarSection = styled.div`
   ${() => css`
-    padding: ${theme.paddings.xxx_large} ${theme.paddings.large};
+    padding: ${theme.spacing.xl} ${theme.spacing.md};
     text-align: center;
-    background: linear-gradient(
-      135deg,
-      ${theme.colors.secondary} 0%,
-      ${theme.colors.dark} 100%
-    );
   `}
 `;
 
@@ -143,11 +139,11 @@ const AvatarWrapper = styled.div`
   ${() => css`
     width: 160px;
     height: 160px;
-    margin: 0 auto ${theme.paddings.large};
-    border-radius: 50%;
+    margin: 0 auto ${theme.spacing.md};
+    border-radius: ${theme.border_radius.full};
     overflow: hidden;
-    border: 4px solid ${theme.colors.primary};
-    transition: all 0.3s ease;
+    border: 2px solid ${theme.colors.primary};
+    transition: ${theme.transitions.fast};
 
     .profile-photo {
       width: 100%;
@@ -156,24 +152,24 @@ const AvatarWrapper = styled.div`
     }
 
     img {
-      border-radius: 50%;
+      border-radius: ${theme.border_radius.full};
     }
   `}
 `;
 
 const UserName = styled.h2`
   ${() => css`
-    color: ${theme.colors.font1};
-    font-size: ${theme.font_sizes.x_large};
+    color: ${theme.colors.fontPrimary};
+    font-size: ${theme.font_sizes.xl};
     font-weight: ${theme.font_weight.large};
-    margin-bottom: ${theme.paddings.x_small};
+    margin-bottom: ${theme.spacing.xs};
     text-transform: capitalize;
   `}
 `;
 
 const InfoSection = styled.div`
   ${() => css`
-    padding: ${theme.paddings.x_large} ${theme.paddings.large};
+    padding: ${theme.spacing.xl} ${theme.spacing.md};
   `}
 `;
 
@@ -181,25 +177,26 @@ const InfoItem = styled.div`
   ${() => css`
     display: flex;
     align-items: center;
-    gap: ${theme.paddings.medium};
-    padding: ${theme.paddings.medium};
-    border-radius: ${theme.border_radius.medium};
-    background: ${theme.colors.dark}40;
-    transition: all 0.2s ease;
+    gap: ${theme.spacing.md};
+    padding: ${theme.spacing.sm};
+    border-radius: ${theme.border_radius.md};
+    background: ${theme.colors.bgTertiary};
+    border: 1px solid ${theme.colors.border};
+    transition: ${theme.transitions.fast};
   `}
 `;
 
 const InfoIcon = styled.div`
   ${() => css`
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: ${theme.colors.primary}20;
-    border-radius: ${theme.border_radius.medium};
+    background: ${theme.colors.primaryAlpha};
+    border-radius: ${theme.border_radius.sm};
     color: ${theme.colors.primary};
-    font-size: ${theme.font_sizes.medium};
+    font-size: ${theme.font_sizes.md};
     flex-shrink: 0;
   `}
 `;
@@ -211,9 +208,9 @@ const InfoContent = styled.div`
 
 const InfoLabel = styled.div`
   ${() => css`
-    color: ${theme.colors.font2};
-    font-size: ${theme.font_sizes.x_small};
-    margin-bottom: ${theme.paddings.xx_small};
+    color: ${theme.colors.fontTertiary};
+    font-size: ${theme.font_sizes.xs};
+    margin-bottom: 2px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
   `}
@@ -221,8 +218,8 @@ const InfoLabel = styled.div`
 
 const InfoValue = styled.div`
   ${() => css`
-    color: ${theme.colors.font1};
-    font-size: ${theme.font_sizes.small};
+    color: ${theme.colors.fontPrimary};
+    font-size: ${theme.font_sizes.sm};
     font-weight: ${theme.font_weight.medium};
     word-break: break-word;
   `}

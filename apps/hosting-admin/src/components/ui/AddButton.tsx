@@ -32,7 +32,7 @@ export const AddButton: React.FC<AddButtonProps> = ({
       loading={loading}
     >
       <ContentWrapper>
-        <Icon icon={faPlus} fontSize="1.5rem" margin="0 .8rem 0 0" />
+        <Icon icon={faPlus} fontSize="1.1rem" margin="0" />
         <TextWrapper>
           <span>Agregar {title}</span>
         </TextWrapper>
@@ -46,25 +46,33 @@ const Container = styled(Button)<ContainerProps>`
     min-width: 120px;
     width: auto;
     height: auto;
-    margin: ${$margin || "0 0 1.5rem 0"};
-    padding: ${theme.paddings.medium} ${theme.paddings.large};
-    text-transform: uppercase;
+    margin: ${$margin || `0 0 ${theme.spacing.lg} 0`};
+    padding: ${theme.spacing.sm} ${theme.spacing.lg};
+
+    text-transform: none;
     background: ${theme.colors.primary};
     border-color: ${theme.colors.primary};
-    transition: all 0.3s ease;
+    border-radius: ${theme.border_radius.md};
+    box-shadow: ${theme.shadows.sm};
+    transition: all ${theme.transitions.fast};
 
     &:hover:not(:disabled) {
-      background: ${theme.colors.primary}dd;
-      border-color: ${theme.colors.primary}dd;
-      transform: translateY(-2px);
+      background: ${theme.colors.primaryDark};
+      border-color: ${theme.colors.primaryDark};
+      transform: translateY(-1px);
+      box-shadow: ${theme.shadows.md};
     }
 
     &:active:not(:disabled) {
       transform: translateY(0);
+      box-shadow: none;
     }
 
     &:disabled {
-      opacity: 0.5;
+      background: ${theme.colors.bgTertiary};
+      border-color: ${theme.colors.border};
+      color: ${theme.colors.fontDisabled};
+      opacity: 1;
       cursor: not-allowed;
     }
   `}
@@ -73,17 +81,16 @@ const Container = styled(Button)<ContainerProps>`
 const ContentWrapper = styled.div`
   ${({ theme }) => css`
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     width: 100%;
-    gap: ${theme.paddings.small};
+    gap: ${theme.spacing.sm};
 
     .icon-item {
       display: flex;
       align-items: center;
       justify-content: center;
-      color: ${theme.colors.black};
-
+      color: #000000;
       svg {
         margin: 0;
       }
@@ -93,17 +100,17 @@ const ContentWrapper = styled.div`
 
 const TextWrapper = styled.div`
   ${({ theme }) => css`
-    white-space: normal;
-    font-size: ${theme.font_sizes.small};
+    white-space: nowrap;
+    font-size: ${theme.font_sizes.sm};
     font-weight: ${theme.font_weight.medium};
-    text-transform: uppercase;
+    text-transform: none;
     text-shadow: none;
-    color: ${theme.colors.black};
-    letter-spacing: 0.5px;
+    color: #000000;
+    letter-spacing: -0.01em;
 
     span {
       display: block;
-      line-height: 1.2;
+      line-height: 1.5;
     }
   `}
 `;

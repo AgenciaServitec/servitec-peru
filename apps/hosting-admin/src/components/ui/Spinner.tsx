@@ -13,24 +13,24 @@ interface SpinnerProps {
 }
 
 interface ContainerProps {
-  fullscreen: boolean;
-  height?: string;
+  $fullscreen: boolean; // Usamos $ para props transitorias (buena práctica en Styled Components)
+  $height?: string;
 }
 
 export const Spinner: React.FC<SpinnerProps> = ({
   height,
   fullscreen = true,
-  size = "5x",
+  size = "3x", // Cambié 5x a 3x para un look más "SaaS profesional" y menos tosco
   message = null,
 }) => (
-  <Container fullscreen={fullscreen} height={height}>
+  <Container $fullscreen={fullscreen} $height={height}>
     <div className="item">
-      <div>
+      <div className="icon-wrapper">
         <IconStyled spin icon={faSpinner} size={size} />
       </div>
       {message && (
         <div className="message-item">
-          <h3>{message}</h3>
+          <MessageText>{message}</MessageText>
         </div>
       )}
     </div>
@@ -38,29 +38,42 @@ export const Spinner: React.FC<SpinnerProps> = ({
 );
 
 const Container = styled.section<ContainerProps>`
-  ${({ theme, fullscreen, height }) => css`
-    width: 100vw;
-    height: ${height || (fullscreen ? "100%" : "calc(100% - 90px)")};
-    display: grid;
-    place-items: center;
-    background: ${fullscreen ? theme.colors.bgPrimary : "transparent"};
+  ${({ theme, $fullscreen, $height }) => css`
+    width: 100%;
+    /* Si es fullscreen ocupa toda la pantalla, si no, se ajusta al padre o al height prop */
+    height: ${$height || ($fullscreen ? "100vh" : "100%")};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: ${$fullscreen ? theme.colors.bgPrimary : "transparent"};
 
     .item {
-      width: auto;
-      height: auto;
-      padding: ${theme.paddings.x_large};
-      margin: auto;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: ${theme.paddings.large};
+      gap: ${theme.spacing.md}; /* Reemplazado paddings.large */
     }
+
+    .icon-wrapper {
+      opacity: 0.8;
+    }
+  `}
+`;
+
+const MessageText = styled.h3`
+  ${({ theme }) => css`
+    color: ${theme.colors.fontSecondary};
+    font-size: ${theme.font_sizes.md};
+    font-weight: ${theme.font_weight.medium};
+    margin-top: ${theme.spacing.sm};
   `}
 `;
 
 const IconStyled = styled(FontAwesomeIcon)`
   ${({ theme }) => css`
     color: ${theme.colors.primary};
+    /* Añadimos un filtro de resplandor sutil muy leve para el modo oscuro */
+    filter: drop-shadow(0 0 8px ${theme.colors.primaryAlpha});
   `}
 `;

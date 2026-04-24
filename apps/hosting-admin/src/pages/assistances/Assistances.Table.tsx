@@ -1,9 +1,9 @@
 import dayjs from "dayjs";
-import { IconAction, Table, Tag } from "../../components";
+import { CanAccess, IconAction, Table, Tag } from "../../components";
 import type { Assistance } from "../../globalTypes.ts";
 import { useUpdateMinutesWorked } from "./_utils";
 import { useEffect } from "react";
-import lodash from "lodash";
+import lodash, { capitalize } from "lodash";
 import {
   faBowlRice,
   faCheck,
@@ -51,7 +51,7 @@ export const AssistancesTable = ({
     {
       key: "createAt",
       dataIndex: "createAt",
-      title: "Fecha",
+      title: "Fecha de Creación",
       align: "center",
       width: 100,
       render: (_, assistance) =>
@@ -60,10 +60,11 @@ export const AssistancesTable = ({
     {
       key: "fullName",
       dataIndex: "fullName",
-      title: "Apellidos y Nombres",
+      title: "Apellido y Nombre",
       align: "center",
       width: 100,
-      render: (_, assistance) => assistance.user.firstName,
+      render: (_, assistance) =>
+        `${capitalize(assistance.user.paternalSurname)} ${capitalize(assistance.user.firstName.split(" ")[0])}`,
     },
     {
       key: "workPlace",
@@ -71,12 +72,12 @@ export const AssistancesTable = ({
       title: "Lugar de Trabajo",
       align: "center",
       width: 100,
-      render: (_, assistance) => assistance.workPlace,
+      render: (_, assistance) => "Estudio Servitec",
     },
     {
       key: "orderLunch",
       dataIndex: "orderLunch",
-      title: "Pidió Almuerzo?",
+      title: "¿Pidió Almuerzo?",
       align: "center",
       width: 100,
       render: (_, assistance) => {
@@ -84,39 +85,41 @@ export const AssistancesTable = ({
           assistance.orderLunch === true || assistance.orderLunch === false;
 
         return (
-          <span
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "0.4rem",
-            }}
-          >
-            {canApproveLunch && (
-              <IconAction
-                tooltipTitle="Calificar almuerzo"
-                icon={faBowlRice}
-                iconStyles={{
-                  color: () => theme.colors.info,
-                }}
-                onClick={() => onShowSubmitOrderLunch(assistance)}
-              />
-            )}
+          <CanAccess permission="assist_manage_lunch">
+            <span
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "0.4rem",
+              }}
+            >
+              {canApproveLunch && (
+                <IconAction
+                  tooltipTitle="Calificar almuerzo"
+                  icon={faBowlRice}
+                  iconStyles={{
+                    color: () => theme.colors.info,
+                  }}
+                  onClick={() => onShowSubmitOrderLunch(assistance)}
+                />
+              )}
 
-            {hasValue && (
-              <IconAction
-                tooltipTitle={assistance.orderLunch ? "Sí pidió" : "No pidió"}
-                icon={assistance.orderLunch ? faCheck : faXmark}
-                iconStyles={{
-                  color: () =>
-                    assistance.orderLunch
-                      ? theme.colors.success
-                      : theme.colors.error,
-                }}
-                onClick={() => {}}
-              />
-            )}
-          </span>
+              {hasValue && (
+                <IconAction
+                  tooltipTitle={assistance.orderLunch ? "Sí pidió" : "No pidió"}
+                  icon={assistance.orderLunch ? faCheck : faXmark}
+                  iconStyles={{
+                    color: () =>
+                      assistance.orderLunch
+                        ? theme.colors.success
+                        : theme.colors.error,
+                  }}
+                  onClick={() => {}}
+                />
+              )}
+            </span>
+          </CanAccess>
         );
       },
     },
@@ -197,14 +200,11 @@ export const AssistancesTable = ({
 
   return (
     <Table
-      bordered
-      virtual
       loading={assistancesLoading}
       dataSource={dataSource}
       columns={columns}
       size="small"
       scroll={{ x: 1200 }}
-      pagination={false}
     />
   );
 };

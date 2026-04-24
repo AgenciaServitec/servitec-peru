@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   Button,
+  CanAccess,
   Col,
   Form,
-  Legend,
   Row,
+  Select,
   Title,
+  Toolbar,
   useNotification,
 } from "../../components/ui";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faBuilding,
   faCameraRetro,
-  faEraser,
   faFileExcel,
-  faPlus,
   faSignInAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
@@ -30,32 +31,43 @@ import {
   useModal,
   type User,
 } from "../../providers";
-import { AssistancesFilter } from "./AssistancesFilter.tsx";
-import { AssistancesNameFilter } from "./AssistancesNameFilter.tsx";
+import { useTheme } from "styled-components";
 
 import type { Assistance } from "../../globalTypes.ts";
-import type { DateFilter } from "./types.ts";
 import { exportAssistancesExcel } from "./_utils";
 import { AssistancesSubmitOrderLunch } from "./AssistancesSubmitOrderLunch.tsx";
-import { useDefaultFirestoreProps, useDevice } from "../../hooks";
+import {
+  useDebounce,
+  useDefaultFirestoreProps,
+  useDevice,
+  useFilters,
+} from "../../hooks";
 import { AssistancesTable } from "./Assistances.Table.tsx";
 import { canApproveLunch } from "./_utils/permissions.ts";
-import { Modal } from "../../components";
+import { Modal, Spin, Tag } from "../../components";
+import dayjs from "dayjs";
 
 export function AssistancesIntegration() {
   const navigate = useNavigate();
   const { authUser } = useAuthentication();
-
+  const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const [resetSignal, setResetSignal] = useState(0);
-  const [filteredAssistances, setFilteredAssistances] = useState<Assistance[]>(
-    []
-  );
-  const [dateFilter, setDateFilter] = useState<DateFilter>({
-    startDate: null,
-    endDate: null,
+  const [viewType, setViewType] = useState<"grid" | "list">("list");
+
+  const today = dayjs();
+  const initialDateRange: [dayjs.Dayjs, dayjs.Dayjs] = [
+    today.startOf("day"),
+    today.endOf("day"),
+  ];
+
+  const { filters, handleFilterChange, resetFilters } = useFilters({
+    search: "",
+    dateRange: initialDateRange as [dayjs.Dayjs | null, dayjs.Dayjs | null],
+    workPlace: undefined,
   });
-  const [nameFilter, setNameFilter] = useState("");
+
+  const debouncedSearch = useDebounce(filters.search, 500);
+  const isFiltering = filters.search !== debouncedSearch;
 
   const [assistances, assistancesLoading, assistancesError] = useCollectionData(
     assistancesRef.where("isDeleted", "==", false)
@@ -63,58 +75,53 @@ export function AssistancesIntegration() {
 
   const { notification } = useNotification();
 
-  const assistancesView = (assistances || []).filter((assistance) => {
-    if (
-      [
-        "XfQXaMRZD7Gro2kPaIvU",
-        "fRiTn5k6TP5TJvpXZeLS",
-        "woc2g3M8EO4RYtXFap6n",
-        "UXrpXFxJhVi5Tl1MTMu2",
-        "U0kKdzTPY0rVgWcCY8dV",
-      ].includes(authUser?.id)
-    )
-      return true;
-    if (assistance.userId === authUser?.id) return assistance;
-    return false;
-  });
+  const assistancesView = useMemo(() => {
+    if (!assistances) return [];
+    const superUsers = [
+      "XfQXaMRZD7Gro2kPaIvU",
+      "fRiTn5k6TP5TJvpXZeLS",
+      "woc2g3M8EO4RYtXFap6n",
+      "UXrpXFxJhVi5Tl1MTMu2",
+      "U0kKdzTPY0rVgWcCY8dV",
+    ];
 
-  const applyFilters = () => {
-    if (!assistancesView) return;
-
-    const result = assistancesView.filter((a) => {
-      const date = a.createAt.toDate();
-      const fullName = a.user.firstName.toLowerCase();
-
-      const matchesName =
-        nameFilter.trim() === "" || fullName.includes(nameFilter.toLowerCase());
-
-      const matchesStart =
-        !dateFilter.startDate || date >= dateFilter.startDate;
-
-      const matchesEnd = !dateFilter.endDate || date <= dateFilter.endDate;
-
-      return matchesName && matchesStart && matchesEnd;
+    return assistances.filter((a) => {
+      if (superUsers.includes(authUser?.id)) return true;
+      return a.userId === authUser?.id;
     });
+  }, [assistances, authUser]);
 
-    setFilteredAssistances(result);
-  };
+  const filteredAssistances = useMemo(() => {
+    let result = [...assistancesView];
 
-  const clearAllFilters = () => {
-    setNameFilter("");
-    setDateFilter({ startDate: null, endDate: null });
-    setResetSignal((prev) => prev + 1);
-  };
+    if (filters.dateRange?.[0] && filters.dateRange?.[1]) {
+      const start = filters.dateRange[0].startOf("day");
+      const end = filters.dateRange[1].endOf("day");
 
-  useEffect(() => {
-    applyFilters();
-  }, [assistances, dateFilter, nameFilter]);
+      result = result.filter((a) => {
+        const date = dayjs(a.createAt.toDate());
+        return (
+          (date.isAfter(start) || date.isSame(start)) &&
+          (date.isBefore(end) || date.isSame(end))
+        );
+      });
+    }
 
-  const handleFilter = (filter: DateFilter) => setDateFilter(filter);
-  const handleNameSearch = (text: string) => setNameFilter(text);
+    if (filters.workPlace) {
+      result = result.filter((a) => a.workPlace === filters.workPlace);
+    }
 
-  useEffect(() => {
-    if (assistancesError) notification({ type: "error" });
-  }, [assistancesError]);
+    if (debouncedSearch) {
+      const searchLower = debouncedSearch.toLowerCase();
+      result = result.filter(
+        (a) =>
+          a.user.firstName.toLowerCase().includes(searchLower) ||
+          a.user.paternalSurname.toLowerCase().includes(searchLower)
+      );
+    }
+
+    return result;
+  }, [assistancesView, filters.dateRange, filters.workPlace, debouncedSearch]);
 
   const onNavigateGoTo = (pathname = "/") => navigate(pathname);
 
@@ -122,15 +129,19 @@ export function AssistancesIntegration() {
     <ModalProvider>
       <AssistancesList
         assistancesLoading={assistancesLoading}
+        isFiltering={isFiltering}
         filteredAssistances={filteredAssistances}
-        resetSignal={resetSignal}
-        onFilter={handleFilter}
-        onSearchName={handleNameSearch}
-        onClearFilters={clearAllFilters}
+        filters={filters}
+        handleFilterChange={handleFilterChange}
+        resetFilters={resetFilters}
+        setViewType={setViewType}
         onNavigateGoTo={onNavigateGoTo}
+        onClear={() => handleFilterChange("dateRange", initialDateRange)}
+        viewType={viewType}
         user={authUser}
         setOpen={setOpen}
         open={open}
+        theme={theme}
       />
     </ModalProvider>
   );
@@ -138,15 +149,18 @@ export function AssistancesIntegration() {
 
 function AssistancesList({
   assistancesLoading,
+  isFiltering,
   filteredAssistances,
-  resetSignal,
-  onFilter,
-  onSearchName,
-  onClearFilters,
+  filters,
+  handleFilterChange,
+  resetFilters,
+  setViewType,
   onNavigateGoTo,
+  viewType,
   user,
   setOpen,
   open,
+  theme,
 }) {
   const { onShowModal, onCloseModal } = useModal();
   const { isTablet } = useDevice();
@@ -155,7 +169,7 @@ function AssistancesList({
 
   const onShowSubmitOrderLunch = (assistance: Assistance) => {
     onShowModal({
-      title: "Pidio Almuerzo?",
+      title: "¿Pidio Almuerzo?",
       width: `${isTablet ? "90%" : "50%"}`,
       onRenderBody: () => (
         <AssistancesSubmitOrderLunch
@@ -166,7 +180,6 @@ function AssistancesList({
       ),
     });
   };
-  // 11:20 a 21:00
 
   const mapAssistance = (user: User) => ({
     id: getAssistanceId(),
@@ -177,7 +190,7 @@ function AssistancesList({
     outlet: {
       date: "21-01-2026 21:00",
     },
-    userId: "AQwioreyVabvnTYmj6tH",
+    userId: user.id,
     minutesWorked: 0,
     workPlace: "Servitec",
     user,
@@ -195,59 +208,86 @@ function AssistancesList({
     }
   };
 
+  const workPlaceLabels: Record<string, string> = {
+    "kiwi-workshop": "Tienda Kiwi",
+    "servitec-study": "Estudio Servitec",
+  };
+
   return (
     <>
       <Row gutter={[16, 16]}>
-        <Col xs={24} sm={6} md={4}>
-          <Button onClick={onSaveAssistances} type="primary" size="large" block>
-            <FontAwesomeIcon icon={faPlus} />
-            Agregar Asistencia
-          </Button>
-        </Col>
         <Col span={24}>
-          <Legend title="Filtros">
-            <Row gutter={[16, 16]} align="middle">
-              <Col xs={24} md={8}>
-                <AssistancesNameFilter onSearch={onSearchName} />
-              </Col>
-              <Col xs={24} md={8}>
-                <AssistancesFilter
-                  onFilter={onFilter}
-                  resetSignal={resetSignal}
-                />
-              </Col>
-              <Col xs={24} md={8} style={{ textAlign: "right" }}>
-                <Button size="large" onClick={onClearFilters}>
-                  <FontAwesomeIcon icon={faEraser} />
-                  Limpiar filtros
-                </Button>
-              </Col>
-            </Row>
-          </Legend>
+          <Title level={2}>Asistencias</Title>
+        </Col>
+
+        <Col span={24}>
+          <Toolbar
+            totalCount={filteredAssistances.length}
+            searchText={filters.search}
+            onSearchChange={(val) => handleFilterChange("search", val)}
+            dateRange={filters.dateRange}
+            onDateRangeChange={(dates) =>
+              handleFilterChange("dateRange", dates)
+            }
+            viewTypeValue={viewType}
+            onViewChange={setViewType}
+            onClear={resetFilters}
+            extraFilters={
+              <Select
+                placeholder="Lugar de Trabajo"
+                value={filters.workPlace}
+                prefix={<FontAwesomeIcon icon={faBuilding} />}
+                onChange={(val) => handleFilterChange("workPlace", val)}
+                size="large"
+                allowClear
+                options={[
+                  { value: "kiwi-workshop", label: "Tienda Kiwi" },
+                  { value: "servitec-study", label: "Estudio Servitec" },
+                ]}
+              />
+            }
+            extraTags={
+              filters.workPlace && (
+                <Tag
+                  color="gold"
+                  closable
+                  onClose={() => handleFilterChange("workPlace", undefined)}
+                  style={{ borderColor: "gold" }}
+                >
+                  Lugar: {workPlaceLabels[filters.workPlace]}
+                </Tag>
+              )
+            }
+          />
+        </Col>
+
+        <Col span={24} md={12}>
+          <CanAccess permission="assist_mark_self">
+            <Button
+              onClick={() => onNavigateGoTo("/assistances/assistance")}
+              type="primary"
+              style={{
+                backgroundColor: theme.colors.info,
+              }}
+              size="large"
+              block
+            >
+              <FontAwesomeIcon icon={faSignInAlt} />
+              Marcar mi asistencia
+            </Button>
+          </CanAccess>
         </Col>
         <Col span={24} md={12}>
-          <Button
-            onClick={() => onNavigateGoTo("/assistances/assistance")}
-            type="primary"
-            size="large"
-            block
-          >
-            <FontAwesomeIcon icon={faSignInAlt} />
-            Marcar mi asistencia
-          </Button>
-        </Col>
-        <Col span={24} md={12}>
-          <Button
-            onClick={() => onNavigateGoTo("/assistances/register")}
-            size="large"
-            block
-          >
-            <FontAwesomeIcon icon={faCameraRetro} />
-            Registrar mi rostro
-          </Button>
-        </Col>
-        <Col span={24}>
-          <Title level={2}>Lista de Asistencias</Title>
+          <CanAccess permission="assist_register_face">
+            <Button
+              onClick={() => onNavigateGoTo("/assistances/register")}
+              size="large"
+              block
+            >
+              <FontAwesomeIcon icon={faCameraRetro} />
+              Registrar mi rostro
+            </Button>
+          </CanAccess>
         </Col>
         <Col span={24}>
           <Row justify="end" gutter={[16, 16]}>
@@ -255,6 +295,7 @@ function AssistancesList({
               <Button
                 type="primary"
                 onClick={() => exportAssistancesExcel(filteredAssistances)}
+                style={{ backgroundColor: "#008000 " }}
                 size="large"
                 block
               >
@@ -265,12 +306,19 @@ function AssistancesList({
           </Row>
         </Col>
         <Col span={24}>
-          <AssistancesTable
-            assistances={filteredAssistances || []}
-            onShowSubmitOrderLunch={onShowSubmitOrderLunch}
-            assistancesLoading={assistancesLoading}
-            canApproveLunch={canApproveLunch(user?.id)}
-          />
+          <CanAccess permission="assist_view_all">
+            <Spin
+              spinning={assistancesLoading || isFiltering}
+              tip="Procesando asistencias..."
+            >
+              <AssistancesTable
+                assistances={filteredAssistances}
+                onShowSubmitOrderLunch={onShowSubmitOrderLunch}
+                assistancesLoading={assistancesLoading}
+                canApproveLunch={canApproveLunch(user?.id)}
+              />
+            </Spin>
+          </CanAccess>
         </Col>
       </Row>
 

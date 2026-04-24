@@ -34,12 +34,10 @@ export const ServicesRequestsTable = ({
       key: "name",
       render: (text: string, record: any) => (
         <Space direction="vertical" size={0}>
-          <Text strong style={{ color: "#fff" }}>
+          <Text strong style={{ textTransform: "capitalize" }}>
             {text}
           </Text>
-          <Text type="secondary" style={{ fontSize: 12 }}>
-            {record.client.phone.number}
-          </Text>
+          <Text type="secondary">{record.client.phone.number}</Text>
         </Space>
       ),
     },
@@ -73,9 +71,14 @@ export const ServicesRequestsTable = ({
       render: (priority: string) => {
         const info = getPriorityInfo(priority);
         return (
-          <Text style={{ color: info.color, fontWeight: 600 }}>
+          <Tag
+            color={info.color}
+            icon={
+              <FontAwesomeIcon icon={info.icon} style={{ marginRight: 5 }} />
+            }
+          >
             {info.label.toUpperCase()}
-          </Text>
+          </Tag>
         );
       },
     },
@@ -108,8 +111,7 @@ export const ServicesRequestsTable = ({
       columns={columns}
       loading={loading}
       rowKey="id"
-      pagination={{ pageSize: 10 }}
-      scroll={{ x: 800 }}
+      scroll={{ x: 1200 }}
     />
   );
 };

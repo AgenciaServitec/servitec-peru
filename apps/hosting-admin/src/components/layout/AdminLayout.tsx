@@ -10,34 +10,39 @@ const { Content } = Layout;
 
 type AdminLayoutProps = {
   children: ReactNode;
+  isLoading?: boolean; // Añadido para controlar el Spin global
 };
 
-export const AdminLayout = ({ children }: AdminLayoutProps) => {
+export const AdminLayout = ({
+  children,
+  isLoading = false,
+}: AdminLayoutProps) => {
   const navigate = useNavigate();
   const [isVisibleDrawer, setIsVisibleDrawer] = useState(false);
 
-  const onNavigateTo = (url: string) => navigate(url);
+  const onNavigateTo = (url: string) => {
+    navigate(url);
+    setIsVisibleDrawer(false);
+  };
 
   return (
-    <Spin tip="Cargando..." spinning={false}>
+    <Spin tip="Cargando..." spinning={isLoading}>
       <LayoutContainer>
-        <Layout>
-          <DrawerLayout
-            isVisibleDrawer={isVisibleDrawer}
-            onSetIsVisibleDrawer={setIsVisibleDrawer}
-            onNavigateTo={onNavigateTo}
-          />
+        <DrawerLayout
+          isVisibleDrawer={isVisibleDrawer}
+          onSetIsVisibleDrawer={setIsVisibleDrawer}
+          onNavigateTo={onNavigateTo}
+        />
+        <MainLayout>
           <HeaderLayout
             isVisibleDrawer={isVisibleDrawer}
             onSetIsVisibleDrawer={setIsVisibleDrawer}
           />
-          <Content style={{ margin: "0 16px" }}>
+          <StyledContent>
             <BreadcrumbLayout />
-            <div className="site-layout-background" style={{ padding: 24 }}>
-              {children}
-            </div>
-          </Content>
-        </Layout>
+            <div className="site-layout-content">{children}</div>
+          </StyledContent>
+        </MainLayout>
       </LayoutContainer>
     </Spin>
   );
@@ -47,16 +52,30 @@ const LayoutContainer = styled(Layout)`
   ${({ theme }) => css`
     width: 100vw;
     min-height: 100vh;
-    background: linear-gradient(
-      135deg,
-      ${theme.colors.bgPrimary} 0%,
-      #0f1419 100%
-    ) !important;
+    /* Usamos bgPrimary pero con un toque de profundidad dinámico */
+    background: ${theme.mode === "dark"
+      ? `linear-gradient(135deg, ${theme.colors.bgPrimary} 0%, ${theme.colors.bgSecondary} 100%)`
+      : theme.colors.bgPrimary} !important;
+  `}
+`;
 
-    .site-layout-background {
+const MainLayout = styled(Layout)`
+  background: transparent !important;
+`;
+
+const StyledContent = styled(Content)`
+  ${({ theme }) => css`
+    margin: 0 ${theme.spacing.md}; // 16px desde tokens
+
+    .site-layout-content {
       background: ${theme.colors.bgSecondary};
-      border-radius: ${theme.border_radius.small};
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: ${theme.spacing.lg}; // 24px desde tokens
+      border-radius: ${theme.border_radius
+        .lg}; // 12px para que combine con las Cards
+      border: 1px solid ${theme.colors.border};
+      min-height: 280px;
+      box-shadow: ${theme.shadows.sm};
+      transition: background ${theme.transitions.normal};
     }
   `}
 `;

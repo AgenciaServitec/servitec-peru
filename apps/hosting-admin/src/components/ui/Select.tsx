@@ -1,7 +1,6 @@
 import AntSelect from "antd/lib/select";
 import { ComponentContainer } from "./component-container";
-import { lighten } from "polished";
-import styled, { css } from "styled-components";
+import styled, { createGlobalStyle, css } from "styled-components";
 
 type Option = { code?: string; label?: string; value?: string };
 
@@ -57,18 +56,23 @@ export const Select = ({
       label={label}
       animation={animation}
     >
+      <DropdownStyles />
+
       {isMobile ? (
         <StyledSelectMobile
           key={value}
           disabled={disabled}
-          error={error}
+          $error={error}
           onChange={(event) => onChange && onChange(event.target.value)}
           value={value}
           defaultValue={value}
-          placeholder={placeholder}
         >
-          {placeholder && <option hidden>{placeholder}</option>}
-          {!value && <option hidden />}
+          {placeholder && (
+            <option value="" hidden>
+              {placeholder}
+            </option>
+          )}
+          {!value && <option value="" hidden />}
           {options.map((option) => (
             <option key={option.code} value={option.value}>
               {option.label}
@@ -76,7 +80,8 @@ export const Select = ({
           ))}
         </StyledSelectMobile>
       ) : (
-        <AntSelect
+        <StyledAntSelect
+          popupClassName="servitec-select-popup"
           allowClear={disabled ? false : allowClear}
           variant="borderless"
           disabled={disabled}
@@ -88,7 +93,7 @@ export const Select = ({
           }
           showSearch
           size="large"
-          placeholder=""
+          placeholder={placeholder}
           options={options}
           {...props}
         />
@@ -97,44 +102,110 @@ export const Select = ({
   );
 };
 
-const StyledSelectMobile = styled.select<
-  Pick<SelectProps, "error" | "placeholder" | "value">
->`
-  ${({ theme, error, value, placeholder }) => css`
+const DropdownStyles = createGlobalStyle`
+  ${({ theme }) => css`
+    .servitec-select-popup {
+      background-color: ${theme.colors.bgSecondary} !important;
+      border: 1px solid ${theme.colors.border} !important;
+      border-radius: ${theme.border_radius.md} !important;
+      box-shadow: ${theme.shadows.lg} !important;
+      padding: 4px 0 !important;
+
+      .ant-select-item {
+        color: ${theme.colors.fontSecondary} !important;
+        margin: 2px 4px !important;
+        border-radius: ${theme.border_radius.sm} !important;
+        transition: all ${theme.transitions.fast};
+
+        &-option-content {
+          font-size: ${theme.font_sizes.sm} !important;
+        }
+
+        &-option-active {
+          background-color: ${theme.colors.bgHover} !important;
+          color: ${theme.colors.primary} !important;
+        }
+
+        &-option-selected {
+          background-color: ${theme.colors.primaryAlpha} !important;
+          color: ${theme.colors.primary} !important;
+          font-weight: ${theme.font_weight.large} !important;
+        }
+      }
+
+      .rc-virtual-list-scrollbar-thumb {
+        background: ${theme.colors.border} !important;
+      }
+
+      .ant-select-item-empty {
+        color: ${theme.colors.fontTertiary} !important;
+      }
+    }
+  `}
+`;
+
+const StyledAntSelect = styled(AntSelect)`
+  ${({ theme }) => css`
     width: 100%;
-    height: 32px;
+
+    .ant-select-selection-search-input {
+      color: ${theme.colors.fontPrimary} !important;
+      font-size: ${theme.font_sizes.sm} !important;
+    }
+
+    .ant-select-selection-item,
+    .ant-select-selection-placeholder {
+      font-size: ${theme.font_sizes.sm} !important;
+      color: ${theme.colors.fontPrimary} !important;
+      font-weight: ${theme.font_weight.medium};
+    }
+
+    .ant-select-arrow {
+      color: ${theme.colors.primary} !important;
+      font-size: 12px;
+    }
+
+    .ant-select-clear {
+      background: transparent;
+      color: ${theme.colors.fontTertiary};
+      padding-right: 4px;
+      &:hover {
+        color: ${theme.colors.primary};
+      }
+    }
+
+    .ant-select-prefix {
+      color: ${theme.colors.fontPrimary} !important;
+    }
+  `}
+`;
+
+const StyledSelectMobile = styled.select<{ $error: boolean }>`
+  ${({ theme, value }) => css`
+    width: calc(100% - 22px);
+    height: 38px;
     border: none;
-    margin: 0 11px 4px 11px;
-    font-size: 1rem;
-    background-color: ${error
-      ? lighten(0.4, theme.colors.error)
-      : theme.colors.bgSecondary};
+    margin: 0 11px;
+    font-size: ${theme.font_sizes.sm};
+    background-color: transparent;
     cursor: pointer;
-    border-radius: ${theme.border_radius.xx_small};
-    color: ${placeholder
-      ? !value
-        ? theme.colors.fontSecondary
-        : theme.colors.fontPrimary
-      : theme.colors.fontPrimary};
+    border-radius: ${theme.border_radius.xs};
+    color: ${!value ? theme.colors.fontTertiary : theme.colors.fontPrimary};
     font-weight: ${theme.font_weight.medium};
+    outline: none;
 
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23FFC107'><polygon points='0,0 100,0 50,50'/></svg>");
-    background-repeat: no-repeat;
-    background-size: 10px;
-    background-position: right center;
 
     option {
-      background: ${theme.colors.bgSecondary};
+      background: ${theme.colors.bgTertiary};
       color: ${theme.colors.fontPrimary};
     }
 
-    &:focus-within {
-      background: ${lighten(0.05, theme.colors.bgSecondary)};
-      outline: none;
-      border: 1px solid ${theme.colors.primary};
+    &:disabled {
+      cursor: not-allowed;
+      color: ${theme.colors.fontDisabled};
     }
   `}
 `;

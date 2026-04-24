@@ -14,3 +14,5 @@ export * from "./services-requests";
 export * from "./services-requests/_services-requests";
 export * from "./suppliers";
 export * from "./suppliers/_supplierId";
+export * from "./roles-and-permissions";
+export * from "./roles-and-permissions/_roleAndPermissionId";

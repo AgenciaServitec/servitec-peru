@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
+  CanAccess,
   Col,
   Input,
-  modalConfirm,
   Row,
   Title,
+  useModalConfirm,
   useNotification,
 } from "../../components";
 import { useAuthentication, useGlobalData } from "../../providers";
@@ -18,7 +19,6 @@ import {
 import { assign, isEmpty } from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import styled, { css } from "styled-components";
 import { Timestamp } from "firebase/firestore";
 import { assistancesRef } from "../../firebase/collections";
 import { UserAssistancesTable } from "./UserAssistancesTable.tsx";
@@ -65,6 +65,8 @@ export const Users: React.FC = () => {
   const { authUser } = useAuthentication();
   const { users } = useGlobalData();
   const { patchUser, patchUserResponse } = useApiUserPatch();
+
+  const { modalConfirm } = useModalConfirm();
 
   const { notification } = useNotification();
 
@@ -143,50 +145,38 @@ export const Users: React.FC = () => {
   };
 
   return (
-    <Container>
-      <Row gutter={[16, 16]}>
-        <Col span={24}>
-          <Title level={2}>Usuarios ({usersView.length})</Title>
-        </Col>
-        <Col span={24}>
-          <Input
-            label="Búsqueda de usuarios"
-            value={userSearch}
-            onChange={handleUserSearch}
-            name="userSearch"
-            suffix={
-              <FontAwesomeIcon
-                icon={faSearch}
-                // style={{ color: ({ theme }) => theme.colors.fontPrimary }}
-              />
-            }
-          />
-        </Col>
-        <Col span={24}>
+    <Row gutter={[16, 16]}>
+      <Col span={24}>
+        <Title level={2}>Usuarios ({usersView.length})</Title>
+      </Col>
+      <Col span={24}>
+        <Input
+          label="Búsqueda de usuarios"
+          value={userSearch}
+          onChange={handleUserSearch}
+          name="userSearch"
+          suffix={<FontAwesomeIcon icon={faSearch} />}
+        />
+      </Col>
+      <Col span={24}>
+        <CanAccess permission="users_view_list">
           <UsersTable
             users={usersView}
             onEditUser={onEditUser}
             onRemoveUser={onConfirmRemoveUser}
             onViewAssistances={onViewAssistances}
           />
-        </Col>
-        <Col span={24}>
-          {selectedUser && (
-            <UserAssistancesTable
-              selectedUser={selectedUser}
-              loadingAssistances={loadingAssistances}
-              userAssistances={userAssistances ?? []}
-            />
-          )}
-        </Col>
-      </Row>
-    </Container>
+        </CanAccess>
+      </Col>
+      <Col span={24}>
+        {selectedUser && (
+          <UserAssistancesTable
+            selectedUser={selectedUser}
+            loadingAssistances={loadingAssistances}
+            userAssistances={userAssistances ?? []}
+          />
+        )}
+      </Col>
+    </Row>
   );
 };
-
-const Container = styled.div`
-  ${({ theme }) => css`
-    padding: ${theme.paddings.large};
-    min-height: 100vh;
-  `}
-`;

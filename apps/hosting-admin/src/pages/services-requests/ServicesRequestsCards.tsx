@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Empty } from "antd";
 import { ServiceRequestCard } from "./ServiceRequestCard";
 import { ServicesRequestsTable } from "./ServicesRequestsTable";
+import type { User } from "../../globalTypes.ts";
 
 const RequestsGrid = styled.section`
   display: grid;
@@ -17,6 +18,7 @@ const RequestsGrid = styled.section`
 `;
 
 interface Props {
+  users: User[];
   user: any;
   servicesRequests: any[];
   servicesRequestsLoading: boolean;
@@ -24,6 +26,7 @@ interface Props {
 }
 
 export const ServicesRequestsCards: React.FC<Props> = ({
+  users,
   user,
   servicesRequests,
   servicesRequestsLoading,
@@ -36,10 +39,6 @@ export const ServicesRequestsCards: React.FC<Props> = ({
       ["desc"]
     );
   }, [servicesRequests]);
-
-  // if (servicesRequestsLoading && sortedRequests.length === 0) {
-  //   return <LoadingSkeletonGrid />;
-  // }
 
   if (sortedRequests.length === 0) {
     return (
@@ -56,7 +55,12 @@ export const ServicesRequestsCards: React.FC<Props> = ({
       {viewType === "grid" ? (
         <RequestsGrid>
           {sortedRequests.map((request) => (
-            <ServiceRequestCard key={request.id} user={user} data={request} />
+            <ServiceRequestCard
+              key={request.id}
+              users={users}
+              user={user}
+              data={request}
+            />
           ))}
         </RequestsGrid>
       ) : (

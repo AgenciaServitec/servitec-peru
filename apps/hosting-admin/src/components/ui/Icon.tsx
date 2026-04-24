@@ -13,10 +13,18 @@ interface IconProps extends Omit<FontAwesomeIconProps, "border"> {
   direction?: "column" | "row";
 }
 
-type StyledIconProps = {
-  borderradiusicon?: CSSProperties["borderRadius"];
-  bordericon?: CSSProperties["border"];
-};
+// Usamos prefijo $ para evitar que las props de styled-components bajen al DOM
+interface StyledContainerProps {
+  $margin?: CSSProperties["margin"];
+  $direction: "column" | "row";
+}
+
+interface StyledIconProps {
+  $borderRadius?: CSSProperties["borderRadius"];
+  $border?: CSSProperties["border"];
+  $fontSize?: string | number;
+  $cursor?: string;
+}
 
 export const Icon = ({
   label,
@@ -29,57 +37,63 @@ export const Icon = ({
   border,
   borderRadius,
   direction = "column",
+  ...props // Permitimos pasar el resto de props de FontAwesome
 }: IconProps) => {
   return (
-    <Container margin={margin} direction={direction}>
+    <Container $margin={margin} $direction={direction}>
       <StyledIcon
+        {...props}
         color={color}
         onClick={onClick}
         icon={icon}
-        fontSize={fontSize}
-        cursor={cursor}
-        bordericon={border}
-        borderradiusicon={borderRadius}
+        $fontSize={fontSize}
+        $cursor={cursor}
+        $border={border}
+        $borderRadius={borderRadius}
       />
-      {label && <Text>{label}</Text>}
+      {label && <Text className="icon-label">{label}</Text>}
     </Container>
   );
 };
 
-const Container = styled.div<Pick<IconProps, "margin" | "direction">>`
-  margin: ${({ margin = "0 5px" }) => margin};
-  ${({ direction }) =>
-    direction === "column"
-      ? css`
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-        `
-      : css`
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          justify-content: center;
-        `}
+const Container = styled.div<StyledContainerProps>`
+  ${({ theme, $margin, $direction }) => css`
+    /* Usamos spacing.xs (4px) como fallback si no hay margen definido */
+    margin: ${$margin || `0 ${theme.spacing.xs}`};
+    display: flex;
+    flex-direction: ${$direction};
+    align-items: center;
+    justify-content: center;
+    gap: ${theme.spacing.xs};
+  `}
 `;
 
 const StyledIcon = styled(FontAwesomeIcon)<StyledIconProps>`
-  color: ${({ theme, color }) => color || theme.colors.fontSecondary};
-  font-size: ${({ fontSize = "1.5rem" }) => fontSize};
-  cursor: ${({ cursor }) => cursor};
-  border: ${({ bordericon = "none" }) => bordericon};
-  border-radius: ${({ borderradiusicon = "none" }) => borderradiusicon};
-  transition: color 0.2s ease;
+  ${({ theme, color, $fontSize, $cursor, $border, $borderRadius }) => css`
+    color: ${color || theme.colors.fontSecondary};
+    font-size: ${$fontSize ||
+    "1.25rem"}; /* Ajustado a un tamaño más estándar */
+    cursor: ${$cursor};
+    border: ${$border || "none"};
+    border-radius: ${$borderRadius || "none"};
+    transition: color ${theme.transitions.fast};
 
-  &:hover {
-    color: ${({ theme }) => theme.colors.primary};
-  }
+    &:hover {
+      /* Solo cambia a primary si tiene un onClick (es interactivo) */
+      color: ${$cursor === "pointer"
+        ? theme.colors.primary
+        : color || theme.colors.fontSecondary};
+    }
+  `}
 `;
 
-const Text = styled.div`
-  font-size: 12px;
-  color: ${({ theme }) => theme.colors.fontSecondary};
-  line-height: 1;
-  margin: 5px;
+const Text = styled.span`
+  ${({ theme }) => css`
+    font-size: ${theme.font_sizes.xs}; /* 12px desde el theme */
+    color: ${theme.colors.fontSecondary};
+    font-weight: ${theme.font_weight.medium};
+    line-height: 1.2;
+    text-align: center;
+    user-select: none;
+  `}
 `;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   AuthenticationProvider,
   ConfigsInitializer,
@@ -7,7 +7,7 @@ import {
   VersionProvider,
 } from "./providers";
 import { Router } from "./router";
-import { App as AppAntd, ConfigProvider } from "antd";
+import { App as AntdAppContainer, ConfigProvider } from "antd";
 import {
   getAntDesignTheme,
   getTheme,
@@ -16,37 +16,46 @@ import {
 } from "./styles";
 import { ThemeProvider } from "styled-components";
 import { BrowserRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { PermissionsProvider } from "./providers/PermissionsProvider.tsx";
+
+const queryClient = new QueryClient();
 
 function App() {
   const [mode, setMode] = useState<ThemeMode>("dark");
-  const theme = getTheme(mode);
-  const antdTheme = getAntDesignTheme(mode);
+
+  const theme = useMemo(() => getTheme(mode), [mode]);
+  const antdTheme = useMemo(() => getAntDesignTheme(mode), [mode]);
 
   const toggleTheme = () => {
     setMode((prev) => (prev === "dark" ? "light" : "dark"));
   };
 
   return (
-    <ThemeContextProvider mode={mode} toggleTheme={toggleTheme}>
-      <ThemeProvider theme={theme}>
+    <QueryClientProvider client={queryClient}>
+      <ThemeContextProvider mode={mode} toggleTheme={toggleTheme}>
         <ConfigProvider theme={antdTheme}>
-          <GlobalStyle />
-          <BrowserRouter>
-            <VersionProvider>
-              <ConfigsInitializer>
-                <AuthenticationProvider>
-                  <GlobalDataProvider>
-                    <AppAntd>
-                      <Router />
-                    </AppAntd>
-                  </GlobalDataProvider>
-                </AuthenticationProvider>
-              </ConfigsInitializer>
-            </VersionProvider>
-          </BrowserRouter>
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            <AntdAppContainer>
+              <BrowserRouter>
+                <VersionProvider>
+                  <ConfigsInitializer>
+                    <AuthenticationProvider>
+                      <PermissionsProvider>
+                        <GlobalDataProvider>
+                          <Router />
+                        </GlobalDataProvider>
+                      </PermissionsProvider>
+                    </AuthenticationProvider>
+                  </ConfigsInitializer>
+                </VersionProvider>
+              </BrowserRouter>
+            </AntdAppContainer>
+          </ThemeProvider>
         </ConfigProvider>
-      </ThemeProvider>
-    </ThemeContextProvider>
+      </ThemeContextProvider>
+    </QueryClientProvider>
   );
 }
 
