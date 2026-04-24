@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Spin } from "antd";
 import { QuotationTable } from "./QuotationTable.tsx";
-import { Button, Col, Row, Title, Toolbar } from "../../components";
+import { Button, CanAccess, Col, Row, Title, Toolbar } from "../../components";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import { useDebounce, useFilters } from "../../hooks";
@@ -81,18 +81,23 @@ export function QuotationsIntegrations() {
   return (
     <Row gutter={[16, 16]}>
       <Col span={24}>
-        <Button
-          type="primary"
-          size="large"
-          onClick={() => navigate("/quotations/new")}
-        >
-          <FontAwesomeIcon icon={faPlus} />
-          Agregar Cotización
-        </Button>
-      </Col>
-
-      <Col span={24}>
-        <Title level={2}>Módulo de Cotizaciones</Title>
+        <Row gutter={[16, 16]} justify="space-between" align="middle">
+          <Col>
+            <Title level={2} style={{ margin: 0 }}>
+              Cotizaciones
+            </Title>
+          </Col>
+          <Col>
+            <Button
+              type="primary"
+              icon={<FontAwesomeIcon icon={faPlus} />}
+              size="large"
+              onClick={() => navigate("/quotations/new")}
+            >
+              Agregar Cotización
+            </Button>
+          </Col>
+        </Row>
       </Col>
 
       <Col span={24}>
@@ -109,15 +114,17 @@ export function QuotationsIntegrations() {
       </Col>
 
       <Col span={24}>
-        <Spin
-          spinning={isLoading || isFiltering}
-          tip={isLoading ? "Descargando..." : "Buscando..."}
-        >
-          <QuotationTable
-            quotations={filteredQuotations}
-            quotationsLoading={isLoading}
-          />
-        </Spin>
+        <CanAccess permission="quotes_view_all">
+          <Spin
+            spinning={isLoading || isFiltering}
+            tip={isLoading ? "Descargando..." : "Buscando..."}
+          >
+            <QuotationTable
+              quotations={filteredQuotations}
+              quotationsLoading={isLoading}
+            />
+          </Spin>
+        </CanAccess>
       </Col>
     </Row>
   );

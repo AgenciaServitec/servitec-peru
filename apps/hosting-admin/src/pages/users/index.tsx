@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  CanAccess,
   Col,
   Input,
   modalConfirm,
@@ -152,21 +153,18 @@ export const Users: React.FC = () => {
           value={userSearch}
           onChange={handleUserSearch}
           name="userSearch"
-          suffix={
-            <FontAwesomeIcon
-              icon={faSearch}
-              // style={{ color: ({ theme }) => theme.colors.fontPrimary }}
-            />
-          }
+          suffix={<FontAwesomeIcon icon={faSearch} />}
         />
       </Col>
       <Col span={24}>
-        <UsersTable
-          users={usersView}
-          onEditUser={onEditUser}
-          onRemoveUser={onConfirmRemoveUser}
-          onViewAssistances={onViewAssistances}
-        />
+        <CanAccess permission="users_view_list">
+          <UsersTable
+            users={usersView}
+            onEditUser={onEditUser}
+            onRemoveUser={onConfirmRemoveUser}
+            onViewAssistances={onViewAssistances}
+          />
+        </CanAccess>
       </Col>
       <Col span={24}>
         {selectedUser && (

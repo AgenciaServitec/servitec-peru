@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import type { ReactNode } from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuthentication } from "./AuthenticationProvider.tsx";
 import { fetchRole } from "../firebase/collections/rolesAndPermissons.ts";
@@ -8,22 +8,29 @@ const PermissionsContext = createContext({
   loading: false,
 });
 
-export const PermissionsProvider: FC = ({ children }) => {
+export const PermissionsProvider = ({ children }: { children: ReactNode }) => {
   const { authUser } = useAuthentication();
   const [permissions, setPermissions] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadAllPermissions = async () => {
+      setLoading(true);
       if (authUser) {
-        const role = await fetchRole(authUser?.role);
-        const permissions = role?.permissions || [];
+        try {
+          const roleData = await fetchRole(authUser.role);
+          const rolePerms = roleData?.permissions || [];
 
-        const finalPerms = [
-          ...new Set([...rolePerms, ...(authUser.extraPermissions || [])]),
-        ];
-
-        setPermissions(finalPerms);
+          const finalPerms = [
+            ...new Set([...rolePerms, ...(authUser.extraPermissions || [])]),
+          ];
+          setPermissions(finalPerms);
+        } catch (error) {
+          console.error("Error cargando permisos:", error);
+          setPermissions([]);
+        }
+      } else {
+        setPermissions([]);
       }
       setLoading(false);
     };

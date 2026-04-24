@@ -15,7 +15,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { ServiceDetailsDrawer } from "./ServiceDetailsDrawer.tsx";
-import { IconAction } from "../../components";
+import { CanAccess, IconAction } from "../../components";
 import { theme } from "../../styles";
 import dayjs from "dayjs";
 import { updateServiceRequest } from "../../firebase/collections";
@@ -269,21 +269,25 @@ export const ServiceRequestCard: React.FC<any> = ({ user, data }) => {
             </Space>
 
             <Space size={4}>
-              <IconAction
-                tooltipTitle="Vista rápida"
-                onClick={() => setIsDrawerOpen(true)}
-                size={30}
-                icon={faEye}
-                iconStyles={{ color: () => theme.colors.info }}
-              />
-              <IconAction
-                tooltipTitle="Nueva Página"
-                // onClick={onOpenPage}
-                onClick={() => ""}
-                size={30}
-                icon={faArrowUpRightFromSquare}
-                iconStyles={{ color: () => theme.colors.error }}
-              />
+              <CanAccess permission="service_quick_view">
+                <IconAction
+                  tooltipTitle="Vista rápida"
+                  onClick={() => setIsDrawerOpen(true)}
+                  size={30}
+                  icon={faEye}
+                  iconStyles={{ color: () => theme.colors.info }}
+                />
+              </CanAccess>
+              <CanAccess permission="service_view_details">
+                <IconAction
+                  tooltipTitle="Nueva Página"
+                  // onClick={onOpenPage}
+                  onClick={() => ""}
+                  size={30}
+                  icon={faArrowUpRightFromSquare}
+                  iconStyles={{ color: () => theme.colors.error }}
+                />
+              </CanAccess>
               <IconAction
                 tooltipTitle="WhatsApp"
                 onClick={() => window.open(waLink, "_blank")}
@@ -333,57 +337,61 @@ export const ServiceRequestCard: React.FC<any> = ({ user, data }) => {
           </div>
 
           <Space direction="vertical" style={{ width: "100%" }} size={10}>
-            {!data?.technicalId && (
-              <Select
-                placeholder="Asignar técnico encargado"
-                style={{ width: "100%" }}
-                size="middle"
-                onChange={(val) => setSelectedTech(val)}
-                options={TECHNICIANS.map((t) => ({
-                  label: t.label,
-                  value: t.value,
-                }))}
-              />
-            )}
-            {!data?.technicalId ? (
-              <Button
-                type="primary"
-                block
-                danger={!!selectedTech}
-                icon={
-                  <FontAwesomeIcon
-                    icon={selectedTech ? faLaptopMedical : faChevronRight}
-                  />
-                }
-                style={{
-                  height: 38,
-                  fontWeight: 700,
-                  borderRadius: "6px",
-                  backgroundColor: selectedTech ? "#52c41a" : "",
-                  borderColor: selectedTech ? "#52c41a" : "",
-                }}
-                onClick={() => onServiceRequestAccepted(data)}
-                loading={loading}
-              >
-                {selectedTech
-                  ? `ASIGNAR A ${techName?.split(" ")[0].toUpperCase()}`
-                  : "ACEPTAR SOLICITUD"}
-              </Button>
-            ) : (
-              <Button
-                type="primary"
-                block
-                icon={
-                  <FontAwesomeIcon
-                    icon={selectedTech ? faLaptopMedical : faChevronRight}
-                  />
-                }
-                style={{ height: 38, fontWeight: 700, borderRadius: "6px" }}
-                onClick={() => onRequestQuotation(data)}
-              >
-                COTIZAR
-              </Button>
-            )}
+            <CanAccess permission="service_assign_tech">
+              {!data?.technicalId && (
+                <Select
+                  placeholder="Asignar técnico encargado"
+                  style={{ width: "100%" }}
+                  size="middle"
+                  onChange={(val) => setSelectedTech(val)}
+                  options={TECHNICIANS.map((t) => ({
+                    label: t.label,
+                    value: t.value,
+                  }))}
+                />
+              )}
+            </CanAccess>
+            <CanAccess permission="service_accept">
+              {!data?.technicalId ? (
+                <Button
+                  type="primary"
+                  block
+                  danger={!!selectedTech}
+                  icon={
+                    <FontAwesomeIcon
+                      icon={selectedTech ? faLaptopMedical : faChevronRight}
+                    />
+                  }
+                  style={{
+                    height: 38,
+                    fontWeight: 700,
+                    borderRadius: "6px",
+                    backgroundColor: selectedTech ? "#52c41a" : "",
+                    borderColor: selectedTech ? "#52c41a" : "",
+                  }}
+                  onClick={() => onServiceRequestAccepted(data)}
+                  loading={loading}
+                >
+                  {selectedTech
+                    ? `ASIGNAR A ${techName?.split(" ")[0].toUpperCase()}`
+                    : "ACEPTAR SOLICITUD"}
+                </Button>
+              ) : (
+                <Button
+                  type="primary"
+                  block
+                  icon={
+                    <FontAwesomeIcon
+                      icon={selectedTech ? faLaptopMedical : faChevronRight}
+                    />
+                  }
+                  style={{ height: 38, fontWeight: 700, borderRadius: "6px" }}
+                  onClick={() => onRequestQuotation(data)}
+                >
+                  COTIZAR
+                </Button>
+              )}
+            </CanAccess>
           </Space>
 
           <div

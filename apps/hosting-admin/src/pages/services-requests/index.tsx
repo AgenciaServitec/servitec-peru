@@ -1,6 +1,6 @@
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { servicesRequestsRef } from "../../firebase/collections";
-import { Col, Row, Select, Toolbar } from "../../components";
+import { Col, Row, Select, Title, Toolbar } from "../../components";
 import { ServicesRequestsCards } from "./ServicesRequestsCards.tsx";
 import { ModalProvider, useAuthentication } from "../../providers";
 import { useMemo, useState } from "react";
@@ -101,6 +101,11 @@ const ServicesRequests: React.FC<ServicesRequestsProps> = ({
 
   return (
     <Row gutter={[16, 16]}>
+      <Col span={24}>
+        <Title level={2} style={{ margin: 0 }}>
+          Solicitudes de Servicio
+        </Title>
+      </Col>
       <Col span={24}>
         <Toolbar
           totalCount={filteredData.length}

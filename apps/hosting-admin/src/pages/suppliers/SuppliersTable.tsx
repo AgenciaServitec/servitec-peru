@@ -1,13 +1,13 @@
 import React, { useCallback, useMemo } from "react";
 import { Space, Tag } from "antd";
-import { IconAction, Table } from "../../components";
+import { CanAccess, IconAction, Table } from "../../components";
 import { useNavigate } from "react-router-dom";
 import {
   faEdit,
-  faTrash,
+  faMapMarkerAlt,
   faMobileScreen,
   faPhone,
-  faMapMarkerAlt,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { theme } from "../../styles";
@@ -212,17 +212,21 @@ export const SuppliersTable: React.FC<SuppliersTableProps> = ({
         fixed: "right",
         render: (_, supplier) => (
           <Space size="small">
-            <IconAction
-              tooltipTitle="Editar"
-              icon={faEdit}
-              onClick={() => navigateTo(`/suppliers/${supplier.id}`)}
-            />
-            <IconAction
-              tooltipTitle="Eliminar Proveedor"
-              icon={faTrash}
-              iconStyles={{ color: () => theme.colors.error }}
-              onClick={() => {}}
-            />
+            <CanAccess permission="suppliers_edit">
+              <IconAction
+                tooltipTitle="Editar"
+                icon={faEdit}
+                onClick={() => navigateTo(`/suppliers/${supplier.id}`)}
+              />
+            </CanAccess>
+            <CanAccess permission="suppliers_delete">
+              <IconAction
+                tooltipTitle="Eliminar Proveedor"
+                icon={faTrash}
+                iconStyles={{ color: () => theme.colors.error }}
+                onClick={() => {}}
+              />
+            </CanAccess>
           </Space>
         ),
       },

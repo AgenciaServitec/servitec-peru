@@ -1,5 +1,5 @@
 import { Space } from "antd";
-import { IconAction, Table } from "../../components";
+import { CanAccess, IconAction, Table } from "../../components";
 import { useNavigate } from "react-router-dom";
 import {
   faEdit,
@@ -146,29 +146,37 @@ export const QuotationTable = ({ quotations, quotationsLoading }) => {
         fixed: "right",
         render: (_, quotation) => (
           <Space size="small">
-            <IconAction
-              tooltipTitle="Editar"
-              icon={faEdit}
-              onClick={() => navigateTo(`/quotations/${quotation.id}`)}
-            />
-            <IconAction
-              tooltipTitle="PDF"
-              icon={faFilePdf}
-              iconStyles={{ color: () => theme.colors.error }}
-              onClick={() => navigateTo(`${quotation.id}/sheets`)}
-            />
-            <IconAction
-              tooltipTitle="Enviar"
-              icon={faPaperPlane}
-              iconStyles={{ color: () => theme.colors.info }}
-              onClick={() => navigateTo(`/quotations/${quotation.id}`)}
-            />
-            <IconAction
-              tooltipTitle="Eliminar"
-              icon={faTrash}
-              iconStyles={{ color: () => theme.colors.error }}
-              onClick={() => navigateTo(`/quotations/${quotation.id}`)}
-            />
+            <CanAccess permission="quotes_edit">
+              <IconAction
+                tooltipTitle="Editar"
+                icon={faEdit}
+                onClick={() => navigateTo(`/quotations/${quotation.id}`)}
+              />
+            </CanAccess>
+            <CanAccess permission="quotes_view_pdf">
+              <IconAction
+                tooltipTitle="PDF"
+                icon={faFilePdf}
+                iconStyles={{ color: () => theme.colors.error }}
+                onClick={() => navigateTo(`${quotation.id}/sheets`)}
+              />
+            </CanAccess>
+            <CanAccess permission="quotes_send_email">
+              <IconAction
+                tooltipTitle="Enviar por correo"
+                icon={faPaperPlane}
+                iconStyles={{ color: () => theme.colors.info }}
+                onClick={() => navigateTo(`/quotations/${quotation.id}`)}
+              />
+            </CanAccess>
+            <CanAccess permission="quotes_delete">
+              <IconAction
+                tooltipTitle="Eliminar"
+                icon={faTrash}
+                iconStyles={{ color: () => theme.colors.error }}
+                onClick={() => navigateTo(`/quotations/${quotation.id}`)}
+              />
+            </CanAccess>
           </Space>
         ),
       },

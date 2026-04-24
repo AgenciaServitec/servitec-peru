@@ -171,6 +171,8 @@ const Quotation = ({
   getDataByDniOrRuc,
   getDataByDniOrRucLoading,
 }) => {
+  const [isData, setIsData] = useState(true);
+
   const schema = yup.object({
     client: yup.object({
       documentType: yup.string(),
@@ -245,7 +247,7 @@ const Quotation = ({
       (async () => {
         try {
           const data = await getDataByDniOrRuc(docNumber);
-          if (!data) return;
+          if (!data) setIsData(false);
 
           if (docType === "dni") {
             setValue("client.firstName", capitalize(data.firstName || ""));
@@ -299,6 +301,7 @@ const Quotation = ({
       quotationDetails: quotation?.quotationDetails || [],
     });
   };
+
   useEffect(() => {
     resetForm();
   }, [quotation]);
@@ -362,7 +365,7 @@ const Quotation = ({
                             label="Razón Social"
                             name={name}
                             value={value}
-                            disabled={true}
+                            disabled={isData}
                             onChange={onChange}
                             error={error(name)}
                             required={required(name)}
@@ -382,7 +385,7 @@ const Quotation = ({
                                 label="Nombres"
                                 name={name}
                                 value={value}
-                                disabled={true}
+                                disabled={isData}
                                 onChange={onChange}
                                 error={error(name)}
                                 required={required(name)}
@@ -399,7 +402,7 @@ const Quotation = ({
                                 label="Apellido Paterno"
                                 name={name}
                                 value={value}
-                                disabled={true}
+                                disabled={isData}
                                 onChange={onChange}
                                 error={error(name)}
                                 required={required(name)}
@@ -416,7 +419,7 @@ const Quotation = ({
                                 label="Apellido Materno"
                                 name={name}
                                 value={value}
-                                disabled={true}
+                                disabled={isData}
                                 onChange={onChange}
                                 error={error(name)}
                                 required={required(name)}

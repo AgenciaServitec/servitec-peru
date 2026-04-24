@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import {
   Button,
+  CanAccess,
   Col,
   Form,
   Row,
@@ -15,7 +16,6 @@ import {
   faBuilding,
   faCameraRetro,
   faFileExcel,
-  faPlus,
   faSignInAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
@@ -217,14 +217,7 @@ function AssistancesList({
     <>
       <Row gutter={[16, 16]}>
         <Col span={24}>
-          <Button onClick={onSaveAssistances} type="primary" size="large">
-            <FontAwesomeIcon icon={faPlus} />
-            Agregar Asistencia
-          </Button>
-        </Col>
-
-        <Col span={24}>
-          <Title level={2}>Módulo de Asistencias</Title>
+          <Title level={2}>Asistencias</Title>
         </Col>
 
         <Col span={24}>
@@ -269,28 +262,32 @@ function AssistancesList({
         </Col>
 
         <Col span={24} md={12}>
-          <Button
-            onClick={() => onNavigateGoTo("/assistances/assistance")}
-            type="primary"
-            style={{
-              backgroundColor: theme.colors.info,
-            }}
-            size="large"
-            block
-          >
-            <FontAwesomeIcon icon={faSignInAlt} />
-            Marcar mi asistencia
-          </Button>
+          <CanAccess permission="assist_mark_self">
+            <Button
+              onClick={() => onNavigateGoTo("/assistances/assistance")}
+              type="primary"
+              style={{
+                backgroundColor: theme.colors.info,
+              }}
+              size="large"
+              block
+            >
+              <FontAwesomeIcon icon={faSignInAlt} />
+              Marcar mi asistencia
+            </Button>
+          </CanAccess>
         </Col>
         <Col span={24} md={12}>
-          <Button
-            onClick={() => onNavigateGoTo("/assistances/register")}
-            size="large"
-            block
-          >
-            <FontAwesomeIcon icon={faCameraRetro} />
-            Registrar mi rostro
-          </Button>
+          <CanAccess permission="assist_register_face">
+            <Button
+              onClick={() => onNavigateGoTo("/assistances/register")}
+              size="large"
+              block
+            >
+              <FontAwesomeIcon icon={faCameraRetro} />
+              Registrar mi rostro
+            </Button>
+          </CanAccess>
         </Col>
         <Col span={24}>
           <Row justify="end" gutter={[16, 16]}>
@@ -309,17 +306,19 @@ function AssistancesList({
           </Row>
         </Col>
         <Col span={24}>
-          <Spin
-            spinning={assistancesLoading || isFiltering}
-            tip="Procesando asistencias..."
-          >
-            <AssistancesTable
-              assistances={filteredAssistances}
-              onShowSubmitOrderLunch={onShowSubmitOrderLunch}
-              assistancesLoading={assistancesLoading}
-              canApproveLunch={canApproveLunch(user?.id)}
-            />
-          </Spin>
+          <CanAccess permission="assist_view_all">
+            <Spin
+              spinning={assistancesLoading || isFiltering}
+              tip="Procesando asistencias..."
+            >
+              <AssistancesTable
+                assistances={filteredAssistances}
+                onShowSubmitOrderLunch={onShowSubmitOrderLunch}
+                assistancesLoading={assistancesLoading}
+                canApproveLunch={canApproveLunch(user?.id)}
+              />
+            </Spin>
+          </CanAccess>
         </Col>
       </Row>
 
