@@ -135,10 +135,10 @@ export function Router() {
           }
         />
         <Route
-          path="roles-and-permissions/:rolAndPermissionId"
+          path="roles-and-permissions/:roleAndPermissionId"
           element={
             <AdminLayout>
-              <A.RoleEditorPage />
+              <A.RoleIntegration />
             </AdminLayout>
           }
         />

@@ -23,15 +23,9 @@ import { useDefaultFirestoreProps } from "../../hooks";
 import { SERVICE_REQUEST_STATUS } from "../../data-list/serviceRequestStatus.ts";
 import { PRIORITY_LEVELS } from "../../data-list/serviceRequestPriorityLevels.ts";
 import { useNavigate } from "react-router-dom";
+import { capitalize } from "lodash";
 
 const { Text, Title, Paragraph } = Typography;
-
-const TECHNICIANS = [
-  { label: "Carlos Mendoza", value: "T001", status: "Disponible" },
-  { label: "Ricardo Palma", value: "T002", status: "En servicio" },
-  { label: "Sofía Loli", value: "T003", status: "Disponible" },
-  { label: "Marcos Ruiz", value: "T004", status: "Fuera de turno" },
-];
 
 const MapContainer = styled.div<{ $bgImage: string }>`
   height: 115px;
@@ -82,7 +76,7 @@ const DataItem = ({ label, value, icon }: any) => (
   </Space>
 );
 
-export const ServiceRequestCard: React.FC<any> = ({ user, data }) => {
+export const ServiceRequestCard: React.FC<any> = ({ users, user, data }) => {
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedTech, setSelectedTech] = useState<string | null>(null);
@@ -90,10 +84,15 @@ export const ServiceRequestCard: React.FC<any> = ({ user, data }) => {
 
   const { assignUpdateProps } = useDefaultFirestoreProps();
 
+  const technicians = users?.map((user) => ({
+    label: `${capitalize(user.firstName)} ${capitalize(user.paternalSurname)} ${capitalize(user.maternalSurname)}`,
+    value: user.id,
+  }));
+
   const isHigh = data.priority === "high";
   const waLink = `https://wa.me/${data.client?.phone.prefix.replace("+", "")}${data.client?.phone.number}`;
   const mailto = `mailto:${data.client?.email}`;
-  const techName = TECHNICIANS.find((t) => t.value === selectedTech)?.label;
+  const techName = technicians.find((t) => t.value === selectedTech)?.label;
 
   const formattedTime = data.createAt
     ? dayjs(data.createAt.toDate()).format("hh:mm A DD/MM/YYYY")
@@ -344,10 +343,7 @@ export const ServiceRequestCard: React.FC<any> = ({ user, data }) => {
                   style={{ width: "100%" }}
                   size="middle"
                   onChange={(val) => setSelectedTech(val)}
-                  options={TECHNICIANS.map((t) => ({
-                    label: t.label,
-                    value: t.value,
-                  }))}
+                  options={technicians}
                 />
               )}
             </CanAccess>

@@ -1,6 +1,6 @@
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { servicesRequestsRef } from "../../firebase/collections";
-import { Col, Row, Select, Title, Toolbar } from "../../components";
+import { servicesRequestsRef, usersRef } from "../../firebase/collections";
+import { CanAccess, Col, Row, Select, Title, Toolbar } from "../../components";
 import { ServicesRequestsCards } from "./ServicesRequestsCards.tsx";
 import { ModalProvider, useAuthentication } from "../../providers";
 import { useMemo, useState } from "react";
@@ -13,6 +13,7 @@ import {
   faMapMarkerAlt,
   faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
+import type { User } from "../../globalTypes.ts";
 
 export const ServicesRequestsIntegrations = () => {
   const { authUser } = useAuthentication();
@@ -25,12 +26,15 @@ export const ServicesRequestsIntegrations = () => {
 
   const debouncedSearch = useDebounce(filters.search, 500);
 
-  const [servicesRequests, servicesRequestsLoading, servicesRequestsError] =
-    useCollectionData(
-      servicesRequestsRef
-        .where("isDeleted", "==", false)
-        .orderBy("createAt", "desc")
-    );
+  const [users, usersLoading] = useCollectionData<User>(
+    usersRef.where("isDeleted", "==", false)
+  );
+
+  const [servicesRequests, servicesRequestsLoading] = useCollectionData(
+    servicesRequestsRef
+      .where("isDeleted", "==", false)
+      .orderBy("createAt", "desc")
+  );
 
   const filteredData = useMemo(() => {
     if (!servicesRequests) return [];
@@ -63,6 +67,7 @@ export const ServicesRequestsIntegrations = () => {
   return (
     <ModalProvider>
       <ServicesRequests
+        users={users}
         user={authUser}
         filters={filters}
         filteredData={filteredData}
@@ -76,6 +81,7 @@ export const ServicesRequestsIntegrations = () => {
 };
 
 interface ServicesRequestsProps {
+  users: User[] | undefined;
   user: any;
   filters: any;
   filteredData: any[];
@@ -86,6 +92,7 @@ interface ServicesRequestsProps {
 }
 
 const ServicesRequests: React.FC<ServicesRequestsProps> = ({
+  users,
   user,
   filters,
   filteredData,
@@ -100,93 +107,98 @@ const ServicesRequests: React.FC<ServicesRequestsProps> = ({
   const onViewChange = (val) => setViewType(val);
 
   return (
-    <Row gutter={[16, 16]}>
-      <Col span={24}>
-        <Title level={2} style={{ margin: 0 }}>
-          Solicitudes de Servicio
-        </Title>
-      </Col>
-      <Col span={24}>
-        <Toolbar
-          totalCount={filteredData.length}
-          searchText={filters.search}
-          onSearchChange={(val) => handleFilterChange("search", val)}
-          dateRange={filters.dateRange}
-          onDateRangeChange={(dates) => handleFilterChange("dateRange", dates)}
-          viewTypeValue={viewType}
-          onViewChange={setViewType}
-          onClear={resetFilters}
-          extraFilters={
-            <>
-              <Select
-                placeholder="Distrito"
-                value={filters.district}
-                prefix={<FontAwesomeIcon icon={faMapMarkerAlt} />}
-                onChange={(v) => handleFilterChange("district", v || "all")}
-                size="large"
-                allowClear
-                options={[
-                  { value: "all", label: "Todos los distritos" },
-                  { value: "Chorrillos", label: "Chorrillos" },
-                  { value: "Surco", label: "Santiago de Surco" },
-                  { value: "Miraflores", label: "Miraflores" },
-                ]}
-              />
-              <Select
-                placeholder="Prioridad"
-                value={filters.priority}
-                prefix={<FontAwesomeIcon icon={faTriangleExclamation} />}
-                onChange={(v) => handleFilterChange("priority", v || "all")}
-                size="large"
-                allowClear
-                options={[
-                  { value: "all", label: "Todas las prioridades" },
-                  { value: "low", label: "Baja" },
-                  { value: "normal", label: "Normal" },
-                  { value: "high", label: "Alta" },
-                  { value: "urgent", label: "Urgente" },
-                ]}
-              />
-            </>
-          }
-          extraTags={
-            <>
-              {filters.district !== "all" && (
-                <Tag
-                  closable
-                  onClose={() => handleFilterChange("district", "all")}
-                  color="blue"
-                >
-                  {filters.district}
-                </Tag>
-              )}
-              {filters.priority !== "all" && (
-                <Tag
-                  closable
-                  onClose={() => handleFilterChange("priority", "all")}
-                  color="orange"
-                >
-                  Prioridad: {filters.priority.toUpperCase()}
-                </Tag>
-              )}
-            </>
-          }
-        />
-      </Col>
-
-      <Col span={24}>
-        <Spin
-          spinning={servicesRequestsLoading || isSearching}
-          tip="Sincronizando solicitudes..."
-        >
-          <ServicesRequestsCards
-            viewType={viewType}
-            user={user}
-            servicesRequests={filteredData}
-            servicesRequestsLoading={servicesRequestsLoading}
+    <CanAccess permission="service_view_all">
+      <Row gutter={[16, 16]}>
+        <Col span={24}>
+          <Title level={2} style={{ margin: 0 }}>
+            Solicitudes de Servicio
+          </Title>
+        </Col>
+        <Col span={24}>
+          <Toolbar
+            totalCount={filteredData.length}
+            searchText={filters.search}
+            onSearchChange={(val) => handleFilterChange("search", val)}
+            dateRange={filters.dateRange}
+            onDateRangeChange={(dates) =>
+              handleFilterChange("dateRange", dates)
+            }
+            viewTypeValue={viewType}
+            onViewChange={setViewType}
+            onClear={resetFilters}
+            extraFilters={
+              <>
+                <Select
+                  placeholder="Distrito"
+                  value={filters.district}
+                  prefix={<FontAwesomeIcon icon={faMapMarkerAlt} />}
+                  onChange={(v) => handleFilterChange("district", v || "all")}
+                  size="large"
+                  allowClear
+                  options={[
+                    { value: "all", label: "Todos los distritos" },
+                    { value: "Chorrillos", label: "Chorrillos" },
+                    { value: "Surco", label: "Santiago de Surco" },
+                    { value: "Miraflores", label: "Miraflores" },
+                  ]}
+                />
+                <Select
+                  placeholder="Prioridad"
+                  value={filters.priority}
+                  prefix={<FontAwesomeIcon icon={faTriangleExclamation} />}
+                  onChange={(v) => handleFilterChange("priority", v || "all")}
+                  size="large"
+                  allowClear
+                  options={[
+                    { value: "all", label: "Todas las prioridades" },
+                    { value: "low", label: "Baja" },
+                    { value: "normal", label: "Normal" },
+                    { value: "high", label: "Alta" },
+                    { value: "urgent", label: "Urgente" },
+                  ]}
+                />
+              </>
+            }
+            extraTags={
+              <>
+                {filters.district !== "all" && (
+                  <Tag
+                    closable
+                    onClose={() => handleFilterChange("district", "all")}
+                    color="blue"
+                  >
+                    {filters.district}
+                  </Tag>
+                )}
+                {filters.priority !== "all" && (
+                  <Tag
+                    closable
+                    onClose={() => handleFilterChange("priority", "all")}
+                    color="orange"
+                  >
+                    Prioridad: {filters.priority.toUpperCase()}
+                  </Tag>
+                )}
+              </>
+            }
           />
-        </Spin>
-      </Col>
-    </Row>
+        </Col>
+
+        <Col span={24}>
+          <Spin
+            spinning={servicesRequestsLoading || isSearching}
+            tip="Sincronizando solicitudes..."
+          >
+            <ServicesRequestsCards
+              users={users || []}
+              viewType={viewType}
+              user={user}
+              servicesRequests={filteredData}
+              servicesRequestsLoading={servicesRequestsLoading}
+            />
+          </Spin>
+        </Col>
+      </Row>
+    </CanAccess>
   );
 };

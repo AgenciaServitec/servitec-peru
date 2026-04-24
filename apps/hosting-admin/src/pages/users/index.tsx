@@ -3,9 +3,9 @@ import {
   CanAccess,
   Col,
   Input,
-  modalConfirm,
   Row,
   Title,
+  useModalConfirm,
   useNotification,
 } from "../../components";
 import { useAuthentication, useGlobalData } from "../../providers";
@@ -65,6 +65,8 @@ export const Users: React.FC = () => {
   const { authUser } = useAuthentication();
   const { users } = useGlobalData();
   const { patchUser, patchUserResponse } = useApiUserPatch();
+
+  const { modalConfirm } = useModalConfirm();
 
   const { notification } = useNotification();
 

@@ -6,6 +6,7 @@ import {
   Input,
   Legend,
   Row,
+  Select,
   Tabs,
   Title,
   useNotification,
@@ -25,6 +26,8 @@ import {
   useApiUserPut,
 } from "../../../api";
 import { PERMISSION_LIST } from "../../../data-list/permissions.ts";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import { rolesRef } from "../../../firebase/collections/rolesAndPermissons.ts";
 
 export const UserIntegration = () => {
   const navigate = useNavigate();
@@ -39,6 +42,8 @@ export const UserIntegration = () => {
   const isNew = userId === "new";
   const onGoBack = () => navigate(-1);
 
+  const [roles] = useCollectionData(rolesRef.where("isDeleted", "==", false));
+
   useEffect(() => {
     (async () => {
       const _user = isNew ? {} : users.find((user) => user.id === userId);
@@ -51,6 +56,7 @@ export const UserIntegration = () => {
 
   const mapUser = (formData) => ({
     ...(user?.id && { id: user?.id }),
+    role: formData.role,
     firstName: formData.firstName.toLowerCase(),
     paternalSurname: formData.paternalSurname.toLowerCase(),
     maternalSurname: formData.maternalSurname.toLowerCase(),
@@ -94,6 +100,7 @@ export const UserIntegration = () => {
 
   return (
     <User
+      roles={roles}
       user={user}
       onGoBack={onGoBack}
       onSubmit={onSubmit}
@@ -102,10 +109,11 @@ export const UserIntegration = () => {
   );
 };
 
-const User = ({ user, onGoBack, onSubmit, loading }) => {
+const User = ({ roles, user, onGoBack, onSubmit, loading }) => {
   const [activeTab, setActiveTab] = useState("1");
 
   const schema = yup.object({
+    role: yup.string().required(),
     firstName: yup.string().required(),
     paternalSurname: yup.string().required(),
     maternalSurname: yup.string().required(),
@@ -122,8 +130,8 @@ const User = ({ user, onGoBack, onSubmit, loading }) => {
       .max(9)
       .required()
       .transform((value) => (value === null ? "" : value)),
-    payPerMinute: yup.number().required(),
-    accountNumber: yup.string().required(),
+    payPerMinute: yup.number(),
+    accountNumber: yup.string(),
     extraPermissions: yup.array().of(yup.string()).default([]),
   });
 
@@ -148,6 +156,7 @@ const User = ({ user, onGoBack, onSubmit, loading }) => {
 
   const resetForm = () => {
     reset({
+      role: user?.role || "",
       firstName: user?.firstName || "",
       paternalSurname: user?.paternalSurname || "",
       maternalSurname: user?.maternalSurname || "",
@@ -198,6 +207,26 @@ const User = ({ user, onGoBack, onSubmit, loading }) => {
           <Tabs activeKey={activeTab} onChange={setActiveTab}>
             <Tabs.TabPane tab="Información Personal" key="1">
               <Row gutter={[16, 16]}>
+                <Col span={24}>
+                  <Controller
+                    name="role"
+                    control={control}
+                    render={({ field: { onChange, value, name } }) => (
+                      <Select
+                        label="Rol"
+                        onChange={onChange}
+                        value={value}
+                        options={roles?.map((role) => ({
+                          label: role.name,
+                          value: role.id,
+                        }))}
+                        name={name}
+                        error={error(name)}
+                        required={required(name)}
+                      />
+                    )}
+                  />
+                </Col>
                 <Col span={24}>
                   <Controller
                     name="dni"

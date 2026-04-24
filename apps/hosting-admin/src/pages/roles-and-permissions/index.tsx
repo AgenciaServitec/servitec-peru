@@ -8,20 +8,34 @@ import {
   Table,
   Tag,
   Typography,
+  useModalConfirm,
 } from "../../components";
 import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { theme } from "../../styles";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { rolesRef } from "../../firebase/collections/rolesAndPermissons.ts";
+import {
+  deleteRole,
+  rolesRef,
+} from "../../firebase/collections/rolesAndPermissons.ts";
 import { useNavigate } from "react-router-dom";
 
 const { Title } = Typography;
 
 export const RolesList: FC = () => {
   const navigate = useNavigate();
+  const { modalConfirm } = useModalConfirm();
 
   const [roles] = useCollectionData(rolesRef.where("isDeleted", "==", false));
+
+  const onConfirmRemoveRole = (role): void => {
+    modalConfirm({
+      content: "El rol se eliminará",
+      onOk: async () => {
+        await deleteRole(role.id, role);
+      },
+    });
+  };
 
   const columns = [
     {
@@ -63,12 +77,16 @@ export const RolesList: FC = () => {
       title: "Acciones",
       key: "action",
       align: "right" as const,
-      render: () => (
+      render: (role) => (
         <Space size="middle">
-          <IconAction tooltipTitle="Editar" onClick={() => ""} icon={faEdit} />
+          <IconAction
+            tooltipTitle="Editar"
+            onClick={() => navigate(`/roles-and-permissions/${role.id}`)}
+            icon={faEdit}
+          />
           <IconAction
             tooltipTitle="Eliminar"
-            onClick={() => ""}
+            onClick={() => onConfirmRemoveRole(role)}
             icon={faTrash}
             iconStyles={{ color: () => theme.colors.error }}
           />

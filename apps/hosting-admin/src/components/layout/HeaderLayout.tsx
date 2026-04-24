@@ -11,9 +11,10 @@ import { useAuthentication } from "../../providers";
 import { Dropdown } from "../ui";
 import { PhotoNoFound } from "../../images";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { capitalize } from "lodash";
 import { userFullName } from "../../utils";
+import { fetchRoles } from "../../firebase/collections/rolesAndPermissons.ts";
 
 const { Header } = Layout;
 
@@ -28,6 +29,7 @@ export const HeaderLayout = ({
 }: HeaderLayoutProps) => {
   const { authUser, logout } = useAuthentication();
   const [openDropdown, setOpenDropdown] = useState(false);
+  const [roles, setRoles] = useState(false);
 
   const menuItems = [
     {
@@ -55,6 +57,16 @@ export const HeaderLayout = ({
     },
   ];
 
+  useEffect(() => {
+    (async () => {
+      const _roles = await fetchRoles();
+      setRoles(_roles);
+    })();
+  }, []);
+
+  const findRole = (myRole) =>
+    (roles || [])?.find((role) => role.id === myRole);
+
   return (
     <HeaderContainer>
       <div className="left-item">
@@ -64,6 +76,9 @@ export const HeaderLayout = ({
           >
             <FontAwesomeIcon icon={faBarsStaggered} className="icon-item" />
           </MenuToggleButton>
+          <Link to="/home">
+            <img src="/logo-servitec.png" alt="" className="logo" />
+          </Link>
         </Space>
       </div>
       <div className="user-items">
@@ -77,8 +92,7 @@ export const HeaderLayout = ({
           <UserProfile>
             <div className="user-info">
               <h4>{capitalize(userFullName(authUser) || "")}</h4>
-              <p>Técnico Senior</p>{" "}
-              {/* Ejemplo de subtitulo para rellenar el diseño */}
+              <p>{capitalize(findRole(authUser?.role)?.name)}</p>{" "}
             </div>
             {authUser && (
               <UserAvatar
@@ -116,6 +130,10 @@ const HeaderContainer = styled(Header)`
       display: flex;
       align-items: center;
       gap: ${theme.spacing.sm};
+    }
+
+    .logo {
+      height: 23px;
     }
   `}
 `;

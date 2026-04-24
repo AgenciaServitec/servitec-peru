@@ -1,4 +1,4 @@
-import { Col, Row, Title } from "../../components";
+import { CanAccess, Col, Row, Title } from "../../components";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import {
@@ -8,61 +8,54 @@ import {
   faUsers,
   faWrench,
 } from "@fortawesome/free-solid-svg-icons";
-import { useAuthentication } from "../../providers";
 import { AssistanceMonitor } from "../../components/layout/AssistanceMonitor.tsx";
 import ShortcutCard from "./ShortcutCard.tsx";
 
 export function Home() {
   const navigate = useNavigate();
-  const { authUser } = useAuthentication(); // Asumiendo que obtienes el theme mode aquí
 
-  // Sugerencia: Mapear los colores a tus tokens del theme
   const shortcuts = [
+    {
+      title: "Usuarios",
+      icon: faUsers,
+      path: "/users",
+      newPath: "/users/new",
+      color: "#F43F5E",
+      permission: "users_view_list",
+    },
     {
       title: "Cotizaciones",
       icon: faFileLines,
       path: "/quotations",
       newPath: "/quotations/new",
-      color: "#FFC107", // Primary
+      color: "#FFC107",
+      permission: "quotes_view_all",
     },
     {
       title: "Solicitud de Servicios",
       icon: faWrench,
       path: "/services-requests",
-      newPath: "/services-requests/new",
-      color: "#0EA5E9", // Info
+      newPath: "",
+      color: "#0EA5E9",
+      permission: "service_view_all",
     },
     {
       title: "Asistencias",
       icon: faClipboardUser,
       path: "/assistances",
       newPath: "/assistances/assistance",
-      color: "#10B981", // Success
+      color: "#10B981",
+      permission: "assist_view_all",
     },
     {
       title: "Proveedores",
       icon: faBoxesPacking,
       path: "/suppliers",
       newPath: "/suppliers/new",
-      color: "#8B5CF6", // Un púrpura que combine con tu dark mode
+      color: "#8B5CF6",
+      permission: "suppliers_view_all",
     },
   ];
-
-  const isAdmin = [
-    "XfQXaMRZD7Gro2kPaIvU",
-    "fRiTn5k6TP5TJvpXZeLS",
-    "woc2g3M8EO4RYtXFap6n",
-  ].includes(authUser?.id);
-
-  if (isAdmin) {
-    shortcuts.push({
-      title: "Usuarios",
-      icon: faUsers,
-      path: "/users",
-      newPath: "/users/new",
-      color: "#F43F5E", // Error / Red
-    });
-  }
 
   return (
     <Row gutter={[16, 32]}>
@@ -79,11 +72,13 @@ export function Home() {
         <Row gutter={[16, 16]}>
           {shortcuts.map((item, index) => (
             <Col xs={24} sm={12} lg={8} xl={6} key={index}>
-              <ShortcutCard
-                item={item}
-                onList={() => navigate(item.path)}
-                onCreate={() => navigate(item.newPath)}
-              />
+              <CanAccess permission={item.permission}>
+                <ShortcutCard
+                  item={item}
+                  onList={() => navigate(item.path)}
+                  onCreate={() => navigate(item.newPath)}
+                />
+              </CanAccess>
             </Col>
           ))}
         </Row>
