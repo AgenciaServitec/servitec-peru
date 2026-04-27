@@ -127,11 +127,11 @@ export function QuotationIntegration() {
       solutionAndRecommendationsText: convertToText(
         formData.solutionAndRecommendations
       ),
-      quotationDetails: formData.quotationDetails.map((item) => ({
+      quotationDetails: (formData.quotationDetails || []).map((item) => ({
         ...item,
-        subTotal: item.subTotal,
-        description: item.description,
-        descriptionText: convertToText(item.description),
+        subTotal: item.subTotal || 0,
+        description: item.description || "",
+        descriptionText: convertToText(item.description || ""),
       })),
       contractNumber: dayjs().format("YYYYMMDDHHmmss"),
     }) as Quotation;
@@ -184,8 +184,8 @@ const Quotation = ({
   const schema = yup.object({
     client: yup.object({
       document: yup.object({
-        type: yup.string(),
-        number: yup.string(),
+        type: yup.string().required(),
+        number: yup.string().required(),
       }),
       companyName: yup.string(),
       firstName: yup.string(),
@@ -199,7 +199,7 @@ const Quotation = ({
       address: yup.string(),
     }),
     device: yup.object({
-      type: yup.string(),
+      type: yup.string().required(),
       brand: yup.string(),
       model: yup.string(),
       serialNumber: yup.string(),
@@ -223,7 +223,8 @@ const Quotation = ({
           subTotal: yup.number().min(0),
         })
       )
-      .min(1),
+      .min(0)
+      .default([]),
   });
 
   const {
@@ -238,6 +239,9 @@ const Quotation = ({
   });
 
   const { required, error } = useFormUtils({ errors, schema });
+
+  console.log("errors: ", errors);
+  console.log("error: ", error);
 
   useEffect(() => {
     setDocumentType(watch("client.document.type") || "");
@@ -677,7 +681,7 @@ const Quotation = ({
                 </Row>
               </ComponentContainer.group>
             </Col>
-            <Col span={24} md={8}>
+            <Col span={24} lg={8}>
               <Controller
                 name="reportedIssue"
                 control={control}
@@ -694,7 +698,7 @@ const Quotation = ({
                 )}
               />
             </Col>
-            <Col span={24} md={8}>
+            <Col span={24} lg={8}>
               <Controller
                 name="analysis"
                 control={control}
@@ -711,7 +715,7 @@ const Quotation = ({
                 )}
               />
             </Col>
-            <Col span={24} md={8}>
+            <Col span={24} lg={8}>
               <Controller
                 name="solutionAndRecommendations"
                 control={control}
@@ -739,6 +743,7 @@ const Quotation = ({
                         <QuotationItemsTable
                           name={name}
                           value={value}
+                          setValue={setValue}
                           onChange={onChange}
                           control={control}
                           errors={errors}

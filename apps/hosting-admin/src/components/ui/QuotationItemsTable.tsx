@@ -3,6 +3,7 @@ import {
   type Control,
   Controller,
   useFieldArray,
+  type UseFormSetValue,
   useWatch,
 } from "react-hook-form";
 import {
@@ -14,20 +15,21 @@ import {
   Row,
   Space,
 } from "../ui";
-import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styled, { css } from "styled-components";
 
 interface QuotationItemsTableProps {
   name?: string;
   control: Control<any>;
   errors?: any;
+  setValue: UseFormSetValue<any>;
 }
 
 interface QuotationItemRowProps {
   name: string;
   index: number;
   control: Control<any>;
+  setValue: UseFormSetValue<any>;
   errors?: any;
   onRemove: () => void;
 }
@@ -36,6 +38,7 @@ export const QuotationItemsTable: React.FC<QuotationItemsTableProps> = ({
   name = "items",
   control,
   errors,
+  setValue,
 }) => {
   const { fields, append, remove } = useFieldArray({
     control,
@@ -54,30 +57,11 @@ export const QuotationItemsTable: React.FC<QuotationItemsTableProps> = ({
   return (
     <Row gutter={[16, 16]}>
       <Col span={24}>
-        <Row gutter={[16, 16]}>
-          <Col span={8}>
-            <HeaderCell>Descripción</HeaderCell>
-          </Col>
-          <Col span={4}>
-            <HeaderCell>Unidades (mts)</HeaderCell>
-          </Col>
-          <Col span={4}>
-            <HeaderCell>Precio unitario</HeaderCell>
-          </Col>
-          <Col span={4}>
-            <HeaderCell>Subtotal</HeaderCell>
-          </Col>
-          <Col span={4}>
-            <HeaderCell>Opciones</HeaderCell>
-          </Col>
-        </Row>
-      </Col>
-
-      <Col span={24}>
         {fields.map((field, index) => (
           <QuotationItemRow
             key={field.id}
             name={name}
+            setValue={setValue}
             index={index}
             control={control}
             errors={errors}
@@ -102,6 +86,7 @@ export const QuotationItemsTable: React.FC<QuotationItemsTableProps> = ({
 
 const QuotationItemRow: React.FC<QuotationItemRowProps> = ({
   name,
+  setValue,
   index,
   control,
   errors,
@@ -120,15 +105,19 @@ const QuotationItemRow: React.FC<QuotationItemRowProps> = ({
   });
 
   useEffect(() => {
-    const subTotal = (quantity || 0) * (unitPrice || 0);
-    if (control?._formValues?.[name]?.[index]) {
-      control._formValues[name][index].subTotal = subTotal;
-    }
-  }, [quantity, unitPrice, control, name, index]);
+    const q = Number(quantity) || 0;
+    const p = Number(unitPrice) || 0;
+    const total = parseFloat((q * p).toFixed(2));
+
+    setValue(`${name}.${index}.subTotal`, total, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
+  }, [quantity, unitPrice, index, name, setValue]);
 
   return (
     <Row gutter={[16, 16]}>
-      <Col span={24} md={8}>
+      <Col span={24} lg={8}>
         <Controller
           name={`${name}.${index}.description`}
           control={control}
@@ -146,100 +135,87 @@ const QuotationItemRow: React.FC<QuotationItemRowProps> = ({
         />
       </Col>
 
-      <Col span={24} md={4}>
+      <Col span={24} lg={4}>
         <Controller
           name={`${name}.${index}.quantity`}
           control={control}
           render={({ field: { onChange, value, name: fieldName } }) => (
-            <Input
-              label="Unidades"
-              name={fieldName}
-              type="number"
-              value={value ?? ""}
-              onChange={(e) =>
-                onChange(e.target.value ? Number(e.target.value) : "")
-              }
-              error={errors?.[name]?.[index]?.quantity?.message}
-              required
-              min={1}
-            />
+            <div style={{ marginTop: "1.5rem" }}>
+              <Input
+                label="Unidades"
+                name={fieldName}
+                type="number"
+                value={value ?? ""}
+                onChange={(e) =>
+                  onChange(e.target.value ? Number(e.target.value) : "")
+                }
+                error={errors?.[name]?.[index]?.quantity?.message}
+                required
+                min={1}
+              />
+            </div>
           )}
         />
       </Col>
 
-      <Col span={24} md={4}>
+      <Col span={24} lg={4}>
         <Controller
           name={`${name}.${index}.unitPrice`}
           control={control}
           render={({ field: { onChange, value, name: fieldName } }) => (
-            <Input
-              label="Precio unitario"
-              name={fieldName}
-              type="number"
-              step="0.01"
-              value={value ?? ""}
-              onChange={(e) =>
-                onChange(e.target.value ? Number(e.target.value) : "")
-              }
-              error={errors?.[name]?.[index]?.unitPrice?.message}
-              required
-            />
+            <div style={{ marginTop: "1.5rem" }}>
+              <Input
+                label="Precio unitario"
+                name={fieldName}
+                type="number"
+                step="0.01"
+                value={value ?? ""}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  onChange(val === "" ? 0 : Number(val));
+                }}
+                error={errors?.[name]?.[index]?.unitPrice?.message}
+                required
+              />
+            </div>
           )}
         />
       </Col>
 
-      <Col span={24} md={4}>
+      <Col span={24} lg={4}>
         <Controller
           name={`${name}.${index}.subTotal`}
           control={control}
           render={({ field: { value, name: fieldName } }) => (
-            <Input
-              label="Subtotal"
-              name={fieldName}
-              type="number"
-              step="0.01"
-              value={value ?? 0}
-              disabled
-              placeholder="S/ 0.00"
-            />
+            <div style={{ marginTop: "1.5rem" }}>
+              <Input
+                label="Subtotal"
+                name={fieldName}
+                type="number"
+                step="0.01"
+                value={value ?? 0}
+                disabled
+                placeholder="S/ 0.00"
+              />
+            </div>
           )}
         />
       </Col>
 
-      <Col span={24} md={4}>
-        <Row justify="center" gutter={[16, 16]}>
-          <Space>
-            <IconAction
-              tooltipTitle="Editar"
-              onClick={() => null}
-              size={33}
-              icon={faEdit}
-              iconStyles={{
-                color: (theme) => theme.colors.warning,
-              }}
-            />
+      <Col span={24} lg={4}>
+        <div style={{ marginTop: "1.5rem" }}>
+          <Space align="center">
             <IconAction
               tooltipTitle="Eliminar"
               onClick={onRemove}
-              size={33}
-              icon={faTrash}
+              icon={faXmark}
               iconStyles={{
                 color: (theme) => theme.colors.error,
               }}
             />
           </Space>
-        </Row>
+        </div>
       </Col>
     </Row>
   );
 };
-
-const HeaderCell = styled.h6`
-  ${({ theme }) => css`
-    text-align: center;
-    margin: 0;
-    font-size: ${theme.font_sizes.small};
-    font-weight: ${theme.font_weight.medium};
-    color: ${theme.colors.fontSecondary};
-  `}
-`;

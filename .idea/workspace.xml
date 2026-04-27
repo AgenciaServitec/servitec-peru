@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="feat(drawer): implement permission-based item filtering">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="feat(quotations): logic to fetch client data by document and manual override">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/QuotationItemsTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/QuotationItemsTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/RichTextEditor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/RichTextEditor.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Filled.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/component-container/Filled.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -135,15 +138,7 @@
       <workItem from="1774897935652" duration="16225000" />
       <workItem from="1777050955795" duration="19000" />
       <workItem from="1777075628510" duration="1463000" />
-      <workItem from="1777303773150" duration="4914000" />
-    </task>
-    <task id="LOCAL-00023" summary="udpated workspace">
-      <option name="closed" value="true" />
-      <created>1771220013317</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1771220013317</updated>
+      <workItem from="1777303773150" duration="13329000" />
     </task>
     <task id="LOCAL-00024" summary="added new components ui">
       <option name="closed" value="true" />
@@ -529,7 +524,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777307645147</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="feat(quotations): logic to fetch client data by document and manual override">
+      <option name="closed" value="true" />
+      <created>1777309979384</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1777309979384</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -547,7 +550,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat(hero): overhaul design with concave curve, scroll hint and minimalist UI" />
     <MESSAGE value="updated styles NavigationMenuViewport" />
     <MESSAGE value="updated styles FeaturesBar" />
     <MESSAGE value="feat: implement contact form with Resend API route" />
@@ -572,6 +574,7 @@
     <MESSAGE value="refactored title styles and changed service image in projector repair specialty" />
     <MESSAGE value="Updated information in the service request form" />
     <MESSAGE value="feat(drawer): implement permission-based item filtering" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(drawer): implement permission-based item filtering" />
+    <MESSAGE value="feat(quotations): logic to fetch client data by document and manual override" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(quotations): logic to fetch client data by document and manual override" />
   </component>
 </project>

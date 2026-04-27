@@ -54,7 +54,6 @@ export const Filled = ({
   </>
 );
 
-/* Estilo para la etiqueta cuando sube (Floating Effect) */
 const labelAnimate = css`
   padding: 0 ${({ theme }) => theme.spacing.xs};
   border-radius: ${({ theme }) => theme.border_radius.xs};
