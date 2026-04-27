@@ -35,11 +35,13 @@ export function QuotationsIntegrations() {
       const snap = await getDocs(q);
       return snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     },
-    staleTime: 1000 * 60 * 5,
+    staleTime: 1000 * 30,
   });
 
   const filteredQuotations = useMemo(() => {
-    let result = [...quotations];
+    let result = [...quotations].sort(
+      (a: any, b: any) => (b.sequenceNumber || 0) - (a.sequenceNumber || 0)
+    );
 
     if (filters.dateRange?.[0] && filters.dateRange?.[1]) {
       const start = filters.dateRange[0].startOf("day");

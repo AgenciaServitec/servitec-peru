@@ -3,6 +3,7 @@ import { QRCode } from "../../../components";
 import { theme } from "../../../styles";
 import dayjs from "dayjs";
 import { getDevice } from "../../../utils";
+import { isEmpty } from "lodash";
 
 interface QuotationDocumentSheetProps {
   quotation: any;
@@ -140,49 +141,54 @@ export const QuotationDocumentSheet = ({
               </div>
             </TechnicalInfo>
           </Section>
-          <Section>
-            <SectionTitle>DETALLE DE LA COTIZACIÓN</SectionTitle>
-            <Table>
-              <thead>
-                <tr>
-                  <th>Descripción</th>
-                  <th>Unidades</th>
-                  <th>Precio Unit.</th>
-                  <th>Subtotal</th>
-                </tr>
-              </thead>
-              <tbody>
-                {quotation?.quotationDetails?.map(
-                  (item: any, index: number) => (
-                    <tr key={index}>
-                      <QuillContent
-                        dangerouslySetInnerHTML={{
-                          __html: item.description || "",
-                        }}
-                      />
-                      <td className="center">{item.quantity}</td>
-                      <td className="right">S/ {item.unitPrice.toFixed(2)}</td>
-                      <td className="right">S/ {item.subTotal.toFixed(2)}</td>
-                    </tr>
-                  )
-                )}
-              </tbody>
-            </Table>
-            <Totals>
-              <TotalRow>
-                <span>SUBTOTAL:</span>
-                <strong>S/ {subtotal.toFixed(2)}</strong>
-              </TotalRow>
-              <TotalRow>
-                <span>IGV (18%):</span>
-                <strong>S/ {igv.toFixed(2)}</strong>
-              </TotalRow>
-              <TotalRow className="final">
-                <span>TOTAL:</span>
-                <strong>S/ {total.toFixed(2)}</strong>
-              </TotalRow>
-            </Totals>
-          </Section>
+
+          {!isEmpty(quotation?.quotationDetails) && (
+            <Section>
+              <SectionTitle>DETALLE DE LA COTIZACIÓN</SectionTitle>
+              <Table>
+                <thead>
+                  <tr>
+                    <th>Descripción</th>
+                    <th>Unidades</th>
+                    <th>Precio Unit.</th>
+                    <th>Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {quotation?.quotationDetails?.map(
+                    (item: any, index: number) => (
+                      <tr key={index}>
+                        <QuillContent
+                          dangerouslySetInnerHTML={{
+                            __html: item.description || "",
+                          }}
+                        />
+                        <td className="center">{item.quantity}</td>
+                        <td className="right">
+                          S/ {item.unitPrice.toFixed(2)}
+                        </td>
+                        <td className="right">S/ {item.subTotal.toFixed(2)}</td>
+                      </tr>
+                    )
+                  )}
+                </tbody>
+              </Table>
+              <Totals>
+                <TotalRow>
+                  <span>SUBTOTAL:</span>
+                  <strong>S/ {subtotal.toFixed(2)}</strong>
+                </TotalRow>
+                <TotalRow>
+                  <span>IGV (18%):</span>
+                  <strong>S/ {igv.toFixed(2)}</strong>
+                </TotalRow>
+                <TotalRow className="final">
+                  <span>TOTAL:</span>
+                  <strong>S/ {total.toFixed(2)}</strong>
+                </TotalRow>
+              </Totals>
+            </Section>
+          )}
           <Section>
             <SectionTitle>CONDICIONES DE PAGO</SectionTitle>
             <PaymentTerms>
@@ -395,7 +401,7 @@ const TechnicalInfo = styled.div`
     h4 {
       font-size: 14px;
       font-weight: 600;
-      color: #000000; /* título negro */
+      color: #000000;
       margin-bottom: 0.3em;
     }
   }
@@ -408,7 +414,6 @@ const TechnicalInfo = styled.div`
 
 const Table = styled.table`
   width: 100%;
-  //border-collapse: collapse;
   margin-top: 0.5em;
 
   thead {
@@ -548,10 +553,10 @@ const CompanyInfo = styled.div`
 
   p {
     margin-bottom: 0.3em;
-    color: #4b5563; /* texto gris */
+    color: #4b5563;
 
     strong {
-      color: #000000; /* label negro: Dirección, Tel, RUC, etc. */
+      color: #000000;
       font-weight: 600;
     }
   }

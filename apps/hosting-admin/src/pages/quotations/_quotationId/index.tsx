@@ -2,12 +2,18 @@ import * as yup from "yup";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDefaultFirestoreProps, useFormUtils } from "../../../hooks";
-import { useNavigate, useParams } from "react-router-dom";
+import {
+  type NavigateFunction,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
+  CanAccess,
   Col,
   ComponentContainer,
   Form,
+  IconAction,
   Input,
   QuotationItemsTable,
   RichTextEditor,
@@ -16,7 +22,7 @@ import {
   Title,
 } from "../../../components";
 import {
-  addQuotation,
+  addQuotationWithSequence,
   fetchQuotation,
   getQuotationId,
   updateQuotation,
@@ -27,6 +33,9 @@ import { capitalize } from "lodash";
 import { useApiDataByDniOrRucGet } from "../../../api";
 import dayjs from "dayjs";
 import type { Quotation, QuotationFormData } from "../../../globalTypes.ts";
+import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
+import { theme } from "../../../styles";
+import { useQueryClient } from "@tanstack/react-query";
 
 export interface IdentityResponse {
   firstName?: string;
@@ -45,10 +54,12 @@ interface QuotationProps {
   setDocumentType: (docType: string) => void;
   getDataByDniOrRuc: (documentNumber: string) => Promise<IdentityResponse>;
   getDataByDniOrRucLoading: boolean;
+  navigate: NavigateFunction;
 }
 
 export function QuotationIntegration() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { quotationId } = useParams();
   const { assignCreateProps, assignUpdateProps } = useDefaultFirestoreProps();
 
@@ -134,18 +145,24 @@ export function QuotationIntegration() {
         descriptionText: convertToText(item.description || ""),
       })),
       contractNumber: dayjs().format("YYYYMMDDHHmmss"),
+      sequenceNumber: 0,
     }) as Quotation;
 
   const onSubmit = async (formData: QuotationFormData) => {
     try {
       setLoading(true);
 
-      isNew
-        ? await addQuotation(assignCreateProps(mapQuotation(formData)))
-        : await updateQuotation(
-            quotationId,
-            assignUpdateProps(mapQuotation(formData))
-          );
+      if (isNew) {
+        const newQuotation = assignCreateProps(mapQuotation(formData));
+        await addQuotationWithSequence(newQuotation);
+      } else {
+        await updateQuotation(
+          quotationId!,
+          assignUpdateProps(mapQuotation(formData))
+        );
+      }
+
+      await queryClient.invalidateQueries({ queryKey: ["quotations"] });
 
       navigate("/quotations");
     } catch (e) {
@@ -165,6 +182,7 @@ export function QuotationIntegration() {
       setDocumentType={setDocumentType}
       getDataByDniOrRuc={getDataByDniOrRuc}
       getDataByDniOrRucLoading={getDataByDniOrRucLoading}
+      navigate={navigate}
     />
   );
 }
@@ -178,6 +196,7 @@ const Quotation = ({
   setDocumentType,
   getDataByDniOrRuc,
   getDataByDniOrRucLoading,
+  navigate,
 }: QuotationProps) => {
   const [foundInApi, setFoundInApi] = useState(false);
 
@@ -239,9 +258,6 @@ const Quotation = ({
   });
 
   const { required, error } = useFormUtils({ errors, schema });
-
-  console.log("errors: ", errors);
-  console.log("error: ", error);
 
   useEffect(() => {
     setDocumentType(watch("client.document.type") || "");
@@ -342,7 +358,25 @@ const Quotation = ({
   return (
     <Row gutter={[16, 16]}>
       <Col span={24}>
-        <Title level={2}>{isNew ? "Nuevo" : "Editar"} Cotización</Title>
+        <Row gutter={[16, 16]} justify="space-between" align="middle">
+          <Col>
+            <Title level={2}>{isNew ? "Nuevo" : "Editar"} Cotización</Title>
+          </Col>
+          <Col>
+            <CanAccess permission="quotes_view_pdf">
+              <IconAction
+                tooltipTitle="PDF"
+                icon={faFilePdf}
+                iconStyles={{ color: () => theme.colors.error }}
+                onClick={() => {
+                  if (quotation?.id) {
+                    navigate(`/quotations/${quotation.id}/sheets`);
+                  }
+                }}
+              />
+            </CanAccess>
+          </Col>
+        </Row>
       </Col>
       <Col span={24}>
         <Form onSubmit={handleSubmit(onSubmit)}>

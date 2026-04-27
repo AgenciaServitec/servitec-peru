@@ -39,19 +39,27 @@ export const deleteQuotation = async (
 ): Promise<void> =>
   updateDocument<Partial<Quotation>>(quotationsRef.doc(quotationId), quotation);
 
-export const getNextQuotationSequence = async () => {
+export const addQuotationWithSequence = async (
+  quotation: Partial<Quotation>
+): Promise<void> => {
   const counterRef = doc(firestore, "counters", "quotations");
+  const quotationRef = doc(firestore, "quotations", quotation.id!);
 
   return await runTransaction(firestore, async (transaction) => {
     const counterSnap = await transaction.get(counterRef);
+    let nextValue;
 
     if (!counterSnap.exists()) {
+      nextValue = 1;
       transaction.set(counterRef, { current: 1 });
-      return 1;
+    } else {
+      nextValue = counterSnap.data().current + 1;
+      transaction.update(counterRef, { current: nextValue });
     }
 
-    const nextValue = counterSnap.data().current + 1;
-    transaction.update(counterRef, { current: nextValue });
-    return nextValue;
+    transaction.set(quotationRef, {
+      ...quotation,
+      sequenceNumber: nextValue,
+    });
   });
 };
