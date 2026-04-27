@@ -24,6 +24,7 @@ import { SERVICE_REQUEST_STATUS } from "../../data-list/serviceRequestStatus.ts"
 import { PRIORITY_LEVELS } from "../../data-list/serviceRequestPriorityLevels.ts";
 import { useNavigate } from "react-router-dom";
 import { capitalize } from "lodash";
+import { DISTRICTS } from "../../data-list";
 
 const { Text, Title, Paragraph } = Typography;
 
@@ -152,6 +153,9 @@ export const ServiceRequestCard: React.FC<any> = ({ users, user, data }) => {
     lat && lng
       ? `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=15&size=400x150&markers=color:red%7C${lat},${lng}&key=${googleApiKey}`
       : "https://placehold.co/400x150/141414/8c8c8c?text=Ubicación+no+disponible";
+
+  const findDistrict = (district) =>
+    DISTRICTS.find((_district) => _district.value === district);
 
   return (
     <>
@@ -308,7 +312,7 @@ export const ServiceRequestCard: React.FC<any> = ({ users, user, data }) => {
             <DataItem label="Equipo" value={data.device?.model} />
             <DataItem
               label="Distrito"
-              value={data.location?.district}
+              value={findDistrict(data.location?.district)?.label}
               icon={faHouseSignal}
             />
             <DataItem label="Prioridad" value={isHigh ? "ALTA" : "NORMAL"} />
