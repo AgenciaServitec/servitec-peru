@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="refactor(quotations): allow empty quotation details and update validation schema">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="feat(quotations): implement atomic sequence numbering and cache invalidation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/quotations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/quotations.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/_quotationId/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/sheets/QuotationDocumentSheet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/quotations/sheets/QuotationDocumentSheet.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -138,15 +136,7 @@
       <workItem from="1774897935652" duration="16225000" />
       <workItem from="1777050955795" duration="19000" />
       <workItem from="1777075628510" duration="1463000" />
-      <workItem from="1777303773150" duration="16032000" />
-    </task>
-    <task id="LOCAL-00025" summary="added and updated new sections">
-      <option name="closed" value="true" />
-      <created>1771275124189</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1771275124189</updated>
+      <workItem from="1777303773150" duration="17307000" />
     </task>
     <task id="LOCAL-00026" summary="udpated global.css">
       <option name="closed" value="true" />
@@ -532,7 +522,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777318864794</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="feat(quotations): implement atomic sequence numbering and cache invalidation">
+      <option name="closed" value="true" />
+      <created>1777321453855</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1777321453855</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -550,7 +548,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="updated styles FeaturesBar" />
     <MESSAGE value="feat: implement contact form with Resend API route" />
     <MESSAGE value="feat(hosting): improve complaints form UI and add zod validation" />
     <MESSAGE value="fix(hosting): move Resend instance inside POST to ensure env var detection" />
@@ -575,6 +572,7 @@
     <MESSAGE value="feat(drawer): implement permission-based item filtering" />
     <MESSAGE value="feat(quotations): logic to fetch client data by document and manual override" />
     <MESSAGE value="refactor(quotations): allow empty quotation details and update validation schema" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor(quotations): allow empty quotation details and update validation schema" />
+    <MESSAGE value="feat(quotations): implement atomic sequence numbering and cache invalidation" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(quotations): implement atomic sequence numbering and cache invalidation" />
   </component>
 </project>

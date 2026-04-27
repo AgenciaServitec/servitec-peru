@@ -145,7 +145,7 @@ export function QuotationIntegration() {
         descriptionText: convertToText(item.description || ""),
       })),
       contractNumber: dayjs().format("YYYYMMDDHHmmss"),
-      sequenceNumber: 0,
+      sequenceNumber: quotation?.sequenceNumber || 0,
     }) as Quotation;
 
   const onSubmit = async (formData: QuotationFormData) => {
