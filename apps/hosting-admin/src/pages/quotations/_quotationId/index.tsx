@@ -144,7 +144,8 @@ export function QuotationIntegration() {
         description: item.description || "",
         descriptionText: convertToText(item.description || ""),
       })),
-      contractNumber: dayjs().format("YYYYMMDDHHmmss"),
+      contractNumber:
+        quotation?.contractNumber || dayjs().format("YYYYMMDDHHmmss"),
       sequenceNumber: quotation?.sequenceNumber || 0,
     }) as Quotation;
 
