@@ -179,7 +179,7 @@ const Quotation = ({
   getDataByDniOrRuc,
   getDataByDniOrRucLoading,
 }: QuotationProps) => {
-  const [isData, setIsData] = useState(true);
+  const [foundInApi, setFoundInApi] = useState(false);
 
   const schema = yup.object({
     client: yup.object({
@@ -253,33 +253,45 @@ const Quotation = ({
       (docType === "dni" && docNumber.length === 8) ||
       (docType === "ruc" && docNumber.length === 11);
 
-    const isNameEmpty =
-      !watch("client.firstName") && !watch("client.companyName");
-
-    if (isValidLength && isNew && isNameEmpty) {
+    if (isValidLength && isNew) {
       (async () => {
         try {
           const data = await getDataByDniOrRuc(docNumber);
-          if (!data) setIsData(false);
 
-          if (docType === "dni") {
-            setValue("client.firstName", capitalize(data.firstName || ""));
-            setValue(
-              "client.paternalSurname",
-              capitalize(data.paternalSurname || "")
-            );
-            setValue(
-              "client.maternalSurname",
-              capitalize(data.maternalSurname || "")
-            );
+          if (data && (data.firstName || data.companyName)) {
+            setFoundInApi(true);
+
+            if (docType === "dni") {
+              setValue("client.firstName", capitalize(data.firstName || ""));
+              setValue(
+                "client.paternalSurname",
+                capitalize(data.paternalSurname || "")
+              );
+              setValue(
+                "client.maternalSurname",
+                capitalize(data.maternalSurname || "")
+              );
+              setValue("client.companyName", "");
+            } else {
+              setValue(
+                "client.companyName",
+                capitalize(data.companyName || "")
+              );
+              setValue("client.address", capitalize(data.address || ""));
+              setValue("client.firstName", "");
+              setValue("client.paternalSurname", "");
+              setValue("client.maternalSurname", "");
+            }
           } else {
-            setValue("client.companyName", capitalize(data.companyName || ""));
-            setValue("client.address", capitalize(data.address || ""));
+            setFoundInApi(false);
           }
         } catch (err) {
           console.error("Error consultando API:", err);
+          setFoundInApi(false);
         }
       })();
+    } else {
+      if (!isNew) setFoundInApi(false);
     }
   }, [documentNumber, isNew]);
 
@@ -382,7 +394,7 @@ const Quotation = ({
                             label="Razón Social"
                             name={name}
                             value={value}
-                            disabled={isData}
+                            disabled={isNew && foundInApi}
                             onChange={onChange}
                             error={error(name)}
                             required={required(name)}
@@ -402,7 +414,7 @@ const Quotation = ({
                                 label="Nombres"
                                 name={name}
                                 value={value}
-                                disabled={isData}
+                                disabled={isNew && foundInApi}
                                 onChange={onChange}
                                 error={error(name)}
                                 required={required(name)}
@@ -419,7 +431,7 @@ const Quotation = ({
                                 label="Apellido Paterno"
                                 name={name}
                                 value={value}
-                                disabled={isData}
+                                disabled={isNew && foundInApi}
                                 onChange={onChange}
                                 error={error(name)}
                                 required={required(name)}
@@ -436,7 +448,7 @@ const Quotation = ({
                                 label="Apellido Materno"
                                 name={name}
                                 value={value}
-                                disabled={isData}
+                                disabled={isNew && foundInApi}
                                 onChange={onChange}
                                 error={error(name)}
                                 required={required(name)}
