@@ -13,7 +13,8 @@ import {
   faUsers,
   faWrench,
 } from "@fortawesome/free-solid-svg-icons";
-import { useAuthentication } from "../../providers";
+import { usePermissions } from "../../providers/PermissionsProvider.tsx";
+import { useMemo } from "react";
 
 type DrawerLayoutProps = {
   isVisibleDrawer: boolean;
@@ -26,7 +27,7 @@ export const DrawerLayout = ({
   onSetIsVisibleDrawer,
   onNavigateTo,
 }: DrawerLayoutProps) => {
-  const { authUser } = useAuthentication();
+  const { permissions, hasPermission, loading } = usePermissions();
 
   const onClickMenu = (pathname: string) => {
     onSetIsVisibleDrawer(false);
@@ -45,64 +46,62 @@ export const DrawerLayout = ({
       icon: <FontAwesomeIcon icon={faHome} />,
       onClick: () => onClickHome(),
     },
-    ...([
-      "XfQXaMRZD7Gro2kPaIvU",
-      "fRiTn5k6TP5TJvpXZeLS",
-      "woc2g3M8EO4RYtXFap6n",
-      "U0kKdzTPY0rVgWcCY8dV",
-      "UXrpXFxJhVi5Tl1MTMu2",
-    ].includes(authUser?.id || "")
-      ? [
-          {
-            label: "Administración",
-            key: "manager",
-            icon: <FontAwesomeIcon icon={faGears} />,
-            children: [
-              {
-                label: "Usuarios",
-                key: "users",
-                icon: <FontAwesomeIcon icon={faUsers} />,
-                onClick: () => onClickMenu("/users"),
-              },
-              {
-                label: "Roles y Permisos",
-                key: "rolesAndPermissions",
-                icon: <FontAwesomeIcon icon={faUserLock} />,
-                children: [
-                  {
-                    label: "Crear Rol",
-                    key: "quotation-new",
-                    icon: <FontAwesomeIcon icon={faSquarePlus} />,
-                    onClick: () => onClickMenu("/roles-and-permissions/new"),
-                  },
-                  {
-                    label: "Lista de Roles",
-                    key: "quotations-list",
-                    icon: <FontAwesomeIcon icon={faList} />,
-                    onClick: () => onClickMenu("/roles-and-permissions"),
-                  },
-                ],
-              },
-            ],
-          },
-        ]
-      : []),
+    {
+      label: "Administración",
+      key: "manager",
+      icon: <FontAwesomeIcon icon={faGears} />,
+      permission: "",
+      children: [
+        {
+          label: "Usuarios",
+          key: "users",
+          icon: <FontAwesomeIcon icon={faUsers} />,
+          onClick: () => onClickMenu("/users"),
+          permission: "users_view_list",
+        },
+        {
+          label: "Roles y Permisos",
+          key: "rolesAndPermissions",
+          icon: <FontAwesomeIcon icon={faUserLock} />,
+          permission: "roles_view",
+          children: [
+            {
+              label: "Crear Rol",
+              key: "quotation-new",
+              icon: <FontAwesomeIcon icon={faSquarePlus} />,
+              onClick: () => onClickMenu("/roles-and-permissions/new"),
+              permission: "roles_create",
+            },
+            {
+              label: "Lista de Roles",
+              key: "quotations-list",
+              icon: <FontAwesomeIcon icon={faList} />,
+              onClick: () => onClickMenu("/roles-and-permissions"),
+              permission: "roles_view",
+            },
+          ],
+        },
+      ],
+    },
     {
       label: "Cotizaciones",
       key: "quotations-group",
       icon: <FontAwesomeIcon icon={faFileLines} />,
+      permission: "quotes_view_all",
       children: [
         {
           label: "Crear Cotización",
           key: "quotation-new",
           icon: <FontAwesomeIcon icon={faSquarePlus} />,
           onClick: () => onClickMenu("/quotations/new"),
+          permission: "quotes_create",
         },
         {
           label: "Lista de cotizaciones",
           key: "quotations-list",
           icon: <FontAwesomeIcon icon={faList} />,
           onClick: () => onClickMenu("/quotations"),
+          permission: "quotes_view_all",
         },
       ],
     },
@@ -110,18 +109,14 @@ export const DrawerLayout = ({
       label: "Solicitudes de Servicio",
       key: "services-requests-group",
       icon: <FontAwesomeIcon icon={faWrench} />,
+      permission: "service_view_all",
       children: [
-        {
-          label: "Crear Solictud de Servicio",
-          key: "service-request-new",
-          icon: <FontAwesomeIcon icon={faSquarePlus} />,
-          onClick: () => onClickMenu("/services-requests/new"),
-        },
         {
           label: "Lista de Solictudes de Servicio",
           key: "services-requests-list",
           icon: <FontAwesomeIcon icon={faList} />,
           onClick: () => onClickMenu("/services-requests"),
+          permission: "service_view_all",
         },
       ],
     },
@@ -129,18 +124,21 @@ export const DrawerLayout = ({
       label: "Proveedores",
       key: "suppliers",
       icon: <FontAwesomeIcon icon={faBoxesPacking} />,
+      permission: "suppliers_view_all",
       children: [
         {
           label: "Crear Proveedor",
           key: "supplier-new",
           icon: <FontAwesomeIcon icon={faSquarePlus} />,
           onClick: () => onClickMenu("/suppliers/new"),
+          permission: "suppliers_create",
         },
         {
           label: "Lista de Proveedores",
           key: "suppliers-list",
           icon: <FontAwesomeIcon icon={faList} />,
           onClick: () => onClickMenu("/suppliers"),
+          permission: "suppliers_view_all",
         },
       ],
     },
@@ -148,22 +146,54 @@ export const DrawerLayout = ({
       label: "Asistencias",
       key: "assistances-group",
       icon: <FontAwesomeIcon icon={faClipboardUser} />,
+      permission: "assist_view_all",
       children: [
         {
           label: "Marcar asistencia",
           key: "assistance-new",
           icon: <FontAwesomeIcon icon={faSquarePlus} />,
           onClick: () => onClickMenu("/assistances/assistance"),
+          permission: "assist_mark_self",
         },
         {
           label: "Lista de asistencias",
           key: "assistances-list",
           icon: <FontAwesomeIcon icon={faList} />,
           onClick: () => onClickMenu("/assistances"),
+          permission: "assist_view_all",
         },
       ],
     },
   ];
+
+  const filterItems = (menuItems: any[]) => {
+    return menuItems
+      .filter((item) => {
+        if (!item.permission || item.permission === "") return true;
+        return hasPermission(item.permission);
+      })
+      .map((item) => {
+        if (item.children) {
+          const authorizedChildren = filterItems(item.children);
+          return {
+            ...item,
+            children: authorizedChildren,
+          };
+        }
+        return item;
+      })
+      .filter((item) => {
+        if (item.children && item.children.length === 0) return false;
+        return true;
+      });
+  };
+
+  if (loading) return null;
+
+  const authorizedItems = useMemo(
+    () => filterItems(items),
+    [permissions, isVisibleDrawer]
+  );
 
   return (
     <DrawerContainer
@@ -183,7 +213,7 @@ export const DrawerLayout = ({
         <Menu
           defaultSelectedKeys={["home"]}
           mode="inline"
-          items={items}
+          items={authorizedItems}
           inlineIndent={16}
         />
       </MenuContainer>
@@ -253,7 +283,6 @@ const MenuContainer = styled.div`
       background: transparent !important;
       border-inline-end: none !important;
 
-      /* Ítem base */
       .ant-menu-item,
       .ant-menu-submenu-title {
         color: ${theme.colors.fontSecondary};
@@ -268,18 +297,16 @@ const MenuContainer = styled.div`
         }
       }
 
-      /* Ítem activo/seleccionado */
       .ant-menu-item-selected {
         background: ${theme.colors.primaryAlpha} !important;
         color: ${theme.colors.primary} !important;
         font-weight: ${theme.font_weight.medium};
 
         &::after {
-          display: none; /* Quitamos la línea molesta de AntD */
+          display: none;
         }
       }
 
-      /* Iconos */
       .ant-menu-item-icon {
         font-size: 16px !important;
       }
