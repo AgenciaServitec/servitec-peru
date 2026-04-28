@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import * as A from "../pages";
 import { AdminLayout, PublicLayout } from "../components";
 import { PrivateRoute } from "./PrivateRoute";
+import { TicketsManagementPage } from "../pages";
 
 export function Router() {
   return (
@@ -139,6 +140,14 @@ export function Router() {
           element={
             <AdminLayout>
               <A.RoleIntegration />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="tickets"
+          element={
+            <AdminLayout>
+              <A.TicketsManagementPage />
             </AdminLayout>
           }
         />

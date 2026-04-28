@@ -1,5 +1,6 @@
 import {
   AutoComplete,
+  Avatar,
   Button,
   Card,
   Checkbox,
@@ -92,4 +93,5 @@ export {
   Segmented,
   Checkbox,
   message,
+  Avatar,
 };

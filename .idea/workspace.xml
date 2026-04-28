@@ -4,11 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="style(sheets): redesign quotation document with SaaS-inspired aesthetic">
-      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/data-list/districts.ts" afterDir="false" />
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/leads.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/leads/controllers/getLead.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/leads/controllers/getLeads.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/leads/controllers/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/leads/controllers/postLead.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/leads/controllers/putLeadStatus.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/leads/routes/leads.routes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/tickets/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/data-list/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/data-list/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/ServiceRequestCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/ServiceRequestCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/globalTypes.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/globalTypes.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/DrawerLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/DrawerLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/router/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/router/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +32,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="tsconfig.json" />
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -78,7 +91,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "pnpm",
-    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier",
     "settings.editor.selected.configurable": "preferences.lookFeel",
     "to.speed.mode.migration.done": "true",
     "ts.external.directory.path": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib",
@@ -94,11 +107,11 @@
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets\images\clients\entities" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\functions\src\api\leads\routes" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets\images\services" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets\images\hero" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting-admin\public" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public" />
-      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets\images\clients\entities" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -137,15 +150,8 @@
       <workItem from="1774897935652" duration="16225000" />
       <workItem from="1777050955795" duration="19000" />
       <workItem from="1777075628510" duration="1463000" />
-      <workItem from="1777303773150" duration="24931000" />
-    </task>
-    <task id="LOCAL-00028" summary="cleaning project">
-      <option name="closed" value="true" />
-      <created>1771275556181</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1771275556181</updated>
+      <workItem from="1777303773150" duration="25639000" />
+      <workItem from="1777391235864" duration="17810000" />
     </task>
     <task id="LOCAL-00029" summary="updated the year in footer">
       <option name="closed" value="true" />
@@ -531,7 +537,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777326412179</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="added findDistrict in card and districts list">
+      <option name="closed" value="true" />
+      <created>1777330511179</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1777330511179</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -549,7 +563,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix(hosting): move Resend instance inside POST to ensure env var detection" />
     <MESSAGE value="chore: allow RESEND_API_KEY in Turborepo build env" />
     <MESSAGE value="Comment Cooki Banner" />
     <MESSAGE value="updated design form contact" />
@@ -574,6 +587,7 @@
     <MESSAGE value="feat(quotations): implement atomic sequence numbering and cache invalidation" />
     <MESSAGE value="updated sequenceNumber in mapQuotation" />
     <MESSAGE value="style(sheets): redesign quotation document with SaaS-inspired aesthetic" />
-    <option name="LAST_COMMIT_MESSAGE" value="style(sheets): redesign quotation document with SaaS-inspired aesthetic" />
+    <MESSAGE value="added findDistrict in card and districts list" />
+    <option name="LAST_COMMIT_MESSAGE" value="added findDistrict in card and districts list" />
   </component>
 </project>

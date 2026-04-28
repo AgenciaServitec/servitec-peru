@@ -7,6 +7,7 @@ import {
   faFileLines,
   faGears,
   faHome,
+  faInbox,
   faList,
   faSquarePlus,
   faUserLock,
@@ -119,6 +120,13 @@ export const DrawerLayout = ({
           permission: "service_view_all",
         },
       ],
+    },
+    {
+      label: "Entradas",
+      key: "tickets",
+      icon: <FontAwesomeIcon icon={faInbox} />,
+      onClick: () => onClickMenu("/tickets"),
+      permission: "service_view_all",
     },
     {
       label: "Proveedores",
