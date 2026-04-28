@@ -16,3 +16,4 @@ export * from "./suppliers";
 export * from "./suppliers/_supplierId";
 export * from "./roles-and-permissions";
 export * from "./roles-and-permissions/_roleAndPermissionId";
+export * from "./tickets";

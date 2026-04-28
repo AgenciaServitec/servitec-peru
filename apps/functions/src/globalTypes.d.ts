@@ -151,3 +151,28 @@ export interface WebServiceRequest extends DefaultFirestoreProps {
   apartmentNumber?: string;
   reference?: string;
 }
+
+interface Lead extends DefaultFirestoreProps {
+  id: string;
+  hostname: string;
+  category: "inquiry" | "claim";
+  message: string;
+  status: "pending" | "open" | "closed" | "on_hold" | "spam";
+  priority: "low" | "medium" | "high" | "urgent";
+  client: {
+    fullName: string;
+    firstName?: string;
+    paternalSurname?: string;
+    maternalSurname?: string;
+    email: string;
+    phone: {
+      prefix: string;
+      number: string;
+    };
+    document: {
+      prefix: string;
+      number: string;
+    };
+  };
+  serviceRequired: string;
+}
