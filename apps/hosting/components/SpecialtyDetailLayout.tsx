@@ -63,7 +63,7 @@ export default function SpecialtyDetailLayout({
               icon={Phone}
               variant="secondary"
             >
-              Hablemos
+              Llámanos
             </ButtonLink>
           </div>
         </ContentWidth>
