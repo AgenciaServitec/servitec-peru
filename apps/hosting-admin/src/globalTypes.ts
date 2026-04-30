@@ -186,3 +186,34 @@ export interface RoleFormData {
 export interface Role extends RoleFormData, DefaultFirestoreProps {
   id: string;
 }
+
+export interface CustomerSite extends DefaultFirestoreProps {
+  id: string;
+  name: string;
+  hostname: string;
+  status: "active" | "inactive" | "suspended";
+
+  branding: {
+    primaryColor: string; // Color de las burbujas en el Radar
+    textColor: string; // Color de contraste para textos
+    logoUrl?: string; // Opcional, por si decides agregarlo luego
+    isotipoUrl?: string; // Opcional
+  };
+
+  notifications: {
+    mainReceiver: string; // Email donde llegan los leads por defecto
+    bccEmails: string; // Emails en copia (string separado por comas)
+    phone: {
+      prefix: string; // Ej: +51
+      number: string;
+    };
+  };
+
+  // Configuración técnica de correo
+  customSmtp: boolean; // Switch para decidir si se usa SMTP propio
+  smtpConfig?: {
+    service: string; // Ej: "Gmail", "Outlook", "SendGrid"
+    user: string; // Usuario/Email de autenticación
+    pass: string; // App password o contraseña
+  };
+}
