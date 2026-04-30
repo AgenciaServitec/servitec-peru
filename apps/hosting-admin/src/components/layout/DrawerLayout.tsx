@@ -3,12 +3,15 @@ import { Drawer, Menu } from "../ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBoxesPacking,
+  faBuilding,
   faClipboardUser,
   faFileLines,
   faGears,
+  faGlobe,
   faHome,
   faInbox,
   faList,
+  faMagnifyingGlass,
   faSquarePlus,
   faUserLock,
   faUsers,
@@ -122,11 +125,33 @@ export const DrawerLayout = ({
       ],
     },
     {
-      label: "Entradas",
+      label: "Sitios Web",
       key: "tickets",
-      icon: <FontAwesomeIcon icon={faInbox} />,
-      onClick: () => onClickMenu("/tickets"),
+      icon: <FontAwesomeIcon icon={faGlobe} />,
       permission: "service_view_all",
+      children: [
+        {
+          label: "Clientes",
+          key: "services-requests-list",
+          icon: <FontAwesomeIcon icon={faBuilding} />,
+          onClick: () => onClickMenu("/web-manager/sites"),
+          permission: "service_view_all",
+        },
+        {
+          label: "Entradas",
+          key: "services-requests-list",
+          icon: <FontAwesomeIcon icon={faInbox} />,
+          onClick: () => onClickMenu("/web-manager/leads"),
+          permission: "service_view_all",
+        },
+        {
+          label: "Revisión de Webs",
+          key: "services-requests-list",
+          icon: <FontAwesomeIcon icon={faMagnifyingGlass} />,
+          onClick: () => onClickMenu("/web-manager/reviews"),
+          permission: "service_view_all",
+        },
+      ],
     },
     {
       label: "Proveedores",
@@ -207,7 +232,7 @@ export const DrawerLayout = ({
     <DrawerContainer
       title={
         <HeaderTitle>
-          <h3>Servitec Work</h3>
+          <h3>Servitec Perú System</h3>
           <VersionBadge>v1.0.0</VersionBadge>
         </HeaderTitle>
       }

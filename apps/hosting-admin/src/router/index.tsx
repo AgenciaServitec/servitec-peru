@@ -144,7 +144,23 @@ export function Router() {
           }
         />
         <Route
-          path="tickets"
+          path="web-manager/sites"
+          element={
+            <AdminLayout>
+              <A.TicketsManagementPage />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="web-manager/leads"
+          element={
+            <AdminLayout>
+              <A.TicketsManagementPage />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="web-manager/reviews"
           element={
             <AdminLayout>
               <A.TicketsManagementPage />
