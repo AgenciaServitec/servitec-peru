@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import * as A from "../pages";
 import { AdminLayout, PublicLayout } from "../components";
 import { PrivateRoute } from "./PrivateRoute";
-import { TicketsManagementPage } from "../pages";
+import { SitesIntegration, TicketsManagementPage } from "../pages";
 
 export function Router() {
   return (
@@ -147,7 +147,15 @@ export function Router() {
           path="web-manager/sites"
           element={
             <AdminLayout>
-              <A.TicketsManagementPage />
+              <A.SitesIntegration />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="web-manager/sites/:siteId"
+          element={
+            <AdminLayout>
+              <A.SiteIntegration />
             </AdminLayout>
           }
         />

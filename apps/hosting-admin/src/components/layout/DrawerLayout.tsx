@@ -126,27 +126,42 @@ export const DrawerLayout = ({
     },
     {
       label: "Sitios Web",
-      key: "tickets",
+      key: "web-manager",
       icon: <FontAwesomeIcon icon={faGlobe} />,
       permission: "service_view_all",
       children: [
         {
           label: "Clientes",
-          key: "services-requests-list",
+          key: "web-manager-sites",
           icon: <FontAwesomeIcon icon={faBuilding} />,
-          onClick: () => onClickMenu("/web-manager/sites"),
           permission: "service_view_all",
+          children: [
+            {
+              label: "Crear Cliente",
+              key: "client-new",
+              icon: <FontAwesomeIcon icon={faSquarePlus} />,
+              onClick: () => onClickMenu("/web-manager/sites/new"),
+              permission: "service_view_all",
+            },
+            {
+              label: "Lista de Clientes",
+              key: "clients-list",
+              icon: <FontAwesomeIcon icon={faList} />,
+              onClick: () => onClickMenu("/web-manager/sites"),
+              permission: "service_view_all",
+            },
+          ],
         },
         {
           label: "Entradas",
-          key: "services-requests-list",
+          key: "web-manager-leads",
           icon: <FontAwesomeIcon icon={faInbox} />,
           onClick: () => onClickMenu("/web-manager/leads"),
           permission: "service_view_all",
         },
         {
           label: "Revisión de Webs",
-          key: "services-requests-list",
+          key: "web-manager-reviews",
           icon: <FontAwesomeIcon icon={faMagnifyingGlass} />,
           onClick: () => onClickMenu("/web-manager/reviews"),
           permission: "service_view_all",
