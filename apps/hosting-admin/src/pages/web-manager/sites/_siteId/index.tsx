@@ -13,6 +13,7 @@ import {
   Input,
   Row,
   Title,
+  Upload,
 } from "../../../../components";
 import {
   addSite,
@@ -48,7 +49,7 @@ export function SiteIntegration() {
           },
         },
         branding: {
-          primaryColor: "#1890ff",
+          primaryColor: "#000000",
           textColor: "#000000",
         },
         customSmtp: false,
@@ -92,6 +93,8 @@ export function SiteIntegration() {
     branding: {
       primaryColor: formData.branding.primaryColor,
       textColor: formData.branding.textColor,
+      logo: formData.branding.logo,
+      isotype: formData.branding.isotype,
     },
     customSmtp: formData.customSmtp,
     smtpConfig: {
@@ -157,6 +160,8 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
         .string()
         .matches(/^#[0-9A-F]{6}$/i, "Debe ser un código HEX válido")
         .required(),
+      logo: yup.object().nullable().optional(),
+      isotype: yup.object().nullable().optional(),
     }),
     customSmtp: yup.boolean(),
     smtpConfig: yup.object().when("customSmtp", {
@@ -199,6 +204,8 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
         branding: {
           primaryColor: site.branding?.primaryColor || "#1890ff",
           textColor: site.branding?.textColor || "#000000",
+          logo: site.branding?.logo || null,
+          isotype: site.branding?.isotype || null,
         },
         customSmtp: site.customSmtp || false,
         smtpConfig: {
@@ -218,7 +225,6 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
       <Col span={24}>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Row gutter={[16, 16]}>
-            {/* GRUPO 1: DATOS DEL SITIO */}
             <Col span={24}>
               <ComponentContainer.group label="Configuración del Sitio">
                 <Row gutter={[16, 16]}>
@@ -250,6 +256,48 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
                           onChange={onChange}
                           error={error(name)}
                           required={required(name)}
+                        />
+                      )}
+                    />
+                  </Col>
+                  <Col xs={24} md={12}>
+                    <Controller
+                      name="branding.isotype"
+                      control={control}
+                      render={({ field: { onChange, value, name } }) => (
+                        <Upload
+                          isImage
+                          label="isotype (150 x150)"
+                          accept="image/*"
+                          buttonText="Subir foto"
+                          value={value}
+                          name={name}
+                          filePath={`sites/${site?.id}/branding`}
+                          fileName="isotype"
+                          onChange={(file) => onChange(file)}
+                          required={required(name)}
+                          error={error(name)}
+                        />
+                      )}
+                    />
+                  </Col>
+                  <Col xs={24} md={12}>
+                    <Controller
+                      name="branding.logo"
+                      control={control}
+                      render={({ field: { onChange, value, name } }) => (
+                        <Upload
+                          isImage
+                          label="Logotipo (350 x 167)"
+                          accept="image/*"
+                          buttonText="Subir foto"
+                          value={value}
+                          name={name}
+                          filePath={`sites/${site?.id}/branding`}
+                          fileName="logotipo"
+                          onChange={(file) => onChange(file)}
+                          required={required(name)}
+                          error={error(name)}
                         />
                       )}
                     />

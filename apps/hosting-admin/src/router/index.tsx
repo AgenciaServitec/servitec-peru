@@ -2,7 +2,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import * as A from "../pages";
 import { AdminLayout, PublicLayout } from "../components";
 import { PrivateRoute } from "./PrivateRoute";
-import { SitesIntegration, TicketsManagementPage } from "../pages";
 
 export function Router() {
   return (
@@ -163,7 +162,7 @@ export function Router() {
           path="web-manager/leads"
           element={
             <AdminLayout>
-              <A.TicketsManagementPage />
+              <A.LeadsIntegration />
             </AdminLayout>
           }
         />
@@ -171,7 +170,7 @@ export function Router() {
           path="web-manager/reviews"
           element={
             <AdminLayout>
-              <A.TicketsManagementPage />
+              <A.ReviewsIntegration />
             </AdminLayout>
           }
         />
