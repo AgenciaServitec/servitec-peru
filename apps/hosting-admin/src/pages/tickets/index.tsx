@@ -26,6 +26,10 @@ import {
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import { firestore } from "../../firebase";
+import { CATEGORY_LABELS } from "../../data-list";
+import dayjs from "dayjs";
 
 const { Title, Text } = Typography;
 
@@ -100,8 +104,10 @@ const CLIENTS = [
 
 const RenderBubbles = ({
   handleOpenDrawer,
+  leads,
 }: {
   handleOpenDrawer: (t: any) => void;
+  leads: any[];
 }) => (
   <Row gutter={[24, 0]} align="top">
     <Col flex="auto">
@@ -117,7 +123,7 @@ const RenderBubbles = ({
         }}
       >
         <Row gutter={[32, 32]} justify="center" style={{ maxWidth: "1000px" }}>
-          {MOCK_TICKETS.map((ticket) => (
+          {leads?.map((ticket) => (
             <Col key={ticket.id}>
               <motion.div
                 layout
@@ -169,13 +175,12 @@ const RenderBubbles = ({
                       zIndex: 2,
                     }}
                   >
-                    Consulta
+                    {CATEGORY_LABELS[ticket.category]?.label || "Sin Categoría"}
                   </div>
-
                   <div style={{ position: "relative", marginBottom: "12px" }}>
                     <Avatar
                       size={60}
-                      src="https://ui-avatars.com/api/?name=angel&background=random"
+                      src={`https://ui-avatars.com/api/?name=${ticket.client.firstName}&background=random`}
                       style={{
                         border: "3px solid rgba(255,255,255,0.8)",
                         boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
@@ -196,7 +201,6 @@ const RenderBubbles = ({
                       }}
                     />
                   </div>
-
                   <div style={{ width: "100%" }}>
                     <Text
                       strong
@@ -211,7 +215,7 @@ const RenderBubbles = ({
                         textShadow: "0 2px 4px rgba(0,0,0,0.2)",
                       }}
                     >
-                      Angel Emilio Gala Flores
+                      {ticket.client.fullName}
                     </Text>
 
                     <div style={{ marginTop: "8px" }}>
@@ -226,7 +230,7 @@ const RenderBubbles = ({
                           margin: 0,
                         }}
                       >
-                        servitecperu.com
+                        {ticket.hostname}
                       </Tag>
                     </div>
                   </div>
@@ -240,30 +244,19 @@ const RenderBubbles = ({
 
     <Col style={{ width: "240px" }}>
       <Space direction="vertical" size={24} style={{ marginTop: "24px" }}>
-        <Space align="center" size={8}>
-          <div
-            style={{
-              width: 8,
-              height: 8,
-              borderRadius: "50%",
-              background: "#10B981",
-              boxShadow: "0 0 8px #10B981",
-            }}
-          />
-          <Tag
-            bordered={false}
-            style={{
-              background: "rgba(16, 185, 129, 0.1)",
-              color: "#10B981",
-              fontSize: "10px",
-              fontWeight: 800,
-              letterSpacing: "0.5px",
-              textTransform: "uppercase",
-            }}
-          >
-            Sincronizado
-          </Tag>
-        </Space>
+        <Tag
+          bordered={false}
+          style={{
+            background: "rgba(16, 185, 129, 0.1)",
+            color: "#10B981",
+            fontSize: "10px",
+            fontWeight: 800,
+            letterSpacing: "0.5px",
+            textTransform: "uppercase",
+          }}
+        >
+          Sincronizado
+        </Tag>
 
         <div style={{ paddingLeft: "2px" }}>
           <Title
@@ -486,6 +479,18 @@ export const TicketsManagementPage = () => {
   const [open, setOpen] = useState(false);
   const [selectedTicket, setSelectedTicket] = useState<any>(null);
 
+  const [leads, leadsLoading, leadsError] = useCollectionData(
+    firestore.collection("leads").where("isDeleted", "==", false)
+  );
+
+  const formatDate = (timestamp: any) => {
+    if (!timestamp) return "-";
+
+    const date = timestamp.toDate();
+
+    return dayjs(date).format("DD/MM/YYYY HH:mm A");
+  };
+
   const handleOpenDrawer = (ticket: any) => {
     setSelectedTicket(ticket);
     setOpen(true);
@@ -641,7 +646,12 @@ export const TicketsManagementPage = () => {
             {
               key: "bubbles",
               label: "RADAR",
-              children: <RenderBubbles handleOpenDrawer={handleOpenDrawer} />,
+              children: (
+                <RenderBubbles
+                  handleOpenDrawer={handleOpenDrawer}
+                  leads={leads}
+                />
+              ),
             },
             {
               key: "list",
@@ -686,7 +696,7 @@ export const TicketsManagementPage = () => {
                   level={4}
                   style={{ margin: 0, color: COLORS.fontPrimary }}
                 >
-                  {selectedTicket.name}
+                  {selectedTicket.client.fullName}
                 </Title>
                 <Space size={8} style={{ marginTop: "4px" }}>
                   <Tag
@@ -698,7 +708,7 @@ export const TicketsManagementPage = () => {
                       fontWeight: 600,
                     }}
                   >
-                    {selectedTicket.site}
+                    {selectedTicket.hostname}
                   </Tag>
                   <Tag
                     bordered={false}
@@ -710,7 +720,8 @@ export const TicketsManagementPage = () => {
                       textTransform: "uppercase",
                     }}
                   >
-                    {selectedTicket.category || "Contacto"}
+                    {CATEGORY_LABELS[selectedTicket.category]?.label ||
+                      "Sin Categoría"}
                   </Tag>
                 </Space>
               </Col>
@@ -757,21 +768,21 @@ export const TicketsManagementPage = () => {
                       icon={faEnvelope}
                       style={{ marginRight: 8 }}
                     />{" "}
-                    {selectedTicket.email}
+                    {selectedTicket.client.email}
                   </Text>
                   <Text style={{ color: COLORS.fontSecondary }}>
                     <FontAwesomeIcon
                       icon={faPhone}
                       style={{ marginRight: 8 }}
                     />{" "}
-                    {selectedTicket.phone}
+                    {selectedTicket.client.phone.number}
                   </Text>
                   <Text style={{ color: COLORS.fontSecondary }}>
                     <FontAwesomeIcon
                       icon={faCalendarDays}
                       style={{ marginRight: 8 }}
                     />{" "}
-                    {selectedTicket.date}
+                    {formatDate(selectedTicket.createAt)}
                   </Text>
                 </Space>
               </Card>
@@ -781,7 +792,7 @@ export const TicketsManagementPage = () => {
                   style={{ marginRight: 8, width: "14px" }}
                 />
                 <span style={{ color: COLORS.fontTertiary }}>Origen:</span>{" "}
-                {selectedTicket.site}
+                {selectedTicket.hostname}
               </Text>
             </Space>
             <Button
