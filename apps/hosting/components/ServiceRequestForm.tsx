@@ -17,6 +17,7 @@ import {
   Locate,
   Mail,
   MapPin,
+  MonitorSmartphone,
   Phone,
   Settings,
   Store,
@@ -43,6 +44,7 @@ import { DISTRICTS } from "@/data-list/districts";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { DeviceTypes } from "@/data-list";
 
 export default function ServiceRequestForm({
   specialtyName = "",
@@ -115,6 +117,7 @@ export default function ServiceRequestForm({
           phone: { prefix: "+51", number: "" },
         },
         device: {
+          type: "",
           category: specialtyName || "General",
           brand: "",
           model: "",
@@ -211,7 +214,13 @@ export default function ServiceRequestForm({
 
   const nextStep = async () => {
     const fieldsByStep: Record<number, string[]> = {
-      1: ["device.brand", "device.model", "issueDescription", "priority"],
+      1: [
+        "device.type",
+        "device.brand",
+        "device.model",
+        "issueDescription",
+        "priority",
+      ],
       2: ["serviceMode"],
       3: ["location.district"],
       4: [
@@ -236,6 +245,12 @@ export default function ServiceRequestForm({
   };
 
   const prevStep = () => setStep((s) => s - 1);
+
+  useEffect(() => {
+    if (specialtyName && watch("device.category") !== specialtyName) {
+      setValue("device.category", specialtyName);
+    }
+  }, [specialtyName, setValue]);
 
   const onSubmit = async (data: ServiceRequestFormData) => {
     if (!executeRecaptcha) return;
@@ -384,6 +399,30 @@ export default function ServiceRequestForm({
                         </p>
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="md:col-span-2">
+                          <FormField
+                            control={control}
+                            name="device.type"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormControl>
+                                  <Select
+                                    {...field}
+                                    {...useFormHelpers(
+                                      "device.type",
+                                      serviceRequestSchema
+                                    )}
+                                    label="Equipo a reparar"
+                                    icon={MonitorSmartphone}
+                                    options={DeviceTypes}
+                                    onValueChange={field.onChange}
+                                    value={field.value}
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
                         <div className="md:col-span-2">
                           <FormField
                             control={control}

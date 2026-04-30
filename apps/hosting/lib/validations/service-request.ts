@@ -57,6 +57,7 @@ const clientSchema = z.union([
 export const baseSchema = z.object({
   client: clientSchema,
   device: z.object({
+    type: z.string().min(1, "Debe seleccionar un tipo de dispositivo"),
     category: z.string().optional(),
     brand: z.string().min(1, "Marca obligatoria"),
     model: z.string().min(1, "Modelo obligatorio"),
