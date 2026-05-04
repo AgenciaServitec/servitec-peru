@@ -194,26 +194,24 @@ export interface CustomerSite extends DefaultFirestoreProps {
   status: "active" | "inactive" | "suspended";
 
   branding: {
-    primaryColor: string; // Color de las burbujas en el Radar
-    textColor: string; // Color de contraste para textos
-    logoUrl?: string; // Opcional, por si decides agregarlo luego
-    isotipoUrl?: string; // Opcional
+    primaryColor: string;
+    textColor: string;
+    logoUrl?: string;
+    isotipoUrl?: string;
   };
 
   notifications: {
-    mainReceiver: string; // Email donde llegan los leads por defecto
-    bccEmails: string; // Emails en copia (string separado por comas)
+    mainReceiver: string;
+    bccEmails: string;
     phone: {
-      prefix: string; // Ej: +51
+      prefix: string;
       number: string;
     };
   };
-
-  // Configuración técnica de correo
-  customSmtp: boolean; // Switch para decidir si se usa SMTP propio
+  customSmtp: boolean;
   smtpConfig?: {
-    service: string; // Ej: "Gmail", "Outlook", "SendGrid"
-    user: string; // Usuario/Email de autenticación
-    pass: string; // App password o contraseña
+    service: string;
+    user: string;
+    pass: string;
   };
 }

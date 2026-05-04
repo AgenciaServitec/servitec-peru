@@ -16,6 +16,8 @@ export interface IconActionProps extends Omit<
   iconStyles?: IconStyles;
   onClick?: (event: MouseEvent<HTMLDivElement>) => void;
   disabled?: boolean;
+  href?: string;
+  target?: string;
 }
 
 export interface IconStyles {
@@ -27,7 +29,7 @@ export interface IconStyles {
 interface IconWrapperProps {
   $size: number;
   $iconStyles: IconStyles;
-  $hasOnClick: boolean;
+  $hasAction: boolean;
   $disabled: boolean;
 }
 
@@ -38,20 +40,31 @@ export const IconAction: React.FC<IconActionProps> = ({
   iconStyles = {},
   onClick,
   disabled = false,
+  href,
+  target,
   ...props
 }) => {
-  const handleClick = (event: MouseEvent<HTMLDivElement>): void => {
-    if (!disabled && onClick) {
+  const handleClick = (event: MouseEvent<HTMLElement>): void => {
+    if (disabled) {
+      event.preventDefault();
+      return;
+    }
+    if (onClick) {
       onClick(event);
     }
   };
 
+  const hasAction = !!onClick || (!!href && !disabled);
+
   const content = (
     <IconWrapper
+      as={href && !disabled ? "a" : "div"}
+      href={disabled ? undefined : href}
+      target={target}
       onClick={handleClick}
       $size={size}
       $iconStyles={iconStyles}
-      $hasOnClick={!!onClick}
+      $hasAction={hasAction}
       $disabled={disabled}
       {...props}
     >
@@ -68,7 +81,6 @@ export const IconAction: React.FC<IconActionProps> = ({
   );
 };
 
-// Helper para resolver colores dinámicos
 const resolveColor = (
   theme: Theme,
   value: IconStyles["color"] | IconStyles["backgroundColor"],
@@ -80,7 +92,7 @@ const resolveColor = (
 };
 
 const IconWrapper = styled.div<IconWrapperProps>`
-  ${({ theme, $size, $hasOnClick, $disabled, $iconStyles }) => {
+  ${({ theme, $size, $hasAction, $disabled, $iconStyles }) => {
     const typedTheme = theme as Theme;
 
     const baseColor = resolveColor(
@@ -91,7 +103,7 @@ const IconWrapper = styled.div<IconWrapperProps>`
     const hoverColor = resolveColor(
       typedTheme,
       $iconStyles.hoverColor,
-      typedTheme.colors.primary // Por defecto el hover es tu color corporativo
+      typedTheme.colors.primary
     );
     const bgColor = resolveColor(
       typedTheme,
@@ -103,7 +115,6 @@ const IconWrapper = styled.div<IconWrapperProps>`
       display: flex;
       justify-content: center;
       align-items: center;
-      /* Reemplazado percentage_medium por md */
       border-radius: ${typedTheme.border_radius.md};
       height: ${$size}px;
       width: ${$size}px;
@@ -111,22 +122,18 @@ const IconWrapper = styled.div<IconWrapperProps>`
       background: ${bgColor};
       transition: all ${typedTheme.transitions.fast};
       position: relative;
-      cursor: ${$disabled
-        ? "not-allowed"
-        : $hasOnClick
-          ? "pointer"
-          : "default"};
+      cursor: ${$disabled ? "not-allowed" : $hasAction ? "pointer" : "default"};
 
-      ${$hasOnClick &&
+      ${$hasAction &&
       !$disabled &&
       css`
         &:hover {
-          /* Efecto circular al hover (Vercel style) */
           border-radius: ${typedTheme.border_radius.full};
           background: ${bgColor !== "transparent"
             ? bgColor
             : rgba(baseColor, 0.15)};
           transform: translateY(-1px);
+          color: ${baseColor};
         }
 
         &:active {
@@ -134,7 +141,6 @@ const IconWrapper = styled.div<IconWrapperProps>`
         }
       `}
 
-      /* Tamaño del icono interno */
       svg {
         font-size: ${$size * 0.45}px;
         transition: color ${typedTheme.transitions.fast};

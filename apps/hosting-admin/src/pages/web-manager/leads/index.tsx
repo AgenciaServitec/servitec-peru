@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Avatar,
   Button,
@@ -7,12 +7,12 @@ import {
   Col,
   Divider,
   Drawer,
+  IconAction,
   Radio,
   Row,
   Space,
   Tabs,
   Tag,
-  Tooltip,
   Typography,
 } from "../../../components";
 import { motion } from "framer-motion";
@@ -67,31 +67,6 @@ const RADIUS = {
   lg: "12px",
   full: "9999px",
 };
-
-const MOCK_TICKETS = [
-  {
-    id: 1,
-    name: "Dustin",
-    email: "dustin.calderon@gmail.com",
-    phone: "+51 915261878",
-    message:
-      "The most prepared business owners all have one thing in common. They already know their number...",
-    date: "23/04/2026 14:20 PM",
-    site: "venta-llantas.com",
-    logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6A7p8PzB6-Y8Tz4L0j8-984_H1hC_4901Vw&s",
-  },
-  {
-    id: 2,
-    name: "Brayan Felipe Belicoso Concepción",
-    email: "belicosoconcepcionb@gmail.com",
-    phone: "+51 993558304",
-    message:
-      "Solicito comunicarme con un agente de asesoría sobre una solicitud de carta de convenio.",
-    date: "18/04/2026 17:03 PM",
-    site: "cobiene-352004.web.app",
-    logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLSgIeLskK7Z4vLwWk_B_H2U3S7Y8C-n6oIg&s",
-  },
-];
 
 const CLIENTS = [
   "Todos",
@@ -357,7 +332,7 @@ const RenderList = ({ leads }) => (
                 <Col style={{ textAlign: "right" }}>
                   <Text style={{ fontSize: "13px" }}>
                     <span style={{ color: COLORS.fontSecondary }}>Email: </span>{" "}
-                    {ticket.email}
+                    {ticket.client.email}
                   </Text>
                 </Col>
               </Row>
@@ -412,57 +387,48 @@ const RenderList = ({ leads }) => (
                   </Space>
                 </Col>
                 <Col>
-                  <Space size={16}>
-                    <Tooltip title="WhatsApp">
-                      <FontAwesomeIcon
-                        icon={faWhatsapp}
-                        style={{
-                          color: "#25D366",
-                          cursor: "pointer",
-                          fontSize: "18px",
-                        }}
-                      />
-                    </Tooltip>
-                    <Tooltip title="Email">
-                      <FontAwesomeIcon
-                        icon={faEnvelope}
-                        style={{
-                          color: "#FF5722",
-                          cursor: "pointer",
-                          fontSize: "17px",
-                        }}
-                      />
-                    </Tooltip>
-                    <Tooltip title="Llamar">
-                      <FontAwesomeIcon
-                        icon={faPhone}
-                        style={{
-                          color: "#1890ff",
-                          cursor: "pointer",
-                          fontSize: "16px",
-                        }}
-                      />
-                    </Tooltip>
-                    <Tooltip title="Calendario">
-                      <FontAwesomeIcon
-                        icon={faCalendarDays}
-                        style={{
-                          color: "#FFC107",
-                          cursor: "pointer",
-                          fontSize: "16px",
-                        }}
-                      />
-                    </Tooltip>
-                    <Tooltip title="Eliminar">
-                      <FontAwesomeIcon
-                        icon={faTrashCan}
-                        style={{
-                          color: "#F43F5E",
-                          cursor: "pointer",
-                          fontSize: "16px",
-                        }}
-                      />
-                    </Tooltip>
+                  <Space>
+                    <IconAction
+                      tooltipTitle="WhatsApp"
+                      onClick={() => ""}
+                      icon={faWhatsapp}
+                      iconStyles={{
+                        color: "#25D366",
+                      }}
+                    />
+                    <IconAction
+                      tooltipTitle="Email"
+                      href={`mailto:${ticket?.client.email}`}
+                      target="_blank"
+                      icon={faEnvelope}
+                      iconStyles={{
+                        color: "#FF5722",
+                      }}
+                    />
+                    <IconAction
+                      tooltipTitle="Llamar"
+                      href={`tel:${ticket?.client.phone.number}`}
+                      icon={faPhone}
+                      iconStyles={{
+                        color: "#1890ff",
+                      }}
+                    />
+                    {/*<IconAction*/}
+                    {/*  tooltipTitle="Calendario"*/}
+                    {/*  onClick={() => ""}*/}
+                    {/*  icon={faCalendarDays}*/}
+                    {/*  iconStyles={{*/}
+                    {/*    color: "#FFC107",*/}
+                    {/*  }}*/}
+                    {/*/>*/}
+                    <IconAction
+                      tooltipTitle="Eliminar"
+                      onClick={() => ""}
+                      icon={faTrashCan}
+                      iconStyles={{
+                        color: "#F43F5E",
+                      }}
+                    />
                   </Space>
                 </Col>
               </Row>
@@ -481,6 +447,10 @@ export const LeadsIntegration = () => {
 
   const [leads, leadsLoading, leadsError] = useCollectionData(
     firestore.collection("leads").where("isDeleted", "==", false)
+  );
+
+  const [sites, sitesLoading, sitesError] = useCollectionData(
+    firestore.collection("sites").where("isDeleted", "==", false)
   );
 
   const formatDate = (timestamp: any) => {
@@ -506,7 +476,7 @@ export const LeadsIntegration = () => {
             fontWeight: 500,
           }}
         >
-          Total contactos: 13
+          Total entradas: {leads.length}
         </Title>
       </Col>
       <Col span={24}>
@@ -536,15 +506,15 @@ export const LeadsIntegration = () => {
                   overflow: "hidden",
                 }}
               >
-                {CLIENTS.map((client, i) => (
+                {sites?.map((client, i) => (
                   <Button
-                    key={client}
+                    key={client.id}
                     type="text"
                     style={{
                       borderRadius: 0,
                       height: "36px",
                       borderRight:
-                        i !== CLIENTS.length - 1
+                        i !== sites.length - 1
                           ? `1px solid ${COLORS.border}`
                           : "none",
                       backgroundColor:
@@ -556,7 +526,7 @@ export const LeadsIntegration = () => {
                       fontSize: "13px",
                     }}
                   >
-                    {client}
+                    {client.name}
                   </Button>
                 ))}
               </Space>
@@ -604,13 +574,7 @@ export const LeadsIntegration = () => {
                   Tipo:
                 </Text>
                 <Radio.Group defaultValue="todos">
-                  {[
-                    "Todos",
-                    "Contacto",
-                    "Solicitudes",
-                    "Reclamos",
-                    "Cotizaciones",
-                  ].map((t) => (
+                  {["Todos", "Contacto", "Reclamos"].map((t) => (
                     <Radio
                       key={t}
                       value={t.toLowerCase()}

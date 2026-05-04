@@ -10,21 +10,35 @@ import {
   Tag,
   Title,
   Typography,
+  useModalConfirm,
+  useNotification,
 } from "../../../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faGlobe, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faEnvelope,
+  faExternalLinkAlt,
+  faGlobe,
+  faPhone,
+  faPlus,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import { theme } from "../../../styles";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { sitesRef } from "../../../firebase/collections";
+import { deleteSite, sitesRef } from "../../../firebase/collections";
 import dayjs from "dayjs";
 import { orderBy } from "lodash";
+import { useDefaultFirestoreProps } from "../../../hooks";
 
 const { Text } = Typography;
 
 export const SitesIntegration = () => {
   const navigate = useNavigate();
+  const { assignDeleteProps } = useDefaultFirestoreProps();
 
+  const { notification } = useNotification();
+  const { modalConfirm } = useModalConfirm();
   const { colors } = theme;
 
   const [sites, sitesLoading, sitesError] = useCollectionData(
@@ -32,8 +46,30 @@ export const SitesIntegration = () => {
   );
 
   const onAddSite = () => navigate("/web-manager/sites/new");
-  const onEditSite = (id: string) => navigate(`/web-manager/sites/${id}`);
-  const onDeleteSite = (id: string) => console.log("Eliminar sitio:", id);
+  const onEditSite = (siteId: string) =>
+    navigate(`/web-manager/sites/${siteId}`);
+
+  const onDeleteSite = async (site) => {
+    try {
+      await deleteSite(site.id, assignDeleteProps(site));
+
+      notification({
+        type: "success",
+        title: "¡Cliente Web eliminado exitosamente!",
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const onConfirmRemoveSite = (site): void => {
+    modalConfirm({
+      content: "El cliente web se eliminará",
+      onOk: async () => {
+        await onDeleteSite(site);
+      },
+    });
+  };
 
   return (
     <Sites
@@ -41,7 +77,8 @@ export const SitesIntegration = () => {
       colors={colors}
       onAddSite={onAddSite}
       onEditSite={onEditSite}
-      onDeleteSite={onDeleteSite}
+      onConfirmRemoveSite={onConfirmRemoveSite}
+      navigate={navigate}
     />
   );
 };
@@ -51,24 +88,31 @@ export const Sites = ({
   colors,
   onAddSite,
   onEditSite,
-  onDeleteSite,
+  onConfirmRemoveSite,
+  navigate,
 }: any) => {
   const { border_radius, spacing } = theme;
 
   return (
     <Row gutter={[16, 24]}>
-      <Col
-        span={24}
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Title level={2}>Sitios Conectados</Title>
-        <Button type="primary" onClick={onAddSite}>
-          Agregar cliente
-        </Button>
+      <Col span={24}>
+        <Row gutter={[16, 16]} justify="space-between" align="middle">
+          <Col>
+            <Title level={2} style={{ margin: 0 }}>
+              Sitios Conectados
+            </Title>
+          </Col>
+          <Col>
+            <Button
+              type="primary"
+              icon={<FontAwesomeIcon icon={faPlus} />}
+              size="large"
+              onClick={() => navigate("/web-manager/sites/new")}
+            >
+              Agregar Cliente
+            </Button>
+          </Col>
+        </Row>
       </Col>
 
       <Col span={24}>
@@ -80,54 +124,64 @@ export const Sites = ({
           {orderBy(sites, "createAt", "desc")?.map((site: any) => (
             <Card
               key={site.id}
-              bodyStyle={{ padding: "16px" }}
               style={{
                 background: colors.bgSecondary,
-                borderRadius: border_radius.md,
               }}
             >
               <Row align="middle" gutter={16}>
                 <Col>
                   <Avatar
-                    size={54}
+                    size={64}
                     src={
                       site?.branding?.logo?.url ||
                       `https://ui-avatars.com/api/?name=${site.name}&background=random`
                     }
-                    style={{ border: `1px solid ${colors.border}` }}
+                    style={{
+                      border: `2px solid ${site.branding?.primaryColor}`,
+                      padding: "2px",
+                      backgroundColor: "white",
+                    }}
                   />
                 </Col>
                 <Col flex="auto">
                   <Row justify="space-between">
                     <Col>
-                      <Space direction="vertical" size={0}>
-                        <Text style={{ fontSize: "13px" }}>
-                          <span style={{ color: colors.fontSecondary }}>
-                            Cliente:{" "}
-                          </span>
-                          <Text strong style={{ color: colors.info }}>
-                            {site.name}
-                          </Text>
+                      <Title
+                        level={4}
+                        style={{ margin: 0, color: colors.fontPrimary }}
+                      >
+                        {site.name}
+                      </Title>
+                      <Space
+                        split={
+                          <span style={{ color: colors.fontTertiary }}>|</span>
+                        }
+                      >
+                        <Text
+                          style={{
+                            fontSize: "12px",
+                            color: colors.fontSecondary,
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            icon={faPhone}
+                            style={{ marginRight: 4 }}
+                          />
+                          +51 {site.notifications.phone.number}
                         </Text>
-                        <Text style={{ fontSize: "13px" }}>
-                          <span style={{ color: colors.fontSecondary }}>
-                            Teléfono:{" "}
-                          </span>
-                          <span style={{ color: colors.fontPrimary }}>
-                            +51 {site.notifications.phone.number}
-                          </span>
+                        <Text
+                          style={{
+                            fontSize: "12px",
+                            color: colors.fontSecondary,
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            icon={faEnvelope}
+                            style={{ marginRight: 4 }}
+                          />
+                          {site.notifications.mainReceiver}
                         </Text>
                       </Space>
-                    </Col>
-                    <Col style={{ textAlign: "right" }}>
-                      <Text style={{ fontSize: "13px" }}>
-                        <span style={{ color: colors.fontSecondary }}>
-                          Email Receptor:{" "}
-                        </span>
-                        <span style={{ color: colors.fontPrimary }}>
-                          {site.notifications.mainReceiver}
-                        </span>
-                      </Text>
                     </Col>
                   </Row>
 
@@ -135,83 +189,69 @@ export const Sites = ({
                     style={{
                       margin: `${spacing.sm} 0`,
                       padding: spacing.sm,
-                      background: colors.bgTertiary,
+                      background: `${site.branding?.primaryColor}15`,
                       borderRadius: border_radius.sm,
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
                     }}
                   >
                     <Text
-                      style={{ fontSize: "12px", color: colors.fontSecondary }}
+                      style={{
+                        fontSize: "12px",
+                        color: colors.fontPrimary,
+                        fontWeight: 500,
+                      }}
                     >
                       <FontAwesomeIcon
                         icon={faGlobe}
-                        style={{ marginRight: 8, color: colors.info }}
+                        style={{
+                          marginRight: 8,
+                          color: site.branding?.primaryColor,
+                        }}
                       />
                       Hostname: {site.hostname}
                     </Text>
+                    <Tag
+                      color={site.customSmtp ? "success" : "default"}
+                      style={{
+                        fontSize: "10px",
+                        margin: 0,
+                        borderRadius: "4px",
+                        border: "none",
+                      }}
+                    >
+                      SMTP: {site.customSmtp ? "Personalizado" : "Sistema"}
+                    </Tag>
                   </div>
 
                   <Row justify="space-between" align="middle">
                     <Col>
-                      <Space size={12}>
-                        <Text
-                          style={{
-                            fontSize: "11px",
-                            color: colors.fontTertiary,
-                          }}
-                        >
-                          Estado SMTP:{" "}
-                          <Tag
-                            color={site.customSmtp ? "success" : "default"}
-                            style={{
-                              fontSize: "10px",
-                              borderRadius: border_radius.xs,
-                              background: site.customSmtp
-                                ? colors.primaryAlpha
-                                : colors.bgHover,
-                              color: site.customSmtp
-                                ? colors.success
-                                : colors.fontTertiary,
-                              border: "none",
-                            }}
-                          >
-                            {site.customSmtp ? "Personalizado" : "Sistema"}
-                          </Tag>
-                        </Text>
-                        <Text
-                          style={{
-                            fontSize: "11px",
-                            color: colors.fontTertiary,
-                          }}
-                        >
-                          Fecha registro:{" "}
-                          {dayjs(site.createAt.toDate()).format("DD/MM/YYYY")}
-                        </Text>
-                      </Space>
+                      <Text
+                        style={{ fontSize: "11px", color: colors.fontTertiary }}
+                      >
+                        Registrado el{" "}
+                        {dayjs(site.createAt.toDate()).format("DD MMMM, YYYY")}
+                      </Text>
                     </Col>
                     <Col>
-                      <Space size={16}>
+                      <Space size="middle">
                         <IconAction
                           tooltipTitle="Editar"
                           onClick={() => onEditSite(site.id)}
                           icon={faEdit}
                         />
                         <IconAction
-                          tooltipTitle="Ver Web"
-                          onClick={() =>
-                            window.open(`https://${site.hostname}`, "_blank")
-                          }
-                          icon={faGlobe}
-                          iconStyles={{
-                            color: (theme) => theme.colors.info,
-                          }}
+                          tooltipTitle="Visitar Web"
+                          onClick={() => window.open(site.hostname, "_blank")}
+                          icon={faExternalLinkAlt}
+                          iconStyles={{ color: (theme) => theme.colors.info }}
                         />
                         <IconAction
                           tooltipTitle="Eliminar"
-                          onClick={() => onDeleteSite(site.id)}
+                          onClick={() => onConfirmRemoveSite(site)}
                           icon={faTrash}
-                          iconStyles={{
-                            color: (theme) => theme.colors.error,
-                          }}
+                          iconStyles={{ color: (theme) => theme.colors.error }}
                         />
                       </Space>
                     </Col>
