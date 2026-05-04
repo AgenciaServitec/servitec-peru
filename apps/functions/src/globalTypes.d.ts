@@ -155,7 +155,7 @@ export interface WebServiceRequest extends DefaultFirestoreProps {
 interface Lead extends DefaultFirestoreProps {
   id: string;
   hostname: string;
-  category: "inquiry" | "claim";
+  category: "contact" | "claim";
   message: string;
   status: "pending" | "open" | "closed" | "on_hold" | "spam";
   priority: "low" | "medium" | "high" | "urgent";

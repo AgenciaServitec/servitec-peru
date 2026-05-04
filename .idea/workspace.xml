@@ -4,19 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="added reviews module">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/Upload.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/Upload.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/SortableItems.utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/SortableItems.utils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/components.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/components.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/functions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/functions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/tickets/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/globalTypes.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/globalTypes.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/IconAction.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/IconAction.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/globalTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/globalTypes.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/leads/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/leads/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/reviews/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/reviews/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/sites/_siteId/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/sites/_siteId/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/sites/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/sites/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/router/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/router/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,12 +47,12 @@
       </list>
     </option>
   </component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/AgenciaServitec/servitec-peru.git",
-    "accountId": "eed1d776-978f-4f57-88e8-2aa6e801d3a7"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AgenciaServitec/servitec-peru.git&quot;,
+    &quot;accountId&quot;: &quot;eed1d776-978f-4f57-88e8-2aa6e801d3a7&quot;
   }
-}]]></component>
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -148,15 +142,8 @@
       <workItem from="1777303773150" duration="25639000" />
       <workItem from="1777391235864" duration="17810000" />
       <workItem from="1777555816865" duration="1237000" />
-      <workItem from="1777580494573" duration="11314000" />
-    </task>
-    <task id="LOCAL-00030" summary="refactored about and contact page">
-      <option name="closed" value="true" />
-      <created>1771372794951</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1771372794951</updated>
+      <workItem from="1777580494573" duration="11356000" />
+      <workItem from="1777920457624" duration="12440000" />
     </task>
     <task id="LOCAL-00031" summary="added new content services in mdx file">
       <option name="closed" value="true" />
@@ -542,7 +529,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777570726061</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079">
+      <option name="closed" value="true" />
+      <created>1777592404585</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1777592404586</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -560,7 +555,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Comment Cooki Banner" />
     <MESSAGE value="updated design form contact" />
     <MESSAGE value="changed position Specialties section" />
     <MESSAGE value="updated styles" />
@@ -585,6 +579,7 @@
     <MESSAGE value="style(sheets): redesign quotation document with SaaS-inspired aesthetic" />
     <MESSAGE value="added findDistrict in card and districts list" />
     <MESSAGE value="added sites module" />
-    <option name="LAST_COMMIT_MESSAGE" value="added sites module" />
+    <MESSAGE value="added reviews module" />
+    <option name="LAST_COMMIT_MESSAGE" value="added reviews module" />
   </component>
 </project>
