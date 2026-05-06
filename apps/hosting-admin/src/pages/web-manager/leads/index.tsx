@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Avatar,
   Button,
   Card,
   Checkbox,
   Col,
+  ComponentContainer,
   Divider,
   Drawer,
   IconAction,
@@ -19,6 +20,8 @@ import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarDays,
+  faChevronLeft,
+  faChevronRight,
   faEarthAmericas,
   faEnvelope,
   faPhone,
@@ -30,6 +33,7 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import { firestore } from "../../../firebase";
 import { CATEGORY_LABELS } from "../../../data-list";
 import dayjs from "dayjs";
+import styled, { useTheme } from "styled-components";
 
 const { Title, Text } = Typography;
 
@@ -68,15 +72,6 @@ const RADIUS = {
   full: "9999px",
 };
 
-const CLIENTS = [
-  "Todos",
-  "Agencia servitec",
-  "All in one",
-  "Alquiler proyectores",
-  "Alvillanta",
-  "Avc llantas",
-];
-
 const RenderBubbles = ({
   handleOpenDrawer,
   leads,
@@ -84,11 +79,10 @@ const RenderBubbles = ({
   handleOpenDrawer: (t: any) => void;
   leads: any[];
 }) => (
-  <Row gutter={[24, 0]} align="top">
+  <Row gutter={[16, 16]}>
     <Col flex="auto">
       <div
         style={{
-          background: mode === "dark" ? "#0A0A0A" : "#F5F5F5",
           borderRadius: "10px",
           padding: "60px 40px",
           display: "flex",
@@ -444,6 +438,10 @@ export const LeadsIntegration = () => {
   const [view, setView] = useState<"bubbles" | "list">("bubbles");
   const [open, setOpen] = useState(false);
   const [selectedTicket, setSelectedTicket] = useState<any>(null);
+  const [selectedSite, setSelectedSite] = useState<string>("all");
+  const [selectedCategory, setSelectedCategory] = useState<string>("todos");
+
+  const theme = useTheme();
 
   const [leads, leadsLoading, leadsError] = useCollectionData(
     firestore.collection("leads").where("isDeleted", "==", false)
@@ -452,6 +450,10 @@ export const LeadsIntegration = () => {
   const [sites, sitesLoading, sitesError] = useCollectionData(
     firestore.collection("sites").where("isDeleted", "==", false)
   );
+
+  const filterSites = sites
+    ? [{ id: "all", name: "Todos" }, ...sites]
+    : [{ id: "all", name: "Todos" }];
 
   const formatDate = (timestamp: any) => {
     if (!timestamp) return "-";
@@ -466,6 +468,35 @@ export const LeadsIntegration = () => {
     setOpen(true);
   };
 
+  const handleReset = () => {
+    setSelectedSite("all");
+    setSelectedCategory("todos");
+  };
+
+  const filteredLeads = leads?.filter((lead: any) => {
+    const matchesSite =
+      selectedSite === "all" ||
+      lead.hostname === sites?.find((s) => s.id === selectedSite)?.hostname;
+
+    const matchesCategory =
+      selectedCategory === "todos" ||
+      lead.category?.toLowerCase() === selectedCategory.toLowerCase();
+
+    return matchesSite && matchesCategory;
+  });
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      const scrollTo =
+        direction === "left" ? scrollLeft - 200 : scrollLeft + 200;
+
+      scrollRef.current.scrollTo({ left: scrollTo, behavior: "smooth" });
+    }
+  };
+
   return (
     <Row gutter={[16, 16]}>
       <Col span={24}>
@@ -476,132 +507,173 @@ export const LeadsIntegration = () => {
             fontWeight: 500,
           }}
         >
-          Total entradas: {leads.length}
+          Total entradas: {leads?.length}
         </Title>
       </Col>
       <Col span={24}>
-        <section>
-          <Row
-            gutter={[16, 16]}
-            align="bottom"
-            style={{ marginBottom: "16px" }}
-          >
-            <Col flex="auto">
-              <Text
-                style={{
-                  display: "block",
-                  marginBottom: "8px",
-                  fontSize: "12px",
-                  color: COLORS.fontSecondary,
-                }}
-              >
-                Cliente:
-              </Text>
-              <Space
-                wrap
-                size={0}
-                style={{
-                  border: `1px solid ${COLORS.border}`,
-                  borderRadius: RADIUS.md,
-                  overflow: "hidden",
-                }}
-              >
-                {sites?.map((client, i) => (
-                  <Button
-                    key={client.id}
-                    type="text"
+        <Row gutter={[16, 16]}>
+          <Col span={24}>
+            <ComponentContainer.group label="Filtrar por Cliente">
+              <ScrollWrapper>
+                <ScrollArrow
+                  className="left"
+                  onClick={() => scroll("left")}
+                  icon={<FontAwesomeIcon icon={faChevronLeft} size="xs" />}
+                />
+
+                <div
+                  style={{
+                    width: "100%",
+                    overflow: "hidden",
+                    maskImage:
+                      "linear-gradient(to right, transparent, black 5%, black 95%, transparent 100%)",
+                    WebkitMaskImage:
+                      "linear-gradient(to right, transparent, black 5%, black 95%, transparent 100%)",
+                  }}
+                >
+                  <ClientScrollContainer ref={scrollRef}>
+                    {filterSites.map((client, i) => {
+                      const isActive = selectedSite === client.id;
+                      return (
+                        <Button
+                          key={client.id}
+                          type="text"
+                          onClick={() => setSelectedSite(client.id)}
+                          style={{
+                            borderRadius: 0,
+                            borderRight:
+                              i !== filterSites.length - 1
+                                ? `1px solid ${COLORS.border}`
+                                : "none",
+                            backgroundColor: isActive
+                              ? COLORS.bgTertiary
+                              : "transparent",
+                            color: isActive
+                              ? COLORS.primary
+                              : COLORS.fontSecondary,
+                            fontWeight: isActive ? 600 : 400,
+                            fontSize: "13px",
+                            minWidth: "140px",
+                          }}
+                        >
+                          {client.name}
+                        </Button>
+                      );
+                    })}
+                  </ClientScrollContainer>
+                </div>
+
+                <ScrollArrow
+                  className="right"
+                  onClick={() => scroll("right")}
+                  icon={<FontAwesomeIcon icon={faChevronRight} size="xs" />}
+                />
+              </ScrollWrapper>
+            </ComponentContainer.group>
+          </Col>
+
+          <Col span={24}>
+            <Row gutter={[16, 16]}>
+              <Col xs={24} md={12}>
+                <ComponentContainer.group label="Tipo de Entrada">
+                  <div
                     style={{
-                      borderRadius: 0,
-                      height: "36px",
-                      borderRight:
-                        i !== sites.length - 1
-                          ? `1px solid ${COLORS.border}`
-                          : "none",
-                      backgroundColor:
-                        client === "Todos" ? COLORS.bgTertiary : "transparent",
-                      color:
-                        client === "Todos"
-                          ? COLORS.primary
-                          : COLORS.fontSecondary,
-                      fontSize: "13px",
+                      height: "40px",
+                      display: "flex",
+                      alignItems: "center",
+                      padding: "0 12px",
+                      background: COLORS.bgSecondary,
+                      borderRadius: RADIUS.md,
+                      border: `1px solid ${COLORS.border}`,
                     }}
                   >
-                    {client.name}
-                  </Button>
-                ))}
-              </Space>
-            </Col>
-            <Col>
-              <Text
-                style={{
-                  display: "block",
-                  marginBottom: "8px",
-                  fontSize: "12px",
-                  color: COLORS.fontSecondary,
-                }}
-              >
-                Estado:
-              </Text>
-              <Radio.Group defaultValue="pendientes" buttonStyle="solid">
-                <Radio.Button
-                  value="pendientes"
-                  style={{ width: 100, textAlign: "center" }}
-                >
-                  Pendientes
-                </Radio.Button>
-                <Radio.Button
-                  value="atendidos"
-                  style={{ width: 100, textAlign: "center" }}
-                >
-                  Atendidos
-                </Radio.Button>
-              </Radio.Group>
-            </Col>
-          </Row>
-
-          <Row
-            align="middle"
-            style={{
-              background: COLORS.bgSecondary,
-              border: `1px solid ${COLORS.border}`,
-              borderRadius: RADIUS.md,
-              padding: "12px 16px",
-            }}
-          >
-            <Col flex="auto">
-              <Space size={24}>
-                <Text style={{ fontSize: "13px", color: COLORS.fontSecondary }}>
-                  Tipo:
-                </Text>
-                <Radio.Group defaultValue="todos">
-                  {["Todos", "Contacto", "Reclamos"].map((t) => (
-                    <Radio
-                      key={t}
-                      value={t.toLowerCase()}
-                      style={{ color: COLORS.fontPrimary }}
+                    <Radio.Group
+                      value={selectedCategory}
+                      onChange={(e) => setSelectedCategory(e.target.value)}
+                      style={{ display: "flex", gap: "16px" }}
                     >
-                      <span style={{ fontSize: "13px" }}>{t}</span>
-                    </Radio>
-                  ))}
-                </Radio.Group>
-              </Space>
-            </Col>
-            <Col>
-              <Button
-                icon={<FontAwesomeIcon icon={faRotateLeft} />}
-                style={{
-                  background: COLORS.bgTertiary,
-                  borderColor: COLORS.border,
-                  width: "160px",
-                  borderRadius: RADIUS.sm,
-                }}
-              >
-                Resetear
-              </Button>
-            </Col>
-          </Row>
-        </section>
+                      {["Todos", "Contacto", "Reclamos"].map((t) => {
+                        const isSelected = selectedCategory === t.toLowerCase();
+                        return (
+                          <Radio
+                            key={t}
+                            value={t.toLowerCase()}
+                            style={{
+                              color: isSelected
+                                ? COLORS.fontPrimary
+                                : COLORS.fontSecondary,
+                            }}
+                          >
+                            <span
+                              style={{
+                                fontSize: "13px",
+                                fontWeight: isSelected ? 600 : 400,
+                              }}
+                            >
+                              {t}
+                            </span>
+                          </Radio>
+                        );
+                      })}
+                    </Radio.Group>
+                  </div>
+                </ComponentContainer.group>
+              </Col>
 
+              <Col xs={24} md={12}>
+                <ComponentContainer.group label="Estado del Lead">
+                  <Radio.Group
+                    defaultValue="pendientes"
+                    buttonStyle="solid"
+                    style={{ width: "100%", display: "flex" }}
+                  >
+                    <Radio.Button
+                      value="pendientes"
+                      style={{
+                        flex: 1,
+                        textAlign: "center",
+                        height: "40px",
+                        lineHeight: "38px",
+                      }}
+                    >
+                      Pendientes
+                    </Radio.Button>
+                    <Radio.Button
+                      value="atendidos"
+                      style={{
+                        flex: 1,
+                        textAlign: "center",
+                        height: "40px",
+                        lineHeight: "38px",
+                      }}
+                    >
+                      Atendidos
+                    </Radio.Button>
+                  </Radio.Group>
+                </ComponentContainer.group>
+              </Col>
+            </Row>
+          </Col>
+
+          <Col span={24}>
+            <Row justify="end" gutter={[16, 16]}>
+              <Col xs={24} sm={6} md={4}>
+                <Button
+                  type="primary"
+                  block
+                  danger
+                  icon={<FontAwesomeIcon icon={faRotateLeft} />}
+                  onClick={handleReset}
+                >
+                  Limpiar Filtros
+                </Button>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Col>
+
+      <Col span={24}>
         <Tabs
           activeKey={view}
           onChange={(key) => setView(key as "bubbles" | "list")}
@@ -613,14 +685,14 @@ export const LeadsIntegration = () => {
               children: (
                 <RenderBubbles
                   handleOpenDrawer={handleOpenDrawer}
-                  leads={leads}
+                  leads={filteredLeads || []}
                 />
               ),
             },
             {
               key: "list",
               label: "REGISTROS",
-              children: <RenderList leads={leads} />,
+              children: <RenderList leads={filteredLeads || []} />,
             },
           ]}
         />
@@ -662,7 +734,7 @@ export const LeadsIntegration = () => {
                 >
                   {selectedTicket.client.fullName}
                 </Title>
-                <Space size={8} style={{ marginTop: "4px" }}>
+                <Space>
                   <Tag
                     bordered={false}
                     style={{
@@ -778,3 +850,71 @@ export const LeadsIntegration = () => {
     </Row>
   );
 };
+
+const ClientScrollContainer = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  border: 1px solid ${COLORS.border};
+  border-radius: ${RADIUS.md};
+  background: ${COLORS.bgSecondary};
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  button {
+    flex: 0 0 auto;
+    height: 40px;
+    padding: 0 20px;
+    color: ${COLORS.fontSecondary};
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: ${COLORS.primary};
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+`;
+
+const ScrollWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  display: grid;
+  align-items: center;
+`;
+
+const ScrollArrow = styled(Button)`
+  position: absolute;
+  z-index: 10;
+  width: 35px !important;
+  height: 35px !important;
+  min-width: 35px !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  background: ${COLORS.bgTertiary} !important;
+  border: 2px solid ${COLORS.border} !important;
+  color: ${COLORS.primary} !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: ${COLORS.border} !important;
+  }
+
+  &.left {
+    left: -2px;
+  }
+  &.right {
+    right: -2px;
+  }
+`;
