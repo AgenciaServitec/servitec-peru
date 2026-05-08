@@ -204,7 +204,7 @@ const User = ({ roles, user, onGoBack, onSubmit, loading }) => {
       </Col>
       <Col span={24}>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <Tabs activeKey={activeTab} onChange={setActiveTab}>
+          <Tabs type="card" activeKey={activeTab} onChange={setActiveTab}>
             <Tabs.TabPane tab="Información Personal" key="1">
               <Row gutter={[16, 16]}>
                 <Col span={24}>
