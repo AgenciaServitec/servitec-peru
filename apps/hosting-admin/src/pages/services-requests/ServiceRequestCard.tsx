@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Button, Card, Select, Space, Tag, Typography } from "antd";
+import {
+  Button,
+  CanAccess,
+  Card,
+  IconAction,
+  Select,
+  Space,
+  Tag,
+  Typography,
+} from "../../components";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,7 +24,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { ServiceDetailsDrawer } from "./ServiceDetailsDrawer.tsx";
-import { CanAccess, IconAction } from "../../components";
 import { theme } from "../../styles";
 import dayjs from "dayjs";
 import { updateServiceRequest } from "../../firebase/collections";

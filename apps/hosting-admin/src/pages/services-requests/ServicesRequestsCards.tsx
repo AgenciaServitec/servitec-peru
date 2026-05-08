@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { orderBy } from "lodash";
 import styled from "styled-components";
-import { Empty } from "antd";
+import { Empty, Tabs } from "../../components";
 import { ServiceRequestCard } from "./ServiceRequestCard";
 import { ServicesRequestsTable } from "./ServicesRequestsTable";
 import type { User } from "../../globalTypes.ts";
@@ -32,44 +32,64 @@ export const ServicesRequestsCards: React.FC<Props> = ({
   servicesRequestsLoading,
   viewType,
 }) => {
-  const sortedRequests = useMemo(() => {
-    return orderBy(
+  const { pendingRequests, myRequests } = useMemo(() => {
+    const sorted = orderBy(
       servicesRequests || [],
       [(item) => item.createAt?.seconds || 0],
       ["desc"]
     );
-  }, [servicesRequests]);
 
-  if (sortedRequests.length === 0) {
-    return (
-      <Empty
-        description={
-          <span style={{ color: "#8c8c8c" }}>No hay solicitudes</span>
-        }
+    return {
+      pendingRequests: sorted.filter((req) => !req.technicalId),
+      myRequests: sorted.filter((req) => req.technicalId === user?.id),
+    };
+  }, [servicesRequests, user?.id]);
+
+  const renderContent = (data: any[]) => {
+    if (data.length === 0) return <Empty description="No hay solicitudes" />;
+
+    return viewType === "grid" ? (
+      <RequestsGrid>
+        {data.map((request) => (
+          <ServiceRequestCard
+            key={request.id}
+            users={users}
+            user={user}
+            data={request}
+          />
+        ))}
+      </RequestsGrid>
+    ) : (
+      <ServicesRequestsTable
+        requests={data}
+        loading={servicesRequestsLoading}
+        user={user}
       />
     );
-  }
+  };
 
   return (
-    <>
-      {viewType === "grid" ? (
-        <RequestsGrid>
-          {sortedRequests.map((request) => (
-            <ServiceRequestCard
-              key={request.id}
-              users={users}
-              user={user}
-              data={request}
-            />
-          ))}
-        </RequestsGrid>
-      ) : (
-        <ServicesRequestsTable
-          requests={sortedRequests}
-          loading={servicesRequestsLoading}
-          user={user}
-        />
-      )}
-    </>
+    <Tabs
+      defaultActiveKey="1"
+      type="card"
+      items={[
+        {
+          key: "1",
+          label: `SOLICITUDES ENTRANTES (${pendingRequests.length})`,
+          children: (
+            <div style={{ marginTop: 16 }}>
+              {renderContent(pendingRequests)}
+            </div>
+          ),
+        },
+        {
+          key: "2",
+          label: `MIS TRABAJOS (${myRequests.length})`,
+          children: (
+            <div style={{ marginTop: 16 }}>{renderContent(myRequests)}</div>
+          ),
+        },
+      ]}
+    />
   );
 };

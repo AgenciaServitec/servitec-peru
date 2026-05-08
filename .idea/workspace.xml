@@ -6,7 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/Breadcrumb.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/Breadcrumb.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/profile/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/profile/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/roles-and-permissions/_roleAndPermissionId/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/roles-and-permissions/_roleAndPermissionId/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/ServiceRequestCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/ServiceRequestCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/ServicesRequestsCards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/ServicesRequestsCards.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/_userId/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/users/_userId/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/leads/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/leads/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -142,15 +147,10 @@
       <workItem from="1777580494573" duration="11356000" />
       <workItem from="1777920457624" duration="12773000" />
       <workItem from="1777998521894" duration="10082000" />
-      <workItem from="1778084319065" duration="15242000" />
-    </task>
-    <task id="LOCAL-00032" summary="added images entities clients">
-      <option name="closed" value="true" />
-      <created>1771453549065</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1771453549065</updated>
+      <workItem from="1778084319065" duration="15278000" />
+      <workItem from="1778169340831" duration="2892000" />
+      <workItem from="1778195328768" duration="47000" />
+      <workItem from="1778272599243" duration="6805000" />
     </task>
     <task id="LOCAL-00033" summary="refactored components">
       <option name="closed" value="true" />
@@ -536,7 +536,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777937197801</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <task id="LOCAL-00081">
+      <option name="closed" value="true" />
+      <created>1778110589132</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1778110589133</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -554,7 +562,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="changed position Specialties section" />
     <MESSAGE value="updated styles" />
     <MESSAGE value="refactored service request form" />
     <MESSAGE value="fixed validations" />
@@ -579,6 +586,7 @@
     <MESSAGE value="added sites module" />
     <MESSAGE value="added reviews module" />
     <MESSAGE value="refactored leads module" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored leads module" />
+    <MESSAGE value="refactored design leads" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored design leads" />
   </component>
 </project>

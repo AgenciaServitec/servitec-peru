@@ -592,36 +592,39 @@ export const LeadsIntegration = () => {
                       onChange={(e) => setSelectedCategory(e.target.value)}
                       style={{ display: "flex", gap: "16px" }}
                     >
-                      {["Todos", "Contacto", "Reclamos"].map((t) => {
-                        const isSelected = selectedCategory === t.toLowerCase();
-                        return (
-                          <Radio
-                            key={t}
-                            value={t.toLowerCase()}
-                            style={{
-                              color: isSelected
-                                ? COLORS.fontPrimary
-                                : COLORS.fontSecondary,
-                            }}
-                          >
-                            <span
+                      {["Todos", "Contacto", "Reclamos", "Sugerencias"].map(
+                        (t) => {
+                          const isSelected =
+                            selectedCategory === t.toLowerCase();
+                          return (
+                            <Radio
+                              key={t}
+                              value={t.toLowerCase()}
                               style={{
-                                fontSize: "13px",
-                                fontWeight: isSelected ? 600 : 400,
+                                color: isSelected
+                                  ? COLORS.fontPrimary
+                                  : COLORS.fontSecondary,
                               }}
                             >
-                              {t}
-                            </span>
-                          </Radio>
-                        );
-                      })}
+                              <span
+                                style={{
+                                  fontSize: "13px",
+                                  fontWeight: isSelected ? 600 : 400,
+                                }}
+                              >
+                                {t}
+                              </span>
+                            </Radio>
+                          );
+                        }
+                      )}
                     </Radio.Group>
                   </div>
                 </ComponentContainer.group>
               </Col>
 
               <Col xs={24} md={12}>
-                <ComponentContainer.group label="Estado del Lead">
+                <ComponentContainer.group label="Estado de Entrada">
                   <Radio.Group
                     defaultValue="pendientes"
                     buttonStyle="solid"
@@ -676,6 +679,7 @@ export const LeadsIntegration = () => {
       <Col span={24}>
         <Tabs
           activeKey={view}
+          type="card"
           onChange={(key) => setView(key as "bubbles" | "list")}
           className="custom-tabs"
           items={[

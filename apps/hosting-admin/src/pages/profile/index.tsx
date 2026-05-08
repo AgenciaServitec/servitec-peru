@@ -38,7 +38,7 @@ export const Profile = () => {
           </Col>
           <Col span={24} lg={12}>
             <Title level={4}>Editar datos</Title>
-            <Tabs items={items} defaultActiveKey={dataEdit} />
+            <Tabs type="card" items={items} defaultActiveKey={dataEdit} />
           </Col>
         </Row>
       </Col>
