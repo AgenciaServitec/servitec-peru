@@ -107,8 +107,8 @@ export const PersonalInformation = ({
     maternalSurname: formData.maternalSurname,
     email: formData.email,
     document: {
-      type: formData.document.type,
-      number: formData.document.number,
+      type: step1Data.document.documentType,
+      number: step1Data.document.documentNumber,
     },
     phone: {
       prefix: "+51",

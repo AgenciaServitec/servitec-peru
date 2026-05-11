@@ -52,6 +52,16 @@ export function SiteIntegration() {
           primaryColor: "#000000",
           textColor: "#000000",
         },
+        businessInfo: {
+          websiteUrl: "",
+          address: "",
+          socialMedia: {
+            facebook: "",
+            instagram: "",
+            linkedin: "",
+            whatsapp: "",
+          },
+        },
         customSmtp: false,
         smtpConfig: {
           service: "",
