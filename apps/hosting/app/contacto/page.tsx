@@ -11,7 +11,6 @@ import {
   Send,
   ShieldCheck,
   User,
-  Wrench,
 } from "lucide-react";
 import { ContentWidth } from "@/components/ContentWidth";
 import { Button } from "@/components/ui/button";
@@ -36,7 +35,7 @@ export default function Contact() {
     defaultValues: {
       fullName: "",
       document: {
-        type: "dni",
+        type: "DNI",
         number: "",
       },
       phone: {
@@ -44,7 +43,6 @@ export default function Contact() {
         number: "",
       },
       email: "",
-      serviceRequested: "",
       message: "",
     },
   });
@@ -53,23 +51,52 @@ export default function Contact() {
 
   const onSendContact = async (formData: ContactFormData) => {
     try {
-      const response = await fetch("/api/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const entryPayload = {
+        category: "contact",
+        hostname: "https://servitecperu.com",
+        message: formData.message,
+        subject: "Consulta desde la web",
+        client: {
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: {
+            prefix: formData.phone.prefix || "+51",
+            number: formData.phone.number,
+          },
+          document: {
+            type: formData.document.type,
+            number: formData.document.number,
+          },
         },
-        body: JSON.stringify(formData),
-      });
+      };
+
+      const response = await fetch(
+        "https://api-servitec-peru.web.app/entries",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(entryPayload),
+        }
+      );
+
+      const result = await response.json();
 
       if (!response.ok) {
-        throw new Error("Error al enviar el mensaje");
+        console.error("Error de validación:", result.details);
+        throw new Error(result.error || "Error al enviar el mensaje");
       }
 
       reset();
       router.push("/gracias");
     } catch (e) {
       console.error("Error detallado:", e);
-      alert("Hubo un problema al enviar el mensaje. Inténtalo de nuevo.");
+      alert(
+        e instanceof Error
+          ? e.message
+          : "Hubo un problema al enviar el mensaje."
+      );
     }
   };
 
@@ -208,8 +235,8 @@ export default function Contact() {
                               placeholder="Seleccionar"
                               icon={IdCard}
                               options={[
-                                { value: "dni", label: "DNI" },
-                                { value: "ruc", label: "RUC" },
+                                { value: "DNI", label: "DNI" },
+                                { value: "RUC", label: "RUC" },
                               ]}
                               onValueChange={field.onChange}
                             />
@@ -275,29 +302,6 @@ export default function Contact() {
                       )}
                     />
 
-                    <div className="sm:col-span-2">
-                      <FormField
-                        control={form.control}
-                        name="serviceRequested"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormControl>
-                              <Input
-                                {...field}
-                                {...useFormHelpers(
-                                  "serviceRequested",
-                                  contactSchema
-                                )}
-                                label="Servicio Requerido"
-                                placeholder="Ej: Mantenimiento de Laptop, Reparación de Impresora..."
-                                icon={Wrench}
-                              />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-
                     <FormField
                       control={form.control}
                       name="message"
@@ -307,7 +311,7 @@ export default function Contact() {
                             <Textarea
                               {...field}
                               {...useFormHelpers("message", contactSchema)}
-                              label="Mensaje Técnico"
+                              label="Mensaje"
                               placeholder="Describa brevemente la falla de su equipo..."
                               className="resize-none"
                             />

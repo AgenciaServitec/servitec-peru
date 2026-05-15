@@ -39,7 +39,7 @@ export function SiteIntegration() {
       setSite({
         id: getSiteId(),
         name: "",
-        hostname: "https://",
+        hostname: " ",
         notifications: {
           mainReceiver: "",
           bccEmails: "",
@@ -53,7 +53,6 @@ export function SiteIntegration() {
           textColor: "#000000",
         },
         businessInfo: {
-          websiteUrl: "",
           address: "",
           socialMedia: {
             facebook: "",
@@ -91,7 +90,7 @@ export function SiteIntegration() {
   const mapSite = (formData: any) => ({
     ...site,
     name: formData.name,
-    hostname: formData.hostname,
+    hostname: formData.hostname.trim(),
     notifications: {
       mainReceiver: formData.notifications.mainReceiver,
       bccEmails: formData.notifications.bccEmails,
@@ -105,6 +104,15 @@ export function SiteIntegration() {
       textColor: formData.branding.textColor,
       logo: formData.branding.logo,
       isotype: formData.branding.isotype,
+    },
+    businessInfo: {
+      address: formData.businessInfo.address,
+      socialMedia: {
+        facebook: formData.businessInfo.facebook,
+        instagram: formData.businessInfo.instagram,
+        linkedin: formData.businessInfo.linkedin,
+        whatsapp: formData.businessInfo.whatsapp,
+      },
     },
     customSmtp: formData.customSmtp,
     smtpConfig: {
@@ -147,10 +155,7 @@ export function SiteIntegration() {
 export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
   const schema = yup.object({
     name: yup.string().required("El nombre es obligatorio"),
-    hostname: yup
-      .string()
-      .url("Debe ser una URL válida")
-      .required("El hostname es obligatorio"),
+    hostname: yup.string().required("El hostname es obligatorio"),
     notifications: yup.object({
       mainReceiver: yup
         .string()
@@ -172,6 +177,15 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
         .required(),
       logo: yup.object().nullable().optional(),
       isotype: yup.object().nullable().optional(),
+    }),
+    businessInfo: yup.object({
+      address: yup.string().optional(),
+      socialMedia: yup.object({
+        facebook: yup.string().optional(),
+        instagram: yup.string().optional(),
+        linkedin: yup.string().optional(),
+        whatsapp: yup.string().optional(),
+      }),
     }),
     customSmtp: yup.boolean(),
     smtpConfig: yup.object().when("customSmtp", {
@@ -212,10 +226,19 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
           },
         },
         branding: {
-          primaryColor: site.branding?.primaryColor || "#1890ff",
+          primaryColor: site.branding?.primaryColor || "#000000",
           textColor: site.branding?.textColor || "#000000",
           logo: site.branding?.logo || null,
           isotype: site.branding?.isotype || null,
+        },
+        businessInfo: {
+          address: site?.businessInfo?.address || "",
+          socialMedia: {
+            facebook: site?.businessInfo?.facebook || "",
+            instagram: site?.businessInfo?.instagram || "",
+            linkedin: site?.businessInfo?.linkedin || "",
+            whatsapp: site?.businessInfo?.whatsapp || "",
+          },
         },
         customSmtp: site.customSmtp || false,
         smtpConfig: {
@@ -261,6 +284,7 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
                       render={({ field: { onChange, value, name } }) => (
                         <Input
                           label="Hostname (Dominio)"
+                          prefix="https://"
                           name={name}
                           value={value}
                           onChange={onChange}
@@ -375,7 +399,6 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
               </ComponentContainer.group>
             </Col>
 
-            {/* GRUPO 2: NOTIFICACIONES */}
             <Col span={24}>
               <ComponentContainer.group label="Receptores de Notificación">
                 <Row gutter={[16, 16]}>
@@ -431,7 +454,93 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
               </ComponentContainer.group>
             </Col>
 
-            {/* GRUPO 3: SMTP */}
+            <Col span={24}>
+              <ComponentContainer.group label="Información Adicional">
+                <Row gutter={[16, 16]}>
+                  <Col xs={24}>
+                    <Controller
+                      name="businessInfo.address"
+                      control={control}
+                      render={({ field: { onChange, value, name } }) => (
+                        <Input
+                          label="Dirección"
+                          name={name}
+                          value={value}
+                          onChange={onChange}
+                          error={error(name)}
+                          required={required(name)}
+                        />
+                      )}
+                    />
+                  </Col>
+                  <Col xs={24} md={6}>
+                    <Controller
+                      name="socialMedia.facebook"
+                      control={control}
+                      render={({ field: { onChange, value, name } }) => (
+                        <Input
+                          label="Facebook"
+                          name={name}
+                          value={value}
+                          onChange={onChange}
+                          error={error(name)}
+                          required={required(name)}
+                        />
+                      )}
+                    />
+                  </Col>
+                  <Col xs={24} md={6}>
+                    <Controller
+                      name="socialMedia.instagram"
+                      control={control}
+                      render={({ field: { onChange, value, name } }) => (
+                        <Input
+                          label="Instagram"
+                          name={name}
+                          value={value}
+                          onChange={onChange}
+                          error={error(name)}
+                          required={required(name)}
+                        />
+                      )}
+                    />
+                  </Col>
+                  <Col xs={24} md={6}>
+                    <Controller
+                      name="socialMedia.linkedin"
+                      control={control}
+                      render={({ field: { onChange, value, name } }) => (
+                        <Input
+                          label="Linkedn"
+                          name={name}
+                          value={value}
+                          onChange={onChange}
+                          error={error(name)}
+                          required={required(name)}
+                        />
+                      )}
+                    />
+                  </Col>
+                  <Col xs={24} md={6}>
+                    <Controller
+                      name="socialMedia.whatsapp"
+                      control={control}
+                      render={({ field: { onChange, value, name } }) => (
+                        <Input
+                          label="WhatsApp de Contacto"
+                          name={name}
+                          value={value}
+                          onChange={onChange}
+                          error={error(name)}
+                          required={required(name)}
+                        />
+                      )}
+                    />
+                  </Col>
+                </Row>
+              </ComponentContainer.group>
+            </Col>
+
             <Col span={24}>
               <ComponentContainer.group label="Configuración SMTP Personalizada">
                 <Row gutter={[16, 16]}>
@@ -506,7 +615,6 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
               </ComponentContainer.group>
             </Col>
 
-            {/* BOTONES DE ACCIÓN */}
             <Col span={24}>
               <Row justify="end" gutter={[16, 16]}>
                 <Col xs={24} sm={6} md={4}>

@@ -40,16 +40,18 @@ interface Phone {
   number: string;
 }
 
+interface Document {
+  type: "DNI" | "RUC" | "CE";
+  number: string;
+}
+
 interface User extends DefaultFirestoreProps {
   id: string;
   firstName: string;
   paternalSurname: string;
   maternalSurname: string;
   email: string;
-  document: {
-    type: "DNI" | "RUC" | "CE";
-    number: string;
-  };
+  document: Document;
   phone: Phone;
   profilePhoto?: string;
   birthDate?: string;
@@ -152,27 +154,73 @@ export interface WebServiceRequest extends DefaultFirestoreProps {
   reference?: string;
 }
 
-interface Lead extends DefaultFirestoreProps {
+interface Site extends DefaultFirestoreProps {
+  id: string;
+  name: string;
+  hostname: string;
+  status: "active" | "inactive" | "suspended";
+
+  branding: {
+    primaryColor: string;
+    textColor: string;
+    logo: Image;
+    isotype?: Image;
+  };
+
+  notifications: {
+    mainReceiver: string;
+    bccEmails: string;
+    phone: Phone;
+  };
+  customSmtp: boolean;
+  smtpConfig?: {
+    service: string;
+    user: string;
+    pass: string;
+  };
+}
+
+interface BaseEntry extends DefaultFirestoreProps {
   id: string;
   hostname: string;
-  category: "contact" | "claim";
-  message: string;
   status: "pending" | "open" | "closed" | "on_hold" | "spam";
-  priority: "low" | "medium" | "high" | "urgent";
+  message: string;
   client: {
     fullName: string;
     firstName?: string;
     paternalSurname?: string;
     maternalSurname?: string;
     email: string;
-    phone: {
-      prefix: string;
-      number: string;
-    };
-    document: {
-      prefix: string;
-      number: string;
-    };
+    phone: Phone;
+    document: Document;
   };
-  serviceRequired: string;
+  siteId: string;
 }
+
+interface ContactEntry extends BaseEntry {
+  category: "contact";
+  subject?: string;
+}
+
+interface SuggestionEntry extends BaseEntry {
+  category: "suggestion";
+  area: "web" | "service" | "product";
+}
+
+interface ClaimEntry extends BaseEntry {
+  category: "claim";
+  orderId?: string;
+}
+
+interface ComplaintsBookEntry extends BaseEntry {
+  category: "complaints_book";
+  details: {
+    type: "queja" | "reclamo";
+    isMinor: boolean;
+    parentDocument?: string;
+    claimedAmount: number;
+    consumerRequest: string;
+  };
+}
+
+type Entry = ContactEntry | SuggestionEntry | ClaimEntry | ComplaintsBookEntry;

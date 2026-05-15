@@ -3,3 +3,4 @@ export * from "./quotations";
 export * from "./assistances";
 export * from "./servicesRequests";
 export * from "./webServicesRequests";
+export * from "./sites";

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-export const getLead = async (req: Request, res: Response) => {
+export const getEntry = async (req: Request, res: Response) => {
   try {
     res.json({ data: [], total: 0 });
   } catch (e) {
