@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-export const putLeadStatus = async (req: Request, res: Response) => {
+export const putEntry = async (req: Request, res: Response) => {
   const { submissionId } = req.params;
   const { status, attended } = req.body;
 

@@ -4,11 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="added businessnfo fields">
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/entries.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/sites.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/entries/controllers/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/entries/controllers/postEntry.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/entries/routes/entries.routes.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/register/AccessData.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/register/AccessData.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/register/PersonalInformation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/register/PersonalInformation.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/leads.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/leads/controllers/getLead.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/entries/controllers/getEntry.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/leads/controllers/getLeads.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/entries/controllers/getEntries.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/leads/controllers/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/leads/controllers/postLead.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/leads/controllers/putLeadStatus.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/entries/controllers/putEntry.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/leads/routes/leads.routes.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/globalTypes.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/globalTypes.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/data-list/categoryLead.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/data-list/categoryLead.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/leads/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/leads/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/sites/_siteId/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/sites/_siteId/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/lib/validations/common.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/lib/validations/common.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/lib/validations/contact.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/lib/validations/contact.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,11 +114,11 @@
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets\images\clients\entities" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\functions\src\api\entries" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\functions\src\api\leads\routes" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets\images\services" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets\images\hero" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting-admin\public" />
-      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -147,15 +167,11 @@
       <workItem from="1778169340831" duration="2892000" />
       <workItem from="1778195328768" duration="47000" />
       <workItem from="1778272599243" duration="6858000" />
-      <workItem from="1778525793583" duration="9289000" />
-    </task>
-    <task id="LOCAL-00034" summary="updated workspace">
-      <option name="closed" value="true" />
-      <created>1771454053726</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1771454053726</updated>
+      <workItem from="1778525793583" duration="9348000" />
+      <workItem from="1778603813229" duration="381000" />
+      <workItem from="1778604226635" duration="1754000" />
+      <workItem from="1778778019382" duration="600000" />
+      <workItem from="1778865500528" duration="20428000" />
     </task>
     <task id="LOCAL-00035" summary="added whatsapp button">
       <option name="closed" value="true" />
@@ -541,7 +557,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778281671879</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="added businessnfo fields">
+      <option name="closed" value="true" />
+      <created>1778540754260</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1778540754261</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -559,7 +583,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactored service request form" />
     <MESSAGE value="fixed validations" />
     <MESSAGE value="updated next config" />
     <MESSAGE value="feat(hosting): implementar validación de seguridad con Google reCAPTCHA v3" />
@@ -584,6 +607,7 @@
     <MESSAGE value="refactored leads module" />
     <MESSAGE value="refactored design leads" />
     <MESSAGE value="refactored design lead module" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored design lead module" />
+    <MESSAGE value="added businessnfo fields" />
+    <option name="LAST_COMMIT_MESSAGE" value="added businessnfo fields" />
   </component>
 </project>

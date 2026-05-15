@@ -1,6 +1,6 @@
 import { Response, Request, NextFunction } from "express";
 
-export const getLeads = async (req: Request, res: Response) => {
+export const getEntries = async (req: Request, res: Response) => {
   try {
     res.json({ data: [], total: 0 });
   } catch (e) {

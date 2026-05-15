@@ -9,7 +9,6 @@ export const contactSchema = z.object({
   document: documentSchema,
   phone: phoneSchema,
   email: z.string().email(),
-  serviceRequested: z.string().min(1),
   message: z.string().optional(),
 });
 

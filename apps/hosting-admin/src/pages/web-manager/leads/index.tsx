@@ -75,9 +75,11 @@ const RADIUS = {
 const RenderBubbles = ({
   handleOpenDrawer,
   leads,
+  sites,
 }: {
   handleOpenDrawer: (t: any) => void;
   leads: any[];
+  sites: any[];
 }) => (
   <Row gutter={[16, 16]}>
     <Col flex="auto">
@@ -92,121 +94,120 @@ const RenderBubbles = ({
         }}
       >
         <Row gutter={[32, 32]} justify="center" style={{ maxWidth: "1000px" }}>
-          {leads?.map((ticket) => (
-            <Col key={ticket.id}>
-              <motion.div
-                layout
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-              >
+          {leads?.map((ticket) => {
+            const site = sites?.find((s) => s.id === ticket.siteId);
+            const siteLogo = site?.branding?.logo;
+
+            return (
+              <Col key={ticket.id}>
                 <motion.div
-                  onClick={() => handleOpenDrawer(ticket)}
-                  animate={{ y: [0, -6, 0] }}
-                  transition={{
-                    y: {
-                      repeat: Infinity,
-                      duration: 3,
-                      ease: "easeInOut",
-                    },
-                  }}
-                  whileHover={{ scale: 1.05, y: -10 }}
-                  style={{
-                    width: "190px",
-                    height: "190px",
-                    borderRadius: "50%",
-                    background: COLORS?.accent,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "20px",
-                    textAlign: "center",
-                    position: "relative",
-                    cursor: "pointer",
-                    border: "1px solid rgba(255,255,255,0.2)",
-                    filter: "drop-shadow(0 0 12px rgba(255,255,255,0.03))",
-                  }}
+                  layout
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
                 >
-                  <div
+                  <motion.div
+                    onClick={() => handleOpenDrawer(ticket)}
+                    animate={{ y: [0, -6, 0] }}
+                    transition={{
+                      y: {
+                        repeat: Infinity,
+                        duration: 3,
+                        ease: "easeInOut",
+                      },
+                    }}
+                    whileHover={{ scale: 1.05, y: -10 }}
                     style={{
-                      position: "absolute",
-                      top: "-8px",
-                      background: COLORS.bgTertiary,
-                      padding: "2px 14px",
-                      borderRadius: RADIUS.full,
-                      border: `1px solid ${COLORS.border}`,
-                      fontSize: "10px",
-                      color: "#fff",
-                      fontWeight: 800,
-                      textTransform: "uppercase",
-                      letterSpacing: "1px",
-                      boxShadow: "0 8px 16px rgba(0,0,0,0.4)",
-                      zIndex: 2,
+                      width: "190px",
+                      height: "190px",
+                      borderRadius: "50%",
+                      background: `${site.branding.primaryColor}BF`,
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: "20px",
+                      textAlign: "center",
+                      position: "relative",
+                      cursor: "pointer",
+                      border: `3px solid ${site.branding.primaryColor}`,
+                      filter: "drop-shadow(0 0 12px rgba(255,255,255,0.03))",
                     }}
                   >
-                    {CATEGORY_LABELS[ticket.category]?.label || "Sin Categoría"}
-                  </div>
-                  <div style={{ position: "relative", marginBottom: "12px" }}>
-                    <Avatar
-                      size={60}
-                      src={`https://ui-avatars.com/api/?name=${ticket.client.firstName}&background=random`}
-                      style={{
-                        border: "3px solid rgba(255,255,255,0.8)",
-                        boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-                        background: "white",
-                      }}
-                    />
-                    <span
+                    <div
                       style={{
                         position: "absolute",
-                        bottom: 2,
-                        right: 2,
-                        width: 12,
-                        height: 12,
-                        background: COLORS?.success,
-                        borderRadius: "50%",
-                        border: `2px solid ${COLORS?.accent}`,
-                        boxShadow: `0 0 10px ${COLORS?.success}`,
-                      }}
-                    />
-                  </div>
-                  <div style={{ width: "100%" }}>
-                    <Text
-                      strong
-                      style={{
-                        color: "white",
-                        fontSize: "14px",
-                        lineHeight: 1.1,
-                        display: "-webkit-box",
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: "vertical",
-                        overflow: "hidden",
-                        textShadow: "0 2px 4px rgba(0,0,0,0.2)",
+                        top: "-8px",
+                        background: COLORS.bgTertiary,
+                        padding: "2px 14px",
+                        borderRadius: RADIUS.full,
+                        border: `1px solid ${COLORS.border}`,
+                        fontSize: "10px",
+                        color: "#fff",
+                        fontWeight: 800,
+                        textTransform: "uppercase",
+                        letterSpacing: "1px",
+                        boxShadow: "0 8px 16px rgba(0,0,0,0.4)",
+                        zIndex: 2,
                       }}
                     >
-                      {ticket.client.fullName}
-                    </Text>
-
-                    <div style={{ marginTop: "8px" }}>
-                      <Tag
+                      {CATEGORY_LABELS[ticket.category]?.label ||
+                        "Sin Categoría"}
+                    </div>
+                    <div style={{ position: "relative", marginBottom: "12px" }}>
+                      {siteLogo && (
+                        <img
+                          src={siteLogo?.url}
+                          alt="site-logo"
+                          style={{
+                            height: "25px",
+                            padding: "2px",
+                            borderRadius: "4px",
+                            background: "white",
+                            zIndex: 3,
+                          }}
+                        />
+                      )}
+                    </div>
+                    <div style={{ width: "100%" }}>
+                      <Text
+                        strong
                         style={{
-                          borderRadius: RADIUS.sm,
-                          background: "rgba(0,0,0,0.35)",
-                          border: "1px solid rgba(255,255,255,0.1)",
-                          color: "rgba(255,255,255,0.9)",
-                          fontSize: "10px",
-                          padding: "0 8px",
-                          margin: 0,
+                          color: "white",
+                          fontSize: "14px",
+                          lineHeight: 1.1,
+                          display: "-webkit-box",
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                          textShadow: "0 2px 4px rgba(0,0,0,0.2)",
                         }}
                       >
-                        {ticket.hostname}
-                      </Tag>
+                        {ticket.client.fullName}
+                      </Text>
+
+                      <div style={{ marginTop: "8px" }}>
+                        <Tag
+                          style={{
+                            borderRadius: "8px",
+                            background: "rgba(0,0,0,0.35)",
+                            border: "1px solid rgba(255,255,255,0.1)",
+                            color: "rgba(255,255,255,0.9)",
+                            fontSize: "10px",
+                            padding: "1px",
+                            margin: 0,
+                            textAlign: "center",
+                            whiteSpace: "normal",
+                          }}
+                        >
+                          {ticket.hostname}
+                        </Tag>
+                      </div>
                     </div>
-                  </div>
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            </Col>
-          ))}
+              </Col>
+            );
+          })}
         </Row>
       </div>
     </Col>
@@ -444,7 +445,7 @@ export const LeadsIntegration = () => {
   const theme = useTheme();
 
   const [leads, leadsLoading, leadsError] = useCollectionData(
-    firestore.collection("leads").where("isDeleted", "==", false)
+    firestore.collection("entries").where("isDeleted", "==", false)
   );
 
   const [sites, sitesLoading, sitesError] = useCollectionData(
@@ -474,9 +475,7 @@ export const LeadsIntegration = () => {
   };
 
   const filteredLeads = leads?.filter((lead: any) => {
-    const matchesSite =
-      selectedSite === "all" ||
-      lead.hostname === sites?.find((s) => s.id === selectedSite)?.hostname;
+    const matchesSite = selectedSite === "all" || lead.siteId === selectedSite; // Filtro directo por ID
 
     const matchesCategory =
       selectedCategory === "todos" ||
@@ -690,6 +689,7 @@ export const LeadsIntegration = () => {
                 <RenderBubbles
                   handleOpenDrawer={handleOpenDrawer}
                   leads={filteredLeads || []}
+                  sites={sites || []}
                 />
               ),
             },
@@ -712,7 +712,6 @@ export const LeadsIntegration = () => {
         onClose={() => setOpen(false)}
         open={open}
         width={520}
-        getContainer={false}
         destroyOnClose={false}
         styles={{
           body: { background: COLORS.bgSecondary, padding: "24px" },
