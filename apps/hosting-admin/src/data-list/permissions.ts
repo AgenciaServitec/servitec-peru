@@ -65,6 +65,26 @@ export const PERMISSION_LIST = {
       { id: "service_delete", label: "Eliminar solicitud" },
     ],
   },
+  clients: {
+    label: "Módulo de Clientes",
+    actions: [
+      { id: "client_view_all", label: "Ver todos los clientes" },
+      { id: "client_create", label: "Crear nuevo cliente" },
+      { id: "client_edit", label: "Editar cliente" },
+      { id: "client_delete", label: "Eliminar cliente" },
+    ],
+  },
+  entries: {
+    label: "Módulo de Entradas",
+    actions: [
+      { id: "entry_view_all", label: "Ver todos las entradas" },
+      { id: "entry_delete", label: "Eliminar entrada" },
+    ],
+  },
+  websiteReview: {
+    label: "Módulo de Revisión Web",
+    actions: [{ id: "website_review_view_all", label: "Ver todas las webs" }],
+  },
   suppliers: {
     label: "Módulo de Proveedores",
     actions: [
