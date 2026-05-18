@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   Avatar,
   Button,
@@ -15,6 +15,8 @@ import {
   Tabs,
   Tag,
   Typography,
+  useModalConfirm,
+  useNotification,
 } from "../../../components";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -33,7 +35,9 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import { firestore } from "../../../firebase";
 import { CATEGORY_LABELS } from "../../../data-list";
 import dayjs from "dayjs";
-import styled, { useTheme } from "styled-components";
+import styled from "styled-components";
+import { useDefaultFirestoreProps } from "../../../hooks";
+import { deleteEntry } from "../../../firebase/collections";
 
 const { Title, Text } = Typography;
 
@@ -193,13 +197,29 @@ const RenderBubbles = ({
                             border: "1px solid rgba(255,255,255,0.1)",
                             color: "rgba(255,255,255,0.9)",
                             fontSize: "10px",
-                            padding: "1px",
+                            padding: "1px 2px",
                             margin: 0,
                             textAlign: "center",
                             whiteSpace: "normal",
                           }}
                         >
                           {ticket.hostname}
+                        </Tag>
+                      </div>
+                      <div style={{ marginTop: "8px" }}>
+                        <Tag
+                          color={
+                            ticket.status === "attended" ? "blue" : "warning"
+                          }
+                          style={{
+                            fontSize: "10px",
+                            borderRadius: "4px",
+                            textTransform: "uppercase",
+                          }}
+                        >
+                          {ticket.status === "attended"
+                            ? "Atendido"
+                            : "Pendiente"}
                         </Tag>
                       </div>
                     </div>
@@ -260,189 +280,289 @@ const RenderBubbles = ({
   </Row>
 );
 
-const RenderList = ({ leads }) => (
-  <motion.div
-    key="list"
-    initial={{ opacity: 0, x: 20 }}
-    animate={{ opacity: 1, x: 0 }}
-    exit={{ opacity: 0, x: -20 }}
-  >
-    <Button
-      danger
-      icon={<FontAwesomeIcon icon={faTrashCan} />}
-      disabled
-      style={{ marginBottom: "16px", borderRadius: RADIUS.sm }}
-    >
-      Eliminar emails (0)
-    </Button>
+const RenderList = ({
+  leads,
+  sites,
+  selectedIds,
+  onSelectAll,
+  onSelectItem,
+  onDeleteBulk,
+  onConfirmRemoveEntry,
+  handleOpenDrawer,
+}: {
+  leads: any[];
+  sites: any[];
+  selectedIds: string[];
+  onSelectAll: (checked: boolean) => void;
+  onSelectItem: (id: string) => void;
+  onDeleteBulk: () => void;
+  onConfirmRemoveEntry: (entry: any) => void;
+  handleOpenDrawer: (t: any) => void;
+}) => {
+  const isAllSelected = leads.length > 0 && selectedIds.length === leads.length;
+  const isIndeterminate =
+    selectedIds.length > 0 && selectedIds.length < leads.length;
 
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "12px",
-      }}
+  return (
+    <motion.div
+      key="list"
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
     >
-      {leads?.map((ticket) => (
-        <Card
-          key={ticket.id}
-          bodyStyle={{ padding: "16px" }}
+      <Space style={{ marginBottom: "16px" }} size="middle">
+        <Button
+          danger
+          type="primary"
+          icon={<FontAwesomeIcon icon={faTrashCan} />}
+          disabled={selectedIds.length === 0}
+          onClick={onDeleteBulk}
+          style={{ borderRadius: RADIUS.sm }}
+        >
+          Eliminar emails ({selectedIds.length})
+        </Button>
+
+        <div
           style={{
             background: COLORS.bgSecondary,
-            border: `1px solid ${mode === "dark" ? COLORS.border : "#FFE4D1"}`,
-            borderRadius: RADIUS.md,
+            padding: "4px 12px",
+            borderRadius: RADIUS.sm,
+            border: `1px solid ${COLORS.border}`,
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
           }}
         >
-          <Row align="middle" gutter={16}>
-            <Col>
-              <Checkbox />
-            </Col>
-            <Col>
-              <Avatar
-                size={54}
-                src={`https://ui-avatars.com/api/?name=${ticket.client.fullName}&background=random`}
-                style={{ border: `1px solid ${COLORS.border}` }}
-              />
-            </Col>
-            <Col flex="auto">
-              <Row justify="space-between">
+          <Checkbox
+            indeterminate={isIndeterminate}
+            onChange={(e) => onSelectAll(e.target.checked)}
+            checked={isAllSelected}
+          />
+          <Text style={{ fontSize: "12px", color: COLORS.fontSecondary }}>
+            {isAllSelected
+              ? "Desmarcar todos"
+              : "Seleccionar todos los filtrados"}
+          </Text>
+        </div>
+      </Space>
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "12px",
+        }}
+      >
+        {leads?.map((ticket) => {
+          const site = sites?.find((s) => s.id === ticket.siteId);
+          const siteLogo = site?.branding?.logo;
+
+          return (
+            <Card
+              key={ticket.id}
+              bodyStyle={{ padding: "16px" }}
+              style={{
+                background: COLORS.bgSecondary,
+                border: `1px solid ${mode === "dark" ? COLORS.border : "#FFE4D1"}`,
+                borderRadius: RADIUS.md,
+              }}
+            >
+              <Row align="middle" gutter={16}>
                 <Col>
-                  <Space direction="vertical" size={0}>
-                    <Text style={{ fontSize: "13px" }}>
-                      <span style={{ color: COLORS.fontSecondary }}>
-                        Nombres y Apellidos:{" "}
-                      </span>
-                      <Text strong style={{ color: "#1890ff" }}>
-                        {ticket.client.fullName}
+                  <Checkbox
+                    checked={selectedIds.includes(ticket.id)}
+                    onChange={() => onSelectItem(ticket.id)}
+                  />
+                </Col>
+                <Col>
+                  {siteLogo && (
+                    <img
+                      onClick={() => handleOpenDrawer(ticket)}
+                      src={siteLogo?.url}
+                      alt="site-logo"
+                      style={{
+                        height: "35px",
+                        padding: "2px",
+                        borderRadius: "4px",
+                        backgroundColor: "white",
+                        zIndex: 3,
+                        cursor: "pointer",
+                      }}
+                    />
+                  )}
+                </Col>
+                <Col flex="auto">
+                  <Row justify="space-between">
+                    <Col>
+                      <Space direction="vertical" size={0}>
+                        <Text style={{ fontSize: "13px" }}>
+                          <span style={{ color: COLORS.fontSecondary }}>
+                            Nombres y Apellidos:{" "}
+                          </span>
+                          <Text strong style={{ color: "#1890ff" }}>
+                            {ticket.client.fullName}
+                          </Text>
+                        </Text>
+                        <Text style={{ fontSize: "13px" }}>
+                          <span style={{ color: COLORS.fontSecondary }}>
+                            Teléfono:{" "}
+                          </span>{" "}
+                          {ticket.client.phone?.number}
+                        </Text>
+                      </Space>
+                    </Col>
+                    <Col style={{ textAlign: "right" }}>
+                      <Text style={{ fontSize: "13px" }}>
+                        <span style={{ color: COLORS.fontSecondary }}>
+                          Email:{" "}
+                        </span>{" "}
+                        {ticket.client.email}
                       </Text>
-                    </Text>
-                    <Text style={{ fontSize: "13px" }}>
-                      <span style={{ color: COLORS.fontSecondary }}>
-                        Teléfono:{" "}
-                      </span>{" "}
-                      {ticket.client.phone?.number}
-                    </Text>
-                  </Space>
-                </Col>
-                <Col style={{ textAlign: "right" }}>
-                  <Text style={{ fontSize: "13px" }}>
-                    <span style={{ color: COLORS.fontSecondary }}>Email: </span>{" "}
-                    {ticket.client.email}
-                  </Text>
-                </Col>
-              </Row>
+                    </Col>
+                  </Row>
 
-              <div
-                style={{
-                  margin: "8px 0",
-                  padding: "8px",
-                  background: COLORS.bgTertiary,
-                  borderRadius: RADIUS.sm,
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: "12px",
-                    color: COLORS.fontSecondary,
-                  }}
-                >
-                  Mensaje: {ticket.message}
-                </Text>
-              </div>
-
-              <Row justify="space-between" align="middle">
-                <Col>
-                  <Space size={12}>
+                  <div
+                    style={{
+                      margin: "8px 0",
+                      padding: "8px",
+                      background: COLORS.bgTertiary,
+                      borderRadius: RADIUS.sm,
+                    }}
+                  >
                     <Text
                       style={{
-                        fontSize: "11px",
-                        color: COLORS.fontTertiary,
+                        fontSize: "12px",
+                        color: COLORS.fontSecondary,
                       }}
                     >
-                      Hostname:{" "}
-                      <Tag
-                        color="success"
-                        style={{
-                          fontSize: "10px",
-                          borderRadius: "4px",
-                        }}
-                      >
-                        {ticket.hostname}
-                      </Tag>
+                      Mensaje: {ticket.message}
                     </Text>
-                    <Text
-                      style={{
-                        fontSize: "11px",
-                        color: COLORS.fontTertiary,
-                      }}
-                    >
-                      Fecha creación:{" "}
-                      {dayjs(ticket.createAt.toDate()).format("DD/MM/YYYY")}
-                    </Text>
-                  </Space>
-                </Col>
-                <Col>
-                  <Space>
-                    <IconAction
-                      tooltipTitle="WhatsApp"
-                      onClick={() => ""}
-                      icon={faWhatsapp}
-                      iconStyles={{
-                        color: "#25D366",
-                      }}
-                    />
-                    <IconAction
-                      tooltipTitle="Email"
-                      href={`mailto:${ticket?.client.email}`}
-                      target="_blank"
-                      icon={faEnvelope}
-                      iconStyles={{
-                        color: "#FF5722",
-                      }}
-                    />
-                    <IconAction
-                      tooltipTitle="Llamar"
-                      href={`tel:${ticket?.client.phone.number}`}
-                      icon={faPhone}
-                      iconStyles={{
-                        color: "#1890ff",
-                      }}
-                    />
-                    {/*<IconAction*/}
-                    {/*  tooltipTitle="Calendario"*/}
-                    {/*  onClick={() => ""}*/}
-                    {/*  icon={faCalendarDays}*/}
-                    {/*  iconStyles={{*/}
-                    {/*    color: "#FFC107",*/}
-                    {/*  }}*/}
-                    {/*/>*/}
-                    <IconAction
-                      tooltipTitle="Eliminar"
-                      onClick={() => ""}
-                      icon={faTrashCan}
-                      iconStyles={{
-                        color: "#F43F5E",
-                      }}
-                    />
-                  </Space>
+                  </div>
+
+                  <Row justify="space-between" align="middle">
+                    <Col>
+                      <Space size={12}>
+                        <Text
+                          style={{
+                            fontSize: "11px",
+                            color: COLORS.fontTertiary,
+                          }}
+                        >
+                          Estado:{" "}
+                          <Tag
+                            color={
+                              ticket.status === "attended" ? "blue" : "warning"
+                            }
+                            style={{
+                              fontSize: "10px",
+                              borderRadius: "4px",
+                              textTransform: "uppercase",
+                            }}
+                          >
+                            {ticket.status === "attended"
+                              ? "Atendido"
+                              : "Pendiente"}
+                          </Tag>
+                        </Text>
+                        <Text
+                          style={{
+                            fontSize: "11px",
+                            color: COLORS.fontTertiary,
+                          }}
+                        >
+                          Hostname:{" "}
+                          <Tag
+                            color="success"
+                            style={{
+                              fontSize: "10px",
+                              borderRadius: "4px",
+                            }}
+                          >
+                            {ticket.hostname}
+                          </Tag>
+                        </Text>
+                        <Text
+                          style={{
+                            fontSize: "11px",
+                            color: COLORS.fontTertiary,
+                          }}
+                        >
+                          Fecha creación:{" "}
+                          {dayjs(ticket.createAt.toDate()).format("DD/MM/YYYY")}
+                        </Text>
+                      </Space>
+                    </Col>
+                    <Col>
+                      <Space>
+                        <IconAction
+                          tooltipTitle="WhatsApp"
+                          href={`https://wa.me/${ticket.client.phone.prefix.replace("+", "")}${ticket.client.phone.number}`}
+                          target="_blank"
+                          icon={faWhatsapp}
+                          iconStyles={{
+                            color: "#25D366",
+                          }}
+                        />
+                        <IconAction
+                          tooltipTitle="Email"
+                          href={`mailto:${ticket?.client.email}`}
+                          target="_blank"
+                          icon={faEnvelope}
+                          iconStyles={{
+                            color: "#FF5722",
+                          }}
+                        />
+                        <IconAction
+                          tooltipTitle="Llamar"
+                          href={`tel:${ticket?.client.phone.number}`}
+                          target="_blank"
+                          icon={faPhone}
+                          iconStyles={{
+                            color: "#1890ff",
+                          }}
+                        />
+                        {/*<IconAction*/}
+                        {/*  tooltipTitle="Calendario"*/}
+                        {/*  onClick={() => ""}*/}
+                        {/*  icon={faCalendarDays}*/}
+                        {/*  iconStyles={{*/}
+                        {/*    color: "#FFC107",*/}
+                        {/*  }}*/}
+                        {/*/>*/}
+                        <IconAction
+                          tooltipTitle="Eliminar"
+                          onClick={() => onConfirmRemoveEntry(ticket)}
+                          icon={faTrashCan}
+                          iconStyles={{
+                            color: "#F43F5E",
+                          }}
+                        />
+                      </Space>
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
-            </Col>
-          </Row>
-        </Card>
-      ))}
-    </div>
-  </motion.div>
-);
+            </Card>
+          );
+        })}
+      </div>
+    </motion.div>
+  );
+};
 
 export const LeadsIntegration = () => {
   const [view, setView] = useState<"bubbles" | "list">("bubbles");
   const [open, setOpen] = useState(false);
   const [selectedTicket, setSelectedTicket] = useState<any>(null);
   const [selectedSite, setSelectedSite] = useState<string>("all");
-  const [selectedCategory, setSelectedCategory] = useState<string>("todos");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [selectedStatus, setSelectedStatus] = useState<string>("pending");
 
-  const theme = useTheme();
+  const { assignDeleteProps } = useDefaultFirestoreProps();
+
+  const { modalConfirm } = useModalConfirm();
+  const { notification } = useNotification();
 
   const [leads, leadsLoading, leadsError] = useCollectionData(
     firestore.collection("entries").where("isDeleted", "==", false)
@@ -471,17 +591,21 @@ export const LeadsIntegration = () => {
 
   const handleReset = () => {
     setSelectedSite("all");
-    setSelectedCategory("todos");
+    setSelectedCategory("all");
+    setSelectedStatus("pending");
   };
 
   const filteredLeads = leads?.filter((lead: any) => {
-    const matchesSite = selectedSite === "all" || lead.siteId === selectedSite; // Filtro directo por ID
+    const matchesSite = selectedSite === "all" || lead.siteId === selectedSite;
 
     const matchesCategory =
-      selectedCategory === "todos" ||
+      selectedCategory === "all" ||
       lead.category?.toLowerCase() === selectedCategory.toLowerCase();
 
-    return matchesSite && matchesCategory;
+    const leadStatus = lead.status || "pending";
+    const matchesStatus = leadStatus === selectedStatus;
+
+    return matchesSite && matchesCategory && matchesStatus;
   });
 
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -494,6 +618,78 @@ export const LeadsIntegration = () => {
 
       scrollRef.current.scrollTo({ left: scrollTo, behavior: "smooth" });
     }
+  };
+
+  const handleSelectAll = (checked: boolean) => {
+    if (checked && filteredLeads) {
+      const allIds = filteredLeads.map((lead: any) => lead.id);
+      setSelectedIds(allIds);
+    } else {
+      setSelectedIds([]);
+    }
+  };
+
+  const handleSelectItem = (id: string) => {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((itemId) => itemId !== id) : [...prev, id]
+    );
+  };
+
+  const onDeleteEntry = async (entry) => {
+    try {
+      await deleteEntry(entry.id, assignDeleteProps(entry));
+
+      notification({
+        type: "success",
+        title: "¡Cliente Web eliminado exitosamente!",
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const onConfirmRemoveEntry = (entry): void => {
+    modalConfirm({
+      content: "La entrada se eliminará",
+      onOk: async () => {
+        await onDeleteEntry(entry);
+      },
+    });
+  };
+
+  const onConfirmRemoveBulk = (): void => {
+    modalConfirm({
+      title: "¿Estás seguro de que quieres eliminar?",
+      content: `Se eliminarán ${selectedIds.length} entradas seleccionadas. Esta acción no se puede deshacer.`,
+      onOk: async () => {
+        try {
+          const entriesToDelete = leads?.filter((lead) =>
+            selectedIds.includes(lead.id)
+          );
+
+          if (entriesToDelete) {
+            await Promise.all(
+              entriesToDelete.map((entry) =>
+                deleteEntry(entry.id, assignDeleteProps(entry))
+              )
+            );
+
+            notification({
+              type: "success",
+              title: `¡${selectedIds.length} entradas eliminadas con éxito!`,
+            });
+
+            setSelectedIds([]);
+          }
+        } catch (e) {
+          console.error("Error en borrado masivo:", e);
+          notification({
+            type: "error",
+            title: "Hubo un error al eliminar las entradas",
+          });
+        }
+      },
+    });
   };
 
   return (
@@ -591,32 +787,38 @@ export const LeadsIntegration = () => {
                       onChange={(e) => setSelectedCategory(e.target.value)}
                       style={{ display: "flex", gap: "16px" }}
                     >
-                      {["Todos", "Contacto", "Reclamos", "Sugerencias"].map(
-                        (t) => {
-                          const isSelected =
-                            selectedCategory === t.toLowerCase();
-                          return (
-                            <Radio
-                              key={t}
-                              value={t.toLowerCase()}
+                      {[
+                        { label: "Todos", value: "all" },
+                        { label: "Contacto", value: "contact" },
+                        { label: "Reclamos", value: "claim" },
+                        { label: "Sugerencias", value: "suggestion" },
+                        {
+                          label: "Libro de Reclamaciones",
+                          value: "complaints_book",
+                        },
+                      ].map((t) => {
+                        const isSelected = selectedCategory === t.value;
+                        return (
+                          <Radio
+                            key={t.value}
+                            value={t.value}
+                            style={{
+                              color: isSelected
+                                ? COLORS.fontPrimary
+                                : COLORS.fontSecondary,
+                            }}
+                          >
+                            <span
                               style={{
-                                color: isSelected
-                                  ? COLORS.fontPrimary
-                                  : COLORS.fontSecondary,
+                                fontSize: "13px",
+                                fontWeight: isSelected ? 600 : 400,
                               }}
                             >
-                              <span
-                                style={{
-                                  fontSize: "13px",
-                                  fontWeight: isSelected ? 600 : 400,
-                                }}
-                              >
-                                {t}
-                              </span>
-                            </Radio>
-                          );
-                        }
-                      )}
+                              {t.label}
+                            </span>
+                          </Radio>
+                        );
+                      })}
                     </Radio.Group>
                   </div>
                 </ComponentContainer.group>
@@ -625,12 +827,13 @@ export const LeadsIntegration = () => {
               <Col xs={24} md={12}>
                 <ComponentContainer.group label="Estado de Entrada">
                   <Radio.Group
-                    defaultValue="pendientes"
+                    value={selectedStatus}
+                    onChange={(e) => setSelectedStatus(e.target.value)}
                     buttonStyle="solid"
                     style={{ width: "100%", display: "flex" }}
                   >
                     <Radio.Button
-                      value="pendientes"
+                      value="pending"
                       style={{
                         flex: 1,
                         textAlign: "center",
@@ -641,7 +844,7 @@ export const LeadsIntegration = () => {
                       Pendientes
                     </Radio.Button>
                     <Radio.Button
-                      value="atendidos"
+                      value="attended"
                       style={{
                         flex: 1,
                         textAlign: "center",
@@ -696,7 +899,18 @@ export const LeadsIntegration = () => {
             {
               key: "list",
               label: "REGISTROS",
-              children: <RenderList leads={filteredLeads || []} />,
+              children: (
+                <RenderList
+                  leads={filteredLeads || []}
+                  sites={sites || []}
+                  selectedIds={selectedIds}
+                  onSelectAll={handleSelectAll}
+                  onSelectItem={handleSelectItem}
+                  onDeleteBulk={onConfirmRemoveBulk}
+                  onConfirmRemoveEntry={onConfirmRemoveEntry}
+                  handleOpenDrawer={handleOpenDrawer}
+                />
+              ),
             },
           ]}
         />

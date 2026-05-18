@@ -215,3 +215,30 @@ export interface CustomerSite extends DefaultFirestoreProps {
     pass: string;
   };
 }
+
+export interface Entry extends DefaultFirestoreProps {
+  id: string;
+  category: "contact" | "suggestion" | "claim" | "complaints_book";
+  hostname: string;
+  status: "pending" | "attended";
+  message: string;
+  client: {
+    fullName: string;
+    firstName?: string;
+    paternalSurname?: string;
+    maternalSurname?: string;
+    email: string;
+    phone: Phone;
+    document: Document;
+  };
+  area?: "web" | "service" | "product";
+  orderId?: string;
+  details?: {
+    type: "queja" | "reclamo";
+    isMinor: boolean;
+    parentDocument?: string;
+    claimedAmount: number;
+    consumerRequest: string;
+  };
+  siteId: string;
+}
