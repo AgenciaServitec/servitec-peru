@@ -1,4 +1,5 @@
 import {
+  Alert,
   AutoComplete,
   Avatar,
   Button,
@@ -94,4 +95,5 @@ export {
   Checkbox,
   message,
   Avatar,
+  Alert,
 };
