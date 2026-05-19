@@ -159,10 +159,10 @@ export function Router() {
           }
         />
         <Route
-          path="web-manager/leads"
+          path="web-manager/entries"
           element={
             <AdminLayout>
-              <A.LeadsIntegration />
+              <A.EntriesIntegration />
             </AdminLayout>
           }
         />

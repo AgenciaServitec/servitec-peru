@@ -156,7 +156,7 @@ export const DrawerLayout = ({
           label: "Entradas",
           key: "web-manager-entries",
           icon: <FontAwesomeIcon icon={faInbox} />,
-          onClick: () => onClickMenu("/web-manager/leads"),
+          onClick: () => onClickMenu("/web-manager/entries"),
           permission: "entry_view_all",
         },
         {
