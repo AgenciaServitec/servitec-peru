@@ -3,16 +3,40 @@ import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import {
   faBoxesPacking,
-  faClipboardUser,
   faFileLines,
+  faInbox,
+  faMagnifyingGlass,
   faUsers,
   faWrench,
 } from "@fortawesome/free-solid-svg-icons";
 import { AssistanceMonitor } from "../../components/layout/AssistanceMonitor.tsx";
 import ShortcutCard from "./ShortcutCard.tsx";
+import { useEffect, useState } from "react";
+import { subscribeToCounters } from "../../firebase/collections";
 
 export function Home() {
   const navigate = useNavigate();
+
+  const [counts, setCounts] = useState<Record<string, number>>({
+    users: 0,
+    quotations: 0,
+    "service-requests": 0,
+    assistances: 0,
+    suppliers: 0,
+    entries: 0,
+    reviews: 0,
+  });
+
+  useEffect(() => {
+    const unsubscribe = subscribeToCounters((updatedCounts) => {
+      setCounts((prev) => ({
+        ...prev,
+        ...updatedCounts,
+      }));
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const shortcuts = [
     {
@@ -22,6 +46,7 @@ export function Home() {
       newPath: "/users/new",
       color: "#F43F5E",
       permission: "users_view_list",
+      count: "users",
     },
     {
       title: "Cotizaciones",
@@ -30,6 +55,7 @@ export function Home() {
       newPath: "/quotations/new",
       color: "#FFC107",
       permission: "quotes_view_all",
+      count: "quotations",
     },
     {
       title: "Solicitud de Servicios",
@@ -38,14 +64,7 @@ export function Home() {
       newPath: "",
       color: "#0EA5E9",
       permission: "service_view_all",
-    },
-    {
-      title: "Asistencias",
-      icon: faClipboardUser,
-      path: "/assistances",
-      newPath: "/assistances/assistance",
-      color: "#10B981",
-      permission: "assist_view_all",
+      count: "service-requests",
     },
     {
       title: "Proveedores",
@@ -54,6 +73,25 @@ export function Home() {
       newPath: "/suppliers/new",
       color: "#8B5CF6",
       permission: "suppliers_view_all",
+      count: "suppliers",
+    },
+    {
+      title: "Entradas",
+      icon: faInbox,
+      path: "/web-manager/entries",
+      newPath: "",
+      color: "#f66e00",
+      permission: "entry_view_all",
+      count: "entries",
+    },
+    {
+      title: "Revisión de Webs",
+      icon: faMagnifyingGlass,
+      path: "/web-manager/reviews",
+      newPath: "",
+      color: "#f10cf6",
+      permission: "reviews_view_all",
+      count: "reviews",
     },
   ];
 
@@ -75,8 +113,11 @@ export function Home() {
               <CanAccess permission={item.permission}>
                 <ShortcutCard
                   item={item}
-                  onList={() => navigate(item.path)}
-                  onCreate={() => navigate(item.newPath)}
+                  count={counts[item.count]}
+                  onList={item.path ? () => navigate(item.path) : undefined}
+                  onCreate={
+                    item.newPath ? () => navigate(item.newPath) : undefined
+                  }
                 />
               </CanAccess>
             </Col>

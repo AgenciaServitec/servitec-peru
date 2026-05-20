@@ -11,33 +11,54 @@ interface ShortcutItem {
 
 interface ShortcutCardProps {
   item: ShortcutItem;
-  onList: () => void;
-  onCreate: () => void;
+  count?: number;
+  onList?: () => void;
+  onCreate?: () => void;
 }
 
-const ShortcutCard = ({ item, onList, onCreate }: ShortcutCardProps) => {
+const ShortcutCard = ({ item, count, onList, onCreate }: ShortcutCardProps) => {
+  const showList = !!onList;
+  const showCreate = !!onCreate;
+
+  const activeButtons = [showList, showCreate].filter(Boolean).length;
+
   return (
     <ModernCard $color={item.color}>
       <CardBody>
-        <IconContainer $color={item.color}>
-          <FontAwesomeIcon icon={item.icon} />
-        </IconContainer>
-        <div className="info">
-          <h3>{item.title}</h3>
-          <p>Módulo de gestión</p>
-        </div>
+        <TopRow>
+          <IconContainer $color={item.color}>
+            <FontAwesomeIcon icon={item.icon} />
+          </IconContainer>
+          <div className="info">
+            <h3>{item.title}</h3>
+            <p>Módulo de gestión</p>
+          </div>
+        </TopRow>
+
+        {count !== undefined && (
+          <CounterSection>
+            <span className="counter-number">{count}</span>
+            <span className="counter-label">Registros totales</span>
+          </CounterSection>
+        )}
       </CardBody>
 
-      <LightningActions $color={item.color}>
-        <button className="list-action" onClick={onList}>
-          <FontAwesomeIcon icon={faListUl} />
-          <span>Lista</span>
-        </button>
-        <button className="create-action" onClick={onCreate}>
-          <FontAwesomeIcon icon={faPlus} />
-          <span>Crear</span>
-        </button>
-      </LightningActions>
+      {activeButtons > 0 && (
+        <LightningActions $color={item.color} $columns={activeButtons}>
+          {showList && (
+            <button className="list-action" onClick={onList}>
+              <FontAwesomeIcon icon={faListUl} />
+              <span>Lista</span>
+            </button>
+          )}
+          {showCreate && (
+            <button className="create-action" onClick={onCreate}>
+              <FontAwesomeIcon icon={faPlus} />
+              <span>Crear</span>
+            </button>
+          )}
+        </LightningActions>
+      )}
     </ModernCard>
   );
 };
@@ -58,8 +79,12 @@ const ModernCard = styled(Card)<{ $color: string }>`
 
     &:hover {
       border-color: ${$color}80;
-      transform: translateY(-2px);
+      transform: translateY(-4px);
       box-shadow: ${theme.shadows.md};
+
+      .counter-number {
+        color: ${$color};
+      }
     }
   `}
 `;
@@ -67,6 +92,14 @@ const ModernCard = styled(Card)<{ $color: string }>`
 const CardBody = styled.div`
   ${({ theme }) => css`
     padding: ${theme.spacing.md};
+    display: flex;
+    flex-direction: column;
+    gap: ${theme.spacing.md};
+  `}
+`;
+
+const TopRow = styled.div`
+  ${({ theme }) => css`
     display: flex;
     align-items: center;
     gap: ${theme.spacing.md};
@@ -89,26 +122,50 @@ const CardBody = styled.div`
   `}
 `;
 
+const CounterSection = styled.div`
+  ${({ theme }) => css`
+    margin-top: ${theme.spacing.xs};
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .counter-number {
+      font-size: 32px;
+      font-weight: 700;
+      color: ${theme.colors.fontPrimary};
+      line-height: 1;
+      transition: color ${theme.transitions.fast};
+    }
+
+    .counter-label {
+      font-size: ${theme.font_sizes.xs};
+      color: ${theme.colors.fontSecondary};
+      margin-top: 4px;
+      opacity: 0.7;
+    }
+  `}
+`;
+
 const IconContainer = styled.div<{ $color: string }>`
   ${({ theme, $color }) => css`
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     border-radius: ${theme.border_radius.md};
-    background: ${$color}15; /* 15% opacidad */
+    background: ${$color}15;
     color: ${$color};
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: ${theme.font_sizes.xl};
+    font-size: ${theme.font_sizes.lg};
     border: 1px solid ${$color}25;
   `}
 `;
 
-const LightningActions = styled.div<{ $color: string }>`
-  ${({ theme, $color }) => css`
+const LightningActions = styled.div<{ $color: string; $columns: number }>`
+  ${({ theme, $color, $columns }) => css`
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    height: 52px;
+    grid-template-columns: repeat(${$columns}, 1fr);
+    height: 48px;
     background: ${theme.colors.bgTertiary};
     border-top: 1px solid ${theme.colors.border};
 
@@ -126,26 +183,38 @@ const LightningActions = styled.div<{ $color: string }>`
       color: ${theme.colors.fontSecondary};
     }
 
-    .list-action {
-      clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
-      border-right: 1px solid ${theme.colors.border};
-      &:hover {
-        background: ${$color}15;
-        color: ${$color};
-      }
-    }
+    ${$columns === 2
+      ? css`
+          .list-action {
+            clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
+            border-right: 1px solid ${theme.colors.border};
+            &:hover {
+              background: ${$color}15;
+              color: ${$color};
+            }
+          }
 
-    .create-action {
-      clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
-      margin-left: -10%;
-      &:hover {
-        background: ${theme.colors.bgHover};
-        color: ${theme.colors.fontPrimary};
-      }
-    }
+          .create-action {
+            clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+            margin-left: -10%;
+            &:hover {
+              background: ${theme.colors.bgHover};
+              color: ${theme.colors.fontPrimary};
+            }
+          }
+        `
+      : css`
+          button {
+            width: 100%;
+            &:hover {
+              background: ${$color}12;
+              color: ${$color};
+            }
+          }
+        `}
 
     @media (max-width: 767px) {
-      height: 48px;
+      height: 44px;
     }
   `}
 `;
