@@ -16,3 +16,7 @@ export * from "./suppliers";
 export * from "./suppliers/_supplierId";
 export * from "./roles-and-permissions";
 export * from "./roles-and-permissions/_roleAndPermissionId";
+export * from "./web-manager/sites";
+export * from "./web-manager/sites/_siteId";
+export * from "./web-manager/entries";
+export * from "./web-manager/reviews";

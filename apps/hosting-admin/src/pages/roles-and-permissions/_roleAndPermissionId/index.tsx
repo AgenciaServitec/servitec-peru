@@ -171,7 +171,7 @@ const Role = ({ role, onSaveRoleAndPermissions, loading }) => {
 
       <Col span={24}>
         <Form onSubmit={(e) => e.preventDefault()}>
-          <Tabs activeKey={activeTab} onChange={setActiveTab}>
+          <Tabs type="card" activeKey={activeTab} onChange={setActiveTab}>
             <Tabs.TabPane tab="Información General" key="1">
               <Row gutter={[16, 16]}>
                 <Col span={24}>

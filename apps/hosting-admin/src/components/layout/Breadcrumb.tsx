@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 export const BreadcrumbLayout = () => {
   const navigate = useNavigate();
-  const location = useLocation(); // Mejor usar hook de react-router que window.location
+  const location = useLocation();
   const pathnames = location.pathname.split("/").filter((path) => path);
 
   const breadcrumbItems = [
@@ -21,10 +21,7 @@ export const BreadcrumbLayout = () => {
       const url = `/${pathnames.slice(0, index + 1).join("/")}`;
 
       return {
-        title:
-          path === "entities"
-            ? "Entidad (G.U)"
-            : capitalize(path.replace(/-/g, " ")),
+        title: capitalize(path.replace(/-/g, " ")),
         onClick: !isLast ? () => navigate(url) : undefined,
         className: !isLast ? "breadcrumb-link-active" : "breadcrumb-link-last",
       };
@@ -48,7 +45,6 @@ const BreadcrumbContainer = styled(Breadcrumb)`
     display: flex;
     align-items: center;
 
-    /* Estilo para los links que NO son el último */
     .breadcrumb-link-active {
       color: ${theme.colors.fontSecondary} !important;
       font-size: ${theme.font_sizes.sm};
@@ -65,7 +61,6 @@ const BreadcrumbContainer = styled(Breadcrumb)`
       }
     }
 
-    /* Estilo para la página actual (último elemento) */
     .breadcrumb-link-last {
       .ant-breadcrumb-link {
         color: ${theme.colors.fontPrimary} !important;
@@ -75,7 +70,6 @@ const BreadcrumbContainer = styled(Breadcrumb)`
       }
     }
 
-    /* Separador */
     .ant-breadcrumb-separator {
       color: ${theme.colors.fontTertiary};
       margin: 0 ${theme.spacing.sm};
@@ -83,7 +77,6 @@ const BreadcrumbContainer = styled(Breadcrumb)`
       align-items: center;
     }
 
-    /* Icono de Home específico */
     svg {
       transition: transform ${theme.transitions.fast};
     }

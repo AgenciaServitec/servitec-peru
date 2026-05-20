@@ -1,7 +1,7 @@
 import * as z from "zod";
 
 export const documentSchema = z.object({
-  type: z.enum(["dni", "ruc"]),
+  type: z.enum(["DNI", "RUC"]),
   number: z.string().min(8).max(11),
 });
 

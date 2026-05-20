@@ -186,3 +186,59 @@ export interface RoleFormData {
 export interface Role extends RoleFormData, DefaultFirestoreProps {
   id: string;
 }
+
+export interface CustomerSite extends DefaultFirestoreProps {
+  id: string;
+  name: string;
+  hostname: string;
+  status: "active" | "inactive" | "suspended";
+
+  branding: {
+    primaryColor: string;
+    textColor: string;
+    logoUrl?: string;
+    isotipoUrl?: string;
+  };
+
+  notifications: {
+    mainReceiver: string;
+    bccEmails: string;
+    phone: {
+      prefix: string;
+      number: string;
+    };
+  };
+  customSmtp: boolean;
+  smtpConfig?: {
+    service: string;
+    user: string;
+    pass: string;
+  };
+}
+
+export interface Entry extends DefaultFirestoreProps {
+  id: string;
+  category: "contact" | "suggestion" | "claim" | "complaints_book";
+  hostname: string;
+  status: "pending" | "attended";
+  message: string;
+  client: {
+    fullName: string;
+    firstName?: string;
+    paternalSurname?: string;
+    maternalSurname?: string;
+    email: string;
+    phone: Phone;
+    document: Document;
+  };
+  area?: "web" | "service" | "product";
+  orderId?: string;
+  details?: {
+    type: "queja" | "reclamo";
+    isMinor: boolean;
+    parentDocument?: string;
+    claimedAmount: number;
+    consumerRequest: string;
+  };
+  siteId: string;
+}

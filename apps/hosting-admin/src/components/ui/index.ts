@@ -1,5 +1,7 @@
 import {
+  Alert,
   AutoComplete,
+  Avatar,
   Button,
   Card,
   Checkbox,
@@ -92,4 +94,6 @@ export {
   Segmented,
   Checkbox,
   message,
+  Avatar,
+  Alert,
 };

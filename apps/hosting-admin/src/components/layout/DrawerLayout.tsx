@@ -3,11 +3,15 @@ import { Drawer, Menu } from "../ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBoxesPacking,
+  faBuilding,
   faClipboardUser,
   faFileLines,
   faGears,
+  faGlobe,
   faHome,
+  faInbox,
   faList,
+  faMagnifyingGlass,
   faSquarePlus,
   faUserLock,
   faUsers,
@@ -121,6 +125,50 @@ export const DrawerLayout = ({
       ],
     },
     {
+      label: "Sitios Web",
+      key: "web-manager",
+      icon: <FontAwesomeIcon icon={faGlobe} />,
+      permission: "client_view_all",
+      children: [
+        {
+          label: "Clientes",
+          key: "web-manager-sites",
+          icon: <FontAwesomeIcon icon={faBuilding} />,
+          permission: "client_view_all",
+          children: [
+            {
+              label: "Crear Cliente",
+              key: "client-new",
+              icon: <FontAwesomeIcon icon={faSquarePlus} />,
+              onClick: () => onClickMenu("/web-manager/sites/new"),
+              permission: "client_create",
+            },
+            {
+              label: "Lista de Clientes",
+              key: "clients-list",
+              icon: <FontAwesomeIcon icon={faList} />,
+              onClick: () => onClickMenu("/web-manager/sites"),
+              permission: "client_view_all",
+            },
+          ],
+        },
+        {
+          label: "Entradas",
+          key: "web-manager-entries",
+          icon: <FontAwesomeIcon icon={faInbox} />,
+          onClick: () => onClickMenu("/web-manager/entries"),
+          permission: "entry_view_all",
+        },
+        {
+          label: "Revisión de Webs",
+          key: "web-manager-reviews",
+          icon: <FontAwesomeIcon icon={faMagnifyingGlass} />,
+          onClick: () => onClickMenu("/web-manager/reviews"),
+          permission: "website_review_view_all",
+        },
+      ],
+    },
+    {
       label: "Proveedores",
       key: "suppliers",
       icon: <FontAwesomeIcon icon={faBoxesPacking} />,
@@ -199,7 +247,7 @@ export const DrawerLayout = ({
     <DrawerContainer
       title={
         <HeaderTitle>
-          <h3>Servitec Work</h3>
+          <h3>Servitec Perú System</h3>
           <VersionBadge>v1.0.0</VersionBadge>
         </HeaderTitle>
       }

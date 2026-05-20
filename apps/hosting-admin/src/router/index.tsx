@@ -142,6 +142,38 @@ export function Router() {
             </AdminLayout>
           }
         />
+        <Route
+          path="web-manager/sites"
+          element={
+            <AdminLayout>
+              <A.SitesIntegration />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="web-manager/sites/:siteId"
+          element={
+            <AdminLayout>
+              <A.SiteIntegration />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="web-manager/entries"
+          element={
+            <AdminLayout>
+              <A.EntriesIntegration />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="web-manager/reviews"
+          element={
+            <AdminLayout>
+              <A.ReviewsIntegration />
+            </AdminLayout>
+          }
+        />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

@@ -6,7 +6,6 @@ import { ModalProvider, useAuthentication } from "../../providers";
 import { useMemo, useState } from "react";
 import { useDebounce, useFilters } from "../../hooks";
 import dayjs from "dayjs";
-import { useTheme } from "styled-components";
 import { Spin, Tag } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -102,7 +101,6 @@ const ServicesRequests: React.FC<ServicesRequestsProps> = ({
   isSearching,
 }) => {
   const [viewType, setViewType] = useState<"grid" | "list">("grid");
-  const theme = useTheme();
 
   const onViewChange = (val) => setViewType(val);
 
