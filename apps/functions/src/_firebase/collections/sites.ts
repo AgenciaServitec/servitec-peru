@@ -1,10 +1,15 @@
-import { firestore, setDocument } from "../index";
+import { fetchDocument, firestore, setDocument } from "../index";
 import { fetchCollection } from "../firestore";
-import { Site } from "../../globalTypes";
+import { Quotation, Site } from "../../globalTypes";
 
 export const sitesRef = firestore.collection("sites");
 
 export const getSiteId = (): string => sitesRef.doc().id;
+
+export const fetchSite = async (
+  siteId: string
+): Promise<Quotation | undefined> =>
+  fetchDocument<Quotation>(sitesRef.doc(siteId));
 
 export const addSite = async (
   site: Site

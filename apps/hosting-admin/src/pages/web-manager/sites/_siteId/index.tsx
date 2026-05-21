@@ -108,10 +108,10 @@ export function SiteIntegration() {
     businessInfo: {
       address: formData.businessInfo.address,
       socialMedia: {
-        facebook: formData.businessInfo.facebook,
-        instagram: formData.businessInfo.instagram,
-        linkedin: formData.businessInfo.linkedin,
-        whatsapp: formData.businessInfo.whatsapp,
+        facebook: formData.businessInfo.socialMedia.facebook,
+        instagram: formData.businessInfo.socialMedia.instagram,
+        linkedin: formData.businessInfo.socialMedia.linkedin,
+        whatsapp: formData.businessInfo.socialMedia.whatsapp,
       },
     },
     customSmtp: formData.customSmtp,
@@ -475,7 +475,7 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
                   </Col>
                   <Col xs={24} md={6}>
                     <Controller
-                      name="socialMedia.facebook"
+                      name="businessInfo.socialMedia.facebook"
                       control={control}
                       render={({ field: { onChange, value, name } }) => (
                         <Input
@@ -491,7 +491,7 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
                   </Col>
                   <Col xs={24} md={6}>
                     <Controller
-                      name="socialMedia.instagram"
+                      name="businessInfo.socialMedia.instagram"
                       control={control}
                       render={({ field: { onChange, value, name } }) => (
                         <Input
@@ -507,7 +507,7 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
                   </Col>
                   <Col xs={24} md={6}>
                     <Controller
-                      name="socialMedia.linkedin"
+                      name="businessInfo.socialMedia.linkedin"
                       control={control}
                       render={({ field: { onChange, value, name } }) => (
                         <Input
@@ -523,7 +523,7 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
                   </Col>
                   <Col xs={24} md={6}>
                     <Controller
-                      name="socialMedia.whatsapp"
+                      name="businessInfo.socialMedia.whatsapp"
                       control={control}
                       render={({ field: { onChange, value, name } }) => (
                         <Input

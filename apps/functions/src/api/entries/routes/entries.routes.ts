@@ -1,14 +1,16 @@
 import express, { Router } from "express";
-import { getEntries, getEntry, postEntry, putEntry } from "../controllers";
+import {
+  postClaimEntry,
+  postComplaintsBookEntry,
+  postContactEntry,
+  postSuggestionEntry,
+} from "../controllers";
 
 const router: Router = express.Router();
 
-router.get("/", getEntries);
-
-router.get("/:entryId", getEntry);
-
-router.post("/", postEntry);
-
-router.put("/:entryId/status", putEntry);
+router.post("/contact", postContactEntry);
+router.post("/suggestion", postSuggestionEntry);
+router.post("/claim", postClaimEntry);
+router.post("/complaints-book", postComplaintsBookEntry);
 
 export default router;

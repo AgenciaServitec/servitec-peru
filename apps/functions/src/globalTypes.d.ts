@@ -183,7 +183,7 @@ interface Site extends DefaultFirestoreProps {
 interface BaseEntry extends DefaultFirestoreProps {
   id: string;
   hostname: string;
-  status: "pending" | "open" | "closed" | "on_hold" | "spam";
+  status: "pending" | "attended";
   message: string;
   client: {
     fullName: string;
@@ -192,7 +192,7 @@ interface BaseEntry extends DefaultFirestoreProps {
     maternalSurname?: string;
     email: string;
     phone: Phone;
-    document: Document;
+    document?: Document;
   };
   siteId: string;
 }
