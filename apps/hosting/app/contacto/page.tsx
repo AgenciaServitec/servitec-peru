@@ -53,9 +53,8 @@ export default function Contact() {
     try {
       const entryPayload = {
         category: "contact",
-        hostname: "https://servitecperu.com",
+        hostname: "servitecperu.com",
         message: formData.message,
-        subject: "Consulta desde la web",
         client: {
           fullName: formData.fullName,
           email: formData.email,
@@ -71,7 +70,7 @@ export default function Contact() {
       };
 
       const response = await fetch(
-        "https://api-servitec-peru.web.app/entries",
+        "https://api-servitec-peru.web.app/entries/contact",
         {
           method: "POST",
           headers: {
