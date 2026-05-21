@@ -26,9 +26,28 @@ import { Textarea } from "@/components/ui/textarea";
 import { type ContactFormData, contactSchema } from "@/lib/validations/contact";
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
+import { COUNTRY_PREFIXES } from "@/data-list/countries";
+import "flag-icons/css/flag-icons.min.css";
 
 export default function Contact() {
   const router = useRouter();
+
+  const countryOptions = React.useMemo(() => {
+    const peru = COUNTRY_PREFIXES.find((c) => c.code === "PE");
+    const others = COUNTRY_PREFIXES.filter((c) => c.code !== "PE");
+
+    const orderedCountries = peru ? [peru, ...others] : COUNTRY_PREFIXES;
+
+    return orderedCountries.map((item) => ({
+      value: item.prefix,
+      label: (
+        <div className="flex items-center gap-2">
+          <span className={`fi fi-${item.code.toLowerCase()}`} />
+          <span>{item.prefix}</span>
+        </div>
+      ),
+    }));
+  }, []);
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
@@ -59,7 +78,7 @@ export default function Contact() {
           fullName: formData.fullName,
           email: formData.email,
           phone: {
-            prefix: formData.phone.prefix || "+51",
+            prefix: formData.phone.prefix,
             number: formData.phone.number,
           },
           document: {
@@ -198,13 +217,13 @@ export default function Contact() {
                 <Form {...form}>
                   <form
                     onSubmit={form.handleSubmit(onSendContact)}
-                    className="grid grid-cols-1 sm:grid-cols-2 gap-8"
+                    className="grid grid-cols-1 sm:grid-cols-4 gap-6"
                   >
                     <FormField
                       control={form.control}
                       name="fullName"
                       render={({ field }) => (
-                        <FormItem className="sm:col-span-2">
+                        <FormItem className="sm:col-span-4">
                           <FormControl>
                             <Input
                               {...field}
@@ -222,7 +241,7 @@ export default function Contact() {
                       control={form.control}
                       name="document.type"
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="sm:col-span-2">
                           <FormControl>
                             <Select
                               {...field}
@@ -248,7 +267,7 @@ export default function Contact() {
                       control={form.control}
                       name="document.number"
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="sm:col-span-2">
                           <FormControl>
                             <Input
                               {...field}
@@ -267,9 +286,28 @@ export default function Contact() {
 
                     <FormField
                       control={form.control}
+                      name="phone.prefix"
+                      render={({ field }) => (
+                        <FormItem className="sm:col-span-1">
+                          <FormControl>
+                            <Select
+                              {...field}
+                              {...useFormHelpers("phone.prefix", contactSchema)}
+                              className="md:col-span-1"
+                              label="Prefijo de País"
+                              options={countryOptions}
+                              onValueChange={field.onChange}
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
                       name="phone.number"
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="sm:col-span-3">
                           <FormControl>
                             <Input
                               {...field}
@@ -287,7 +325,7 @@ export default function Contact() {
                       control={form.control}
                       name="email"
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="sm:col-span-4">
                           <FormControl>
                             <Input
                               {...field}
@@ -305,7 +343,7 @@ export default function Contact() {
                       control={form.control}
                       name="message"
                       render={({ field }) => (
-                        <FormItem className="sm:col-span-2">
+                        <FormItem className="sm:col-span-4">
                           <FormControl>
                             <Textarea
                               {...field}
@@ -319,7 +357,7 @@ export default function Contact() {
                       )}
                     />
 
-                    <div className="sm:col-span-2">
+                    <div className="sm:col-span-4">
                       <Button
                         type="submit"
                         icon={Send}

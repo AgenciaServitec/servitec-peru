@@ -6,7 +6,7 @@ export const documentSchema = z.object({
 });
 
 export const phoneSchema = z.object({
-  prefix: z.string(),
+  prefix: z.string().min(1),
   number: z.string().length(9).regex(/^9/),
 });
 
