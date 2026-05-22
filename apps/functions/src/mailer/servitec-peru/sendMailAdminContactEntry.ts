@@ -49,7 +49,7 @@ export const sendMailAdminContactEntry = async (
 
     await sendMail({
       to: site?.notifications.mainReceiver,
-      subject: `Hemos recibido tu consulta - ${site.name || "Soporte"}`,
+      subject: `[Nueva Consulta] ${contactEntry.category} | Sitio: ${site.hostname}`,
       html: htmlResult,
     });
   } catch (error) {

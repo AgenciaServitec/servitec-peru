@@ -53,7 +53,7 @@ export const sendMailContactEntry = async (
 
     await sendMail({
       to: targetEmail,
-      subject: `Hemos recibido tu consulta - ${site.name || "Soporte"}`,
+      subject: `Hemos recibido tu consulta | ${site.name}`,
       html: htmlResult,
       replyTo: site?.businessInfo?.email,
     });
