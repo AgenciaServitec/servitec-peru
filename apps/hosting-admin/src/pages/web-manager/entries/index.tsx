@@ -39,7 +39,7 @@ export const EntriesIntegration = () => {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string>("pending");
 
-  const { assignDeleteProps } = useDefaultFirestoreProps();
+  const { assignDeleteProps, assignUpdateProps } = useDefaultFirestoreProps();
 
   const { modalConfirm } = useModalConfirm();
   const { notification } = useNotification();
@@ -176,9 +176,12 @@ export const EntriesIntegration = () => {
     status: "pending" | "attended"
   ) => {
     try {
-      await updateEntry(ticketId, {
-        status,
-      });
+      await updateEntry(
+        ticketId,
+        assignUpdateProps({
+          status,
+        })
+      );
 
       notification({
         type: "success",

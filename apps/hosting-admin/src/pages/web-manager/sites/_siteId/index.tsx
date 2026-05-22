@@ -54,6 +54,7 @@ export function SiteIntegration() {
         },
         businessInfo: {
           address: "",
+          email: "",
           socialMedia: {
             facebook: "",
             instagram: "",
@@ -107,6 +108,7 @@ export function SiteIntegration() {
     },
     businessInfo: {
       address: formData.businessInfo.address,
+      email: formData.businessInfo.email,
       socialMedia: {
         facebook: formData.businessInfo.socialMedia.facebook,
         instagram: formData.businessInfo.socialMedia.instagram,
@@ -180,6 +182,7 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
     }),
     businessInfo: yup.object({
       address: yup.string().optional(),
+      email: yup.string().optional(),
       socialMedia: yup.object({
         facebook: yup.string().optional(),
         instagram: yup.string().optional(),
@@ -233,11 +236,12 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
         },
         businessInfo: {
           address: site?.businessInfo?.address || "",
+          email: site?.businessInfo?.email || "",
           socialMedia: {
-            facebook: site?.businessInfo?.facebook || "",
-            instagram: site?.businessInfo?.instagram || "",
-            linkedin: site?.businessInfo?.linkedin || "",
-            whatsapp: site?.businessInfo?.whatsapp || "",
+            whatsapp: site?.businessInfo?.socialMedia?.whatsapp || "",
+            facebook: site?.businessInfo?.socialMedia?.facebook || "",
+            instagram: site?.businessInfo?.socialMedia?.instagram || "",
+            linkedin: site?.businessInfo?.socialMedia?.linkedin || "",
           },
         },
         customSmtp: site.customSmtp || false,
@@ -473,6 +477,38 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
                       )}
                     />
                   </Col>
+                  <Col xs={24}>
+                    <Controller
+                      name="businessInfo.email"
+                      control={control}
+                      render={({ field: { onChange, value, name } }) => (
+                        <Input
+                          label="Correo de Contacto"
+                          name={name}
+                          value={value}
+                          onChange={onChange}
+                          error={error(name)}
+                          required={required(name)}
+                        />
+                      )}
+                    />
+                  </Col>
+                  <Col xs={24} md={6}>
+                    <Controller
+                      name="businessInfo.socialMedia.whatsapp"
+                      control={control}
+                      render={({ field: { onChange, value, name } }) => (
+                        <Input
+                          label="WhatsApp de Contacto"
+                          name={name}
+                          value={value}
+                          onChange={onChange}
+                          error={error(name)}
+                          required={required(name)}
+                        />
+                      )}
+                    />
+                  </Col>
                   <Col xs={24} md={6}>
                     <Controller
                       name="businessInfo.socialMedia.facebook"
@@ -512,22 +548,6 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
                       render={({ field: { onChange, value, name } }) => (
                         <Input
                           label="Linkedn"
-                          name={name}
-                          value={value}
-                          onChange={onChange}
-                          error={error(name)}
-                          required={required(name)}
-                        />
-                      )}
-                    />
-                  </Col>
-                  <Col xs={24} md={6}>
-                    <Controller
-                      name="businessInfo.socialMedia.whatsapp"
-                      control={control}
-                      render={({ field: { onChange, value, name } }) => (
-                        <Input
-                          label="WhatsApp de Contacto"
                           name={name}
                           value={value}
                           onChange={onChange}
