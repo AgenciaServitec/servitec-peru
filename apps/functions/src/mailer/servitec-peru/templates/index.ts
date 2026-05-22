@@ -6,4 +6,7 @@ const htmlTemplate = (url: string): string =>
 
 export const template = {
   contactEntryEmailTemplate: htmlTemplate("./contactEntryEmailTemplate.html"),
+  adminContactEntryEmailTemplate: htmlTemplate(
+    "./adminContactEntryEmailTemplate.html"
+  ),
 };

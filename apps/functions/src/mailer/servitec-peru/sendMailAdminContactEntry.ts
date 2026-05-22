@@ -43,7 +43,7 @@ export const sendMailAdminContactEntry = async (
     }
 
     const htmlResult = renderHtmlTemplate(
-      template.contactEntryEmailTemplate,
+      template.adminContactEntryEmailTemplate,
       mapMailData(contactEntry, site)
     );
 
