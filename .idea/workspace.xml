@@ -4,34 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="updated contact endpoint and updated hostname value">
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/entries/controllers/postComplaintsBookEntry.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/entries/controllers/postContactEntry.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/entries/controllers/postSuggestionEntry.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/mailer/sendMail.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/images/contact.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/sendMailContactEntry.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/templates/contactEntryEmailTemplate.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/templates/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/hosting/data-list/countries.ts" afterDir="false" />
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="added prefix field">
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/sendMailAdminContactEntry.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/templates/adminContactEntryEmailTemplate.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/sites.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/sites.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/entries/controllers/getEntries.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/entries/controllers/getEntry.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/entries/controllers/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/entries/controllers/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/entries/controllers/postEntry.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/entries/controllers/postClaimEntry.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/entries/controllers/putEntry.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/entries/routes/entries.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/entries/routes/entries.routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/config/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/config/config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/globalTypes.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/globalTypes.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/entries/controllers/postContactEntry.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/entries/controllers/postContactEntry.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/sendMailContactEntry.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/sendMailContactEntry.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/templates/contactEntryEmailTemplate.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/templates/contactEntryEmailTemplate.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/entries/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/entries/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/sites/_siteId/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/sites/_siteId/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/components/ui/select.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/ui/select.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/lib/validations/common.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/lib/validations/common.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,8 +25,8 @@
       <list>
         <option value="tsconfig.json" />
         <option value="TypeScript JSX File" />
-        <option value="HTML File" />
         <option value="TypeScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -87,36 +69,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Angel/WebstormProjects/servitec-peru/apps/functions/src/mailer/servitec-peru/images&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "javascript.preferred.runtime.type.id": "node",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "C:/Users/Angel/WebstormProjects/servitec-peru/apps/functions/src/mailer/servitec-peru",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "pnpm",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "to.speed.mode.migration.done": "true",
+    "ts.external.directory.path": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\functions\src\mailer\servitec-peru" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\functions\src\mailer\servitec-peru\images" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\functions\src\api\entries\controllers" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting-admin\public" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting-admin\src\data-list" />
-      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\functions\src\api\entries" />
@@ -180,31 +162,8 @@
       <workItem from="1779123717220" duration="28000" />
       <workItem from="1779129099375" duration="11380000" />
       <workItem from="1779210938823" duration="16389000" />
-      <workItem from="1779384311988" duration="20437000" />
-    </task>
-    <task id="LOCAL-00040" summary="updated footer">
-      <option name="closed" value="true" />
-      <created>1771460316509</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1771460316509</updated>
-    </task>
-    <task id="LOCAL-00041" summary="added sheet component">
-      <option name="closed" value="true" />
-      <created>1771470796467</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1771470796467</updated>
-    </task>
-    <task id="LOCAL-00042" summary="refactor code">
-      <option name="closed" value="true" />
-      <created>1772229119034</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1772229119035</updated>
+      <workItem from="1779384311988" duration="21330000" />
+      <workItem from="1779469029563" duration="14753000" />
     </task>
     <task id="LOCAL-00043" summary="added filter in quotation page">
       <option name="closed" value="true" />
@@ -574,7 +533,31 @@
       <option name="project" value="LOCAL" />
       <updated>1779386455598</updated>
     </task>
-    <option name="localTasksCounter" value="89" />
+    <task id="LOCAL-00089" summary="remove old functions">
+      <option name="closed" value="true" />
+      <created>1779406139912</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1779406139914</updated>
+    </task>
+    <task id="LOCAL-00090" summary="refactored endpoints and added sendMail">
+      <option name="closed" value="true" />
+      <created>1779406212192</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1779406212192</updated>
+    </task>
+    <task id="LOCAL-00091" summary="added prefix field">
+      <option name="closed" value="true" />
+      <created>1779406281726</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1779406281727</updated>
+    </task>
+    <option name="localTasksCounter" value="92" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -592,9 +575,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat(forms): add manual entry fallback and field locking for client data" />
-    <MESSAGE value="feat(admin): expand search filter to include companyName in service requests" />
-    <MESSAGE value="added peru ubigeo" />
     <MESSAGE value="feat(location): add google maps geocoding and coordinates capture" />
     <MESSAGE value="feat(admin): add static map preview and directions functionality to service cards" />
     <MESSAGE value="refactored title styles and changed service image in projector repair specialty" />
@@ -617,6 +597,9 @@
     <MESSAGE value="added counters shortcuts" />
     <MESSAGE value="added counters and refactored shortcuts list" />
     <MESSAGE value="updated contact endpoint and updated hostname value" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated contact endpoint and updated hostname value" />
+    <MESSAGE value="remove old functions" />
+    <MESSAGE value="refactored endpoints and added sendMail" />
+    <MESSAGE value="added prefix field" />
+    <option name="LAST_COMMIT_MESSAGE" value="added prefix field" />
   </component>
 </project>

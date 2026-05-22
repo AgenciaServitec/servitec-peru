@@ -2,7 +2,10 @@ import { Request, Response } from "express";
 import { addEntry, getEntryId } from "../../../_firebase/collections/entries";
 import { defaultFirestoreProps } from "../../../utils";
 import { fetchSiteByHostname } from "../../../_firebase/collections";
-import { sendMailContactEntry } from "../../../mailer/servitec-peru";
+import {
+  sendMailAdminContactEntry,
+  sendMailContactEntry,
+} from "../../../mailer/servitec-peru";
 import { ContactEntry } from "../../../globalTypes";
 
 export const postContactEntry = async (req: Request, res: Response) => {
@@ -27,7 +30,12 @@ export const postContactEntry = async (req: Request, res: Response) => {
 
     await addEntry(assignCreateProps(newEntry) as ContactEntry);
 
-    await sendMailContactEntry(newEntry);
+    await Promise.all([
+      sendMailContactEntry(newEntry),
+      sendMailAdminContactEntry(newEntry),
+    ]).catch((emailError) => {
+      console.error("「Background Mail Error」", emailError);
+    });
 
     res.status(201).json({
       success: true,

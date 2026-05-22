@@ -55,6 +55,7 @@ export const sendMailContactEntry = async (
       to: targetEmail,
       subject: `Hemos recibido tu consulta - ${site.name || "Soporte"}`,
       html: htmlResult,
+      replyTo: site?.businessInfo?.email,
     });
   } catch (error) {
     console.error(
@@ -65,7 +66,7 @@ export const sendMailContactEntry = async (
 };
 
 const mapMailData = (contactEntry: ContactEntry, site: any): MailData => {
-  const isServitec = site?.hostname === "servitecperu.com";
+  const isServitec = site?.hostname === "servitec-peru.com";
 
   return {
     primaryColor: site?.branding?.primaryColor || "",
@@ -79,7 +80,7 @@ const mapMailData = (contactEntry: ContactEntry, site: any): MailData => {
     siteName: site?.name || "",
     isServitec,
     companyAddress: site?.businessInfo?.address || "",
-    companyEmail: site?.notifications?.mainReceiver || "",
+    companyEmail: site?.businessInfo?.email || "",
     companyPhone: site?.notifications?.phone?.number || "",
     facebookUrl: site?.businessInfo?.socialMedia?.facebook
       ? `https://www.facebook.com/${site?.businessInfo?.socialMedia?.facebook}`
