@@ -12,6 +12,7 @@ interface MailData {
   logoUrl: string;
   bannerUrl: string;
   siteName: string;
+  hostname: string;
   isServitec: boolean;
   companyAddress: string;
   companyEmail: string;
@@ -79,6 +80,7 @@ const mapMailData = (contactEntry: ContactEntry, site: any): MailData => {
       "https://storage.googleapis.com/servitec-peru.firebasestorage.app/contact-entry.png",
     siteName: site?.name || "",
     isServitec,
+    hostname: site?.hostname || "",
     companyAddress: site?.businessInfo?.address || "",
     companyEmail: site?.businessInfo?.email || "",
     companyPhone: site?.notifications?.phone?.number || "",
