@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="refactored email template and send function">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/apps/functions/lib/mailer/servitec-peru/templates/adminContactEntryEmailTemplate.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/lib/mailer/servitec-peru/templates/contactEntryEmailTemplate.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/sendMailAdminContactEntry.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/sendMailAdminContactEntry.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/sendMailContactEntry.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/sendMailContactEntry.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/templates/adminContactEntryEmailTemplate.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/templates/adminContactEntryEmailTemplate.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/templates/contactEntryEmailTemplate.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/templates/contactEntryEmailTemplate.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/App.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,29 +66,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
-    "javascript.preferred.runtime.type.id": "node",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/Angel/WebstormProjects/servitec-peru/apps/functions/src/mailer/servitec-peru",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "pnpm",
-    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "to.speed.mode.migration.done": "true",
-    "ts.external.directory.path": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Angel/WebstormProjects/servitec-peru/apps/functions/src/mailer/servitec-peru&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\functions\src\mailer\servitec-peru" />
@@ -157,31 +160,8 @@
       <workItem from="1779129099375" duration="11380000" />
       <workItem from="1779210938823" duration="16389000" />
       <workItem from="1779384311988" duration="21330000" />
-      <workItem from="1779469029563" duration="15606000" />
-    </task>
-    <task id="LOCAL-00045" summary="style(navbar): adjust positioning and z-index for hero integration">
-      <option name="closed" value="true" />
-      <created>1773948819343</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1773948819343</updated>
-    </task>
-    <task id="LOCAL-00046" summary="feat(hero): overhaul design with concave curve, scroll hint and minimalist UI">
-      <option name="closed" value="true" />
-      <created>1773948828528</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1773948828528</updated>
-    </task>
-    <task id="LOCAL-00047" summary="updated styles NavigationMenuViewport">
-      <option name="closed" value="true" />
-      <created>1773948877212</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1773948877212</updated>
+      <workItem from="1779469029563" duration="17040000" />
+      <workItem from="1779733647595" duration="3738000" />
     </task>
     <task id="LOCAL-00048" summary="updated styles FeaturesBar">
       <option name="closed" value="true" />
@@ -551,7 +531,31 @@
       <option name="project" value="LOCAL" />
       <updated>1779488864180</updated>
     </task>
-    <option name="localTasksCounter" value="94" />
+    <task id="LOCAL-00094">
+      <option name="closed" value="true" />
+      <created>1779489536873</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1779489536873</updated>
+    </task>
+    <task id="LOCAL-00095" summary="added hostname prop">
+      <option name="closed" value="true" />
+      <created>1779490548639</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1779490548639</updated>
+    </task>
+    <task id="LOCAL-00096" summary="export adminContactEntryEmailTemplate">
+      <option name="closed" value="true" />
+      <created>1779490569408</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1779490569408</updated>
+    </task>
+    <option name="localTasksCounter" value="97" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -569,10 +573,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactored title styles and changed service image in projector repair specialty" />
-    <MESSAGE value="Updated information in the service request form" />
-    <MESSAGE value="feat(drawer): implement permission-based item filtering" />
-    <MESSAGE value="feat(quotations): logic to fetch client data by document and manual override" />
     <MESSAGE value="refactor(quotations): allow empty quotation details and update validation schema" />
     <MESSAGE value="feat(quotations): implement atomic sequence numbering and cache invalidation" />
     <MESSAGE value="updated sequenceNumber in mapQuotation" />
@@ -594,6 +594,10 @@
     <MESSAGE value="added prefix field" />
     <MESSAGE value="added contact email company field" />
     <MESSAGE value="refactored email template and send function" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored email template and send function" />
+    <MESSAGE value="refactored subject" />
+    <MESSAGE value="added hostname prop" />
+    <MESSAGE value="export adminContactEntryEmailTemplate" />
+    <MESSAGE value="refactored design" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored design" />
   </component>
 </project>
