@@ -9,6 +9,10 @@
 *.sublime-project
 *.sublime-workspace
 
+# production
+**/lib
+**/build
+
 # OS Files
 .DS_Store
 .DS_Store?
