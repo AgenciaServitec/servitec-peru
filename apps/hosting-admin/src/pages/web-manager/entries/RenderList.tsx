@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import {
   Button,
+  CanAccess,
   Card,
   Checkbox,
   Col,
@@ -127,7 +128,7 @@ export const RenderList = ({
                       src={siteLogo?.url}
                       alt="site-logo"
                       style={{
-                        height: "35px",
+                        width: "150px",
                         padding: "2px",
                         borderRadius: "4px",
                         backgroundColor: "white",
@@ -179,6 +180,7 @@ export const RenderList = ({
                       style={{
                         fontSize: "12px",
                         color: theme.colors.fontSecondary,
+                        textWrap: "balance",
                       }}
                     >
                       Mensaje: {ticket.message}
@@ -275,14 +277,16 @@ export const RenderList = ({
                             color: theme.colors.primary,
                           }}
                         />
-                        <IconAction
-                          tooltipTitle="Eliminar"
-                          onClick={() => onConfirmRemoveEntry(ticket)}
-                          icon={faTrashCan}
-                          iconStyles={{
-                            color: theme.colors.error,
-                          }}
-                        />
+                        <CanAccess permission="entry_delete">
+                          <IconAction
+                            tooltipTitle="Eliminar"
+                            onClick={() => onConfirmRemoveEntry(ticket)}
+                            icon={faTrashCan}
+                            iconStyles={{
+                              color: theme.colors.error,
+                            }}
+                          />
+                        </CanAccess>
                       </Space>
                     </Col>
                   </Row>

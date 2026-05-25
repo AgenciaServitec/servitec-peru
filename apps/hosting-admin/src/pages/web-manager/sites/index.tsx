@@ -78,7 +78,6 @@ export const SitesIntegration = () => {
       onAddSite={onAddSite}
       onEditSite={onEditSite}
       onConfirmRemoveSite={onConfirmRemoveSite}
-      navigate={navigate}
     />
   );
 };
@@ -89,7 +88,6 @@ export const Sites = ({
   onAddSite,
   onEditSite,
   onConfirmRemoveSite,
-  navigate,
 }: any) => {
   const { border_radius, spacing } = theme;
 
@@ -107,7 +105,7 @@ export const Sites = ({
               type="primary"
               icon={<FontAwesomeIcon icon={faPlus} />}
               size="large"
-              onClick={() => navigate("/web-manager/sites/new")}
+              onClick={onAddSite}
             >
               Agregar Cliente
             </Button>
@@ -132,13 +130,9 @@ export const Sites = ({
                 <Col>
                   <Avatar
                     size={64}
-                    src={
-                      site?.branding?.logo?.url ||
-                      `https://ui-avatars.com/api/?name=${site.name}&background=random`
-                    }
+                    src={site?.branding?.isotype?.url}
                     style={{
                       border: `2px solid ${site.branding?.primaryColor}`,
-                      padding: "2px",
                       backgroundColor: "white",
                     }}
                   />
@@ -243,7 +237,9 @@ export const Sites = ({
                         />
                         <IconAction
                           tooltipTitle="Visitar Web"
-                          onClick={() => window.open(site.hostname, "_blank")}
+                          onClick={() =>
+                            window.open(`https://${site.hostname}`, "_blank")
+                          }
                           icon={faExternalLinkAlt}
                           iconStyles={{ color: (theme) => theme.colors.info }}
                         />
