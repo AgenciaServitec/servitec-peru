@@ -6,6 +6,9 @@ import { fetchSite } from "../../_firebase/collections";
 interface MailData {
   primaryColor: string;
   fullName: string;
+  userEmail: string;
+  userPhonePrefix: string;
+  userPhone: string;
   messageText: string;
   logoUrl: string;
   siteName: string;
@@ -63,6 +66,9 @@ export const sendMailAdminContactEntry = async (
 const mapMailData = (contactEntry: ContactEntry, site: any): MailData => ({
   primaryColor: site?.branding?.primaryColor || "",
   fullName: contactEntry?.client.fullName || "",
+  userEmail: contactEntry?.client.email || "",
+  userPhonePrefix: contactEntry?.client.phone.prefix || "",
+  userPhone: contactEntry?.client.phone.number || "",
   messageText: contactEntry?.message || "",
   logoUrl: site?.branding.logo.url || "",
   siteName: site?.name || "",

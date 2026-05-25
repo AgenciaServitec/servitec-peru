@@ -35,14 +35,18 @@
         <tbody>
 
         <tr>
-          <td style="background-color: {{primaryColor}}; padding: 20px; text-align: center;">
-            <img src="{{logoUrl}}" alt="{{siteName}}" title="{{siteName}}" style="display: inline-block; max-height: 30px; width: auto; border: 0;" />
+          <td height="4" style="background-color: {{primaryColor}}; line-height: 4px; font-size: 4px;">&nbsp;</td>
+        </tr>
+
+        <tr>
+          <td style="background-color: #ffffff; padding: 25px 20px; text-align: center; border-bottom: 1px solid {{primaryColor}}22;">
+            <img src="{{logoUrl}}" alt="{{siteName}}" title="{{siteName}}" style="display: inline-block; max-height: 35px; width: auto; border: 0;" />
           </td>
         </tr>
 
         <tr>
           <td style="padding: 40px 40px 35px 40px;">
-            <h1 style="margin: 0 0 25px 0; color: #000000; font-size: 24px; font-weight: 700; line-height: 1.3; text-align: left;">
+            <h1 style="margin: 0 0 25px 0; color: #000000; font-size: 24px; font-weight: 700; line-height: 1.3; text-align: center;">
               Nueva consulta web recibida
             </h1>
 
@@ -62,7 +66,7 @@
                 <tr>
                   <td style="padding: 4px 0; font-size: 15px;">
                     <span style="color: #475569; width: 140px; display: inline-block;"><strong>Correo electrónico:</strong></span>
-                    <a href="mailto:{{userEmail}}" style="color: #1d4ed8; text-decoration: none; font-weight: 700;">{{userEmail}}</a>
+                    <a href="mailto:{{userEmail}}" style="color: #0284c7; text-decoration: none; font-weight: 700;">{{userEmail}}</a>
                   </td>
                 </tr>
                 {{/userEmail}}
@@ -70,18 +74,18 @@
                 <tr>
                   <td style="padding: 4px 0; font-size: 15px;">
                     <span style="color: #475569; width: 140px; display: inline-block;"><strong>Teléfono / Celular:</strong></span>
-                    <span style="color: #000000; font-weight: 700;">{{userPhone}}</span>
+                    <a href="tel:+51{{userPhone}}" style="color: #0284c7; text-decoration: none; font-weight: 700;">{{userPhone}}</a>
                   </td>
                 </tr>
                 {{/userPhone}}
               </table>
 
-              <p style="margin-bottom: 8px; color: #475569; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Mensaje del usuario:</p>
-              <div style="margin-bottom: 35px; background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 15px 20px; border-radius: 6px; color: #0f172a; font-size: 15px; line-height: 1.6;">
-                {{messageText}}
+              <p style="margin-bottom: 8px; font-weight: 700; font-size: 14px; text-transform: uppercase;">Mensaje del usuario:</p>
+              <div style="font-style: italic; margin-bottom: 35px; background-color: #f8fafc; color: #475569; border: 1px solid #e2e8f0; padding: 15px 20px; border-radius: 6px; font-size: 15px; line-height: 1.6;">
+                "{{messageText}}"
               </div>
 
-              <p style="margin-bottom: 0; padding-top: 20px; border-top: 1px solid #e2e8f0; color: #475569; font-size: 13px; text-align: center;">
+              <p style="margin-bottom: 0; padding-top: 25px; border-top: 1px solid {{primaryColor}}22; color: #64748b; font-size: 13px; text-align: center;">
                 Recuerda responder a este requerimiento directamente al correo del cliente registrado.
               </p>
             </div>
@@ -89,8 +93,8 @@
         </tr>
 
         <tr>
-          <td style="background-color: {{primaryColor}}; background-color: {{primaryColor}}40; padding: 40px 35px; color: #000000; text-align: center; border-top: 1px solid {{primaryColor}}66">
-            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="margin: 0 auto;">
+          <td style="background-color: #f8fafc; padding: 40px 35px; color: #334155; text-align: center; border-top: 1px solid {{primaryColor}}22">
+            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="margin: 0 auto 25px auto;">
               <tr>
                 {{#facebookUrl}}
                 <td style="padding: 0 5px;">
@@ -126,14 +130,14 @@
               </tr>
             </table>
 
-            <div style="font-size: 13px; color: #000000; line-height: 1.6; border-top: 1px solid {{primaryColor}}66; padding-top: 20px;">
+            <div style="font-size: 13px; color: #475569; line-height: 1.6; border-top: 1px solid {{primaryColor}}22; padding-top: 20px;">
               {{#companyAddress}}
               <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="margin: 0 auto 5px auto;">
                 <tr>
                   <td valign="middle" style="padding-right: 6px;">
                     <img src="https://storage.googleapis.com/servitec-peru.firebasestorage.app/icon-location.png" alt="Dirección" width="25" height="25" style="display: block; border: 0;" />
                   </td>
-                  <td valign="middle" style="font-size: 13px;">
+                  <td valign="middle" style="font-size: 13px; color: #475569;">
                     Dirección: {{companyAddress}}
                   </td>
                 </tr>
@@ -146,8 +150,8 @@
                   <td valign="middle" style="padding-right: 6px;">
                     <img src="https://storage.googleapis.com/servitec-peru.firebasestorage.app/icon-email.png" alt="Email" width="25" height="25" style="display: block; border: 0;" />
                   </td>
-                  <td valign="middle" style="font-size: 13px;">
-                    Correo: <a href="mailto:{{companyEmail}}" style="color: #000000; text-decoration: none;">{{companyEmail}}</a>
+                  <td valign="middle" style="font-size: 13px; color: #475569;">
+                    Correo: <a href="mailto:{{companyEmail}}" style="color: #0284c7; text-decoration: underline; font-weight: 700;">{{companyEmail}}</a>
                   </td>
                 </tr>
               </table>
@@ -159,14 +163,14 @@
                   <td valign="middle" style="padding-right: 6px;">
                     <img src="https://storage.googleapis.com/servitec-peru.firebasestorage.app/icon-phone.png" alt="Teléfono" width="25" height="25" style="display: block; border: 0;" />
                   </td>
-                  <td valign="middle" style="font-size: 13px;">
-                    Teléfono: <a href="tel:+51{{companyPhone}}" style="color: #000000; text-decoration: none;">{{companyPhone}}</a>
+                  <td valign="middle" style="font-size: 13px; color: #475569;">
+                    Teléfono: <a href="tel:+51{{companyPhone}}" style="color: #0284c7; text-decoration: underline; font-weight: 700;">{{companyPhone}}</a>
                   </td>
                 </tr>
               </table>
               {{/companyPhone}}
 
-              <p style="font-size: 11px; color: #000000; margin-top: 20px; letter-spacing: 0.5px;">
+              <p style="font-size: 11px; color: #94a3b8; margin-top: 25px;">
                 Todos los derechos reservados &copy; 2026 - Desarrollado por Agencia Servitec
               </p>
             </div>
@@ -174,6 +178,9 @@
           </td>
         </tr>
 
+        <tr>
+          <td height="4" style="background-color: {{primaryColor}}; line-height: 4px; font-size: 4px;">&nbsp;</td>
+        </tr>
         </tbody>
       </table>
 
