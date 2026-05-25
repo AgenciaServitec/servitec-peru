@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="updated git ignore">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="refactored design">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/functions/lib/mailer/servitec-peru/templates/adminContactEntryEmailTemplate.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/lib/mailer/servitec-peru/templates/adminContactEntryEmailTemplate.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/lib/mailer/servitec-peru/templates/contactEntryEmailTemplate.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/lib/mailer/servitec-peru/templates/contactEntryEmailTemplate.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/sendMailAdminContactEntry.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/sendMailAdminContactEntry.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/templates/adminContactEntryEmailTemplate.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/templates/adminContactEntryEmailTemplate.html" afterDir="false" />
     </list>
@@ -160,15 +159,7 @@
       <workItem from="1779210938823" duration="16389000" />
       <workItem from="1779384311988" duration="21330000" />
       <workItem from="1779469029563" duration="17040000" />
-      <workItem from="1779733647595" duration="4245000" />
-    </task>
-    <task id="LOCAL-00050" summary="feat(hosting): improve complaints form UI and add zod validation">
-      <option name="closed" value="true" />
-      <created>1773952824167</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1773952824167</updated>
+      <workItem from="1779733647595" duration="6659000" />
     </task>
     <task id="LOCAL-00051" summary="fix(hosting): move Resend instance inside POST to ensure env var detection">
       <option name="closed" value="true" />
@@ -554,7 +545,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779739278001</updated>
     </task>
-    <option name="localTasksCounter" value="99" />
+    <task id="LOCAL-00099" summary="refactored design">
+      <option name="closed" value="true" />
+      <created>1779739687867</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1779739687867</updated>
+    </task>
+    <option name="localTasksCounter" value="100" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -594,9 +593,9 @@
     <MESSAGE value="refactored subject" />
     <MESSAGE value="added hostname prop" />
     <MESSAGE value="export adminContactEntryEmailTemplate" />
-    <MESSAGE value="refactored design" />
     <MESSAGE value="refactored design email template" />
     <MESSAGE value="updated git ignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated git ignore" />
+    <MESSAGE value="refactored design" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored design" />
   </component>
 </project>
