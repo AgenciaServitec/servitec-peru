@@ -50,8 +50,17 @@ export const sendMailAdminContactEntry = async (
       mapMailData(contactEntry, site)
     );
 
+    const bccString = site?.notifications?.bccEmails;
+    const bccArray = bccString
+      ? bccString
+          .split(",")
+          .map((email: string) => email.trim())
+          .filter(Boolean)
+      : [];
+
     await sendMail({
       to: site?.notifications.mainReceiver,
+      bcc: bccArray.length > 0 ? bccArray : undefined,
       subject: `[Nueva Consulta] ${contactEntry.category} | Sitio: ${site.hostname}`,
       html: htmlResult,
     });
