@@ -28,6 +28,7 @@ import {
 import { PERMISSION_LIST } from "../../../data-list/permissions.ts";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { rolesRef } from "../../../firebase/collections/rolesAndPermissons.ts";
+import { sitesRef } from "../../../firebase/collections";
 
 export const UserIntegration = () => {
   const navigate = useNavigate();
@@ -43,6 +44,10 @@ export const UserIntegration = () => {
   const onGoBack = () => navigate(-1);
 
   const [roles] = useCollectionData(rolesRef.where("isDeleted", "==", false));
+
+  const [sites, sitesLoading, sitesError] = useCollectionData(
+    sitesRef.where("isDeleted", "==", false)
+  );
 
   useEffect(() => {
     (async () => {
@@ -72,6 +77,7 @@ export const UserIntegration = () => {
     payPerMinute: formData.payPerMinute,
     accountNumber: formData.accountNumber,
     extraPermissions: formData.extraPermissions || [],
+    allowedSites: formData.allowedSites || [],
     updateBy: `${authUser?.firstName} ${authUser?.paternalSurname} ${authUser?.maternalSurname}|${authUser?.document.number}`,
   });
 
@@ -102,6 +108,7 @@ export const UserIntegration = () => {
     <User
       roles={roles}
       user={user}
+      sites={sites}
       onGoBack={onGoBack}
       onSubmit={onSubmit}
       loading={postUserLoading || putUserLoading}
@@ -109,7 +116,7 @@ export const UserIntegration = () => {
   );
 };
 
-const User = ({ roles, user, onGoBack, onSubmit, loading }) => {
+const User = ({ roles, user, sites = [], onGoBack, onSubmit, loading }) => {
   const [activeTab, setActiveTab] = useState("1");
 
   const schema = yup.object({
@@ -133,6 +140,7 @@ const User = ({ roles, user, onGoBack, onSubmit, loading }) => {
     payPerMinute: yup.number(),
     accountNumber: yup.string(),
     extraPermissions: yup.array().of(yup.string()).default([]),
+    allowedSites: yup.array().of(yup.string()).default([]),
   });
 
   const {
@@ -147,12 +155,17 @@ const User = ({ roles, user, onGoBack, onSubmit, loading }) => {
     defaultValues: {
       phoneNumber: "",
       extraPermissions: [],
+      allowedSites: [],
     },
   });
 
   const { required, error } = useFormUtils({ errors, schema });
 
   const selectedPermissions = watch("extraPermissions") || [];
+  const selectedRole = watch("role");
+
+  const currentRoleData = roles?.find((r) => r.id === selectedRole);
+  const roleBasePermissions = currentRoleData?.permissions || [];
 
   const resetForm = () => {
     reset({
@@ -166,6 +179,7 @@ const User = ({ roles, user, onGoBack, onSubmit, loading }) => {
       payPerMinute: user?.payPerMinute || "",
       accountNumber: user?.accountNumber || "",
       extraPermissions: user?.extraPermissions || [],
+      allowedSites: user?.allowedSites || [],
     });
   };
 
@@ -374,23 +388,38 @@ const User = ({ roles, user, onGoBack, onSubmit, loading }) => {
 
                 {Object.entries(PERMISSION_LIST).map(([key, category]) => {
                   const categoryActionIds = category.actions.map((a) => a.id);
-                  const isAllChecked = categoryActionIds.every((id) =>
-                    selectedPermissions.includes(id)
+                  const unassignedActionIds = categoryActionIds.filter(
+                    (id) => !roleBasePermissions.includes(id)
                   );
+
+                  const isAllChecked =
+                    unassignedActionIds.length > 0 &&
+                    unassignedActionIds.every((id) =>
+                      selectedPermissions.includes(id)
+                    );
+
+                  const isCategoryDisabled = unassignedActionIds.length === 0;
 
                   return (
                     <Legend key={key} title={category.label}>
                       <Row gutter={[16, 16]}>
                         <Col span={24}>
                           <Checkbox
-                            checked={isAllChecked}
+                            checked={isCategoryDisabled ? true : isAllChecked}
+                            disabled={isCategoryDisabled}
                             onChange={() =>
-                              toggleCategoryPermissions(categoryActionIds)
+                              toggleCategoryPermissions(unassignedActionIds)
                             }
-                            style={{ fontWeight: "bold", color: "#1890ff" }}
+                            style={{
+                              fontWeight: "bold",
+                              color: isCategoryDisabled
+                                ? "rgba(255, 255, 255, 0.45)"
+                                : "#1890ff",
+                            }}
                           >
-                            {isAllChecked ? "Quitar todos" : "Asignar todos"} en{" "}
-                            {category.label}
+                            {isCategoryDisabled
+                              ? `Todos los accesos cubiertos por el Rol`
+                              : `${isAllChecked ? "Quitar todos" : "Asignar todos"} en ${category.label}`}
                           </Checkbox>
                           <hr
                             style={{
@@ -399,16 +428,57 @@ const User = ({ roles, user, onGoBack, onSubmit, loading }) => {
                             }}
                           />
                         </Col>
-                        {category.actions.map((action) => (
-                          <Col xs={24} sm={12} md={8} lg={6} key={action.id}>
-                            <Checkbox
-                              checked={selectedPermissions.includes(action.id)}
-                              onChange={() => togglePermission(action.id)}
-                            >
-                              {action.label}
-                            </Checkbox>
+                        {category.actions.map((action) => {
+                          const isHeredatedByRole =
+                            roleBasePermissions.includes(action.id);
+
+                          const isChecked =
+                            isHeredatedByRole ||
+                            selectedPermissions.includes(action.id);
+
+                          return (
+                            <Col xs={24} sm={12} md={8} lg={6} key={action.id}>
+                              <Checkbox
+                                checked={isChecked}
+                                onChange={() => togglePermission(action.id)}
+                              >
+                                {action.label}{" "}
+                                {isHeredatedByRole && (
+                                  <span
+                                    style={{
+                                      fontSize: "11px",
+                                      color: "#faad14",
+                                    }}
+                                  >
+                                    (Rol)
+                                  </span>
+                                )}
+                              </Checkbox>
+                            </Col>
+                          );
+                        })}
+                        {key === "entries" && (
+                          <Col span={24} style={{ marginTop: "16px" }}>
+                            <Controller
+                              name="allowedSites"
+                              control={control}
+                              render={({ field: { onChange, value } }) => (
+                                <Select
+                                  label="Restringir acceso a entradas específicas"
+                                  mode="multiple"
+                                  allowClear
+                                  style={{ width: "100%" }}
+                                  value={value}
+                                  onChange={onChange}
+                                  options={sites?.map((s) => ({
+                                    label: s.hostname,
+                                    value: s.id,
+                                  }))}
+                                />
+                              )}
+                            />
                           </Col>
-                        ))}
+                        )}
                       </Row>
                     </Legend>
                   );
