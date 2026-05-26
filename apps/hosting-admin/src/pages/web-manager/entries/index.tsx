@@ -28,6 +28,7 @@ import { RenderList } from "./RenderList.tsx";
 import type { Entry } from "../../../globalTypes.ts";
 import { DrawerDetails } from "./DrawerDetails.tsx";
 import { orderBy } from "lodash";
+import { useAuthentication } from "../../../providers";
 
 const { Title } = Typography;
 
@@ -40,6 +41,7 @@ export const EntriesIntegration = () => {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string>("pending");
 
+  const { authUser } = useAuthentication();
   const { assignDeleteProps, assignUpdateProps } = useDefaultFirestoreProps();
 
   const { modalConfirm } = useModalConfirm();
@@ -59,10 +61,17 @@ export const EntriesIntegration = () => {
   const hasError = entriesError || sitesError;
 
   const filterSites = useMemo(() => {
-    return sites
-      ? [{ id: "all", name: "Todos" }, ...sites]
-      : [{ id: "all", name: "Todos" }];
-  }, [sites]);
+    if (!sites) return [{ id: "all", name: "Todos" }];
+
+    const userHasSiteRestrictions =
+      authUser?.allowedSites && authUser.allowedSites.length > 0;
+
+    const allowedSitesList = userHasSiteRestrictions
+      ? sites.filter((site) => authUser.allowedSites.includes(site.id))
+      : sites;
+
+    return [{ id: "all", name: "Todos" }, ...allowedSitesList];
+  }, [sites, authUser?.allowedSites]);
 
   const handleOpenDrawer = (ticket: any) => {
     setSelectedTicket(ticket);
@@ -77,6 +86,12 @@ export const EntriesIntegration = () => {
 
   const filteredEntries = orderBy(entries, "createAt", "desc")?.filter(
     (entry: any) => {
+      const userHasSiteRestrictions =
+        authUser?.allowedSites && authUser.allowedSites.length > 0;
+      const isSiteAllowedForUser = userHasSiteRestrictions
+        ? authUser.allowedSites.includes(entry.siteId)
+        : true;
+
       const matchesSite =
         selectedSite === "all" || entry.siteId === selectedSite;
 
@@ -87,7 +102,9 @@ export const EntriesIntegration = () => {
       const entryStatus = entry.status || "pending";
       const matchesStatus = entryStatus === selectedStatus;
 
-      return matchesSite && matchesCategory && matchesStatus;
+      return (
+        isSiteAllowedForUser && matchesSite && matchesCategory && matchesStatus
+      );
     }
   );
 
