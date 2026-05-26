@@ -5,7 +5,7 @@ import Mail from "nodemailer/lib/mailer";
 
 const { host, from, pass, user, port } = environmentConfig["node-mailer"];
 
-const transporter = createTransport({
+const defaultTransporter = createTransport({
   host,
   port,
   secure: port === 465,
@@ -18,14 +18,47 @@ const transporter = createTransport({
   maxMessages: 100,
 });
 
-export const sendMail = async (mailOptions: Mail.Options): Promise<void> => {
+interface CustomSmtpConfig {
+  service?: string;
+  user?: string;
+  pass?: string;
+}
+
+export const sendMail = async (
+  mailOptions: Mail.Options,
+  customSmtp?: CustomSmtpConfig
+): Promise<void> => {
+  const hasCustomSmtp =
+    customSmtp?.user && customSmtp?.pass && customSmtp?.service;
+
+  let currentTransporter = defaultTransporter;
+  let senderEmail = `${from} <${user}>`;
+
+  if (hasCustomSmtp) {
+    try {
+      currentTransporter = createTransport({
+        service: customSmtp.service,
+        auth: {
+          user: customSmtp.user,
+          pass: customSmtp.pass,
+        },
+      });
+
+      senderEmail = customSmtp.user!;
+    } catch (smtpError) {
+      console.error("[Mailer] Error al inicializar...", smtpError);
+      currentTransporter = defaultTransporter;
+      senderEmail = `${from} <${user}>`;
+    }
+  }
+
   const options: Mail.Options = {
     ...mailOptions,
-    from: mailOptions.from || `${from} <${user}>`,
+    from: mailOptions.from || senderEmail,
   };
 
   try {
-    await transporter.sendMail(options);
+    await currentTransporter.sendMail(options);
   } catch (error) {
     console.error("Error en sendMail [Nodemailer]:", error);
     throw error;
