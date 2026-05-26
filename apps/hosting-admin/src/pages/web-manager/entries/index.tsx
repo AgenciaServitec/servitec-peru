@@ -27,6 +27,7 @@ import { RenderBubbles } from "./RenderBubbles.tsx";
 import { RenderList } from "./RenderList.tsx";
 import type { Entry } from "../../../globalTypes.ts";
 import { DrawerDetails } from "./DrawerDetails.tsx";
+import { orderBy } from "lodash";
 
 const { Title } = Typography;
 
@@ -74,18 +75,21 @@ export const EntriesIntegration = () => {
     setSelectedStatus("pending");
   };
 
-  const filteredEntries = entries?.filter((entry: any) => {
-    const matchesSite = selectedSite === "all" || entry.siteId === selectedSite;
+  const filteredEntries = orderBy(entries, "createAt", "desc")?.filter(
+    (entry: any) => {
+      const matchesSite =
+        selectedSite === "all" || entry.siteId === selectedSite;
 
-    const matchesCategory =
-      selectedCategory === "all" ||
-      entry.category?.toLowerCase() === selectedCategory.toLowerCase();
+      const matchesCategory =
+        selectedCategory === "all" ||
+        entry.category?.toLowerCase() === selectedCategory.toLowerCase();
 
-    const entryStatus = entry.status || "pending";
-    const matchesStatus = entryStatus === selectedStatus;
+      const entryStatus = entry.status || "pending";
+      const matchesStatus = entryStatus === selectedStatus;
 
-    return matchesSite && matchesCategory && matchesStatus;
-  });
+      return matchesSite && matchesCategory && matchesStatus;
+    }
+  );
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
