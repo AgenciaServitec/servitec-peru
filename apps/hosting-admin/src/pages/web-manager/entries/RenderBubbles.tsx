@@ -23,7 +23,7 @@ export const RenderBubbles = ({
           <Row
             gutter={[32, 32]}
             justify="center"
-            style={{ maxWidth: "1000px" }}
+            style={{ maxWidth: "1000px", width: "100%" }}
           >
             {entries?.map((ticket) => {
               const site = sites?.find((s) => s.id === ticket.siteId);
@@ -170,11 +170,22 @@ export const RenderBubbles = ({
 
 export const BubbleSandboxContainer = styled.div`
   border-radius: 10px;
-  padding: 60px 40px;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   justify-content: center;
-  min-height: 550px;
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  align-items: flex-start;
+  padding: 40px 20px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  scrollbar-width: none;
+
+  -ms-overflow-style: none;
 `;
 
 interface BubbleCircleProps {

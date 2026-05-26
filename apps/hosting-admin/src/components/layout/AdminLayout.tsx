@@ -10,7 +10,7 @@ const { Content } = Layout;
 
 type AdminLayoutProps = {
   children: ReactNode;
-  isLoading?: boolean; // Añadido para controlar el Spin global
+  isLoading?: boolean;
 };
 
 export const AdminLayout = ({
@@ -52,7 +52,6 @@ const LayoutContainer = styled(Layout)`
   ${({ theme }) => css`
     width: 100vw;
     min-height: 100vh;
-    /* Usamos bgPrimary pero con un toque de profundidad dinámico */
     background: ${theme.mode === "dark"
       ? `linear-gradient(135deg, ${theme.colors.bgPrimary} 0%, ${theme.colors.bgSecondary} 100%)`
       : theme.colors.bgPrimary} !important;
@@ -65,17 +64,17 @@ const MainLayout = styled(Layout)`
 
 const StyledContent = styled(Content)`
   ${({ theme }) => css`
-    margin: 0 ${theme.spacing.md}; // 16px desde tokens
+    margin: 0 ${theme.spacing.md};
 
     .site-layout-content {
       background: ${theme.colors.bgSecondary};
-      padding: ${theme.spacing.lg}; // 24px desde tokens
-      border-radius: ${theme.border_radius
-        .lg}; // 12px para que combine con las Cards
+      padding: ${theme.spacing.lg};
+      border-radius: ${theme.border_radius.lg};
       border: 1px solid ${theme.colors.border};
       min-height: 280px;
       box-shadow: ${theme.shadows.sm};
       transition: background ${theme.transitions.normal};
+      margin-bottom: 2rem;
     }
   `}
 `;
