@@ -12,6 +12,7 @@ import {
   Form,
   Input,
   Row,
+  Select,
   Title,
   Upload,
 } from "../../../../components";
@@ -113,6 +114,7 @@ export function SiteIntegration() {
         facebook: formData.businessInfo.socialMedia.facebook,
         instagram: formData.businessInfo.socialMedia.instagram,
         linkedin: formData.businessInfo.socialMedia.linkedin,
+        linkedinType: formData.businessInfo.socialMedia.linkedinType,
         whatsapp: formData.businessInfo.socialMedia.whatsapp,
       },
     },
@@ -187,6 +189,11 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
         facebook: yup.string().optional(),
         instagram: yup.string().optional(),
         linkedin: yup.string().optional(),
+        linkedinType: yup
+          .string()
+          .oneOf(["personal", "company"])
+          .optional()
+          .default("company"),
         whatsapp: yup.string().optional(),
       }),
     }),
@@ -242,6 +249,8 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
             facebook: site?.businessInfo?.socialMedia?.facebook || "",
             instagram: site?.businessInfo?.socialMedia?.instagram || "",
             linkedin: site?.businessInfo?.socialMedia?.linkedin || "",
+            linkedinType:
+              site?.businessInfo?.socialMedia?.linkedinType || "company",
           },
         },
         customSmtp: site.customSmtp || false,
@@ -477,7 +486,7 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
                       )}
                     />
                   </Col>
-                  <Col xs={24}>
+                  <Col xs={24} md={8}>
                     <Controller
                       name="businessInfo.email"
                       control={control}
@@ -493,7 +502,7 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
                       )}
                     />
                   </Col>
-                  <Col xs={24} md={6}>
+                  <Col xs={24} md={8}>
                     <Controller
                       name="businessInfo.socialMedia.whatsapp"
                       control={control}
@@ -509,7 +518,7 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
                       )}
                     />
                   </Col>
-                  <Col xs={24} md={6}>
+                  <Col xs={24} md={8}>
                     <Controller
                       name="businessInfo.socialMedia.facebook"
                       control={control}
@@ -525,7 +534,7 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
                       )}
                     />
                   </Col>
-                  <Col xs={24} md={6}>
+                  <Col xs={24} md={8}>
                     <Controller
                       name="businessInfo.socialMedia.instagram"
                       control={control}
@@ -541,13 +550,33 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
                       )}
                     />
                   </Col>
-                  <Col xs={24} md={6}>
+                  <Col xs={24} md={8}>
+                    <Controller
+                      name="businessInfo.socialMedia.linkedinType"
+                      control={control}
+                      render={({ field: { onChange, value, name } }) => (
+                        <Select
+                          label="Tipo LinkedIn"
+                          name={name}
+                          value={value}
+                          onChange={onChange}
+                          options={[
+                            { label: "Empresa", value: "company" },
+                            { label: "Personal", value: "personal" },
+                          ]}
+                          error={error(name)}
+                          required={required(name)}
+                        />
+                      )}
+                    />
+                  </Col>
+                  <Col xs={24} md={8}>
                     <Controller
                       name="businessInfo.socialMedia.linkedin"
                       control={control}
                       render={({ field: { onChange, value, name } }) => (
                         <Input
-                          label="Linkedn"
+                          label="Enlace de LinkedIn"
                           name={name}
                           value={value}
                           onChange={onChange}
