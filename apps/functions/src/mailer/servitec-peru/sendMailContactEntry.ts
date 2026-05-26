@@ -2,6 +2,7 @@ import { renderHtmlTemplate, sendMail } from "../sendMail";
 import { template } from "./templates";
 import { ContactEntry } from "../../globalTypes";
 import { fetchSite } from "../../_firebase/collections";
+import { getSiteSmtpDetails } from "../../utils";
 
 interface MailData {
   primaryColor: string;
@@ -52,12 +53,18 @@ export const sendMailContactEntry = async (
       mapMailData(contactEntry, site)
     );
 
-    await sendMail({
-      to: targetEmail,
-      subject: `Hemos recibido tu consulta | ${site.name}`,
-      html: htmlResult,
-      replyTo: site?.businessInfo?.email,
-    });
+    const { from, smtpConfig } = getSiteSmtpDetails(site);
+
+    await sendMail(
+      {
+        to: targetEmail,
+        from,
+        subject: `Hemos recibido tu consulta | ${site.name}`,
+        html: htmlResult,
+        replyTo: site?.businessInfo?.email,
+      },
+      smtpConfig
+    );
   } catch (error) {
     console.error(
       `[Mailer Error] Falla al procesar sendMailContactEntry para ID: ${contactEntry?.id}`,
