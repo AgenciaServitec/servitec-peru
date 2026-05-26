@@ -65,7 +65,8 @@ export function SiteIntegration() {
         },
         customSmtp: false,
         smtpConfig: {
-          service: "",
+          host: "",
+          port: "",
           user: "",
           pass: "",
         },
@@ -120,8 +121,9 @@ export function SiteIntegration() {
     },
     customSmtp: formData.customSmtp,
     smtpConfig: {
-      service: formData.smtpConfig?.service || "",
-      user: formData.smtpConfig?.user || "",
+      host: formData.smtpConfig?.host?.trim() || "",
+      port: formData.smtpConfig?.port ? Number(formData.smtpConfig.port) : "", // Lo guardamos como número limpio
+      user: formData.smtpConfig?.user?.trim() || "",
       pass: formData.smtpConfig?.pass || "",
     },
   });
@@ -202,9 +204,15 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
       is: true,
       then: (schema) =>
         schema.object({
-          service: yup.string().required("El servicio es obligatorio"),
-          user: yup.string().required("El usuario es obligatorio"),
-          pass: yup.string().required("La contraseña es obligatoria"),
+          host: yup.string().required("El servidor SMTP (Host) es obligatorio"),
+          port: yup
+            .number()
+            .typeError("El puerto debe ser un número")
+            .required("El puerto es obligatorio"),
+          user: yup.string().required("El usuario o correo es obligatorio"),
+          pass: yup
+            .string()
+            .required("La contraseña o App Pass es obligatoria"),
         }),
       otherwise: (schema) => schema.optional(),
     }),
@@ -255,7 +263,8 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
         },
         customSmtp: site.customSmtp || false,
         smtpConfig: {
-          service: site.smtpConfig?.service || "",
+          host: site.smtpConfig?.host || "",
+          port: site.smtpConfig?.port || "",
           user: site.smtpConfig?.user || "",
           pass: site.smtpConfig?.pass || "",
         },
@@ -609,13 +618,13 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
                   </Col>
                   {isCustomSmtp && (
                     <>
-                      <Col xs={24} md={8}>
+                      <Col xs={24} md={6}>
                         <Controller
-                          name="smtpConfig.service"
+                          name="smtpConfig.host"
                           control={control}
                           render={({ field: { onChange, value, name } }) => (
                             <Input
-                              label="Servicio (ej. Gmail)"
+                              label="Servidor SMTP (Host)"
                               name={name}
                               value={value}
                               onChange={onChange}
@@ -625,7 +634,23 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
                           )}
                         />
                       </Col>
-                      <Col xs={24} md={8}>
+                      <Col xs={24} md={6}>
+                        <Controller
+                          name="smtpConfig.port"
+                          control={control}
+                          render={({ field: { onChange, value, name } }) => (
+                            <Input
+                              label="Puerto"
+                              name={name}
+                              value={value}
+                              onChange={onChange}
+                              error={error(name)}
+                              required={required(name)}
+                            />
+                          )}
+                        />
+                      </Col>
+                      <Col xs={24} md={6}>
                         <Controller
                           name="smtpConfig.user"
                           control={control}
@@ -641,7 +666,7 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
                           )}
                         />
                       </Col>
-                      <Col xs={24} md={8}>
+                      <Col xs={24} md={6}>
                         <Controller
                           name="smtpConfig.pass"
                           control={control}

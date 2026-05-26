@@ -2,7 +2,8 @@ interface SmtpDetailsResult {
   from: string;
   smtpConfig:
     | {
-        service: string;
+        host: string;
+        port: number | string;
         user: string;
         pass: string;
       }
@@ -14,7 +15,8 @@ export const getSiteSmtpDetails = (site: any): SmtpDetailsResult => {
 
   const isCustomSmtpActive =
     site?.customSmtp &&
-    smtpConfig?.service &&
+    smtpConfig?.host &&
+    smtpConfig?.port &&
     smtpConfig?.user &&
     smtpConfig?.pass;
 
@@ -26,7 +28,8 @@ export const getSiteSmtpDetails = (site: any): SmtpDetailsResult => {
     from,
     smtpConfig: isCustomSmtpActive
       ? {
-          service: smtpConfig.service,
+          host: smtpConfig.host,
+          port: smtpConfig.port,
           user: smtpConfig.user,
           pass: smtpConfig.pass,
         }

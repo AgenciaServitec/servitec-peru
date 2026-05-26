@@ -19,7 +19,8 @@ const defaultTransporter = createTransport({
 });
 
 interface CustomSmtpConfig {
-  service?: string;
+  host?: string;
+  port?: number | string;
   user?: string;
   pass?: string;
 }
@@ -29,15 +30,22 @@ export const sendMail = async (
   customSmtp?: CustomSmtpConfig
 ): Promise<void> => {
   const hasCustomSmtp =
-    customSmtp?.user && customSmtp?.pass && customSmtp?.service;
+    customSmtp?.user &&
+    customSmtp?.pass &&
+    customSmtp?.host &&
+    customSmtp?.port;
 
   let currentTransporter = defaultTransporter;
   let senderEmail = `${from} <${user}>`;
 
   if (hasCustomSmtp) {
     try {
+      const smtpPort = Number(customSmtp.port);
+
       currentTransporter = createTransport({
-        service: customSmtp.service,
+        host: customSmtp.host,
+        port: smtpPort,
+        secure: smtpPort === 465,
         auth: {
           user: customSmtp.user,
           pass: customSmtp.pass,
@@ -46,7 +54,10 @@ export const sendMail = async (
 
       senderEmail = customSmtp.user!;
     } catch (smtpError) {
-      console.error("[Mailer] Error al inicializar...", smtpError);
+      console.error(
+        "[Mailer] Error al inicializar Custom SMTP por Host/Port, usando fallback predeterminado:",
+        smtpError
+      );
       currentTransporter = defaultTransporter;
       senderEmail = `${from} <${user}>`;
     }

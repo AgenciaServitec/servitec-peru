@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="feat(sites): handle dynamic linkedin url based on account type in mailer and ui">
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/utils/mailerUtils.ts" afterDir="false" />
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="refactor(mailer): extract getSiteSmtpDetails utility to avoid code duplication">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/functions/src/mailer/sendMail.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/mailer/sendMail.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/sendMailAdminContactEntry.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/sendMailAdminContactEntry.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/sendMailContactEntry.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/sendMailContactEntry.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/utils/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/utils/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/utils/mailerUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/utils/mailerUtils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/sites/_siteId/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/sites/_siteId/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,23 +160,7 @@
       <workItem from="1779384311988" duration="21330000" />
       <workItem from="1779469029563" duration="17040000" />
       <workItem from="1779733647595" duration="13207000" />
-      <workItem from="1779812210835" duration="17915000" />
-    </task>
-    <task id="LOCAL-00061" summary="feat(hosting): implementar validación de seguridad con Google reCAPTCHA v3">
-      <option name="closed" value="true" />
-      <created>1774909676247</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1774909676248</updated>
-    </task>
-    <task id="LOCAL-00062" summary="feat(hosting): integrar Google Tag Manager, Analytics y SEO estructurado">
-      <option name="closed" value="true" />
-      <created>1774910463983</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1774910463983</updated>
+      <workItem from="1779812210835" duration="21211000" />
     </task>
     <task id="LOCAL-00063" summary="feat: reorder steps, add dynamic headers and fix session storage persistence">
       <option name="closed" value="true" />
@@ -556,7 +538,23 @@
       <option name="project" value="LOCAL" />
       <updated>1779827803531</updated>
     </task>
-    <option name="localTasksCounter" value="110" />
+    <task id="LOCAL-00110" summary="feat(mailer): support dynamic custom SMTP transporters with global fallback">
+      <option name="closed" value="true" />
+      <created>1779834203235</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1779834203235</updated>
+    </task>
+    <task id="LOCAL-00111" summary="refactor(mailer): extract getSiteSmtpDetails utility to avoid code duplication">
+      <option name="closed" value="true" />
+      <created>1779834247194</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1779834247194</updated>
+    </task>
+    <option name="localTasksCounter" value="112" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -574,8 +572,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactored design lead module" />
-    <MESSAGE value="added businessnfo fields" />
     <MESSAGE value="refactored endpoint entries" />
     <MESSAGE value="refactored entries module" />
     <MESSAGE value="added counters shortcuts" />
@@ -599,6 +595,8 @@
     <MESSAGE value="feat(users): add allowedSites restriction to user profile and activity monitor" />
     <MESSAGE value="feat(sites): add linkedinType selection to social media config" />
     <MESSAGE value="feat(sites): handle dynamic linkedin url based on account type in mailer and ui" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(sites): handle dynamic linkedin url based on account type in mailer and ui" />
+    <MESSAGE value="feat(mailer): support dynamic custom SMTP transporters with global fallback" />
+    <MESSAGE value="refactor(mailer): extract getSiteSmtpDetails utility to avoid code duplication" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor(mailer): extract getSiteSmtpDetails utility to avoid code duplication" />
   </component>
 </project>
