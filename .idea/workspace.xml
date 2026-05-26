@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="feat(users): add allowedSites restriction to user profile and activity monitor">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="feat(sites): add linkedinType selection to social media config">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/sites/_siteId/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/sites/_siteId/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/sendMailAdminContactEntry.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/sendMailAdminContactEntry.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/sendMailContactEntry.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/sendMailContactEntry.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,15 +159,7 @@
       <workItem from="1779384311988" duration="21330000" />
       <workItem from="1779469029563" duration="17040000" />
       <workItem from="1779733647595" duration="13207000" />
-      <workItem from="1779812210835" duration="13260000" />
-    </task>
-    <task id="LOCAL-00059" summary="fixed validations">
-      <option name="closed" value="true" />
-      <created>1774563964523</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1774563964523</updated>
+      <workItem from="1779812210835" duration="13668000" />
     </task>
     <task id="LOCAL-00060" summary="updated next config">
       <option name="closed" value="true" />
@@ -552,7 +545,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779824793693</updated>
     </task>
-    <option name="localTasksCounter" value="108" />
+    <task id="LOCAL-00108" summary="feat(sites): add linkedinType selection to social media config">
+      <option name="closed" value="true" />
+      <created>1779827629823</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1779827629823</updated>
+    </task>
+    <option name="localTasksCounter" value="109" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -570,7 +571,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactored leads module" />
     <MESSAGE value="refactored design leads" />
     <MESSAGE value="refactored design lead module" />
     <MESSAGE value="added businessnfo fields" />
@@ -595,6 +595,7 @@
     <MESSAGE value="updated order in entries" />
     <MESSAGE value="style(bubbles): add vertical scroll to container and hide scrollbar" />
     <MESSAGE value="feat(users): add allowedSites restriction to user profile and activity monitor" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(users): add allowedSites restriction to user profile and activity monitor" />
+    <MESSAGE value="feat(sites): add linkedinType selection to social media config" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(sites): add linkedinType selection to social media config" />
   </component>
 </project>

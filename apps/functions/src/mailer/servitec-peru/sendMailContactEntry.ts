@@ -91,7 +91,9 @@ const mapMailData = (contactEntry: ContactEntry, site: any): MailData => {
       ? `https://www.instagram.com/${site?.businessInfo?.socialMedia?.instagram}`
       : "",
     linkedinUrl: site?.businessInfo?.socialMedia?.linkedin
-      ? `https://www.linkedin.com/in/${site?.businessInfo?.socialMedia?.linkedin}`
+      ? site.businessInfo.socialMedia.linkedinType === "personal"
+        ? `https://www.linkedin.com/in/${site.businessInfo.socialMedia.linkedin}`
+        : `https://www.linkedin.com/company/${site.businessInfo.socialMedia.linkedin}`
       : "",
     whatsappUrl: site?.businessInfo?.socialMedia?.whatsapp
       ? `https://wa.me/${site?.businessInfo?.socialMedia?.whatsapp}`
