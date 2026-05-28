@@ -1,5 +1,5 @@
 import mustache from "mustache";
-import { createTransport } from "nodemailer";
+import { createTransport, Transporter } from "nodemailer";
 import { environmentConfig } from "../config";
 import Mail from "nodemailer/lib/mailer";
 
@@ -35,7 +35,7 @@ export const sendMail = async (
     customSmtp?.host &&
     customSmtp?.port;
 
-  let currentTransporter = defaultTransporter;
+  let currentTransporter: Transporter = defaultTransporter;
   let senderEmail = `${from} <${user}>`;
 
   if (hasCustomSmtp) {
