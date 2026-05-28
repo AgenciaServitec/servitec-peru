@@ -37,6 +37,8 @@ interface ContextType {
   tempUser: User | null;
   sendVerificationCode: (
     user: {
+      dni?: string;
+      fullName?: string;
       email?: string;
       phone?: {
         prefix?: string;
@@ -45,7 +47,11 @@ interface ContextType {
     },
     method: VerificationMethod
   ) => Promise<void>;
-  verifyCode: (code: string) => Promise<void>;
+  verifyCode: (
+    code: string,
+    method: "phone" | "email",
+    token?: string | undefined
+  ) => Promise<void>;
   logout: () => Promise<void>;
   loginLoading: boolean;
   verificationId: string | null;
@@ -151,8 +157,8 @@ export const AuthenticationProvider = ({
 
   const sendVerificationCode = async (
     user: {
-      dni: string;
-      fullName: string;
+      dni?: string;
+      fullName?: string;
       email?: string;
       phone?: {
         prefix?: string;
