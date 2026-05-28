@@ -31,7 +31,7 @@ export const VerificationCode = ({
   onBack,
   onFinish,
   verificationMethod,
-  dni = "73115054",
+  dni,
 }: StepVerificationCodeProps) => {
   const [resendDisabled, setResendDisabled] = useState(false);
   const [countdown, setCountdown] = useState(0);
@@ -68,6 +68,9 @@ export const VerificationCode = ({
   const onSubmit = async ({ code }: { code: string }) => {
     try {
       setLoading(true);
+
+      console.log("[LOGIN - VERIFICACION DE CODIGO] code: ", code);
+      console.log("[LOGIN - VERIFICACION DE CODIGO] dni: ", dni);
 
       if (verificationMethod === "phone") {
         await onFinish(code, "phone");

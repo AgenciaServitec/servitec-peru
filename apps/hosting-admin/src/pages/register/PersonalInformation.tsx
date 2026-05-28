@@ -11,14 +11,9 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowLeft,
-  faCheckCircle,
-  faSpinner,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { useFormUtils } from "../../hooks";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { theme } from "../../styles";
 import { getLocalStorage } from "../../utils";
 import { useEffect } from "react";
@@ -28,13 +23,11 @@ import type { UserRegister } from "../../globalTypes.ts";
 
 type PersonalInformationProps = {
   onBack: () => void;
-  loading: boolean;
   currentStep: number;
 };
 
 export const PersonalInformation = ({
   onBack,
-  loading,
   currentStep,
 }: PersonalInformationProps) => {
   const navigate = useNavigate();
@@ -93,12 +86,19 @@ export const PersonalInformation = ({
   const step1Data = getLocalStorage("register");
 
   useEffect(() => {
-    reset({
-      firstName: step1Data?.firstName || "",
-      paternalSurname: step1Data?.paternalSurname || "",
-      maternalSurname: step1Data?.maternalSurname || "",
-      email: step1Data?.email || "",
-    });
+    if (step1Data) {
+      reset({
+        firstName: step1Data?.firstName || "",
+        paternalSurname: step1Data?.paternalSurname || "",
+        maternalSurname: step1Data?.maternalSurname || "",
+        email: step1Data?.email || "",
+        phone: {
+          prefix: "+51",
+          number: "",
+        },
+        gender: "",
+      });
+    }
   }, [currentStep]);
 
   const mapUser = (formData: UserRegister) => ({
@@ -107,8 +107,8 @@ export const PersonalInformation = ({
     maternalSurname: formData.maternalSurname,
     email: formData.email,
     document: {
-      type: step1Data.document.documentType,
-      number: step1Data.document.documentNumber,
+      type: step1Data?.document?.documentType || "dni",
+      number: step1Data?.document?.documentNumber || "",
     },
     phone: {
       prefix: "+51",
@@ -125,7 +125,7 @@ export const PersonalInformation = ({
         notification({
           type: "success",
           title: "¡Registro exitoso!",
-          description: "Tu cuenta ha sido creada. Ahora puedes iniciar sesión.",
+          description: "Tu cuenta ha sido creada con éxito. Redireccionando...",
         });
 
         setTimeout(() => {
@@ -137,21 +137,21 @@ export const PersonalInformation = ({
     } catch (error: any) {
       console.error("Error in register:", error);
 
-      let errorMessage =
+      let registrationErrorMsg =
         "No se pudo completar el registro. Intenta nuevamente.";
 
       if (error.message?.includes("email_already_exists")) {
-        errorMessage = "Este correo electrónico ya está registrado";
+        registrationErrorMsg = "Este correo electrónico ya está registrado";
       } else if (error.message?.includes("dni_already_exists")) {
-        errorMessage = "Este documento ya está registrado";
+        registrationErrorMsg = "Este documento ya está registrado";
       } else if (error.message?.includes("phone_number_already_exists")) {
-        errorMessage = "Este número de teléfono ya está registrado";
+        registrationErrorMsg = "Este número de teléfono ya está registrado";
       }
 
       notification({
         type: "error",
         title: "Error en el registro",
-        description: errorMessage,
+        description: registrationErrorMsg,
       });
     }
   };
@@ -165,14 +165,12 @@ export const PersonalInformation = ({
   return (
     <StepContainer>
       <StepHeader>
-        <StepIconWrapper>
-          <FontAwesomeIcon icon={faUser} />
-        </StepIconWrapper>
         <StepTitle>Información personal</StepTitle>
         <StepSubtitle>
-          Completa tus datos para finalizar el registro
+          Completa tus datos de contacto para finalizar el registro
         </StepSubtitle>
       </StepHeader>
+
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Row gutter={[16, 16]}>
           <Col span={24}>
@@ -189,13 +187,12 @@ export const PersonalInformation = ({
                   helperText={errorMessage(name)}
                   required={required(name)}
                   size="large"
-                  variant="outlined"
                   disabled
                 />
               )}
             />
           </Col>
-          <Col xs={24}>
+          <Col span={24}>
             <Controller
               name="paternalSurname"
               control={control}
@@ -209,13 +206,12 @@ export const PersonalInformation = ({
                   helperText={errorMessage(name)}
                   required={required(name)}
                   size="large"
-                  variant="outlined"
                   disabled
                 />
               )}
             />
           </Col>
-          <Col xs={24}>
+          <Col span={24}>
             <Controller
               name="maternalSurname"
               control={control}
@@ -229,7 +225,6 @@ export const PersonalInformation = ({
                   helperText={errorMessage(name)}
                   required={required(name)}
                   size="large"
-                  variant="outlined"
                   disabled
                 />
               )}
@@ -249,7 +244,6 @@ export const PersonalInformation = ({
                   helperText={errorMessage(name)}
                   required={required(name)}
                   size="large"
-                  variant="outlined"
                   type="email"
                 />
               )}
@@ -273,7 +267,7 @@ export const PersonalInformation = ({
                   required={required(name)}
                   maxLength={3}
                   size="large"
-                  variant="outlined"
+                  disabled
                 />
               )}
             />
@@ -296,7 +290,6 @@ export const PersonalInformation = ({
                   required={required(name)}
                   maxLength={9}
                   size="large"
-                  variant="outlined"
                 />
               )}
             />
@@ -315,22 +308,26 @@ export const PersonalInformation = ({
                   error={error(name)}
                   helperText={errorMessage(name)}
                   required={required(name)}
-                  variant="outlined"
                 />
               )}
             />
           </Col>
           <Col span={24}>
             <InfoBox>
-              <FontAwesomeIcon
-                icon={faCheckCircle}
-                style={{ marginRight: "0.5em" }}
-              />
-              Tus datos están protegidos y no serán compartidos
+              Tu información personal está protegida por nuestras políticas de
+              privacidad
             </InfoBox>
           </Col>
-          <Col xs={24} sm={12}>
-            <Button size="large" block onClick={onBack} disabled={loading}>
+        </Row>
+
+        <Row gutter={[16, 16]} style={{ marginTop: "1.5rem" }}>
+          <Col xs={12}>
+            <Button
+              size="large"
+              block
+              onClick={onBack}
+              disabled={postUserLoading}
+            >
               <FontAwesomeIcon
                 icon={faArrowLeft}
                 style={{ marginRight: "0.5em" }}
@@ -338,26 +335,26 @@ export const PersonalInformation = ({
               Atrás
             </Button>
           </Col>
-          <Col xs={24} sm={12}>
+          <Col xs={12}>
             <Button
               type="primary"
               size="large"
               block
               htmlType="submit"
-              disabled={loading}
+              disabled={postUserLoading}
+              loading={postUserLoading}
             >
-              {loading ? (
+              {postUserLoading ? (
                 <>
-                  <FontAwesomeIcon icon={faSpinner} spin /> Registrando...
+                  <FontAwesomeIcon
+                    icon={faSpinner}
+                    spin
+                    style={{ marginRight: "0.5em" }}
+                  />
+                  Procesando
                 </>
               ) : (
-                <>
-                  Crear Cuenta{" "}
-                  <FontAwesomeIcon
-                    icon={faCheckCircle}
-                    style={{ marginLeft: "0.5em" }}
-                  />
-                </>
+                "Finalizar"
               )}
             </Button>
           </Col>
@@ -368,80 +365,55 @@ export const PersonalInformation = ({
 };
 
 const StepContainer = styled.div`
-  animation: fadeInScale 0.4s ease;
+  animation: fadeInScale ${theme.transitions.fast};
 
   @keyframes fadeInScale {
     from {
       opacity: 0;
-      transform: scale(0.96);
+      transform: scale(0.98) translateY(4px);
     }
     to {
       opacity: 1;
-      transform: scale(1);
+      transform: scale(1) translateY(0);
     }
   }
 `;
 
 const StepHeader = styled.div`
   text-align: center;
-  margin-bottom: ${theme.spacing.xl};
-`;
-
-const StepIconWrapper = styled.div`
-  ${() => css`
-    width: 64px;
-    height: 64px;
-    margin: 0 auto ${theme.spacing.md};
-    background: linear-gradient(
-      135deg,
-      ${theme.colors.primary} 0%,
-      ${theme.colors.primaryDark} 100%
-    );
-    border-radius: ${theme.border_radius.full};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: ${theme.font_sizes.xxl};
-    color: ${theme.colors.bgPrimary};
-    box-shadow: 0 8px 24px ${theme.colors.primaryAlpha};
-  `}
+  margin-bottom: ${theme.spacing.lg};
 `;
 
 const StepTitle = styled.h3`
-  ${() => css`
-    font-size: ${theme.font_sizes.heading};
-    font-weight: ${theme.font_weight.large};
-    color: ${theme.colors.fontPrimary};
-    margin: 0 0 ${theme.spacing.xs};
-    letter-spacing: -0.02em;
-  `}
+  font-size: ${theme.font_sizes.xxl};
+  font-weight: ${theme.font_weight.large};
+  color: ${theme.colors.fontPrimary};
+  margin: 0 0 0.35em;
+  letter-spacing: -0.02em;
 `;
 
 const StepSubtitle = styled.p`
-  ${() => css`
-    color: ${theme.colors.fontSecondary};
-    margin: 0;
-    font-size: ${theme.font_sizes.md};
-    line-height: 1.5;
-  `}
+  color: ${theme.colors.fontSecondary};
+  margin: 0;
+  font-size: ${theme.font_sizes.sm};
+  line-height: 1.5;
 `;
 
 const InfoBox = styled.div`
-  ${() => css`
-    background: ${theme.colors.bgSecondary};
-    border: 1px solid ${theme.colors.border};
-    border-radius: ${theme.border_radius.md};
-    padding: ${theme.spacing.md};
-    text-align: center;
-    color: ${theme.colors.fontTertiary};
-    font-size: ${theme.font_sizes.sm};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: ${theme.spacing.sm};
+  background: ${theme.colors.bgTertiary};
+  border: 1px dashed ${theme.colors.border};
+  border-radius: ${theme.border_radius.sm};
+  padding: 0.85em 1em;
+  text-align: center;
+  color: ${theme.colors.fontSecondary};
+  font-size: 0.82em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.01em;
 
-    svg {
-      color: ${theme.colors.primary};
-    }
-  `}
+  svg {
+    color: ${theme.colors.primary};
+    opacity: 0.9;
+  }
 `;

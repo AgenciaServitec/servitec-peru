@@ -29,6 +29,8 @@ export function Login() {
     navigate("/home");
   };
 
+  console.log("tempUser: ", tempUser);
+
   return (
     <CenteredLoginLayout>
       <FormContainer>

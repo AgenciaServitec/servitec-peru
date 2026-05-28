@@ -10,8 +10,6 @@ import {
   useNotification,
 } from "../../components";
 import { theme } from "../../styles";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faIdCard, faKey } from "@fortawesome/free-solid-svg-icons";
 import { useFormUtils } from "../../hooks";
 import * as yup from "yup";
 import { useState } from "react";
@@ -24,34 +22,45 @@ import { capitalize } from "lodash";
 
 type DocumentType = "dni" | "ruc" | "ce";
 
-export const AccessData = ({ onNext }: { onNext: () => void }) => {
+interface Step1Form {
+  document: {
+    documentType: DocumentType;
+    documentNumber: string;
+  };
+  firstName: string;
+  paternalSurname: string;
+  maternalSurname: string;
+  birthdate: string;
+}
+
+type AccessDataProps = {
+  onNext: (user: Step1Form) => void;
+};
+
+export const AccessData = ({ onNext }: AccessDataProps) => {
   const [documentType, setDocumentType] = useState<DocumentType>("dni");
   const [loading, setLoading] = useState(false);
 
   const { notification } = useNotification();
 
-  const {
-    getDataByDniOrRuc,
-    getDataByDniOrRucLoading,
-    getDataByDniOrRucResponse,
-  } = useApiDataByDniOrRucGet(documentType || "dni");
+  const { getDataByDniOrRuc } = useApiDataByDniOrRucGet(documentType || "dni");
 
   const getDocumentValidation = (type: DocumentType) => {
     switch (type) {
       case "dni":
         return yup
           .string()
-          .required()
+          .required("El número de documento es requerido")
           .matches(/^\d{8}$/, "El DNI debe tener 8 dígitos");
       case "ruc":
         return yup
           .string()
-          .required()
+          .required("El número de documento es requerido")
           .matches(/^\d{11}$/, "El RUC debe tener 11 dígitos");
       case "ce":
         return yup
           .string()
-          .required()
+          .required("El número de documento es requerido")
           .matches(/^[A-Z0-9]{9,12}$/, "Formato de CE inválido");
       default:
         return yup.string().required("El documento es obligatorio");
@@ -84,21 +93,23 @@ export const AccessData = ({ onNext }: { onNext: () => void }) => {
     setDocumentType(watchedDocType as DocumentType);
   }
 
-  const onSubmit = async ({ documentNumber }) => {
+  const onSubmit = async ({ documentNumber }: { documentNumber: string }) => {
     try {
       setLoading(true);
 
       const userWithDni = await userByDni(documentNumber);
 
-      if (userWithDni)
+      if (userWithDni) {
         return notification({
           type: "warning",
-          title: `El DNI ya se encuentra registrado!`,
+          title: "¡Atención!",
+          description: "El DNI ya se encuentra registrado en el sistema.",
         });
+      }
 
       const personData = await getDataByDniOrRuc(documentNumber);
 
-      setLocalStorage("register", {
+      const payload: Step1Form = {
         document: {
           documentType: "dni",
           documentNumber,
@@ -107,13 +118,18 @@ export const AccessData = ({ onNext }: { onNext: () => void }) => {
         paternalSurname: capitalize(personData?.paternalSurname || ""),
         maternalSurname: capitalize(personData?.maternalSurname || ""),
         birthdate: personData?.birthdate || "",
-      });
+      };
 
-      onNext();
+      setLocalStorage("register", payload);
+
+      onNext(payload);
     } catch (e) {
       console.error(e);
-
-      notification({ type: "error" });
+      notification({
+        type: "error",
+        title: "Error de servidor",
+        description: "No se pudieron validar tus datos de identidad.",
+      });
     } finally {
       setLoading(false);
     }
@@ -128,14 +144,12 @@ export const AccessData = ({ onNext }: { onNext: () => void }) => {
   return (
     <StepContainer>
       <StepHeader>
-        <StepIconWrapper>
-          <FontAwesomeIcon icon={faIdCard} />
-        </StepIconWrapper>
         <StepTitle>Documento de identidad</StepTitle>
         <StepSubtitle>
-          Ingresa el código de registro y tus datos de identificación
+          Ingresa tus datos de identificación para registrarte en la plataforma
         </StepSubtitle>
       </StepHeader>
+
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Row gutter={[16, 16]}>
           <Col span={24}>
@@ -152,7 +166,6 @@ export const AccessData = ({ onNext }: { onNext: () => void }) => {
                   error={error(name)}
                   helperText={errorMessage(name)}
                   required={required(name)}
-                  variant="outlined"
                   disabled
                 />
               )}
@@ -164,7 +177,7 @@ export const AccessData = ({ onNext }: { onNext: () => void }) => {
               control={control}
               render={({ field: { onChange, value, name } }) => (
                 <Input
-                  label={`Número de ${documentType}`}
+                  label={`Número de ${documentType.toUpperCase()}`}
                   value={value}
                   onChange={(e) => {
                     const cleaned =
@@ -177,26 +190,34 @@ export const AccessData = ({ onNext }: { onNext: () => void }) => {
                   error={error(name)}
                   helperText={errorMessage(name)}
                   required={required(name)}
-                  variant="outlined"
+                  maxLength={
+                    documentType === "dni"
+                      ? 8
+                      : documentType === "ruc"
+                        ? 11
+                        : 12
+                  }
+                  size="large"
                 />
               )}
             />
           </Col>
           <Col span={24}>
             <InfoBox>
-              <FontAwesomeIcon icon={faKey} style={{ marginRight: "0.5em" }} />
-              El código de registro es temporal y será removido en la versión
-              final
+              Tu información está protegida mediante encriptación de extremo a
+              extremo
             </InfoBox>
           </Col>
         </Row>
-        <Row gutter={[16, 16]}>
+
+        <Row gutter={[16, 16]} style={{ marginTop: "1.5rem" }}>
           <Col span={24}>
             <Button
               type="primary"
               htmlType="submit"
               size="large"
               loading={loading}
+              disabled={loading}
               block
             >
               Siguiente
@@ -216,71 +237,59 @@ const userByDni = async (dniNumber: string) => {
       .where("isDeleted", "==", false)
       .limit(1)
   );
-
   return response[0];
 };
 
 const StepContainer = styled.div`
-  animation: fadeInScale 0.4s ease;
+  animation: fadeInScale ${theme.transitions.fast};
 
   @keyframes fadeInScale {
     from {
       opacity: 0;
-      transform: scale(0.96);
+      transform: scale(0.98) translateY(4px);
     }
     to {
       opacity: 1;
-      transform: scale(1);
+      transform: scale(1) translateY(0);
     }
   }
 `;
 
 const StepHeader = styled.div`
   text-align: center;
-  margin-bottom: 2em;
-`;
-
-const StepIconWrapper = styled.div`
-  width: 70px;
-  height: 70px;
-  margin: 0 auto 1.2em;
-  background: linear-gradient(135deg, ${theme.colors.primary} 0%, #f39c12 100%);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.8em;
-  color: ${theme.colors.black};
-  box-shadow: 0 4px 24px ${theme.colors.primary}50;
+  margin-bottom: ${theme.spacing.lg};
 `;
 
 const StepTitle = styled.h3`
-  font-size: 1.7em;
+  font-size: ${theme.font_sizes.xxl};
   font-weight: ${theme.font_weight.large};
-  color: ${theme.colors.font1};
-  margin: 0 0 0.4em;
+  color: ${theme.colors.fontPrimary};
+  margin: 0 0 0.35em;
+  letter-spacing: -0.02em;
 `;
 
 const StepSubtitle = styled.p`
-  color: ${theme.colors.font2};
+  color: ${theme.colors.fontSecondary};
   margin: 0;
-  font-size: 1em;
+  font-size: ${theme.font_sizes.sm};
   line-height: 1.5;
 `;
 
 const InfoBox = styled.div`
-  background: ${theme.colors.secondary};
-  border: 1px solid ${theme.colors.primary}30;
-  border-radius: ${theme.border_radius.small};
-  padding: 1em;
+  background: ${theme.colors.bgTertiary};
+  border: 1px dashed ${theme.colors.border};
+  border-radius: ${theme.border_radius.sm};
+  padding: 0.85em 1em;
   text-align: center;
-  color: ${theme.colors.font2};
-  font-size: 0.9em;
+  color: ${theme.colors.fontSecondary};
+  font-size: 0.82em;
   display: flex;
   align-items: center;
   justify-content: center;
+  letter-spacing: 0.01em;
 
   svg {
     color: ${theme.colors.primary};
+    opacity: 0.9;
   }
 `;

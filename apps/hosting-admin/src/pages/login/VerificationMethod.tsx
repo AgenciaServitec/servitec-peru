@@ -36,6 +36,12 @@ export const VerificationMethod = ({
     try {
       setLoading(true);
 
+      console.log("[LOGIN - VERIFICACION DE METODO] tempUser: ", tempUser);
+      console.log(
+        "[LOGIN - VERIFICACION DE METODO] dni: ",
+        tempUser?.document.number
+      );
+
       await sendVerificationCode(
         {
           dni: tempUser?.document.number,
