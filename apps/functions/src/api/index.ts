@@ -13,6 +13,7 @@ import identitiesRoutes from "./identities/routes/identities.routes";
 import servicesRequestsRoutes from "./service-request/routes/servicesRequests.routes";
 import webServicesRequestsRoutes from "./web-service-request/routes/webServicesRequests.routes";
 import entriesRoutes from "./entries/routes/entries.routes";
+import authRoutes from "./auth/routes/auth.routes";
 
 const app: express.Application = express();
 
@@ -26,6 +27,7 @@ app.use("/assistances", assistancesRoutes);
 app.use("/quotations", quotationsRoutes);
 app.use("/services-requests", servicesRequestsRoutes);
 app.use("/identities", identitiesRoutes);
+app.use("/auth", authRoutes);
 app.use("/web-services-requests", webServicesRequestsRoutes);
 app.use("/entries", entriesRoutes);
 

@@ -10,8 +10,6 @@ import {
   Row,
   useNotification,
 } from "../../components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShieldHalved } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { theme } from "../../styles";
 import { useState } from "react";
@@ -60,8 +58,6 @@ export const AccessDataLogin = ({ onNext }: StepDniProps) => {
           title: "El DNI no se encuentra registrado!",
         });
 
-      console.log(user);
-
       onNext();
     } catch (e) {
       console.error(e);
@@ -73,10 +69,8 @@ export const AccessDataLogin = ({ onNext }: StepDniProps) => {
   return (
     <StepContainer>
       <StepHeader>
-        <StepTitle>Verificación de identidad</StepTitle>
-        <StepSubtitle>
-          Ingresa tu DNI para buscar tu cuenta en nuestro sistema
-        </StepSubtitle>
+        <StepTitle>Inicio de Sesión</StepTitle>
+        <StepSubtitle>Ingresa tu número de documento para acceder</StepSubtitle>
       </StepHeader>
 
       <Form onSubmit={handleSubmit(onSubmit)}>
@@ -102,13 +96,7 @@ export const AccessDataLogin = ({ onNext }: StepDniProps) => {
           </Col>
 
           <Col span={24}>
-            <InfoBox>
-              <FontAwesomeIcon
-                icon={faShieldHalved}
-                style={{ marginRight: "0.5em" }}
-              />
-              Tu información está protegida y cifrada
-            </InfoBox>
+            <InfoBox>Tu información está protegida y cifrada</InfoBox>
           </Col>
 
           <Col span={24}>
@@ -130,52 +118,56 @@ export const AccessDataLogin = ({ onNext }: StepDniProps) => {
 };
 
 const StepContainer = styled.div`
-  animation: fadeInScale 0.4s ease;
+  animation: fadeInScale ${theme.transitions.fast};
 
   @keyframes fadeInScale {
     from {
       opacity: 0;
-      transform: scale(0.96);
+      transform: scale(0.98) translateY(4px);
     }
     to {
       opacity: 1;
-      transform: scale(1);
+      transform: scale(1) translateY(0);
     }
   }
 `;
 
 const StepHeader = styled.div`
   text-align: center;
-  margin-bottom: 2.5em;
+  margin-bottom: ${theme.spacing.xl};
 `;
 
 const StepTitle = styled.h3`
-  font-size: 1.7em;
+  font-size: ${theme.font_sizes.xxl};
   font-weight: ${theme.font_weight.large};
-  color: ${theme.colors.font1};
-  margin: 0 0 0.4em;
+  color: ${theme.colors.fontPrimary};
+  margin: 0 0 0.35em;
+  letter-spacing: -0.02em;
 `;
 
 const StepSubtitle = styled.p`
-  color: ${theme.colors.font2};
+  color: ${theme.colors.fontSecondary};
   margin: 0;
-  font-size: 1em;
+  font-size: ${theme.font_sizes.sm};
   line-height: 1.5;
 `;
 
 const InfoBox = styled.div`
-  background: ${theme.colors.secondary};
-  border: 1px dotted ${theme.colors.primary}30;
-  border-radius: ${theme.border_radius.small};
-  padding: 1em;
+  background: ${theme.colors.bgTertiary};
+  border: 1px dashed ${theme.colors.border};
+  border-radius: ${theme.border_radius.sm};
+  padding: 0.85em 1em;
   text-align: center;
-  color: ${theme.colors.font2};
-  font-size: 0.9em;
+  color: ${theme.colors.fontSecondary};
+  font-size: 0.82em;
   display: flex;
   align-items: center;
   justify-content: center;
+  letter-spacing: 0.01em;
+  transition: border-color ${theme.transitions.fast};
 
   svg {
     color: ${theme.colors.primary};
+    opacity: 0.9;
   }
 `;

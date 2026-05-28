@@ -9,4 +9,15 @@ export const template = {
   adminContactEntryEmailTemplate: htmlTemplate(
     "./adminContactEntryEmailTemplate.html"
   ),
+  replyContactEmailTemplate: htmlTemplate("./replyContactEmailTemplate.html"),
+  replySuggestionEmailTemplate: htmlTemplate(
+    "./replySuggestionEmailTemplate.html"
+  ),
+  replyClaimEmailTemplate: htmlTemplate("./replyClaimEmailTemplate.html"),
+  replyComplaintsBookEmailTemplate: htmlTemplate(
+    "./replyComplaintsBookEmailTemplate.html"
+  ),
+  verificationCodeEmailTemplate: htmlTemplate(
+    "./verificationCodeEmailTemplate.html"
+  ),
 };

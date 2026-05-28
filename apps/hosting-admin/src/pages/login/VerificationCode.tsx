@@ -12,22 +12,26 @@ import {
   useNotification,
 } from "../../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowLeft,
-  faCheckCircle,
-  faShieldHalved,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faShieldHalved } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { theme } from "../../styles";
 
 type StepVerificationCodeProps = {
   onBack: () => void;
-  onFinish: (code: string) => Promise<void>;
+  onFinish: (
+    code: string,
+    method: "phone" | "email",
+    customToken?: string
+  ) => Promise<void>;
+  verificationMethod: "phone" | "email";
+  dni: string;
 };
 
 export const VerificationCode = ({
   onBack,
   onFinish,
+  verificationMethod,
+  dni = "73115054",
 }: StepVerificationCodeProps) => {
   const [resendDisabled, setResendDisabled] = useState(false);
   const [countdown, setCountdown] = useState(0);
@@ -64,10 +68,41 @@ export const VerificationCode = ({
   const onSubmit = async ({ code }: { code: string }) => {
     try {
       setLoading(true);
-      await onFinish(code);
-    } catch (e) {
+
+      if (verificationMethod === "phone") {
+        await onFinish(code, "phone");
+      } else {
+        const response = await fetch(
+          "https://api-servitec-peru.web.app/auth/verification-code/verify",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ dni, code }),
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(
+            data.error || "El código ingresado es incorrecto o expiró."
+          );
+        }
+
+        await onFinish(code, "email", data.token);
+      }
+    } catch (e: any) {
       console.error(e);
       reset({ code: "" });
+
+      notification({
+        type: "error",
+        title: "Error de verificación",
+        description:
+          e.message || "Código inválido o vencido. Intenta nuevamente.",
+      });
     } finally {
       setLoading(false);
     }
@@ -93,18 +128,14 @@ export const VerificationCode = ({
   return (
     <StepContainer>
       <StepHeader>
-        <StepIconWrapper>
-          <FontAwesomeIcon icon={faCheckCircle} />
-        </StepIconWrapper>
-        <StepTitle>Código de verificación</StepTitle>
+        <StepTitle>Código de seguridad</StepTitle>
         <StepSubtitle>
-          Enviamos un código de 6 dígitos a tu celular
-          {/*{verificationMethod === "email" ? "correo electrónico" : "celular"}*/}
+          Ingresa el código de 6 dígitos enviado para continuar
         </StepSubtitle>
       </StepHeader>
 
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Row gutter={[16, 24]}>
+        <Row gutter={[16, 20]}>
           <Col span={24}>
             <Controller
               name="code"
@@ -149,14 +180,15 @@ export const VerificationCode = ({
             <InfoBox>
               <FontAwesomeIcon
                 icon={faShieldHalved}
-                style={{ marginRight: "0.5em" }}
+                style={{ marginRight: "0.6em", fontSize: "1.05em" }}
               />
               El código expira en 5 minutos
             </InfoBox>
           </Col>
         </Row>
-        <Row gutter={[16, 16]}>
-          <Col xs={24} sm={12}>
+
+        <Row gutter={[16, 16]} style={{ marginTop: "1.5rem" }}>
+          <Col xs={12} sm={12}>
             <Button size="large" block onClick={onBack} disabled={loading}>
               <FontAwesomeIcon
                 icon={faArrowLeft}
@@ -166,7 +198,7 @@ export const VerificationCode = ({
             </Button>
           </Col>
 
-          <Col xs={24} sm={12}>
+          <Col xs={12} sm={12}>
             <Button
               type="primary"
               size="large"
@@ -185,96 +217,89 @@ export const VerificationCode = ({
 };
 
 const StepContainer = styled.div`
-  animation: fadeInScale 0.4s ease;
+  animation: fadeInScale ${theme.transitions.fast};
 
   @keyframes fadeInScale {
     from {
       opacity: 0;
-      transform: scale(0.96);
+      transform: scale(0.98) translateY(4px);
     }
     to {
       opacity: 1;
-      transform: scale(1);
+      transform: scale(1) translateY(0);
     }
   }
 `;
 
 const StepHeader = styled.div`
   text-align: center;
-  margin-bottom: 2.5em;
-`;
-
-const StepIconWrapper = styled.div`
-  width: 70px;
-  height: 70px;
-  margin: 0 auto 1.2em;
-  background: linear-gradient(135deg, ${theme.colors.primary} 0%, #f39c12 100%);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.8em;
-  color: ${theme.colors.black};
-  box-shadow: 0 4px 24px ${theme.colors.primary}50;
+  margin-bottom: ${theme.spacing.lg};
 `;
 
 const StepTitle = styled.h3`
-  font-size: 1.7em;
+  font-size: ${theme.font_sizes.xxl};
   font-weight: ${theme.font_weight.large};
-  color: ${theme.colors.font1};
-  margin: 0 0 0.4em;
+  color: ${theme.colors.fontPrimary};
+  margin: 0 0 0.35em;
+  letter-spacing: -0.02em;
 `;
 
 const StepSubtitle = styled.p`
-  color: ${theme.colors.font2};
+  color: ${theme.colors.fontSecondary};
   margin: 0;
-  font-size: 1em;
+  font-size: ${theme.font_sizes.sm};
   line-height: 1.5;
 `;
 
-const InfoBox = styled.div`
-  background: ${theme.colors.secondary};
-  border: 1px solid ${theme.colors.primary}30;
-  border-radius: ${theme.border_radius.small};
-  padding: 1em;
-  text-align: center;
-  color: ${theme.colors.font2};
-  font-size: 0.9em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  svg {
-    color: ${theme.colors.primary};
-  }
-`;
-
 const CodeInputWrapper = styled.div`
-  margin: 2em 0;
+  margin: 1.2rem 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 `;
 
 const ResendSection = styled.div`
   text-align: center;
+  margin-bottom: 0.5rem;
 `;
 
 const ResendText = styled.p`
-  color: ${theme.colors.font2};
-  font-size: 0.95em;
-  margin: 0 0 0.5em;
+  color: ${theme.colors.fontTertiary};
+  font-size: 0.85em;
+  margin: 0 0 0.25em;
 `;
 
 const ResendLink = styled.a<{ disabled?: boolean }>`
   color: ${({ disabled }) =>
-    disabled ? theme.colors.gray : theme.colors.primary};
+    disabled ? theme.colors.fontDisabled : theme.colors.primary};
   text-decoration: none;
   font-weight: ${theme.font_weight.medium};
-  font-size: 0.95em;
-  transition: opacity 0.2s ease;
+  font-size: 0.88em;
+  transition: opacity ${theme.transitions.fast};
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   pointer-events: ${({ disabled }) => (disabled ? "none" : "auto")};
 
   &:hover {
-    opacity: ${({ disabled }) => (disabled ? 1 : 0.8)};
+    opacity: ${({ disabled }) => (disabled ? 1 : 0.85)};
     text-decoration: ${({ disabled }) => (disabled ? "none" : "underline")};
+  }
+`;
+
+const InfoBox = styled.div`
+  background: ${theme.colors.bgTertiary};
+  border: 1px dashed ${theme.colors.border};
+  border-radius: ${theme.border_radius.sm};
+  padding: 0.85em 1em;
+  text-align: center;
+  color: ${theme.colors.fontSecondary};
+  font-size: 0.82em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.01em;
+
+  svg {
+    color: ${theme.colors.primary};
+    opacity: 0.9;
   }
 `;

@@ -4,11 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="refactor(mailer): extract getSiteSmtpDetails utility to avoid code duplication">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/auth/controllers/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/auth/controllers/postSendVerificationCode.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/auth/controllers/postVerifyCode.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/auth/routes/auth.routes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/sendMailVerificationCode.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/templates/common/emailFooter.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/templates/common/emailHeader.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/templates/replyClaimEmailTemplate.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/templates/replyComplaintsBookEmailTemplate.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/templates/replyContactEmailTemplate.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/templates/replySuggestionEmailTemplate.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/templates/verificationCodeEmailTemplate.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/functions/src/mailer/sendMail.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/mailer/sendMail.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/utils/mailerUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/utils/mailerUtils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/sites/_siteId/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/sites/_siteId/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/templates/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/templates/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/AccessDataLogin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/AccessDataLogin.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/VerificationCode.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/VerificationCode.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/VerificationMethod.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/VerificationMethod.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/login/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/ServiceDetailsDrawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/services-requests/ServiceDetailsDrawer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/entries/DrawerDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/entries/DrawerDetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/providers/AuthenticationProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/providers/AuthenticationProvider.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,15 +180,8 @@
       <workItem from="1779384311988" duration="21330000" />
       <workItem from="1779469029563" duration="17040000" />
       <workItem from="1779733647595" duration="13207000" />
-      <workItem from="1779812210835" duration="21211000" />
-    </task>
-    <task id="LOCAL-00063" summary="feat: reorder steps, add dynamic headers and fix session storage persistence">
-      <option name="closed" value="true" />
-      <created>1775155632897</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1775155632898</updated>
+      <workItem from="1779812210835" duration="21261000" />
+      <workItem from="1779901439625" duration="24691000" />
     </task>
     <task id="LOCAL-00064" summary="feat(forms): add manual entry fallback and field locking for client data">
       <option name="closed" value="true" />
@@ -554,7 +567,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779834247194</updated>
     </task>
-    <option name="localTasksCounter" value="112" />
+    <task id="LOCAL-00112" summary="feat(mailer): migrate custom SMTP architecture from service alias to host and port">
+      <option name="closed" value="true" />
+      <created>1779837328874</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1779837328874</updated>
+    </task>
+    <option name="localTasksCounter" value="113" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -572,7 +593,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactored endpoint entries" />
     <MESSAGE value="refactored entries module" />
     <MESSAGE value="added counters shortcuts" />
     <MESSAGE value="added counters and refactored shortcuts list" />
@@ -597,6 +617,7 @@
     <MESSAGE value="feat(sites): handle dynamic linkedin url based on account type in mailer and ui" />
     <MESSAGE value="feat(mailer): support dynamic custom SMTP transporters with global fallback" />
     <MESSAGE value="refactor(mailer): extract getSiteSmtpDetails utility to avoid code duplication" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor(mailer): extract getSiteSmtpDetails utility to avoid code duplication" />
+    <MESSAGE value="feat(mailer): migrate custom SMTP architecture from service alias to host and port" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(mailer): migrate custom SMTP architecture from service alias to host and port" />
   </component>
 </project>

@@ -8,6 +8,7 @@ import {
   Radio,
   Row,
   Space,
+  Tabs,
   Tag,
   Typography,
 } from "../../../components";
@@ -23,6 +24,8 @@ import dayjs from "dayjs";
 import styled, { useTheme } from "styled-components";
 import { Button } from "antd";
 import { useEffect, useState } from "react";
+import { theme } from "../../../styles";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
 const { Text } = Typography;
 
@@ -38,6 +41,7 @@ export const DrawerDetails = ({
     "pending"
   );
   const [isSaving, setIsSaving] = useState(false);
+  const [activeTab, setActiveTab] = useState<"email" | "wsp">("email");
 
   useEffect(() => {
     if (selectedTicket) {
@@ -159,6 +163,63 @@ export const DrawerDetails = ({
             </Text>
           </Space>
 
+          <Space direction="vertical" size={8} style={{ width: "100%" }}>
+            <Tabs
+              activeKey={activeTab}
+              onChange={(key) => setActiveTab(key as "email" | "wsp")}
+              type="card"
+              items={[
+                {
+                  key: "email",
+                  label: (
+                    <span>
+                      <FontAwesomeIcon
+                        icon={faEnvelope}
+                        style={{ marginRight: 8 }}
+                      />
+                      Email
+                    </span>
+                  ),
+                  children: (
+                    <div style={tabContentStyle}>
+                      <Button
+                        type="primary"
+                        size="large"
+                        icon={
+                          <FontAwesomeIcon
+                            icon={faEnvelope}
+                            style={{ marginRight: 8 }}
+                          />
+                        }
+                      >
+                        Enviar respuesta
+                      </Button>
+                    </div>
+                  ),
+                },
+                {
+                  key: "wsp",
+                  label: (
+                    <span>
+                      <FontAwesomeIcon
+                        icon={faWhatsapp}
+                        style={{ marginRight: 8 }}
+                      />
+                      WhatsApp
+                    </span>
+                  ),
+                  children: (
+                    <div style={tabContentStyle}>
+                      <Text type="secondary">
+                        Esta sección aún está en desarrollo
+                      </Text>
+                    </div>
+                  ),
+                },
+              ]}
+            />
+          </Space>
+
           <ComponentContainer.group label="¿El email fue atendido?">
             <Radio.Group
               value={localStatus}
@@ -249,3 +310,15 @@ export const CategoryTag = styled(Tag)`
     text-transform: uppercase;
   }
 `;
+
+const tabContentStyle = {
+  background: theme.colors.bgTertiary,
+  padding: "16px",
+  borderRadius: "0 0 8px 8px",
+  border: `1px solid ${theme.colors.border}`,
+  textAlign: "center" as const,
+  minHeight: "80px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+};

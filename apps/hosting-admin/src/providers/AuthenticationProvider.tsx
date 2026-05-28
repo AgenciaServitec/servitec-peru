@@ -151,6 +151,8 @@ export const AuthenticationProvider = ({
 
   const sendVerificationCode = async (
     user: {
+      dni: string;
+      fullName: string;
       email?: string;
       phone?: {
         prefix?: string;
@@ -213,7 +215,34 @@ export const AuthenticationProvider = ({
           description: `Se envió un código SMS a ${user.phone.number}`,
         });
       } else {
-        throw new Error("Método de email no disponible");
+        const response = await fetch(
+          "https://api-servitec-peru.web.app/auth/verification-code/send",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              dni: user.dni,
+              email: user.email,
+              fullName: user.fullName,
+            }),
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(
+            data.error || "Error al despachar el código por email"
+          );
+        }
+
+        notification({
+          type: "success",
+          title: "Código enviado",
+          description: `Se envió un código de seguridad a ${user.email}`,
+        });
       }
 
       setLoginLoading(false);
@@ -249,25 +278,43 @@ export const AuthenticationProvider = ({
     }
   };
 
-  const verifyCode = async (code: string) => {
+  const verifyCode = async (
+    code: string,
+    method: "phone" | "email",
+    customToken?: string
+  ) => {
     try {
       setLoginLoading(true);
-
-      if (!confirmationResult) {
-        throw new Error("No hay confirmación de SMS pendiente");
-      }
 
       if (!tempUser) {
         throw new Error("No hay usuario temporal guardado");
       }
 
-      const result = await confirmationResult.confirm(code);
+      if (method === "phone") {
+        if (!confirmationResult) {
+          throw new Error("No hay confirmación de SMS pendiente");
+        }
 
-      await firestore.collection("users").doc(tempUser.id).update({
-        firebaseAuthUid: result.user.uid,
-        lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
-        phoneVerified: true,
-      });
+        const result = await confirmationResult.confirm(code);
+
+        await firestore.collection("users").doc(tempUser.id).update({
+          firebaseAuthUid: result.user.uid,
+          lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
+          phoneVerified: true,
+        });
+      } else {
+        if (!customToken) {
+          throw new Error("No se proporcionó un token de acceso válido");
+        }
+
+        const result = await auth.signInWithCustomToken(customToken);
+
+        await firestore.collection("users").doc(tempUser.id).update({
+          firebaseAuthUid: result.user.uid,
+          lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
+          emailVerified: true,
+        });
+      }
 
       await auth.setPersistence(authPersistence.LOCAL);
 
@@ -284,19 +331,22 @@ export const AuthenticationProvider = ({
     } catch (e: any) {
       console.error("❌ Error verificando código:", e);
 
-      let errorMessage = "El código ingresado no es válido";
+      let errorMessage = "El código ingresado no es válido o ha expirado.";
 
       if (e.code === "auth/invalid-verification-code") {
         errorMessage =
           "El código ingresado es incorrecto. Por favor verifica e intenta de nuevo.";
       } else if (e.code === "auth/code-expired") {
         errorMessage = "El código ha expirado. Por favor solicita uno nuevo.";
+      } else if (e.code === "auth/invalid-custom-token") {
+        errorMessage =
+          "La sesión de seguridad ha caducado. Vuelve a intentarlo.";
       }
 
       notification({
         type: "error",
         title: "Código incorrecto",
-        description: errorMessage,
+        description: e.message || errorMessage,
       });
 
       setLoginLoading(false);
