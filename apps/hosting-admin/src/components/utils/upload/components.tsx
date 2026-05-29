@@ -85,34 +85,53 @@ const ModalStyled = styled(AntdModal)`
     .ant-modal-content {
       background: ${theme.colors.bgSecondary};
       color: ${theme.colors.fontPrimary} !important;
+      border: 1px solid ${theme.colors.border};
+      padding: 0;
+      overflow: hidden;
     }
 
     .ant-modal-header {
       background: ${theme.colors.bgSecondary};
-      border-bottom: 1px solid ${theme.colors.border};
+      border-bottom: 1px solid ${theme.colors.divider};
+      padding: 16px 24px;
 
       .ant-modal-title {
         color: ${theme.colors.fontPrimary} !important;
+        font-weight: ${theme.font_weight.medium};
       }
     }
 
     .ant-modal-close {
       color: ${theme.colors.fontSecondary};
+      top: 16px;
 
       &:hover {
-        color: ${theme.colors.primary};
+        color: ${theme.colors.error};
       }
     }
 
+    .ant-modal-body {
+      background: ${theme.colors.bgTertiary};
+      padding: 32px 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
     .ant-modal-footer {
-      border-top: 1px solid ${theme.colors.border};
+      border-top: 1px solid ${theme.colors.divider};
+      padding: 16px 24px;
+      margin: 0;
+      background: ${theme.colors.bgSecondary};
     }
 
     img {
       max-width: 100%;
+      max-height: 55vh;
       box-sizing: border-box;
-      object-fit: cover;
-      border-radius: ${theme.border_radius.md};
+      object-fit: contain;
+      border-radius: ${theme.border_radius.sm};
+      box-shadow: ${theme.shadows.md};
     }
 
     span {
@@ -125,42 +144,52 @@ const ButtonStyled = styled(Button)`
   ${() => css`
     display: inline-flex;
     align-items: center;
-    color: ${theme.colors.bgPrimary};
-    background: ${theme.colors.primary};
-    border-color: ${theme.colors.primary};
+
+    color: ${theme.colors.primary};
+    background: transparent;
+    border: 1px solid ${theme.colors.primary};
 
     &:hover {
-      background: ${theme.colors.primaryDark};
+      background: ${theme.colors.primaryAlpha};
       border-color: ${theme.colors.primaryDark};
-      color: ${theme.colors.bgPrimary};
+      color: ${theme.colors.primaryDark};
     }
 
     svg {
       font-size: ${theme.font_sizes.sm};
-      margin: 0 5px 4px 0;
-      color: ${theme.colors.bgPrimary};
+      margin: 0 8px 0 0;
+      color: inherit;
     }
   `}
 `;
 
 const Wrapper = styled.div`
   ${() => css`
+    padding: ${theme.spacing.lg} 0;
+
     p {
-      font-size: ${theme.font_sizes.md} !important;
-      color: ${theme.colors.fontPrimary} !important;
+      margin-bottom: ${theme.spacing.sm};
 
       svg {
         color: ${theme.colors.info};
+        transition: all ${theme.transitions.normal};
       }
     }
 
-    .ant-upload-text {
+    .ant-upload-drag:hover & p svg {
+      transform: translateY(-4px);
       color: ${theme.colors.fontPrimary};
-      font-weight: ${theme.font_weight.medium};
+    }
+
+    .ant-upload-text {
+      color: ${theme.colors.fontPrimary} !important;
+      font-size: ${theme.font_sizes.md} !important;
+      font-weight: ${theme.font_weight.medium} !important;
     }
 
     .ant-upload-hint {
-      color: ${theme.colors.fontSecondary};
+      color: ${theme.colors.fontTertiary} !important;
+      font-size: ${theme.font_sizes.sm} !important;
     }
   `}
 `;

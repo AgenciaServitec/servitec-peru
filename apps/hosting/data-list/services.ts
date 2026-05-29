@@ -298,7 +298,7 @@ export const SERVICES_DATA = [
     technicalData: "Certificación de transferencia de datos.",
   },
   {
-    type: "liquid-contact",
+    type: "liquid-contacts",
     typeSpeciality: "smartphone-repair",
     slug: "contacto-con-liquidos-smartphone",
     title: "Móvil mojado",
@@ -306,7 +306,7 @@ export const SERVICES_DATA = [
     description: "Tratamiento de deshumidificación para equipos mojados.",
     longDescription:
       "Limpieza ultrasónica y deshumidificación al vacío para detener la corrosión.",
-    image: "/assets/images/services/liquid-contact.png",
+    image: "/assets/images/services/liquid-contacts.png",
     includes: [
       "Limpieza ultrasónica",
       "Deshumidificación",

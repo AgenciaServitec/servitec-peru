@@ -28,7 +28,7 @@ import { RenderList } from "./RenderList.tsx";
 import type { Entry } from "../../../globalTypes.ts";
 import { DrawerDetails } from "./DrawerDetails.tsx";
 import { orderBy } from "lodash";
-import { useAuthentication } from "../../../providers";
+import { ModalProvider, useAuthentication } from "../../../providers";
 
 const { Title } = Typography;
 
@@ -260,242 +260,244 @@ export const EntriesIntegration = () => {
   }
 
   return (
-    <Row gutter={[16, 16]}>
-      <Col span={24}>
-        <Title
-          level={4}
-          style={{
-            color: theme.colors.fontPrimary,
-            fontWeight: 500,
-          }}
-        >
-          Total entradas: {entries?.length}
-        </Title>
-      </Col>
-      <Col span={24}>
-        <Row gutter={[16, 16]}>
-          <Col span={24}>
-            <ComponentContainer.group label="Filtrar por Cliente">
-              <ScrollWrapper>
-                <ScrollArrow
-                  className="left"
-                  onClick={() => scroll("left")}
-                  icon={<FontAwesomeIcon icon={faChevronLeft} size="xs" />}
-                />
+    <ModalProvider>
+      <Row gutter={[16, 16]}>
+        <Col span={24}>
+          <Title
+            level={4}
+            style={{
+              color: theme.colors.fontPrimary,
+              fontWeight: 500,
+            }}
+          >
+            Total entradas: {entries?.length}
+          </Title>
+        </Col>
+        <Col span={24}>
+          <Row gutter={[16, 16]}>
+            <Col span={24}>
+              <ComponentContainer.group label="Filtrar por Cliente">
+                <ScrollWrapper>
+                  <ScrollArrow
+                    className="left"
+                    onClick={() => scroll("left")}
+                    icon={<FontAwesomeIcon icon={faChevronLeft} size="xs" />}
+                  />
 
-                <div
-                  style={{
-                    width: "100%",
-                    overflow: "hidden",
-                    maskImage:
-                      "linear-gradient(to right, transparent, black 5%, black 95%, transparent 100%)",
-                    WebkitMaskImage:
-                      "linear-gradient(to right, transparent, black 5%, black 95%, transparent 100%)",
-                  }}
-                >
-                  <ClientScrollContainer ref={scrollRef}>
-                    {filterSites.map((client, i) => {
-                      const isActive = selectedSite === client.id;
-                      return (
-                        <Button
-                          key={client.id}
-                          type="text"
-                          onClick={() => setSelectedSite(client.id)}
-                          style={{
-                            borderRadius: 0,
-                            borderRight:
-                              i !== filterSites.length - 1
-                                ? `1px solid ${theme.colors.border}`
-                                : "none",
-                            backgroundColor: isActive
-                              ? theme.colors.bgTertiary
-                              : "transparent",
-                            color: isActive
-                              ? theme.colors.primary
-                              : theme.colors.fontSecondary,
-                            fontWeight: isActive ? 600 : 400,
-                            fontSize: "13px",
-                            minWidth: "140px",
-                          }}
-                        >
-                          {client.name}
-                        </Button>
-                      );
-                    })}
-                  </ClientScrollContainer>
-                </div>
-
-                <ScrollArrow
-                  className="right"
-                  onClick={() => scroll("right")}
-                  icon={<FontAwesomeIcon icon={faChevronRight} size="xs" />}
-                />
-              </ScrollWrapper>
-            </ComponentContainer.group>
-          </Col>
-
-          <Col span={24}>
-            <Row gutter={[16, 16]}>
-              <Col xs={24} md={12}>
-                <ComponentContainer.group label="Tipo de Entrada">
                   <div
                     style={{
-                      height: "40px",
-                      maxHeight: "40px",
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "0 12px",
-                      gap: "16px",
-                      background: theme.colors.bgSecondary,
-                      borderRadius: theme.border_radius.md,
-                      border: `1px solid ${theme.colors.border}`,
+                      width: "100%",
+                      overflow: "hidden",
+                      maskImage:
+                        "linear-gradient(to right, transparent, black 5%, black 95%, transparent 100%)",
+                      WebkitMaskImage:
+                        "linear-gradient(to right, transparent, black 5%, black 95%, transparent 100%)",
                     }}
                   >
-                    <Radio.Group
-                      value={selectedCategory}
-                      onChange={(e) => setSelectedCategory(e.target.value)}
-                      style={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        gap: "16px",
-                      }}
-                    >
-                      {[
-                        { label: "Todos", value: "all" },
-                        { label: "Contacto", value: "contact" },
-                        { label: "Reclamos", value: "claim" },
-                        { label: "Sugerencias", value: "suggestion" },
-                        {
-                          label: "Libro de Reclamaciones",
-                          value: "complaints_book",
-                        },
-                      ].map((t) => {
-                        const isSelected = selectedCategory === t.value;
+                    <ClientScrollContainer ref={scrollRef}>
+                      {filterSites.map((client, i) => {
+                        const isActive = selectedSite === client.id;
                         return (
-                          <Radio
-                            key={t.value}
-                            value={t.value}
+                          <Button
+                            key={client.id}
+                            type="text"
+                            onClick={() => setSelectedSite(client.id)}
                             style={{
-                              color: isSelected
-                                ? theme.colors.fontPrimary
+                              borderRadius: 0,
+                              borderRight:
+                                i !== filterSites.length - 1
+                                  ? `1px solid ${theme.colors.border}`
+                                  : "none",
+                              backgroundColor: isActive
+                                ? theme.colors.bgTertiary
+                                : "transparent",
+                              color: isActive
+                                ? theme.colors.primary
                                 : theme.colors.fontSecondary,
+                              fontWeight: isActive ? 600 : 400,
+                              fontSize: "13px",
+                              minWidth: "140px",
                             }}
                           >
-                            <span
-                              style={{
-                                fontSize: "13px",
-                                fontWeight: isSelected ? 600 : 400,
-                              }}
-                            >
-                              {t.label}
-                            </span>
-                          </Radio>
+                            {client.name}
+                          </Button>
                         );
                       })}
-                    </Radio.Group>
+                    </ClientScrollContainer>
                   </div>
-                </ComponentContainer.group>
-              </Col>
 
-              <Col xs={24} md={12}>
-                <ComponentContainer.group label="Estado de Entrada">
-                  <Radio.Group
-                    value={selectedStatus}
-                    onChange={(e) => setSelectedStatus(e.target.value)}
-                    buttonStyle="solid"
-                    style={{ width: "100%", display: "flex" }}
+                  <ScrollArrow
+                    className="right"
+                    onClick={() => scroll("right")}
+                    icon={<FontAwesomeIcon icon={faChevronRight} size="xs" />}
+                  />
+                </ScrollWrapper>
+              </ComponentContainer.group>
+            </Col>
+
+            <Col span={24}>
+              <Row gutter={[16, 16]}>
+                <Col xs={24} md={12}>
+                  <ComponentContainer.group label="Tipo de Entrada">
+                    <div
+                      style={{
+                        height: "40px",
+                        maxHeight: "40px",
+                        display: "flex",
+                        alignItems: "center",
+                        padding: "0 12px",
+                        gap: "16px",
+                        background: theme.colors.bgSecondary,
+                        borderRadius: theme.border_radius.md,
+                        border: `1px solid ${theme.colors.border}`,
+                      }}
+                    >
+                      <Radio.Group
+                        value={selectedCategory}
+                        onChange={(e) => setSelectedCategory(e.target.value)}
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: "16px",
+                        }}
+                      >
+                        {[
+                          { label: "Todos", value: "all" },
+                          { label: "Contacto", value: "contact" },
+                          { label: "Reclamos", value: "claim" },
+                          { label: "Sugerencias", value: "suggestion" },
+                          {
+                            label: "Libro de Reclamaciones",
+                            value: "complaints_book",
+                          },
+                        ].map((t) => {
+                          const isSelected = selectedCategory === t.value;
+                          return (
+                            <Radio
+                              key={t.value}
+                              value={t.value}
+                              style={{
+                                color: isSelected
+                                  ? theme.colors.fontPrimary
+                                  : theme.colors.fontSecondary,
+                              }}
+                            >
+                              <span
+                                style={{
+                                  fontSize: "13px",
+                                  fontWeight: isSelected ? 600 : 400,
+                                }}
+                              >
+                                {t.label}
+                              </span>
+                            </Radio>
+                          );
+                        })}
+                      </Radio.Group>
+                    </div>
+                  </ComponentContainer.group>
+                </Col>
+
+                <Col xs={24} md={12}>
+                  <ComponentContainer.group label="Estado de Entrada">
+                    <Radio.Group
+                      value={selectedStatus}
+                      onChange={(e) => setSelectedStatus(e.target.value)}
+                      buttonStyle="solid"
+                      style={{ width: "100%", display: "flex" }}
+                    >
+                      <Radio.Button
+                        value="pending"
+                        style={{
+                          flex: 1,
+                          textAlign: "center",
+                          height: "40px",
+                          lineHeight: "38px",
+                        }}
+                      >
+                        Pendientes
+                      </Radio.Button>
+                      <Radio.Button
+                        value="attended"
+                        style={{
+                          flex: 1,
+                          textAlign: "center",
+                          height: "40px",
+                          lineHeight: "38px",
+                        }}
+                      >
+                        Atendidos
+                      </Radio.Button>
+                    </Radio.Group>
+                  </ComponentContainer.group>
+                </Col>
+              </Row>
+            </Col>
+
+            <Col span={24}>
+              <Row justify="end" gutter={[16, 16]}>
+                <Col xs={24} sm={6} md={4}>
+                  <Button
+                    type="primary"
+                    block
+                    danger
+                    icon={<FontAwesomeIcon icon={faRotateLeft} />}
+                    onClick={handleReset}
                   >
-                    <Radio.Button
-                      value="pending"
-                      style={{
-                        flex: 1,
-                        textAlign: "center",
-                        height: "40px",
-                        lineHeight: "38px",
-                      }}
-                    >
-                      Pendientes
-                    </Radio.Button>
-                    <Radio.Button
-                      value="attended"
-                      style={{
-                        flex: 1,
-                        textAlign: "center",
-                        height: "40px",
-                        lineHeight: "38px",
-                      }}
-                    >
-                      Atendidos
-                    </Radio.Button>
-                  </Radio.Group>
-                </ComponentContainer.group>
-              </Col>
-            </Row>
-          </Col>
+                    Limpiar Filtros
+                  </Button>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Col>
 
-          <Col span={24}>
-            <Row justify="end" gutter={[16, 16]}>
-              <Col xs={24} sm={6} md={4}>
-                <Button
-                  type="primary"
-                  block
-                  danger
-                  icon={<FontAwesomeIcon icon={faRotateLeft} />}
-                  onClick={handleReset}
-                >
-                  Limpiar Filtros
-                </Button>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Col>
+        <Col span={24}>
+          <Tabs
+            activeKey={view}
+            type="card"
+            onChange={(key) => setView(key as "bubbles" | "list")}
+            className="custom-tabs"
+            items={[
+              {
+                key: "bubbles",
+                label: "RADAR",
+                children: (
+                  <RenderBubbles
+                    handleOpenDrawer={handleOpenDrawer}
+                    entries={filteredEntries || []}
+                    sites={sites || []}
+                  />
+                ),
+              },
+              {
+                key: "list",
+                label: "REGISTROS",
+                children: (
+                  <RenderList
+                    entries={filteredEntries || []}
+                    sites={sites || []}
+                    selectedIds={selectedIds}
+                    onSelectAll={handleSelectAll}
+                    onSelectItem={handleSelectItem}
+                    onDeleteBulk={onConfirmRemoveBulk}
+                    onConfirmRemoveEntry={onConfirmRemoveEntry}
+                    handleOpenDrawer={handleOpenDrawer}
+                  />
+                ),
+              },
+            ]}
+          />
+        </Col>
 
-      <Col span={24}>
-        <Tabs
-          activeKey={view}
-          type="card"
-          onChange={(key) => setView(key as "bubbles" | "list")}
-          className="custom-tabs"
-          items={[
-            {
-              key: "bubbles",
-              label: "RADAR",
-              children: (
-                <RenderBubbles
-                  handleOpenDrawer={handleOpenDrawer}
-                  entries={filteredEntries || []}
-                  sites={sites || []}
-                />
-              ),
-            },
-            {
-              key: "list",
-              label: "REGISTROS",
-              children: (
-                <RenderList
-                  entries={filteredEntries || []}
-                  sites={sites || []}
-                  selectedIds={selectedIds}
-                  onSelectAll={handleSelectAll}
-                  onSelectItem={handleSelectItem}
-                  onDeleteBulk={onConfirmRemoveBulk}
-                  onConfirmRemoveEntry={onConfirmRemoveEntry}
-                  handleOpenDrawer={handleOpenDrawer}
-                />
-              ),
-            },
-          ]}
+        <DrawerDetails
+          selectedTicket={selectedTicket}
+          setOpen={setOpen}
+          open={open}
+          onUpdateStatus={handleUpdateStatus}
         />
-      </Col>
-
-      <DrawerDetails
-        selectedTicket={selectedTicket}
-        setOpen={setOpen}
-        open={open}
-        onUpdateStatus={handleUpdateStatus}
-      />
-    </Row>
+      </Row>
+    </ModalProvider>
   );
 };
 

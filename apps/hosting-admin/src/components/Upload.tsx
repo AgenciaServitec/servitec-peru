@@ -20,6 +20,7 @@ import type {
   UploadedFile,
 } from "./types/upload.types";
 import { ComponentContainer, useModalConfirm, useNotification } from "./ui";
+import { theme } from "../styles";
 
 const { isEmpty } = lodash;
 
@@ -163,7 +164,7 @@ export const Upload: React.FC<UploadProps> = ({
               file.name
             );
             setFiles([]);
-            onChange(undefined); // Limpiamos el padre
+            onChange(undefined);
             resolve(true);
           } catch (e) {
             notification({ type: "error", title: "Error al eliminar" });
@@ -242,4 +243,45 @@ export const Upload: React.FC<UploadProps> = ({
 
 const WrapperComponents = styled.div`
   margin: 11px;
+
+  .ant-upload-drag {
+    background: ${theme.colors.bgTertiary} !important;
+    border: 1px dashed ${theme.colors.border} !important;
+    border-radius: ${theme.border_radius.lg};
+    transition: all ${theme.transitions.normal};
+
+    &:hover {
+      border-color: ${theme.colors.fontSecondary} !important;
+      background: ${theme.colors.bgHover} !important;
+    }
+  }
+
+  .ant-upload-list-item {
+    background: ${theme.colors.bgTertiary} !important;
+    border: 1px solid ${theme.colors.border} !important;
+    border-radius: ${theme.border_radius.md};
+    padding: 8px;
+    margin-top: 8px;
+
+    &:hover {
+      background: ${theme.colors.bgHover} !important;
+    }
+
+    .ant-upload-list-item-name {
+      color: ${theme.colors.fontPrimary} !important;
+      font-weight: ${theme.font_weight.medium};
+    }
+
+    .ant-upload-list-item-action {
+      .anticon-delete {
+        color: ${theme.colors.error} !important;
+        font-size: ${theme.font_sizes.md};
+        transition: color ${theme.transitions.fast};
+
+        &:hover {
+          color: #ff7875 !important;
+        }
+      }
+    }
+  }
 `;

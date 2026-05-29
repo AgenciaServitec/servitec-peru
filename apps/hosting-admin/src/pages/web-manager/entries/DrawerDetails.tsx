@@ -26,6 +26,9 @@ import { Button } from "antd";
 import { useEffect, useState } from "react";
 import { theme } from "../../../styles";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { MessageReplyModal } from "./MessageReplyModal.tsx";
+import { useModal } from "../../../providers";
+import { useDevice } from "../../../hooks";
 
 const { Text } = Typography;
 
@@ -36,6 +39,8 @@ export const DrawerDetails = ({
   onUpdateStatus,
 }) => {
   const theme = useTheme();
+  const { onShowModal, onCloseModal } = useModal();
+  const { isTablet } = useDevice();
 
   const [localStatus, setLocalStatus] = useState<"pending" | "attended">(
     "pending"
@@ -57,6 +62,22 @@ export const DrawerDetails = ({
     setIsSaving(false);
 
     setOpen(false);
+  };
+
+  const onShowSubmitMessageReplyModal = () => {
+    onShowModal({
+      title: "Respuesta",
+      width: `${isTablet ? "90%" : "50%"}`,
+      onRenderBody: () => (
+        <MessageReplyModal
+          entry={selectedTicket}
+          clientEmail="cliente@gmail.com"
+          companyEmail="contacto@servitecperu.com"
+          originalSubject=""
+          siteId=""
+        />
+      ),
+    });
   };
 
   return (
@@ -185,6 +206,7 @@ export const DrawerDetails = ({
                       <Button
                         type="primary"
                         size="large"
+                        onClick={onShowSubmitMessageReplyModal}
                         icon={
                           <FontAwesomeIcon
                             icon={faEnvelope}

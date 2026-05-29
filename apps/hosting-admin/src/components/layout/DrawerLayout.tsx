@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { Drawer, Menu } from "../ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faAddressBook,
   faBoxesPacking,
   faBuilding,
   faClipboardUser,
@@ -130,6 +131,13 @@ export const DrawerLayout = ({
       icon: <FontAwesomeIcon icon={faGlobe} />,
       permission: "client_view_all",
       children: [
+        {
+          label: "Contactos",
+          key: "web-manager-contacts",
+          icon: <FontAwesomeIcon icon={faAddressBook} />,
+          onClick: () => onClickMenu("/web-manager/contacts"),
+          permission: "entry_view_all",
+        },
         {
           label: "Clientes",
           key: "web-manager-sites",

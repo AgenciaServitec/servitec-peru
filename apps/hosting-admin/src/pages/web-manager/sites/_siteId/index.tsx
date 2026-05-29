@@ -323,7 +323,7 @@ export const Site = ({ site, loading, isNew, onSubmit, onGoBack }: any) => {
                       render={({ field: { onChange, value, name } }) => (
                         <Upload
                           isImage
-                          label="isotype (150 x150)"
+                          label="isotipo (150 x150)"
                           accept="image/*"
                           buttonText="Subir foto"
                           value={value}

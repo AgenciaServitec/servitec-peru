@@ -241,4 +241,5 @@ export interface Entry extends DefaultFirestoreProps {
     consumerRequest: string;
   };
   siteId: string;
+  contactId?: string;
 }

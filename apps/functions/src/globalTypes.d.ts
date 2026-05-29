@@ -198,7 +198,7 @@ interface BaseEntry extends DefaultFirestoreProps {
 }
 
 interface ContactEntry extends BaseEntry {
-  category: "contact";
+  category: "contacts";
   subject?: string;
 }
 
@@ -224,3 +224,15 @@ interface ComplaintsBookEntry extends BaseEntry {
 }
 
 type Entry = ContactEntry | SuggestionEntry | ClaimEntry | ComplaintsBookEntry;
+
+interface Contact extends DefaultFirestoreProps {
+  id: string;
+  email: string;
+  fullName: string;
+  firstName?: string;
+  paternalSurname?: string;
+  maternalSurname?: string;
+  phone: Phone;
+  secondaryPhones?: string[];
+  siteId?: string;
+}
