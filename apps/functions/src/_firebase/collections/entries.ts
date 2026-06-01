@@ -18,3 +18,24 @@ export const fetchEntries = async (): Promise<Entry[] | undefined> =>
 
 export const updateEntry = (entryId: string, entry: Partial<Entry>) =>
   entriesRef.doc(entryId).update(entry);
+
+export const repliesRef = (entryId: string) =>
+  entriesRef.doc(entryId).collection("replies");
+
+export const getReplyId = (entryId: string): string =>
+  repliesRef(entryId).doc().id;
+
+export const addReplyToEntry = async (
+  entryId: string,
+  reply: any
+): Promise<FirebaseFirestore.WriteResult> =>
+  setDocument<any>(repliesRef(entryId).doc(reply.id), reply);
+
+export const fetchRepliesFromEntry = async (
+  entryId: string
+): Promise<any[] | undefined> =>
+  fetchCollection(
+    repliesRef(entryId)
+      // .where("isDeleted", "==", false)
+      .orderBy("createAt", "desc")
+  );

@@ -34,6 +34,7 @@ const { Text } = Typography;
 
 export const DrawerDetails = ({
   selectedTicket,
+  sites,
   setOpen,
   open,
   onUpdateStatus,
@@ -64,6 +65,8 @@ export const DrawerDetails = ({
     setOpen(false);
   };
 
+  const currentSite = sites?.find((site) => site.id === selectedTicket.siteId);
+
   const onShowSubmitMessageReplyModal = () => {
     onShowModal({
       title: "Respuesta",
@@ -71,10 +74,10 @@ export const DrawerDetails = ({
       onRenderBody: () => (
         <MessageReplyModal
           entry={selectedTicket}
-          clientEmail="cliente@gmail.com"
-          companyEmail="contacto@servitecperu.com"
+          clientEmail={selectedTicket.client.email}
+          companyEmail={currentSite?.businessInfo?.email}
           originalSubject=""
-          siteId=""
+          siteId={currentSite?.id}
         />
       ),
     });

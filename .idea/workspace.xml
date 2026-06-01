@@ -4,14 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="refactored code">
-      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/contacts.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/contacts/ContactHistoryDrawer.tsx" afterDir="false" />
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="Add a contacts page and a drawer for a history of your interactions">
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/entries/controllers/postReplyEntry.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/globalTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/globalTypes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/contacts/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/contacts/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/router/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/router/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/entries.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/entries.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/entries/controllers/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/entries/controllers/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/entries/routes/entries.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/entries/routes/entries.routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/config/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/config/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/entries/DrawerDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/entries/DrawerDetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/entries/MessageReplyModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/entries/MessageReplyModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/entries/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/entries/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +25,8 @@
       <list>
         <option value="tsconfig.json" />
         <option value="HTML File" />
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -167,15 +169,7 @@
       <workItem from="1779901439625" duration="24922000" />
       <workItem from="1780000595082" duration="8728000" />
       <workItem from="1780079442824" duration="16378000" />
-      <workItem from="1780335432287" duration="10681000" />
-    </task>
-    <task id="LOCAL-00071" summary="feat(drawer): implement permission-based item filtering">
-      <option name="closed" value="true" />
-      <created>1777307645146</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1777307645147</updated>
+      <workItem from="1780335432287" duration="15083000" />
     </task>
     <task id="LOCAL-00072" summary="feat(quotations): logic to fetch client data by document and manual override">
       <option name="closed" value="true" />
@@ -561,7 +555,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780098711200</updated>
     </task>
-    <option name="localTasksCounter" value="120" />
+    <task id="LOCAL-00120" summary="Add a contacts page and a drawer for a history of your interactions">
+      <option name="closed" value="true" />
+      <created>1780351667553</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1780351667553</updated>
+    </task>
+    <option name="localTasksCounter" value="121" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -579,7 +581,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="updated contact endpoint and updated hostname value" />
     <MESSAGE value="remove old functions" />
     <MESSAGE value="refactored endpoints and added sendMail" />
     <MESSAGE value="added prefix field" />
@@ -604,6 +605,7 @@
     <MESSAGE value="added Transporter type" />
     <MESSAGE value="refactored design" />
     <MESSAGE value="refactored code" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored code" />
+    <MESSAGE value="Add a contacts page and a drawer for a history of your interactions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add a contacts page and a drawer for a history of your interactions" />
   </component>
 </project>

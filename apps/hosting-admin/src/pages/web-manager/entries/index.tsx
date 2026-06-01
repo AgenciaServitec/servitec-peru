@@ -492,6 +492,7 @@ export const EntriesIntegration = () => {
 
         <DrawerDetails
           selectedTicket={selectedTicket}
+          sites={sites}
           setOpen={setOpen}
           open={open}
           onUpdateStatus={handleUpdateStatus}
