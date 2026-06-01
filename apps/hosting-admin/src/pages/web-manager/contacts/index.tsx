@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import {
   Avatar,
   Button,
-  CanAccess,
   Card,
   Checkbox,
   Col,
@@ -11,6 +10,8 @@ import {
   Space,
   Tag,
   Typography,
+  useModalConfirm,
+  useNotification,
 } from "../../../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -22,32 +23,156 @@ import {
 import dayjs from "dayjs";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { useTheme } from "styled-components";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import { firestore } from "../../../firebase";
+import { useState } from "react";
+import { useDefaultFirestoreProps } from "../../../hooks";
+import { deleteContact } from "../../../firebase/collections";
+import { DrawerDetails } from "./ContactHistoryDrawer.tsx";
 
 const { Text } = Typography;
 
-export const ContactsIntegration = ({
-  contacts,
-  selectedIds,
-  onSelectAll,
-  onSelectItem,
-  onDeleteBulk,
-  onConfirmRemoveContact,
-  handleOpenDrawer,
-}: {
-  contacts: any[];
-  selectedIds: string[];
-  onSelectAll: (checked: boolean) => void;
-  onSelectItem: (id: string) => void;
-  onDeleteBulk: () => void;
-  onConfirmRemoveContact: (contact: any) => void;
-  handleOpenDrawer: (contact: any) => void;
-}) => {
+export const ContactsIntegration = () => {
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [selectedContact, setSelectedContact] = useState<any>(null);
+
+  const { modalConfirm } = useModalConfirm();
+  const { notification } = useNotification();
+  const { assignDeleteProps } = useDefaultFirestoreProps();
+
+  const [contacts, contactsLoading] = useCollectionData(
+    firestore.collection("contacts").where("isDeleted", "==", false)
+  );
+
+  const [entries, entriesLoading] = useCollectionData(
+    firestore.collection("entries").where("isDeleted", "==", false)
+  );
+
   const theme = useTheme();
 
+  const handleOpenDrawer = (contact: any) => {
+    setSelectedContact(contact);
+    setOpenDrawer(true);
+  };
+
+  const contactEntries =
+    entries?.filter((entry: any) => entry.contactId === selectedContact?.id) ||
+    [];
+
+  const handleSelectAll = (checked: boolean) => {
+    if (checked && contacts) {
+      const allIds = contacts.map((c: any) => c.id);
+      setSelectedIds(allIds);
+    } else {
+      setSelectedIds([]);
+    }
+  };
+
+  const handleSelectItem = (id: string) => {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((itemId) => itemId !== id) : [...prev, id]
+    );
+  };
+
+  const onDeleteContact = async (contact: any) => {
+    try {
+      await deleteContact(contact.id, assignDeleteProps(contact));
+      notification({
+        type: "success",
+        title: "¡Contacto eliminado exitosamente!",
+      });
+    } catch (e) {
+      console.error(e);
+      notification({
+        type: "error",
+        title: "Error al eliminar el contacto",
+      });
+    }
+  };
+
+  const onConfirmRemoveContact = (contact: any) => {
+    modalConfirm({
+      content: "¿Estás seguro de que deseas eliminar este contacto?",
+      onOk: async () => {
+        await onDeleteContact(contact);
+      },
+    });
+  };
+
+  const onConfirmRemoveBulk = () => {
+    modalConfirm({
+      title: "¿Estás seguro de que quieres eliminar?",
+      content: `Se eliminarán ${selectedIds.length} contactos seleccionados. Esta acción no se puede deshacer.`,
+      onOk: async () => {
+        try {
+          const contactsToDelete = contacts?.filter((c) =>
+            selectedIds.includes(c.id)
+          );
+
+          if (contactsToDelete) {
+            await Promise.all(
+              contactsToDelete.map((c) =>
+                deleteContact(c.id, assignDeleteProps(c))
+              )
+            );
+
+            notification({
+              type: "success",
+              title: `¡${selectedIds.length} contactos eliminados con éxito!`,
+            });
+
+            setSelectedIds([]);
+          }
+        } catch (e) {
+          console.error("Error en borrado masivo:", e);
+          notification({
+            type: "error",
+            title: "Hubo un error al eliminar los contactos",
+          });
+        }
+      },
+    });
+  };
+
+  return (
+    <>
+      <Contacts
+        contacts={contacts}
+        selectedIds={selectedIds}
+        theme={theme}
+        handleSelectAll={handleSelectAll}
+        handleSelectItem={handleSelectItem}
+        onConfirmRemoveContact={onConfirmRemoveContact}
+        onConfirmRemoveBulk={onConfirmRemoveBulk}
+        handleOpenDrawer={handleOpenDrawer}
+      />
+      <DrawerDetails
+        open={openDrawer}
+        setOpen={setOpenDrawer}
+        selectedContact={selectedContact}
+        entries={contactEntries}
+        loading={entriesLoading}
+      />
+    </>
+  );
+};
+
+const Contacts = ({
+  contacts,
+  selectedIds,
+  theme,
+  handleSelectAll,
+  handleSelectItem,
+  onConfirmRemoveContact,
+  onConfirmRemoveBulk,
+  handleOpenDrawer,
+}: any) => {
   const isAllSelected =
-    contacts?.length > 0 && selectedIds?.length === contacts?.length;
+    contacts && contacts.length > 0 && selectedIds.length === contacts.length;
   const isIndeterminate =
-    selectedIds?.length > 0 && selectedIds?.length < contacts?.length;
+    selectedIds.length > 0 && contacts && selectedIds.length < contacts.length;
 
   return (
     <motion.div
@@ -62,7 +187,7 @@ export const ContactsIntegration = ({
           type="primary"
           icon={<FontAwesomeIcon icon={faTrashCan} />}
           disabled={selectedIds?.length === 0}
-          onClick={onDeleteBulk}
+          onClick={onConfirmRemoveBulk}
           style={{ borderRadius: theme.border_radius.sm }}
         >
           Eliminar contactos ({selectedIds?.length})
@@ -81,7 +206,7 @@ export const ContactsIntegration = ({
         >
           <Checkbox
             indeterminate={isIndeterminate}
-            onChange={(e) => onSelectAll(e.target.checked)}
+            onChange={(e) => handleSelectAll(e.target.checked)}
             checked={isAllSelected}
           />
           <Text style={{ fontSize: "12px", color: theme.colors.fontSecondary }}>
@@ -100,13 +225,11 @@ export const ContactsIntegration = ({
         }}
       >
         {contacts?.map((contact) => {
-          // Prevenimos errores armando el nombre completo
           const displayName =
             contact.fullName ||
             `${contact.firstName || ""} ${contact.paternalSurname || ""}`.trim() ||
             "Cliente";
 
-          // Estandarizamos el número (si viene como string o como objeto estructurado)
           const phoneNumber =
             typeof contact.phone === "object"
               ? contact.phone?.number
@@ -129,24 +252,15 @@ export const ContactsIntegration = ({
               <Row align="middle" gutter={16}>
                 <Col>
                   <Checkbox
-                    checked={selectedIds.includes(contact.id)}
-                    onChange={() => onSelectItem(contact.id)}
+                    checked={selectedIds?.includes(contact.id)}
+                    onChange={() => handleSelectItem(contact.id)}
                   />
                 </Col>
                 <Col>
-                  <div
-                    onClick={() => handleOpenDrawer(contact)}
-                    style={{
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Avatar
-                      size={64}
-                      src={`https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=random`}
-                    />
-                  </div>
+                  <Avatar
+                    size={64}
+                    src={`https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=random`}
+                  />
                 </Col>
                 <Col flex="auto">
                   <Row justify="space-between">
@@ -178,7 +292,6 @@ export const ContactsIntegration = ({
                     </Col>
                   </Row>
 
-                  {/* Reemplazo del "Mensaje" por "Números secundarios" si los tiene */}
                   {contact.secondaryPhones &&
                     contact.secondaryPhones?.length > 0 && (
                       <div
@@ -286,16 +399,14 @@ export const ContactsIntegration = ({
                             color: theme.colors.primary,
                           }}
                         />
-                        <CanAccess permission="contact_delete">
-                          <IconAction
-                            tooltipTitle="Eliminar"
-                            onClick={() => onConfirmRemoveContact(contact)}
-                            icon={faTrashCan}
-                            iconStyles={{
-                              color: theme.colors.error,
-                            }}
-                          />
-                        </CanAccess>
+                        <IconAction
+                          tooltipTitle="Eliminar"
+                          onClick={() => onConfirmRemoveContact(contact)}
+                          icon={faTrashCan}
+                          iconStyles={{
+                            color: theme.colors.error,
+                          }}
+                        />
                       </Space>
                     </Col>
                   </Row>

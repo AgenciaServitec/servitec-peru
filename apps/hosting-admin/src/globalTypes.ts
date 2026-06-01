@@ -243,3 +243,16 @@ export interface Entry extends DefaultFirestoreProps {
   siteId: string;
   contactId?: string;
 }
+
+export interface Contact extends DefaultFirestoreProps {
+  id: string;
+  email: string;
+  fullName: string;
+  firstName?: string;
+  paternalSurname?: string;
+  maternalSurname?: string;
+  phone: Phone;
+  secondaryPhones?: string[];
+  contactId?: string;
+  siteId?: string;
+}

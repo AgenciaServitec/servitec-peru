@@ -4,23 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/contacts.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/contacts/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/entries/MessageReplyModal.tsx" afterDir="false" />
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="refactored code">
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/contacts.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/contacts/ContactHistoryDrawer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/entries/controllers/postContactEntry.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/entries/controllers/postContactEntry.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/globalTypes.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/globalTypes.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/Upload.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/Upload.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/DrawerLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/DrawerLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/components.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/utils/upload/components.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/globalTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/globalTypes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/entries/DrawerDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/entries/DrawerDetails.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/entries/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/entries/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/sites/_siteId/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/sites/_siteId/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/contacts/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/web-manager/contacts/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/router/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/router/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/data-list/services.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/data-list/services.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,11 +99,11 @@
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting-admin\src\data-list" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting-admin\src\pages\web-manager\contacts" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\functions\src\api\entries" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\functions\src\api\leads\routes" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets\images\services" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets\images\hero" />
-      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting-admin\public" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -175,15 +166,8 @@
       <workItem from="1779812210835" duration="21261000" />
       <workItem from="1779901439625" duration="24922000" />
       <workItem from="1780000595082" duration="8728000" />
-      <workItem from="1780079442824" duration="16316000" />
-    </task>
-    <task id="LOCAL-00070" summary="Updated information in the service request form">
-      <option name="closed" value="true" />
-      <created>1776703181851</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1776703181852</updated>
+      <workItem from="1780079442824" duration="16378000" />
+      <workItem from="1780335432287" duration="10681000" />
     </task>
     <task id="LOCAL-00071" summary="feat(drawer): implement permission-based item filtering">
       <option name="closed" value="true" />
@@ -569,7 +553,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780009707522</updated>
     </task>
-    <option name="localTasksCounter" value="119" />
+    <task id="LOCAL-00119" summary="refactored code">
+      <option name="closed" value="true" />
+      <created>1780098711200</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1780098711200</updated>
+    </task>
+    <option name="localTasksCounter" value="120" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

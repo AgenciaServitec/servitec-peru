@@ -2,7 +2,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import * as A from "../pages";
 import { AdminLayout, PublicLayout } from "../components";
 import { PrivateRoute } from "./PrivateRoute";
-import { ContactsIntegration } from "../pages/web-manager/contacts";
 
 export function Router() {
   return (
