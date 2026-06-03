@@ -16,12 +16,12 @@ export const config: Config = {
     },
     mailer: {
       sendMailNotifyKorekenkeError: {
-        to: "nmoriano26@gmail.com",
-        bcc: "galafloresangelemilio@gmail.com",
+        to: "galafloresangelemilio@gmail.com",
+        bcc: "",
       },
       sendMailerNotifyDasRequest: {
-        to: "nmoriano26@gmail.com",
-        bcc: "galafloresangelemilio@gmail.com",
+        to: "galafloresangelemilio@gmail.com",
+        bcc: "",
       },
     },
     "api-peru-devs": {
@@ -33,17 +33,17 @@ export const config: Config = {
   production: {
     version: "0.0.1",
     hosting: {
-      domain: "https://servitec-peru.web.app",
-      apiUrl: "https://api-servitec-peru.web.app",
+      domain: "https://platform.servitecperu.com",
+      apiUrl: "https://api.servitecperu.com",
     },
     mailer: {
       sendMailNotifyKorekenkeError: {
-        to: "nmoriano26@gmail.com",
-        bcc: "galafloresangelemilio@gmail.com",
+        to: "galafloresangelemilio@gmail.com",
+        bcc: "",
       },
       sendMailerNotifyDasRequest: {
-        to: "sanchesjasmin024@gmail.com",
-        bcc: "gcunya1@gmail.com,beto1perk@gmail.com,nmoriano26@gmail.com",
+        to: "galafloresangelemilio@gmail.com",
+        bcc: "",
       },
     },
     "api-peru-devs": {
