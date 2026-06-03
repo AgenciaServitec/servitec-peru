@@ -65,7 +65,7 @@ export const DrawerDetails = ({
     setOpen(false);
   };
 
-  const currentSite = sites?.find((site) => site.id === selectedTicket.siteId);
+  const currentSite = sites?.find((site) => site.id === selectedTicket?.siteId);
 
   const onShowSubmitMessageReplyModal = () => {
     onShowModal({
