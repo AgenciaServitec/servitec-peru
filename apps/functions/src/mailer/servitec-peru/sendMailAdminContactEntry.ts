@@ -89,7 +89,7 @@ const mapMailData = (contactEntry: ContactEntry, site: any): MailData => ({
   logoUrl: site?.branding.logo.url || "",
   siteName: site?.name || "",
   companyAddress: site?.businessInfo?.address || "",
-  companyEmail: site?.notifications?.mainReceiver || "",
+  companyEmail: site?.businessInfo?.email || "",
   companyPhone: site?.notifications?.phone?.number || "",
   facebookUrl: site?.businessInfo?.socialMedia?.facebook
     ? `https://www.facebook.com/${site?.businessInfo?.socialMedia?.facebook}`

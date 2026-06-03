@@ -3,9 +3,9 @@ export const config: Config = {
     "node-mailer": {
       port: 465,
       host: "smtp.gmail.com",
-      from: "Servitec Perú System",
-      user: "servitecperu266@gmail.com",
-      pass: "fwyi vqys frut kixw",
+      from: "Notificaciones Servitec Perú",
+      user: "notificacionesservitecperu@gmail.com",
+      pass: "fckt uien lude hkgi",
     },
   },
   development: {
