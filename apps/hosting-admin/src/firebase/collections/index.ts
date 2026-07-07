@@ -8,3 +8,4 @@ export * from "./sites.ts";
 export * from "./entries.ts";
 export * from "./counters.ts";
 export * from "./contacts.ts";
+export * from "./qrCodes.ts";

@@ -182,6 +182,22 @@ export function Router() {
             </AdminLayout>
           }
         />
+        <Route
+          path="tools/qr-generator"
+          element={
+            <AdminLayout>
+              <A.QrsGeneratorIntegration />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="tools/qr-generator/:qrGeneratorId"
+          element={
+            <AdminLayout>
+              <A.QrGeneratorIntegration />
+            </AdminLayout>
+          }
+        />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

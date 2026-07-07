@@ -5,9 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/qrCodes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/tools/qrGenerator/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/tools/qrGenerator/qrGeneratorId/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/app/herramientas/qr/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/config/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/config/config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/sendMailAdminContactEntry.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/mailer/servitec-peru/sendMailAdminContactEntry.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/DrawerLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/DrawerLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/router/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/router/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +28,8 @@
       <list>
         <option value="tsconfig.json" />
         <option value="HTML File" />
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -164,15 +173,28 @@
       <workItem from="1780000595082" duration="8728000" />
       <workItem from="1780079442824" duration="16378000" />
       <workItem from="1780335432287" duration="15392000" />
-      <workItem from="1780499802246" duration="9667000" />
-    </task>
-    <task id="LOCAL-00075" summary="updated sequenceNumber in mapQuotation">
-      <option name="closed" value="true" />
-      <created>1777322664506</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1777322664506</updated>
+      <workItem from="1780499802246" duration="9876000" />
+      <workItem from="1780592964795" duration="8116000" />
+      <workItem from="1780681019833" duration="8112000" />
+      <workItem from="1780955524218" duration="8879000" />
+      <workItem from="1781030548136" duration="8266000" />
+      <workItem from="1781194213899" duration="1134000" />
+      <workItem from="1781209276479" duration="693000" />
+      <workItem from="1781217621767" duration="2035000" />
+      <workItem from="1781283851984" duration="350000" />
+      <workItem from="1781290206533" duration="5044000" />
+      <workItem from="1781558240813" duration="2615000" />
+      <workItem from="1781737857620" duration="695000" />
+      <workItem from="1781803006181" duration="650000" />
+      <workItem from="1781817208576" duration="3092000" />
+      <workItem from="1781903404757" duration="4185000" />
+      <workItem from="1782157252224" duration="607000" />
+      <workItem from="1782172780269" duration="694000" />
+      <workItem from="1782246340010" duration="2941000" />
+      <workItem from="1782328434944" duration="1529000" />
+      <workItem from="1783018334675" duration="1981000" />
+      <workItem from="1783099738649" duration="1944000" />
+      <workItem from="1783453824172" duration="9964000" />
     </task>
     <task id="LOCAL-00076" summary="style(sheets): redesign quotation document with SaaS-inspired aesthetic">
       <option name="closed" value="true" />
@@ -558,7 +580,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780521358192</updated>
     </task>
-    <option name="localTasksCounter" value="124" />
+    <task id="LOCAL-00124" summary="updated send email">
+      <option name="closed" value="true" />
+      <created>1780528020546</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1780528020546</updated>
+    </task>
+    <option name="localTasksCounter" value="125" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -576,7 +606,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added contact email company field" />
     <MESSAGE value="refactored email template and send function" />
     <MESSAGE value="refactored subject" />
     <MESSAGE value="added hostname prop" />
@@ -601,6 +630,7 @@
     <MESSAGE value="setup reply modal and scaffold subcollection endpoint" />
     <MESSAGE value="format code" />
     <MESSAGE value="updated api domain" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated api domain" />
+    <MESSAGE value="updated send email" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated send email" />
   </component>
 </project>
