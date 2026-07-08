@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import styled, { css } from "styled-components";
 import { Col, Row, Title } from "../../../../components";
 import { Select as AntSelect } from "antd";
 import { theme } from "../../../../styles";
 import {
-  Area,
-  AreaChart,
+  Bar,
+  BarChart,
   CartesianGrid,
+  Cell,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -18,49 +19,29 @@ interface QrAnalyticsTabProps {
 }
 
 export const QrAnalyticsTab = ({ totalClicks }: QrAnalyticsTabProps) => {
-  const [analyticsFilter, setAnalyticsFilter] = useState("year");
-  const [analyticsData, setAnalyticsData] = useState<any[]>([]);
+  const [analyticsFilter, setAnalyticsFilter] = useState("week");
 
-  useEffect(() => {
-    if (totalClicks === 0) {
-      setAnalyticsData([]);
-      return;
-    }
+  const analyticsData = useMemo(() => {
+    if (totalClicks === 0) return [];
 
-    const distributeClicks = (percentages: number[], labels: string[]) => {
-      let accumulated = 0;
-      const data = percentages.map((p, idx) => {
-        const val = Math.round(totalClicks * p);
-        accumulated += val;
-        return { name: labels[idx], escaneos: val };
-      });
-
-      data.push({
-        name: labels[labels.length - 1],
-        escaneos: Math.max(0, totalClicks - accumulated),
-      });
-      return data;
+    const generateLabels = () => {
+      switch (analyticsFilter) {
+        case "day":
+          return ["00h", "06h", "12h", "18h", "23h"];
+        case "week":
+          return ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
+        case "month":
+          return ["Sem 1", "Sem 2", "Sem 3", "Sem 4"];
+        default:
+          return ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul"];
+      }
     };
 
-    if (analyticsFilter === "week") {
-      setAnalyticsData(
-        distributeClicks(
-          [0.1, 0.15, 0.1, 0.2, 0.15, 0.2],
-          ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"]
-        )
-      );
-    } else if (analyticsFilter === "month") {
-      setAnalyticsData(
-        distributeClicks([0.25, 0.3, 0.2], ["Sem 1", "Sem 2", "Sem 3", "Sem 4"])
-      );
-    } else {
-      setAnalyticsData(
-        distributeClicks(
-          [0.05, 0.1, 0.15, 0.1, 0.2],
-          ["Ene", "Feb", "Mar", "Abr", "May", "Jun"]
-        )
-      );
-    }
+    const labels = generateLabels();
+    return labels.map((label, index) => ({
+      name: label,
+      escaneos: index === 0 ? totalClicks : 0,
+    }));
   }, [analyticsFilter, totalClicks]);
 
   return (
@@ -79,9 +60,10 @@ export const QrAnalyticsTab = ({ totalClicks }: QrAnalyticsTabProps) => {
               value={analyticsFilter}
               onChange={(val) => setAnalyticsFilter(val)}
               options={[
-                { value: "week", label: "Esta Semana" },
-                { value: "month", label: "Este Mes" },
-                { value: "year", label: "Este Año" },
+                { value: "day", label: "Hoy" },
+                { value: "week", label: "Semana" },
+                { value: "month", label: "Mes" },
+                { value: "year", label: "Año" },
               ]}
               style={{ width: 140 }}
             />
@@ -89,30 +71,10 @@ export const QrAnalyticsTab = ({ totalClicks }: QrAnalyticsTabProps) => {
 
           <div style={{ width: "100%", height: 300 }}>
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart
+              <BarChart
                 data={analyticsData}
-                margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                margin={{ top: 10, right: 30, left: -20, bottom: 0 }}
               >
-                <defs>
-                  <linearGradient
-                    id="colorEscaneos"
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="1"
-                  >
-                    <stop
-                      offset="5%"
-                      stopColor={theme.colors.primary}
-                      stopOpacity={0.4}
-                    />
-                    <stop
-                      offset="95%"
-                      stopColor={theme.colors.primary}
-                      stopOpacity={0}
-                    />
-                  </linearGradient>
-                </defs>
                 <CartesianGrid
                   strokeDasharray="3 3"
                   stroke={theme.colors.border}
@@ -129,25 +91,31 @@ export const QrAnalyticsTab = ({ totalClicks }: QrAnalyticsTabProps) => {
                   tickLine={false}
                   axisLine={false}
                   style={{ fontSize: 12 }}
+                  allowDecimals={false}
                 />
                 <Tooltip
+                  cursor={{ fill: theme.colors.bgHover || "#333" }}
                   contentStyle={{
-                    backgroundColor: theme.colors.bgTertiary,
-                    borderColor: theme.colors.border,
-                    borderRadius: theme.border_radius.sm,
-                    color: theme.colors.fontPrimary,
+                    backgroundColor: theme.colors.bgTertiary || "#1f1f1f",
+                    borderColor: theme.colors.border || "#444",
+                    borderRadius: "8px",
+                    color: "#ffffff",
                   }}
-                  itemStyle={{ color: theme.colors.primary }}
+                  itemStyle={{
+                    color: "#ffffff",
+                    fontWeight: "bold",
+                  }}
+                  labelStyle={{
+                    color: "#ffffff",
+                    marginBottom: "5px",
+                  }}
                 />
-                <Area
-                  type="monotone"
-                  dataKey="escaneos"
-                  stroke={theme.colors.primary}
-                  strokeWidth={2}
-                  fillOpacity={1}
-                  fill="url(#colorEscaneos)"
-                />
-              </AreaChart>
+                <Bar dataKey="escaneos" radius={[4, 4, 0, 0]}>
+                  {analyticsData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={theme.colors.primary} />
+                  ))}
+                </Bar>
+              </BarChart>
             </ResponsiveContainer>
           </div>
         </Card>
