@@ -21,5 +21,5 @@ export * from "./web-manager/sites";
 export * from "./web-manager/sites/_siteId";
 export * from "./web-manager/entries";
 export * from "./web-manager/reviews";
-export * from "./tools/qrGenerator";
-export * from "./tools/qrGenerator/qrGeneratorId";
+export * from "./tools/qrCodes";
+export * from "./tools/qrCodes/qrCodeId";
