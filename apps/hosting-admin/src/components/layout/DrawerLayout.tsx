@@ -229,11 +229,25 @@ export const DrawerLayout = ({
       permission: "",
       children: [
         {
-          label: "Generador QR",
+          label: "Códigos QR",
           key: "tool-qr",
           icon: <FontAwesomeIcon icon={faQrcode} />,
-          onClick: () => onClickMenu("/tools/qr-generator"),
-          permission: "",
+          children: [
+            {
+              label: "Crear Código QR",
+              key: "tool-qr-new",
+              icon: <FontAwesomeIcon icon={faSquarePlus} />,
+              onClick: () => onClickMenu("/tools/qr-generator/new"),
+              permission: "",
+            },
+            {
+              label: "Lista de Códigos QR",
+              key: "tool-qr-list",
+              icon: <FontAwesomeIcon icon={faList} />,
+              onClick: () => onClickMenu("/tools/qr-generator"),
+              permission: "",
+            },
+          ],
         },
       ],
     },

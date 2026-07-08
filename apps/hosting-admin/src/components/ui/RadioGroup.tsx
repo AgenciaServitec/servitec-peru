@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import RadioAntd from "antd/lib/radio";
 import type { RadioGroupProps as AntdRadioGroupProps } from "antd";
+import { Radio as RadioAntd } from "antd";
 import { ComponentContainer } from "./component-container";
 
 export interface RadioOption {
@@ -67,11 +67,21 @@ const RadioGroupStyled = styled(RadioAntd.Group)`
     flex-wrap: wrap;
     gap: ${theme.spacing.md};
 
-    /* Estilo para Radio Circular Estándar */
+    &:has(.ant-radio-button-wrapper) {
+      display: inline-flex;
+      gap: 0;
+    }
+
+    &.ant-radio-group-outline,
+    &.ant-radio-group-solid {
+      display: inline-flex;
+      gap: 0;
+    }
+
     .ant-radio-wrapper {
       color: ${theme.colors.fontPrimary};
       font-size: ${theme.font_sizes.sm};
-      margin-right: 0; /* Controlado por el gap del padre */
+      margin-right: 0;
       transition: all ${theme.transitions.fast};
 
       .ant-radio-inner {
@@ -81,7 +91,6 @@ const RadioGroupStyled = styled(RadioAntd.Group)`
         height: 18px;
 
         &::after {
-          /* El punto central cuando está seleccionado */
           background-color: #000000 !important;
           width: 10px;
           height: 10px;
@@ -90,7 +99,6 @@ const RadioGroupStyled = styled(RadioAntd.Group)`
         }
       }
 
-      /* Estado Seleccionado */
       .ant-radio-checked {
         .ant-radio-inner {
           background-color: ${theme.colors.primary};
@@ -98,12 +106,10 @@ const RadioGroupStyled = styled(RadioAntd.Group)`
         }
       }
 
-      /* Hover */
       &:hover:not(.ant-radio-wrapper-disabled) .ant-radio-inner {
         border-color: ${theme.colors.primary};
       }
 
-      /* Deshabilitado */
       &.ant-radio-wrapper-disabled {
         color: ${theme.colors.fontDisabled};
         cursor: not-allowed;
@@ -116,7 +122,6 @@ const RadioGroupStyled = styled(RadioAntd.Group)`
       }
     }
 
-    /* Estilo para Radio tipo Botón (Solid/Outline) */
     .ant-radio-button-wrapper {
       background-color: ${theme.colors.bgTertiary};
       border-color: ${theme.colors.border};
@@ -139,7 +144,7 @@ const RadioGroupStyled = styled(RadioAntd.Group)`
       &.ant-radio-button-wrapper-checked {
         background-color: ${theme.colors.primary} !important;
         border-color: ${theme.colors.primary} !important;
-        color: #000000 !important; /* Texto negro sobre fondo amarillo */
+        color: #000000 !important;
 
         &::before {
           background-color: transparent !important;
