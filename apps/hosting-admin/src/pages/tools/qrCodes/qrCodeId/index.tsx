@@ -32,6 +32,7 @@ interface QrFormData {
   title: string;
   description?: string | null;
   destinationUrl: string;
+  status: "active" | "paused" | "expired";
 }
 
 interface QrFormTabProps {
@@ -53,6 +54,7 @@ interface QrFormTabProps {
   onSubmit: (data: QrFormData) => Promise<void>;
   handleDomainChange: (value: string) => void;
   qrRef: React.RefObject<HTMLDivElement>;
+  statusOptions: { value: string; label: string }[];
 }
 
 export const QrGeneratorIntegration = () => {
@@ -139,6 +141,7 @@ export const QrGeneratorIntegration = () => {
             title: data.title,
             description: data.description,
             destinationUrl: data.destinationUrl,
+            status: data.status,
           });
           if (data.type === "dynamic" && data.shortId) {
             setDynamicId(data.shortId);
@@ -190,7 +193,7 @@ export const QrGeneratorIntegration = () => {
             : null,
         title: formData.title.trim(),
         description: formData.description?.trim() || null,
-        status: "active" as const,
+        status: formData.status || "active",
         userId: authUser?.id || "",
         ...(isNew && { analytics: { clicks: 0 } }),
       };
