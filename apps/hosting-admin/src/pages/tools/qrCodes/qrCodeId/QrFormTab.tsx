@@ -20,6 +20,7 @@ interface QrFormData {
   title: string;
   description?: string | null;
   destinationUrl: string;
+  status: "active" | "paused" | "expired";
 }
 
 interface QrFormTabProps {
@@ -41,6 +42,7 @@ interface QrFormTabProps {
   onSubmit: (data: QrFormData) => Promise<void>;
   handleDomainChange: (value: string) => void;
   qrRef: React.RefObject<HTMLDivElement>;
+  statusOptions: { value: string; label: string }[];
 }
 
 export const QrFormTab = ({
@@ -63,6 +65,12 @@ export const QrFormTab = ({
   handleDomainChange,
   qrRef,
 }: QrFormTabProps) => {
+  const statusOptions = [
+    { value: "active", label: "Activo" },
+    { value: "paused", label: "Pausado" },
+    { value: "expired", label: "Expirado" },
+  ];
+
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <Row gutter={[16, 16]}>
@@ -181,6 +189,24 @@ export const QrFormTab = ({
                           name={name}
                           value={value}
                           onChange={onChange}
+                          error={error(name)}
+                          required={required(name)}
+                          helperText={errorMessage(name)}
+                        />
+                      )}
+                    />
+                  </Col>
+                  <Col span={24}>
+                    <Controller
+                      name="status"
+                      control={control}
+                      render={({ field: { onChange, value, name } }) => (
+                        <RadioGroup
+                          label="Estado del Código QR"
+                          name={name}
+                          value={value}
+                          onChange={onChange}
+                          options={statusOptions} // Debes pasar este array desde el padre
                           error={error(name)}
                           required={required(name)}
                           helperText={errorMessage(name)}
