@@ -4,18 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/qrCodes.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/tools/qrGenerator/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/tools/qrGenerator/qrGeneratorId/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/hosting/app/herramientas/qr/page.tsx" afterDir="false" />
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="added qr code module">
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/_firebase/collections/qrCodes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/qr-codes/controllers/postQrCodes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/functions/src/api/qr-codes/routes/qrCodes.routes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/tools/qrCodes/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/tools/qrCodes/qrCodeId/QrAnalyticsTab.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/tools/qrCodes/qrCodeId/QrFormTab.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/tools/qrCodes/qrCodeId/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/src/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/api/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/DrawerLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/layout/DrawerLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/firebase/collections/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/RadioGroup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/components/ui/RadioGroup.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/pages/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/router/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting-admin/src/router/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/tools/qrGenerator/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting-admin/src/pages/tools/qrGenerator/qrGeneratorId/index.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -80,7 +84,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;add__qr__code__module&quot;,
     &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Angel/WebstormProjects/servitec-peru/apps/functions/src/mailer/servitec-peru&quot;,
@@ -194,15 +198,8 @@
       <workItem from="1782328434944" duration="1529000" />
       <workItem from="1783018334675" duration="1981000" />
       <workItem from="1783099738649" duration="1944000" />
-      <workItem from="1783453824172" duration="9964000" />
-    </task>
-    <task id="LOCAL-00076" summary="style(sheets): redesign quotation document with SaaS-inspired aesthetic">
-      <option name="closed" value="true" />
-      <created>1777326412179</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1777326412179</updated>
+      <workItem from="1783453824172" duration="10119000" />
+      <workItem from="1783527898442" duration="16475000" />
     </task>
     <task id="LOCAL-00077" summary="added findDistrict in card and districts list">
       <option name="closed" value="true" />
@@ -588,7 +585,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780528020546</updated>
     </task>
-    <option name="localTasksCounter" value="125" />
+    <task id="LOCAL-00125" summary="added qr code module">
+      <option name="closed" value="true" />
+      <created>1783467549782</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1783467549782</updated>
+    </task>
+    <option name="localTasksCounter" value="126" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -606,7 +611,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactored email template and send function" />
     <MESSAGE value="refactored subject" />
     <MESSAGE value="added hostname prop" />
     <MESSAGE value="export adminContactEntryEmailTemplate" />
@@ -631,6 +635,7 @@
     <MESSAGE value="format code" />
     <MESSAGE value="updated api domain" />
     <MESSAGE value="updated send email" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated send email" />
+    <MESSAGE value="added qr code module" />
+    <option name="LAST_COMMIT_MESSAGE" value="added qr code module" />
   </component>
 </project>
