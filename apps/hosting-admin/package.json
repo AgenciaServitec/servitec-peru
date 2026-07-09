@@ -47,6 +47,7 @@
     "lodash": "^4.17.21",
     "moment-timezone": "^0.6.0",
     "polished": "^4.3.1",
+    "qr-code-styling": "^1.9.2",
     "qrcode-generator-ts": "^0.0.4",
     "qrcode.react": "^4.2.0",
     "query-string": "^9.3.1",

@@ -60,6 +60,7 @@ export * from "./LocationPicker.tsx";
 export * from "./AddressSearchInput.tsx";
 export * from "./Toolbar.tsx";
 export * from "./CanAccess.tsx";
+export * from "./ColorPicker.tsx";
 
 export {
   Layout,
