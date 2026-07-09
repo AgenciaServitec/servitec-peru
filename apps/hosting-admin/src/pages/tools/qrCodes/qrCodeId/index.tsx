@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -23,19 +23,25 @@ import { useDefaultFirestoreProps, useFormUtils } from "../../../../hooks";
 import { useAuthentication } from "../../../../providers";
 import { useNavigate, useParams } from "react-router-dom";
 import { Spin, Tabs } from "antd";
-import { QrFormTab } from "./QrFormTab.tsx";
-import { QrAnalyticsTab } from "./QrAnalyticsTab.tsx";
+import { QrFormTab } from "./QrFormTab";
+import { QrAnalyticsTab } from "./QrAnalyticsTab";
 
-interface QrFormData {
+export interface QrFormData {
   type: "static" | "dynamic";
   domain?: string | null;
   title: string;
   description?: string | null;
   destinationUrl: string;
   status: "active" | "paused" | "expired";
+  design: {
+    dotsType: string;
+    dotsColor: string;
+    cornerSquareType: string;
+    backgroundColor: string;
+  };
 }
 
-interface QrFormTabProps {
+export interface QrFormTabProps {
   isNew: boolean;
   isSaving: boolean;
   qrMode: string;
@@ -53,8 +59,9 @@ interface QrFormTabProps {
   handleSubmit: any;
   onSubmit: (data: QrFormData) => Promise<void>;
   handleDomainChange: (value: string) => void;
-  qrRef: React.RefObject<HTMLDivElement>;
   statusOptions: { value: string; label: string }[];
+  watch: any;
+  setValue: any;
 }
 
 export const QrGeneratorIntegration = () => {
@@ -67,7 +74,6 @@ export const QrGeneratorIntegration = () => {
   const [isLoadingData, setIsLoadingData] = useState(!isNew);
   const [totalClicks, setTotalClicks] = useState(0);
 
-  const qrRef = useRef<HTMLDivElement>(null);
   const { assignCreateProps, assignUpdateProps } = useDefaultFirestoreProps();
   const { authUser } = useAuthentication();
   const { notification } = useNotification();
@@ -87,6 +93,12 @@ export const QrGeneratorIntegration = () => {
     { value: "dynamic", label: "Dinámico" },
   ];
 
+  const statusOptions = [
+    { value: "active", label: "Activo" },
+    { value: "paused", label: "Pausado" },
+    { value: "expired", label: "Expirado" },
+  ];
+
   const schema = yup.object({
     type: yup.string().oneOf(["static", "dynamic"]).required(),
     domain: yup
@@ -100,6 +112,17 @@ export const QrGeneratorIntegration = () => {
     title: yup.string().required(),
     description: yup.string().nullable(),
     destinationUrl: yup.string().url("Debe ser una URL válida").required(),
+    status: yup.string().required(),
+    design: yup.object({
+      dotsType: yup.string().required(),
+      dotsColor: yup.string().required(),
+      cornerSquareType: yup.string().required(),
+      backgroundColor: yup.string().required(),
+      frameType: yup.string().required(),
+      frameText: yup.string().nullable(),
+      frameColor: yup.string().required(),
+      frameTextColor: yup.string().required(),
+    }),
   });
 
   const {
@@ -117,6 +140,17 @@ export const QrGeneratorIntegration = () => {
       title: "",
       description: "",
       destinationUrl: "",
+      status: "active",
+      design: {
+        dotsType: "rounded",
+        dotsColor: "#000000",
+        cornerSquareType: "extra-rounded",
+        backgroundColor: "#ffffff",
+        frameType: "bottom-frame",
+        frameText: "ESCANÉAME",
+        frameColor: "#ccff00",
+        frameTextColor: "#000000",
+      },
     },
   });
 
@@ -142,6 +176,12 @@ export const QrGeneratorIntegration = () => {
             description: data.description,
             destinationUrl: data.destinationUrl,
             status: data.status,
+            design: data.design || {
+              dotsType: "rounded",
+              dotsColor: "#ccff00",
+              cornerSquareType: "extra-rounded",
+              backgroundColor: "#000000",
+            },
           });
           if (data.type === "dynamic" && data.shortId) {
             setDynamicId(data.shortId);
@@ -194,6 +234,7 @@ export const QrGeneratorIntegration = () => {
         title: formData.title.trim(),
         description: formData.description?.trim() || null,
         status: formData.status || "active",
+        design: formData.design,
         userId: authUser?.id || "",
         ...(isNew && { analytics: { clicks: 0 } }),
       };
@@ -249,7 +290,9 @@ export const QrGeneratorIntegration = () => {
     handleSubmit,
     onSubmit,
     handleDomainChange,
-    qrRef,
+    statusOptions,
+    watch,
+    setValue,
   };
 
   return (
