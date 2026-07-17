@@ -1,21 +1,29 @@
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { servicesRequestsRef, usersRef } from "../../firebase/collections";
+import {
+  servicesRequestsRef,
+  mobileServicesRequestsRef,
+  usersRef,
+} from "../../firebase/collections";
 import { CanAccess, Col, Row, Select, Title, Toolbar } from "../../components";
 import { ServicesRequestsCards } from "./ServicesRequestsCards.tsx";
 import { ModalProvider, useAuthentication } from "../../providers";
 import { useMemo, useState } from "react";
 import { useDebounce, useFilters } from "../../hooks";
 import dayjs from "dayjs";
-import { Spin, Tag } from "antd";
+import { Spin, Tag, Radio } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMapMarkerAlt,
   faTriangleExclamation,
+  faGlobe,
+  faMobileScreen,
 } from "@fortawesome/free-solid-svg-icons";
 import type { User } from "../../globalTypes.ts";
 
 export const ServicesRequestsIntegrations = () => {
   const { authUser } = useAuthentication();
+  const [source, setSource] = useState<"web" | "mobile">("web");
+
   const { filters, handleFilterChange, resetFilters } = useFilters({
     search: "",
     district: "all",
@@ -29,21 +37,35 @@ export const ServicesRequestsIntegrations = () => {
     usersRef.where("isDeleted", "==", false)
   );
 
-  const [servicesRequests, servicesRequestsLoading] = useCollectionData(
-    servicesRequestsRef
+  const currentCollectionRef =
+    source === "web" ? servicesRequestsRef : mobileServicesRequestsRef;
+
+  // CAPTURAMOS EL ERROR: Abre la consola F12 si sale vacío, ahí estará el link para crear tu índice de Firestore
+  const [servicesRequests, servicesRequestsLoading, error] = useCollectionData(
+    currentCollectionRef
       .where("isDeleted", "==", false)
       .orderBy("createAt", "desc")
   );
+
+  if (error) {
+    console.error(
+      "Error cargando solicitudes de Firestore. Revisa si falta crear el índice index:",
+      error
+    );
+  }
 
   const filteredData = useMemo(() => {
     if (!servicesRequests) return [];
 
     return servicesRequests.filter((req) => {
+      const clientName =
+        req.client?.fullName ||
+        req.client?.names ||
+        req.client?.firstName ||
+        "";
       const matchesSearch =
         !debouncedSearch ||
-        req.client?.fullName
-          ?.toLowerCase()
-          .includes(debouncedSearch.toLowerCase());
+        clientName.toLowerCase().includes(debouncedSearch.toLowerCase());
 
       let matchesDate = true;
       if (filters.dateRange?.[0] && filters.dateRange?.[1]) {
@@ -74,6 +96,8 @@ export const ServicesRequestsIntegrations = () => {
         resetFilters={resetFilters}
         servicesRequestsLoading={servicesRequestsLoading}
         isSearching={filters.search !== debouncedSearch}
+        source={source}
+        setSource={setSource}
       />
     </ModalProvider>
   );
@@ -88,6 +112,8 @@ interface ServicesRequestsProps {
   resetFilters: () => void;
   servicesRequestsLoading: boolean;
   isSearching: boolean;
+  source: "web" | "mobile";
+  setSource: (val: "web" | "mobile") => void;
 }
 
 const ServicesRequests: React.FC<ServicesRequestsProps> = ({
@@ -99,18 +125,42 @@ const ServicesRequests: React.FC<ServicesRequestsProps> = ({
   resetFilters,
   servicesRequestsLoading,
   isSearching,
+  source,
+  setSource,
 }) => {
   const [viewType, setViewType] = useState<"grid" | "list">("grid");
-
-  const onViewChange = (val) => setViewType(val);
 
   return (
     <CanAccess permission="service_view_all">
       <Row gutter={[16, 16]}>
         <Col span={24}>
-          <Title level={2} style={{ margin: 0 }}>
-            Solicitudes de Servicio
-          </Title>
+          <Row justify="space-between" align="middle">
+            <Col>
+              <Title level={2} style={{ margin: 0 }}>
+                Solicitudes de Servicio
+              </Title>
+            </Col>
+            <Col>
+              <Radio.Group
+                value={source}
+                onChange={(e) => setSource(e.target.value)}
+                buttonStyle="solid"
+                size="large"
+              >
+                <Radio.Button value="web">
+                  <FontAwesomeIcon icon={faGlobe} style={{ marginRight: 8 }} />
+                  Plataforma Web
+                </Radio.Button>
+                <Radio.Button value="mobile">
+                  <FontAwesomeIcon
+                    icon={faMobileScreen}
+                    style={{ marginRight: 8 }}
+                  />
+                  App Móvil
+                </Radio.Button>
+              </Radio.Group>
+            </Col>
+          </Row>
         </Col>
         <Col span={24}>
           <Toolbar
@@ -193,6 +243,7 @@ const ServicesRequests: React.FC<ServicesRequestsProps> = ({
               user={user}
               servicesRequests={filteredData}
               servicesRequestsLoading={servicesRequestsLoading}
+              source={source} // <-- Enviamos el origen a las tarjetas
             />
           </Spin>
         </Col>

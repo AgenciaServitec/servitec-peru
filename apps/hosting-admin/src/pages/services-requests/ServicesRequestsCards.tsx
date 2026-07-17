@@ -23,6 +23,7 @@ interface Props {
   servicesRequests: any[];
   servicesRequestsLoading: boolean;
   viewType: "grid" | "list";
+  source: "web" | "mobile"; // <-- Agregado
 }
 
 export const ServicesRequestsCards: React.FC<Props> = ({
@@ -31,6 +32,7 @@ export const ServicesRequestsCards: React.FC<Props> = ({
   servicesRequests,
   servicesRequestsLoading,
   viewType,
+  source, // <-- Agregado
 }) => {
   const { pendingRequests, myRequests } = useMemo(() => {
     const sorted = orderBy(
@@ -56,6 +58,7 @@ export const ServicesRequestsCards: React.FC<Props> = ({
             users={users}
             user={user}
             data={request}
+            source={source} // <-- Pasamos el origen al renderizador de la tarjeta
           />
         ))}
       </RequestsGrid>
@@ -64,6 +67,7 @@ export const ServicesRequestsCards: React.FC<Props> = ({
         requests={data}
         loading={servicesRequestsLoading}
         user={user}
+        source={source} // <-- Pasamos el origen a la tabla
       />
     );
   };

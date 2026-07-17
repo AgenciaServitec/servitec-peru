@@ -26,7 +26,11 @@ import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { ServiceDetailsDrawer } from "./ServiceDetailsDrawer.tsx";
 import { theme } from "../../styles";
 import dayjs from "dayjs";
-import { updateServiceRequest } from "../../firebase/collections";
+// IMPORTANTE: Importamos ambas mutaciones para usarlas dinámicamente
+import {
+  updateServiceRequest,
+  updateMobileServiceRequest,
+} from "../../firebase/collections";
 import { useDefaultFirestoreProps } from "../../hooks";
 import { SERVICE_REQUEST_STATUS } from "../../data-list/serviceRequestStatus.ts";
 import { PRIORITY_LEVELS } from "../../data-list/serviceRequestPriorityLevels.ts";
@@ -54,7 +58,7 @@ const Content = styled.div`
 
 const CompactGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
   gap: 8px;
   background: rgba(255, 255, 255, 0.02);
   padding: 10px;
@@ -79,13 +83,18 @@ const DataItem = ({ label, value, icon }: any) => (
         />
       )}
       <Text strong style={{ fontSize: "11.5px" }}>
-        {value}
+        {value || "-"}
       </Text>
     </Space>
   </Space>
 );
 
-export const ServiceRequestCard: React.FC<any> = ({ users, user, data }) => {
+export const ServiceRequestCard: React.FC<any> = ({
+  users,
+  user,
+  data,
+  source,
+}) => {
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedTech, setSelectedTech] = useState<string | null>(null);
@@ -93,15 +102,15 @@ export const ServiceRequestCard: React.FC<any> = ({ users, user, data }) => {
 
   const { assignUpdateProps } = useDefaultFirestoreProps();
 
-  const technicians = users?.map((user) => ({
-    label: `${capitalize(user.firstName)} ${capitalize(user.paternalSurname)} ${capitalize(user.maternalSurname)}`,
-    value: user.id,
+  const technicians = users?.map((u) => ({
+    label: `${capitalize(u.firstName)} ${capitalize(u.paternalSurname)} ${capitalize(u.maternalSurname || "")}`,
+    value: u.id,
   }));
 
   const isHigh = data.priority === "high";
-  const waLink = `https://wa.me/${data.client?.phone.prefix.replace("+", "")}${data.client?.phone.number}`;
+  const waLink = `https://wa.me/${data.client?.phone?.prefix?.replace("+", "") || "51"}${data.client?.phone?.number}`;
   const mailto = `mailto:${data.client?.email}`;
-  const techName = technicians.find((t) => t.value === selectedTech)?.label;
+  const techName = technicians?.find((t) => t.value === selectedTech)?.label;
 
   const formattedTime = data.createAt
     ? dayjs(data.createAt.toDate()).format("hh:mm A DD/MM/YYYY")
@@ -110,31 +119,37 @@ export const ServiceRequestCard: React.FC<any> = ({ users, user, data }) => {
   const onServiceRequestAccepted = async (serviceRequest) => {
     try {
       setLoading(true);
-
       const finalTechId = selectedTech || user.id;
 
-      if (!finalTechId) {
-        console.error("No hay un ID de técnico o usuario disponible");
-        return;
-      }
+      if (!finalTechId) return;
 
-      await updateServiceRequest(
-        serviceRequest.id,
-        assignUpdateProps({
-          technicalId: finalTechId,
-        })
-      );
+      const updateData = assignUpdateProps({
+        technicalId: finalTechId,
+        status: "inProgress", // Mantenemos consistencia de estado
+      });
+
+      // CAMBIO CLAVE: Detecta dinámicamente si actualiza la DB de la Web o la DB Móvil
+      if (source === "web") {
+        await updateServiceRequest(serviceRequest.id, updateData);
+      } else {
+        await updateMobileServiceRequest(serviceRequest.id, updateData);
+      }
 
       setSelectedTech(null);
     } catch (e) {
       console.error(e);
     } finally {
-      setLoading(false);
+      setLoading(true); // Se corrige el loading state para refrescar
+      setTimeout(() => setLoading(false), 500);
     }
   };
 
-  const onRequestQuotation = (serviceRequest) =>
-    navigate(`/quotations/new?serviceRequestId=${serviceRequest.id}`);
+  const onRequestQuotation = (serviceRequest) => {
+    // Al pasar los datos para cotizar, pasamos la estructura unificada
+    navigate(`/quotation/new`, {
+      state: { quotationData: JSON.stringify(serviceRequest) },
+    });
+  };
 
   const getStatusInfo = (statusValue: string) => {
     return (
@@ -151,10 +166,14 @@ export const ServiceRequestCard: React.FC<any> = ({ users, user, data }) => {
   };
 
   const statusInfo = getStatusInfo(data.status);
-
   const priorityInfo = getPriorityInfo(data.priority);
 
-  const { lat, lng } = data.location || {};
+  // CONTROL DE COORDENADAS HÍBRIDAS: Lee tanto geoPoint (web) como lat/lng planos (móvil)
+  const lat = data.location?.lat || data.location?.geoPoint?.lat;
+  const lng = data.location?.lng || data.location?.geoPoint?.lng;
+  const addressString =
+    data.location?.exactAddress || data.location?.address || "";
+
   const googleApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
   const mapUrl =
@@ -163,16 +182,14 @@ export const ServiceRequestCard: React.FC<any> = ({ users, user, data }) => {
       : "https://placehold.co/400x150/141414/8c8c8c?text=Ubicación+no+disponible";
 
   const findDistrict = (district) =>
-    DISTRICTS.find((_district) => _district.value === district);
+    DISTRICTS.find(
+      (_district) => _district.value?.toLowerCase() === district?.toLowerCase()
+    );
 
   return (
     <>
       <Card
-        style={{
-          width: 345,
-          padding: 0,
-          overflow: "hidden",
-        }}
+        style={{ width: 345, padding: 0, overflow: "hidden" }}
         bodyStyle={{ padding: 0 }}
       >
         <MapContainer $bgImage={mapUrl}>
@@ -195,11 +212,7 @@ export const ServiceRequestCard: React.FC<any> = ({ users, user, data }) => {
             >
               <FontAwesomeIcon
                 icon={statusInfo.icon}
-                style={{
-                  fontSize: 9,
-                  marginRight: 5,
-                  color: statusInfo.color === "gold" ? "#faad14" : "#1890ff",
-                }}
+                style={{ fontSize: 9, marginRight: 5, color: statusInfo.color }}
               />
               {statusInfo.label.toUpperCase()}
             </Tag>
@@ -231,12 +244,11 @@ export const ServiceRequestCard: React.FC<any> = ({ users, user, data }) => {
               const destination =
                 lat && lng
                   ? `${lat},${lng}`
-                  : encodeURIComponent(
-                      `${data.location.exactAddress}, ${data.location.district}, Lima, Peru`
-                    );
-              const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
-
-              window.open(url, "_blank");
+                  : encodeURIComponent(`${addressString}, Lima, Peru`);
+              window.open(
+                `https://www.google.com/maps/dir/?api=1&destination=${destination}`,
+                "_blank"
+              );
             }}
             style={{
               position: "absolute",
@@ -255,27 +267,33 @@ export const ServiceRequestCard: React.FC<any> = ({ users, user, data }) => {
           <div
             style={{
               display: "flex",
-              justifyContent: "space-between",
+              justifycontent: "space-between",
               alignItems: "flex-start",
             }}
           >
-            <Space direction="vertical" size={0}>
+            <Space
+              direction="vertical"
+              size={0}
+              style={{ flex: 1, marginRight: 8 }}
+            >
               <Title
                 level={5}
                 style={{
                   margin: 0,
-                  fontSize: 16,
+                  fontSize: 15,
                   letterSpacing: "-0.3px",
                   textTransform: "capitalize",
                 }}
               >
-                {data.client?.fullName || data.client?.companyName}
+                {data.client?.fullName ||
+                  data.client?.companyName ||
+                  data.client?.names}
               </Title>
               <Text
                 strong
                 style={{ fontSize: 12, color: theme.colors.success }}
               >
-                {data.client?.phone.number}
+                {data.client?.phone?.number}
               </Text>
             </Space>
 
@@ -287,16 +305,6 @@ export const ServiceRequestCard: React.FC<any> = ({ users, user, data }) => {
                   size={30}
                   icon={faEye}
                   iconStyles={{ color: () => theme.colors.info }}
-                />
-              </CanAccess>
-              <CanAccess permission="service_view_details">
-                <IconAction
-                  tooltipTitle="Nueva Página"
-                  // onClick={onOpenPage}
-                  onClick={() => ""}
-                  size={30}
-                  icon={faArrowUpRightFromSquare}
-                  iconStyles={{ color: () => theme.colors.error }}
                 />
               </CanAccess>
               <IconAction
@@ -317,10 +325,16 @@ export const ServiceRequestCard: React.FC<any> = ({ users, user, data }) => {
           </div>
 
           <CompactGrid>
-            <DataItem label="Equipo" value={data.device?.model} />
+            <DataItem
+              label="Equipo"
+              value={data.device?.model || data.device}
+            />
             <DataItem
               label="Distrito"
-              value={findDistrict(data.location?.district)?.label}
+              value={
+                findDistrict(data.location?.district)?.label ||
+                data.location?.district
+              }
               icon={faHouseSignal}
             />
             <DataItem label="Prioridad" value={isHigh ? "ALTA" : "NORMAL"} />
@@ -338,12 +352,9 @@ export const ServiceRequestCard: React.FC<any> = ({ users, user, data }) => {
             </Space>
             <Paragraph
               ellipsis={{ rows: 1 }}
-              style={{
-                margin: 0,
-                fontSize: 12,
-              }}
+              style={{ margin: 0, fontSize: 12 }}
             >
-              {data.issueDescription}
+              {data.issueDescription || data.problemDescription}
             </Paragraph>
           </div>
 
@@ -388,11 +399,7 @@ export const ServiceRequestCard: React.FC<any> = ({ users, user, data }) => {
                 <Button
                   type="primary"
                   block
-                  icon={
-                    <FontAwesomeIcon
-                      icon={selectedTech ? faLaptopMedical : faChevronRight}
-                    />
-                  }
+                  icon={<FontAwesomeIcon icon={faChevronRight} />}
                   style={{ height: 38, fontWeight: 700, borderRadius: "6px" }}
                   onClick={() => onRequestQuotation(data)}
                 >
@@ -431,6 +438,7 @@ export const ServiceRequestCard: React.FC<any> = ({ users, user, data }) => {
         open={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
         data={data}
+        source={source}
       />
     </>
   );
