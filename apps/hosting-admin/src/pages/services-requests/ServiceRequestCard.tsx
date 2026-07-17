@@ -12,7 +12,6 @@ import {
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faArrowUpRightFromSquare,
   faCalendarCheck,
   faChevronRight,
   faEnvelope,
@@ -26,7 +25,6 @@ import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { ServiceDetailsDrawer } from "./ServiceDetailsDrawer.tsx";
 import { theme } from "../../styles";
 import dayjs from "dayjs";
-// IMPORTANTE: Importamos ambas mutaciones para usarlas dinámicamente
 import {
   updateServiceRequest,
   updateMobileServiceRequest,
@@ -125,10 +123,9 @@ export const ServiceRequestCard: React.FC<any> = ({
 
       const updateData = assignUpdateProps({
         technicalId: finalTechId,
-        status: "inProgress", // Mantenemos consistencia de estado
+        status: "inProgress",
       });
 
-      // CAMBIO CLAVE: Detecta dinámicamente si actualiza la DB de la Web o la DB Móvil
       if (source === "web") {
         await updateServiceRequest(serviceRequest.id, updateData);
       } else {
@@ -139,13 +136,12 @@ export const ServiceRequestCard: React.FC<any> = ({
     } catch (e) {
       console.error(e);
     } finally {
-      setLoading(true); // Se corrige el loading state para refrescar
+      setLoading(true);
       setTimeout(() => setLoading(false), 500);
     }
   };
 
   const onRequestQuotation = (serviceRequest) => {
-    // Al pasar los datos para cotizar, pasamos la estructura unificada
     navigate(`/quotation/new`, {
       state: { quotationData: JSON.stringify(serviceRequest) },
     });
@@ -168,7 +164,6 @@ export const ServiceRequestCard: React.FC<any> = ({
   const statusInfo = getStatusInfo(data.status);
   const priorityInfo = getPriorityInfo(data.priority);
 
-  // CONTROL DE COORDENADAS HÍBRIDAS: Lee tanto geoPoint (web) como lat/lng planos (móvil)
   const lat = data.location?.lat || data.location?.geoPoint?.lat;
   const lng = data.location?.lng || data.location?.geoPoint?.lng;
   const addressString =

@@ -20,8 +20,6 @@ import {
   faMicrochip,
   faPhone,
   faPrint,
-  faShareNodes,
-  faShieldHalved,
   faStore,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
