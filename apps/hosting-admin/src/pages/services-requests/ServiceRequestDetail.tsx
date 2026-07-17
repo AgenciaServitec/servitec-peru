@@ -1,502 +1,407 @@
-import React, { useEffect, useMemo } from "react";
-import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faClipboardList,
-  faClock,
-  faEnvelope,
-  faIdCard,
-  faMapMarkerAlt,
-  faPhoneAlt,
-  faRoute,
-  faTools,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
 import {
   Button,
-  Col,
   Divider,
-  Row,
+  Drawer,
+  message,
   Space,
   Tag,
+  Tooltip,
   Typography,
-} from "../../components";
-import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
-import L from "leaflet";
+} from "antd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCircleInfo,
+  faCopy,
+  faEnvelope,
+  faHistory,
+  faHouseSignal,
+  faIdCard,
+  faMapMarkerAlt,
+  faMicrochip,
+  faPhone,
+  faPrint,
+  faStore,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
+import styled, { css } from "styled-components";
+import { Title } from "../../components";
 import dayjs from "dayjs";
-import "leaflet/dist/leaflet.css";
-import { getDevice } from "../../utils";
-import { useAuthentication } from "../../providers";
+import { SERVICE_REQUEST_STATUS } from "../../data-list/serviceRequestStatus.ts";
+import { PRIORITY_LEVELS } from "../../data-list/serviceRequestPriorityLevels.ts";
 
-const { Title, Text, Paragraph } = Typography;
+const { Text, Paragraph } = Typography;
 
-const DefaultIcon = L.icon({
-  iconUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
-  shadowUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-});
-
-const RecenterMap = ({ coords }: { coords: [number, number] }) => {
-  const map = useMap();
-  useEffect(() => {
-    if (map && (map as any)._loaded) {
-      const timer = setTimeout(() => {
-        map.invalidateSize();
-        map.setView(coords, 16);
-      }, 300);
-      return () => clearTimeout(timer);
-    }
-  }, [map, JSON.stringify(coords)]);
-  return null;
-};
-
-// COMENTADO: Ajuste de cámara para dos puntos
-/*
-const FitBounds = ({ points }: { points: [number, number][] }) => {
-  const map = useMap();
-  const pointsStr = JSON.stringify(points);
-
-  useEffect(() => {
-    const validPoints = points.filter(
-      (p) =>
-        Array.isArray(p) &&
-        typeof p[0] === "number" &&
-        !isNaN(p[0]) &&
-        typeof p[1] === "number" &&
-        !isNaN(p[1])
-    );
-
-    if (validPoints.length > 1 && map && (map as any)._loaded) {
-      const timer = setTimeout(() => {
-        try {
-          const bounds = L.latLngBounds(validPoints);
-          if (bounds.isValid()) {
-            map.flyToBounds(bounds, {
-              padding: [50, 50],
-              duration: 1.5,
-              animate: true,
-            });
-          }
-        } catch (e) {
-          console.error("Error calculando bounds:", e);
-        }
-      }, 500);
-      return () => clearTimeout(timer);
-    }
-  }, [pointsStr, map]);
-
-  return null;
-};
-*/
-
-const ModalContainer = styled.div`
-  background: #0a0a0a;
-  color: #fff;
-  border-radius: 28px;
-  overflow: hidden;
-  border: 1px solid #1a1a1a;
-`;
-
-const MapWrapper = styled.div`
-  width: 100%;
-  height: 280px;
-  position: relative;
-  border-bottom: 1px solid #1a1a1a;
-
-  .leaflet-container {
-    height: 100%;
+const SectionTitle = styled(Space)`
+  ${({ theme }) => css`
+    margin-bottom: ${theme.spacing.md};
     width: 100%;
-    background: #0d0d0d;
-    filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(85%);
-  }
+
+    .ant-typography {
+      letter-spacing: 0.3px;
+      color: ${theme.colors.fontPrimary} !important;
+    }
+  `}
 `;
 
-const NavButton = styled(Button)`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
-  background: #fadb14 !important;
-  color: #000 !important;
-  border: none !important;
-  font-weight: 800 !important;
-  border-radius: 12px !important;
-  height: 40px !important;
-  box-shadow: 0 4px 15px rgba(250, 219, 20, 0.4) !important;
+const SpecItem = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: ${theme.spacing.sm};
+    border-bottom: 1px solid ${theme.colors.divider};
+    padding-bottom: 8px;
 
-  &:hover {
-    transform: scale(1.05);
-    background: #fff !important;
-  }
+    .ant-typography:last-child {
+      color: ${theme.colors.fontPrimary} !important;
+    }
+  `}
 `;
 
-const SectionBox = styled.div`
-  background: #111111;
-  border-radius: 24px;
-  padding: 24px;
-  border: 1px solid #1a1a1a;
-  height: 100%;
+const ContactGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
 `;
 
-const InfoItem = React.memo(
-  ({ icon, label, value, color = "#fadb14" }: any) => (
-    <div style={{ marginBottom: "18px", display: "flex", gap: "16px" }}>
-      <div
-        style={{
-          color,
-          minWidth: "32px",
-          height: "32px",
-          background: `${color}15`,
-          borderRadius: "10px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: "14px",
-        }}
-      >
-        <FontAwesomeIcon icon={icon} />
-      </div>
-      <div style={{ flex: 1 }}>
-        <Text
-          style={{
-            color: "#444",
-            fontSize: "10px",
-            display: "block",
-            fontWeight: 800,
-            textTransform: "uppercase",
-            letterSpacing: "1px",
-          }}
-        >
-          {label}
-        </Text>
-        <Text style={{ color: "#ddd", fontSize: "14px", fontWeight: 500 }}>
-          {value || "---"}
-        </Text>
-      </div>
-    </div>
-  )
-);
+const InfoBlock = styled.div<{ $variant?: "gold" | "blue" | "default" }>`
+  ${({ theme, $variant }) => css`
+    padding: 18px;
+    border-radius: ${theme.border_radius.md};
+    margin-bottom: 32px;
+    transition: all ${theme.transitions.fast};
 
-export const ServiceRequestDetail: React.FC<any> = ({ serviceRequest }) => {
-  const { authUser } = useAuthentication();
+    ${$variant === "gold" &&
+    css`
+      background: ${theme.colors.primaryAlpha};
+      border: 1px solid ${theme.colors.primary}40;
+    `}
 
-  // COMENTADO: Lógica de activación de rastreo
-  /*
-  const isAssignedTech = authUser?.id === serviceRequest?.assignment;
-  const shouldTrack = isAssignedTech && serviceRequest?.status === "inProgress";
-  useTrackTechnicianLocation(serviceRequest?.id, shouldTrack);
-  */
+    ${$variant === "blue" &&
+    css`
+      background: ${theme.colors.info}15;
+      border: 1px solid ${theme.colors.info}40;
+    `}
 
-  const memoizedData = useMemo(() => {
-    if (!serviceRequest) return null;
+    ${$variant === "default" &&
+    css`
+      background: ${theme.colors.bgTertiary};
+      border: 1px solid ${theme.colors.border};
+    `}
+  `}
+`;
 
-    const date = serviceRequest.createAt?.toDate
-      ? serviceRequest.createAt.toDate()
-      : serviceRequest.createAt;
+const StyledDrawer = styled(Drawer)`
+  ${({ theme }) => css`
+    .ant-drawer-content {
+      background: ${theme.colors.bgSecondary} !important;
+    }
+    .ant-drawer-header {
+      background: ${theme.colors.bgPrimary} !important;
+      border-bottom: 1px solid ${theme.colors.divider} !important;
+    }
+    .ant-drawer-title .ant-typography {
+      color: ${theme.colors.fontPrimary} !important;
+    }
+    .ant-drawer-close {
+      color: ${theme.colors.fontSecondary};
+    }
+  `}
+`;
 
-    const cLat = serviceRequest.location?.geoPoint?.lat;
-    const cLng = serviceRequest.location?.geoPoint?.lng;
-    const isValidClientPos =
-      typeof cLat === "number" && typeof cLng === "number";
+export const ServiceDetailsDrawer = ({ open, onClose, data }: any) => {
+  if (!data) return null;
 
-    // COMENTADO: Validación de posición del técnico
-    /*
-    const tLat = serviceRequest.technicianLocation?.lat;
-    const tLng = serviceRequest.technicianLocation?.lng;
-    const isValidTechPos = typeof tLat === "number" && typeof tLng === "number";
-    */
-
-    const clientPos: [number, number] = isValidClientPos
-      ? [cLat, cLng]
-      : [0, 0];
-
-    /*
-    const techPos: [number, number] | null = isValidTechPos
-      ? [tLat!, tLng!]
-      : null;
-    */
-
-    return {
-      position: clientPos,
-      // techPosition: techPos, // COMENTADO
-      isValid: isValidClientPos,
-      timeAgo: dayjs(date).fromNow(),
-      clientName: `${serviceRequest.client?.firstName || ""} ${serviceRequest.client?.paternalSurname || ""}`,
-      companyName: `${serviceRequest.client?.companyName || ""}`,
-    };
-  }, [serviceRequest]);
-
-  const handleOpenMaps = () => {
-    if (!memoizedData) return;
-    const [lat, lng] = memoizedData.position;
-    window.open(
-      `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`,
-      "_blank"
-    );
+  const copyToClipboard = (text: string, label: string) => {
+    if (!text) return;
+    navigator.clipboard.writeText(text);
+    message.success(`${label} copiado`);
   };
 
-  if (!memoizedData || !memoizedData.isValid) {
-    return (
-      <div
-        style={{
-          height: 280,
-          background: "#0d0d0d",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Text style={{ color: "#444" }}>Coordenadas no disponibles</Text>
-      </div>
-    );
-  }
+  const formattedTime = data.createAt
+    ? dayjs(data.createAt.toDate()).format("hh:mm A")
+    : data.requestTime || "--:--";
 
-  // COMENTADO: Puntos del mapa para encuadre
-  /*
-  const mapPoints: [number, number][] = [];
-  if (memoizedData.isValid) mapPoints.push(memoizedData.position);
-  if (memoizedData.techPosition) mapPoints.push(memoizedData.techPosition);
-  */
+  const formattedDate = data.createAt
+    ? dayjs(data.createAt.toDate()).format("D [de] MMMM, YYYY")
+    : data.requestTime || "--:--";
+
+  const statusInfo =
+    SERVICE_REQUEST_STATUS.find((s) => s.value === data.status) ||
+    SERVICE_REQUEST_STATUS[0];
+
+  const priorityInfo =
+    PRIORITY_LEVELS.find((p) => p.value === data.priority) ||
+    PRIORITY_LEVELS[0];
+
+  const clientName =
+    data.client?.fullName ||
+    data.client?.companyName ||
+    data.client?.names ||
+    "Sin nombre";
+  const docType = data.client?.document?.type || "Documento";
+  const docNumber = data.client?.document?.number || "-";
+  const fullAddress =
+    data.location?.exactAddress || data.location?.address || "No especificada";
 
   return (
-    <ModalContainer>
-      <MapWrapper>
-        <NavButton
-          onClick={handleOpenMaps}
-          icon={<FontAwesomeIcon icon={faRoute} />}
-        >
-          VER EN GOOGLE MAPS
-        </NavButton>
-        <MapContainer
-          center={memoizedData.position}
-          zoom={16}
-          scrollWheelZoom={true}
-          zoomControl={false}
-          attributionControl={false}
-          style={{ height: "100%", width: "100%" }}
-        >
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          {/* COMENTADO: Polyline de recorrido */}
-          /*
-          {memoizedData.techPosition && (
-            <Polyline
-              positions={[memoizedData.techPosition, memoizedData.position]}
-              color="#fadb14"
-              dashArray="10, 10"
-              weight={2}
-            />
-          )}
-          */
-          <Marker position={memoizedData.position} icon={DefaultIcon} />
-          {/* COMENTADO: Marcador del técnico */}
-          /*
-          {memoizedData.techPosition &&
-            !isNaN(memoizedData.techPosition[0]) && (
-              <Marker position={memoizedData.techPosition} icon={TechIcon} />
-            )}
-          */
-          {/* COMENTADO: Lógica condicional de FitBounds o Recenter */}
-          {/* {memoizedData.techPosition ? (
-            <FitBounds points={mapPoints} />
-          ) : (
-            <RecenterMap coords={memoizedData.position} />
-          )} */}
-          {/* Solo usamos RecenterMap para el cliente */}
-          <RecenterMap coords={memoizedData.position} />
-        </MapContainer>
-        <div
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: "40px",
-            background: "linear-gradient(to top, #0a0a0a, transparent)",
-            zIndex: 1000,
-            pointerEvents: "none",
-          }}
-        />
-      </MapWrapper>
-
-      <div style={{ padding: "32px 28px" }}>
-        <Row gutter={[24, 24]}>
-          <Col span={24}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <Space size={16}>
-                <div
-                  style={{
-                    background: "#fadb14",
-                    width: "48px",
-                    height: "48px",
-                    borderRadius: "14px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <FontAwesomeIcon
-                    icon={faTools}
-                    style={{ color: "#000", fontSize: "20px" }}
-                  />
-                </div>
-                <div>
-                  <Title
-                    level={5}
-                    style={{
-                      color: "#fff",
-                      margin: 0,
-                      fontWeight: 900,
-                      lineHeight: 1.2,
-                    }}
-                  >
-                    {getDevice(serviceRequest?.device) || "-"}
-                  </Title>
-                </div>
-              </Space>
-            </div>
+    <StyledDrawer
+      title={
+        <Space>
+          <FontAwesomeIcon icon={faCircleInfo} style={{ color: "#faad14" }} />
+          <Text style={{ fontSize: 16, fontWeight: 500 }}>
+            Solicitud {data.id?.substring(0, 8).toUpperCase()}
+          </Text>
+        </Space>
+      }
+      placement="right"
+      onClose={onClose}
+      open={open}
+      width={520}
+      extra={
+        <Space>
+          <Tooltip title="Imprimir Orden">
+            <Button type="text" icon={<FontAwesomeIcon icon={faPrint} />} />
+          </Tooltip>
+        </Space>
+      }
+    >
+      <div
+        style={{
+          marginBottom: 32,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+        }}
+      >
+        <Space direction="vertical" size={8}>
+          <Space>
             <Tag
-              color="gold"
+              icon={
+                <FontAwesomeIcon
+                  icon={statusInfo.icon}
+                  style={{ fontSize: 9 }}
+                />
+              }
               style={{
-                borderRadius: "8px",
-                fontWeight: 800,
-                border: "none",
-                padding: "6px 16px",
-                marginTop: "0.8em",
+                margin: 0,
+                fontSize: 11,
+                background: `${statusInfo.color}15`,
+                color: statusInfo.color,
+                borderColor: `${statusInfo.color}40`,
                 textTransform: "uppercase",
               }}
             >
-              {serviceRequest.status}
+              {statusInfo.label}
             </Tag>
-          </Col>
-
-          <Col xs={24} md={13}>
-            <SectionBox>
-              <div
-                style={{
-                  marginBottom: "20px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
-                }}
-              >
+            <Tag
+              icon={
                 <FontAwesomeIcon
-                  icon={faClipboardList}
-                  style={{ color: "#fadb14" }}
+                  icon={priorityInfo.icon}
+                  style={{ fontSize: 9 }}
                 />
-                <Text
-                  style={{
-                    color: "#fadb14",
-                    fontWeight: 800,
-                    fontSize: "12px",
-                    letterSpacing: "1px",
-                  }}
-                >
-                  DESCRIPCIÓN DEL REPORTE
-                </Text>
-              </div>
-              <Paragraph
-                style={{
-                  color: "#999",
-                  fontSize: "15px",
-                  lineHeight: "1.7",
-                  margin: 0,
-                }}
-              >
-                {serviceRequest.problemDescription}
-              </Paragraph>
+              }
+              style={{
+                margin: 0,
+                fontSize: 11,
+                background: `${priorityInfo.color}15`,
+                color: priorityInfo.color,
+                borderColor: `${priorityInfo.color}40`,
+                textTransform: "uppercase",
+              }}
+            >
+              {priorityInfo.label}
+            </Tag>
+          </Space>
+          <Text type="secondary" style={{ fontSize: 11 }}>
+            Sincronizado correctamente
+          </Text>
+        </Space>
 
-              <Divider style={{ borderColor: "#1a1a1a", margin: "24px 0" }} />
-
-              <InfoItem
-                icon={faMapMarkerAlt}
-                label="Dirección de Atención"
-                value={serviceRequest.location?.address}
-              />
-              <Button
-                type="link"
-                onClick={handleOpenMaps}
-                style={{
-                  color: "#fadb14",
-                  padding: 0,
-                  fontSize: "13px",
-                  fontWeight: 700,
-                }}
-              >
-                Abrir en Google Maps / Waze
-              </Button>
-            </SectionBox>
-          </Col>
-
-          <Col xs={24} md={11}>
-            <SectionBox>
-              <div
-                style={{
-                  marginBottom: "24px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
-                }}
-              >
-                <FontAwesomeIcon icon={faUser} style={{ color: "#fadb14" }} />
-                <Text
-                  style={{
-                    color: "#fadb14",
-                    fontWeight: 800,
-                    fontSize: "12px",
-                    letterSpacing: "1px",
-                  }}
-                >
-                  INFORMACIÓN DEL CLIENTE
-                </Text>
-              </div>
-              {serviceRequest.client?.document.type === "dni" ? (
-                <InfoItem
-                  icon={faUser}
-                  label="Cliente"
-                  value={memoizedData?.clientName}
-                />
-              ) : (
-                <InfoItem
-                  icon={faUser}
-                  label="Cliente"
-                  value={memoizedData?.companyName}
-                />
-              )}
-
-              <InfoItem
-                icon={faIdCard}
-                label={serviceRequest.client?.document?.type}
-                value={serviceRequest.client?.document?.number}
-              />
-              <InfoItem
-                icon={faPhoneAlt}
-                label="Celular"
-                value={`${serviceRequest.client?.phone?.prefix} ${serviceRequest.client?.phone?.number}`}
-                color="#52c41a"
-              />
-              <InfoItem
-                icon={faEnvelope}
-                label="Correo"
-                value={serviceRequest.client?.email}
-              />
-              <InfoItem
-                icon={faClock}
-                label="Hace cuanto"
-                value={memoizedData?.timeAgo}
-              />
-            </SectionBox>
-          </Col>
-        </Row>
+        <div style={{ textAlign: "right" }}>
+          <Text style={{ display: "block", fontSize: 14, fontWeight: 500 }}>
+            {formattedTime}
+          </Text>
+          <Text type="secondary" style={{ fontSize: 11 }}>
+            {formattedDate}
+          </Text>
+        </div>
       </div>
-    </ModalContainer>
+
+      <SectionTitle>
+        <FontAwesomeIcon
+          icon={faUser}
+          style={{ color: "#faad14", fontSize: 13 }}
+        />
+        <Text style={{ fontSize: 13, fontWeight: 500 }}>
+          Información del cliente
+        </Text>
+      </SectionTitle>
+
+      <InfoBlock $variant="gold">
+        <Title
+          level={5}
+          style={{
+            margin: "0 0 16px 0",
+            fontWeight: 700,
+            textTransform: "capitalize",
+          }}
+        >
+          {clientName}
+        </Title>
+
+        <ContactGrid>
+          <Space direction="vertical" size={2}>
+            <Text type="secondary" style={{ fontSize: 11 }}>
+              <FontAwesomeIcon icon={faIdCard} style={{ marginRight: 6 }} />
+              {docType.toUpperCase()}
+            </Text>
+            <Space size={4}>
+              <Text style={{ fontSize: 13 }}>{docNumber}</Text>
+              <Button
+                type="text"
+                size="small"
+                icon={
+                  <FontAwesomeIcon icon={faCopy} style={{ fontSize: 10 }} />
+                }
+                onClick={() => copyToClipboard(docNumber, "Documento")}
+              />
+            </Space>
+          </Space>
+
+          <Space direction="vertical" size={2}>
+            <Text type="secondary" style={{ fontSize: 11 }}>
+              <FontAwesomeIcon icon={faPhone} style={{ marginRight: 6 }} />{" "}
+              Teléfono
+            </Text>
+            <Text style={{ fontSize: 13, color: "#52c41a", fontWeight: 600 }}>
+              {data.client?.phone?.prefix || "+51"}{" "}
+              {data.client?.phone?.number || "-"}
+            </Text>
+          </Space>
+
+          <Space direction="vertical" size={2}>
+            <Text type="secondary" style={{ fontSize: 11 }}>
+              <FontAwesomeIcon icon={faEnvelope} style={{ marginRight: 6 }} />{" "}
+              Correo
+            </Text>
+            <Text
+              ellipsis={{ tooltip: data.client?.email }}
+              style={{ fontSize: 13 }}
+            >
+              {data.client?.email || "-"}
+            </Text>
+          </Space>
+
+          <Space direction="vertical" size={2}>
+            <Text type="secondary" style={{ fontSize: 11 }}>
+              <FontAwesomeIcon
+                icon={
+                  data.serviceMode === "home-service" ? faHouseSignal : faStore
+                }
+                style={{ marginRight: 6 }}
+              />
+              Tipo de servicio
+            </Text>
+            <Tag
+              style={{
+                margin: 0,
+                fontSize: 10,
+                borderRadius: 3,
+                background:
+                  data.serviceMode === "home-service"
+                    ? "#1890ff15"
+                    : "#b37feb15",
+                color:
+                  data.serviceMode === "home-service" ? "#1890ff" : "#b37feb",
+                borderColor:
+                  data.serviceMode === "home-service"
+                    ? "#1890ff40"
+                    : "#b37feb40",
+              }}
+            >
+              {data.serviceMode === "home-service"
+                ? "A DOMICILIO"
+                : "EN TIENDA"}
+            </Tag>
+          </Space>
+        </ContactGrid>
+
+        <Divider style={{ margin: "12px 0" }} />
+
+        <Space align="start">
+          <FontAwesomeIcon
+            icon={faMapMarkerAlt}
+            style={{ color: "#ff4d4f", marginTop: 4, fontSize: 12 }}
+          />
+          <div>
+            <Text style={{ fontSize: 13, fontWeight: 700 }}>
+              {data.location?.district || "Sin distrito"}
+            </Text>
+            <br />
+            <Text type="secondary" style={{ fontSize: 12 }}>
+              {fullAddress}
+            </Text>
+          </div>
+        </Space>
+      </InfoBlock>
+
+      <SectionTitle>
+        <FontAwesomeIcon
+          icon={faMicrochip}
+          style={{ color: "#8c8c8c", fontSize: 13 }}
+        />
+        <Text style={{ fontSize: 13, fontWeight: 500 }}>Datos del equipo</Text>
+      </SectionTitle>
+
+      <InfoBlock $variant="default">
+        <SpecItem>
+          <Text type="secondary" style={{ fontSize: 13 }}>
+            Categoría
+          </Text>
+          <Text style={{ fontSize: 13 }}>
+            {data.device?.category || "General"}
+          </Text>
+        </SpecItem>
+        <SpecItem>
+          <Text type="secondary" style={{ fontSize: 13 }}>
+            Marca / Modelo
+          </Text>
+          <Text style={{ fontSize: 13 }}>
+            {data.device?.brand || ""}{" "}
+            {data.device?.model || data.device || "-"}
+          </Text>
+        </SpecItem>
+        <SpecItem
+          style={{ borderBottom: "none", marginBottom: 0, paddingBottom: 0 }}
+        >
+          <Text type="secondary" style={{ fontSize: 13 }}>
+            N° Serie
+          </Text>
+          <Text code style={{ fontSize: 13 }}>
+            {data.device?.serialNumber || data.serialNumber || "N/A"}
+          </Text>
+        </SpecItem>
+      </InfoBlock>
+
+      <SectionTitle>
+        <FontAwesomeIcon
+          icon={faHistory}
+          style={{ color: "#8c8c8c", fontSize: 13 }}
+        />
+        <Text style={{ fontSize: 13, fontWeight: 500 }}>
+          Descripción del fallo
+        </Text>
+      </SectionTitle>
+
+      <InfoBlock $variant="default">
+        <Paragraph style={{ fontSize: 13, lineheight: "1.6", margin: 0 }}>
+          {data.issueDescription ||
+            data.problemDescription ||
+            "Sin síntomas reportados."}
+        </Paragraph>
+      </InfoBlock>
+    </StyledDrawer>
   );
 };

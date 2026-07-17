@@ -30,21 +30,48 @@ export const ServicesRequestsTable = ({
   const columns = [
     {
       title: "Cliente",
-      dataIndex: ["client", "fullName"],
-      key: "name",
-      render: (text: string, record: any) => (
-        <Space direction="vertical" size={0}>
-          <Text strong style={{ textTransform: "capitalize" }}>
-            {text}
-          </Text>
-          <Text type="secondary">{record.client.phone.number}</Text>
-        </Space>
-      ),
+      key: "client",
+      render: (record: any) => {
+        const clientName =
+          record.client?.fullName ||
+          record.client?.names ||
+          record.client?.firstName ||
+          "Sin Nombre";
+        return (
+          <Space direction="vertical" size={0}>
+            <Text strong style={{ textTransform: "capitalize" }}>
+              {clientName}
+            </Text>
+            <Text type="secondary">{record.client?.phone?.number || "-"}</Text>
+          </Space>
+        );
+      },
     },
     {
       title: "Equipo",
-      dataIndex: ["device", "model"],
       key: "device",
+      render: (record: any) => {
+        const isDeviceObject = typeof record.device === "object";
+        const deviceName = isDeviceObject
+          ? record.device?.model ||
+            record.device?.category ||
+            record.device?.type ||
+            "Desconocido"
+          : record.device || "Desconocido";
+
+        const brandName = isDeviceObject ? record.device?.brand : null;
+
+        return (
+          <Space direction="vertical" size={0}>
+            <Text strong>{deviceName}</Text>
+            {brandName && (
+              <Text type="secondary" style={{ fontSize: "12px" }}>
+                {brandName}
+              </Text>
+            )}
+          </Space>
+        );
+      },
     },
     {
       title: "Estado",
