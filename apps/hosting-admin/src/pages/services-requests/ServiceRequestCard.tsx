@@ -26,8 +26,8 @@ import { ServiceDetailsDrawer } from "./ServiceDetailsDrawer.tsx";
 import { theme } from "../../styles";
 import dayjs from "dayjs";
 import {
-  updateServiceRequest,
   updateMobileServiceRequest,
+  updateServiceRequest,
 } from "../../firebase/collections";
 import { useDefaultFirestoreProps } from "../../hooks";
 import { SERVICE_REQUEST_STATUS } from "../../data-list/serviceRequestStatus.ts";
@@ -262,7 +262,7 @@ export const ServiceRequestCard: React.FC<any> = ({
           <div
             style={{
               display: "flex",
-              justifycontent: "space-between",
+              justifyContent: "space-between",
               alignItems: "flex-start",
             }}
           >
@@ -415,15 +415,25 @@ export const ServiceRequestCard: React.FC<any> = ({
             <Text
               type="secondary"
               style={{
-                fontSize: 9,
+                fontSize: 12,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 gap: 4,
               }}
             >
-              <FontAwesomeIcon icon={faCalendarCheck} style={{ fontSize: 8 }} />
-              SOLICITUD RECIBIDA A LAS {formattedTime}
+              <FontAwesomeIcon
+                icon={faCalendarCheck}
+                style={{ fontSize: 10 }}
+              />
+              SOLICITUD RECIBIDA A LAS
+              <span
+                style={{
+                  color: "#04FFF7",
+                }}
+              >
+                {formattedTime}
+              </span>
             </Text>
           </div>
         </Content>
