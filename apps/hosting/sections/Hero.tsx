@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 
 const carruselItems = [
@@ -26,7 +27,7 @@ const carruselItems = [
   },
 ];
 
-const AUTOPLAY_INTERVAL = 4000;
+const AUTOPLAY_INTERVAL = 4500;
 
 export function Hero() {
   const [currentIndex, setCurrentIndex] = React.useState(0);
@@ -39,7 +40,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative w-full h-[60vh] md:h-screen bg-[#050505] overflow-hidden -mt-25">
+    <section className="relative w-full h-[60vh] md:h-screen bg-[#050505] overflow-hidden -mt-25 select-none">
       <div
         className="absolute inset-0 z-10 pointer-events-none mix-blend-overlay opacity-10"
         style={{
@@ -48,44 +49,35 @@ export function Hero() {
           backgroundSize: "32px 32px",
         }}
       />
+
       <div className="absolute inset-0 z-0 bg-black">
-        <AnimatePresence initial={false} mode="sync">
+        <AnimatePresence mode="popLayout">
           <motion.div
             key={currentIndex}
-            className="absolute inset-0 origin-center"
-            initial={{
-              clipPath: "inset(10% 0 10% 0)",
-              scale: 1.1,
-              filter: "brightness(1.5) blur(10px)",
-            }}
-            animate={{
-              clipPath: "inset(0% 0 0% 0)",
-              scale: 1.02,
-              filter: "brightness(1) blur(0px)",
-            }}
-            exit={{
-              opacity: 0,
-              scale: 0.98,
-              transition: { duration: 0.8 },
-            }}
+            className="absolute inset-0 w-full h-full transform-gpu will-change-[opacity,transform]"
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
             transition={{
-              clipPath: { duration: 0.9, ease: [0.16, 1, 0.3, 1] },
+              opacity: { duration: 0.9, ease: "easeInOut" },
               scale: { duration: AUTOPLAY_INTERVAL / 1000, ease: "linear" },
             }}
           >
-            <picture className="w-full h-full">
-              <source
-                media="(min-width: 768px)"
-                srcSet={carruselItems[currentIndex].imageDesktop}
-              />
-              <img
-                src={carruselItems[currentIndex].imageMobile}
+            <div className="relative w-full h-full">
+              <Image
+                src={carruselItems[currentIndex].imageDesktop}
                 alt={carruselItems[currentIndex].title}
-                className="w-full h-full object-cover"
+                fill
+                priority={currentIndex === 0}
+                quality={90}
+                sizes="100vw"
+                className="object-cover object-center"
               />
-            </picture>
+            </div>
           </motion.div>
         </AnimatePresence>
+
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/15 to-transparent z-10 pointer-events-none" />
       </div>
 
       <div className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none px-6 pt-25">
@@ -93,27 +85,14 @@ export function Hero() {
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
               className="flex flex-col items-center"
             >
-              <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold text-white tracking-tight drop-shadow-2xl leading-[1.1] max-w-5xl">
-                {carruselItems[currentIndex].title
-                  .split(" ")
-                  .map((word, idx) => (
-                    <motion.span
-                      key={idx}
-                      className="inline-block mr-[0.2em] last:mr-0 italic text-shadow-[4px_4px_4px_rgba(0,0,0,0.5)] uppercase"
-                      initial={{ y: 40, opacity: 0, filter: "blur(8px)" }}
-                      animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
-                      exit={{ y: -20, opacity: 0, filter: "blur(4px)" }}
-                      transition={{
-                        duration: 0.6,
-                        delay: idx * 0.08,
-                        ease: [0.215, 0.61, 0.355, 1],
-                      }}
-                    >
-                      {word}
-                    </motion.span>
-                  ))}
+              <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold text-white tracking-tight leading-[1.1] max-w-5xl italic uppercase drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
+                {carruselItems[currentIndex].title}
               </h1>
             </motion.div>
           </AnimatePresence>
@@ -136,13 +115,13 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.8, duration: 1 }}
+          transition={{ delay: 0.8, duration: 0.8 }}
           className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-50"
         >
           <motion.div
             animate={{ y: [0, 5, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center p-1.5 bg-[#050505]/50 backdrop-blur-sm z-50"
+            className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center p-1.5 bg-black/30 backdrop-blur-md z-50"
           >
             <motion.div
               animate={{ y: [0, 12, 0] }}
