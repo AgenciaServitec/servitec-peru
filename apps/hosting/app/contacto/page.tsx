@@ -40,12 +40,7 @@ export default function Contact() {
 
     return orderedCountries.map((item) => ({
       value: item.prefix,
-      label: (
-        <div className="flex items-center gap-2">
-          <span className={`fi fi-${item.code.toLowerCase()}`} />
-          <span>{item.prefix}</span>
-        </div>
-      ),
+      label: `${item.code} ${item.prefix}`,
     }));
   }, []);
 
