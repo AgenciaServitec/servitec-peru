@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="optimized animations">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/app/contacto/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/hosting/data-list/countries.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/data-list/countries.ts" afterDir="false" />
-    </list>
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="refactored form contact" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,61 +53,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.000000000000013" />
-      <entry key="MS500" value="1.0019227985757728" />
-      <entry key="S2" value="1.3278113763756911" />
-      <entry key="S5" value="1.9637362630588302" />
-      <entry key="S10" value="2.392442722398897" />
-      <entry key="S30" value="2.9484471423477183" />
-      <entry key="S60" value="3.3080498928365736" />
-      <entry key="M2" value="3.7999642458613243" />
-      <entry key="M5" value="6.604147870992134" />
-      <entry key="M10" value="12.1149958139125" />
-      <entry key="M15" value="16.88121283805222" />
-      <entry key="M30" value="26.015837844384354" />
-      <entry key="H1" value="33.71615522641337" />
-      <entry key="H2" value="38.810091641930725" />
-      <entry key="H4" value="41.75297774104686" />
-      <entry key="D1" value="44.43628830055049" />
-      <entry key="W1" value="44.91889815872841" />
+      <entry key="MS100" value="1.0168264537170466" />
+      <entry key="MS500" value="1.633545189133195" />
+      <entry key="S2" value="3.187600974408944" />
+      <entry key="S5" value="4.100759820011316" />
+      <entry key="S10" value="4.593287228462923" />
+      <entry key="S30" value="5.782262630155258" />
+      <entry key="S60" value="6.794598417473057" />
+      <entry key="M2" value="7.822077203881096" />
+      <entry key="M5" value="10.881816511570943" />
+      <entry key="M10" value="16.441554927321896" />
+      <entry key="M15" value="21.2521458492877" />
+      <entry key="M30" value="30.52817990024994" />
+      <entry key="H1" value="38.399114339374584" />
+      <entry key="H2" value="43.627305474437954" />
+      <entry key="H4" value="46.65456726297347" />
+      <entry key="D1" value="49.41881937005321" />
+      <entry key="W1" value="49.91637516650991" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
       <entry key="S2" value="0.0" />
-      <entry key="S5" value="3.939044359074468E-144" />
-      <entry key="S10" value="1.984702587057938E-72" />
-      <entry key="S30" value="1.2567005696199726E-24" />
-      <entry key="S60" value="1.1210265695423869E-12" />
-      <entry key="M2" value="1.058785421859589E-6" />
-      <entry key="M5" value="0.004073082260037512" />
-      <entry key="M10" value="0.06382070400769263" />
-      <entry key="M15" value="0.159701033645004" />
-      <entry key="M30" value="0.39962611732093295" />
-      <entry key="H1" value="0.6321598827202919" />
-      <entry key="H2" value="0.7950848273739672" />
-      <entry key="H4" value="0.891675292566732" />
-      <entry key="D1" value="0.9810725446957916" />
-      <entry key="W1" value="0.9972738837063747" />
+      <entry key="S5" value="4.5178298854068576E-147" />
+      <entry key="S10" value="6.7214804064334416E-74" />
+      <entry key="S30" value="4.0658839528995356E-25" />
+      <entry key="S60" value="6.376428430476997E-13" />
+      <entry key="M2" value="7.985254179095994E-7" />
+      <entry key="M5" value="0.0036384423487400477" />
+      <entry key="M10" value="0.060319502225565896" />
+      <entry key="M15" value="0.15380548822747042" />
+      <entry key="M30" value="0.3921804281545301" />
+      <entry key="H1" value="0.6262431062730595" />
+      <entry key="H2" value="0.7913552339329404" />
+      <entry key="H4" value="0.8895814936996723" />
+      <entry key="D1" value="0.980688215465629" />
+      <entry key="W1" value="0.9972180634759106" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.07802065930635532" />
-      <entry key="MS500" value="0.601948604861558" />
-      <entry key="S2" value="1.1896498273244156" />
-      <entry key="S5" value="1.8915961537172215" />
-      <entry key="S10" value="2.3502445057401844" />
-      <entry key="S30" value="2.9251926872252185" />
-      <entry key="S60" value="3.2907054088717897" />
-      <entry key="M2" value="3.7871193528582436" />
-      <entry key="M5" value="6.594455995431471" />
-      <entry key="M10" value="12.16572072671599" />
-      <entry key="M15" value="17.029708698393726" />
-      <entry key="M30" value="26.408144871161902" />
-      <entry key="H1" value="34.34410187942006" />
-      <entry key="H2" value="39.6029115296112" />
-      <entry key="H4" value="42.643478142607094" />
-      <entry key="D1" value="45.41715887824258" />
-      <entry key="W1" value="45.91614303582016" />
+      <entry key="MS100" value="0.9616473129072468" />
+      <entry key="MS500" value="1.6124394649967853" />
+      <entry key="S2" value="3.176498887316296" />
+      <entry key="S5" value="4.094967524360042" />
+      <entry key="S10" value="4.58872129079819" />
+      <entry key="S30" value="5.773622177234175" />
+      <entry key="S60" value="6.784164946260774" />
+      <entry key="M2" value="7.812103352933158" />
+      <entry key="M5" value="10.873043728277876" />
+      <entry key="M10" value="16.489439409307767" />
+      <entry key="M15" value="21.39512135157625" />
+      <entry key="M30" value="30.913158361377217" />
+      <entry key="H1" value="39.02117402586033" />
+      <entry key="H2" value="44.41640158024673" />
+      <entry key="H4" value="47.54297421791241" />
+      <entry key="D1" value="50.3993052965124" />
+      <entry key="W1" value="50.91356416769105" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -267,15 +263,7 @@
       <workItem from="1788557640262" duration="4088000" />
       <workItem from="1790720513909" duration="565000" />
       <workItem from="1790787057960" duration="1871000" />
-      <workItem from="1790964531798" duration="3174000" />
-    </task>
-    <task id="LOCAL-00084" summary="refactored endpoint entries">
-      <option name="closed" value="true" />
-      <created>1778887223948</created>
-      <option name="number" value="00084" />
-      <option name="presentableId" value="LOCAL-00084" />
-      <option name="project" value="LOCAL" />
-      <updated>1778887223948</updated>
+      <workItem from="1790964531798" duration="3263000" />
     </task>
     <task id="LOCAL-00085" summary="refactored entries module">
       <option name="closed" value="true" />
@@ -661,7 +649,15 @@
       <option name="project" value="LOCAL" />
       <updated>1790966199426</updated>
     </task>
-    <option name="localTasksCounter" value="133" />
+    <task id="LOCAL-00133" summary="refactored form contact">
+      <option name="closed" value="true" />
+      <created>1790967775636</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1790967775636</updated>
+    </task>
+    <option name="localTasksCounter" value="134" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -679,7 +675,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactored avatar size" />
     <MESSAGE value="updated order in entries" />
     <MESSAGE value="style(bubbles): add vertical scroll to container and hide scrollbar" />
     <MESSAGE value="feat(users): add allowedSites restriction to user profile and activity monitor" />
@@ -704,6 +699,7 @@
     <MESSAGE value="updated style date" />
     <MESSAGE value="added claims book" />
     <MESSAGE value="optimized animations" />
-    <option name="LAST_COMMIT_MESSAGE" value="optimized animations" />
+    <MESSAGE value="refactored form contact" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored form contact" />
   </component>
 </project>
