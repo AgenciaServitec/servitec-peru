@@ -27,7 +27,6 @@ import { type ContactFormData, contactSchema } from "@/lib/validations/contact";
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { COUNTRY_PREFIXES } from "@/data-list/countries";
-import "flag-icons/css/flag-icons.min.css";
 
 export default function Contact() {
   const router = useRouter();
