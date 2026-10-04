@@ -300,6 +300,23 @@ export const FooterLayout = () => {
                 ))}
               </div>
             </div>
+
+            <div className="pt-2">
+              <a
+                href="https://forms.gle/BPVYhsvR5bMqjuPBA"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block"
+              >
+                <Image
+                  src="/claims-book.png"
+                  alt="Libro de Reclamaciones"
+                  width={140}
+                  height={50}
+                  className="h-auto w-auto"
+                />
+              </a>
+            </div>
           </div>
         </div>
 

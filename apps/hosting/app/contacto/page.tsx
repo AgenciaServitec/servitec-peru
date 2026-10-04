@@ -27,7 +27,6 @@ import { type ContactFormData, contactSchema } from "@/lib/validations/contact";
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { COUNTRY_PREFIXES } from "@/data-list/countries";
-import "flag-icons/css/flag-icons.min.css";
 
 export default function Contact() {
   const router = useRouter();
@@ -40,12 +39,7 @@ export default function Contact() {
 
     return orderedCountries.map((item) => ({
       value: item.prefix,
-      label: (
-        <div className="flex items-center gap-2">
-          <span className={`fi fi-${item.code.toLowerCase()}`} />
-          <span>{item.prefix}</span>
-        </div>
-      ),
+      label: `${item.code} ${item.prefix}`,
     }));
   }, []);
 
