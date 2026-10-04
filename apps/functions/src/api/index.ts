@@ -14,6 +14,7 @@ import servicesRequestsRoutes from "./service-request/routes/servicesRequests.ro
 import webServicesRequestsRoutes from "./web-service-request/routes/webServicesRequests.routes";
 import entriesRoutes from "./entries/routes/entries.routes";
 import authRoutes from "./auth/routes/auth.routes";
+import qrCodesRoutes from "./qr-codes/routes/qrCodes.routes";
 
 const app: express.Application = express();
 
@@ -30,6 +31,7 @@ app.use("/identities", identitiesRoutes);
 app.use("/auth", authRoutes);
 app.use("/web-services-requests", webServicesRequestsRoutes);
 app.use("/entries", entriesRoutes);
+app.use("/qr-codes", qrCodesRoutes);
 
 app.put("/users/:dni/fingerprint", putUserFingerprintTemplate);
 app.put("/fingerprint/assistances/:dni", putBiometricAssistanceByDni);
