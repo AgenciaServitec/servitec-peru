@@ -1,7 +1,6 @@
-import InputAntd from "antd/lib/input";
-import type { InputProps as AntInputProps } from "antd";
-import { ComponentContainer } from "./component-container";
+import { Input as AntInput, type InputProps as AntInputProps } from "antd";
 import styled, { css } from "styled-components";
+import { ComponentContainer } from "./component-container";
 
 interface InputProps extends Omit<AntInputProps, "variant"> {
   required?: boolean;
@@ -52,21 +51,21 @@ export const Input = ({
   );
 };
 
-const StyledInput = styled(InputAntd)`
+/* --- ESTILOS LIMPIOS Y ALINEADOS A TU THEME --- */
+
+const StyledInput = styled(AntInput)`
   ${({ theme }) => css`
     width: 100%;
 
     input {
-      color: ${theme.colors.fontPrimary} !important;
+      color: ${theme.colors.fontPrimary};
       font-weight: ${theme.font_weight.medium};
-
-      &::placeholder {
-        color: ${theme.colors.fontPrimary};
-      }
     }
 
     .ant-input-clear-icon {
       color: ${theme.colors.fontTertiary};
+      transition: color ${theme.transitions.fast};
+
       &:hover {
         color: ${theme.colors.primary};
       }
@@ -74,26 +73,24 @@ const StyledInput = styled(InputAntd)`
 
     &.ant-input-disabled,
     &.ant-input-affix-wrapper-disabled {
-      background-color: transparent !important;
+      background-color: transparent;
       cursor: not-allowed;
 
-      input,
-      input:disabled,
-      &.ant-input-disabled {
-        color: ${theme.colors.fontDisabled} !important;
-
-        -webkit-text-fill-color: ${theme.colors.fontDisabled} !important;
-
-        text-shadow: none !important;
+      input {
+        color: ${theme.colors.fontDisabled};
+        -webkit-text-fill-color: ${theme.colors.fontDisabled};
         cursor: not-allowed;
       }
     }
 
     .ant-input-prefix,
     .ant-input-suffix {
-      color: ${theme.colors.fontPrimary};
+      color: ${theme.colors.fontSecondary};
+      display: flex;
+      align-items: center;
+
       svg {
-        color: ${theme.colors.fontPrimary};
+        color: ${theme.colors.fontSecondary};
       }
     }
   `}

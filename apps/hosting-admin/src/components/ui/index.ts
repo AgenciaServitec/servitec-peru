@@ -27,7 +27,6 @@ import {
   Skeleton,
   Space,
   Spin,
-  Table,
   Tabs,
   Tag,
   theme,
@@ -61,6 +60,7 @@ export * from "./AddressSearchInput.tsx";
 export * from "./Toolbar.tsx";
 export * from "./CanAccess.tsx";
 export * from "./ColorPicker.tsx";
+export * from "./Table.tsx";
 
 export {
   Layout,
@@ -73,7 +73,6 @@ export {
   Button,
   Row,
   Col,
-  Table,
   Popconfirm,
   Empty,
   Descriptions,

@@ -1,9 +1,9 @@
-import { Modal as AntdModal } from "../ui";
 import type { ReactNode } from "react";
+import { Modal as AntdModal } from "antd";
 import styled, { css } from "styled-components";
 
 interface ModalProps {
-  open?: boolean; // Añadido para tipado completo
+  open?: boolean;
   closable?: boolean;
   onCancel?: () => void;
   centered?: boolean;
@@ -26,8 +26,8 @@ export const Modal = ({
     onCancel={onCancel}
     centered={centered}
     footer={footer}
-    destroyOnClose // Buena práctica para limpiar el DOM
-    maskClosable={closable} // Si es closable, permitimos cerrar al hacer click fuera
+    destroyOnClose
+    maskClosable={closable}
     {...props}
   >
     <ModalContent>{children}</ModalContent>
@@ -38,24 +38,19 @@ const StyledModal = styled(AntdModal)`
   ${({ theme }) => css`
     /* Contenedor principal del modal */
     .ant-modal-content {
-      background-color: ${theme.colors.bgSecondary} !important;
-      border-radius: ${theme.border_radius
-        .lg} !important; /* 12px para Cards/Modales */
-      padding: 0 !important;
+      padding: 0;
       overflow: hidden;
       border: 1px solid ${theme.colors.border};
-      box-shadow: ${theme.shadows.lg} !important;
+      box-shadow: ${theme.shadows.lg};
     }
 
-    /* Cabecera del modal */
+    /* Cabecera */
     .ant-modal-header {
-      background-color: ${theme.colors.bgSecondary} !important;
-      padding: ${theme.spacing.md} ${theme.spacing.lg};
+      padding: ${theme.spacing.md}${theme.spacing.lg};
       margin-bottom: 0;
       border-bottom: 1px solid ${theme.colors.border};
 
       .ant-modal-title {
-        color: ${theme.colors.fontPrimary} !important;
         font-size: ${theme.font_sizes.lg};
         font-weight: ${theme.font_weight.large};
       }
@@ -63,7 +58,8 @@ const StyledModal = styled(AntdModal)`
 
     /* Botón de cerrar (X) */
     .ant-modal-close {
-      top: 16px;
+      top: 14px;
+      right: 14px;
       color: ${theme.colors.fontTertiary};
       transition: all ${theme.transitions.fast};
 
@@ -73,17 +69,18 @@ const StyledModal = styled(AntdModal)`
       }
     }
 
-    /* Footer del modal */
+    /* Pie de página (Footer) */
     .ant-modal-footer {
-      padding: ${theme.spacing.md} ${theme.spacing.lg};
+      padding: ${theme.spacing.md}${theme.spacing.lg};
       border-top: 1px solid ${theme.colors.border};
       margin-top: 0;
     }
 
-    /* Overlay / Máscara de fondo */
-    &.ant-modal-mask {
-      background-color: rgba(0, 0, 0, 0.7) !important;
-      backdrop-filter: blur(4px); /* Efecto moderno de desenfoque */
+    /* Efecto de máscara/fondo difuminado moderno */
+    & + .ant-modal-mask,
+    .ant-modal-mask {
+      backdrop-filter: blur(4px);
+      background-color: rgba(0, 0, 0, 0.65);
     }
   `}
 `;

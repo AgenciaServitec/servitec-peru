@@ -1,7 +1,9 @@
-import type { TextAreaProps as AntTextAreaProps } from "antd/lib/input";
-import InputAntd from "antd/lib/input";
-import { ComponentContainer } from "./component-container";
+import { Input } from "antd";
+import type { TextAreaProps as AntTextAreaProps } from "antd/es/input";
 import styled, { css } from "styled-components";
+import { ComponentContainer } from "./component-container";
+
+const { TextArea: AntTextArea } = Input;
 
 interface TextAreaProps extends AntTextAreaProps {
   value?: string | number;
@@ -47,36 +49,47 @@ export const TextArea = ({
   );
 };
 
-const StyledTextArea = styled(InputAntd.TextArea)`
+/* --- ESTILOS LIMPIOS SIN !IMPORTANT Y ALINEADOS AL THEME --- */
+
+const StyledTextArea = styled(AntTextArea)`
   ${({ theme }) => css`
     width: 100%;
-    padding: ${theme.spacing.sm} !important;
-    color: ${theme.colors.fontPrimary} !important;
-    font-size: ${theme.font_sizes.sm} !important;
-    font-family: inherit;
+    padding: ${theme.spacing.sm};
+    color: ${theme.colors.fontPrimary};
+    font-size: ${theme.font_sizes.sm};
     font-weight: ${theme.font_weight.medium};
-    background: transparent !important;
+    font-family: inherit;
+    background: transparent;
     resize: vertical;
 
     &::placeholder {
       color: ${theme.colors.fontTertiary};
     }
 
+    /* Scrollbar interno del textarea */
     &::-webkit-scrollbar {
       width: 6px;
     }
     &::-webkit-scrollbar-thumb {
       background: ${theme.colors.border};
       border-radius: ${theme.border_radius.full};
+
+      &:hover {
+        background: ${theme.colors.fontTertiary};
+      }
     }
 
     &:disabled {
-      color: ${theme.colors.fontDisabled} !important;
+      color: ${theme.colors.fontDisabled};
+      -webkit-text-fill-color: ${theme.colors.fontDisabled};
       cursor: not-allowed;
     }
 
+    /* Soporte para prop showCount de AntD */
+    & + .ant-input-textarea-suffix,
     & + .ant-input-textarea-show-count::after {
       color: ${theme.colors.fontTertiary};
+      font-size: ${theme.font_sizes.xs};
     }
   `}
 `;

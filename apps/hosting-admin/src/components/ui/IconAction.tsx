@@ -2,28 +2,27 @@ import React, { type MouseEvent } from "react";
 import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import Tooltip from "antd/lib/tooltip";
+import { Tooltip } from "antd";
 import type { Theme } from "../../styles";
-import { rgba } from "polished";
-
-export interface IconActionProps extends Omit<
-  React.HTMLAttributes<HTMLDivElement>,
-  "onClick"
-> {
-  icon: IconDefinition;
-  tooltipTitle?: string;
-  size?: number;
-  iconStyles?: IconStyles;
-  onClick?: (event: MouseEvent<HTMLDivElement>) => void;
-  disabled?: boolean;
-  href?: string;
-  target?: string;
-}
 
 export interface IconStyles {
   color?: string | ((theme: Theme) => string);
   hoverColor?: string | ((theme: Theme) => string);
   backgroundColor?: string | ((theme: Theme) => string);
+}
+
+export interface IconActionProps extends Omit<
+  React.HTMLAttributes<HTMLElement>,
+  "onClick"
+> {
+  icon: IconDefinition | React.ReactNode;
+  tooltipTitle?: string;
+  size?: number;
+  iconStyles?: IconStyles;
+  onClick?: (event: MouseEvent<HTMLElement>) => void;
+  disabled?: boolean;
+  href?: string;
+  target?: string;
 }
 
 interface IconWrapperProps {
@@ -56,6 +55,17 @@ export const IconAction: React.FC<IconActionProps> = ({
 
   const hasAction = !!onClick || (!!href && !disabled);
 
+  // Renderizado dinámico según el tipo de icono (FontAwesome vs Lucide/ReactNode)
+  const renderIcon = () => {
+    if (React.isValidElement(icon)) {
+      return icon;
+    }
+    if (typeof icon === "object" && "prefix" in (icon as object)) {
+      return <FontAwesomeIcon icon={icon as IconDefinition} />;
+    }
+    return icon;
+  };
+
   const content = (
     <IconWrapper
       as={href && !disabled ? "a" : "div"}
@@ -68,7 +78,7 @@ export const IconAction: React.FC<IconActionProps> = ({
       $disabled={disabled}
       {...props}
     >
-      <FontAwesomeIcon icon={icon} />
+      {renderIcon()}
     </IconWrapper>
   );
 
@@ -80,6 +90,8 @@ export const IconAction: React.FC<IconActionProps> = ({
     content
   );
 };
+
+/* --- RESOLUCIÓN DE COLORES Y ESTILOS DE ACCIÓN --- */
 
 const resolveColor = (
   theme: Theme,
@@ -93,47 +105,46 @@ const resolveColor = (
 
 const IconWrapper = styled.div<IconWrapperProps>`
   ${({ theme, $size, $hasAction, $disabled, $iconStyles }) => {
-    const typedTheme = theme as Theme;
-
     const baseColor = resolveColor(
-      typedTheme,
+      theme,
       $iconStyles.color,
-      typedTheme.colors.fontPrimary
+      theme.colors.fontSecondary
     );
     const hoverColor = resolveColor(
-      typedTheme,
+      theme,
       $iconStyles.hoverColor,
-      typedTheme.colors.primary
+      theme.colors.primary
     );
     const bgColor = resolveColor(
-      typedTheme,
+      theme,
       $iconStyles.backgroundColor,
       "transparent"
     );
 
     return css`
-      display: flex;
+      display: inline-flex;
       justify-content: center;
       align-items: center;
-      border-radius: ${typedTheme.border_radius.md};
+      border-radius: ${theme.border_radius.md};
       height: ${$size}px;
       width: ${$size}px;
-      color: ${$disabled ? typedTheme.colors.fontDisabled : baseColor};
+      color: ${$disabled ? theme.colors.fontDisabled : baseColor};
       background: ${bgColor};
-      transition: all ${typedTheme.transitions.fast};
+      transition: all ${theme.transitions.fast};
       position: relative;
       cursor: ${$disabled ? "not-allowed" : $hasAction ? "pointer" : "default"};
+      text-decoration: none;
 
       ${$hasAction &&
       !$disabled &&
       css`
         &:hover {
-          border-radius: ${typedTheme.border_radius.full};
+          border-radius: ${theme.border_radius.full};
           background: ${bgColor !== "transparent"
             ? bgColor
-            : rgba(baseColor, 0.15)};
+            : theme.colors.bgHover};
+          color: ${hoverColor};
           transform: translateY(-1px);
-          color: ${baseColor};
         }
 
         &:active {
@@ -143,7 +154,9 @@ const IconWrapper = styled.div<IconWrapperProps>`
 
       svg {
         font-size: ${$size * 0.45}px;
-        transition: color ${typedTheme.transitions.fast};
+        width: ${$size * 0.45}px;
+        height: ${$size * 0.45}px;
+        transition: color ${theme.transitions.fast};
       }
     `;
   }}

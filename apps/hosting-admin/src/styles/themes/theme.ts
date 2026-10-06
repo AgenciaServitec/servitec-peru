@@ -1,11 +1,11 @@
-import { theme as antdTheme } from "antd";
+import { theme as antdTheme, type ThemeConfig } from "antd";
 
 export const BASE_CONSTANTS = {
   font_weight: {
     regular: "400",
     medium: "500",
     semibold: "600",
-    bold: "700",
+    large: "700",
   },
   border_radius: {
     xs: "4px",
@@ -97,7 +97,9 @@ const LIGHT_COLORS = {
   info: "#0284C7",
 } as const;
 
-export const getTheme = (mode: "dark" | "light" = "dark") => {
+export type ThemeMode = "dark" | "light";
+
+export const getTheme = (mode: ThemeMode = "dark") => {
   const colors = mode === "dark" ? DARK_COLORS : LIGHT_COLORS;
   return {
     mode,
@@ -106,10 +108,11 @@ export const getTheme = (mode: "dark" | "light" = "dark") => {
   } as const;
 };
 
-export const getAntDesignTheme = (mode: "dark" | "light" = "dark") => {
+export const getAntDesignTheme = (mode: ThemeMode = "dark"): ThemeConfig => {
   const colors = mode === "dark" ? DARK_COLORS : LIGHT_COLORS;
 
   return {
+    cssVar: true, // Activa variables CSS nativas en Antd v5
     algorithm:
       mode === "dark" ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
 
@@ -126,10 +129,12 @@ export const getAntDesignTheme = (mode: "dark" | "light" = "dark") => {
       colorTextSecondary: colors.fontSecondary,
       colorTextTertiary: colors.fontTertiary,
       colorTextDisabled: colors.fontDisabled,
-      colorTextPlaceholder: colors.fontPrimary,
+      // FIX: Placeholder configurado correctamente desde el token
+      colorTextPlaceholder: colors.fontTertiary,
       colorBorder: colors.border,
       colorBorderSecondary: colors.divider,
-      fontFamily: "Geist Sans, sans-serif",
+      // Si usas Geist Sans, asegúrate que coincida aquí y en GlobalStyle
+      fontFamily: "Geist Sans, system-ui, -apple-system, sans-serif",
       fontSize: 14,
       borderRadius: 6,
     },
@@ -145,31 +150,44 @@ export const getAntDesignTheme = (mode: "dark" | "light" = "dark") => {
         colorBgContainer: colors.bgTertiary,
         activeBorderColor: colors.primary,
         hoverBorderColor: colors.borderHover,
+        colorTextPlaceholder: colors.fontTertiary,
       },
       Select: {
         colorBgContainer: colors.bgTertiary,
+        colorBgElevated: colors.bgTertiary,
         colorBorder: colors.border,
         colorText: colors.fontPrimary,
+        colorTextPlaceholder: colors.fontTertiary,
         optionSelectedBg: colors.primaryAlpha,
         optionSelectedColor: colors.primary,
         optionActiveBg: colors.bgHover,
-        borderRadiusLG: 12,
+        borderRadiusLG: 10,
         controlHeight: 40,
       },
       Table: {
-        headerBg: colors.bgSecondary,
-        colorBgContainer: "transparent",
-        colorFillAlter: colors.bgSecondary,
+        headerBg: colors.bgTertiary,
         headerColor: colors.fontPrimary,
+        headerSplitColor: colors.border,
+        colorBgContainer: colors.bgSecondary,
+        colorFillAlter: colors.bgTertiary,
         colorText: colors.fontSecondary,
+        colorTextHeading: colors.fontPrimary,
         borderColor: colors.border,
         rowHoverBg: colors.bgHover,
         headerSortHoverBg: colors.bgHover,
         headerSortActiveBg: colors.bgHover,
-        borderRadius: 8,
-        headerBorderRadius: 8,
-        cellPaddingBlock: 12,
+        borderRadius: 12,
+        headerBorderRadius: 12,
+        cellPaddingBlock: 14,
         cellPaddingInline: 16,
+      },
+      Modal: {
+        contentBg: colors.bgSecondary,
+        headerBg: colors.bgSecondary,
+        footerBg: colors.bgSecondary,
+        titleColor: colors.fontPrimary,
+        titleFontSize: 16,
+        borderRadiusLG: 14,
       },
       Pagination: {
         itemActiveBg: colors.bgTertiary,
@@ -184,11 +202,68 @@ export const getAntDesignTheme = (mode: "dark" | "light" = "dark") => {
         paddingLG: 24,
         colorTextHeading: colors.fontPrimary,
       },
+      Breadcrumb: {
+        itemColor: colors.fontSecondary,
+        lastItemColor: colors.fontPrimary,
+        linkColor: colors.fontSecondary,
+        linkHoverColor: colors.primary,
+        separatorColor: colors.fontTertiary,
+        separatorMargin: 8,
+        fontSize: 14,
+      },
+      DatePicker: {
+        colorBgContainer: colors.bgTertiary,
+        colorBgElevated: colors.bgSecondary,
+        colorBorder: colors.border,
+        colorText: colors.fontPrimary,
+        colorTextPlaceholder: colors.fontTertiary,
+        colorTextDisabled: colors.fontDisabled,
+        colorIcon: colors.primary,
+        colorIconHover: colors.primaryDark,
+        cellActiveWithRangeBg: colors.primaryAlpha,
+        cellHoverWithRangeBg: colors.bgHover,
+      },
+      Checkbox: {
+        colorPrimary: colors.primary,
+        colorPrimaryHover: colors.primaryDark,
+        colorBgContainer: colors.bgTertiary,
+        colorBorder: colors.border,
+        borderRadiusSM: 4,
+      },
+      Radio: {
+        colorPrimary: colors.primary,
+        colorPrimaryHover: colors.primaryDark,
+        colorBgContainer: colors.bgTertiary,
+        colorBorder: colors.border,
+        colorText: colors.fontPrimary,
+        colorTextDisabled: colors.fontDisabled,
+        buttonBg: colors.bgTertiary,
+        buttonCheckedBg: colors.primary,
+        buttonColor: colors.fontSecondary,
+        buttonSolidCheckedColor: mode === "dark" ? "#000000" : "#ffffff",
+      },
+      Notification: {
+        colorBgElevated: colors.bgSecondary,
+        colorText: colors.fontPrimary,
+        colorTextHeading: colors.fontPrimary,
+        colorIcon: colors.primary,
+        borderRadiusLG: 12,
+      },
+      Tabs: {
+        itemColor: colors.fontSecondary,
+        itemSelectedColor: colors.primary,
+        itemHoverColor: colors.fontPrimary,
+        itemActiveColor: colors.primaryDark,
+        inkBarColor: colors.primary,
+        titleFontSize: 14,
+        horizontalItemPadding: "10px 16px",
+        horizontalMargin: "0 0 16px 0",
+        cardBg: colors.bgSecondary,
+        cardGutter: 4,
+      },
     },
   };
 };
 
 export type Theme = ReturnType<typeof getTheme>;
-export type ThemeMode = "dark" | "light";
-
 export const theme = getTheme("dark");

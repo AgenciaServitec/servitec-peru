@@ -1,6 +1,6 @@
 import { capitalize } from "lodash";
 import { Breadcrumb } from "antd";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight, faHome } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -12,18 +12,26 @@ export const BreadcrumbLayout = () => {
 
   const breadcrumbItems = [
     {
-      title: <FontAwesomeIcon icon={faHome} />,
-      onClick: () => navigate("/home"),
-      className: "breadcrumb-link-active",
+      title: (
+        <BreadcrumbLink onClick={() => navigate("/home")}>
+          <FontAwesomeIcon icon={faHome} className="home-icon" />
+        </BreadcrumbLink>
+      ),
     },
     ...pathnames.map((path, index) => {
       const isLast = index === pathnames.length - 1;
       const url = `/${pathnames.slice(0, index + 1).join("/")}`;
 
       return {
-        title: capitalize(path.replace(/-/g, " ")),
-        onClick: !isLast ? () => navigate(url) : undefined,
-        className: !isLast ? "breadcrumb-link-active" : "breadcrumb-link-last",
+        title: isLast ? (
+          <CurrentBreadcrumbItem>
+            {capitalize(path.replace(/-/g, " "))}
+          </CurrentBreadcrumbItem>
+        ) : (
+          <BreadcrumbLink onClick={() => navigate(url)}>
+            {capitalize(path.replace(/-/g, " "))}
+          </BreadcrumbLink>
+        ),
       };
     }),
   ];
@@ -31,58 +39,45 @@ export const BreadcrumbLayout = () => {
   return (
     <BreadcrumbContainer
       items={breadcrumbItems}
-      separator={
-        <FontAwesomeIcon icon={faChevronRight} style={{ fontSize: "10px" }} />
-      }
+      separator={<SeparatorIcon icon={faChevronRight} />}
     />
   );
 };
 
 const BreadcrumbContainer = styled(Breadcrumb)`
-  ${({ theme }) => css`
-    margin: ${theme.spacing.sm} 0;
-    padding: ${theme.spacing.xs} 0;
-    display: flex;
-    align-items: center;
+  margin: ${({ theme }) => theme.spacing.xs} 0
+    ${({ theme }) => theme.spacing.md} 0;
+  display: flex;
+  align-items: center;
+`;
 
-    .breadcrumb-link-active {
-      color: ${theme.colors.fontSecondary} !important;
-      font-size: ${theme.font_sizes.sm};
-      cursor: pointer;
-      transition: color ${theme.transitions.fast};
+const BreadcrumbLink = styled.span`
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: color ${({ theme }) => theme.transitions.fast};
 
-      &:hover {
-        color: ${theme.colors.primary} !important;
-      }
+  .home-icon {
+    font-size: 13px;
+    transition: transform ${({ theme }) => theme.transitions.fast};
+  }
 
-      .ant-breadcrumb-link {
-        display: flex;
-        align-items: center;
-      }
-    }
-
-    .breadcrumb-link-last {
-      .ant-breadcrumb-link {
-        color: ${theme.colors.fontPrimary} !important;
-        font-weight: ${theme.font_weight.medium};
-        font-size: ${theme.font_sizes.sm};
-        cursor: default;
-      }
-    }
-
-    .ant-breadcrumb-separator {
-      color: ${theme.colors.fontTertiary};
-      margin: 0 ${theme.spacing.sm};
-      display: flex;
-      align-items: center;
-    }
-
-    svg {
-      transition: transform ${theme.transitions.fast};
-    }
-
-    .breadcrumb-link-active:hover svg {
+  &:hover {
+    .home-icon {
       transform: scale(1.1);
     }
-  `}
+  }
+`;
+
+const CurrentBreadcrumbItem = styled.span`
+  font-weight: ${({ theme }) => theme.font_weight.medium};
+  cursor: default;
+  display: flex;
+  align-items: center;
+`;
+
+const SeparatorIcon = styled(FontAwesomeIcon)`
+  font-size: 10px;
+  display: flex;
+  align-items: center;
 `;

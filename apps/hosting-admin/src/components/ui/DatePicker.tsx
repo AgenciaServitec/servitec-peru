@@ -1,7 +1,7 @@
 import { DatePicker as AntdDatePicker } from "antd";
-import { ComponentContainer } from "./component-container";
-import { type Dayjs } from "dayjs";
+import type { Dayjs } from "dayjs";
 import styled, { css } from "styled-components";
+import { ComponentContainer } from "./component-container";
 
 interface DatePickerProps {
   value?: Dayjs | string | undefined;
@@ -15,9 +15,9 @@ interface DatePickerProps {
   variant?: "outlined" | "filled";
   allowClear?: boolean;
   onChange?: (value?: Dayjs | string) => void;
-  prefix?: string | null;
+  prefix?: React.ReactNode;
   disabledDate?: (current: Dayjs) => boolean;
-  format?: "DD/MM/YYYY HH:mm";
+  format?: string;
 }
 
 export const DatePicker = ({
@@ -33,7 +33,7 @@ export const DatePicker = ({
   allowClear = true,
   onChange,
   prefix = null,
-  disabledDate = (current: Dayjs) => false,
+  disabledDate,
   format = "DD/MM/YYYY HH:mm",
 }: DatePickerProps) => {
   const Container = ComponentContainer[variant];
@@ -51,37 +51,34 @@ export const DatePicker = ({
       <StyledDatePicker
         size="large"
         format={format}
-        value={value}
+        value={value as any}
         disabled={disabled}
         name={name}
         placeholder=""
-        onChange={onChange}
+        onChange={onChange as any}
         allowClear={allowClear}
         variant="borderless"
         prefix={prefix}
         disabledDate={disabledDate}
-        style={{ width: "100%" }}
       />
     </Container>
   );
 };
 
+/* --- ESTILOS LIMPIOS Y SIN !IMPORTANT --- */
+
 const StyledDatePicker = styled(AntdDatePicker)`
   ${({ theme }) => css`
     width: 100%;
 
-    /* Texto interno del DatePicker */
+    /* Texto e input principal */
     .ant-picker-input > input {
-      color: ${theme.colors.fontPrimary} !important;
-      font-size: ${theme.font_sizes.sm} !important;
+      color: ${theme.colors.fontPrimary};
+      font-size: ${theme.font_sizes.sm};
       font-weight: ${theme.font_weight.medium};
-
-      &::placeholder {
-        color: ${theme.colors.fontTertiary};
-      }
     }
 
-    /* Icono de Calendario (Suffix) */
+    /* Icono principal de Calendario/Reloj (Suffix) */
     .ant-picker-suffix {
       color: ${theme.colors.primary};
       transition: color ${theme.transitions.fast};
@@ -91,26 +88,35 @@ const StyledDatePicker = styled(AntdDatePicker)`
     .ant-picker-clear {
       background: transparent;
       color: ${theme.colors.fontTertiary};
+      transition: color ${theme.transitions.fast};
+
       &:hover {
         color: ${theme.colors.primary};
       }
     }
 
-    /* Estilos cuando está deshabilitado */
+    /* Estado Deshabilitado */
     &.ant-picker-disabled {
-      background: transparent !important;
+      background: transparent;
+      cursor: not-allowed;
+
       .ant-picker-input > input {
-        color: ${theme.colors.fontDisabled} !important;
+        color: ${theme.colors.fontDisabled};
+        -webkit-text-fill-color: ${theme.colors.fontDisabled};
+        cursor: not-allowed;
       }
+
       .ant-picker-suffix {
         color: ${theme.colors.fontDisabled};
       }
     }
 
-    /* Ajuste de prefijo si existe */
+    /* Prefijo */
     .ant-picker-prefix {
       color: ${theme.colors.fontTertiary};
       margin-right: ${theme.spacing.xs};
+      display: flex;
+      align-items: center;
     }
   `}
 `;

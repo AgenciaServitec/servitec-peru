@@ -1,10 +1,10 @@
-import { Layout, Spin } from "../ui";
-import styled, { css } from "styled-components";
 import { type ReactNode, useState } from "react";
-import { DrawerLayout } from "./DrawerLayout.tsx";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { Layout, Spin } from "../ui";
+import { SidebarLayout } from "./SidebarLayout.tsx";
 import { HeaderLayout } from "./HeaderLayout.tsx";
 import { BreadcrumbLayout } from "./Breadcrumb.tsx";
-import { useNavigate } from "react-router-dom";
 
 const { Content } = Layout;
 
@@ -18,63 +18,59 @@ export const AdminLayout = ({
   isLoading = false,
 }: AdminLayoutProps) => {
   const navigate = useNavigate();
-  const [isVisibleDrawer, setIsVisibleDrawer] = useState(false);
+  // Estado nativo para controlar el colapso del Sider
+  const [collapsed, setCollapsed] = useState(false);
 
   const onNavigateTo = (url: string) => {
     navigate(url);
-    setIsVisibleDrawer(false);
   };
 
   return (
     <Spin tip="Cargando..." spinning={isLoading}>
       <LayoutContainer>
-        <DrawerLayout
-          isVisibleDrawer={isVisibleDrawer}
-          onSetIsVisibleDrawer={setIsVisibleDrawer}
-          onNavigateTo={onNavigateTo}
-        />
-        <MainLayout>
-          <HeaderLayout
-            isVisibleDrawer={isVisibleDrawer}
-            onSetIsVisibleDrawer={setIsVisibleDrawer}
-          />
+        <SidebarLayout collapsed={collapsed} onNavigateTo={onNavigateTo} />
+
+        <MainWrapper>
+          <HeaderLayout collapsed={collapsed} setCollapsed={setCollapsed} />
           <StyledContent>
             <BreadcrumbLayout />
             <div className="site-layout-content">{children}</div>
           </StyledContent>
-        </MainLayout>
+        </MainWrapper>
       </LayoutContainer>
     </Spin>
   );
 };
 
 const LayoutContainer = styled(Layout)`
-  ${({ theme }) => css`
-    width: 100vw;
-    min-height: 100vh;
-    background: ${theme.mode === "dark"
-      ? `linear-gradient(135deg, ${theme.colors.bgPrimary} 0%, ${theme.colors.bgSecondary} 100%)`
-      : theme.colors.bgPrimary} !important;
-  `}
+  width: 100vw;
+  min-height: 100vh;
+  background: ${({ theme }) => theme.colors.bgPrimary};
+  display: flex;
+  flex-direction: row;
 `;
 
-const MainLayout = styled(Layout)`
-  background: transparent !important;
+const MainWrapper = styled(Layout)`
+  flex: 1;
+  background: ${({ theme }) => theme.colors.bgSecondary};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.border_radius.xl};
+  margin: ${({ theme }) => theme.spacing.sm};
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - (${({ theme }) => theme.spacing.sm} * 2));
+  box-shadow: ${({ theme }) => theme.shadows.sm};
+  transition:
+    background ${({ theme }) => theme.transitions.normal},
+    border-color ${({ theme }) => theme.transitions.normal};
 `;
 
 const StyledContent = styled(Content)`
-  ${({ theme }) => css`
-    margin: 0 ${theme.spacing.md};
+  padding: ${({ theme }) => theme.spacing.lg};
 
-    .site-layout-content {
-      background: ${theme.colors.bgSecondary};
-      padding: ${theme.spacing.lg};
-      border-radius: ${theme.border_radius.lg};
-      border: 1px solid ${theme.colors.border};
-      min-height: 280px;
-      box-shadow: ${theme.shadows.sm};
-      transition: background ${theme.transitions.normal};
-      margin-bottom: 2rem;
-    }
-  `}
+  .site-layout-content {
+    background: transparent;
+    min-height: 280px;
+  }
 `;

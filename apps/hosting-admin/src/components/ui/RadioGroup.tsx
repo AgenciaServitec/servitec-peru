@@ -28,6 +28,7 @@ export interface RadioGroupProps extends Omit<
 }
 
 export const RadioGroup: React.FC<RadioGroupProps> = ({
+  value,
   required = false,
   error = false,
   label,
@@ -43,6 +44,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
 
   return (
     <Container
+      value={value}
       required={required}
       error={error}
       label={label}
@@ -51,6 +53,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
       disabled={disabled}
     >
       <RadioGroupStyled
+        value={value}
         onChange={(e) => onChange?.(e.target.value)}
         options={options}
         disabled={disabled}
@@ -60,60 +63,50 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
   );
 };
 
+/* --- ESTILOS LIMPIOS SIN !IMPORTANT --- */
+
 const RadioGroupStyled = styled(RadioAntd.Group)`
   ${({ theme }) => css`
-    padding: ${theme.spacing.sm} ${theme.spacing.md};
+    padding: ${theme.spacing.xs}${theme.spacing.sm};
     display: flex;
     flex-wrap: wrap;
     gap: ${theme.spacing.md};
+    align-items: center;
 
-    &:has(.ant-radio-button-wrapper) {
-      display: inline-flex;
-      gap: 0;
-    }
-
+    &:has(.ant-radio-button-wrapper),
     &.ant-radio-group-outline,
     &.ant-radio-group-solid {
       display: inline-flex;
       gap: 0;
+      padding: 0;
     }
 
+    /* Radios estándar */
     .ant-radio-wrapper {
       color: ${theme.colors.fontPrimary};
       font-size: ${theme.font_sizes.sm};
       margin-right: 0;
-      transition: all ${theme.transitions.fast};
+      transition: color ${theme.transitions.fast};
 
       .ant-radio-inner {
-        background-color: ${theme.colors.bgTertiary};
-        border-color: ${theme.colors.border};
         width: 18px;
         height: 18px;
+        border-radius: ${theme.border_radius.full};
+        transition: all ${theme.transitions.fast};
 
+        /* Punto interno (Dot) con alto contraste */
         &::after {
-          background-color: #000000 !important;
-          width: 10px;
-          height: 10px;
-          margin-top: -5px;
-          margin-left: -5px;
+          background-color: ${theme.mode === "dark" ? "#000000" : "#ffffff"};
+          width: 8px;
+          height: 8px;
+          margin-top: -4px;
+          margin-left: -4px;
         }
-      }
-
-      .ant-radio-checked {
-        .ant-radio-inner {
-          background-color: ${theme.colors.primary};
-          border-color: ${theme.colors.primary};
-        }
-      }
-
-      &:hover:not(.ant-radio-wrapper-disabled) .ant-radio-inner {
-        border-color: ${theme.colors.primary};
       }
 
       &.ant-radio-wrapper-disabled {
         color: ${theme.colors.fontDisabled};
         cursor: not-allowed;
-        opacity: 1;
 
         .ant-radio-inner {
           background-color: ${theme.colors.bgTertiary};
@@ -122,39 +115,31 @@ const RadioGroupStyled = styled(RadioAntd.Group)`
       }
     }
 
+    /* Modo Botón (Radio.Button) */
     .ant-radio-button-wrapper {
-      background-color: ${theme.colors.bgTertiary};
-      border-color: ${theme.colors.border};
-      color: ${theme.colors.fontSecondary};
-      height: 32px;
-      line-height: 30px;
+      height: 36px;
+      line-height: 34px;
+      font-size: ${theme.font_sizes.sm};
       transition: all ${theme.transitions.fast};
 
       &:first-child {
-        border-radius: ${theme.border_radius.sm} 0 0 ${theme.border_radius.sm};
+        border-radius: ${theme.border_radius.xs} 0 0 ${theme.border_radius.xs};
       }
       &:last-child {
-        border-radius: 0 ${theme.border_radius.sm} ${theme.border_radius.sm} 0;
-      }
-
-      &:hover {
-        color: ${theme.colors.primary};
+        border-radius: 0 ${theme.border_radius.xs}${theme.border_radius.xs} 0;
       }
 
       &.ant-radio-button-wrapper-checked {
-        background-color: ${theme.colors.primary} !important;
-        border-color: ${theme.colors.primary} !important;
-        color: #000000 !important;
+        color: ${theme.mode === "dark" ? "#000000" : "#ffffff"};
+        font-weight: ${theme.font_weight.medium};
 
         &::before {
-          background-color: transparent !important;
+          background-color: transparent;
         }
       }
 
       &.ant-radio-button-wrapper-disabled {
-        background-color: ${theme.colors.bgTertiary};
         color: ${theme.colors.fontDisabled};
-        border-color: ${theme.colors.border};
       }
     }
   `}

@@ -128,11 +128,8 @@ export function Home() {
       <Col span={24}>
         <SectionHeader style={{ marginTop: "1rem" }}>
           <Title level={4} style={{ margin: 0 }}>
-            Monitoreo de actividad
+            Monitoreo de asistencia
           </Title>
-          <p className="description">
-            Estado del personal técnico en tiempo real
-          </p>
         </SectionHeader>
         <AssistanceMonitor />
       </Col>

@@ -1,8 +1,9 @@
-import AntSelect from "antd/lib/select";
+import { Select as AntSelect } from "antd";
+import type { DefaultOptionType } from "antd/es/select";
+import styled, { css } from "styled-components";
 import { ComponentContainer } from "./component-container";
-import styled, { createGlobalStyle, css } from "styled-components";
 
-type Option = { code?: string; label?: string; value?: string };
+export type Option = { code?: string; label?: string; value?: string };
 
 interface SelectProps {
   value?: string;
@@ -15,7 +16,7 @@ interface SelectProps {
   variant?: "outlined" | "filled";
   allowClear?: boolean;
   filterOption?: (inputValue: string, optionLabel: string) => boolean;
-  options?: Option[] | undefined;
+  options?: Option[];
   placeholder?: string;
   helperText?: string;
   onChange?: (value?: string) => void;
@@ -41,7 +42,7 @@ export const Select = ({
   options = [],
   placeholder = "",
   helperText,
-  onChange = (value) => value,
+  onChange,
   ...props
 }: SelectProps) => {
   const Container = ComponentContainer[variant];
@@ -56,16 +57,14 @@ export const Select = ({
       label={label}
       animation={animation}
     >
-      <DropdownStyles />
-
       {isMobile ? (
         <StyledSelectMobile
           key={value}
           disabled={disabled}
           $error={error}
           onChange={(event) => onChange && onChange(event.target.value)}
-          value={value}
-          defaultValue={value}
+          value={value ?? ""}
+          defaultValue={value ?? ""}
         >
           {placeholder && (
             <option value="" hidden>
@@ -74,14 +73,13 @@ export const Select = ({
           )}
           {!value && <option value="" hidden />}
           {options.map((option) => (
-            <option key={option.code} value={option.value}>
+            <option key={option.code || option.value} value={option.value}>
               {option.label}
             </option>
           ))}
         </StyledSelectMobile>
       ) : (
         <StyledAntSelect
-          popupClassName="servitec-select-popup"
           allowClear={disabled ? false : allowClear}
           variant="borderless"
           disabled={disabled}
@@ -89,12 +87,15 @@ export const Select = ({
           defaultValue={value}
           onChange={onChange}
           filterOption={(inputValue, option) =>
-            filterOption(inputValue, option?.label ?? "")
+            filterOption(
+              inputValue,
+              String((option as DefaultOptionType)?.label ?? "")
+            )
           }
           showSearch
           size="large"
           placeholder={placeholder}
-          options={options}
+          options={options as DefaultOptionType[]}
           {...props}
         />
       )}
@@ -102,82 +103,20 @@ export const Select = ({
   );
 };
 
-const DropdownStyles = createGlobalStyle`
-  ${({ theme }) => css`
-    .servitec-select-popup {
-      background-color: ${theme.colors.bgSecondary} !important;
-      border: 1px solid ${theme.colors.border} !important;
-      border-radius: ${theme.border_radius.md} !important;
-      box-shadow: ${theme.shadows.lg} !important;
-      padding: 4px 0 !important;
-
-      .ant-select-item {
-        color: ${theme.colors.fontSecondary} !important;
-        margin: 2px 4px !important;
-        border-radius: ${theme.border_radius.sm} !important;
-        transition: all ${theme.transitions.fast};
-
-        &-option-content {
-          font-size: ${theme.font_sizes.sm} !important;
-        }
-
-        &-option-active {
-          background-color: ${theme.colors.bgHover} !important;
-          color: ${theme.colors.primary} !important;
-        }
-
-        &-option-selected {
-          background-color: ${theme.colors.primaryAlpha} !important;
-          color: ${theme.colors.primary} !important;
-          font-weight: ${theme.font_weight.large} !important;
-        }
-      }
-
-      .rc-virtual-list-scrollbar-thumb {
-        background: ${theme.colors.border} !important;
-      }
-
-      .ant-select-item-empty {
-        color: ${theme.colors.fontTertiary} !important;
-      }
-    }
-  `}
-`;
+/* --- ESTILOS LIMPIOS SIN !IMPORTANT NI CREATED GLOBAL STYLE --- */
 
 const StyledAntSelect = styled(AntSelect)`
-  ${({ theme }) => css`
-    width: 100%;
+  width: 100%;
 
-    .ant-select-selection-search-input {
-      color: ${theme.colors.fontPrimary} !important;
-      font-size: ${theme.font_sizes.sm} !important;
-    }
+  .ant-select-clear {
+    background: transparent;
+    color: ${({ theme }) => theme.colors.fontTertiary};
+    padding-right: 4px;
 
-    .ant-select-selection-item,
-    .ant-select-selection-placeholder {
-      font-size: ${theme.font_sizes.sm} !important;
-      color: ${theme.colors.fontPrimary} !important;
-      font-weight: ${theme.font_weight.medium};
+    &:hover {
+      color: ${({ theme }) => theme.colors.primary};
     }
-
-    .ant-select-arrow {
-      color: ${theme.colors.primary} !important;
-      font-size: 12px;
-    }
-
-    .ant-select-clear {
-      background: transparent;
-      color: ${theme.colors.fontTertiary};
-      padding-right: 4px;
-      &:hover {
-        color: ${theme.colors.primary};
-      }
-    }
-
-    .ant-select-prefix {
-      color: ${theme.colors.fontPrimary} !important;
-    }
-  `}
+  }
 `;
 
 const StyledSelectMobile = styled.select<{ $error: boolean }>`

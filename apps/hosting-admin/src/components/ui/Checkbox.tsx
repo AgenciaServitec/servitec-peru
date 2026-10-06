@@ -1,7 +1,7 @@
-import CheckboxAntd from "antd/lib/checkbox";
+import type { ReactNode } from "react";
+import { Checkbox as AntdCheckbox } from "antd";
 import styled, { css } from "styled-components";
 import { classNames, keyframes } from "../../styles";
-import type { ReactNode } from "react";
 
 interface CheckboxProps {
   name?: string;
@@ -28,8 +28,8 @@ export const Checkbox = ({
     name={name}
     className={classNames({ "scroll-error-anchor": error })}
     checked={checked}
-    onChange={(e) => onChange && onChange(e.target.checked)}
-    $error={error} // Usamos $ para props transitorias
+    onChange={(e) => onChange?.(e.target.checked)}
+    $error={error}
     $hidden={hidden}
     $required={required}
     data-testid={dataTestId}
@@ -38,7 +38,9 @@ export const Checkbox = ({
   </CheckBoxAntdStyled>
 );
 
-const CheckBoxAntdStyled = styled(CheckboxAntd)<{
+/* --- ESTILOS LIMPIOS Y ALINEADOS AL THEME --- */
+
+const CheckBoxAntdStyled = styled(AntdCheckbox)<{
   $error: boolean;
   $hidden: boolean;
   $required: boolean;
@@ -54,43 +56,22 @@ const CheckBoxAntdStyled = styled(CheckboxAntd)<{
       cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 
     .ant-checkbox {
-      top: 0; /* Alineación mejorada */
+      top: 0;
 
       .ant-checkbox-inner {
-        background: ${theme.colors
-          .bgTertiary}; /* Un poco más oscuro que el fondo para contraste */
-        border-color: ${theme.colors.border};
-        border-radius: ${theme.border_radius.xs}; /* 4px para look técnico */
         width: 18px;
         height: 18px;
+        border-radius: ${theme.border_radius.xs};
         transition: all ${theme.transitions.fast};
       }
     }
 
-    /* Estado Seleccionado */
-    .ant-checkbox-checked {
-      .ant-checkbox-inner {
-        background-color: ${theme.colors.primary};
-        border-color: ${theme.colors.primary};
-
-        /* El color de la "palomita" debe ser negro sobre el fondo amarillo */
-        &::after {
-          border-color: #000000 !important;
-        }
-      }
-
-      &::after {
-        border: 1px solid ${theme.colors.primary};
-      }
+    /* Color de la "palomita" sobre fondo primario (Negro/Oscuro para contraste con el amarillo) */
+    .ant-checkbox-checked .ant-checkbox-inner::after {
+      border-color: ${theme.mode === "dark" ? "#000000" : "#ffffff"};
     }
 
-    /* Hover */
-    &:hover .ant-checkbox-inner,
-    .ant-checkbox:hover .ant-checkbox-inner {
-      border-color: ${theme.colors.primary};
-    }
-
-    /* Estilos de Error */
+    /* Estilos cuando hay Error */
     ${$error &&
     css`
       .ant-checkbox .ant-checkbox-inner {
@@ -102,22 +83,19 @@ const CheckBoxAntdStyled = styled(CheckboxAntd)<{
         border-color: ${theme.colors.error};
 
         &::after {
-          border-color: #ffffff !important; /* Blanco sobre rojo de error */
+          border-color: #ffffff; /* Blanco sobre rojo de error */
         }
       }
     `}
 
-    /* Estilo de Requerido */
+    /* Indicador de Requerido (*) */
     ${$required &&
     css`
-      .checkbox-content {
-        &::after {
-          /* Movido a after para un look más limpio */
-          content: "*";
-          margin-left: ${theme.spacing.xs};
-          color: ${theme.colors.error};
-          font-size: ${theme.font_sizes.sm};
-        }
+      .checkbox-content::after {
+        content: "*";
+        margin-left: ${theme.spacing.xs};
+        color: ${theme.colors.error};
+        font-size: ${theme.font_sizes.sm};
       }
     `}
 
@@ -125,6 +103,7 @@ const CheckBoxAntdStyled = styled(CheckboxAntd)<{
       padding-left: ${theme.spacing.sm};
       line-height: 1;
       user-select: none;
+      color: ${theme.colors.fontPrimary};
     }
   `}
 `;

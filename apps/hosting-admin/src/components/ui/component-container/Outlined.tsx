@@ -1,13 +1,13 @@
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
+import { Typography } from "antd";
 import styled, { css } from "styled-components";
-import { capitalize, isEmpty, startCase, toString } from "lodash";
+import { capitalize, isEmpty, isObject, startCase } from "lodash";
 import { classNames, keyframes } from "../../../styles";
-import Typography from "antd/lib/typography";
 
 const { Text } = Typography;
 
 export interface BaseContainerProps {
-  value?: boolean;
+  value?: any;
   required?: boolean;
   error?: boolean;
   hidden?: boolean;
@@ -21,10 +21,17 @@ export interface BaseContainerProps {
 
 interface OutlinedProps extends BaseContainerProps {}
 
+// Helper seguro para validar presencia de valor
+const hasValue = (val: any): boolean => {
+  if (val === null || val === undefined || val === "") return false;
+  if (isObject(val)) return !isEmpty(val);
+  return true;
+};
+
 export const Outlined = ({
   value,
   required,
-  error,
+  error = false,
   hidden = false,
   label,
   children,
@@ -44,7 +51,7 @@ export const Outlined = ({
       </label>
     )}
     <Wrapper
-      $value={typeof value === "object" ? !isEmpty(value) : !!toString(value)}
+      $value={hasValue(value)}
       $error={error}
       className={classNames({ "scroll-error-anchor": error })}
       $disabled={disabled}
@@ -52,10 +59,12 @@ export const Outlined = ({
       <div className="item-wrapper">{children}</div>
     </Wrapper>
     {helperText && (
-      <Error $error={error}>{capitalize(startCase(helperText))}</Error>
+      <ErrorText $error={error}>{capitalize(startCase(helperText))}</ErrorText>
     )}
   </Container>
 );
+
+/* --- ESTILOS LIMPIOS Y ALINEADOS AL THEME --- */
 
 const Container = styled.div<{
   $error?: boolean;
@@ -82,10 +91,10 @@ const Container = styled.div<{
 
       ${$required &&
       css`
-        &:after {
+        &::after {
           content: "*";
           margin-left: ${theme.spacing.xs};
-          color: ${$error ? theme.colors.error : theme.colors.primary};
+          color: ${theme.colors.error};
           font-size: ${theme.font_sizes.sm};
         }
       `};
@@ -106,7 +115,9 @@ const Wrapper = styled.div<{
       ? theme.colors.bgTertiary
       : theme.colors.bgSecondary};
     border: 1px solid ${$error ? theme.colors.error : theme.colors.border};
-    transition: all ${theme.transitions.fast};
+    transition:
+      border-color ${theme.transitions.fast},
+      box-shadow ${theme.transitions.fast};
     animation: ${$error && keyframes.shake} 340ms
       cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 
@@ -125,23 +136,25 @@ const Wrapper = styled.div<{
     }
 
     .item-wrapper {
-      /* Estilos para los componentes internos de AntD */
+      /* Integración limpia para controles de Ant Design */
       .ant-input-number,
       .ant-picker,
       .ant-select {
         width: 100%;
-        border: none !important;
-        box-shadow: none !important;
-        background: transparent !important;
+        border: none;
+        box-shadow: none;
+        background: transparent;
       }
 
       .ant-input,
       .ant-select-selector,
       .ant-input-affix-wrapper {
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-        height: 38px; /* Un poco más compacto que el filled para el estilo outlined */
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        height: 38px;
+        display: flex;
+        align-items: center;
       }
 
       .ant-input-group-addon {
@@ -149,26 +162,29 @@ const Wrapper = styled.div<{
         border-left: 1px solid ${theme.colors.border};
         background: ${theme.colors.bgTertiary};
         color: ${theme.colors.fontSecondary};
-        border-radius: 0 ${theme.border_radius.md} ${theme.border_radius.md} 0;
+        border-radius: 0 ${theme.border_radius.md}${theme.border_radius.md} 0;
       }
 
       input:-webkit-autofill {
-        -webkit-text-fill-color: ${theme.colors.fontPrimary} !important;
-        -webkit-box-shadow: 0 0 0 1000px ${theme.colors.bgSecondary} inset !important;
+        -webkit-text-fill-color: ${theme.colors.fontPrimary};
+        -webkit-box-shadow: 0 0 0 1000px ${theme.colors.bgSecondary} inset;
       }
     }
   `}
 `;
 
-const Error = styled(Text)<{ $error?: boolean }>`
+const ErrorText = styled(Text)<{ $error?: boolean }>`
   ${({ theme, $error }) => css`
     display: block;
     color: ${theme.colors.error};
     font-size: ${theme.font_sizes.xs};
     margin-top: ${theme.spacing.xs};
+    margin-left: ${theme.spacing.xs};
+
     ${$error &&
     css`
-      animation: ${keyframes.shake} 340ms;
+      animation: ${keyframes.shake} 340ms cubic-bezier(0.36, 0.07, 0.19, 0.97)
+        both;
     `};
   `}
 `;

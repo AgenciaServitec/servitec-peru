@@ -1,13 +1,13 @@
 import { type ReactNode } from "react";
+import { Typography } from "antd";
 import styled, { css } from "styled-components";
-import { capitalize, isEmpty, startCase, toString } from "lodash";
+import { capitalize, isEmpty, isObject, startCase } from "lodash";
 import { classNames, keyframes } from "../../../styles";
-import Typography from "antd/lib/typography";
 
 const { Text } = Typography;
 
 export interface BaseContainerProps {
-  value?: boolean;
+  value?: any;
   required?: boolean;
   error?: boolean;
   hidden?: boolean;
@@ -20,6 +20,13 @@ export interface BaseContainerProps {
 }
 
 interface FilledProps extends BaseContainerProps {}
+
+// Helper seguro para validar si el valor no está vacío (soportando números y booleanos)
+const hasValue = (val: any): boolean => {
+  if (val === null || val === undefined || val === "") return false;
+  if (isObject(val)) return !isEmpty(val);
+  return true;
+};
 
 export const Filled = ({
   value,
@@ -35,7 +42,7 @@ export const Filled = ({
 }: FilledProps) => (
   <>
     <Container
-      $value={typeof value === "object" ? !isEmpty(value) : !!toString(value)}
+      $value={hasValue(value)}
       className={classNames({ "scroll-error-anchor": error })}
       $error={error}
       $disabled={disabled}
@@ -44,15 +51,19 @@ export const Filled = ({
       $animation={animation}
     >
       <div className="item-wrapper">{children}</div>
-      <label htmlFor={componentId} className="item-label">
-        {label}
-      </label>
+      {label && (
+        <label htmlFor={componentId} className="item-label">
+          {label}
+        </label>
+      )}
     </Container>
     {helperText && (
-      <Error $error={error}>{capitalize(startCase(helperText))}</Error>
+      <ErrorText $error={error}>{capitalize(startCase(helperText))}</ErrorText>
     )}
   </>
 );
+
+/* --- ESTILOS REUTILIZABLES DE ETIQUETA FLOTANTE --- */
 
 const labelAnimate = css`
   padding: 0 ${({ theme }) => theme.spacing.xs};
@@ -85,12 +96,9 @@ const Container = styled.div<{
     position: relative;
     width: 100%;
     border-radius: ${theme.border_radius.md};
-
-    /* Fondo basado en estado */
     background: ${$disabled
       ? theme.colors.bgTertiary
       : theme.colors.bgSecondary};
-
     border: 1px solid ${$error ? theme.colors.error : theme.colors.border};
 
     animation: ${$error && keyframes.shake} 340ms
@@ -147,34 +155,33 @@ const Container = styled.div<{
     .item-wrapper {
       padding: 0;
 
-      /* Cuando el input interno gana foco, animamos el label */
+      /* Animación del label al enfocar */
       &:focus-within + .item-label {
         ${labelAnimate};
         color: ${$error ? theme.colors.error : theme.colors.primary};
       }
 
-      /* Reset de componentes internos de AntD para que hereden el estilo del contenedor */
+      /* Reset limpio de bordes y fondos para elementos integrados de Ant Design */
       .ant-input-number,
       .ant-picker,
       .ant-select {
         width: 100%;
-        border: none !important;
-        box-shadow: none !important;
-        background: transparent !important;
+        border: none;
+        box-shadow: none;
+        background: transparent;
       }
 
       .ant-select-selector,
       .ant-input,
       .ant-input-affix-wrapper {
-        border: none !important;
-        box-shadow: none !important;
-        background: transparent !important;
-        height: 40px; /* Altura estándar profesional */
+        border: none;
+        box-shadow: none;
+        background: transparent;
+        height: 40px;
         display: flex;
         align-items: center;
       }
 
-      /* Ajuste para los addons (ej: prefijos de moneda) */
       .ant-input-group-addon {
         border: none;
         border-left: 1px solid ${theme.colors.border};
@@ -187,25 +194,27 @@ const Container = styled.div<{
       }
     }
 
-    /* Fix para el autocompletado de Chrome */
+    /* Manejo limpio de autofill */
     input:-webkit-autofill {
-      -webkit-text-fill-color: ${theme.colors.fontPrimary} !important;
-      -webkit-box-shadow: 0 0 0 1000px ${theme.colors.bgSecondary} inset !important;
+      -webkit-text-fill-color: ${theme.colors.fontPrimary};
+      -webkit-box-shadow: 0 0 0 1000px ${theme.colors.bgSecondary} inset;
       transition: background-color 5000s ease-in-out 0s;
     }
   `}
 `;
 
-const Error = styled(Text)<{ $error?: boolean }>`
+const ErrorText = styled(Text)<{ $error?: boolean }>`
   ${({ theme, $error }) => css`
     display: block;
     color: ${theme.colors.error};
     font-size: ${theme.font_sizes.xs};
     margin-top: ${theme.spacing.xs};
     margin-left: ${theme.spacing.xs};
+
     ${$error &&
     css`
-      animation: ${keyframes.shake} 340ms;
+      animation: ${keyframes.shake} 340ms cubic-bezier(0.36, 0.07, 0.19, 0.97)
+        both;
     `};
   `}
 `;

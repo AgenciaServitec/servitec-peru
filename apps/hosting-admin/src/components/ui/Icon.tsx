@@ -1,66 +1,93 @@
+import React, { type CSSProperties } from "react";
 import styled, { css } from "styled-components";
 import {
   FontAwesomeIcon,
   type FontAwesomeIconProps,
 } from "@fortawesome/react-fontawesome";
-import type { CSSProperties } from "react";
 
-interface IconProps extends Omit<FontAwesomeIconProps, "border"> {
+export interface IconProps extends Omit<
+  FontAwesomeIconProps,
+  "border" | "icon"
+> {
+  icon: FontAwesomeIconProps["icon"] | React.ReactNode;
   label?: string;
   margin?: CSSProperties["margin"];
   borderRadius?: CSSProperties["borderRadius"];
   border?: CSSProperties["border"];
   direction?: "column" | "row";
+  fontSize?: string | number;
+  cursor?: string;
+  color?: string;
 }
 
-// Usamos prefijo $ para evitar que las props de styled-components bajen al DOM
 interface StyledContainerProps {
   $margin?: CSSProperties["margin"];
   $direction: "column" | "row";
 }
 
-interface StyledIconProps {
-  $borderRadius?: CSSProperties["borderRadius"];
-  $border?: CSSProperties["border"];
+interface StyledIconWrapperProps {
+  $color?: string;
   $fontSize?: string | number;
   $cursor?: string;
+  $border?: CSSProperties["border"];
+  $borderRadius?: CSSProperties["borderRadius"];
+  $isInteractive: boolean;
 }
 
-export const Icon = ({
+export const Icon: React.FC<IconProps> = ({
   label,
   icon,
   onClick,
   color,
-  fontSize,
+  fontSize = "1.25rem",
   cursor = "pointer",
   margin,
   border,
   borderRadius,
   direction = "column",
-  ...props // Permitimos pasar el resto de props de FontAwesome
-}: IconProps) => {
+  ...props
+}) => {
+  const isInteractive = !!onClick;
+
+  const renderIconContent = () => {
+    if (React.isValidElement(icon)) {
+      return icon;
+    }
+    if (typeof icon === "object" && icon !== null && "prefix" in icon) {
+      return (
+        <FontAwesomeIcon
+          icon={icon as FontAwesomeIconProps["icon"]}
+          {...props}
+        />
+      );
+    }
+    return icon;
+  };
+
   return (
     <Container $margin={margin} $direction={direction}>
-      <StyledIcon
-        {...props}
-        color={color}
+      <IconWrapper
         onClick={onClick}
-        icon={icon}
+        $color={color}
         $fontSize={fontSize}
-        $cursor={cursor}
+        $cursor={isInteractive ? cursor : "default"}
         $border={border}
         $borderRadius={borderRadius}
-      />
+        $isInteractive={isInteractive}
+      >
+        {renderIconContent()}
+      </IconWrapper>
       {label && <Text className="icon-label">{label}</Text>}
     </Container>
   );
 };
 
+/* --- ESTILOS REUTILIZABLES Y ALINEADOS AL THEME --- */
+
 const Container = styled.div<StyledContainerProps>`
   ${({ theme, $margin, $direction }) => css`
-    /* Usamos spacing.xs (4px) como fallback si no hay margen definido */
     margin: ${$margin || `0 ${theme.spacing.xs}`};
-    display: flex;
+    display: inline-flex;
     flex-direction: ${$direction};
     align-items: center;
     justify-content: center;
@@ -68,28 +95,50 @@ const Container = styled.div<StyledContainerProps>`
   `}
 `;
 
-const StyledIcon = styled(FontAwesomeIcon)<StyledIconProps>`
-  ${({ theme, color, $fontSize, $cursor, $border, $borderRadius }) => css`
-    color: ${color || theme.colors.fontSecondary};
-    font-size: ${$fontSize ||
-    "1.25rem"}; /* Ajustado a un tamaño más estándar */
+const IconWrapper = styled.span<StyledIconWrapperProps>`
+  ${({
+    theme,
+    $color,
+    $fontSize,
+    $cursor,
+    $border,
+    $borderRadius,
+    $isInteractive,
+  }) => css`
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: ${$color || theme.colors.fontSecondary};
+    font-size: ${typeof$fontSize === "number" ? `${$fontSize}px` : $fontSize};
     cursor: ${$cursor};
     border: ${$border || "none"};
     border-radius: ${$borderRadius || "none"};
-    transition: color ${theme.transitions.fast};
+    transition:
+      color ${theme.transitions.fast},
+      transform${theme.transitions.fast};
 
-    &:hover {
-      /* Solo cambia a primary si tiene un onClick (es interactivo) */
-      color: ${$cursor === "pointer"
-        ? theme.colors.primary
-        : color || theme.colors.fontSecondary};
+    svg {
+      width: 1em;
+      height: 1em;
+      color: inherit;
     }
+
+    ${$isInteractive &&
+    css`
+      &:hover {
+        color: ${theme.colors.primary};
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+    `}
   `}
 `;
 
 const Text = styled.span`
   ${({ theme }) => css`
-    font-size: ${theme.font_sizes.xs}; /* 12px desde el theme */
+    font-size: ${theme.font_sizes.xs};
     color: ${theme.colors.fontSecondary};
     font-weight: ${theme.font_weight.medium};
     line-height: 1.2;

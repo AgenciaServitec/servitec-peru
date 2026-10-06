@@ -1,8 +1,7 @@
 import React, { type MouseEvent } from "react";
 import styled, { css } from "styled-components";
-import { Icon } from "./Icon";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { Button } from "./index";
+import { Plus } from "lucide-react";
+import { Button } from "./index"; // Tu componente base de botón
 
 export interface AddButtonProps {
   title: string;
@@ -32,7 +31,7 @@ export const AddButton: React.FC<AddButtonProps> = ({
       loading={loading}
     >
       <ContentWrapper>
-        <Icon icon={faPlus} fontSize="1.1rem" margin="0" />
+        <Plus size={18} strokeWidth={2.2} />
         <TextWrapper>
           <span>Agregar {title}</span>
         </TextWrapper>
@@ -41,13 +40,15 @@ export const AddButton: React.FC<AddButtonProps> = ({
   );
 };
 
+/* --- ESTILOS MANTENIENDO TU DISEÑO Y PENSADOS EN EL THEME --- */
+
 const Container = styled(Button)<ContainerProps>`
   ${({ theme, $margin }) => css`
     min-width: 120px;
     width: auto;
     height: auto;
     margin: ${$margin || `0 0 ${theme.spacing.lg} 0`};
-    padding: ${theme.spacing.sm} ${theme.spacing.lg};
+    padding: ${theme.spacing.sm}${theme.spacing.lg};
 
     text-transform: none;
     background: ${theme.colors.primary};
@@ -56,9 +57,13 @@ const Container = styled(Button)<ContainerProps>`
     box-shadow: ${theme.shadows.sm};
     transition: all ${theme.transitions.fast};
 
+    /* Color de texto/icono con alto contraste adaptativo */
+    color: ${theme.mode === "dark" ? "#000000" : "#ffffff"};
+
     &:hover:not(:disabled) {
       background: ${theme.colors.primaryDark};
       border-color: ${theme.colors.primaryDark};
+      color: ${theme.mode === "dark" ? "#000000" : "#ffffff"};
       transform: translateY(-1px);
       box-shadow: ${theme.shadows.md};
     }
@@ -74,6 +79,8 @@ const Container = styled(Button)<ContainerProps>`
       color: ${theme.colors.fontDisabled};
       opacity: 1;
       cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
     }
   `}
 `;
@@ -84,16 +91,14 @@ const ContentWrapper = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-    gap: ${theme.spacing.sm};
+    gap: ${theme.spacing.xs};
 
-    .icon-item {
+    svg {
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #000000;
-      svg {
-        margin: 0;
-      }
+      color: inherit; /* Hereda el color dinámico del botón */
+      transition: transform ${theme.transitions.fast};
     }
   `}
 `;
@@ -105,7 +110,7 @@ const TextWrapper = styled.div`
     font-weight: ${theme.font_weight.medium};
     text-transform: none;
     text-shadow: none;
-    color: #000000;
+    color: inherit; /* Hereda el color dinámico del botón */
     letter-spacing: -0.01em;
 
     span {

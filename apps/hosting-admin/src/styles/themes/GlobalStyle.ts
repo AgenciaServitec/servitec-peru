@@ -21,23 +21,19 @@ const baseStyles = css<ThemeProps>`
   body {
     background: ${({ theme }) => theme.colors.bgPrimary};
     color: ${({ theme }) => theme.colors.fontSecondary};
-    font-family: "Geist Sans", sans-serif;
+    font-family:
+      "Geist Sans",
+      system-ui,
+      -apple-system,
+      sans-serif;
     font-size: ${({ theme }) => theme.font_sizes.sm};
     line-height: 1.5;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     transition:
-      background-color 0.3s ease,
-      color 0.3s ease;
-  }
-
-  .ant-input,
-  .ant-btn,
-  .ant-select,
-  .ant-picker,
-  .ant-form-item-label > label {
-    font-family: "Urbanist", sans-serif !important;
+      background-color ${({ theme }) => theme.transitions.normal},
+      color ${({ theme }) => theme.transitions.normal};
   }
 
   h1,
@@ -68,6 +64,7 @@ const baseStyles = css<ThemeProps>`
     font-size: ${({ theme }) => theme.font_sizes.md};
   }
 
+  /* Utilidades */
   .pointer {
     cursor: pointer;
   }
@@ -81,6 +78,7 @@ const baseStyles = css<ThemeProps>`
     width: 100%;
   }
 
+  /* Estilos de Autofill del Navegador */
   input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 1000px ${({ theme }) => theme.colors.bgTertiary}
       inset !important;
@@ -103,7 +101,7 @@ const scrollbarStyles = css<ThemeProps>`
   ::-webkit-scrollbar-thumb {
     background: ${({ theme }) => theme.colors.border};
     border-radius: ${({ theme }) => theme.border_radius.full};
-    transition: background 0.2s;
+    transition: background ${({ theme }) => theme.transitions.fast};
 
     &:hover {
       background: ${({ theme }) => theme.colors.fontTertiary};
@@ -111,59 +109,20 @@ const scrollbarStyles = css<ThemeProps>`
   }
 `;
 
-const antdOverrides = css<ThemeProps>`
-  .ant-btn {
-    box-shadow: none !important;
-    &::after {
-      display: none !important;
-    }
-  }
-
-  .ant-input::placeholder,
-  .ant-select-selection-placeholder {
-    color: ${({ theme }) => theme.colors.fontTertiary} !important;
-    opacity: 0.6;
-  }
-
-  .ant-table-wrapper {
-    .ant-table {
-      background: transparent !important;
-      border: 1px solid ${({ theme }) => theme.colors.border};
-      border-radius: ${({ theme }) => theme.border_radius.md};
-    }
-  }
-
-  .ant-modal-content {
-    border: 1px solid ${({ theme }) => theme.colors.border};
-    box-shadow: ${({ theme }) => theme.shadows.lg} !important;
-  }
-
-  .ant-table-thead > tr > th {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.border} !important;
-    &::before {
-      display: none !important;
-    }
-  }
-
-  .ant-table-tbody > tr > td {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.divider} !important;
-  }
-
-  .ant-empty-description {
-    color: ${({ theme }) => theme.colors.fontTertiary};
-  }
-`;
-
 export const GlobalStyle = createGlobalStyle<ThemeProps>`
   ${baseStyles}
-  ${antdOverrides}
 
   ${mediaQuery.minTablet} {
     ${scrollbarStyles}
   }
 
   @media print {
-    .no-print { display: none !important; }
-    body { background: white; color: black; }
+    .no-print { 
+      display: none !important; 
+    }
+    body { 
+      background: white; 
+      color: black; 
+    }
   }
 `;

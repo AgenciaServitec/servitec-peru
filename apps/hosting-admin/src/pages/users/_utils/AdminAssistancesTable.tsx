@@ -2,10 +2,8 @@ import type { Assistance } from "../../../globalTypes.ts";
 import React, { useEffect, useState } from "react";
 import type { ColumnsType } from "antd/es/table";
 import dayjs from "dayjs";
-import { Table, Tag, Modal, DatePicker, Button } from "../../../components";
+import { Button, DatePicker, Modal, Table, Tag } from "../../../components";
 import { orderBy } from "lodash";
-import styled, { css } from "styled-components";
-import { theme } from "../../../styles";
 import { updateAssistance } from "../../../firebase/collections";
 import { useUpdateMinutesWorked } from "../../assistances/_utils";
 import moment from "moment-timezone";
@@ -192,18 +190,16 @@ export const AdminAssistancesTable: React.FC<AssistancesTableProps> = ({
 
   return (
     <>
-      <TableContainer>
-        <Table
-          columns={columns}
-          dataSource={dataSource}
-          pagination={{
-            pageSize: 10,
-            showSizeChanger: true,
-            showTotal: (total) => `Total: ${total} asistencias`,
-          }}
-          scroll={{ x: 1200 }}
-        />
-      </TableContainer>
+      <Table
+        columns={columns}
+        dataSource={dataSource}
+        pagination={{
+          pageSize: 10,
+          showSizeChanger: true,
+          showTotal: (total) => `Total: ${total} asistencias`,
+        }}
+        scroll={{ x: 1200 }}
+      />
 
       <Modal
         open={open}
@@ -260,25 +256,3 @@ export const AdminAssistancesTable: React.FC<AssistancesTableProps> = ({
     </>
   );
 };
-
-const TableContainer = styled.div`
-  margin-top: 2em;
-  ${() => css`
-    .ant-table {
-      background: ${theme.colors.secondary};
-      border-radius: ${theme.border_radius.medium};
-
-      .ant-table-thead > tr > th {
-        background: ${theme.colors.dark};
-        color: ${theme.colors.font1};
-        font-weight: ${theme.font_weight.bold};
-        border-bottom: 2px solid ${theme.colors.primary};
-      }
-
-      .ant-table-tbody > tr > td {
-        background: ${theme.colors.secondary};
-        color: ${theme.colors.font1};
-      }
-    }
-  `}
-`;

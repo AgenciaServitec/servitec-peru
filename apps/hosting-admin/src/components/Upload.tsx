@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { buckets } from "../firebase/storage";
-import AntdUpload from "antd/lib/upload";
+import { message as AntdMessage, Upload as AntdUpload } from "antd";
 import type { RcFile, UploadFile } from "antd/es/upload/interface";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { isEmpty } from "lodash";
+
+import { buckets } from "../firebase/storage";
 import {
   deleteFileAndFileThumbFromStorage,
   uploadFile,
@@ -12,17 +14,12 @@ import {
   UploadBody,
   UploadDraggerBody,
 } from "./utils/upload/components";
-import lodash from "lodash";
-import AntdMessage from "antd/lib/message";
 import type {
   BucketType,
   ImageResize,
   UploadedFile,
 } from "./types/upload.types";
 import { ComponentContainer, useModalConfirm, useNotification } from "./ui";
-import { theme } from "../styles";
-
-const { isEmpty } = lodash;
 
 interface UploadProps {
   accept?: string;
@@ -88,7 +85,6 @@ export const Upload: React.FC<UploadProps> = ({
     null
   );
 
-  // Sincronización con el valor externo (Firebase/Form)
   useEffect(() => {
     if (value?.url) {
       const isAlreadyInState = files.some((f) => f.url === value.url);
@@ -241,47 +237,52 @@ export const Upload: React.FC<UploadProps> = ({
   );
 };
 
+/* --- ESTILOS INYECTADOS DINÁMICAMENTE SIN !IMPORTANT --- */
+
 const WrapperComponents = styled.div`
-  margin: 11px;
+  ${({ theme }) => css`
+    margin: 4px 0;
 
-  .ant-upload-drag {
-    background: ${theme.colors.bgTertiary} !important;
-    border: 1px dashed ${theme.colors.border} !important;
-    border-radius: ${theme.border_radius.lg};
-    transition: all ${theme.transitions.normal};
+    .ant-upload-wrapper .ant-upload-drag {
+      background: ${theme.colors.bgTertiary};
+      border: 1px dashed ${theme.colors.border};
+      border-radius: ${theme.border_radius.lg};
+      transition: all ${theme.transitions.normal};
 
-    &:hover {
-      border-color: ${theme.colors.fontSecondary} !important;
-      background: ${theme.colors.bgHover} !important;
-    }
-  }
-
-  .ant-upload-list-item {
-    background: ${theme.colors.bgTertiary} !important;
-    border: 1px solid ${theme.colors.border} !important;
-    border-radius: ${theme.border_radius.md};
-    padding: 8px;
-    margin-top: 8px;
-
-    &:hover {
-      background: ${theme.colors.bgHover} !important;
+      &:hover {
+        border-color: ${theme.colors.primary};
+        background: ${theme.colors.bgHover};
+      }
     }
 
-    .ant-upload-list-item-name {
-      color: ${theme.colors.fontPrimary} !important;
-      font-weight: ${theme.font_weight.medium};
-    }
+    .ant-upload-list-item {
+      background: ${theme.colors.bgTertiary};
+      border: 1px solid ${theme.colors.border};
+      border-radius: ${theme.border_radius.md};
+      padding: 8px;
+      margin-top: 8px;
+      transition: all ${theme.transitions.fast};
 
-    .ant-upload-list-item-action {
-      .anticon-delete {
-        color: ${theme.colors.error} !important;
-        font-size: ${theme.font_sizes.md};
-        transition: color ${theme.transitions.fast};
+      &:hover {
+        background: ${theme.colors.bgHover};
+      }
 
-        &:hover {
-          color: #ff7875 !important;
+      .ant-upload-list-item-name {
+        color: ${theme.colors.fontPrimary};
+        font-weight: ${theme.font_weight.medium};
+      }
+
+      .ant-upload-list-item-action {
+        .anticon-delete {
+          color: ${theme.colors.error};
+          font-size: ${theme.font_sizes.md};
+          transition: color ${theme.transitions.fast};
+
+          &:hover {
+            color: #ff7875;
+          }
         }
       }
     }
-  }
+  `}
 `;

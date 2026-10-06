@@ -295,7 +295,7 @@ function AssistancesList({
               <Button
                 type="primary"
                 onClick={() => exportAssistancesExcel(filteredAssistances)}
-                style={{ backgroundColor: "#008000 " }}
+                style={{ backgroundColor: theme.colors.success }}
                 size="large"
                 block
               >

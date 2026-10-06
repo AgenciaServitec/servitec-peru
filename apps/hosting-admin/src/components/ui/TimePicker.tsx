@@ -1,9 +1,11 @@
-import TimePickerAntd from "antd/lib/time-picker";
-import { ComponentContainer } from "./component-container";
+import type { TimePickerProps as AntTimePickerProps } from "antd";
+import { TimePicker as AntdTimePicker } from "antd";
 import type { Dayjs } from "dayjs";
+import styled, { css } from "styled-components";
+import { ComponentContainer } from "./component-container";
 
-interface TimePickerProps {
-  value?: Dayjs | undefined;
+interface TimePickerProps extends Omit<AntTimePickerProps, "variant"> {
+  value?: Dayjs | null;
   disabled?: boolean;
   required?: boolean;
   error?: boolean;
@@ -15,9 +17,9 @@ interface TimePickerProps {
 
 export const TimePicker = ({
   value,
-  disabled,
-  required,
-  error,
+  disabled = false,
+  required = false,
+  error = false,
   label,
   variant = "filled",
   helperText,
@@ -36,14 +38,70 @@ export const TimePicker = ({
       animation={animation}
       helperText={helperText}
     >
-      <TimePickerAntd
-        disabled={disabled}
-        bordered={false}
+      <StyledTimePicker
+        variant="borderless"
         size="large"
         placeholder=""
         value={value}
+        disabled={disabled}
         {...props}
       />
     </Container>
   );
 };
+
+/* --- ESTILOS LIMPIOS Y ALINEADOS AL THEME --- */
+
+const StyledTimePicker = styled(AntdTimePicker)`
+  ${({ theme }) => css`
+    width: 100%;
+
+    /* Texto e input principal */
+    .ant-picker-input > input {
+      color: ${theme.colors.fontPrimary};
+      font-size: ${theme.font_sizes.sm};
+      font-weight: ${theme.font_weight.medium};
+    }
+
+    /* Icono del reloj (Suffix) */
+    .ant-picker-suffix {
+      color: ${theme.colors.primary};
+      transition: color ${theme.transitions.fast};
+    }
+
+    /* Icono de Limpiar (Clear) */
+    .ant-picker-clear {
+      background: transparent;
+      color: ${theme.colors.fontTertiary};
+      transition: color ${theme.transitions.fast};
+
+      &:hover {
+        color: ${theme.colors.primary};
+      }
+    }
+
+    /* Estado deshabilitado */
+    &.ant-picker-disabled {
+      background: transparent;
+      cursor: not-allowed;
+
+      .ant-picker-input > input {
+        color: ${theme.colors.fontDisabled};
+        -webkit-text-fill-color: ${theme.colors.fontDisabled};
+        cursor: not-allowed;
+      }
+
+      .ant-picker-suffix {
+        color: ${theme.colors.fontDisabled};
+      }
+    }
+
+    /* Prefijo (si se le añade icono) */
+    .ant-picker-prefix {
+      color: ${theme.colors.fontTertiary};
+      margin-right: ${theme.spacing.xs};
+      display: flex;
+      align-items: center;
+    }
+  `}
+`;

@@ -1,9 +1,8 @@
 import type { ReactNode } from "react";
+import { Space, Typography } from "antd";
 import styled, { css } from "styled-components";
 import { capitalize, startCase } from "lodash";
 import { keyframes } from "../../../styles";
-import Typography from "antd/lib/typography";
-import SpaceAntd from "antd/lib/space";
 
 const { Text } = Typography;
 
@@ -25,30 +24,34 @@ interface GroupProps extends BaseContainerProps {}
 export const Group = ({
   label,
   required,
-  error,
+  error = false,
   helperText,
   children,
 }: GroupProps) => (
   <>
     <Container $error={error}>
-      <Legend $required={required} $error={error}>
-        {label}
-      </Legend>
+      {label && (
+        <Legend $required={required} $error={error}>
+          {label}
+        </Legend>
+      )}
       <SpaceStyled size="middle" direction="vertical">
         {children}
       </SpaceStyled>
     </Container>
     {helperText && (
-      <Error $error={error}>{capitalize(startCase(helperText))}</Error>
+      <ErrorText $error={error}>{capitalize(startCase(helperText))}</ErrorText>
     )}
   </>
 );
+
+/* --- ESTILOS LIMPIOS Y ALINEADOS AL THEME --- */
 
 const Container = styled.fieldset<{ $error?: boolean }>`
   ${({ theme, $error }) => css`
     border-radius: ${theme.border_radius.md};
     border: 1px solid ${$error ? theme.colors.error : theme.colors.border};
-    padding: ${theme.spacing.sm} ${theme.spacing.md} ${theme.spacing.md};
+    padding: ${theme.spacing.md};
     margin-top: ${theme.spacing.xs};
     background: ${theme.colors.bgSecondary};
     transition: border-color ${theme.transitions.fast};
@@ -70,6 +73,7 @@ const Legend = styled.legend<{ $required?: boolean; $error?: boolean }>`
     width: auto;
     margin-bottom: 0;
     float: none;
+    line-height: 1;
     transition: color ${theme.transitions.fast};
 
     ${$required &&
@@ -78,27 +82,29 @@ const Legend = styled.legend<{ $required?: boolean; $error?: boolean }>`
         content: "*";
         display: inline-block;
         margin-left: ${theme.spacing.xs};
-        color: ${$error ? theme.colors.error : theme.colors.primary};
+        color: ${theme.colors.error};
         font-size: ${theme.font_sizes.sm};
-        line-height: 1;
       }
     `}
   `}
 `;
 
-const SpaceStyled = styled(SpaceAntd)`
+const SpaceStyled = styled(Space)`
   width: 100%;
 `;
 
-const Error = styled(Text)<{ $error?: boolean }>`
+const ErrorText = styled(Text)<{ $error?: boolean }>`
   ${({ theme, $error }) => css`
     display: block;
     color: ${theme.colors.error};
     font-size: ${theme.font_sizes.xs};
     margin-top: ${theme.spacing.xs};
+    margin-left: ${theme.spacing.xs};
+
     ${$error &&
     css`
-      animation: ${keyframes.shake} 340ms;
+      animation: ${keyframes.shake} 340ms cubic-bezier(0.36, 0.07, 0.19, 0.97)
+        both;
     `};
   `}
 `;

@@ -1,10 +1,9 @@
+import React from "react";
+import { Modal as AntdModal } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBox, faDownload, faUpload } from "@fortawesome/free-solid-svg-icons";
 import styled, { css } from "styled-components";
-import { Button } from "../../ui";
-import React from "react";
-import AntdModal from "antd/lib/modal";
-import { theme } from "../../../styles";
+import { Button } from "../../ui"; // Ajusta tu ruta según corresponda
 
 interface PreviewFileProps {
   url: string;
@@ -33,7 +32,6 @@ export const PreviewFile: React.FC<PreviewFileProps> = ({
 }) => (
   <ModalStyled
     onCancel={onCancel}
-    style={{ textAlign: "center" }}
     open={visible}
     title="Visualización"
     closable={true}
@@ -43,14 +41,14 @@ export const PreviewFile: React.FC<PreviewFileProps> = ({
         key="download"
         size="large"
         onClick={() => window.open(isImage ? thumbUrl : url, "_blank")}
-        icon={<FontAwesomeIcon icon={faDownload} />}
       >
+        <FontAwesomeIcon icon={faDownload} />
         &ensp; Descargar
       </ButtonStyled>,
     ]}
   >
     {isImage ? (
-      <img src={thumbUrl || url} alt="thumbImage" />
+      <img src={thumbUrl || url} alt="Vista previa del archivo cargado" />
     ) : (
       <span>Vista previa solo para imágenes</span>
     )}
@@ -80,23 +78,24 @@ export const UploadDraggerBody: React.FC<UploadDraggerBodyProps> = ({
   </Wrapper>
 );
 
+/* --- ESTILOS CON INYECCIÓN DINÁMICA DE THEME --- */
+
 const ModalStyled = styled(AntdModal)`
-  ${() => css`
+  ${({ theme }) => css`
     .ant-modal-content {
-      background: ${theme.colors.bgSecondary};
-      color: ${theme.colors.fontPrimary} !important;
-      border: 1px solid ${theme.colors.border};
       padding: 0;
       overflow: hidden;
+      border: 1px solid ${theme.colors.border};
+      /* El color de fondo (contentBg) ya lo maneja AntD desde tu theme.ts */
     }
 
     .ant-modal-header {
-      background: ${theme.colors.bgSecondary};
-      border-bottom: 1px solid ${theme.colors.divider};
       padding: 16px 24px;
+      border-bottom: 1px solid ${theme.colors.divider};
+      margin-bottom: 0;
 
       .ant-modal-title {
-        color: ${theme.colors.fontPrimary} !important;
+        color: ${theme.colors.fontPrimary};
         font-weight: ${theme.font_weight.medium};
       }
     }
@@ -116,6 +115,7 @@ const ModalStyled = styled(AntdModal)`
       display: flex;
       justify-content: center;
       align-items: center;
+      text-align: center;
     }
 
     .ant-modal-footer {
@@ -141,10 +141,9 @@ const ModalStyled = styled(AntdModal)`
 `;
 
 const ButtonStyled = styled(Button)`
-  ${() => css`
+  ${({ theme }) => css`
     display: inline-flex;
     align-items: center;
-
     color: ${theme.colors.primary};
     background: transparent;
     border: 1px solid ${theme.colors.primary};
@@ -157,14 +156,14 @@ const ButtonStyled = styled(Button)`
 
     svg {
       font-size: ${theme.font_sizes.sm};
-      margin: 0 8px 0 0;
+      margin: 0 4px 0 0;
       color: inherit;
     }
   `}
 `;
 
 const Wrapper = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     padding: ${theme.spacing.lg} 0;
 
     p {
@@ -172,24 +171,24 @@ const Wrapper = styled.div`
 
       svg {
         color: ${theme.colors.info};
-        transition: all ${theme.transitions.normal};
+        transition: transform ${theme.transitions.normal};
       }
     }
 
+    /* Animación natural al hacer hover sobre la zona de arrastre */
     .ant-upload-drag:hover & p svg {
       transform: translateY(-4px);
-      color: ${theme.colors.fontPrimary};
     }
 
     .ant-upload-text {
-      color: ${theme.colors.fontPrimary} !important;
-      font-size: ${theme.font_sizes.md} !important;
-      font-weight: ${theme.font_weight.medium} !important;
+      color: ${theme.colors.fontPrimary};
+      font-size: ${theme.font_sizes.md};
+      font-weight: ${theme.font_weight.medium};
     }
 
     .ant-upload-hint {
-      color: ${theme.colors.fontTertiary} !important;
-      font-size: ${theme.font_sizes.sm} !important;
+      color: ${theme.colors.fontTertiary};
+      font-size: ${theme.font_sizes.sm};
     }
   `}
 `;
