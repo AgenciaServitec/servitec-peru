@@ -25,8 +25,8 @@ export const fetchTodayAssistancesByUserId = async (
   return fetchCollection<Assistance>(
     assistancesRef
       .where("userId", "==", userId)
-      .where("entry.dateTimestamp", ">=", 1791158400000)
-      .where("entry.dateTimestamp", "<=", 1791158400000)
+      .where("entry.dateTimestamp", ">=", Timestamp.fromDate(todayStart))
+      .where("entry.dateTimestamp", "<=", Timestamp.fromDate(todayEnd))
       .where("isDeleted", "==", false)
       .limit(1)
   );
@@ -40,8 +40,8 @@ export const fetchTodayAllAssistances = async (): Promise<
 
   return fetchCollection<Assistance>(
     assistancesRef
-      .where("entry.dateTimestamp", ">=", 1791158400000)
-      .where("entry.dateTimestamp", "<=", 1791158400000)
+      .where("entry.dateTimestamp", ">=", Timestamp.fromDate(todayStart))
+      .where("entry.dateTimestamp", "<=", Timestamp.fromDate(todayEnd))
       .where("isDeleted", "==", false)
   );
 };

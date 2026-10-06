@@ -1,12 +1,15 @@
+import React from "react";
 import styled, { css } from "styled-components";
-import { Card } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faListUl, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { List, type LucideIcon, Plus } from "lucide-react";
 
 interface ShortcutItem {
   title: string;
-  icon: any;
+  icon: LucideIcon | React.ReactNode;
+  path: string;
+  newPath?: string;
   color: string;
+  permission: string;
+  count: string;
 }
 
 interface ShortcutCardProps {
@@ -16,205 +19,191 @@ interface ShortcutCardProps {
   onCreate?: () => void;
 }
 
-const ShortcutCard = ({ item, count, onList, onCreate }: ShortcutCardProps) => {
+export const ShortcutCard = ({
+  item,
+  count,
+  onList,
+  onCreate,
+}: ShortcutCardProps) => {
   const showList = !!onList;
-  const showCreate = !!onCreate;
-
+  const showCreate = !!onCreate && item.newPath !== "";
   const activeButtons = [showList, showCreate].filter(Boolean).length;
 
-  return (
-    <ModernCard $color={item.color}>
-      <CardBody>
-        <TopRow>
-          <IconContainer $color={item.color}>
-            <FontAwesomeIcon icon={item.icon} />
-          </IconContainer>
-          <div className="info">
-            <h3>{item.title}</h3>
-            <p>Módulo de gestión</p>
-          </div>
-        </TopRow>
+  const renderIcon = () => {
+    if (React.isValidElement(item.icon)) {
+      return item.icon;
+    }
+    const IconComponent = item.icon as any;
+    return <IconComponent size={20} strokeWidth={2.2} />;
+  };
 
-        {count !== undefined && (
-          <CounterSection>
-            <span className="counter-number">{count}</span>
-            <span className="counter-label">Registros totales</span>
-          </CounterSection>
-        )}
-      </CardBody>
+  return (
+    <CardContainer $color={item.color}>
+      <CardHeader>
+        <IconSolidWrapper $color={item.color}>{renderIcon()}</IconSolidWrapper>
+        <TitleGroup>
+          <h4 className="module-title">{item.title}</h4>
+        </TitleGroup>
+      </CardHeader>
+
+      <CounterBlock>
+        <span className="count-value">{count ?? 0}</span>
+        <span className="count-label">registros</span>
+      </CounterBlock>
 
       {activeButtons > 0 && (
-        <LightningActions $color={item.color} $columns={activeButtons}>
+        <ActionsGrid $columns={activeButtons}>
           {showList && (
-            <button className="list-action" onClick={onList}>
-              <FontAwesomeIcon icon={faListUl} />
+            <ActionButton type="button" onClick={onList}>
+              <List size={15} />
               <span>Lista</span>
-            </button>
+            </ActionButton>
           )}
           {showCreate && (
-            <button className="create-action" onClick={onCreate}>
-              <FontAwesomeIcon icon={faPlus} />
+            <ActionButton
+              type="button"
+              onClick={onCreate}
+              className="create-btn"
+            >
+              <Plus size={15} />
               <span>Crear</span>
-            </button>
+            </ActionButton>
           )}
-        </LightningActions>
+        </ActionsGrid>
       )}
-    </ModernCard>
+    </CardContainer>
   );
 };
 
 export default ShortcutCard;
 
-const ModernCard = styled(Card)<{ $color: string }>`
+/* --- ESTILOS LIMPIOS, SÓLIDOS Y SANS FANTASÍA --- */
+
+const CardContainer = styled.div<{ $color: string }>`
   ${({ theme, $color }) => css`
     position: relative;
-    overflow: hidden;
     background: ${theme.colors.bgSecondary};
     border: 1px solid ${theme.colors.border};
-    transition: all ${theme.transitions.normal};
-
-    .ant-card-body {
-      padding: 0;
-    }
+    border-radius: ${theme.border_radius.lg};
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    height: 100%;
+    transition:
+      border-color ${theme.transitions.fast},
+      transform ${theme.transitions.fast},
+      box-shadow ${theme.transitions.fast};
 
     &:hover {
-      border-color: ${$color}80;
-      transform: translateY(-4px);
-      box-shadow: ${theme.shadows.md};
-
-      .counter-number {
-        color: ${$color};
-      }
+      border-color: ${$color};
+      transform: translateY(-2px);
+      box-shadow: ${theme.shadows.sm};
     }
   `}
 `;
 
-const CardBody = styled.div`
+const CardHeader = styled.div`
   ${({ theme }) => css`
     padding: ${theme.spacing.md};
     display: flex;
-    flex-direction: column;
-    gap: ${theme.spacing.md};
+    align-items: center;
+    gap: ${theme.spacing.sm};
   `}
 `;
 
-const TopRow = styled.div`
-  ${({ theme }) => css`
+const IconSolidWrapper = styled.div<{ $color: string }>`
+  ${({ theme, $color }) => css`
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: ${theme.border_radius.md};
+    background: ${$color};
+    color: #ffffff;
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: ${theme.spacing.md};
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+  `}
+`;
 
-    .info {
-      h3 {
-        margin: 0;
-        font-size: ${theme.font_sizes.md};
-        font-weight: ${theme.font_weight.large};
-        color: ${theme.colors.fontPrimary};
-        line-height: 1.2;
-      }
-      p {
-        font-size: ${theme.font_sizes.xs};
-        margin: ${theme.spacing.xs} 0 0 0;
-        font-weight: ${theme.font_weight.small};
-        color: ${theme.colors.fontSecondary};
-      }
+const TitleGroup = styled.div`
+  ${({ theme }) => css`
+    flex: 1;
+    overflow: hidden;
+
+    .module-title {
+      margin: 0;
+      font-size: ${theme.font_sizes.sm};
+      font-weight: ${theme.font_weight.semibold};
+      color: ${theme.colors.fontPrimary};
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: -0.01em;
     }
   `}
 `;
 
-const CounterSection = styled.div`
+const CounterBlock = styled.div`
   ${({ theme }) => css`
-    margin-top: ${theme.spacing.xs};
+    padding: 0 ${theme.spacing.md} ${theme.spacing.md} ${theme.spacing.md};
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    align-items: baseline;
+    gap: ${theme.spacing.xs};
 
-    .counter-number {
-      font-size: 32px;
-      font-weight: 700;
+    .count-value {
+      font-size: 28px;
+      font-weight: ${theme.font_weight.large};
       color: ${theme.colors.fontPrimary};
       line-height: 1;
-      transition: color ${theme.transitions.fast};
+      letter-spacing: -0.02em;
     }
 
-    .counter-label {
+    .count-label {
       font-size: ${theme.font_sizes.xs};
-      color: ${theme.colors.fontSecondary};
-      margin-top: 4px;
-      opacity: 0.7;
+      color: ${theme.colors.fontTertiary};
+      font-weight: ${theme.font_weight.medium};
     }
   `}
 `;
 
-const IconContainer = styled.div<{ $color: string }>`
-  ${({ theme, $color }) => css`
-    width: 44px;
-    height: 44px;
-    border-radius: ${theme.border_radius.md};
-    background: ${$color}15;
-    color: ${$color};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: ${theme.font_sizes.lg};
-    border: 1px solid ${$color}25;
-  `}
-`;
-
-const LightningActions = styled.div<{ $color: string; $columns: number }>`
-  ${({ theme, $color, $columns }) => css`
+const ActionsGrid = styled.div<{ $columns: number }>`
+  ${({ theme, $columns }) => css`
     display: grid;
     grid-template-columns: repeat(${$columns}, 1fr);
-    height: 48px;
     background: ${theme.colors.bgTertiary};
     border-top: 1px solid ${theme.colors.border};
+  `}
+`;
 
-    button {
-      border: none;
-      cursor: pointer;
-      background: transparent;
-      font-weight: ${theme.font_weight.medium};
-      font-size: ${theme.font_sizes.sm};
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: ${theme.spacing.sm};
-      transition: all ${theme.transitions.fast};
-      color: ${theme.colors.fontSecondary};
+const ActionButton = styled.button`
+  ${({ theme }) => css`
+    border: none;
+    background: transparent;
+    height: 38px;
+    padding: 0 ${theme.spacing.xs};
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: ${theme.font_sizes.xs};
+    font-weight: ${theme.font_weight.medium};
+    color: ${theme.colors.fontSecondary};
+    transition: all ${theme.transitions.fast};
+
+    & + button {
+      border-left: 1px solid ${theme.colors.border};
     }
 
-    ${$columns === 2
-      ? css`
-          .list-action {
-            clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
-            border-right: 1px solid ${theme.colors.border};
-            &:hover {
-              background: ${$color}15;
-              color: ${$color};
-            }
-          }
+    &:hover {
+      background: ${theme.colors.bgHover};
+      color: ${theme.colors.fontPrimary};
+    }
 
-          .create-action {
-            clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
-            margin-left: -10%;
-            &:hover {
-              background: ${theme.colors.bgHover};
-              color: ${theme.colors.fontPrimary};
-            }
-          }
-        `
-      : css`
-          button {
-            width: 100%;
-            &:hover {
-              background: ${$color}12;
-              color: ${$color};
-            }
-          }
-        `}
-
-    @media (max-width: 767px) {
-      height: 44px;
+    &:active {
+      background: ${theme.colors.bgPrimary};
     }
   `}
 `;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
-import { Segmented, Spin } from "antd";
+import { Avatar, Spin } from "antd";
 import { CheckCircle2, Clock, LogOut, UserCheck, Users } from "lucide-react";
 import type { Assistance } from "../../globalTypes";
 import { fetchTodayAllAssistances } from "../../firebase/collections";
@@ -37,7 +37,6 @@ export const AssistanceMonitor = () => {
     return parts[1] || dateStr;
   };
 
-  // Filtrado según el tab seleccionado
   const filteredList =
     filter === "working"
       ? workingNow
@@ -55,10 +54,10 @@ export const AssistanceMonitor = () => {
 
   return (
     <MonitorWrapper>
-      {/* 1. KPIs Superiores en Barra Discreta */}
+      {/* 1. KPIs Superiores con Iconos Sólidos */}
       <KpiMetricsBar>
         <KpiItem>
-          <div className="icon-badge active">
+          <div className="icon-badge solid-success">
             <UserCheck size={16} />
           </div>
           <div className="data">
@@ -70,7 +69,7 @@ export const AssistanceMonitor = () => {
         <KpiDivider />
 
         <KpiItem>
-          <div className="icon-badge gray">
+          <div className="icon-badge solid-neutral">
             <CheckCircle2 size={16} />
           </div>
           <div className="data">
@@ -82,7 +81,7 @@ export const AssistanceMonitor = () => {
         <KpiDivider />
 
         <KpiItem>
-          <div className="icon-badge primary">
+          <div className="icon-badge solid-primary">
             <Users size={16} />
           </div>
           <div className="data">
@@ -102,40 +101,50 @@ export const AssistanceMonitor = () => {
         </KpiProgressArea>
       </KpiMetricsBar>
 
-      {/* 2. Control de Selección y Filtro */}
-      <FilterBar>
-        <Segmented
-          value={filter}
-          onChange={(val) => setFilter(val as any)}
-          options={[
-            { label: `En Turno (${workingNow.length})`, value: "working" },
-            {
-              label: `Finalizados (${finishedToday.length})`,
-              value: "finished",
-            },
-            { label: `Todos (${total})`, value: "all" },
-          ]}
-        />
-      </FilterBar>
+      {/* 2. Filtro de Pestañas Limpio */}
+      <FilterTabs>
+        <TabButton
+          type="button"
+          $active={filter === "working"}
+          onClick={() => setFilter("working")}
+        >
+          En Turno ({workingNow.length})
+        </TabButton>
+        <TabButton
+          type="button"
+          $active={filter === "finished"}
+          onClick={() => setFilter("finished")}
+        >
+          Finalizados ({finishedToday.length})
+        </TabButton>
+        <TabButton
+          type="button"
+          $active={filter === "all"}
+          onClick={() => setFilter("all")}
+        >
+          Todos ({total})
+        </TabButton>
+      </FilterTabs>
 
       {/* 3. Grid Responsiva de Personal */}
       {filteredList.length > 0 ? (
         <CardsGrid>
           {filteredList.map((a) => {
-            const isWorking = a.entry && !a.outlet?.date;
-            const initial = a.user?.firstName?.[0] || "U";
+            const isWorking = !!(a.entry && !a.outlet?.date);
             const fullName =
               `${a.user?.firstName || ""} ${a.user?.paternalSurname || ""}`.trim();
 
             return (
               <TechnicianCard key={a.id} $isWorking={isWorking}>
                 <CardHeader>
-                  <Avatar $isWorking={isWorking}>{initial}</Avatar>
+                  <Avatar
+                    src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${a.user?.firstName}`}
+                  />
                   <UserInfo>
                     <h5 className="name">{fullName || "Técnico"}</h5>
                     <span className="role-tag">Técnico Operativo</span>
                   </UserInfo>
-                  <StatusBadge $isWorking={isWorking}>
+                  <SolidStatusBadge $isWorking={isWorking}>
                     {isWorking ? (
                       <>
                         <DotLive /> Activo
@@ -143,7 +152,7 @@ export const AssistanceMonitor = () => {
                     ) : (
                       "Salida"
                     )}
-                  </StatusBadge>
+                  </SolidStatusBadge>
                 </CardHeader>
 
                 <CardFooter>
@@ -172,11 +181,11 @@ export const AssistanceMonitor = () => {
   );
 };
 
-/* --- ESTILOS MODERNOS UI/UX SIN TÍTULOS DUPICADOS --- */
+/* --- ESTILOS CORREGIDOS ALINEADOS A TU THEME --- */
 
 const pulseLive = keyframes`
   0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.25); opacity: 0.6; }
+  50% { transform: scale(1.2); opacity: 0.8; }
   100% { transform: scale(1); opacity: 1; }
 `;
 
@@ -220,24 +229,26 @@ const KpiItem = styled.div`
     gap: ${theme.spacing.sm};
 
     .icon-badge {
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       border-radius: ${theme.border_radius.md};
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: ${theme.shadows.sm};
 
-      &.active {
-        background: ${theme.colors.success}1A;
-        color: ${theme.colors.success};
+      /* FIX: Uso seguro de theme.mode */
+      &.solid-success {
+        background: ${theme.colors.success};
+        color: ${theme.mode === "dark" ? "#000000" : "#ffffff"};
       }
-      &.gray {
-        background: ${theme.colors.bgHover};
-        color: ${theme.colors.fontTertiary};
+      &.solid-neutral {
+        background: ${theme.colors.borderHover};
+        color: ${theme.colors.fontPrimary};
       }
-      &.primary {
-        background: ${theme.colors.primaryAlpha};
-        color: ${theme.colors.primary};
+      &.solid-primary {
+        background: ${theme.colors.primary};
+        color: ${theme.mode === "dark" ? "#000000" : "#ffffff"};
       }
     }
 
@@ -274,7 +285,7 @@ const KpiDivider = styled.div`
 const KpiProgressArea = styled.div`
   ${({ theme }) => css`
     margin-left: auto;
-    width: 160px;
+    width: 150px;
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -295,7 +306,7 @@ const KpiProgressArea = styled.div`
 const BarTrack = styled.div`
   ${({ theme }) => css`
     width: 100%;
-    height: 5px;
+    height: 6px;
     background: ${theme.colors.bgTertiary};
     border-radius: ${theme.border_radius.full};
     overflow: hidden;
@@ -308,28 +319,50 @@ const BarFill = styled.div<{ $percent: number }>`
     width: ${$percent}%;
     background: ${theme.colors.success};
     border-radius: ${theme.border_radius.full};
-    transition: width 0.4s ease;
+    transition: width ${theme.transitions.slow};
   `}
 `;
 
-/* Filter Segmented Control */
-const FilterBar = styled.div`
-  display: flex;
-  justify-content: flex-start;
-
-  .ant-segmented {
-    background: ${({ theme }) => theme.colors.bgSecondary};
-    border: 1px solid ${({ theme }) => theme.colors.border};
-    padding: 2px;
-    border-radius: ${({ theme }) => theme.border_radius.md};
-  }
+/* BARRA DE FILTROS PESTAÑAS */
+const FilterTabs = styled.div`
+  ${({ theme }) => css`
+    display: inline-flex;
+    align-items: center;
+    background: ${theme.colors.bgSecondary};
+    border: 1px solid ${theme.colors.border};
+    border-radius: ${theme.border_radius.md};
+    padding: 3px;
+    gap: 4px;
+    width: fit-content;
+  `}
 `;
 
-/* Grid Responsivo de Tarjetas de Técnico */
+const TabButton = styled.button<{ $active: boolean }>`
+  ${({ theme, $active }) => css`
+    border: none;
+    background: ${$active ? theme.colors.bgHover : "transparent"};
+    color: ${$active ? theme.colors.fontPrimary : theme.colors.fontSecondary};
+    font-size: ${theme.font_sizes.xs};
+    font-weight: ${$active
+      ? theme.font_weight.semibold
+      : theme.font_weight.medium};
+    padding: 6px 14px;
+    border-radius: ${theme.border_radius.xs};
+    cursor: pointer;
+    transition: all ${theme.transitions.fast};
+
+    &:hover {
+      color: ${theme.colors.fontPrimary};
+      background: ${$active ? theme.colors.bgHover : theme.colors.bgTertiary};
+    }
+  `}
+`;
+
+/* Grid Responsivo */
 const CardsGrid = styled.div`
   ${({ theme }) => css`
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: ${theme.spacing.md};
   `}
 `;
@@ -337,14 +370,14 @@ const CardsGrid = styled.div`
 const TechnicianCard = styled.div<{ $isWorking: boolean }>`
   ${({ theme, $isWorking }) => css`
     background: ${theme.colors.bgSecondary};
-    border: 1px solid ${$isWorking ? theme.colors.border : theme.colors.border};
+    border: 1px solid ${theme.colors.border};
     border-radius: ${theme.border_radius.lg};
     padding: ${theme.spacing.md};
     display: flex;
     flex-direction: column;
     gap: ${theme.spacing.md};
     transition: all ${theme.transitions.fast};
-    opacity: ${$isWorking ? 1 : 0.75};
+    opacity: ${$isWorking ? 1 : 0.8};
 
     &:hover {
       border-color: ${$isWorking
@@ -361,25 +394,6 @@ const CardHeader = styled.div`
     display: flex;
     align-items: center;
     gap: ${theme.spacing.sm};
-  `}
-`;
-
-const Avatar = styled.div<{ $isWorking: boolean }>`
-  ${({ theme, $isWorking }) => css`
-    width: 36px;
-    height: 36px;
-    border-radius: ${theme.border_radius.full};
-    background: ${$isWorking
-      ? theme.colors.primaryAlpha
-      : theme.colors.bgHover};
-    color: ${$isWorking ? theme.colors.primary : theme.colors.fontTertiary};
-    border: 1px solid
-      ${$isWorking ? `${theme.colors.primary}40` : theme.colors.border};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: ${theme.font_sizes.xs};
-    font-weight: ${theme.font_weight.semibold};
   `}
 `;
 
@@ -406,32 +420,32 @@ const UserInfo = styled.div`
   `}
 `;
 
-const StatusBadge = styled.div<{ $isWorking: boolean }>`
+/* FIX: Tipado de $isWorking y lectura limpia de theme.mode */
+const SolidStatusBadge = styled.div<{ $isWorking: boolean }>`
   ${({ theme, $isWorking }) => css`
     display: inline-flex;
     align-items: center;
     gap: 4px;
     font-size: 11px;
-    font-weight: ${theme.font_weight.medium};
-    padding: 2px 8px;
+    font-weight: ${theme.font_weight.semibold};
+    padding: 3px 9px;
     border-radius: ${theme.border_radius.full};
-    background: ${$isWorking
-      ? `${theme.colors.success}1A`
-      : theme.colors.bgHover};
-    color: ${$isWorking ? theme.colors.success : theme.colors.fontTertiary};
-    border: 1px solid
-      ${$isWorking ? `${theme.colors.success}30` : theme.colors.border};
+    background: ${$isWorking ? theme.colors.success : theme.colors.bgTertiary};
+    color: ${$isWorking
+      ? theme.mode === "dark"
+        ? "#000000"
+        : "#ffffff"
+      : theme.colors.fontSecondary};
+    border: 1px solid ${$isWorking ? theme.colors.success : theme.colors.border};
   `}
 `;
 
 const DotLive = styled.span`
-  ${({ theme }) => css`
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: ${theme.colors.success};
-    animation: ${pulseLive} 2s infinite ease-in-out;
-  `}
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: ${pulseLive} 2s infinite ease-in-out;
 `;
 
 const CardFooter = styled.div`

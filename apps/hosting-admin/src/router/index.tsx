@@ -198,6 +198,14 @@ export function Router() {
             </AdminLayout>
           }
         />
+        <Route
+          path="inventory/products/:productId"
+          element={
+            <AdminLayout>
+              <A.ProductIntegration />
+            </AdminLayout>
+          }
+        />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

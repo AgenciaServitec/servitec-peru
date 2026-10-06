@@ -1,18 +1,10 @@
-import { CanAccess, Col, Row, Title } from "../../components";
+import { Col, Row, Title } from "../../components";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
-import {
-  faBoxesPacking,
-  faFileLines,
-  faInbox,
-  faMagnifyingGlass,
-  faUsers,
-  faWrench,
-} from "@fortawesome/free-solid-svg-icons";
 import { AssistanceMonitor } from "../../components/layout/AssistanceMonitor.tsx";
-import ShortcutCard from "./ShortcutCard.tsx";
 import { useEffect, useState } from "react";
 import { subscribeToCounters } from "../../firebase/collections";
+import { ShortcutsSection } from "./ShortcutsSection.tsx";
 
 export function Home() {
   const navigate = useNavigate();
@@ -38,63 +30,6 @@ export function Home() {
     return () => unsubscribe();
   }, []);
 
-  const shortcuts = [
-    {
-      title: "Usuarios",
-      icon: faUsers,
-      path: "/users",
-      newPath: "/users/new",
-      color: "#F43F5E",
-      permission: "users_view_list",
-      count: "users",
-    },
-    {
-      title: "Cotizaciones",
-      icon: faFileLines,
-      path: "/quotations",
-      newPath: "/quotations/new",
-      color: "#FFC107",
-      permission: "quotes_view_all",
-      count: "quotations",
-    },
-    {
-      title: "Solicitud de Servicios",
-      icon: faWrench,
-      path: "/services-requests",
-      newPath: "",
-      color: "#0EA5E9",
-      permission: "service_view_all",
-      count: "service-requests",
-    },
-    {
-      title: "Proveedores",
-      icon: faBoxesPacking,
-      path: "/suppliers",
-      newPath: "/suppliers/new",
-      color: "#8B5CF6",
-      permission: "suppliers_view_all",
-      count: "suppliers",
-    },
-    {
-      title: "Entradas",
-      icon: faInbox,
-      path: "/web-manager/entries",
-      newPath: "",
-      color: "#f66e00",
-      permission: "entry_view_all",
-      count: "entries",
-    },
-    {
-      title: "Revisión de Webs",
-      icon: faMagnifyingGlass,
-      path: "/web-manager/reviews",
-      newPath: "",
-      color: "#f10cf6",
-      permission: "reviews_view_all",
-      count: "reviews",
-    },
-  ];
-
   return (
     <Row gutter={[16, 32]}>
       <Col span={24}>
@@ -102,27 +37,8 @@ export function Home() {
           <Title level={4} style={{ margin: 0 }}>
             Accesos directos
           </Title>
-          <p className="description">
-            Gestión de módulos y creación de registros
-          </p>
         </SectionHeader>
-
-        <Row gutter={[16, 16]}>
-          {shortcuts.map((item, index) => (
-            <Col xs={24} sm={12} lg={8} xl={6} key={index}>
-              <CanAccess permission={item.permission}>
-                <ShortcutCard
-                  item={item}
-                  count={counts[item.count]}
-                  onList={item.path ? () => navigate(item.path) : undefined}
-                  onCreate={
-                    item.newPath ? () => navigate(item.newPath) : undefined
-                  }
-                />
-              </CanAccess>
-            </Col>
-          ))}
-        </Row>
+        <ShortcutsSection counts={counts} />
       </Col>
 
       <Col span={24}>
