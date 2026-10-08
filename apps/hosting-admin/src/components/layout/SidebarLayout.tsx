@@ -1,30 +1,31 @@
 import { type ReactNode, useMemo } from "react";
 import styled from "styled-components";
 import { Avatar, Button, Dropdown, Layout, Menu } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faAddressBook,
-  faBell,
-  faBoxesPacking,
-  faBoxesStacked,
-  faBuilding,
-  faClipboardUser,
-  faEllipsisVertical,
-  faFileLines,
-  faGear,
-  faGears,
-  faHome,
-  faInbox,
-  faList,
-  faMagnifyingGlass,
-  faQrcode,
-  faScrewdriverWrench,
-  faSliders,
-  faSquarePlus,
-  faUserLock,
-  faUsers,
-  faWrench,
-} from "@fortawesome/free-solid-svg-icons";
+  Bell,
+  BookUser,
+  Boxes,
+  Building,
+  ClipboardList,
+  FileText,
+  FolderGit2,
+  Home,
+  Inbox,
+  List,
+  MoreVertical,
+  Package,
+  PlusSquare,
+  QrCode,
+  Search,
+  Settings,
+  ShieldCheck,
+  Sliders,
+  Store,
+  Truck,
+  UserCheck,
+  Users,
+  Wrench,
+} from "lucide-react";
 import { usePermissions } from "../../providers/PermissionsProvider.tsx";
 import { useAuthentication } from "../../providers";
 
@@ -60,11 +61,11 @@ export const SidebarLayout = ({
     onNavigateTo("/home");
   };
 
-  const items = [
+  const items: MenuItemCustom[] = [
     {
       label: "Inicio",
       key: "home",
-      icon: <FontAwesomeIcon icon={faHome} />,
+      icon: <Home size={16} />,
       onClick: () => onClickHome(),
     },
     {
@@ -74,27 +75,27 @@ export const SidebarLayout = ({
         {
           label: "Usuarios",
           key: "users",
-          icon: <FontAwesomeIcon icon={faUsers} />,
+          icon: <Users size={16} />,
           onClick: () => onClickMenu("/users"),
           permission: "users_view_list",
         },
         {
           label: "Roles y Permisos",
           key: "rolesAndPermissions",
-          icon: <FontAwesomeIcon icon={faUserLock} />,
+          icon: <ShieldCheck size={16} />,
           permission: "roles_view",
           children: [
             {
               label: "Crear Rol",
-              key: "quotation-new",
-              icon: <FontAwesomeIcon icon={faSquarePlus} />,
+              key: "role-new",
+              icon: <PlusSquare size={14} />,
               onClick: () => onClickMenu("/roles-and-permissions/new"),
               permission: "roles_create",
             },
             {
               label: "Lista de Roles",
-              key: "quotations-list",
-              icon: <FontAwesomeIcon icon={faList} />,
+              key: "roles-list",
+              icon: <List size={14} />,
               onClick: () => onClickMenu("/roles-and-permissions"),
               permission: "roles_view",
             },
@@ -103,20 +104,20 @@ export const SidebarLayout = ({
         {
           label: "Configuración",
           key: "settings-group",
-          icon: <FontAwesomeIcon icon={faGear} />,
-          permission: "", // Sin ACLs por el momento
+          icon: <Settings size={16} />,
+          permission: "",
           children: [
             {
               label: "General",
               key: "settings-general",
-              icon: <FontAwesomeIcon icon={faSliders} />,
+              icon: <Sliders size={14} />,
               onClick: () => onClickMenu("/settings/general"),
               permission: "",
             },
             {
               label: "Sistema",
               key: "settings-system",
-              icon: <FontAwesomeIcon icon={faGears} />,
+              icon: <FolderGit2 size={14} />,
               onClick: () => onClickMenu("/settings/system"),
               permission: "",
             },
@@ -131,20 +132,20 @@ export const SidebarLayout = ({
         {
           label: "Cotizaciones",
           key: "quotations-group",
-          icon: <FontAwesomeIcon icon={faFileLines} />,
+          icon: <FileText size={16} />,
           permission: "quotes_view_all",
           children: [
             {
               label: "Crear Cotización",
               key: "quotation-new",
-              icon: <FontAwesomeIcon icon={faSquarePlus} />,
+              icon: <PlusSquare size={14} />,
               onClick: () => onClickMenu("/quotations/new"),
               permission: "quotes_create",
             },
             {
               label: "Lista de cotizaciones",
               key: "quotations-list",
-              icon: <FontAwesomeIcon icon={faList} />,
+              icon: <List size={14} />,
               onClick: () => onClickMenu("/quotations"),
               permission: "quotes_view_all",
             },
@@ -153,13 +154,13 @@ export const SidebarLayout = ({
         {
           label: "Solicitudes de Servicio",
           key: "services-requests-group",
-          icon: <FontAwesomeIcon icon={faWrench} />,
+          icon: <Wrench size={16} />,
           permission: "service_view_all",
           children: [
             {
               label: "Lista de Solicitudes",
               key: "services-requests-list",
-              icon: <FontAwesomeIcon icon={faList} />,
+              icon: <List size={14} />,
               onClick: () => onClickMenu("/services-requests"),
               permission: "service_view_all",
             },
@@ -174,27 +175,27 @@ export const SidebarLayout = ({
         {
           label: "Contactos",
           key: "web-manager-contacts",
-          icon: <FontAwesomeIcon icon={faAddressBook} />,
+          icon: <BookUser size={16} />,
           onClick: () => onClickMenu("/web-manager/contacts"),
           permission: "entry_view_all",
         },
         {
           label: "Clientes",
           key: "web-manager-sites",
-          icon: <FontAwesomeIcon icon={faBuilding} />,
+          icon: <Building size={16} />,
           permission: "client_view_all",
           children: [
             {
               label: "Crear Cliente",
               key: "client-new",
-              icon: <FontAwesomeIcon icon={faSquarePlus} />,
+              icon: <PlusSquare size={14} />,
               onClick: () => onClickMenu("/web-manager/sites/new"),
               permission: "client_create",
             },
             {
               label: "Lista de Clientes",
               key: "clients-list",
-              icon: <FontAwesomeIcon icon={faList} />,
+              icon: <List size={14} />,
               onClick: () => onClickMenu("/web-manager/sites"),
               permission: "client_view_all",
             },
@@ -203,14 +204,14 @@ export const SidebarLayout = ({
         {
           label: "Entradas",
           key: "web-manager-entries",
-          icon: <FontAwesomeIcon icon={faInbox} />,
+          icon: <Inbox size={16} />,
           onClick: () => onClickMenu("/web-manager/entries"),
           permission: "entry_view_all",
         },
         {
           label: "Revisión de Webs",
           key: "web-manager-reviews",
-          icon: <FontAwesomeIcon icon={faMagnifyingGlass} />,
+          icon: <Search size={16} />,
           onClick: () => onClickMenu("/web-manager/reviews"),
           permission: "website_review_view_all",
         },
@@ -223,42 +224,70 @@ export const SidebarLayout = ({
         {
           label: "Inventario",
           key: "inventory-group",
-          icon: <FontAwesomeIcon icon={faBoxesStacked} />,
+          icon: <Boxes size={16} />,
           permission: "",
           children: [
             {
-              label: "Agregar Producto",
-              key: "inventory-new",
-              icon: <FontAwesomeIcon icon={faSquarePlus} />,
-              onClick: () => onClickMenu("/inventory/new"),
-              permission: "",
+              label: "Productos",
+              key: "inventory-products-group",
+              icon: <Package size={15} />,
+              children: [
+                {
+                  label: "Agregar Producto",
+                  key: "inventory-product-new",
+                  icon: <PlusSquare size={14} />,
+                  onClick: () => onClickMenu("/inventory/products/new"),
+                  permission: "",
+                },
+                {
+                  label: "Lista de Productos",
+                  key: "inventory-products-list",
+                  icon: <List size={14} />,
+                  onClick: () => onClickMenu("/inventory/products"),
+                  permission: "",
+                },
+              ],
             },
             {
-              label: "Lista de Inventario",
-              key: "inventory-list",
-              icon: <FontAwesomeIcon icon={faList} />,
-              onClick: () => onClickMenu("/inventory"),
-              permission: "",
+              label: "Sedes / Sucursales",
+              key: "inventory-branches-group",
+              icon: <Store size={15} />,
+              children: [
+                {
+                  label: "Agregar Sede",
+                  key: "inventory-branch-new",
+                  icon: <PlusSquare size={14} />,
+                  onClick: () => onClickMenu("/inventory/branches/new"),
+                  permission: "",
+                },
+                {
+                  label: "Lista de Sedes",
+                  key: "inventory-branches-list",
+                  icon: <List size={14} />,
+                  onClick: () => onClickMenu("/inventory/branches"),
+                  permission: "",
+                },
+              ],
             },
           ],
         },
         {
           label: "Proveedores",
           key: "suppliers",
-          icon: <FontAwesomeIcon icon={faBoxesPacking} />,
+          icon: <Truck size={16} />,
           permission: "suppliers_view_all",
           children: [
             {
               label: "Crear Proveedor",
               key: "supplier-new",
-              icon: <FontAwesomeIcon icon={faSquarePlus} />,
+              icon: <PlusSquare size={14} />,
               onClick: () => onClickMenu("/suppliers/new"),
               permission: "suppliers_create",
             },
             {
               label: "Lista de Proveedores",
               key: "suppliers-list",
-              icon: <FontAwesomeIcon icon={faList} />,
+              icon: <List size={14} />,
               onClick: () => onClickMenu("/suppliers"),
               permission: "suppliers_view_all",
             },
@@ -267,20 +296,20 @@ export const SidebarLayout = ({
         {
           label: "Asistencias",
           key: "assistances-group",
-          icon: <FontAwesomeIcon icon={faClipboardUser} />,
+          icon: <UserCheck size={16} />,
           permission: "assist_view_all",
           children: [
             {
               label: "Marcar asistencia",
               key: "assistance-new",
-              icon: <FontAwesomeIcon icon={faSquarePlus} />,
+              icon: <PlusSquare size={14} />,
               onClick: () => onClickMenu("/assistances/assistance"),
               permission: "assist_mark_self",
             },
             {
               label: "Lista de asistencias",
               key: "assistances-list",
-              icon: <FontAwesomeIcon icon={faList} />,
+              icon: <ClipboardList size={14} />,
               onClick: () => onClickMenu("/assistances"),
               permission: "assist_view_all",
             },
@@ -289,25 +318,25 @@ export const SidebarLayout = ({
         {
           label: "Herramientas",
           key: "tools-group",
-          icon: <FontAwesomeIcon icon={faScrewdriverWrench} />,
+          icon: <Wrench size={16} />,
           permission: "",
           children: [
             {
               label: "Códigos QR",
               key: "tool-qr",
-              icon: <FontAwesomeIcon icon={faQrcode} />,
+              icon: <QrCode size={15} />,
               children: [
                 {
                   label: "Crear Código QR",
                   key: "tool-qr-new",
-                  icon: <FontAwesomeIcon icon={faSquarePlus} />,
+                  icon: <PlusSquare size={14} />,
                   onClick: () => onClickMenu("/tools/qr-generator/new"),
                   permission: "",
                 },
                 {
                   label: "Lista de Códigos QR",
                   key: "tool-qr-list",
-                  icon: <FontAwesomeIcon icon={faList} />,
+                  icon: <List size={14} />,
                   onClick: () => onClickMenu("/tools/qr-generator"),
                   permission: "",
                 },
@@ -366,7 +395,7 @@ export const SidebarLayout = ({
           </LogoContainer>
 
           <IconButton
-            icon={<FontAwesomeIcon icon={faBell} />}
+            icon={<Bell size={16} />}
             onClick={() => onClickMenu("/notifications")}
             title="Notificaciones"
           />
@@ -384,7 +413,7 @@ export const SidebarLayout = ({
         <UserProfileFooter>
           <Avatar src="https://api.dicebear.com/7.x/avataaars/svg?seed=Servitec" />
           <UserInfo>
-            <span className="name">{`${authUser?.firstName} ${authUser?.paternalSurname} ${authUser?.maternalSurname}`}</span>
+            <span className="name">{`${authUser?.firstName || ""} ${authUser?.paternalSurname || ""} ${authUser?.maternalSurname || ""}`}</span>
             <span className="email">{authUser?.email}</span>
           </UserInfo>
           <Dropdown
@@ -396,7 +425,7 @@ export const SidebarLayout = ({
             }}
             trigger={["click"]}
           >
-            <IconButton icon={<FontAwesomeIcon icon={faEllipsisVertical} />} />
+            <IconButton icon={<MoreVertical size={16} />} />
           </Dropdown>
         </UserProfileFooter>
       </SidebarContent>
@@ -404,14 +433,14 @@ export const SidebarLayout = ({
   );
 };
 
-/* --- ESTILOS OPTIMIZADOS (CORRIGE DESBORDAMIENTO EN COLAPSO) --- */
+/* --- ESTILOS --- */
 
 const StyledSider = styled(Sider)`
   background: transparent;
   height: 100vh;
   position: sticky;
   top: 0;
-  overflow: hidden; /* Evita que los elementos sobresalgan al colapsar */
+  overflow: hidden;
   transition: all ${({ theme }) => theme.transitions.normal};
 
   .ant-layout-sider-children {

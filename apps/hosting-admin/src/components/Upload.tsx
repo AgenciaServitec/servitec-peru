@@ -242,6 +242,7 @@ export const Upload: React.FC<UploadProps> = ({
 const WrapperComponents = styled.div`
   ${({ theme }) => css`
     margin: 4px 0;
+    padding: ${theme.spacing.sm};
 
     .ant-upload-wrapper .ant-upload-drag {
       background: ${theme.colors.bgTertiary};

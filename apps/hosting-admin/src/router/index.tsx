@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import * as A from "../pages";
 import { AdminLayout, PublicLayout } from "../components";
 import { PrivateRoute } from "./PrivateRoute";
+import { ProductsIntegrations } from "../pages";
 
 export function Router() {
   return (
@@ -203,6 +204,30 @@ export function Router() {
           element={
             <AdminLayout>
               <A.ProductIntegration />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="inventory/products"
+          element={
+            <AdminLayout>
+              <A.ProductsIntegrations />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="inventory/branches/:branchId"
+          element={
+            <AdminLayout>
+              <A.BranchIntegration />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="inventory/branches"
+          element={
+            <AdminLayout>
+              <A.BranchIntegration />
             </AdminLayout>
           }
         />

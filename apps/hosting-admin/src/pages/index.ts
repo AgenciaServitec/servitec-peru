@@ -25,4 +25,5 @@ export * from "./tools/qrCodes";
 export * from "./tools/qrCodes/qrCodeId";
 export * from "./inventory/products";
 export * from "./inventory/products/productId";
-export * from "./inventory/products/productId";
+export * from "./inventory/branches";
+export * from "./inventory/branches/branchId";
