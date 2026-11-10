@@ -5,7 +5,7 @@ export const config: Config = {
       host: "smtp.gmail.com",
       from: "Notificaciones Servitec Perú",
       user: "notificacionesservitecperu@gmail.com",
-      pass: "fckt uien lude hkgi",
+      pass: "dbvq mqfu xeyl mmsr",
     },
   },
   development: {
