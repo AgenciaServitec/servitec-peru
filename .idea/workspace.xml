@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="added status field">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="updated app">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/src/config/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/src/config/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/functions/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +53,65 @@
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="2.0369789945488748" />
+      <entry key="MS500" value="3.874403318267065" />
+      <entry key="S2" value="4.670572476555543" />
+      <entry key="S5" value="4.863775581447417" />
+      <entry key="S10" value="4.931119888981385" />
+      <entry key="S30" value="4.976913449582465" />
+      <entry key="S60" value="5.016326277414938" />
+      <entry key="M2" value="5.854160290079941" />
+      <entry key="M5" value="17.322675349033144" />
+      <entry key="M10" value="42.62867532782025" />
+      <entry key="M15" value="61.06931402394792" />
+      <entry key="M30" value="89.57038750410085" />
+      <entry key="H1" value="109.30884286207501" />
+      <entry key="H2" value="120.96131407152247" />
+      <entry key="H4" value="127.29713344792901" />
+      <entry key="D1" value="132.85644574184735" />
+      <entry key="W1" value="133.83597597413095" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="0.0" />
+      <entry key="S60" value="0.0" />
+      <entry key="M2" value="0.0" />
+      <entry key="M5" value="0.0" />
+      <entry key="M10" value="0.0" />
+      <entry key="M15" value="0.0" />
+      <entry key="M30" value="0.0" />
+      <entry key="H1" value="0.0" />
+      <entry key="H2" value="0.0" />
+      <entry key="H4" value="0.0" />
+      <entry key="D1" value="0.0" />
+      <entry key="W1" value="0.0" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="1.95509726528281" />
+      <entry key="MS500" value="3.8391242872001374" />
+      <entry key="S2" value="4.659659767689017" />
+      <entry key="S5" value="4.85920633670488" />
+      <entry key="S10" value="4.928799644195811" />
+      <entry key="S30" value="4.976131955458438" />
+      <entry key="S60" value="5.015931822921199" />
+      <entry key="M2" value="5.853914501465892" />
+      <entry key="M5" value="17.322101049395798" />
+      <entry key="M10" value="42.62771815392952" />
+      <entry key="M15" value="61.06832433633604" />
+      <entry key="M30" value="89.5696105835864" />
+      <entry key="H1" value="109.30835430385247" />
+      <entry key="H2" value="120.9610399007833" />
+      <entry key="H4" value="127.2969881899151" />
+      <entry key="D1" value="132.8564203329168" />
+      <entry key="W1" value="133.835972314043" />
+    </decayedShown>
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -193,15 +252,7 @@
       <workItem from="1783453824172" duration="10119000" />
       <workItem from="1783527898442" duration="19125000" />
       <workItem from="1783614260387" duration="4529000" />
-      <workItem from="1794338239474" duration="629000" />
-    </task>
-    <task id="LOCAL-00080" summary="refactored leads module">
-      <option name="closed" value="true" />
-      <created>1777937197801</created>
-      <option name="number" value="00080" />
-      <option name="presentableId" value="LOCAL-00080" />
-      <option name="project" value="LOCAL" />
-      <updated>1777937197801</updated>
+      <workItem from="1794338239474" duration="2044000" />
     </task>
     <task id="LOCAL-00081">
       <option name="closed" value="true" />
@@ -587,7 +638,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783550878477</updated>
     </task>
-    <option name="localTasksCounter" value="129" />
+    <task id="LOCAL-00129">
+      <option name="closed" value="true" />
+      <created>1794339056018</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
+      <option name="project" value="LOCAL" />
+      <updated>1794339056019</updated>
+    </task>
+    <option name="localTasksCounter" value="130" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -605,7 +664,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="export adminContactEntryEmailTemplate" />
     <MESSAGE value="refactored design email template" />
     <MESSAGE value="updated git ignore" />
     <MESSAGE value="fix(mailer): parse bcc emails string into array for admin contact entry" />
@@ -630,6 +688,7 @@
     <MESSAGE value="added qr code module" />
     <MESSAGE value="refactored QrAnalyticsTab" />
     <MESSAGE value="added status field" />
-    <option name="LAST_COMMIT_MESSAGE" value="added status field" />
+    <MESSAGE value="updated app" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated app" />
   </component>
 </project>
