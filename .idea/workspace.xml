@@ -4,9 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="updated app">
+    <list default="true" id="6cb450b8-cf1a-4c58-807c-4523a42538b8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/apps/hosting/app/(ofertas)/ofertas/[slug]/PackEpson980wLanding.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/app/(ofertas)/ofertas/[slug]/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/epson-980w-projector-banner.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/epson-980w-projector-connectivity.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/epson-980w-projector-front-view.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/hosting/public/epson-980w-projector-package.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/functions/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/functions/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/components/FooterLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/FooterLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/components/HeaderLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/HeaderLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/hosting/components/WhatsAppButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/hosting/components/WhatsAppButton.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,61 +64,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="2.0369789945488748" />
-      <entry key="MS500" value="3.874403318267065" />
-      <entry key="S2" value="4.670572476555543" />
-      <entry key="S5" value="4.863775581447417" />
-      <entry key="S10" value="4.931119888981385" />
-      <entry key="S30" value="4.976913449582465" />
-      <entry key="S60" value="5.016326277414938" />
-      <entry key="M2" value="5.854160290079941" />
-      <entry key="M5" value="17.322675349033144" />
-      <entry key="M10" value="42.62867532782025" />
-      <entry key="M15" value="61.06931402394792" />
-      <entry key="M30" value="89.57038750410085" />
-      <entry key="H1" value="109.30884286207501" />
-      <entry key="H2" value="120.96131407152247" />
-      <entry key="H4" value="127.29713344792901" />
-      <entry key="D1" value="132.85644574184735" />
-      <entry key="W1" value="133.83597597413095" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0000002742509588" />
+      <entry key="S2" value="1.0228842687081243" />
+      <entry key="S5" value="1.220706343347906" />
+      <entry key="S10" value="1.4697939371127577" />
+      <entry key="S30" value="1.7773843923600916" />
+      <entry key="S60" value="1.8823742317098011" />
+      <entry key="M2" value="2.0504203057582275" />
+      <entry key="M5" value="4.54513297869055" />
+      <entry key="M10" value="10.010740132653368" />
+      <entry key="M15" value="14.655428156480351" />
+      <entry key="M30" value="30.802235420797206" />
+      <entry key="H1" value="66.37778086356244" />
+      <entry key="H2" value="110.75773953869644" />
+      <entry key="H4" value="146.98992469626313" />
+      <entry key="D1" value="188.23400874549952" />
+      <entry key="W1" value="196.5702130298468" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
       <entry key="S2" value="0.0" />
       <entry key="S5" value="0.0" />
-      <entry key="S10" value="0.0" />
-      <entry key="S30" value="0.0" />
-      <entry key="S60" value="0.0" />
-      <entry key="M2" value="0.0" />
-      <entry key="M5" value="0.0" />
-      <entry key="M10" value="0.0" />
-      <entry key="M15" value="0.0" />
-      <entry key="M30" value="0.0" />
-      <entry key="H1" value="0.0" />
-      <entry key="H2" value="0.0" />
-      <entry key="H4" value="0.0" />
-      <entry key="D1" value="0.0" />
-      <entry key="W1" value="0.0" />
+      <entry key="S10" value="1.3763560636996473E-187" />
+      <entry key="S30" value="5.163096792624938E-63" />
+      <entry key="S60" value="7.185469221021641E-32" />
+      <entry key="M2" value="2.6805725547020026E-16" />
+      <entry key="M5" value="5.905967145499917E-7" />
+      <entry key="M10" value="7.685029047114865E-4" />
+      <entry key="M15" value="0.008390033126455823" />
+      <entry key="M30" value="0.09159712400755729" />
+      <entry key="H1" value="0.30265016769788394" />
+      <entry key="H2" value="0.5501364991507868" />
+      <entry key="H4" value="0.7417118707090958" />
+      <entry key="D1" value="0.9514205733384059" />
+      <entry key="W1" value="0.9929110926923514" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.95509726528281" />
-      <entry key="MS500" value="3.8391242872001374" />
-      <entry key="S2" value="4.659659767689017" />
-      <entry key="S5" value="4.85920633670488" />
-      <entry key="S10" value="4.928799644195811" />
-      <entry key="S30" value="4.976131955458438" />
-      <entry key="S60" value="5.015931822921199" />
-      <entry key="M2" value="5.853914501465892" />
-      <entry key="M5" value="17.322101049395798" />
-      <entry key="M10" value="42.62771815392952" />
-      <entry key="M15" value="61.06832433633604" />
-      <entry key="M30" value="89.5696105835864" />
-      <entry key="H1" value="109.30835430385247" />
-      <entry key="H2" value="120.9610399007833" />
-      <entry key="H4" value="127.2969881899151" />
-      <entry key="D1" value="132.8564203329168" />
-      <entry key="W1" value="133.835972314043" />
+      <entry key="MS100" value="0.01089643489336254" />
+      <entry key="MS500" value="0.4050018831735216" />
+      <entry key="S2" value="0.8173045594755015" />
+      <entry key="S5" value="1.120850527844466" />
+      <entry key="S10" value="1.4110846029670923" />
+      <entry key="S30" value="1.7543388154583968" />
+      <entry key="S60" value="1.870268147890102" />
+      <entry key="M2" value="2.0441984475215245" />
+      <entry key="M5" value="4.542423388415247" />
+      <entry key="M10" value="10.00972507712018" />
+      <entry key="M15" value="14.66220974087126" />
+      <entry key="M30" value="30.89207083579556" />
+      <entry key="H1" value="66.67860387028279" />
+      <entry key="H2" value="111.3064401322324" />
+      <entry key="H4" value="147.73071978992064" />
+      <entry key="D1" value="189.18524046785038" />
+      <entry key="W1" value="197.56309612683444" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -138,32 +146,34 @@
     "git-widget-placeholder": "main",
     "javascript.preferred.runtime.type.id": "node",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/Angel/WebstormProjects/servitec-peru/apps/functions/src/mailer/servitec-peru",
+    "last_opened_file_path": "C:/Users/Angel/WebstormProjects/servitec-peru/apps/hosting/public",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.jshint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.jshint": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "pnpm",
     "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\prettier",
     "settings.editor.selected.configurable": "preferences.lookFeel",
     "to.speed.mode.migration.done": "true",
-    "ts.external.directory.path": "C:\\Users\\Angel\\AppData\\Local\\Programs\\WebStorm\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "ts.external.directory.path": "C:\\Users\\Angel\\WebstormProjects\\servitec-peru\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public" />
+      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\app\(ofertas)\ofertas\[slug]" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\functions\src\mailer\servitec-peru" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\functions\src\mailer\servitec-peru\images" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\functions\src\api\entries\controllers" />
-      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting-admin\public" />
-      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting-admin\src\data-list" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\app\(ofertas)" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting-admin\src\pages\web-manager\contacts" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\functions\src\api\entries" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\functions\src\api\leads\routes" />
       <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets\images\services" />
-      <recent name="C:\Users\Angel\WebstormProjects\servitec-peru\apps\hosting\public\assets\images\hero" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -252,15 +262,8 @@
       <workItem from="1783453824172" duration="10119000" />
       <workItem from="1783527898442" duration="19125000" />
       <workItem from="1783614260387" duration="4529000" />
-      <workItem from="1794338239474" duration="2044000" />
-    </task>
-    <task id="LOCAL-00081">
-      <option name="closed" value="true" />
-      <created>1778110589132</created>
-      <option name="number" value="00081" />
-      <option name="presentableId" value="LOCAL-00081" />
-      <option name="project" value="LOCAL" />
-      <updated>1778110589133</updated>
+      <workItem from="1794338239474" duration="3291000" />
+      <workItem from="1795464072738" duration="5948000" />
     </task>
     <task id="LOCAL-00082" summary="refactored design lead module">
       <option name="closed" value="true" />
@@ -646,7 +649,15 @@
       <option name="project" value="LOCAL" />
       <updated>1794339056019</updated>
     </task>
-    <option name="localTasksCounter" value="130" />
+    <task id="LOCAL-00130" summary="update version node">
+      <option name="closed" value="true" />
+      <created>1794340372956</created>
+      <option name="number" value="00130" />
+      <option name="presentableId" value="LOCAL-00130" />
+      <option name="project" value="LOCAL" />
+      <updated>1794340372956</updated>
+    </task>
+    <option name="localTasksCounter" value="131" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -664,7 +675,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactored design email template" />
     <MESSAGE value="updated git ignore" />
     <MESSAGE value="fix(mailer): parse bcc emails string into array for admin contact entry" />
     <MESSAGE value="refactored avatar size" />
@@ -689,6 +699,7 @@
     <MESSAGE value="refactored QrAnalyticsTab" />
     <MESSAGE value="added status field" />
     <MESSAGE value="updated app" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated app" />
+    <MESSAGE value="update version node" />
+    <option name="LAST_COMMIT_MESSAGE" value="update version node" />
   </component>
 </project>

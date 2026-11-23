@@ -25,11 +25,15 @@ import { ArrowRight, ChevronRight, Menu } from "lucide-react";
 import { SPECIALTIES_DATA } from "@/data-list/specialties";
 import { SERVICES_DATA } from "@/data-list/services";
 import { ButtonLink } from "@/components/ui/button-link";
+import { usePathname } from "next/navigation";
 
 export const HeaderLayout = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const pathname = usePathname();
+  if (pathname?.startsWith("/ofertas")) return null;
 
   useEffect(() => {
     setIsMounted(true);

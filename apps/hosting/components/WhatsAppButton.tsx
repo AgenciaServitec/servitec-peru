@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const MESSAGES = [
   "¿Necesitas soporte técnico? 🛠️",
@@ -17,6 +18,9 @@ export const WhatsAppButton = () => {
   );
   const [currentMsgIndex, setCurrentMsgIndex] = useState(0);
   const [showNotification, setShowNotification] = useState(true);
+
+  const pathname = usePathname();
+  if (pathname?.startsWith("/ofertas")) return null;
 
   const phoneNumber = "51941801827";
   const message =

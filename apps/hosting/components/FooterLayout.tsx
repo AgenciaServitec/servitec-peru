@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { SPECIALTIES_DATA } from "@/data-list/specialties";
+import { usePathname } from "next/navigation";
 
 const TikTokIcon = ({ size = 18 }) => (
   <svg
@@ -33,6 +34,9 @@ const TikTokIcon = ({ size = 18 }) => (
 );
 
 export const FooterLayout = () => {
+  const pathname = usePathname();
+  if (pathname?.startsWith("/ofertas")) return null;
+
   const razonSocial = "Servitec Perú Group E.I.R.L.";
   const ruc = "20604141240";
 
