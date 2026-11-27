@@ -2,6 +2,7 @@ import {
   Button,
   Checkbox,
   Col,
+  ComponentContainer,
   Form,
   Input,
   Legend,
@@ -25,7 +26,7 @@ import {
   useApiUserPost,
   useApiUserPut,
 } from "../../../api";
-import { PERMISSION_LIST } from "../../../data-list/permissions.ts";
+import { PERMISSION_LIST, WorkPlaces } from "../../../data-list";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { rolesRef } from "../../../firebase/collections/rolesAndPermissons.ts";
 import { sitesRef } from "../../../firebase/collections";
@@ -62,6 +63,7 @@ export const UserIntegration = () => {
   const mapUser = (formData) => ({
     ...(user?.id && { id: user?.id }),
     role: formData.role,
+    workPlace: formData.workPlace || "",
     firstName: formData.firstName.toLowerCase(),
     paternalSurname: formData.paternalSurname.toLowerCase(),
     maternalSurname: formData.maternalSurname.toLowerCase(),
@@ -74,8 +76,9 @@ export const UserIntegration = () => {
       prefix: "+51",
       number: formData.phoneNumber,
     },
-    payPerMinute: formData.payPerMinute,
+    payPerMinute: formData.payPerMinute ?? "",
     accountNumber: formData.accountNumber,
+    currentAccountCode: formData.currentAccountCode,
     extraPermissions: formData.extraPermissions || [],
     allowedSites: formData.allowedSites || [],
     updateBy: `${authUser?.firstName} ${authUser?.paternalSurname} ${authUser?.maternalSurname}|${authUser?.document.number}`,
@@ -121,6 +124,7 @@ const User = ({ roles, user, sites = [], onGoBack, onSubmit, loading }) => {
 
   const schema = yup.object({
     role: yup.string().required(),
+    workPlace: yup.string().nullable().optional(),
     firstName: yup.string().required(),
     paternalSurname: yup.string().required(),
     maternalSurname: yup.string().required(),
@@ -137,8 +141,17 @@ const User = ({ roles, user, sites = [], onGoBack, onSubmit, loading }) => {
       .max(9)
       .required()
       .transform((value) => (value === null ? "" : value)),
-    payPerMinute: yup.number(),
+    payPerMinute: yup
+      .number()
+      .transform((value, originalValue) =>
+        String(originalValue ?? "").trim() === "" ? undefined : value
+      )
+      .typeError("Debe ser un número válido")
+      .min(0, "No puede ser negativo")
+      .nullable()
+      .optional(),
     accountNumber: yup.string(),
+    currentAccountCode: yup.string(),
     extraPermissions: yup.array().of(yup.string()).default([]),
     allowedSites: yup.array().of(yup.string()).default([]),
   });
@@ -170,6 +183,7 @@ const User = ({ roles, user, sites = [], onGoBack, onSubmit, loading }) => {
   const resetForm = () => {
     reset({
       role: user?.role || "",
+      workPlace: user?.workPlace || "",
       firstName: user?.firstName || "",
       paternalSurname: user?.paternalSurname || "",
       maternalSurname: user?.maternalSurname || "",
@@ -178,6 +192,7 @@ const User = ({ roles, user, sites = [], onGoBack, onSubmit, loading }) => {
       phoneNumber: user?.phone?.number || "",
       payPerMinute: user?.payPerMinute || "",
       accountNumber: user?.accountNumber || "",
+      currentAccountCode: user?.currentAccountCode || "",
       extraPermissions: user?.extraPermissions || [],
       allowedSites: user?.allowedSites || [],
     });
@@ -243,11 +258,33 @@ const User = ({ roles, user, sites = [], onGoBack, onSubmit, loading }) => {
                 </Col>
                 <Col span={24}>
                   <Controller
+                    name="workPlace"
+                    control={control}
+                    render={({ field: { onChange, value, name } }) => (
+                      <Select
+                        label="Lugar de Trabajo"
+                        onChange={onChange}
+                        value={value}
+                        allowClear
+                        options={WorkPlaces.map(({ label, value }) => ({
+                          label,
+                          value,
+                        }))}
+                        name={name}
+                        error={error(name)}
+                        required={required(name)}
+                      />
+                    )}
+                  />
+                </Col>
+                <Col span={24}>
+                  <Controller
                     name="dni"
                     control={control}
                     render={({ field: { onChange, value, name } }) => (
                       <Input
                         label="DNI"
+                        inputMode="numeric"
                         onChange={onChange}
                         value={value}
                         name={name}
@@ -329,6 +366,7 @@ const User = ({ roles, user, sites = [], onGoBack, onSubmit, loading }) => {
                     render={({ field: { onChange, value, name } }) => (
                       <InputNumber
                         label="Ingrese teléfono"
+                        inputMode="numeric"
                         name={name}
                         value={value}
                         onChange={onChange}
@@ -344,6 +382,7 @@ const User = ({ roles, user, sites = [], onGoBack, onSubmit, loading }) => {
                     control={control}
                     render={({ field: { onChange, value, name } }) => (
                       <InputNumber
+                        inputMode="numeric"
                         label="Pago por minuto"
                         name={name}
                         value={value}
@@ -354,21 +393,44 @@ const User = ({ roles, user, sites = [], onGoBack, onSubmit, loading }) => {
                     )}
                   />
                 </Col>
+
                 <Col span={24}>
-                  <Controller
-                    name="accountNumber"
-                    control={control}
-                    render={({ field: { onChange, value, name } }) => (
-                      <Input
-                        label="N° de Cuenta"
-                        name={name}
-                        value={value}
-                        onChange={onChange}
-                        error={error(name)}
-                        required={required(name)}
-                      />
-                    )}
-                  />
+                  <ComponentContainer.group label="Datos de Cuenta">
+                    <Row gutter={[16, 16]}>
+                      <Col xs={24} md={12}>
+                        <Controller
+                          name="accountNumber"
+                          control={control}
+                          render={({ field: { onChange, value, name } }) => (
+                            <Input
+                              label="N° de Cuenta"
+                              name={name}
+                              value={value}
+                              onChange={onChange}
+                              error={error(name)}
+                              required={required(name)}
+                            />
+                          )}
+                        />
+                      </Col>
+                      <Col xs={24} md={12}>
+                        <Controller
+                          name="currentAccountCode"
+                          control={control}
+                          render={({ field: { onChange, value, name } }) => (
+                            <Input
+                              label="Código de Cuenta Corriente"
+                              name={name}
+                              value={value}
+                              onChange={onChange}
+                              error={error(name)}
+                              required={required(name)}
+                            />
+                          )}
+                        />
+                      </Col>
+                    </Row>
+                  </ComponentContainer.group>
                 </Col>
               </Row>
             </Tabs.TabPane>

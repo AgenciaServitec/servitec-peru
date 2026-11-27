@@ -1,10 +1,12 @@
+import React from "react";
 import { Image, Tabs } from "antd";
 import { ProfileDataForm } from "./ProfileDataForm";
-import { useAuthentication } from "../../providers";
-import { useQueryString } from "../../hooks";
+import { ProfileImageModal, type ProfileImageType } from "./ProfileImageModal";
+import { ModalProvider, useAuthentication, useModal } from "../../providers";
+import { useDevice, useQueryString } from "../../hooks";
 import styled, { css } from "styled-components";
 import { PhotoNoFound } from "../../images";
-import { Building2, Mail, ShieldCheck } from "lucide-react";
+import { Building2, Mail, Pencil } from "lucide-react";
 
 const items = [
   {
@@ -15,19 +17,79 @@ const items = [
 ];
 
 export const Profile = () => {
+  return (
+    <ModalProvider>
+      <ProfileContent />
+    </ModalProvider>
+  );
+};
+
+const ProfileContent = () => {
   const { authUser } = useAuthentication();
+  const { onShowModal, onCloseModal } = useModal();
+  const { isTablet } = useDevice();
   const [dataEdit] = useQueryString("dataEdit", "profile_edit");
+
+  const coverUrl =
+    authUser?.coverPhoto?.url || authUser?.coverPhoto?.thumbUrl || null;
+
+  const profileUrl =
+    authUser?.profilePhoto?.url ||
+    authUser?.profilePhoto?.thumbUrl ||
+    PhotoNoFound;
+
+  const handleOpenImageModal = (
+    e: React.MouseEvent,
+    type: ProfileImageType
+  ) => {
+    e.stopPropagation();
+    if (!authUser) return;
+
+    onShowModal({
+      title:
+        type === "profile"
+          ? "Editar Foto de Perfil"
+          : "Editar Imagen de Portada",
+      width: isTablet ? "90%" : "480px",
+      onRenderBody: () => (
+        <ProfileImageModal
+          key={`${authUser.id}-${type}`}
+          user={authUser}
+          type={type}
+          onCloseModal={onCloseModal}
+        />
+      ),
+    });
+  };
 
   return (
     <PageWrapper>
-      {/* Cabecera de Perfil */}
       <HeaderCard>
-        <Banner />
+        <Banner $coverUrl={coverUrl}>
+          <EditIconButton
+            type="button"
+            title="Editar portada"
+            aria-label="Editar imagen de portada"
+            onClick={(e) => handleOpenImageModal(e, "cover")}
+          >
+            <Pencil size={15} />
+          </EditIconButton>
+        </Banner>
+
         <ProfileMeta>
-          {/* Avatar con Ant Design Image y marco cristal */}
           <AvatarGlassWrapper>
+            <EditIconButton
+              type="button"
+              $isAvatar
+              title="Editar foto de perfil"
+              aria-label="Editar foto de perfil"
+              onClick={(e) => handleOpenImageModal(e, "profile")}
+            >
+              <Pencil size={14} />
+            </EditIconButton>
+
             <Image
-              src={authUser?.profilePhoto?.thumbUrl || PhotoNoFound}
+              src={profileUrl}
               fallback={PhotoNoFound}
               alt="Foto de perfil"
               preview={{
@@ -47,9 +109,6 @@ export const Profile = () => {
               <h1>
                 {authUser?.firstName} {authUser?.paternalSurname}
               </h1>
-              <span className="pro-badge">
-                <ShieldCheck size={13} /> PRO
-              </span>
             </div>
 
             <SubInfoRow>
@@ -65,12 +124,53 @@ export const Profile = () => {
         </ProfileMeta>
       </HeaderCard>
 
-      <Tabs type="card" items={items} defaultActiveKey={dataEdit} />
+      <TabsSection>
+        <Tabs type="card" items={items} defaultActiveKey={dataEdit} />
+      </TabsSection>
     </PageWrapper>
   );
 };
 
-/* --- ESTILOS COMPONENTE PRINCIPAL --- */
+const EditIconButton = styled.button<{ $isAvatar?: boolean }>`
+  ${({ theme, $isAvatar }) => css`
+    position: absolute;
+    top: ${$isAvatar ? "10px" : "14px"};
+    right: ${$isAvatar ? "10px" : "14px"};
+    z-index: 10;
+    width: ${$isAvatar ? "30px" : "34px"};
+    height: ${$isAvatar ? "30px" : "34px"};
+    border-radius: ${theme.border_radius.full};
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: rgba(10, 10, 12, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease,
+      background 0.2s ease,
+      border-color 0.2s ease;
+
+    &:hover {
+      background: ${theme.colors.primary};
+      border-color: ${theme.colors.primary};
+      color: ${theme.mode === "dark" ? "#050505" : "#ffffff"};
+    }
+
+    @media (hover: none) {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+  `}
+`;
 
 const PageWrapper = styled.div`
   width: 100%;
@@ -89,33 +189,42 @@ const HeaderCard = styled.div`
   `}
 `;
 
-const Banner = styled.div`
+const Banner = styled.div<{ $coverUrl?: string | null }>`
   width: 100%;
   height: 180px;
-  background: linear-gradient(
-    120deg,
-    #4f46e5 0%,
-    #7c3aed 40%,
-    #c084fc 75%,
-    #f472b6 100%
-  );
   position: relative;
+  background: ${({ $coverUrl }) =>
+    $coverUrl
+      ? `url(${$coverUrl}) center / cover no-repeat`
+      : `linear-gradient(
+          120deg,
+          #4f46e5 0%,
+          #7c3aed 40%,
+          #c084fc 75%,
+          #f472b6 100%
+        )`};
 
   &::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(
-      circle at 80% 20%,
-      rgba(255, 255, 255, 0.22) 0%,
-      transparent 50%
-    );
+    background: ${({ $coverUrl }) =>
+      $coverUrl
+        ? "linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0%, transparent 50%)"
+        : "radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.22) 0%, transparent 50%)"};
+    pointer-events: none;
+  }
+
+  &:hover > ${EditIconButton} {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
 `;
 
 const ProfileMeta = styled.div`
   ${({ theme }) => css`
-    padding: 0 ${theme.spacing.xl}${theme.spacing.lg};
+    padding: 0 ${theme.spacing.xl} ${theme.spacing.lg};
     display: flex;
     align-items: flex-end;
     gap: ${theme.spacing.lg};
@@ -125,7 +234,7 @@ const ProfileMeta = styled.div`
       flex-direction: column;
       align-items: flex-start;
       gap: ${theme.spacing.md};
-      padding: 0 ${theme.spacing.md}${theme.spacing.md};
+      padding: 0 ${theme.spacing.md} ${theme.spacing.md};
     }
   `}
 `;
@@ -154,6 +263,12 @@ const AvatarGlassWrapper = styled.div`
 
     .ant-image-img {
       border-radius: 28px;
+    }
+
+    &:hover > ${EditIconButton} {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
   `}
 `;
@@ -221,7 +336,7 @@ const TabsSection = styled.div`
     .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab {
       border: 1px solid ${theme.colors.border};
       border-bottom: none;
-      border-radius: ${theme.border_radius.md}${theme.border_radius.md} 0 0;
+      border-radius: ${theme.border_radius.md} ${theme.border_radius.md} 0 0;
       font-weight: ${theme.font_weight.medium};
       transition: all ${theme.transitions.fast};
     }
@@ -234,7 +349,7 @@ const TabsSection = styled.div`
     .ant-tabs-content-holder {
       background: ${theme.colors.bgSecondary};
       border: 1px solid ${theme.colors.border};
-      border-radius: 0 0 ${theme.border_radius.xl}${theme.border_radius.xl};
+      border-radius: 0 0 ${theme.border_radius.xl} ${theme.border_radius.xl};
       padding: ${theme.spacing.xl};
 
       @media (max-width: 768px) {
